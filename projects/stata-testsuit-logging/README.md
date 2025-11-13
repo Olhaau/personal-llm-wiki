@@ -25,13 +25,14 @@ This test suite provides tools to:
 
 - Windows PowerShell 5.1 or PowerShell Core 7+
 - Stata 15 and/or Stata 19 installed
-- Administrative privileges may be required for PATH modifications
+- User account (no administrative privileges required)
+- PowerShell execution policy allowing script execution
 
 ## Quick Start
 
-### 1. Setup Stata Environment
+### 1. Setup Stata Environment (One-time Setup)
 
-Run the setup script to add Stata to your PATH and create aliases:
+Run the setup script to permanently configure Stata:
 
 ```powershell
 # Default installation paths
@@ -41,11 +42,16 @@ Run the setup script to add Stata to your PATH and create aliases:
 .\setup-stata-path.ps1 -Stata19Path "C:\Custom\Path\Stata19" -Stata15Path "C:\Custom\Path\Stata15"
 ```
 
-This script will:
-- Add Stata directories to your PATH
-- Create `stata15` and `stata19` aliases for easy access
+This script will **permanently**:
+- Add Stata directories to your user PATH environment variable
+- Create `stata15` and `stata19` aliases in your PowerShell profile
 - Automatically detect the best Stata executable (MP, SE, or IC)
-- Provide instructions for making aliases persistent
+- Update your PowerShell profile for persistent access across sessions
+
+**Important**: After running this script:
+1. **Restart PowerShell** to activate PATH changes
+2. Aliases will be available in all future PowerShell sessions
+3. No need to run the setup script again unless paths change
 
 ### 1.1. Verify Aliases (Optional)
 
@@ -118,9 +124,41 @@ To create additional .do files for testing:
 - Check that PATH includes Stata directory
 
 ### Permission Issues
-- Run PowerShell as Administrator
 - Check execution policy: `Get-ExecutionPolicy`
-- If needed, temporarily allow scripts: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+- If needed, allow scripts: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+- No administrative privileges required (uses user environment variables)
+
+### Aliases Not Working After Setup
+- **Restart PowerShell** after running setup-stata-path.ps1
+- Check if profile was created: `Test-Path $PROFILE.CurrentUserAllHosts`
+- Verify PATH was updated: `$env:PATH -split ';' | Where-Object { $_ -like '*Stata*' }`
+- Re-run setup if needed: `.\setup-stata-path.ps1 -Force`
+
+### Batch Mode Execution Issues
+The aliases automatically handle batch mode execution to prevent interruption prompts:
+
+```powershell
+# ✅ Correct - No interruption prompts
+stata19 do test-log-append-generation.do
+stata15 do test-data-analysis.do
+
+# ❌ Avoid - May cause interruption prompts  
+stata19 /e do test-log-append-generation.do
+
+# ✅ Manual batch mode (if needed)
+stata19 /b do test-log-append-generation.do
+```
+
+**Key Points:**
+- Use `stata19 do filename.do` for smooth batch execution
+- The `/e` flag can cause "batch job interrupted" prompts
+- The aliases automatically use `/b` (batch mode) for `.do` files
+- Interactive mode: just run `stata19` with no arguments
+
+### Profile Issues
+- If profile doesn't load, check: `Get-ExecutionPolicy`
+- View profile content: `Get-Content $PROFILE.CurrentUserAllHosts`
+- Manual profile creation: `New-Item $PROFILE.CurrentUserAllHosts -Force`
 
 ### Log File Issues
 - Ensure write permissions in the current directory
@@ -160,16 +198,19 @@ The `-LogPath` parameter takes precedence over all other settings.
 Once aliases are set up, you can use Stata directly:
 
 ```powershell
-# Run .do files directly with aliases
-stata19 /e do test-log-append-generation.do
-stata15 /e do test-data-analysis.do
+# Run .do files directly with aliases (batch mode - no interruption prompts)
+stata19 do test-log-append-generation.do
+stata15 do test-data-analysis.do
 
 # Get help
 stata19 -help
 stata15 -help
 
-# Run interactively
+# Run interactively (GUI mode)
 stata19
+
+# Manual batch mode (if needed)
+stata19 /b do test-log-append-generation.do
 ```
 
 ### Multiple Stata Versions Testing
@@ -184,20 +225,23 @@ Test with different Stata versions:
 .\run-tests.ps1 -StataVersion "15" -DoFile "version-test.do"
 ```
 
-### Making Aliases Persistent
+### Persistent Configuration
 
-To use `stata15` and `stata19` aliases in future sessions, add the following to your PowerShell profile:
+The setup script automatically handles persistence:
+
+- **PATH Changes**: Added to user environment variables (permanent)
+- **PowerShell Aliases**: Added to your PowerShell profile automatically
+- **Profile Location**: `$PROFILE.CurrentUserAllHosts`
+- **Automatic Loading**: Aliases load in every new PowerShell session
+
+If you need to modify or remove the configuration:
 
 ```powershell
-# Check if you have a profile
-$PROFILE
+# View your PowerShell profile
+notepad $PROFILE.CurrentUserAllHosts
 
-# Edit your profile (create if it doesn't exist)
-notepad $PROFILE
-
-# Add these lines to your profile (adjust paths as needed):
-function stata19 { & "C:\Program Files\Stata19\StataMP-64.exe" $args }
-function stata15 { & "C:\Program Files\Stata15\StataMP-64.exe" $args }
+# Look for the "STATA TEST SUITE" section
+# Delete the section to remove aliases
 ```
 
 ### Automated Test Runs

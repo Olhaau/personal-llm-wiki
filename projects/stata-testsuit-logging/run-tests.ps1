@@ -11,7 +11,6 @@ Write-Host "Stata Test Suite Runner" -ForegroundColor Green
 Write-Host "======================" -ForegroundColor Green
 
 # Handle LogPath parameter
-$stataArgs = @("/e", "do", "$DoFile")
 if ($LogPath) {
     Write-Host "Custom log path specified: $LogPath" -ForegroundColor Cyan
     # Set environment variable that Stata can access
@@ -77,8 +76,14 @@ if ($LogPath) {
 # Run the .do file
 Write-Host "`nExecuting Stata script..." -ForegroundColor Yellow
 try {
-    # Execute Stata in batch mode
-    & $stataExe @stataArgs
+    # Execute Stata in batch mode (use /b flag for non-interactive batch processing)
+    if ($stataExe -like "stata*") {
+        # Using alias - let it handle the batch mode optimization
+        & $stataExe "do" "$DoFile"
+    } else {
+        # Using direct executable - use batch mode flags
+        & $stataExe "/b" "do" "$DoFile"
+    }
     
     if ($LASTEXITCODE -eq 0) {
         Write-Host "`nStata execution completed successfully!" -ForegroundColor Green

@@ -139,8 +139,20 @@ function Update-PowerShellProfile {
             if ($config) {
                 $aliasName = "stata$($config.Version)"
                 $exePath = $config.Executable
-                $stataSection += "# Stata $($config.Version) alias"
-                $stataSection += "function $aliasName { & `"$exePath`" `$args }"
+                $stataSection += "# Stata $($config.Version) alias - batch mode optimized"
+                $stataSection += "function $aliasName {"
+                $stataSection += "    if (`$args.Count -eq 0) {"
+                $stataSection += "        # Interactive mode"
+                $stataSection += "        & `"$exePath`""
+                $stataSection += "    } elseif (`$args[0] -eq 'do' -or (`$args[0] -eq '/e' -and `$args[1] -eq 'do')) {"
+                $stataSection += "        # Batch do file execution"
+                $stataSection += "        `$doFile = if (`$args[0] -eq 'do') { `$args[1] } else { `$args[2] }"
+                $stataSection += "        & `"$exePath`" /b do `"`$doFile`""
+                $stataSection += "    } else {"
+                $stataSection += "        # Pass through other arguments"
+                $stataSection += "        & `"$exePath`" `$args"
+                $stataSection += "    }"
+                $stataSection += "}"
                 $stataSection += ""
             }
         }
@@ -162,7 +174,7 @@ function Update-PowerShellProfile {
     }
 }
 
-# Function to create session aliases
+# Function to create session aliases with batch mode optimization
 function Create-SessionAliases {
     param(
         [array]$StataConfigs
@@ -171,67 +183,80 @@ function Create-SessionAliases {
     foreach ($config in $StataConfigs) {
         if ($config) {
             $aliasName = "stata$($config.Version)"
-            $functionDefinition = "function global:$aliasName { & `"$($config.Executable)`" `$args }"
+            $exePath = $config.Executable
+            
+            $functionDefinition = @"
+function global:$aliasName {
+    if (`$args.Count -eq 0) {
+        # Interactive mode
+        & "$exePath"
+    } elseif (`$args[0] -eq 'do' -or (`$args[0] -eq '/e' -and `$args[1] -eq 'do')) {
+        # Batch do file execution
+        `$doFile = if (`$args[0] -eq 'do') { `$args[1] } else { `$args[2] }
+        & "$exePath" /b do "`$doFile"
+    } else {
+        # Pass through other arguments
+        & "$exePath" `$args
+    }
+}
+"@
+            
             Invoke-Expression $functionDefinition
-            Write-Host "  Created session alias: $aliasName" -ForegroundColor Green
+            Write-Host "  Created session alias: $aliasName (with batch mode optimization)" -ForegroundColor Green
         }
     }
 }
 
-# Add Stata versions to PATH and get executable paths
+# Main setup process
 Write-Host "`nConfiguring Stata paths..." -ForegroundColor Cyan
-$Stata19Exe = Add-StataToPath -StataPath $Stata19Path -Version "19"
-$Stata15Exe = Add-StataToPath -StataPath $Stata15Path -Version "15"
+$Stata19Config = Add-StataToPath -StataPath $Stata19Path -Version "19"
+$Stata15Config = Add-StataToPath -StataPath $Stata15Path -Version "15"
 
-# Display current PATH for verification
-Write-Host "`nCurrent PATH includes:" -ForegroundColor Cyan
-$env:PATH.Split(';') | Where-Object { $_ -like "*Stata*" } | ForEach-Object { Write-Host "  $_" -ForegroundColor White }
+$stataConfigs = @($Stata19Config, $Stata15Config) | Where-Object { $_ -ne $null }
 
-Write-Host "`nStata Test Suite environment setup complete!" -ForegroundColor Green
-Write-Host "You can now run Stata .do files for testing log generation." -ForegroundColor Yellow
-
-# Create Stata aliases for easier access
-Write-Host "`nCreating Stata aliases..." -ForegroundColor Cyan
-$aliasesCreated = @()
-
-if ($Stata19Exe) {
-    if (Create-StataAlias -AliasName "stata19" -ExecutablePath $Stata19Exe) {
-        $aliasesCreated += "stata19"
-    }
+if ($stataConfigs.Count -eq 0) {
+    Write-Host "`nNo Stata installations found!" -ForegroundColor Red
+    Write-Host "Please check installation paths and try again." -ForegroundColor Yellow
+    exit 1
 }
 
-if ($Stata15Exe) {
-    if (Create-StataAlias -AliasName "stata15" -ExecutablePath $Stata15Exe) {
-        $aliasesCreated += "stata15"
-    }
+# Display configured paths
+Write-Host "`nConfigured Stata installations:" -ForegroundColor Cyan
+foreach ($config in $stataConfigs) {
+    Write-Host "  Stata $($config.Version): $($config.Path)" -ForegroundColor White
 }
 
-# Export functions to make aliases work in current session
-if ($aliasesCreated.Count -gt 0) {
-    Write-Host "`nAliases available in this session:" -ForegroundColor Green
-    foreach ($alias in $aliasesCreated) {
-        Write-Host "  $alias" -ForegroundColor White
+# Create session aliases
+Write-Host "`nCreating session aliases..." -ForegroundColor Cyan
+Create-SessionAliases -StataConfigs $stataConfigs
+
+# Update PowerShell profile for persistence
+Write-Host "`nUpdating PowerShell profile for persistence..." -ForegroundColor Cyan
+$profileUpdated = Update-PowerShellProfile -StataConfigs $stataConfigs
+
+if ($profileUpdated) {
+    Write-Host "`nSUCCESS: Stata Test Suite setup complete!" -ForegroundColor Green
+    Write-Host "==========================================" -ForegroundColor Green
+    Write-Host "✓ Added Stata paths to user PATH environment variable" -ForegroundColor Green
+    Write-Host "✓ Created PowerShell aliases in current session" -ForegroundColor Green  
+    Write-Host "✓ Updated PowerShell profile for persistent aliases" -ForegroundColor Green
+    
+    Write-Host "`nAvailable aliases:" -ForegroundColor Cyan
+    foreach ($config in $stataConfigs) {
+        Write-Host "  stata$($config.Version) - Stata $($config.Version)" -ForegroundColor White
     }
     
-    # Create profile script for persistent aliases (optional)
-    $profilePath = $PROFILE
-    if ($profilePath) {
-        Write-Host "`nTo make aliases persistent across sessions:" -ForegroundColor Yellow
-        Write-Host "  Add the following to your PowerShell profile: $profilePath" -ForegroundColor Cyan
-        Write-Host ""
-        if ($Stata19Exe) {
-            Write-Host "  function stata19 { & `"$Stata19Exe`" `$args }" -ForegroundColor White
-        }
-        if ($Stata15Exe) {
-            Write-Host "  function stata15 { & `"$Stata15Exe`" `$args }" -ForegroundColor White
-        }
-    }
+    Write-Host "`nUsage examples:" -ForegroundColor Yellow
+    Write-Host "  stata19 /e do test-log-append-generation.do" -ForegroundColor White
+    Write-Host "  stata15 /e do test-data-analysis.do" -ForegroundColor White
+    Write-Host "  stata19 -help" -ForegroundColor White
+    
+    Write-Host "`nNext steps:" -ForegroundColor Cyan
+    Write-Host "  1. Restart PowerShell to activate PATH changes" -ForegroundColor White
+    Write-Host "  2. Run: .\test-aliases.ps1 to verify setup" -ForegroundColor White
+    Write-Host "  3. Run: .\run-tests.ps1 to start testing" -ForegroundColor White
+    
 } else {
-    Write-Host "No aliases created - no Stata installations found" -ForegroundColor Red
+    Write-Host "`nPartial setup completed with warnings." -ForegroundColor Yellow
+    Write-Host "Aliases are available in current session only." -ForegroundColor Yellow
 }
-
-Write-Host "`nUsage examples:" -ForegroundColor Yellow
-Write-Host "  stata19 /e do test-script.do" -ForegroundColor White
-Write-Host "  stata15 /e do test-script.do" -ForegroundColor White
-Write-Host "  stata19 -help" -ForegroundColor White
-Write-Host "  stata15 -help" -ForegroundColor White
