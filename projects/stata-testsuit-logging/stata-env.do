@@ -8,8 +8,15 @@
 * =================================================================
 
 * Local log path - where logs are stored locally
-* Default: current directory, can be customized as needed
-global log_path_local "."
+* Check for environment variable override first, then use default
+local env_log_path : environment STATA_LOG_PATH
+if "`env_log_path'" != "" {
+    global log_path_local "`env_log_path'"
+    display as text "Using log path from environment: `env_log_path'"
+} else {
+    global log_path_local "C:/`c(username)'/Documents/logs"
+    display as text "Using default log path"
+}
 
 * Network log path - where logs should be copied/stored on network
 * Update this path according to your network storage location

@@ -4,17 +4,19 @@
 param(
     [string]$StataVersion = "19",
     [string]$DoFile = "test-log-append-generation.do",
-    [switch]$CleanLogs
+    [string]$LogPath = ""
 )
 
 Write-Host "Stata Test Suite Runner" -ForegroundColor Green
 Write-Host "======================" -ForegroundColor Green
 
-# Clean previous log files if requested
-if ($CleanLogs) {
-    Write-Host "Cleaning previous log files..." -ForegroundColor Yellow
-    Get-ChildItem -Path "." -Name "log-*.log" | Remove-Item -Force
-    Write-Host "Previous log files removed." -ForegroundColor Green
+# Handle LogPath parameter
+$stataArgs = @("/e", "do", "$DoFile")
+if ($LogPath) {
+    Write-Host "Custom log path specified: $LogPath" -ForegroundColor Cyan
+    # Set environment variable that Stata can access
+    $env:STATA_LOG_PATH = $LogPath
+    Write-Host "Set STATA_LOG_PATH environment variable" -ForegroundColor Green
 }
 
 # Verify .do file exists
@@ -68,21 +70,37 @@ if (-not $stataExe) {
 
 Write-Host "Using Stata executable: $stataExe" -ForegroundColor Cyan
 Write-Host "Running .do file: $DoFile" -ForegroundColor Cyan
+if ($LogPath) {
+    Write-Host "Log path override: $LogPath" -ForegroundColor Cyan
+}
 
 # Run the .do file
 Write-Host "`nExecuting Stata script..." -ForegroundColor Yellow
 try {
     # Execute Stata in batch mode
-    & $stataExe /e do "$DoFile"
+    & $stataExe @stataArgs
     
     if ($LASTEXITCODE -eq 0) {
         Write-Host "`nStata execution completed successfully!" -ForegroundColor Green
         
         # List generated log files
         Write-Host "`nGenerated log files:" -ForegroundColor Cyan
-        Get-ChildItem -Path "." -Name "log-*.log" | Sort-Object LastWriteTime -Descending | ForEach-Object {
-            $file = Get-Item $_
-            Write-Host "  $($file.Name) ($(Get-Date $file.LastWriteTime -Format 'yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White
+        
+        # Check both current directory and custom log path
+        $searchPaths = @(".")
+        if ($LogPath -and (Test-Path $LogPath)) {
+            $searchPaths += $LogPath
+        }
+        
+        foreach ($path in $searchPaths) {
+            $logFiles = Get-ChildItem -Path $path -Name "log-*.log" -ErrorAction SilentlyContinue
+            if ($logFiles) {
+                Write-Host "  In $path :" -ForegroundColor Yellow
+                $logFiles | Sort-Object LastWriteTime -Descending | ForEach-Object {
+                    $file = Get-Item (Join-Path $path $_)
+                    Write-Host "    $($file.Name) ($(Get-Date $file.LastWriteTime -Format 'yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White
+                }
+            }
         }
     } else {
         Write-Host "`nStata execution failed with exit code: $LASTEXITCODE" -ForegroundColor Red

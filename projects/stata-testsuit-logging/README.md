@@ -84,8 +84,8 @@ Execute the test runner to generate log files:
 # Run data analysis test instead
 .\run-tests.ps1 -DoFile "test-data-analysis.do"
 
-# Clean previous log files before running
-.\run-tests.ps1 -CleanLogs
+# Override log path
+.\run-tests.ps1 -LogPath "D:\custom\logs"
 ```
 
 **Note**: The default `test-log-append-generation.do` runs for 5 hours using the log append method, writing a timestamped entry every minute (300 total entries).
@@ -126,6 +126,32 @@ To create additional .do files for testing:
 - Ensure write permissions in the current directory
 - Check disk space availability
 - Verify no other processes are using the log files
+
+## Log Path Configuration
+
+The test suite supports flexible log path configuration:
+
+### 1. Default Path
+By default, logs are saved to: `C:/[USERNAME]/Documents/logs`
+
+### 2. Environment File Override
+Edit `stata-env.do` to change the default:
+```stata
+global log_path_local "D:\MyLogs"
+global log_path_network "\\server\shared\logs"
+```
+
+### 3. Runtime Override
+Use the `-LogPath` parameter to override at runtime:
+```powershell
+# Save logs to custom directory
+.\run-tests.ps1 -LogPath "C:\CustomLogs"
+
+# Save logs to network location
+.\run-tests.ps1 -LogPath "\\server\projects\logs"
+```
+
+The `-LogPath` parameter takes precedence over all other settings.
 
 ## Advanced Usage
 
@@ -179,10 +205,10 @@ function stata15 { & "C:\Program Files\Stata15\StataMP-64.exe" $args }
 Create batch testing scripts:
 
 ```powershell
-# Clean and run multiple tests
-.\run-tests.ps1 -CleanLogs -DoFile "test1.do"
-.\run-tests.ps1 -DoFile "test2.do"
-.\run-tests.ps1 -DoFile "test3.do"
+# Run multiple tests with different configurations
+.\run-tests.ps1 -DoFile "test-log-append-generation.do" -LogPath "C:\TestLogs"
+.\run-tests.ps1 -DoFile "test-data-analysis.do" -StataVersion "15"
+.\run-tests.ps1 -DoFile "custom-test.do" -LogPath "\\server\shared\logs"
 ```
 
 ## Log File Analysis

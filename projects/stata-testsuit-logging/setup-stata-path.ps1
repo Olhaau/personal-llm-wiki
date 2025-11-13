@@ -1,14 +1,47 @@
 # Stata Test Suite Setup Script
-# Adds Stata 19 and Stata 15 to PATH environment variable
+# Permanently adds Stata 19 and Stata 15 to user PATH and PowerShell profile
 
 param(
     [string]$Stata19Path = "C:\Program Files\Stata19",
-    [string]$Stata15Path = "C:\Program Files\Stata15"
+    [string]$Stata15Path = "C:\Program Files\Stata15",
+    [switch]$Force
 )
 
 Write-Host "Setting up Stata Test Suite Environment..." -ForegroundColor Green
 
-# Function to check if a path exists and add to PATH if it does
+# Function to permanently add path to user PATH environment variable
+function Add-ToUserPath {
+    param(
+        [string]$PathToAdd
+    )
+    
+    try {
+        # Get current user PATH
+        $currentUserPath = [Environment]::GetEnvironmentVariable("PATH", [EnvironmentVariableTarget]::User)
+        
+        # Check if path is already in user PATH
+        if ($currentUserPath -and $currentUserPath.Split(';') -contains $PathToAdd) {
+            Write-Host "  Path already in user PATH: $PathToAdd" -ForegroundColor Cyan
+            return $true
+        }
+        
+        # Add to user PATH
+        if ($currentUserPath) {
+            $newUserPath = "$currentUserPath;$PathToAdd"
+        } else {
+            $newUserPath = $PathToAdd
+        }
+        
+        [Environment]::SetEnvironmentVariable("PATH", $newUserPath, [EnvironmentVariableTarget]::User)
+        Write-Host "  Added to user PATH: $PathToAdd" -ForegroundColor Green
+        return $true
+    } catch {
+        Write-Host "  Error adding to user PATH: $($_.Exception.Message)" -ForegroundColor Red
+        return $false
+    }
+}
+
+# Function to check if a path exists and configure it
 function Add-StataToPath {
     param(
         [string]$StataPath,
@@ -18,16 +51,16 @@ function Add-StataToPath {
     if (Test-Path $StataPath) {
         Write-Host "Found Stata $Version at: $StataPath" -ForegroundColor Yellow
         
-        # Check if already in PATH
+        # Add to current session PATH
         $currentPath = $env:PATH
         if ($currentPath -notlike "*$StataPath*") {
             $env:PATH = "$StataPath;$currentPath"
-            Write-Host "Added Stata $Version to PATH" -ForegroundColor Green
-        } else {
-            Write-Host "Stata $Version already in PATH" -ForegroundColor Cyan
         }
         
-        # Try to verify Stata executable and return the found executable
+        # Add to user PATH permanently
+        Add-ToUserPath -PathToAdd $StataPath
+        
+        # Try to find Stata executable
         $stataExe = Join-Path $StataPath "StataMP-64.exe"
         if (-not (Test-Path $stataExe)) {
             $stataExe = Join-Path $StataPath "StataSE-64.exe"
@@ -37,42 +70,112 @@ function Add-StataToPath {
         }
         
         if (Test-Path $stataExe) {
-            Write-Host "Verified Stata executable: $stataExe" -ForegroundColor Green
-            return $stataExe
+            Write-Host "  Verified Stata executable: $stataExe" -ForegroundColor Green
+            return @{
+                Path = $StataPath
+                Executable = $stataExe
+                Version = $Version
+            }
         } else {
-            Write-Host "Warning: Could not find Stata executable in $StataPath" -ForegroundColor Red
+            Write-Host "  Warning: Could not find Stata executable in $StataPath" -ForegroundColor Red
             return $null
         }
     } else {
         Write-Host "Warning: Stata $Version not found at: $StataPath" -ForegroundColor Red
-        Write-Host "Please verify the installation path or provide correct path using parameters" -ForegroundColor Yellow
+        Write-Host "  Please verify the installation path" -ForegroundColor Yellow
         return $null
     }
 }
 
-# Function to create and export alias
-function Create-StataAlias {
+# Function to update PowerShell profile with persistent functions
+function Update-PowerShellProfile {
     param(
-        [string]$AliasName,
-        [string]$ExecutablePath
+        [array]$StataConfigs
     )
     
-    if ($ExecutablePath -and (Test-Path $ExecutablePath)) {
-        # Create alias in current session
-        Set-Alias -Name $AliasName -Value $ExecutablePath -Scope Global
+    try {
+        # Determine profile path
+        $profilePath = $PROFILE.CurrentUserAllHosts
+        $profileDir = Split-Path $profilePath -Parent
         
-        # Export alias function to make it available
-        $functionDefinition = @"
-function $AliasName {
-    & "$ExecutablePath" `$args
-}
-"@
+        # Create profile directory if it doesn't exist
+        if (-not (Test-Path $profileDir)) {
+            New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
+            Write-Host "Created PowerShell profile directory: $profileDir" -ForegroundColor Green
+        }
         
-        Invoke-Expression $functionDefinition
-        Write-Host "Created alias: $AliasName -> $ExecutablePath" -ForegroundColor Green
+        # Read existing profile content or create empty
+        $profileContent = ""
+        if (Test-Path $profilePath) {
+            $profileContent = Get-Content $profilePath -Raw
+        }
+        
+        # Remove any existing Stata functions
+        $lines = $profileContent -split "`r?`n"
+        $filteredLines = @()
+        $inStataSection = $false
+        
+        foreach ($line in $lines) {
+            if ($line -match "^# === STATA TEST SUITE START ===") {
+                $inStataSection = $true
+                continue
+            }
+            if ($line -match "^# === STATA TEST SUITE END ===") {
+                $inStataSection = $false
+                continue
+            }
+            if (-not $inStataSection) {
+                $filteredLines += $line
+            }
+        }
+        
+        # Build new Stata section
+        $stataSection = @()
+        $stataSection += "# === STATA TEST SUITE START ==="
+        $stataSection += "# Generated by setup-stata-path.ps1 on $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+        $stataSection += ""
+        
+        foreach ($config in $StataConfigs) {
+            if ($config) {
+                $aliasName = "stata$($config.Version)"
+                $exePath = $config.Executable
+                $stataSection += "# Stata $($config.Version) alias"
+                $stataSection += "function $aliasName { & `"$exePath`" `$args }"
+                $stataSection += ""
+            }
+        }
+        
+        $stataSection += "Write-Host `"Stata Test Suite aliases loaded: $(($StataConfigs | Where-Object { $_ } | ForEach-Object { 'stata' + $_.Version }) -join ', ')`" -ForegroundColor Green"
+        $stataSection += "# === STATA TEST SUITE END ==="
+        
+        # Combine filtered content with new Stata section
+        $newProfileContent = ($filteredLines + "" + $stataSection) -join "`r`n"
+        
+        # Write updated profile
+        Set-Content -Path $profilePath -Value $newProfileContent -Encoding UTF8
+        Write-Host "Updated PowerShell profile: $profilePath" -ForegroundColor Green
+        
         return $true
+    } catch {
+        Write-Host "Error updating PowerShell profile: $($_.Exception.Message)" -ForegroundColor Red
+        return $false
     }
-    return $false
+}
+
+# Function to create session aliases
+function Create-SessionAliases {
+    param(
+        [array]$StataConfigs
+    )
+    
+    foreach ($config in $StataConfigs) {
+        if ($config) {
+            $aliasName = "stata$($config.Version)"
+            $functionDefinition = "function global:$aliasName { & `"$($config.Executable)`" `$args }"
+            Invoke-Expression $functionDefinition
+            Write-Host "  Created session alias: $aliasName" -ForegroundColor Green
+        }
+    }
 }
 
 # Add Stata versions to PATH and get executable paths
