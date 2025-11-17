@@ -102,6 +102,165 @@ program define network_log
 end
 ```
 
+#### Quick Guide: Using network_log
+
+**Step 1: Define the program** (run once per session)
+```stata
+program define network_log
+    args logname
+    capture log close _all
+    local templog "C:\temp\stata_temp.log"
+    log using "`templog'", replace text
+    // Your analysis code goes here
+    log close
+    local attempts = 0
+    while `attempts' < 5 {
+        capture copy "`templog'" "`logname'", replace
+        if _rc == 0 continue, break
+        local attempts = `attempts' + 1
+        sleep 5000
+    }
+end
+```
+
+**Step 2: Modify for your analysis**
+Replace `// Your analysis code goes here` with your actual Stata commands:
+```stata
+program define my_analysis
+    args logname
+    capture log close _all
+    local templog "C:\temp\stata_temp.log"
+    log using "`templog'", replace text
+    
+    // Your analysis code
+    use "mydata.dta", clear
+    summarize
+    regress y x1 x2
+    
+    log close
+    local attempts = 0
+    while `attempts' < 5 {
+        capture copy "`templog'" "`logname'", replace
+        if _rc == 0 continue, break
+        local attempts = `attempts' + 1
+        sleep 5000
+    }
+end
+```
+
+**Step 3: Run your analysis**
+```stata
+my_analysis "\\server\share\analysis_results.log"
+```
+
+**Benefits:**
+- Avoids 30-60 minute network timeouts
+- Automatic retry mechanism (up to 5 attempts)
+- Creates reliable text logs on network shares
+- Handles temporary network failures gracefully
+
+#### Drop-in Replacement: netlog Command
+
+Create a `netlog` command that works like the standard `log` command but handles network shares safely:
+
+```stata
+program define netlog
+    version 16
+    syntax anything(name=subcmd id="subcommand") [using/] [, replace append text smcl]
+    
+    // Handle different subcommands
+    if "`subcmd'" == "close" {
+        capture log close
+        // Copy temp log to final destination if it exists
+        if "$netlog_temp" != "" & "$netlog_final" != "" {
+            display "Copying log to network location..."
+            local attempts = 0
+            while `attempts' < 5 {
+                capture copy "$netlog_temp" "$netlog_final", replace
+                if _rc == 0 {
+                    display "Log successfully saved to: $netlog_final"
+                    capture erase "$netlog_temp"
+                    global netlog_temp ""
+                    global netlog_final ""
+                    continue, break
+                }
+                local attempts = `attempts' + 1
+                display "Copy attempt `attempts' failed, retrying..."
+                sleep 2000
+            }
+            if `attempts' >= 5 {
+                display as error "Failed to copy log after 5 attempts"
+                display as error "Temporary log remains at: $netlog_temp"
+            }
+        }
+        else {
+            log close
+        }
+    }
+    else if "`subcmd'" == "using" {
+        // Check if target is network path
+        if regexm("`using'", "^\\\\") | regexm("`using'", "^[A-Za-z]:") == 0 {
+            // Network path detected - use local temp file
+            tempfile templog
+            global netlog_temp "`templog'.log"
+            global netlog_final "`using'"
+            
+            // Set default options
+            if "`text'" == "" & "`smcl'" == "" local text "text"
+            if "`replace'" == "" & "`append'" == "" local replace "replace"
+            
+            display "Network path detected. Logging locally first..."
+            display "Temp log: $netlog_temp"
+            display "Final destination: $netlog_final"
+            
+            log using "$netlog_temp", `text' `smcl' `replace' `append'
+        }
+        else {
+            // Local path - use standard logging
+            log using "`using'", `text' `smcl' `replace' `append'
+        }
+    }
+    else if "`subcmd'" == "query" {
+        log query
+        if "$netlog_temp" != "" {
+            display "Network logging active:"
+            display "  Temp file: $netlog_temp"
+            display "  Final destination: $netlog_final"
+        }
+    }
+    else {
+        // Pass through other subcommands
+        log `subcmd' `using', `text' `smcl' `replace' `append'
+    }
+end
+```
+
+**Usage Examples:**
+```stata
+// Standard usage - works exactly like log command
+netlog using "\\server\share\analysis.log", text replace
+// Your analysis here
+summarize mpg weight
+regress mpg weight
+netlog close
+
+// Local files work normally
+netlog using "local_analysis.log", replace
+// Analysis code
+netlog close
+
+// Check status
+netlog query
+```
+
+**Key Features:**
+- **Automatic detection** of network paths (UNC paths starting with `\\`)
+- **Transparent operation** - works exactly like standard `log` command
+- **Smart fallback** - uses standard logging for local files
+- **Built-in retry** mechanism with progress feedback
+- **Cleanup** - automatically removes temp files on success
+- **Error handling** - preserves temp file if network copy fails
+
 ### System Configuration
 ```batch
 // Windows: Increase SMB timeout (requires admin)
