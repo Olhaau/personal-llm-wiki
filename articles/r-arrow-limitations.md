@@ -85,12 +85,24 @@ Many advanced statistical functions are not supported natively in Arrow:
 - Window functions: `ntile()`, complex lag/lead operations
 
 ```r
-# This will trigger automatic collection to R
-starwars_table %>%
-  filter(!is.na(height), !is.na(mass)) %>%
+# Minimal executable example showing unsupported function limitation
+library(arrow)
+library(dplyr)
+
+# Create a simple Arrow table
+test_data <- arrow_table(
+  name = c("A", "B", "C"),
+  height = c(170, 180, 160),
+  mass = c(70, 85, 60)
+)
+
+# This will trigger automatic collection to R due to unsupported lm()
+result <- test_data %>%
   transmute(name, height, mass, res = residuals(lm(mass ~ height)))
+
 # Warning: Expression not supported in Arrow
 # > Pulling data into R
+print(result)
 ```
 
 **Reference**: [Apache Arrow R Documentation - Handling Unsupported Expressions](https://arrow.apache.org/docs/r/articles/data_wrangling.html#handling-unsupported-expressions)
@@ -100,12 +112,27 @@ starwars_table %>%
 While Arrow supports many string operations, some advanced patterns are limited:
 
 ```r
-# Limited pattern matching
-stringr::str_replace_all(string, pattern = c("a", "b"), replacement = c("x", "y"))
-# Error: pattern argument vector length > 1 not supported
+# Executable example showing string processing limitations
+library(arrow)
+library(dplyr)
+library(stringr)
 
-# Correct usage
-stringr::str_replace_all(string, pattern = "a", replacement = "x")
+# Create test data with strings
+test_strings <- arrow_table(
+  text = c("apple", "banana", "cherry")
+)
+
+# This will error - multiple patterns not supported
+tryCatch({
+  result <- test_strings %>%
+    mutate(replaced = str_replace_all(text, pattern = c("a", "b"), replacement = c("x", "y")))
+}, error = function(e) print(paste("Error:", e$message)))
+
+# This works - single pattern
+result_correct <- test_strings %>%
+  mutate(replaced = str_replace_all(text, pattern = "a", replacement = "x")) %>%
+  collect()
+print(result_correct)
 ```
 
 **Reference**: [Apache Arrow R News - String Replacement Functions Pattern Handling](https://github.com/apache/arrow/blob/main/r/NEWS.md)
@@ -119,11 +146,31 @@ Several dplyr operations have constraints or unsupported combinations:
 - **Complex window functions**: Many window operations require explicit `collect()` calls
 
 ```r
-# Unsupported mutate on Dataset for certain operations
-my_dataset %>%
+# Executable example showing dplyr limitations with grouped data
+library(arrow)
+library(dplyr)
+
+# Create test dataset
+test_data <- arrow_table(
+  category = c("A", "A", "B", "B"),
+  value = c(1, 2, 3, 4)
+)
+
+# Some operations work fine after group_by
+result_works <- test_data %>%
   group_by(category) %>%
-  mutate(new_col = some_complex_operation) 
-# May error if operation not implemented
+  mutate(mean_val = mean(value)) %>%
+  collect()
+print("This works:")
+print(result_works)
+
+# But complex operations may require collect() first
+result_complex <- test_data %>%
+  group_by(category) %>%
+  collect() %>%  # Collect first for complex operations
+  mutate(complex_calc = value^2 + lag(value, default = 0))
+print("Complex operations after collect():")
+print(result_complex)
 ```
 
 **Reference**: [Apache Arrow R News - dplyr Mutate and Transmute Support](https://github.com/apache/arrow/blob/main/r/NEWS.md)
@@ -143,11 +190,33 @@ Arrow's fallback behavior differs significantly between Table and Dataset object
 - Prevents accidental memory overload
 
 ```r
-# Dataset requires explicit collection
-dataset %>%
+# Executable example showing Table vs Dataset behavior differences
+library(arrow)
+library(dplyr)
+
+# Create sample data
+sample_data <- data.frame(
+  name = c("Alice", "Bob", "Charlie"),
+  height = c(165, 175, 180),
+  mass = c(60, 75, 80)
+)
+
+# Table behavior - automatic fallback (with warning)
+table_data <- arrow_table(sample_data)
+table_result <- table_data %>%
   filter(!is.na(height), !is.na(mass)) %>%
-  collect() %>%  # Must collect before unsupported operations
-  transmute(name, height, mass, res = residuals(lm(mass ~ height)))
+  transmute(name, height, mass, 
+           # lm() not supported, triggers fallback
+           bmi = mass / (height/100)^2)  # Use simple calc instead
+print("Table result:")
+print(collect(table_result))
+
+# For complex operations that need collect():
+complex_result <- table_data %>%
+  collect() %>%  # Explicit collect first
+  mutate(height_centered = scale(height)[,1])
+print("After collect():")
+print(head(complex_result))
 ```
 
 **Reference**: [Apache Arrow R Documentation - Automatic Collection vs Manual Collection](https://arrow.apache.org/docs/r/articles/data_wrangling.html)
@@ -182,9 +251,21 @@ Different platforms use different default memory allocators, which can cause une
 - **Windows**: Uses `mimalloc`
 
 ```r
-# May need to switch allocators for optimal performance
-Sys.setenv(ARROW_DEFAULT_MEMORY_POOL = "mimalloc")
+# Executable example showing memory pool configuration
 library(arrow)
+
+# Check current memory pool
+current_pool <- arrow_info()$memory_pool
+print(paste("Current memory pool:", current_pool))
+
+# Configure memory pool before loading (restart R session for this to take effect)
+# Sys.setenv(ARROW_DEFAULT_MEMORY_POOL = "mimalloc")
+# library(arrow)
+
+# Check available memory pools
+info <- arrow_info()
+print("Arrow build info:")
+print(info[c("version", "memory_pool")])
 ```
 
 **Reference**: [Apache Arrow R News - Changing Arrow Memory Allocator](https://github.com/apache/arrow/blob/main/r/NEWS.md)
@@ -195,9 +276,25 @@ Many Arrow features require specific build configurations or aren't available in
 
 #### S3 Support Limitations
 ```r
-# Requires custom C++ build - NOT available in CRAN packages
-dataset <- open_dataset("s3://bucket/data")
-# Error: S3 support not enabled in this build
+# Executable example showing feature availability check
+library(arrow)
+
+# Check what features are available in current build
+available_features <- arrow_available()
+print("Available features:")
+print(available_features)
+
+# Check if S3 support is available
+s3_available <- available_features$s3
+print(paste("S3 support available:", s3_available))
+
+# This would fail if S3 not available:
+if (!s3_available) {
+  print("S3 support not available in this build")
+  print("Standard CRAN packages don't include S3 support")
+} else {
+  print("S3 support is available")
+}
 ```
 
 **Reference**: [Apache Arrow R News - S3 Dataset Access with Custom C++ Build](https://github.com/apache/arrow/blob/main/r/NEWS.md)
@@ -206,9 +303,25 @@ dataset <- open_dataset("s3://bucket/data")
 Different platforms have varying compression support:
 
 ```r
-# Check what compression is available
-arrow_info()$compression_libraries
-# May show different results on different platforms
+# Executable example checking compression library support
+library(arrow)
+
+# Check what compression libraries are available
+compression_libs <- arrow_info()$compression_libraries
+print("Available compression libraries:")
+print(compression_libs)
+
+# Test if specific compression is available
+if ("snappy" %in% names(compression_libs)) {
+  print("Snappy compression is available")
+} else {
+  print("Snappy compression not available in this build")
+}
+
+# Show all build capabilities
+build_info <- arrow_info()
+print("Full build information:")
+print(build_info)
 ```
 
 **Reference**: [Apache Arrow R Documentation - Apache Arrow Installation Configuration](https://github.com/apache/arrow/blob/main/r/NEWS.md)
@@ -217,9 +330,23 @@ arrow_info()$compression_libraries
 When using minimal builds (for constrained environments), many features are disabled:
 
 ```r
-# Minimal build excludes many features
-Sys.setenv("LIBARROW_MINIMAL" = "true")
-# No Parquet, no Datasets, no compression libraries
+# Example showing minimal build effects (for information only)
+# Note: Setting this requires restarting R session to take effect
+library(arrow)
+
+# Check current build features
+features <- arrow_available()
+print("Current build features:")
+print(features)
+
+# In a minimal build, many of these would be FALSE:
+# - parquet: FALSE (no Parquet support)
+# - dataset: FALSE (no Dataset functionality) 
+# - compression: limited options
+# - s3: FALSE (no S3 support)
+
+print("For minimal builds, set LIBARROW_MINIMAL=true before installation")
+print("This reduces package size but limits functionality")
 ```
 
 **Reference**: [Apache Arrow R News - Configure Arrow C++ build for minimal dependencies](https://github.com/apache/arrow/blob/main/r/NEWS.md)
@@ -235,23 +362,36 @@ Arrow introduces significant overhead for small datasets due to:
 3. **Memory Allocation**: Arrow's columnar format requires minimum memory chunks
 
 ```r
-# For small data, base R may be faster
-small_data <- data.frame(x = 1:100, y = rnorm(100))
+# Executable example showing small dataset overhead
+library(arrow)
+library(dplyr)
 
-# Arrow overhead may exceed benefits
-system.time({
-  result <- arrow_table(small_data) %>%
+# Create small dataset
+small_data <- data.frame(x = 1:100, y = rnorm(100))
+print(paste("Dataset size:", nrow(small_data), "rows"))
+
+# Measure Arrow performance
+arrow_time <- system.time({
+  result_arrow <- arrow_table(small_data) %>%
     filter(x > 50) %>%
     summarise(mean_y = mean(y)) %>%
     collect()
 })
 
-# vs base R
-system.time({
-  result <- small_data %>%
+# Measure base R performance  
+base_r_time <- system.time({
+  result_base <- small_data %>%
     filter(x > 50) %>%
     summarise(mean_y = mean(y))
 })
+
+print(paste("Arrow time:", round(arrow_time[3], 4), "seconds"))
+print(paste("Base R time:", round(base_r_time[3], 4), "seconds"))
+print(paste("Arrow overhead factor:", round(arrow_time[3] / base_r_time[3], 2)))
+
+# Results should be identical
+print("Results identical:")
+print(all.equal(result_arrow$mean_y, result_base$mean_y))
 ```
 
 ### ALTREP Memory Management Issues

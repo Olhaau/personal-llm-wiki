@@ -89,19 +89,39 @@ Arrow's columnar memory format provides fundamental performance advantages that 
 Columnar storage dramatically improves CPU cache utilization by storing data of the same type contiguously:
 
 ```r
+# Executable example showing columnar processing advantages
 library(arrow)
 library(dplyr)
 
-# Traditional row-based processing vs Arrow columnar processing
-# Example with sales data analysis
+# Create sample sales data to demonstrate columnar benefits
+set.seed(123)
+sample_size <- 100000
 
-# Load large dataset
-sales_data <- read_parquet("large_sales_dataset.parquet")
+sales_data_df <- data.frame(
+  date = sample(seq.Date(as.Date("2022-01-01"), as.Date("2023-12-31"), by = "day"), 
+                sample_size, replace = TRUE),
+  amount = round(runif(sample_size, 10, 5000), 2),
+  region = sample(c("North", "South", "East", "West"), sample_size, replace = TRUE),
+  product = sample(paste0("Product_", 1:20), sample_size, replace = TRUE)
+)
 
-# Columnar advantage: filtering operations
-system.time({
-  # Arrow processes entire columns at once, maximizing CPU cache hits
-  filtered_sales <- sales_data %>%
+# Convert to Arrow table for columnar processing
+sales_arrow <- arrow_table(sales_data_df)
+
+print(paste("Dataset size:", nrow(sales_data_df), "rows"))
+
+# Compare filtering performance: Arrow vs base R
+base_r_time <- system.time({
+  filtered_base <- sales_data_df %>%
+    filter(
+      date >= as.Date("2023-01-01"),
+      amount > 1000,
+      region %in% c("North", "East")
+    )
+})
+
+arrow_time <- system.time({
+  filtered_arrow <- sales_arrow %>%
     filter(
       date >= as.Date("2023-01-01"),
       amount > 1000,
@@ -109,35 +129,58 @@ system.time({
     ) %>%
     collect()
 })
-# Typical performance: 2-10x faster than equivalent R operations
 
-# Reference: Apache Arrow R Documentation - Performance Benefits
+print(paste("Base R time:", round(base_r_time[3], 4), "seconds"))
+print(paste("Arrow time:", round(arrow_time[3], 4), "seconds"))
+print(paste("Performance improvement:", round(base_r_time[3] / arrow_time[3], 2), "x"))
+print(paste("Filtered rows:", nrow(filtered_arrow)))
 ```
 
 #### Compression Advantages
 Columnar format enables superior compression ratios through type-specific optimization:
 
 ```r
-# Compression comparison example
+# Executable compression comparison example
+library(arrow)
+
+# Create test dataset for compression comparison
+set.seed(456)
+test_size <- 100000  # Smaller size for quick execution
+
 original_df <- data.frame(
-  id = 1:1000000,
-  category = sample(c("A", "B", "C"), 1000000, replace = TRUE),
-  value = rnorm(1000000)
+  id = 1:test_size,
+  category = sample(c("A", "B", "C"), test_size, replace = TRUE),
+  value = rnorm(test_size),
+  date = sample(seq.Date(as.Date("2023-01-01"), as.Date("2023-12-31"), by = "day"), 
+                test_size, replace = TRUE)
 )
 
-# Traditional R object size
-object.size(original_df)
-# ~40MB typical
+# Check traditional R object size
+r_size <- object.size(original_df)
+print(paste("Original R data.frame size:", format(r_size, units = "MB")))
 
-# Arrow table with compression
-arrow_table <- arrow_table(original_df)
-object.size(arrow_table)
-# ~15-25MB typical (40-60% reduction)
+# Arrow table in memory
+arrow_table_obj <- arrow_table(original_df)
+arrow_size <- object.size(arrow_table_obj)
+print(paste("Arrow table size:", format(arrow_size, units = "MB")))
 
-# Parquet with compression
-write_parquet(original_df, "compressed_data.parquet")
-file.size("compressed_data.parquet")
-# ~8-15MB typical (70-80% reduction)
+# Write to Parquet with compression
+temp_file <- tempfile(fileext = ".parquet")
+write_parquet(original_df, temp_file, compression = "snappy")
+parquet_size <- file.size(temp_file)
+print(paste("Parquet file size:", format(structure(parquet_size, class = "object_size"), units = "MB")))
+
+# Calculate compression ratios
+arrow_ratio <- as.numeric(r_size) / as.numeric(arrow_size)
+parquet_ratio <- as.numeric(r_size) / parquet_size
+
+print(paste("Arrow compression ratio:", round(arrow_ratio, 2), "x"))
+print(paste("Parquet compression ratio:", round(parquet_ratio, 2), "x"))
+print(paste("Parquet space saving:", round((1 - parquet_size/as.numeric(r_size)) * 100, 1), "%"))
+
+# Cleanup
+unlink(temp_file)
+```
 ```
 
 **Reference**: [Apache Arrow R Documentation - Columnar Memory Format Advantages](https://arrow.apache.org/docs/r/articles/data_wrangling.html)
@@ -155,9 +198,25 @@ large_dataset <- arrow_table(data.frame(
   z = rnorm(10000000)
 ))
 
-# Vector operations utilize SIMD instructions
-system.time({
-  result <- large_dataset %>%
+# Executable example showing SIMD vectorized operations
+library(arrow)
+library(dplyr)
+
+# Create test dataset for vectorized operations
+set.seed(789)
+n <- 50000
+test_data <- data.frame(
+  x = rnorm(n),
+  y = rnorm(n, mean = 5),
+  z = runif(n, 0, 10)
+)
+
+# Convert to Arrow for vectorized processing
+arrow_data <- arrow_table(test_data)
+
+# Time Arrow vectorized operations
+arrow_time <- system.time({
+  result_arrow <- arrow_data %>%
     mutate(
       sum_xy = x + y,
       product_xyz = x * y * z,
@@ -166,29 +225,81 @@ system.time({
     ) %>%
     collect()
 })
-# Typical speedup: 3-8x over equivalent base R operations
+
+# Compare with base R operations
+base_r_time <- system.time({
+  result_base <- test_data %>%
+    mutate(
+      sum_xy = x + y,
+      product_xyz = x * y * z,
+      sqrt_x = sqrt(abs(x)),
+      log_transform = log(abs(y) + 1)
+    )
+})
+
+print(paste("Dataset size:", format(n, big.mark = ","), "rows"))
+print(paste("Arrow time:", round(arrow_time[3], 4), "seconds"))
+print(paste("Base R time:", round(base_r_time[3], 4), "seconds"))
+print(paste("Arrow speedup:", round(base_r_time[3] / arrow_time[3], 2), "x"))
+
+# Verify results are identical
+print("Results identical:")
+print(all.equal(result_arrow[1:5, ], result_base[1:5, ], check.attributes = FALSE))
 ```
 
 #### String Processing Optimization
 ```r
-# Optimized string operations with Arrow
-text_data <- arrow_table(data.frame(
-  text = sample(c("Hello World", "Arrow Processing", "Data Analysis"), 
-                1000000, replace = TRUE)
-))
+# Executable example showing optimized string processing
+library(arrow)
+library(dplyr)
 
-# SIMD-optimized string functions
-system.time({
-  processed_text <- text_data %>%
+# Create text data for string operations test
+set.seed(101)
+text_samples <- c("Hello World", "Arrow Processing", "Data Analysis", 
+                 "Performance Test", "String Operations", "Vector Processing")
+n_text <- 20000
+
+text_df <- data.frame(
+  id = 1:n_text,
+  text = sample(text_samples, n_text, replace = TRUE)
+)
+
+# Arrow table for optimized string processing
+text_arrow <- arrow_table(text_df)
+
+# Time Arrow string operations
+arrow_string_time <- system.time({
+  processed_arrow <- text_arrow %>%
     mutate(
       upper_text = toupper(text),
       text_length = nchar(text),
       contains_arrow = grepl("Arrow", text),
-      first_word = substr(text, 1, 5)
+      first_word = substr(text, 1, 5),
+      word_count = lengths(strsplit(text, " "))
     ) %>%
     collect()
 })
-# Significant performance improvements over base R string operations
+
+# Compare with base R string operations
+base_string_time <- system.time({
+  processed_base <- text_df %>%
+    mutate(
+      upper_text = toupper(text),
+      text_length = nchar(text),
+      contains_arrow = grepl("Arrow", text),
+      first_word = substr(text, 1, 5),
+      word_count = lengths(strsplit(text, " "))
+    )
+})
+
+print(paste("String dataset size:", format(n_text, big.mark = ","), "rows"))
+print(paste("Arrow string processing:", round(arrow_string_time[3], 4), "seconds"))
+print(paste("Base R string processing:", round(base_string_time[3], 4), "seconds"))
+print(paste("String processing speedup:", round(base_string_time[3] / arrow_string_time[3], 2), "x"))
+
+# Show sample results
+print("Sample processed results:")
+print(head(processed_arrow[c("text", "upper_text", "text_length", "contains_arrow")], 3))
 ```
 
 **Reference**: [Apache Arrow Compute Kernels - SIMD Optimization](https://arrow.apache.org/docs/cpp/compute.html)
@@ -199,20 +310,41 @@ Arrow's query engine provides sophisticated optimization that maximizes performa
 
 #### Predicate Pushdown
 ```r
-# Query optimization through predicate pushdown
-large_dataset <- open_dataset("partitioned_sales_data/")
+# Executable example showing lazy evaluation and query optimization
+library(arrow)
+library(dplyr)
 
-# Optimized query plan
-optimized_query <- large_dataset %>%
-  # Filters applied at scan time (predicate pushdown)
+# Create sample partitioned dataset simulation
+set.seed(202)
+n_customers <- 1000
+n_transactions <- 50000
+
+sales_data <- data.frame(
+  date = sample(seq.Date(as.Date("2022-01-01"), as.Date("2023-12-31"), by = "day"),
+                n_transactions, replace = TRUE),
+  customer_id = sample(1:n_customers, n_transactions, replace = TRUE),
+  amount = round(runif(n_transactions, 50, 8000), 2),
+  profit = round(runif(n_transactions, 5, 1000), 2),
+  category = sample(c("Standard", "Premium", "Enterprise"), n_transactions, replace = TRUE, 
+                   prob = c(0.6, 0.3, 0.1)),
+  year = as.integer(format(sample(seq.Date(as.Date("2022-01-01"), as.Date("2023-12-31"), 
+                                  by = "day"), n_transactions, replace = TRUE), "%Y"))
+)
+
+# Convert to Arrow table
+sales_arrow <- arrow_table(sales_data)
+
+# Demonstrate lazy evaluation with query plan
+lazy_query <- sales_arrow %>%
+  # These operations are planned but not executed yet
   filter(
-    year == 2023,           # Partition pruning
-    amount > 5000,          # Early filtering
+    year == 2023,           # Partition-like filtering
+    amount > 5000,          # Early filtering  
     category == "Premium"   # Selective filtering
   ) %>%
-  # Column pruning - only scan needed columns
+  # Column selection (projection pushdown)
   select(date, customer_id, amount, profit) %>%
-  # Aggregation pushdown where possible
+  # Aggregation planning
   group_by(customer_id) %>%
   summarize(
     total_amount = sum(amount),
@@ -220,9 +352,19 @@ optimized_query <- large_dataset %>%
     transaction_count = n()
   )
 
-# Execution plan shows optimization
-optimized_query
-# Shows: Filtered, Projected, Aggregated - minimal data movement
+# Show the query plan (lazy evaluation)
+print("Lazy query plan:")
+print(lazy_query)
+
+# Execute the optimized plan
+execution_time <- system.time({
+  result <- lazy_query %>% collect()
+})
+
+print(paste("Query execution time:", round(execution_time[3], 4), "seconds"))
+print(paste("Processed records:", nrow(sales_data), "-> Aggregated to:", nrow(result), "customers"))
+print("Sample results:")
+print(head(result, 3))
 ```
 
 #### Projection Pushdown
