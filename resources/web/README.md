@@ -1,57 +1,62 @@
 ---
-title: "Curated Arrow R Package Documentation"
+title: "Curated Technical Documentation Repository"
 type: "directory_index"
-category: "apache-arrow"
-subcategory: "r-package"
-tags: ["documentation", "repository", "index", "apache-arrow", "r"]
-language: "R"
-project: "apache-arrow"
+category: "multi-project"
+subcategory: "documentation"
+tags: ["documentation", "repository", "index", "multi-project", "curated"]
+language: "Multi-language"
+project: "multi-project"
 source_type: "curated"
 maintainer: "internal"
 created_date: "2024-11-17"
 last_updated: "2024-11-17"
 status: "active"
 scope: "comprehensive"
-target_audience: ["data-scientists", "developers", "engineers"]
-technical_level: "intermediate-to-advanced"
-coverage: ["installation", "data-analysis", "file-io", "datasets", "performance"]
-related_technologies: ["dplyr", "tidyverse", "parquet", "cloud-storage"]
+target_audience: ["data-scientists", "developers", "engineers", "analysts"]
+technical_level: "all-levels"
+coverage: ["arrow-r", "stata", "web-standards", "technical-documentation"]
+related_technologies: ["apache-arrow", "r", "stata", "html", "documentation"]
 ---
 
-# Curated Arrow R Package Documentation
+# Curated Technical Documentation Repository
 
 ## Overview
 
-This repository contains professionally curated knowledge articles derived from the official Apache Arrow R package documentation. The articles are structured for technical professionals, developers, and data scientists who need comprehensive, actionable guidance for implementing Arrow in production R workflows.
+This repository contains professionally curated technical documentation across multiple projects and domains. The resources are organized by technology and structured for technical professionals, developers, data scientists, and analysts who need comprehensive, actionable guidance for implementing various technologies in production workflows.
 
 ## Documentation Structure
 
-### Core Articles (High Priority - Completed)
+The repository is organized into technology-specific folders following a big-to-small concept hierarchy:
 
-1. **[01_arrow_r_overview.md](01_arrow_r_overview.md)** - Package Overview and Installation Guide
-   - Core value propositions and performance benefits
-   - Installation strategies across platforms
-   - Key technical capabilities and learning resources
+### 📊 R-Arrow (Apache Arrow for R)
+**Location**: `r-arrow/`
 
-2. **[02_arrow_getting_started.md](02_arrow_getting_started.md)** - Getting Started Guide
-   - Architecture and design principles
-   - Data structures and type systems
-   - Basic workflows and integration patterns
+**Official Documentation:**
+- **[official-docs-00-INDEX.md](r-arrow/official-docs-00-INDEX.md)** - Master Documentation Index
+- **[official-docs-01-overview.md](r-arrow/official-docs-01-overview.md)** - Package Overview and Installation Guide  
+- **[official-docs-02-getting-started.md](r-arrow/official-docs-02-getting-started.md)** - Getting Started Guide
+- **[official-docs-03-reading-writing-files.md](r-arrow/official-docs-03-reading-writing-files.md)** - File I/O Operations
+- **[official-docs-04-data-analysis-dplyr.md](r-arrow/official-docs-04-data-analysis-dplyr.md)** - Data Analysis with dplyr
+- **[official-docs-05-multi-file-datasets.md](r-arrow/official-docs-05-multi-file-datasets.md)** - Multi-File Dataset Operations
 
-3. **[03_reading_writing_files.md](03_reading_writing_files.md)** - File I/O Operations
-   - Comprehensive format support (Parquet, Arrow/Feather, CSV, JSON)
-   - Performance optimization strategies
-   - Cloud storage integration patterns
+**Community Resources:**
+- **[apache-arrow-curated-resources.md](r-arrow/apache-arrow-curated-resources.md)** - Comprehensive resource collection
+- **[awesome-arrow-r-nic-crane.md](r-arrow/awesome-arrow-r-nic-crane.md)** - Community-curated resources
+- **[arrow-r-cookbook-official.md](r-arrow/arrow-r-cookbook-official.md)** - Official cookbook documentation
+- **[arrow-r-cran-package.md](r-arrow/arrow-r-cran-package.md)** - CRAN package information
 
-4. **[04_data_analysis_dplyr.md](04_data_analysis_dplyr.md)** - Data Analysis with dplyr
-   - Complete dplyr integration and lazy evaluation
-   - Custom function registration and error handling
-   - Performance optimization and debugging strategies
+**Educational Materials:**
+- **[arrow-useR-2022-workshop.md](r-arrow/arrow-useR-2022-workshop.md)** - UseR! 2022 workshop materials
+- **[bigger-data-arrow-duckdb-presentation.md](r-arrow/bigger-data-arrow-duckdb-presentation.md)** - Arrow + DuckDB integration
 
-5. **[05_multi_file_datasets.md](05_multi_file_datasets.md)** - Multi-File Dataset Operations
-   - Dataset architecture and partitioning strategies
-   - Larger-than-memory processing techniques
-   - ETL workflows and performance optimization
+### 📈 Stata
+**Location**: `stata/`
+- **[stata-manual-u15-logging.md](stata/stata-manual-u15-logging.md)** - Session logging documentation
+- **[stata-r-log.md](stata/stata-r-log.md)** - Log command reference
+
+### 🌐 Web Standards  
+**Location**: `web-standards/`
+- **[w3-html-tables-reference.md](web-standards/w3-html-tables-reference.md)** - HTML 4.01 tables specification
 
 ## Article Characteristics
 
