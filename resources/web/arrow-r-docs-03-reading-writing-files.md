@@ -1,12 +1,26 @@
-# Arrow R Package - Reading and Writing Data Files
+---
+title: "Arrow R Package - Reading and Writing Data Files"
+type: "technical_guide"
+category: "apache-arrow"
+subcategory: "r-package"
+tags: ["file-io", "parquet", "csv", "json", "feather", "apache-arrow", "r"]
+language: "R"
+project: "apache-arrow"
+source_type: "official"
+maintainer: "apache-arrow-project"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "active"
+scope: "file-operations"
+target_audience: ["data-scientists", "data-engineers", "analysts"]
+technical_level: "intermediate"
+coverage: ["file-io", "formats", "performance", "cloud-storage", "metadata"]
+related_technologies: ["parquet", "csv", "json", "feather", "s3", "gcs"]
+source_urls: ["https://arrow.apache.org/docs/r/articles/read_write.html"]
+version: "v22.0.0"
+---
 
-## Knowledge Article Metadata
-- **Source**: Arrow R Package Reading/Writing Files Documentation v22.0.0
-- **URL**: https://arrow.apache.org/docs/r/articles/read_write.html
-- **Last Updated**: Current as of [2024-11]
-- **File Modified**: [2024-11-17]
-- **Scope**: Comprehensive file I/O operations across formats
-- **Type**: Technical Guide - File Operations
+# Arrow R Package - Reading and Writing Data Files
 
 ## Executive Summary
 

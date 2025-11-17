@@ -1,12 +1,26 @@
-# Arrow R Package - Data Analysis with dplyr Syntax
+---
+title: "Arrow R Package - Data Analysis with dplyr Syntax"
+type: "technical_guide"
+category: "apache-arrow"
+subcategory: "r-package"
+tags: ["dplyr", "data-analysis", "data-wrangling", "lazy-evaluation", "apache-arrow", "r"]
+language: "R"
+project: "apache-arrow"
+source_type: "official"
+maintainer: "apache-arrow-project"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "active"
+scope: "data-analysis"
+target_audience: ["data-scientists", "analysts", "r-developers"]
+technical_level: "intermediate-to-advanced"
+coverage: ["dplyr-integration", "lazy-evaluation", "custom-functions", "performance"]
+related_technologies: ["dplyr", "tidyverse", "compute-kernels", "lazy-evaluation"]
+source_urls: ["https://arrow.apache.org/docs/r/articles/data_wrangling.html"]
+version: "v22.0.0"
+---
 
-## Knowledge Article Metadata
-- **Source**: Arrow R Package Data Wrangling Documentation v22.0.0
-- **URL**: https://arrow.apache.org/docs/r/articles/data_wrangling.html
-- **Last Updated**: Current as of [2024-11]
-- **File Modified**: [2024-11-17]
-- **Scope**: Comprehensive dplyr integration and data manipulation
-- **Type**: Technical Guide - Data Analysis
+# Arrow R Package - Data Analysis with dplyr Syntax
 
 ## Executive Summary
 

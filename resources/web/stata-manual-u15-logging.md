@@ -1,3 +1,27 @@
+---
+title: "Stata User's Guide Chapter 15: Logging Your Session"
+type: "official_documentation"
+category: "stata"
+subcategory: "session-logging"
+tags: ["stata", "logging", "session", "documentation", "manual"]
+language: "Stata"
+project: "stata"
+source_type: "official"
+maintainer: "statacorp"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "archived"
+scope: "session-logging"
+target_audience: ["stata-users", "researchers", "analysts"]
+technical_level: "beginner-to-intermediate"
+coverage: ["logging", "session-management", "file-formats", "documentation"]
+related_technologies: ["smcl", "text-files", "session-management"]
+source_urls: ["https://www.stata.com/manuals13/u15.pdf"]
+version: "Stata 13"
+publisher: "StataCorp LP"
+year: "2013"
+---
+
 # Stata User's Guide Chapter 15: Logging Your Session
 
 **Source**: https://www.stata.com/manuals13/u15.pdf
@@ -5,8 +29,6 @@
 ## Summary
 
 Stata User's Guide Chapter 15 covers session logging functionality, including log file creation, management, and formats. The chapter explains how to create permanent records of Stata sessions using SMCL and text formats. This is official StataCorp documentation from the Stata 13 release.
-
-**Content Type**: Official Stata documentation (PDF manual chapter) - StataCorp LP, 2013
 
 ## Key Facts
 

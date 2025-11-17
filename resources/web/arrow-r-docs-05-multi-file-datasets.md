@@ -1,12 +1,26 @@
-# Arrow R Package - Working with Multi-File Datasets
+---
+title: "Arrow R Package - Working with Multi-File Datasets"
+type: "technical_guide"
+category: "apache-arrow"
+subcategory: "r-package"
+tags: ["datasets", "multi-file", "partitioning", "larger-than-memory", "apache-arrow", "r"]
+language: "R"
+project: "apache-arrow"
+source_type: "official"
+maintainer: "apache-arrow-project"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "active"
+scope: "dataset-operations"
+target_audience: ["data-engineers", "data-scientists", "big-data-users"]
+technical_level: "intermediate-to-advanced"
+coverage: ["datasets", "partitioning", "cloud-storage", "performance", "memory-management"]
+related_technologies: ["hive-partitioning", "parquet", "cloud-storage", "etl"]
+source_urls: ["https://arrow.apache.org/docs/r/articles/dataset.html"]
+version: "v22.0.0"
+---
 
-## Knowledge Article Metadata
-- **Source**: Arrow R Package Dataset Documentation v22.0.0  
-- **URL**: https://arrow.apache.org/docs/r/articles/dataset.html
-- **Last Updated**: Current as of [2024-11]
-- **File Modified**: [2024-11-17]
-- **Scope**: Multi-file datasets, partitioning, and larger-than-memory processing
-- **Type**: Technical Guide - Dataset Operations
+# Arrow R Package - Working with Multi-File Datasets
 
 ## Executive Summary
 

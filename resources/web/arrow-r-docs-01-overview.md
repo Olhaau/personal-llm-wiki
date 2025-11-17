@@ -1,12 +1,26 @@
-# Arrow R Package - Overview and Installation Guide
+---
+title: "Arrow R Package - Overview and Installation Guide"
+type: "technical_guide"
+category: "apache-arrow"
+subcategory: "r-package"
+tags: ["overview", "installation", "capabilities", "apache-arrow", "r"]
+language: "R"
+project: "apache-arrow"
+source_type: "official"
+maintainer: "apache-arrow-project"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "active"
+scope: "overview"
+target_audience: ["data-scientists", "r-developers", "newcomers"]
+technical_level: "beginner-to-intermediate"
+coverage: ["overview", "installation", "core-capabilities", "value-propositions"]
+related_technologies: ["tidyverse", "dplyr", "parquet", "feather"]
+source_urls: ["https://arrow.apache.org/docs/r/"]
+version: "v22.0.0"
+---
 
-## Knowledge Article Metadata
-- **Source**: Arrow R Package Official Documentation v22.0.0
-- **URL**: https://arrow.apache.org/docs/r/
-- **Last Updated**: Current as of [2024-11]
-- **File Modified**: [2024-11-17]
-- **Scope**: Core package overview, installation, and capabilities
-- **Type**: Technical Documentation - Package Overview
+# Arrow R Package - Overview and Installation Guide
 
 ## Executive Summary
 

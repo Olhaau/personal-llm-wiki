@@ -1,3 +1,27 @@
+---
+title: "Stata 13 Reference Manual - log command"
+type: "reference_documentation"
+category: "stata"
+subcategory: "commands"
+tags: ["stata", "log", "command", "reference", "documentation"]
+language: "Stata"
+project: "stata"
+source_type: "official"
+maintainer: "statacorp"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "archived"
+scope: "command-reference"
+target_audience: ["stata-users", "researchers", "analysts"]
+technical_level: "intermediate"
+coverage: ["log-command", "syntax", "options", "examples", "session-management"]
+related_technologies: ["smcl", "text-files", "session-logging"]
+source_urls: ["https://www.stata.com/manuals13/rlog.pdf"]
+version: "Stata 13"
+publisher: "StataCorp LP"
+year: "2013"
+---
+
 # Stata 13 Reference Manual - log command
 
 **Source:** https://www.stata.com/manuals13/rlog.pdf
@@ -5,8 +29,6 @@
 ## Summary
 
 This is the official Stata 13 Reference Manual entry for the `log` command, providing comprehensive documentation for session logging functionality including syntax, options, and examples. The manual covers all aspects of creating, managing, and closing log files in Stata.
-
-**Content Type:** Official Stata reference documentation (PDF manual entry) - StataCorp LP, 2013
 
 ## Key Facts
 

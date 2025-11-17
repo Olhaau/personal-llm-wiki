@@ -1,12 +1,26 @@
-# Arrow R Package - Getting Started Guide
+---
+title: "Arrow R Package - Getting Started Guide"
+type: "tutorial"
+category: "apache-arrow"
+subcategory: "r-package"
+tags: ["getting-started", "tutorial", "practical-examples", "apache-arrow", "r"]
+language: "R"
+project: "apache-arrow"
+source_type: "official"
+maintainer: "apache-arrow-project"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "active"
+scope: "getting-started"
+target_audience: ["newcomers", "data-scientists", "r-developers"]
+technical_level: "beginner"
+coverage: ["core-concepts", "data-structures", "workflows", "examples"]
+related_technologies: ["dplyr", "tidyverse", "data-frames", "tibbles"]
+source_urls: ["https://arrow.apache.org/docs/r/articles/arrow.html"]
+version: "v22.0.0"
+---
 
-## Knowledge Article Metadata
-- **Source**: Arrow R Package Getting Started Documentation v22.0.0
-- **URL**: https://arrow.apache.org/docs/r/articles/arrow.html
-- **Last Updated**: Current as of [2024-11]
-- **File Modified**: [2024-11-17]
-- **Scope**: Comprehensive getting started guide with practical examples
-- **Type**: Technical Tutorial - Getting Started
+# Arrow R Package - Getting Started Guide
 
 ## Executive Summary
 

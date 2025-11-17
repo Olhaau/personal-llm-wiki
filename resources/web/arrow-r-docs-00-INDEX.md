@@ -1,14 +1,30 @@
+---
+title: "Arrow R Package - Master Documentation Index"
+type: "documentation_index"
+category: "apache-arrow"
+subcategory: "r-package"
+tags: ["index", "documentation", "master-guide", "apache-arrow", "r"]
+language: "R"
+project: "apache-arrow"
+source_type: "curated"
+maintainer: "internal"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "active"
+scope: "comprehensive"
+target_audience: ["data-scientists", "r-developers", "data-engineers"]
+technical_level: "all-levels"
+coverage: ["overview", "installation", "data-analysis", "file-io", "datasets"]
+related_technologies: ["dplyr", "tidyverse", "parquet", "cloud-storage"]
+source_urls: ["https://arrow.apache.org/docs/r/"]
+version: "v22.0.0"
+---
+
 # Arrow R Package - Master Documentation Index
 
 ## Knowledge Base Overview
 
 This curated documentation collection provides comprehensive technical guidance for Apache Arrow R package implementation, covering core concepts, advanced workflows, and production deployment strategies.
-
-**Source**: Apache Arrow R Package Official Documentation v22.0.0  
-**Curation Date**: [2024-11]  
-**Last Modified**: [2024-11-17]  
-**Target Audience**: Data scientists, R developers, data engineers  
-**Scope**: Complete workflow implementation from installation to production deployment
 
 ## Quick Reference Guide
 

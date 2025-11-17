@@ -1,3 +1,24 @@
+---
+title: "Apache Arrow Curated Resources"
+type: "resource_collection"
+category: "apache-arrow"
+subcategory: "multi-language"
+tags: ["resources", "tutorials", "tools", "community", "apache-arrow", "multi-language"]
+language: "Multi-language"
+project: "apache-arrow"
+source_type: "curated"
+maintainer: "internal"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "active"
+scope: "comprehensive"
+target_audience: ["data-engineers", "data-scientists", "developers"]
+technical_level: "all-levels"
+coverage: ["official-docs", "tutorials", "tools", "community", "ecosystem"]
+related_technologies: ["c++", "python", "r", "java", "rust", "julia", "go"]
+source_urls: ["https://arrow.apache.org/", "https://github.com/apache/arrow"]
+---
+
 # Apache Arrow Curated Resources
 
 A comprehensive collection of Apache Arrow resources, tutorials, tools, and community projects for data engineers, scientists, and developers.

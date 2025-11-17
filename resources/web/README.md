@@ -1,3 +1,23 @@
+---
+title: "Curated Arrow R Package Documentation"
+type: "directory_index"
+category: "apache-arrow"
+subcategory: "r-package"
+tags: ["documentation", "repository", "index", "apache-arrow", "r"]
+language: "R"
+project: "apache-arrow"
+source_type: "curated"
+maintainer: "internal"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "active"
+scope: "comprehensive"
+target_audience: ["data-scientists", "developers", "engineers"]
+technical_level: "intermediate-to-advanced"
+coverage: ["installation", "data-analysis", "file-io", "datasets", "performance"]
+related_technologies: ["dplyr", "tidyverse", "parquet", "cloud-storage"]
+---
+
 # Curated Arrow R Package Documentation
 
 ## Overview

@@ -1,3 +1,26 @@
+---
+title: "HTML Tables Reference - W3C HTML 4.01 Specification"
+type: "specification"
+category: "html"
+subcategory: "tables"
+tags: ["html", "tables", "w3c", "specification", "reference"]
+language: "HTML"
+project: "html"
+source_type: "official"
+maintainer: "w3c"
+created_date: "2024-11-17"
+last_updated: "2024-11-17"
+status: "archived"
+scope: "html-tables"
+target_audience: ["web-developers", "html-authors", "accessibility-experts"]
+technical_level: "intermediate"
+coverage: ["table-structure", "accessibility", "formatting", "elements", "attributes"]
+related_technologies: ["css", "accessibility", "web-standards"]
+source_urls: ["https://www.w3.org/TR/html401/struct/tables.html"]
+version: "HTML 4.01"
+standard_body: "W3C"
+---
+
 # HTML Tables Reference - W3C HTML 4.01 Specification
 
 *Source: [W3C HTML 4.01 Tables Specification](https://www.w3.org/TR/html401/struct/tables.html)*
