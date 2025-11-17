@@ -3,8 +3,8 @@
 ## Knowledge Article Metadata
 - **Source**: Arrow R Package Official Documentation v22.0.0
 - **URL**: https://arrow.apache.org/docs/r/
-- **Last Updated**: Current as of [[2024-11]]
-- **File Modified**: [[2024-11-17]]
+- **Last Updated**: Current as of [2024-11]
+- **File Modified**: [2024-11-17]
 - **Scope**: Core package overview, installation, and capabilities
 - **Type**: Technical Documentation - Package Overview
 

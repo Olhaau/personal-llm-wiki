@@ -5,8 +5,8 @@
 This curated documentation collection provides comprehensive technical guidance for Apache Arrow R package implementation, covering core concepts, advanced workflows, and production deployment strategies.
 
 **Source**: Apache Arrow R Package Official Documentation v22.0.0  
-**Curation Date**: [[2024-11]]  
-**Last Modified**: [[2024-11-17]]  
+**Curation Date**: [2024-11]  
+**Last Modified**: [2024-11-17]  
 **Target Audience**: Data scientists, R developers, data engineers  
 **Scope**: Complete workflow implementation from installation to production deployment
 

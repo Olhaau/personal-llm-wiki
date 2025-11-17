@@ -35,7 +35,7 @@ You MUST follow this structure optimized for agent context usage:
 
 ## Agent Context Summary
 **Source**: [YouTube URL] | **Creator**: [Channel Name] | **Duration**: [MM:SS] | **Type**: [Tutorial/Review/Discussion/Demo]
-**File Created**: [[YYYY-MM-DD]] | **File Modified**: [[YYYY-MM-DD]]
+**File Created**: [YYYY-MM-DD] | **File Modified**: [YYYY-MM-DD]
 
 **Core Objective**: [Single sentence describing what the video teaches or demonstrates]
 
@@ -253,7 +253,7 @@ When provided with a YouTube URL, follow this agent-optimized workflow:
 ### 2. Agent Context Generation
 - Create shortened filename: `[Creator]-[KeyTerms].md`
 - Structure content using the agent-optimized template
-- **Automatically populate timestamps**: Use current date for "File Created" and "File Modified" fields in format: [[YYYY-MM-DD]] (e.g., [[2024-11-17]])
+- **Automatically populate timestamps**: Use current date for "File Created" and "File Modified" fields in format: [YYYY-MM-DD] (e.g., [2024-11-17])
 - Focus on actionable intelligence and decision frameworks
 - Extract technical specifications, commands, and configurations
 

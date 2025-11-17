@@ -3,8 +3,8 @@
 ## Knowledge Article Metadata
 - **Source**: Arrow R Package Reading/Writing Files Documentation v22.0.0
 - **URL**: https://arrow.apache.org/docs/r/articles/read_write.html
-- **Last Updated**: Current as of [[2024-11]]
-- **File Modified**: [[2024-11-17]]
+- **Last Updated**: Current as of [2024-11]
+- **File Modified**: [2024-11-17]
 - **Scope**: Comprehensive file I/O operations across formats
 - **Type**: Technical Guide - File Operations
 

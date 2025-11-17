@@ -3,8 +3,8 @@
 ## Knowledge Article Metadata
 - **Source**: Arrow R Package Dataset Documentation v22.0.0  
 - **URL**: https://arrow.apache.org/docs/r/articles/dataset.html
-- **Last Updated**: Current as of [[2024-11]]
-- **File Modified**: [[2024-11-17]]
+- **Last Updated**: Current as of [2024-11]
+- **File Modified**: [2024-11-17]
 - **Scope**: Multi-file datasets, partitioning, and larger-than-memory processing
 - **Type**: Technical Guide - Dataset Operations
 
