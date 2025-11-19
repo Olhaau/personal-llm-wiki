@@ -2,9 +2,11 @@
 #' 
 #' This function fixes accessibility issues in gt tables where header IDs and 
 #' the corresponding headers attributes in data cells don't match due to 
-#' spaces vs hyphens inconsistency.
+#' spaces vs hyphens inconsistency. Also allows adding a unique identifier
+#' to table IDs for RMarkdown documents with multiple tables.
 #'
 #' @param gt_table A gt table object
+#' @param id_suffix A string to append to table IDs for uniqueness in RMarkdown documents. Defaults to "".
 #' @return A gt table object with corrected header references
 #' @export
 #'
@@ -17,10 +19,16 @@
 #'   head() %>%
 #'   gt() %>%
 #'   fix_gt_headers()
+#'   
+#' # Create a table with unique ID suffix for RMarkdown
+#' my_table2 <- mtcars %>%
+#'   head() %>%
+#'   gt() %>%
+#'   fix_gt_headers(id_suffix = "table1")
 
 library(gt)
 
-fix_gt_headers <- function(gt_table) {
+fix_gt_headers <- function(gt_table, id_suffix = "") {
   # Check if input is a gt table
   if (!inherits(gt_table, "gt_tbl")) {
     stop("Input must be a gt table object")
@@ -34,6 +42,11 @@ fix_gt_headers <- function(gt_table) {
   
   # Create a mapping of original names to fixed names (spaces -> hyphens)
   fixed_names <- gsub("\\s+", "-", original_names)
+  
+  # If id_suffix is provided, append it to make unique table IDs
+  if (id_suffix != "") {
+    fixed_names <- paste0(fixed_names, "-", id_suffix)
+  }
   
   # If any names need fixing, update them
   if (any(original_names != fixed_names)) {
