@@ -27,6 +27,13 @@ This is a knowledge curation and AI-assisted development workspace using OpenCod
 - **Documentation**: Clear, concise, actionable
 - **Commit messages**: Descriptive, follow conventional commits
 
+## Code Style Guidelines
+### R Scripts
+- **Section separators**: Use `# ----` (4 dashes) to separate major sections
+- **Headers**: Include descriptive comments with author/date for all scripts
+- **Functions**: Use snake_case naming, include parameter documentation
+- **Libraries**: Load with `library()` at script top, use `suppressPackageStartupMessages()` for clean output
+
 ## Security Rules
 - **ALWAYS ASK PERMISSION** before reading, finding, or globbing outside of `~/work`
 - **NEVER ACCESS** `~/work/.archive` for context or during prompts

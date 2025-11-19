@@ -1,5 +1,5 @@
 # Comprehensive CSV Reading Benchmark in R
-# Comparing: data.table, arrow, polars, readr, base R
+# Comparing: data.table, arrow, polars, readr, duckdb, base R
 # Author: OpenCode  
 # Date: 2025-11-19
 
@@ -9,6 +9,7 @@ suppressPackageStartupMessages({
   library(readr)
   library(arrow)
   library(polars)  # Note: Requires polars to be installed
+  library(duckdb)  # Note: Requires duckdb to be installed
   library(qs)
   library(microbenchmark)
   library(ggplot2)
@@ -122,7 +123,13 @@ csv_expressions <- list(
   "readr_read_csv" = quote(read_csv("benchmark_data.csv", show_col_types = FALSE)),
   "data.table_fread" = quote(fread("benchmark_data.csv")),
   "arrow_read_csv" = quote(read_csv_arrow("benchmark_data.csv")),
-  "polars_read_csv" = quote(pl$read_csv("benchmark_data.csv")$to_data_frame())
+  "polars_read_csv" = quote(pl$read_csv("benchmark_data.csv")$to_data_frame()),
+  "duckdb_read_csv" = quote({
+    con <- dbConnect(duckdb::duckdb())
+    df <- dbGetQuery(con, "SELECT * FROM read_csv_auto('benchmark_data.csv')")
+    dbDisconnect(con)
+    df
+  })
 )
 
 # Run CSV benchmarks
@@ -139,7 +146,13 @@ csvgz_expressions <- list(
   "base_read.csv_gz" = quote(read.csv("benchmark_data.csv.gz")),
   "readr_read_csv_gz" = quote(read_csv("benchmark_data.csv.gz", show_col_types = FALSE)),
   "data.table_fread_gz" = quote(fread("benchmark_data.csv.gz")),
-  "arrow_read_csv_gz" = quote(read_csv_arrow("benchmark_data.csv.gz"))
+  "arrow_read_csv_gz" = quote(read_csv_arrow("benchmark_data.csv.gz")),
+  "duckdb_read_csv_gz" = quote({
+    con <- dbConnect(duckdb::duckdb())
+    df <- dbGetQuery(con, "SELECT * FROM read_csv_auto('benchmark_data.csv.gz')")
+    dbDisconnect(con)
+    df
+  })
 )
 
 # Run compressed CSV benchmarks

@@ -58,25 +58,25 @@ cat("Saving data in multiple formats...\n")
 # CSV format
 cat("Writing CSV file...\n")
 start_time <- Sys.time()
-fwrite(dummy_data, "benchmark_data.csv")
+fwrite(dummy_data, "data/benchmark_data.csv")
 csv_time <- as.numeric(Sys.time() - start_time)
-csv_size <- file.size("benchmark_data.csv") / (1024^3)  # Size in GB
+csv_size <- file.size("data/benchmark_data.csv") / (1024^3)  # Size in GB
 cat("CSV written in", round(csv_time, 2), "seconds. File size:", round(csv_size, 3), "GB\n")
 
 # Compressed CSV
 cat("Writing compressed CSV file...\n")
 start_time <- Sys.time()
-fwrite(dummy_data, "benchmark_data.csv.gz")
+fwrite(dummy_data, "data/benchmark_data.csv.gz")
 csvgz_time <- as.numeric(Sys.time() - start_time)
-csvgz_size <- file.size("benchmark_data.csv.gz") / (1024^3)  # Size in GB
+csvgz_size <- file.size("data/benchmark_data.csv.gz") / (1024^3)  # Size in GB
 cat("CSV.GZ written in", round(csvgz_time, 2), "seconds. File size:", round(csvgz_size, 3), "GB\n")
 
 # Parquet format (using Arrow)
 cat("Writing Parquet file...\n")
 start_time <- Sys.time()
-write_parquet(dummy_data, "benchmark_data.parquet")
+write_parquet(dummy_data, "data/benchmark_data.parquet")
 parquet_time <- as.numeric(Sys.time() - start_time)
-parquet_size <- file.size("benchmark_data.parquet") / (1024^3)  # Size in GB
+parquet_size <- file.size("data/benchmark_data.parquet") / (1024^3)  # Size in GB
 cat("Parquet written in", round(parquet_time, 2), "seconds. File size:", round(parquet_size, 3), "GB\n")
 
 # QS format (fast serialization)
