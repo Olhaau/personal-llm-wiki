@@ -70,61 +70,144 @@ generate_valid_html_id <- function(name) {
     return("col.empty")
   }
   
-  # Step 1: Handle meaningful character replacements first
-  # Preserve semantic meaning while using only valid HTML ID characters
+  # Start with the original name
   id <- name
   
-  # Mathematical and comparison operators (preserve meaning with allowed chars)
-  id <- gsub("\\s*>=\\s*", ".gte.", id)         # Greater or equal  
-  id <- gsub("\\s*<=\\s*", ".lte.", id)         # Less or equal
-  id <- gsub("\\s*!=\\s*", ".neq.", id)         # Not equal
-  id <- gsub("\\s*==\\s*", ".eq.", id)          # Equal comparison
-  id <- gsub("\\s*>\\s*", ".gt.", id)           # Greater than
-  id <- gsub("\\s*<\\s*", ".lt.", id)           # Less than
-  id <- gsub("\\s*=\\s*", ".equals.", id)       # Assignment/equal
+  # Step 1: Handle emojis and unicode symbols FIRST (before any other processing)
+  # Common emojis with meaningful names
+  id <- gsub("😊", ".smile.", id)                   # Smiling face
+  id <- gsub("😢", ".sad.", id)                     # Sad face  
+  id <- gsub("😍", ".love.", id)                    # Heart eyes
+  id <- gsub("😎", ".cool.", id)                    # Cool sunglasses
+  id <- gsub("😭", ".crying.", id)                  # Crying
+  id <- gsub("😡", ".angry.", id)                   # Angry
+  id <- gsub("👍", ".thumbsup.", id)                # Thumbs up
+  id <- gsub("👎", ".thumbsdown.", id)              # Thumbs down
+  id <- gsub("❤️", ".heart.", id)                   # Heart
+  id <- gsub("💔", ".brokenheart.", id)             # Broken heart
+  id <- gsub("⭐", ".star.", id)                    # Star
+  id <- gsub("✨", ".sparkles.", id)                # Sparkles
+  id <- gsub("✅", ".check.", id)                   # Check mark
+  id <- gsub("❌", ".cross.", id)                   # Cross mark
+  id <- gsub("⚠️", ".warning.", id)                 # Warning
+  id <- gsub("🚨", ".alert.", id)                   # Alert
+  id <- gsub("📊", ".chart.", id)                   # Chart
+  id <- gsub("📈", ".trending.", id)                # Trending up
+  id <- gsub("📉", ".declining.", id)               # Trending down
+  id <- gsub("🔥", ".fire.", id)                    # Fire
+  id <- gsub("💯", ".hundred.", id)                 # 100 points
+  id <- gsub("🎯", ".target.", id)                  # Target
+  id <- gsub("🔴", ".red.", id)                     # Red circle
+  id <- gsub("🟢", ".green.", id)                   # Green circle  
+  id <- gsub("🔵", ".blue.", id)                    # Blue circle
+  id <- gsub("🟡", ".yellow.", id)                  # Yellow circle
+  id <- gsub("🟠", ".orange.", id)                  # Orange circle
+  id <- gsub("🟣", ".purple.", id)                  # Purple circle
+  
+  # Common unicode symbols
+  id <- gsub("™", ".tm.", id)                       # Trademark
+  id <- gsub("®", ".reg.", id)                      # Registered
+  id <- gsub("©", ".copy.", id)                     # Copyright
+  id <- gsub("°", ".deg.", id)                      # Degree symbol
+  id <- gsub("→", ".arrow.", id)                    # Right arrow
+  id <- gsub("←", ".leftarrow.", id)                # Left arrow
+  id <- gsub("↑", ".uparrow.", id)                  # Up arrow
+  id <- gsub("↓", ".downarrow.", id)                # Down arrow
+  id <- gsub("↔", ".bidiarrow.", id)                # Bidirectional arrow
+  id <- gsub("±", ".plusminus.", id)                # Plus-minus
+  id <- gsub("≤", ".lte.", id)                      # Less than or equal (unicode)
+  id <- gsub("≥", ".gte.", id)                      # Greater than or equal (unicode)
+  id <- gsub("≠", ".neq.", id)                      # Not equal (unicode)
+  id <- gsub("≈", ".approx.", id)                   # Approximately equal
+  id <- gsub("∞", ".infinity.", id)                 # Infinity
+  id <- gsub("√", ".sqrt.", id)                     # Square root
+  id <- gsub("∑", ".sum.", id)                      # Summation
+  id <- gsub("∏", ".product.", id)                  # Product
+  id <- gsub("∫", ".integral.", id)                 # Integral
+  
+  # Greek letters (common in statistics and science)
+  id <- gsub("α", ".alpha.", id)                    # Alpha
+  id <- gsub("β", ".beta.", id)                     # Beta
+  id <- gsub("γ", ".gamma.", id)                    # Gamma
+  id <- gsub("δ", ".delta.", id)                    # Delta
+  id <- gsub("ε", ".epsilon.", id)                  # Epsilon
+  id <- gsub("π", ".pi.", id)                       # Pi
+  id <- gsub("σ", ".sigma.", id)                    # Sigma
+  id <- gsub("τ", ".tau.", id)                      # Tau
+  id <- gsub("φ", ".phi.", id)                      # Phi
+  id <- gsub("χ", ".chi.", id)                      # Chi
+  id <- gsub("ψ", ".psi.", id)                      # Psi
+  id <- gsub("ω", ".omega.", id)                    # Omega
+  id <- gsub("μ", ".mu.", id)                       # Mu
+  id <- gsub("ν", ".nu.", id)                       # Nu
+  id <- gsub("λ", ".lambda.", id)                   # Lambda
+  id <- gsub("θ", ".theta.", id)                    # Theta
+  
+  # Step 2: Handle mathematical and comparison operators
+  # (Do this after emoji/unicode to avoid conflicts)
+  id <- gsub("\\s*>=\\s*", ".gte.", id)             # Greater or equal  
+  id <- gsub("\\s*<=\\s*", ".lte.", id)             # Less or equal
+  id <- gsub("\\s*!=\\s*", ".neq.", id)             # Not equal
+  id <- gsub("\\s*==\\s*", ".eq.", id)              # Equal comparison
+  id <- gsub("\\s*>\\s*", ".gt.", id)               # Greater than
+  id <- gsub("\\s*<\\s*", ".lt.", id)               # Less than
+  id <- gsub("\\s*=\\s*", ".equals.", id)           # Assignment/equal
   
   # Logical and common operators
-  id <- gsub("\\s*&\\s*", ".and.", id)          # Ampersand
-  id <- gsub("\\s*\\|\\s*", ".or.", id)         # Pipe/or
-  id <- gsub("\\s*\\+\\s*", ".plus.", id)       # Plus
-  id <- gsub("\\s*/\\s*", ".div.", id)          # Division
-  id <- gsub("\\s*\\*\\s*", ".mult.", id)       # Multiply
+  id <- gsub("\\s*&\\s*", ".and.", id)              # Ampersand
+  id <- gsub("\\s*\\|\\s*", ".or.", id)             # Pipe/or
+  id <- gsub("\\s*\\+\\s*", ".plus.", id)           # Plus
+  id <- gsub("\\s*/\\s*", ".div.", id)              # Division
+  id <- gsub("\\s*\\*\\s*", ".mult.", id)           # Multiply
   
   # Special symbols with semantic meaning
-  id <- gsub("\\$", ".dollar.", id)             # Dollar sign
-  id <- gsub("%", ".pct.", id)                  # Percent
-  id <- gsub("@", ".at.", id)                   # At symbol  
-  id <- gsub("#", ".num.", id)                  # Hash/number/pound
-  id <- gsub("\\?", ".q.", id)                  # Question mark
-  id <- gsub("!", ".excl.", id)                 # Exclamation
+  id <- gsub("\\$", ".dollar.", id)                 # Dollar sign
+  id <- gsub("%", ".pct.", id)                      # Percent
+  id <- gsub("@", ".at.", id)                       # At symbol  
+  id <- gsub("#", ".num.", id)                      # Hash/number/pound
+  id <- gsub("\\?", ".q.", id)                      # Question mark
+  id <- gsub("!", ".excl.", id)                     # Exclamation
   
   # Handle parentheses and brackets (extract content, use periods)
-  id <- gsub("\\(([^)]*?)\\)", ".\\1.", id)     # (content) -> .content.
-  id <- gsub("\\[([^]]*?)\\]", ".\\1.", id)     # [content] -> .content.  
-  id <- gsub("\\{([^}]*?)\\}", ".\\1.", id)     # {content} -> .content.
+  id <- gsub("\\(([^)]*?)\\)", ".\\1.", id)         # (content) -> .content.
+  id <- gsub("\\[([^]]*?)\\]", ".\\1.", id)         # [content] -> .content.  
+  id <- gsub("\\{([^}]*?)\\}", ".\\1.", id)         # {content} -> .content.
   
   # Handle quotes and punctuation
-  id <- gsub("[\"'`]", ".quote.", id)           # Various quotes
-  id <- gsub(";", ".semi.", id)                 # Semicolon
-  id <- gsub("\\\\", ".backslash.", id)         # Backslash
+  id <- gsub("[\"'`]", ".quote.", id)               # Various quotes
+  id <- gsub(";", ".semi.", id)                     # Semicolon
+  id <- gsub("\\\\", ".backslash.", id)             # Backslash
   
-  # Step 2: Handle Unicode, emojis, and non-ASCII characters
-  # Try to transliterate to ASCII first, then replace remaining non-ASCII
-  id <- iconv(id, from = "UTF-8", to = "ASCII//TRANSLIT", sub = ".unicode.")
+  # Step 3: Handle any remaining non-ASCII characters gracefully
+  # Try transliteration first for accented characters (like café -> cafe)
+  tryCatch({
+    id_transliterated <- iconv(id, from = "UTF-8", to = "ASCII//TRANSLIT", sub = "")
+    
+    # Check if transliteration was successful and didn't introduce question marks or NAs
+    if (!is.na(id_transliterated) && !grepl("\\?", id_transliterated) && nchar(id_transliterated) > 0) {
+      id <- id_transliterated
+    } else {
+      # Transliteration failed, replace any remaining non-ASCII with placeholder
+      id <- gsub("[^\x20-\x7E]", ".unicode.", id)
+    }
+  }, error = function(e) {
+    # If iconv fails completely, fallback to removing non-ASCII
+    id <<- gsub("[^\x20-\x7E]", ".unicode.", id)
+  })
   
-  # Step 3: Convert remaining invalid characters to valid ones
-  # Replace spaces and tabs with hyphens (common in column names)
+  # Step 4: Convert remaining invalid characters to valid ones
+  # Replace spaces and tabs with hyphens (common in column names) 
   id <- gsub("[\\s\\t]+", "-", id)
   
   # Replace any remaining invalid characters with periods
   # Valid chars per W3C: A-Za-z0-9._:-
   id <- gsub("[^A-Za-z0-9._:-]", ".", id)
   
-  # Step 4: Clean up multiple separators
-  id <- gsub("[-._:]+", ".", id)                # Multiple separators -> single period
-  id <- gsub("^[-._:]+|[-._:]+$", "", id)       # Remove leading/trailing separators
+  # Step 5: Clean up multiple separators
+  id <- gsub("[-._:]+", ".", id)                    # Multiple separators -> single period
+  id <- gsub("^[-._:]+|[-._:]+$", "", id)           # Remove leading/trailing separators
   
-  # Step 5: Ensure ID starts with a letter (W3C requirement)
+  # Step 6: Ensure ID starts with a letter (W3C requirement)
   if (!grepl("^[A-Za-z]", id)) {
     if (grepl("^[0-9]", id)) {
       # Starts with number, prefix with letter
@@ -135,7 +218,7 @@ generate_valid_html_id <- function(name) {
     }
   }
   
-  # Step 6: Handle edge cases
+  # Step 7: Handle edge cases
   if (nchar(id) == 0 || id == "") {
     id <- "col.empty"
   } else if (nchar(id) == 1) {
@@ -143,11 +226,11 @@ generate_valid_html_id <- function(name) {
     id <- paste0("col.", id)
   }
   
-  # Step 7: Final validation - ensure result matches W3C pattern
+  # Step 8: Final validation - ensure result matches W3C pattern
   if (!grepl("^[A-Za-z][A-Za-z0-9._:-]*$", id)) {
     # Fallback if somehow we still have invalid characters
     id <- "col.fallback"
-    warning("Generated ID did not match W3C pattern, using fallback")
+    warning("Generated ID did not match W3C pattern, using fallback for: ", name)
   }
   
   return(id)
