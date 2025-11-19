@@ -29,7 +29,7 @@
 #' library(gt)
 #' library(dplyr)
 #' 
-#' # Create a table with problematic characters
+#' # Basic example with problematic characters
 #' df <- data.frame(
 #'   `Patient ID` = c("P1", "P2"),
 #'   `Age (years)` = c(25, 30),
@@ -42,10 +42,39 @@
 #'   gt() %>%
 #'   fix_gt_headers()
 #'   
-#' # Create a table with unique ID suffix for RMarkdown
+#' # German/European characters example
+#' german_df <- data.frame(
+#'   `Größe (cm)` = c(170, 175),           # German ö -> oe
+#'   `Müdigkeit` = c("Low", "High"),       # German ü -> ue  
+#'   `Straße` = c("A1", "B2"),             # German ß -> ss
+#'   `Café français` = c("Yes", "No"),     # Mixed French -> Cafe francai
+#'   check.names = FALSE
+#' )
+#' 
+#' german_table <- german_df %>%
+#'   gt() %>%
+#'   fix_gt_headers()
+#'   
+#' # Table with unique ID suffix for RMarkdown documents
 #' my_table2 <- df %>%
 #'   gt() %>%
 #'   fix_gt_headers(id_suffix = "table1")
+#'   
+#' # International multi-language example
+#' intl_df <- data.frame(
+#'   `Résultats %` = c(85, 90),            # French é -> e
+#'   `Größe/Høyde` = c(170, 175),          # German/Norwegian mix
+#'   `Příjmení` = c("Novák", "Svoboda"),   # Czech ř -> r
+#'   `Señor/Señora` = c("Sr.", "Sra."),    # Spanish ñ -> n
+#'   check.names = FALSE
+#' )
+#' 
+#' international_table <- intl_df %>%
+#'   gt() %>%
+#'   fix_gt_headers(preserve_mapping = TRUE)
+#'   
+#' # View the character mappings
+#' get_name_mapping(international_table)
 
 library(gt)
 
@@ -73,7 +102,108 @@ generate_valid_html_id <- function(name) {
   # Start with the original name
   id <- name
   
-  # Step 1: Handle emojis and unicode symbols FIRST (before any other processing)
+  # Step 1: Handle European language characters FIRST (before emojis/unicode)
+  # German umlauts and special characters
+  id <- gsub("ä", "ae", id)                         # German a-umlaut
+  id <- gsub("ö", "oe", id)                         # German o-umlaut  
+  id <- gsub("ü", "ue", id)                         # German u-umlaut
+  id <- gsub("Ä", "Ae", id)                         # German A-umlaut
+  id <- gsub("Ö", "Oe", id)                         # German O-umlaut
+  id <- gsub("Ü", "Ue", id)                         # German U-umlaut
+  id <- gsub("ß", "ss", id)                         # German eszett (sharp s)
+  
+  # French accented characters
+  id <- gsub("é", "e", id)                          # e acute
+  id <- gsub("è", "e", id)                          # e grave
+  id <- gsub("ê", "e", id)                          # e circumflex
+  id <- gsub("ë", "e", id)                          # e diaeresis
+  id <- gsub("à", "a", id)                          # a grave
+  id <- gsub("â", "a", id)                          # a circumflex
+  id <- gsub("ç", "c", id)                          # c cedilla
+  id <- gsub("î", "i", id)                          # i circumflex
+  id <- gsub("ï", "i", id)                          # i diaeresis
+  id <- gsub("ô", "o", id)                          # o circumflex
+  id <- gsub("ù", "u", id)                          # u grave
+  id <- gsub("û", "u", id)                          # u circumflex
+  id <- gsub("ÿ", "y", id)                          # y diaeresis
+  
+  # French uppercase
+  id <- gsub("É", "E", id)                          # E acute
+  id <- gsub("È", "E", id)                          # E grave
+  id <- gsub("Ê", "E", id)                          # E circumflex
+  id <- gsub("Ë", "E", id)                          # E diaeresis
+  id <- gsub("À", "A", id)                          # A grave
+  id <- gsub("Â", "A", id)                          # A circumflex
+  id <- gsub("Ç", "C", id)                          # C cedilla
+  id <- gsub("Î", "I", id)                          # I circumflex
+  id <- gsub("Ï", "I", id)                          # I diaeresis
+  id <- gsub("Ô", "O", id)                          # O circumflex
+  id <- gsub("Ù", "U", id)                          # U grave
+  id <- gsub("Û", "U", id)                          # U circumflex
+  
+  # Spanish characters
+  id <- gsub("ñ", "n", id)                          # n tilde
+  id <- gsub("Ñ", "N", id)                          # N tilde
+  id <- gsub("á", "a", id)                          # a acute
+  id <- gsub("í", "i", id)                          # i acute
+  id <- gsub("ó", "o", id)                          # o acute
+  id <- gsub("ú", "u", id)                          # u acute
+  id <- gsub("Á", "A", id)                          # A acute
+  id <- gsub("Í", "I", id)                          # I acute
+  id <- gsub("Ó", "O", id)                          # O acute
+  id <- gsub("Ú", "U", id)                          # U acute
+  
+  # Italian characters (additional)
+  id <- gsub("ì", "i", id)                          # i grave
+  id <- gsub("ò", "o", id)                          # o grave
+  id <- gsub("Ì", "I", id)                          # I grave
+  id <- gsub("Ò", "O", id)                          # O grave
+  
+  # Scandinavian characters
+  id <- gsub("å", "aa", id)                         # a ring (Danish/Norwegian/Swedish)
+  id <- gsub("æ", "ae", id)                         # ae ligature (Danish/Norwegian)
+  id <- gsub("ø", "oe", id)                         # o slash (Danish/Norwegian)
+  id <- gsub("Å", "Aa", id)                         # A ring
+  id <- gsub("Æ", "Ae", id)                         # AE ligature
+  id <- gsub("Ø", "Oe", id)                         # O slash
+  
+  # Eastern European characters  
+  id <- gsub("č", "c", id)                          # c caron (Czech/Slovak)
+  id <- gsub("š", "s", id)                          # s caron
+  id <- gsub("ž", "z", id)                          # z caron
+  id <- gsub("ř", "r", id)                          # r caron (Czech)
+  id <- gsub("ď", "d", id)                          # d caron
+  id <- gsub("ť", "t", id)                          # t caron
+  id <- gsub("ň", "n", id)                          # n caron
+  id <- gsub("ů", "u", id)                          # u ring (Czech)
+  id <- gsub("Č", "C", id)                          # C caron
+  id <- gsub("Š", "S", id)                          # S caron
+  id <- gsub("Ž", "Z", id)                          # Z caron
+  id <- gsub("Ř", "R", id)                          # R caron
+  id <- gsub("Ď", "D", id)                          # D caron
+  id <- gsub("Ť", "T", id)                          # T caron
+  id <- gsub("Ň", "N", id)                          # N caron
+  id <- gsub("Ů", "U", id)                          # U ring
+  
+  # Polish characters
+  id <- gsub("ą", "a", id)                          # a ogonek
+  id <- gsub("ć", "c", id)                          # c acute
+  id <- gsub("ę", "e", id)                          # e ogonek
+  id <- gsub("ł", "l", id)                          # l stroke
+  id <- gsub("ń", "n", id)                          # n acute
+  id <- gsub("ś", "s", id)                          # s acute
+  id <- gsub("ź", "z", id)                          # z acute
+  id <- gsub("ż", "z", id)                          # z dot above
+  id <- gsub("Ą", "A", id)                          # A ogonek
+  id <- gsub("Ć", "C", id)                          # C acute
+  id <- gsub("Ę", "E", id)                          # E ogonek
+  id <- gsub("Ł", "L", id)                          # L stroke
+  id <- gsub("Ń", "N", id)                          # N acute
+  id <- gsub("Ś", "S", id)                          # S acute
+  id <- gsub("Ź", "Z", id)                          # Z acute
+  id <- gsub("Ż", "Z", id)                          # Z dot above
+  
+  # Step 2: Handle emojis and unicode symbols SECOND (after European characters)
   # Common emojis with meaningful names
   id <- gsub("😊", ".smile.", id)                   # Smiling face
   id <- gsub("😢", ".sad.", id)                     # Sad face  
@@ -143,8 +273,8 @@ generate_valid_html_id <- function(name) {
   id <- gsub("λ", ".lambda.", id)                   # Lambda
   id <- gsub("θ", ".theta.", id)                    # Theta
   
-  # Step 2: Handle mathematical and comparison operators
-  # (Do this after emoji/unicode to avoid conflicts)
+  # Step 3: Handle mathematical and comparison operators
+  # (Do this after European characters and emoji/unicode to avoid conflicts)
   id <- gsub("\\s*>=\\s*", ".gte.", id)             # Greater or equal  
   id <- gsub("\\s*<=\\s*", ".lte.", id)             # Less or equal
   id <- gsub("\\s*!=\\s*", ".neq.", id)             # Not equal
@@ -178,8 +308,9 @@ generate_valid_html_id <- function(name) {
   id <- gsub(";", ".semi.", id)                     # Semicolon
   id <- gsub("\\\\", ".backslash.", id)             # Backslash
   
-  # Step 3: Handle any remaining non-ASCII characters gracefully
-  # Try transliteration first for accented characters (like café -> cafe)
+  # Step 4: Handle any remaining non-ASCII characters gracefully
+  # At this point, most European characters should already be converted
+  # Try transliteration for any remaining accented characters
   tryCatch({
     id_transliterated <- iconv(id, from = "UTF-8", to = "ASCII//TRANSLIT", sub = "")
     
@@ -188,14 +319,15 @@ generate_valid_html_id <- function(name) {
       id <- id_transliterated
     } else {
       # Transliteration failed, replace any remaining non-ASCII with placeholder
-      id <- gsub("[^\x20-\x7E]", ".unicode.", id)
+      # Use more specific fallback for common remaining cases
+      id <- gsub("[^\x20-\x7E]", ".intl.", id)  # Use .intl. for international chars
     }
   }, error = function(e) {
     # If iconv fails completely, fallback to removing non-ASCII
-    id <<- gsub("[^\x20-\x7E]", ".unicode.", id)
+    id <<- gsub("[^\x20-\x7E]", ".intl.", id)
   })
   
-  # Step 4: Convert remaining invalid characters to valid ones
+  # Step 5: Convert remaining invalid characters to valid ones
   # Replace spaces and tabs with hyphens (common in column names) 
   id <- gsub("[\\s\\t]+", "-", id)
   
@@ -203,11 +335,11 @@ generate_valid_html_id <- function(name) {
   # Valid chars per W3C: A-Za-z0-9._:-
   id <- gsub("[^A-Za-z0-9._:-]", ".", id)
   
-  # Step 5: Clean up multiple separators
+  # Step 6: Clean up multiple separators
   id <- gsub("[-._:]+", ".", id)                    # Multiple separators -> single period
   id <- gsub("^[-._:]+|[-._:]+$", "", id)           # Remove leading/trailing separators
   
-  # Step 6: Ensure ID starts with a letter (W3C requirement)
+  # Step 7: Ensure ID starts with a letter (W3C requirement)
   if (!grepl("^[A-Za-z]", id)) {
     if (grepl("^[0-9]", id)) {
       # Starts with number, prefix with letter
@@ -218,7 +350,7 @@ generate_valid_html_id <- function(name) {
     }
   }
   
-  # Step 7: Handle edge cases
+  # Step 8: Handle edge cases
   if (nchar(id) == 0 || id == "") {
     id <- "col.empty"
   } else if (nchar(id) == 1) {
@@ -226,7 +358,7 @@ generate_valid_html_id <- function(name) {
     id <- paste0("col.", id)
   }
   
-  # Step 8: Final validation - ensure result matches W3C pattern
+  # Step 9: Final validation - ensure result matches W3C pattern
   if (!grepl("^[A-Za-z][A-Za-z0-9._:-]*$", id)) {
     # Fallback if somehow we still have invalid characters
     id <- "col.fallback"
