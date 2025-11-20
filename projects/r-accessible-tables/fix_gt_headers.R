@@ -204,7 +204,7 @@ generate_valid_html_id <- function(name) {
   
   # Step 4: Convert remaining invalid characters to valid ones
   # Replace spaces and tabs with hyphens (common in column names) 
-  id <- gsub("[\\s\\t]+", "-", id)
+  id <- gsub("[ \t]+", "-", id)
   
   # Replace any remaining invalid characters with periods
   # Valid chars per W3C: A-Za-z0-9._:-
