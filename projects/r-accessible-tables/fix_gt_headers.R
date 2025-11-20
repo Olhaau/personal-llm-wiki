@@ -45,9 +45,9 @@
 #' # German umlauts example
 #' german_df <- data.frame(
 #'   `Größe (cm)` = c(170, 175),           # German ö -> oe
-#'   `Müdigkeit` = c("Low", "High"),       # German ü -> ue  
+#'   `Müdigkeit` = c("Niedrig", "Hoch"),   # German ü -> ue  
 #'   `Straße` = c("A1", "B2"),             # German ß -> ss
-#'   `Fähigkeit` = c("Good", "Better"),    # German ä -> ae
+#'   `Fähigkeit` = c("Gut", "Besser"),     # German ä -> ae
 #'   check.names = FALSE
 #' )
 #' 

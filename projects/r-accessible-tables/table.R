@@ -1,8 +1,8 @@
 df <- data.frame(
-  `married_low income` = c(30, 2),
-  `married_high income` = c(30, 4),
-  `single_low income` = c(20, 1),
-  `single_high income` = c(20, 2),
-  col = c("age", "hsize"),
+  `Verheiratet_niedriges Einkommen` = c(30, 2),
+  `Verheiratet_hohes Einkommen` = c(30, 4),
+  `Single_niedriges Einkommen` = c(20, 1),
+  `Single_hohes Einkommen` = c(20, 2),
+  Kategorie = c("Alter", "Haushaltsgröße"),
   check.names = F
 )
