@@ -1,21 +1,19 @@
-#' Create Properly Formatted Excel Files Matching GT Table Layout
+#' Create Clean Formatted Excel Files Matching GT Table Layout
 #'
-#' This creates Excel files with the CORRECT GT table structure:
-#' - Proper orientation and layout
-#' - Clear merge indicators for spanner headers
-#' - Exact GT table structure that can be manually formatted in Excel
+#' Creates Excel files with the correct GT table structure using empty cells
+#' for proper visual spanner layout (no merge text visible)
 
 library(writexl)
 suppressPackageStartupMessages(library(dplyr))
 
-#' Create Correctly Formatted Excel Table
+#' Create Clean GT-Style Excel Table
 create_formatted_excel_table <- function(data,
                                         filename = "formatted_table.xlsx",
                                         title = "GT-Style Table",
-                                        description = "Properly formatted GT table",
+                                        description = "Clean GT table layout",
                                         spanner_delimiter = "_") {
   
-  cat(sprintf("Creating properly formatted Excel: %s\n", filename))
+  cat(sprintf("Creating clean GT-style Excel: %s\n", filename))
   
   # Analyze structure
   structure_info <- analyze_spanner_structure(data, spanner_delimiter)
@@ -23,20 +21,20 @@ create_formatted_excel_table <- function(data,
   # Create worksheets
   worksheets <- list()
   
-  # Main formatted table
-  worksheets[["GT_Table"]] <- create_gt_table_layout(data, structure_info, title)
+  # Main clean GT table
+  worksheets[["GT_Table"]] <- create_clean_gt_layout(data, structure_info, title)
   
   # Accessible version
   worksheets[["Accessible_Data"]] <- create_accessible_version(data, structure_info)
   
-  # Instructions
-  worksheets[["Formatting_Guide"]] <- create_formatting_guide(structure_info)
+  # Structure information
+  worksheets[["Table_Info"]] <- create_table_info(structure_info, title)
   
   # Write file
-  write_xlsx(worksheets, path = filename, col_names = FALSE)  # No auto headers
+  write_xlsx(worksheets, path = filename, col_names = FALSE)
   
-  cat(sprintf("✓ GT-style Excel created: %s\n", filename))
-  show_formatting_summary(structure_info, filename)
+  cat(sprintf("✓ Clean GT-style Excel created: %s\n", filename))
+  show_clean_summary(structure_info, filename)
   
   return(invisible(filename))
 }
@@ -79,25 +77,26 @@ analyze_spanner_structure <- function(data, delimiter = "_") {
   ))
 }
 
-create_gt_table_layout <- function(data, structure, title) {
+create_clean_gt_layout <- function(data, structure, title) {
   num_cols <- structure$num_cols
   
-  # Create the proper GT table structure
-  table_data <- list()
+  # Create clean GT table structure
+  table_rows <- list()
   
-  # Row 1: Title (will be merged across all columns)
+  # Row 1: Title (only in first cell, others empty for visual spanning)
   title_row <- character(num_cols)
   title_row[1] <- title
-  if (num_cols > 1) {
-    title_row[2:num_cols] <- "[MERGE]"
+  # Leave other cells empty (they will appear as if title spans when formatted)
+  for (i in 2:num_cols) {
+    title_row[i] <- ""
   }
-  table_data[[1]] <- title_row
+  table_rows[[1]] <- title_row
   
   # Row 2: Empty spacer
-  table_data[[2]] <- rep("", num_cols)
+  table_rows[[2]] <- rep("", num_cols)
   
   if (structure$has_spanners) {
-    # Row 3: Spanner headers
+    # Row 3: Clean spanner headers (no merge text)
     spanner_row <- character(num_cols)
     current_group <- ""
     
@@ -106,30 +105,30 @@ create_gt_table_layout <- function(data, structure, title) {
       
       if (col_info$has_spanner) {
         if (col_info$group != current_group) {
-          # First column of a new group
+          # First column of a new group - show group name
           spanner_row[i] <- col_info$group
           current_group <- col_info$group
         } else {
-          # Continuation of the same group
-          spanner_row[i] <- "[MERGE]"
+          # Subsequent columns of same group - leave empty for visual spanning
+          spanner_row[i] <- ""
         }
       } else {
-        # No spanner
+        # No spanner - leave empty
         spanner_row[i] <- ""
         current_group <- ""
       }
     }
-    table_data[[3]] <- spanner_row
+    table_rows[[3]] <- spanner_row
     
     # Row 4: Sub-column headers
     sub_row <- character(num_cols)
     for (i in seq_along(structure$columns)) {
       sub_row[i] <- structure$columns[[i]]$sub_column
     }
-    table_data[[4]] <- sub_row
+    table_rows[[4]] <- sub_row
     
     # Row 5: Spacer
-    table_data[[5]] <- rep("", num_cols)
+    table_rows[[5]] <- rep("", num_cols)
     
     # Data rows start from row 6
     data_start <- 6
@@ -139,31 +138,35 @@ create_gt_table_layout <- function(data, structure, title) {
     for (i in seq_along(structure$columns)) {
       header_row[i] <- structure$columns[[i]]$sub_column
     }
-    table_data[[3]] <- header_row
+    table_rows[[3]] <- header_row
     
     # Row 4: Spacer
-    table_data[[4]] <- rep("", num_cols)
+    table_rows[[4]] <- rep("", num_cols)
     
     # Data rows start from row 5
     data_start <- 5
   }
   
   # Add data rows
-  for (i in 1:nrow(data)) {
-    data_row <- as.character(unlist(data[i, ]))
-    table_data[[data_start + i - 1]] <- data_row
+  data_rows <- nrow(data)
+  if (data_rows > 0) {
+    for (i in 1:data_rows) {
+      data_row <- as.character(unlist(data[i, ]))
+      table_rows[[data_start + i - 1]] <- data_row
+    }
   }
   
-  # Convert to data frame
-  max_rows <- length(table_data)
-  result_df <- data.frame(
-    matrix(unlist(lapply(table_data, function(x) c(x, rep("", num_cols - length(x))))),
-           nrow = max_rows, ncol = num_cols, byrow = TRUE),
-    stringsAsFactors = FALSE
-  )
+  # Convert to clean data frame
+  max_rows <- length(table_rows)
+  result_matrix <- matrix("", nrow = max_rows, ncol = num_cols)
   
-  # Set column names to match original data
-  names(result_df) <- names(data)
+  for (i in seq_along(table_rows)) {
+    row_data <- table_rows[[i]]
+    result_matrix[i, 1:length(row_data)] <- row_data
+  }
+  
+  result_df <- as.data.frame(result_matrix, stringsAsFactors = FALSE)
+  names(result_df) <- paste0("Col_", 1:num_cols)
   
   return(result_df)
 }
@@ -189,93 +192,123 @@ create_accessible_version <- function(data, structure) {
   return(data)
 }
 
-create_formatting_guide <- function(structure) {
-  guide_steps <- list()
+create_table_info <- function(structure, title) {
+  info_rows <- list()
   
-  guide_steps[[1]] <- data.frame(
-    Step = "1",
-    Action = "Open GT_Table worksheet",
-    Details = "This contains the properly structured table layout",
+  info_rows[[1]] <- data.frame(
+    Aspect = "Title",
+    Description = title,
+    Location = "Row 1, spans all columns",
     stringsAsFactors = FALSE
   )
   
-  guide_steps[[2]] <- data.frame(
-    Step = "2",
-    Action = "Select cells marked with [MERGE]",
-    Details = "These indicate cells that should be merged with the cell to their left",
-    stringsAsFactors = FALSE
-  )
-  
-  guide_steps[[3]] <- data.frame(
-    Step = "3", 
-    Action = "Merge cells for title (Row 1)",
-    Details = "Merge all cells in row 1 to create the title spanning all columns",
+  info_rows[[2]] <- data.frame(
+    Aspect = "Structure_Type",
+    Description = if(structure$has_spanners) "Multi-level with spanners" else "Simple table",
+    Location = if(structure$has_spanners) "Row 3: spanners, Row 4: headers" else "Row 3: headers",
     stringsAsFactors = FALSE
   )
   
   if (structure$has_spanners) {
-    guide_steps[[4]] <- data.frame(
-      Step = "4",
-      Action = "Merge cells for spanner headers (Row 3)",
-      Details = "Merge cells marked [MERGE] with the group name to their left",
-      stringsAsFactors = FALSE
-    )
+    # Identify spanner groups and their ranges
+    groups <- list()
+    for (i in seq_along(structure$columns)) {
+      col_info <- structure$columns[[i]]
+      if (col_info$has_spanner) {
+        group_name <- col_info$group
+        if (!group_name %in% names(groups)) {
+          groups[[group_name]] <- c(i, i)
+        } else {
+          groups[[group_name]][2] <- i
+        }
+      }
+    }
     
-    guide_steps[[5]] <- data.frame(
-      Step = "5",
-      Action = "Format spanner headers",
-      Details = "Make spanner headers bold and centered",
-      stringsAsFactors = FALSE
-    )
-    
-    guide_steps[[6]] <- data.frame(
-      Step = "6",
-      Action = "Add borders",
-      Details = "Add borders around column groups and headers",
-      stringsAsFactors = FALSE
-    )
-  } else {
-    guide_steps[[4]] <- data.frame(
-      Step = "4",
-      Action = "Format headers",
-      Details = "Make column headers bold",
-      stringsAsFactors = FALSE
-    )
+    for (group_name in names(groups)) {
+      range_info <- groups[[group_name]]
+      info_rows[[length(info_rows) + 1]] <- data.frame(
+        Aspect = paste("Spanner", group_name),
+        Description = sprintf("Spans columns %d to %d", range_info[1], range_info[2]),
+        Location = sprintf("Row 3, columns %d-%d", range_info[1], range_info[2]),
+        stringsAsFactors = FALSE
+      )
+    }
   }
   
-  return(do.call(rbind, guide_steps))
+  info_rows[[length(info_rows) + 1]] <- data.frame(
+    Aspect = "Data_Location",
+    Description = sprintf("%d data rows", structure$num_rows),
+    Location = if(structure$has_spanners) "Starting from row 6" else "Starting from row 5",
+    stringsAsFactors = FALSE
+  )
+  
+  info_rows[[length(info_rows) + 1]] <- data.frame(
+    Aspect = "Manual_Formatting",
+    Description = "To complete GT appearance, merge empty cells with spanner headers",
+    Location = "Use Excel merge cells function on appropriate ranges",
+    stringsAsFactors = FALSE
+  )
+  
+  return(do.call(rbind, info_rows))
 }
 
-show_formatting_summary <- function(structure, filename) {
-  cat("\n=== Properly Formatted Excel Created ===\n")
+show_clean_summary <- function(structure, filename) {
+  cat("\n=== Clean GT-Style Excel Created ===\n")
   cat(sprintf("File: %s\n", filename))
-  cat("Layout: CORRECT GT table structure\n")
+  cat("Layout: Clean GT table structure (no visible merge indicators)\n")
   
   if (structure$has_spanners) {
-    cat("Structure with spanners:\n")
-    cat("  Row 1: Title [MERGE] [MERGE] [MERGE] [MERGE]\n")
+    cat("\nClean structure with spanners:\n")
+    cat("  Row 1: Title (in first cell, others empty)\n")
     cat("  Row 2: [spacer]\n")
-    cat("  Row 3: Verheiratet [MERGE] Single [MERGE] \n")
-    cat("  Row 4: Sub-headers for each column\n")
+    cat("  Row 3: Spanner headers (group names in first cell of each group, others empty)\n")
+    cat("  Row 4: Sub-column headers\n")
     cat("  Row 5: [spacer]\n")
     cat("  Rows 6+: Data\n")
+    
+    # Show spanner layout
+    cat("\nSpanner layout:\n")
+    groups <- list()
+    for (i in seq_along(structure$columns)) {
+      col_info <- structure$columns[[i]]
+      if (col_info$has_spanner) {
+        group_name <- col_info$group
+        if (!group_name %in% names(groups)) {
+          groups[[group_name]] <- c(i, i)
+        } else {
+          groups[[group_name]][2] <- i
+        }
+      }
+    }
+    
+    for (group_name in names(groups)) {
+      range_info <- groups[[group_name]]
+      cat(sprintf("  - '%s': columns %d-%d (%d columns)\n", 
+                  group_name, range_info[1], range_info[2], 
+                  range_info[2] - range_info[1] + 1))
+    }
   } else {
-    cat("Simple structure:\n")
-    cat("  Row 1: Title [MERGE] [MERGE] [MERGE] [MERGE]\n")
+    cat("\nSimple structure:\n")
+    cat("  Row 1: Title (in first cell, others empty)\n")
     cat("  Row 2: [spacer]\n") 
     cat("  Row 3: Column headers\n")
     cat("  Row 4: [spacer]\n")
     cat("  Rows 5+: Data\n")
   }
   
-  cat("\nTo complete formatting:\n")
-  cat("  1. Open GT_Table worksheet\n")
-  cat("  2. Merge cells marked with [MERGE]\n")
-  cat("  3. Apply formatting (bold, borders, colors)\n")
-  cat("  4. Use Accessible_Data for screen readers\n")
+  cat("\nWorksheets:\n")
+  cat("  • GT_Table - Clean layout ready for manual merging\n")
+  cat("  • Accessible_Data - No merged cells for screen readers\n")
+  cat("  • Table_Info - Structure and merging information\n")
+  
+  cat("\nVisual appearance:\n")
+  cat("  ✓ Clean layout without visible merge indicators\n")
+  cat("  ✓ Empty cells ready for merging to create spanner effect\n")
+  cat("  ✓ Professional GT-style structure\n")
+  cat("  ✓ Ready for manual formatting in Excel\n")
 }
 
-#' Create Sample Formatted Excel
+#' Create Sample Clean Excel
 create_sample_formatted_excel <- function() {
   if (!exists("df")) {
     source("table.R")
@@ -284,8 +317,8 @@ create_sample_formatted_excel <- function() {
   create_formatted_excel_table(
     data = df,
     filename = "formatted_mikrozensus_sample.xlsx",
-    title = "German Mikrozensus - Proper GT Layout",
-    description = "Correctly formatted GT-style table with merge indicators",
+    title = "German Mikrozensus - Clean GT Layout",
+    description = "Clean GT-style table without visible merge indicators",
     spanner_delimiter = "_"
   )
 }
