@@ -93,26 +93,39 @@ analyze_simple_structure <- function(data, delimiter = "_") {
   ))
 }
 
-#' Create Compatible Main Worksheet
+#' Create Compatible Main Worksheet with Proper Merged Cells
 create_compatible_main_worksheet <- function(wb, data, structure, title, subtitle = NULL) {
   
   sheet_name <- "Main_Table"
   addWorksheet(wb, sheet_name)
   
-  # Simple, safe styles
+  # Safe styles for Excel compatibility
   title_style <- createStyle(
     fontSize = 14, fontName = "Calibri", textDecoration = "bold",
-    halign = "center", fgFill = "#4472C4", fontColour = "#FFFFFF"
+    halign = "center", fgFill = "#366092", fontColour = "#FFFFFF",
+    border = c("top", "bottom", "left", "right"), borderStyle = "medium"
+  )
+  
+  spanner_style <- createStyle(
+    fontSize = 12, fontName = "Calibri", textDecoration = "bold",
+    halign = "center", fgFill = "#4F81BD", fontColour = "#FFFFFF",
+    border = c("top", "bottom", "left", "right"), borderStyle = "medium"
   )
   
   header_style <- createStyle(
     fontSize = 11, fontName = "Calibri", textDecoration = "bold",
-    halign = "center", fgFill = "#D9E2F3", fontColour = "#000000"
+    halign = "center", fgFill = "#B7D4F0", fontColour = "#000000",
+    border = c("top", "bottom", "left", "right"), borderStyle = "thin"
+  )
+  
+  data_style <- createStyle(
+    fontSize = 10, fontName = "Calibri",
+    halign = "center", border = c("top", "bottom", "left", "right"), borderStyle = "thin"
   )
   
   current_row <- 1
   
-  # Add title
+  # Add title with merge
   writeData(wb, sheet_name, title, startRow = current_row, startCol = 1)
   mergeCells(wb, sheet_name, cols = 1:structure$num_cols, rows = current_row)
   addStyle(wb, sheet_name, title_style, rows = current_row, cols = 1:structure$num_cols)
@@ -126,21 +139,15 @@ create_compatible_main_worksheet <- function(wb, data, structure, title, subtitl
     current_row <- current_row + 2
   }
   
-  # Create headers
+  # Create headers with proper spanners and merging
   if (structure$has_spanners) {
-    # Create spanner row (without complex merging)
-    spanner_row <- character(structure$num_cols)
-    for (i in seq_along(structure$columns)) {
-      col_info <- structure$columns[[i]]
-      if (col_info$has_spanner) {
-        spanner_row[i] <- col_info$group
-      } else {
-        spanner_row[i] <- ""
-      }
-    }
-    
+    # Create spanner row with proper merging
+    spanner_row <- create_spanner_row_safe(structure, structure$num_cols)
     writeData(wb, sheet_name, t(spanner_row), startRow = current_row, startCol = 1, colNames = FALSE)
-    addStyle(wb, sheet_name, header_style, rows = current_row, cols = 1:structure$num_cols)
+    addStyle(wb, sheet_name, spanner_style, rows = current_row, cols = 1:structure$num_cols)
+    
+    # Apply safe spanner merges
+    apply_safe_spanner_merges(wb, sheet_name, structure, current_row)
     current_row <- current_row + 1
     
     # Sub-headers
@@ -156,14 +163,77 @@ create_compatible_main_worksheet <- function(wb, data, structure, title, subtitl
     current_row <- current_row + 1
   }
   
-  # Add data
+  # Add spacer row
+  current_row <- current_row + 1
+  
+  # Add data with formatting
   writeData(wb, sheet_name, data, startRow = current_row, startCol = 1, colNames = FALSE)
+  
+  # Apply data formatting
+  if (nrow(data) > 0) {
+    addStyle(wb, sheet_name, data_style, 
+             rows = current_row:(current_row + nrow(data) - 1), 
+             cols = 1:structure$num_cols, gridExpand = TRUE)
+  }
   
   # Set column widths
   setColWidths(wb, sheet_name, cols = 1:structure$num_cols, widths = "auto")
   
   # Freeze header row
   freezePane(wb, sheet_name, firstActiveRow = current_row, firstActiveCol = 1)
+}
+
+#' Create Spanner Row (Safe Version)
+create_spanner_row_safe <- function(structure, num_cols) {
+  spanner_row <- character(num_cols)
+  current_group <- ""
+  
+  for (i in seq_along(structure$columns)) {
+    col_info <- structure$columns[[i]]
+    if (col_info$has_spanner) {
+      if (col_info$group != current_group) {
+        spanner_row[i] <- col_info$group
+        current_group <- col_info$group
+      } else {
+        spanner_row[i] <- ""
+      }
+    } else {
+      spanner_row[i] <- ""
+      current_group <- ""
+    }
+  }
+  
+  return(spanner_row)
+}
+
+#' Apply Safe Spanner Merges
+apply_safe_spanner_merges <- function(wb, sheet_name, structure, row) {
+  # Track spanner groups for safe merging
+  groups <- list()
+  
+  for (i in seq_along(structure$columns)) {
+    col_info <- structure$columns[[i]]
+    if (col_info$has_spanner) {
+      group_name <- col_info$group
+      if (!group_name %in% names(groups)) {
+        groups[[group_name]] <- c(i, i)
+      } else {
+        groups[[group_name]][2] <- i
+      }
+    }
+  }
+  
+  # Apply merges for each group (with error handling)
+  for (group_name in names(groups)) {
+    range <- groups[[group_name]]
+    if (range[2] > range[1]) {  # Only merge if span > 1
+      tryCatch({
+        mergeCells(wb, sheet_name, cols = range[1]:range[2], rows = row)
+      }, error = function(e) {
+        cat(sprintf("Warning: Could not merge spanner '%s': %s\n", group_name, e$message))
+      })
+    }
+  }
 }
 
 #' Create Simple Accessible Worksheet

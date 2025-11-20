@@ -330,6 +330,25 @@ fix_gt_headers <- function(gt_table, id_suffix = "", preserve_mapping = FALSE) {
           valid_indices <- !is.na(var_indices)
           fixed_table$`_spanners`$vars[[i]][valid_indices] <- fixed_names[var_indices[valid_indices]]
         }
+        
+        # Update spanner IDs to be HTML-safe
+        if (!is.null(fixed_table$`_spanners`$spanner_id[[i]])) {
+          original_spanner_id <- fixed_table$`_spanners`$spanner_id[[i]]
+          # Generate a valid HTML ID for the spanner
+          fixed_spanner_id <- generate_valid_html_id(original_spanner_id)
+          # Append suffix if provided
+          if (id_suffix != "" && !is.na(id_suffix)) {
+            clean_suffix <- generate_valid_html_id(id_suffix)
+            fixed_spanner_id <- paste0(fixed_spanner_id, "_", clean_suffix)
+          }
+          fixed_table$`_spanners`$spanner_id[[i]] <- fixed_spanner_id
+        }
+        
+        # Update spanner labels that may contain problematic characters
+        if (!is.null(fixed_table$`_spanners`$spanner_label[[i]])) {
+          # Keep the display label as-is (it's shown to users)
+          # Only the ID needs to be HTML-safe
+        }
       }
     }
     

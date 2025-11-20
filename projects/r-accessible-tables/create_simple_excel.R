@@ -13,56 +13,44 @@ if (file.exists("fix_gt_headers.R")) {
   source("fix_gt_headers.R")
 }
 
-#' Create Simple Excel-Compatible Accessible Table
+#' Create Simple Excel-Compatible Accessible Table with Merged Cells
 #' 
 #' @param data Data frame to export
 #' @param filename Output filename
 #' @param title Table title
 #' @param description Brief description
+#' @param include_spanners Whether to create merged spanner cells
 #' @return Path to created file
 create_simple_excel_table <- function(data, 
                                     filename = "simple_accessible_table.xlsx",
                                     title = "Accessible Data Table",
-                                    description = "Excel-compatible accessible table") {
+                                    description = "Excel-compatible accessible table",
+                                    include_spanners = TRUE) {
   
-  cat(sprintf("Creating simple Excel-compatible table: %s\n", filename))
+  cat(sprintf("Creating simple Excel-compatible table with GT formatting: %s\n", filename))
   
   # Create workbook
   wb <- createWorkbook()
   
   # Add main worksheet
-  sheet_name <- "Data"
+  sheet_name <- "GT_Table"
   addWorksheet(wb, sheet_name)
   
   # Analyze column structure
-  col_names <- names(data)
-  has_spanners <- any(grepl("_", col_names))
-  
-  # Create clean, readable column names
-  clean_names <- create_clean_column_names(col_names)
+  structure_info <- analyze_column_structure(data)
   
   current_row <- 1
   
-  # Add title (simple, no merge)
-  writeData(wb, sheet_name, title, startRow = current_row, startCol = 1)
-  current_row <- current_row + 2
-  
-  # Add headers with clean names
-  data_with_clean_names <- data
-  names(data_with_clean_names) <- clean_names
-  
-  writeData(wb, sheet_name, data_with_clean_names, startRow = current_row, startCol = 1)
-  
-  # Apply minimal, safe formatting
-  apply_safe_formatting(wb, sheet_name, length(clean_names), current_row)
+  # Create GT-style layout with merged cells
+  current_row <- create_gt_style_layout(wb, sheet_name, data, structure_info, title, current_row, include_spanners)
   
   # Add documentation sheet
-  create_simple_docs_sheet(wb, data, title, description, col_names, clean_names)
+  create_simple_docs_sheet(wb, data, title, description, names(data), structure_info$display_names)
   
   # Save with error handling
   tryCatch({
     saveWorkbook(wb, filename, overwrite = TRUE)
-    cat(sprintf("✓ Simple Excel file created: %s\n", filename))
+    cat(sprintf("✓ Simple Excel file with GT formatting created: %s\n", filename))
     
     # Quick validation
     test_sheets <- readxl::excel_sheets(filename)
@@ -74,6 +62,181 @@ create_simple_excel_table <- function(data,
     cat(sprintf("✗ Error creating file: %s\n", e$message))
     stop(e)
   })
+}
+
+#' Analyze Column Structure for GT Layout
+analyze_column_structure <- function(data) {
+  col_names <- names(data)
+  structure <- list()
+  
+  for (i in seq_along(col_names)) {
+    name <- col_names[i]
+    
+    if (grepl("_", name)) {
+      parts <- strsplit(name, "_", fixed = TRUE)[[1]]
+      group <- tools::toTitleCase(parts[1])
+      sub_col <- tools::toTitleCase(paste(parts[-1], collapse = " "))
+      
+      structure[[i]] <- list(
+        original = name,
+        group = group,
+        sub_column = sub_col,
+        has_spanner = TRUE,
+        display_name = paste(group, "-", sub_col)
+      )
+    } else {
+      display_name <- tools::toTitleCase(name)
+      structure[[i]] <- list(
+        original = name,
+        group = NULL,
+        sub_column = display_name,
+        has_spanner = FALSE,
+        display_name = display_name
+      )
+    }
+  }
+  
+  return(list(
+    columns = structure,
+    has_spanners = any(sapply(structure, function(x) x$has_spanner)),
+    num_cols = length(col_names),
+    display_names = sapply(structure, function(x) x$display_name)
+  ))
+}
+
+#' Create GT-Style Layout with Merged Cells
+create_gt_style_layout <- function(wb, sheet_name, data, structure, title, start_row, include_spanners) {
+  
+  # Define GT-compatible styles
+  title_style <- createStyle(
+    fontSize = 14, fontName = "Calibri", textDecoration = "bold",
+    halign = "center", valign = "center",
+    fgFill = "#366092", fontColour = "#FFFFFF",
+    border = c("top", "bottom", "left", "right"), borderStyle = "medium"
+  )
+  
+  spanner_style <- createStyle(
+    fontSize = 12, fontName = "Calibri", textDecoration = "bold", 
+    halign = "center", valign = "center",
+    fgFill = "#4F81BD", fontColour = "#FFFFFF",
+    border = c("top", "bottom", "left", "right"), borderStyle = "medium"
+  )
+  
+  header_style <- createStyle(
+    fontSize = 11, fontName = "Calibri", textDecoration = "bold",
+    halign = "center", valign = "center", 
+    fgFill = "#B7D4F0", fontColour = "#000000",
+    border = c("top", "bottom", "left", "right"), borderStyle = "thin"
+  )
+  
+  data_style <- createStyle(
+    fontSize = 10, fontName = "Calibri",
+    halign = "center", valign = "center",
+    border = c("top", "bottom", "left", "right"), borderStyle = "thin"
+  )
+  
+  current_row <- start_row
+  
+  # Add title with merge
+  writeData(wb, sheet_name, title, startRow = current_row, startCol = 1)
+  mergeCells(wb, sheet_name, cols = 1:structure$num_cols, rows = current_row)
+  addStyle(wb, sheet_name, title_style, rows = current_row, cols = 1:structure$num_cols)
+  current_row <- current_row + 2
+  
+  # Create spanner headers if requested and present
+  if (include_spanners && structure$has_spanners) {
+    # Create spanner row
+    spanner_row <- create_simple_spanner_row(structure)
+    writeData(wb, sheet_name, t(spanner_row), startRow = current_row, startCol = 1, colNames = FALSE)
+    addStyle(wb, sheet_name, spanner_style, rows = current_row, cols = 1:structure$num_cols)
+    
+    # Apply spanner merges
+    apply_simple_spanner_merges(wb, sheet_name, structure, current_row)
+    current_row <- current_row + 1
+    
+    # Sub-headers
+    sub_headers <- sapply(structure$columns, function(x) x$sub_column)
+    writeData(wb, sheet_name, t(sub_headers), startRow = current_row, startCol = 1, colNames = FALSE)
+    addStyle(wb, sheet_name, header_style, rows = current_row, cols = 1:structure$num_cols)
+    current_row <- current_row + 2
+  } else {
+    # Simple headers (no spanners)
+    headers <- structure$display_names
+    writeData(wb, sheet_name, t(headers), startRow = current_row, startCol = 1, colNames = FALSE)
+    addStyle(wb, sheet_name, header_style, rows = current_row, cols = 1:structure$num_cols)
+    current_row <- current_row + 2
+  }
+  
+  # Add data
+  writeData(wb, sheet_name, data, startRow = current_row, startCol = 1, colNames = FALSE)
+  
+  # Apply data formatting
+  if (nrow(data) > 0) {
+    addStyle(wb, sheet_name, data_style, 
+             rows = current_row:(current_row + nrow(data) - 1), 
+             cols = 1:structure$num_cols, gridExpand = TRUE)
+  }
+  
+  # Set column widths
+  setColWidths(wb, sheet_name, cols = 1:structure$num_cols, widths = "auto")
+  
+  # Freeze header row
+  freezePane(wb, sheet_name, firstActiveRow = current_row, firstActiveCol = 1)
+  
+  return(current_row + nrow(data))
+}
+
+#' Create Simple Spanner Row
+create_simple_spanner_row <- function(structure) {
+  spanner_row <- character(structure$num_cols)
+  current_group <- ""
+  
+  for (i in seq_along(structure$columns)) {
+    col_info <- structure$columns[[i]]
+    if (col_info$has_spanner) {
+      if (col_info$group != current_group) {
+        spanner_row[i] <- col_info$group
+        current_group <- col_info$group
+      } else {
+        spanner_row[i] <- ""
+      }
+    } else {
+      spanner_row[i] <- ""
+      current_group <- ""
+    }
+  }
+  
+  return(spanner_row)
+}
+
+#' Apply Simple Spanner Merges
+apply_simple_spanner_merges <- function(wb, sheet_name, structure, row) {
+  # Track spanner groups
+  groups <- list()
+  
+  for (i in seq_along(structure$columns)) {
+    col_info <- structure$columns[[i]]
+    if (col_info$has_spanner) {
+      group_name <- col_info$group
+      if (!group_name %in% names(groups)) {
+        groups[[group_name]] <- c(i, i)
+      } else {
+        groups[[group_name]][2] <- i
+      }
+    }
+  }
+  
+  # Apply merges safely
+  for (group_name in names(groups)) {
+    range <- groups[[group_name]]
+    if (range[2] > range[1]) {
+      tryCatch({
+        mergeCells(wb, sheet_name, cols = range[1]:range[2], rows = row)
+      }, error = function(e) {
+        cat(sprintf("Note: Spanner merge skipped for '%s'\n", group_name))
+      })
+    }
+  }
 }
 
 #' Create Clean Column Names
