@@ -1,8 +1,8 @@
 df <- data.frame(
-  `Verheiratet_niedriges Einkommen` = c(30, 2),
-  `Verheiratet_hohes Einkommen` = c(30, 4),
-  `Single_niedriges Einkommen` = c(20, 1),
-  `Single_hohes Einkommen` = c(20, 2),
-  Kategorie = c("Alter", "Haushaltsgröße"),
+  `Einkommen (%) > 3000€` = c(15.5, 22.8),
+  `Größe (cm)` = c(170, 165),
+  `Arbeitslosenquote %` = c(5.2, 7.1),
+  `Miete €/Monat` = c(850, 1200),
+  Kategorie = c("Männer", "Frauen"),
   check.names = F
 )
