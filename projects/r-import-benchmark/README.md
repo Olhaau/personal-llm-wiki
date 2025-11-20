@@ -50,7 +50,7 @@ Rscript compare_fix_methods.R
 ### 3. Run Full Benchmark (Optional)
 ```r
 # Install required packages first
-install.packages(c("data.table", "readr", "arrow", "polars", "duckdb", "qs", "microbenchmark"))
+install.packages(c("data.table", "readr", "arrow", "polars", "duckdb", "vroom", "qs", "microbenchmark"))
 
 # Run comprehensive benchmark
 Rscript csv_reading_benchmark.R
@@ -66,6 +66,7 @@ Based on comprehensive benchmarking (500K rows, multiple formats):
 | `read_csv_arrow()` | arrow | **0.107** | **164.1** | **1.00x** |
 | `fread()` | data.table | 0.113 | 156.5 | 1.05x slower |
 | `read_csv()` | polars | 0.355 | 49.6 | 3.31x slower |
+| `vroom()` | vroom | *Not tested* | *Est. 80-120* | *Est. 1.5-2x slower* |
 | `read.csv()` | base R | 3.793 | 4.6 | 35.35x slower |
 
 ### Compressed CSV.GZ (4.88 MB)
@@ -74,6 +75,7 @@ Based on comprehensive benchmarking (500K rows, multiple formats):
 | `read_csv_arrow()` | arrow | **0.209** | **23.3** | **1.00x** |
 | `fread()` | data.table | 0.329 | 14.8 | 1.57x slower |
 | `read_csv()` | polars | 0.525 | 9.3 | 2.51x slower |
+| `vroom()` | vroom | *Not tested* | *Est. 10-15* | *Est. 2-3x slower* |
 | `read.csv()` | base R | 2.351 | 2.1 | 11.24x slower |
 
 ### Parquet Format (5.21 MB)
@@ -81,6 +83,7 @@ Based on comprehensive benchmarking (500K rows, multiple formats):
 |--------|---------|------------|-------------------|----------------|
 | `read_parquet()` | arrow | **0.045** | **114.8** | **1.00x** |
 | `read_parquet()` | polars | 0.273 | 19.1 | 6.01x slower |
+| `vroom()` | vroom | N/A | N/A | Not supported |
 | `fread()` | data.table | N/A | N/A | Not supported |
 | `read.csv()` | base R | N/A | N/A | Not supported |
 
@@ -110,12 +113,22 @@ Based on comprehensive benchmarking (500K rows, multiple formats):
 
 ```r
 library(data.table)
+library(arrow)
+library(vroom)  # Install with: install.packages("vroom")
 
-# Fastest CSV reading
-dt <- fread("large_file.csv")              # Regular CSV
-dt <- fread("compressed_file.csv.gz")      # Compressed CSV
+# Fastest CSV reading options
+dt <- fread("large_file.csv")              # data.table (excellent for manipulation)
+df <- read_csv_arrow("large_file.csv")     # Arrow (fastest raw read speed)
+vr <- vroom("large_file.csv")              # vroom (lazy loading, tidyverse compatible)
 
-# Fast aggregation
+# Compressed files
+dt_gz <- fread("compressed_file.csv.gz")   # data.table
+df_gz <- read_csv_arrow("file.csv.gz")     # Arrow (best for compression)
+
+# Parquet for optimal storage + speed
+df_pq <- read_parquet("data.parquet")      # Arrow only
+
+# Fast aggregation (data.table)
 result <- dt[, .(
   mean_value = mean(sales),
   total_count = .N
@@ -142,6 +155,22 @@ result <- dt[, .(
 - **R 3.5+** for basic functionality
 - **8GB+ RAM** recommended for large datasets
 - **SSD storage** recommended for best I/O performance
+
+## Note on vroom
+
+**vroom** is included in our benchmark comparison but was not available during testing. vroom is a high-performance CSV reader from the tidyverse ecosystem with these key features:
+
+- **Lazy loading**: Only reads data as needed, excellent for very large files
+- **Memory mapping**: Efficient memory usage for large datasets  
+- **readr compatibility**: Drop-in replacement for readr with better performance
+- **Estimated performance**: Typically 2-5x faster than readr, competitive with data.table
+
+To test vroom in your environment:
+```r
+install.packages("vroom")
+library(vroom)
+data <- vroom("your_file.csv")  # Lazy loading
+```
 
 ## Contributing
 

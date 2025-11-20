@@ -1,49 +1,36 @@
-# AGENTS.md - AI Agent Guidelines
+# AGENTS.md - Multi-Language Development & Knowledge Workspace
 
 ## Project Overview
-This is a knowledge curation and AI-assisted development workspace using OpenCode for content creation and project organization.
-
-## Environment Setup
-- Use Bun for package management in `.opencode/` directory
-- Configure AI models via `.env` (Context7, Ollama, LM Studio)
-- OpenCode plugins managed in `.opencode/package.json`
+Knowledge curation and AI-assisted development workspace using OpenCode for content creation, R package development, data analysis projects, and technical documentation.
 
 ## Build/Test Commands
-- **No traditional build process** - content-focused project
-- **Testing**: Manual review of generated content
-- **Validation**: Check links in resources/, verify article structure
-
-## Project Structure Conventions
-- `articles/` - Comprehensive research articles
-- `projects/` - Sub-project directories with their own READMEs
-- `resources/` - Curated links organized by topic
-- `todo.md` - Task tracking and project planning
-
-## Content Guidelines
-- **Articles**: Well-researched, comprehensive, markdown format with footnoted external resources
-- **Article Sources**: Always ground with related, important, current external resources using footnotes
-- **Resource Priority**: Prioritize resources from `./resources/` directory when available
-- **Resources**: Categorized links with descriptions
-- **Documentation**: Clear, concise, actionable
-- **Commit messages**: Descriptive, follow conventional commits
+- **R Projects**: `Rscript test_[component].R` (single test), `Rscript projects/[project]/test_*.R` (project tests)  
+- **Python Scripts**: `python3 .opencode/helpers/get_transcript.py [args]` (direct execution)
+- **Shell Scripts**: `bash .opencode/command/test-*.sh` (validation scripts)
+- **No traditional build** - Direct script execution and content validation
 
 ## Code Style Guidelines
 ### R Scripts
-- **Section separators**: Use `# ----` (4 dashes) to separate major sections
-- **Headers**: Include descriptive comments with author/date for all scripts
-- **Functions**: Use snake_case naming, include parameter documentation
-- **Libraries**: Load with `library()` at script top, use `suppressPackageStartupMessages()` for clean output
+- **Naming**: Use `snake_case` for functions, `UPPER_CASE` for constants
+- **Sections**: Use `# ----` (exactly 4 dashes) for major sections  
+- **Documentation**: Include roxygen2 `#'` comments for exported functions
+- **Pipes**: Use native `|>` pipe (R 4.1+), avoid magrittr `%>%`
+- **Libraries**: Load with `library()` at top, use `suppressPackageStartupMessages()`
+- **Error handling**: Use `stop()` with descriptive messages, validate inputs early
 
-## Security Rules
-- **ALWAYS ASK PERMISSION** before reading, finding, or globbing outside of `~/work`
-- **NEVER ACCESS** `~/work/.archive` for context or during prompts
-- **ALWAYS ASK PERMISSION** before modifying existing files
-- **ALWAYS ASK PERMISSION** before running code, deploying services, or executing scripts
-- **ALWAYS BACKUP** config files before making changes
-- Respect filesystem boundaries and user privacy
+### Python Scripts  
+- **Style**: Follow PEP 8, use docstrings for functions
+- **Imports**: Standard library first, third-party second, local third
+- **Error handling**: Use try/except with specific exceptions, descriptive messages
+- **Functions**: Use `snake_case`, include type hints when beneficial
 
-## AI Integration Standards
-- Leverage OpenCode for content generation and curation
-- Use Context7 MCP for enhanced AI context
-- Maintain `.opencode.json` configuration
-- Document AI-generated content sources when applicable
+### Bash Scripts
+- **Headers**: Include shebang `#!/bin/bash` and description comments
+- **Error handling**: Use `set -e` for strict error handling when appropriate
+- **Variables**: Use `"${VAR}"` for variable expansion to handle spaces
+
+## Content & Documentation Standards
+- **Articles**: Comprehensive markdown with footnoted external resources  
+- **Resources**: Categorized links with descriptions in `resources/` directory
+- **Documentation**: Clear, concise, actionable with code examples
+- **Commit messages**: Follow conventional commits format

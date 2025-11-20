@@ -2,21 +2,37 @@
 
 ## Overview
 
-The `fix_gt_headers()` function addresses accessibility issues in GT tables where header IDs and corresponding data cell header attributes don't match due to spaces being converted to hyphens inconsistently. It also provides functionality to ensure unique table IDs in RMarkdown documents.
+The `fix_gt_headers()` function addresses accessibility issues in GT tables where header IDs and corresponding data cell header attributes don't match. It generates valid HTML IDs from column names containing any characters (spaces, emojis, special characters, unicode symbols) and ensures proper accessibility compliance according to W3C HTML 4.0 specification.
 
 ## Function Signature
 
 ```r
-fix_gt_headers <- function(gt_table, id_suffix = "")
+fix_gt_headers <- function(gt_table, id_suffix = "", preserve_mapping = FALSE)
 ```
 
 ### Parameters
 - `gt_table`: A gt table object to be processed
-- `id_suffix`: Optional string appended to table IDs for uniqueness (defaults to "")
+- `id_suffix`: Optional string appended to table IDs for uniqueness in RMarkdown documents (defaults to "")
+- `preserve_mapping`: Logical, whether to store original→fixed name mapping for debugging (defaults to FALSE)
+
+## Enhanced Features
+
+### Character Mapping
+The function includes a comprehensive character mapping table (`CHARACTER_MAPPING`) that handles:
+- **German umlauts**: ä→ae, ö→oe, ü→ue, ß→ss
+- **Mathematical operators**: >→.gt., >=→.gte., !=→.neq.
+- **Special symbols**: $→.dollar., %→.pct., @→.at.
+- **Quotes and punctuation**: "→.quote., ;→.semi.
+
+### W3C HTML 4.0 Compliance
+All generated IDs follow the W3C HTML 4.0 specification (Section 6.2):
+- Start with a letter ([A-Za-z])
+- Contain only letters, digits ([0-9]), hyphens (-), underscores (_), colons (:), and periods (.)
+- Are unique within the document
 
 ## Detailed Operation Breakdown
 
-### 1. Input Validation (Lines 33-35)
+### 1. Input Validation
 
 ```r
 if (!inherits(gt_table, "gt_tbl")) {
@@ -28,7 +44,7 @@ if (!inherits(gt_table, "gt_tbl")) {
 **Operation**: Uses `inherits()` to check if the object has the "gt_tbl" class
 **Error Handling**: Throws an informative error if validation fails
 
-### 2. Table Copying (Line 38)
+### 2. Table Copying
 
 ```r
 fixed_table <- gt_table
@@ -38,7 +54,7 @@ fixed_table <- gt_table
 **Operation**: Shallow copy of the GT table object
 **Rationale**: Prevents unintended side effects on the original data
 
-### 3. Extract Column Names (Line 41)
+### 3. Extract Column Names
 
 ```r
 original_names <- names(fixed_table$`_data`)
@@ -48,24 +64,52 @@ original_names <- names(fixed_table$`_data`)
 **Operation**: Accesses the `_data` slot of the GT table object
 **Data Structure**: GT tables store actual data in the `_data` component
 
-### 4. Name Transformation (Lines 44-49)
+### 4. Advanced Name Transformation
 
 ```r
-fixed_names <- gsub("\\s+", "-", original_names)
+fixed_names <- sapply(original_names, generate_valid_html_id, USE.NAMES = FALSE)
+fixed_names <- ensure_unique_ids(fixed_names)
+```
 
-if (id_suffix != "") {
-  fixed_names <- paste0(fixed_names, "-", id_suffix)
+**Purpose**: Converts any problematic characters to valid HTML IDs
+**Operation**: 
+- Uses the `generate_valid_html_id()` function for comprehensive character handling
+- Applies character mappings for semantic preservation
+- Handles parentheses, brackets, and unicode characters
+- Ensures all IDs are unique using `ensure_unique_ids()`
+**Accessibility Impact**: Creates W3C compliant IDs that preserve meaning
+
+### 5. ID Suffix Application
+
+```r
+if (id_suffix != "" && !is.na(id_suffix)) {
+  clean_suffix <- generate_valid_html_id(id_suffix)
+  fixed_names <- paste0(fixed_names, "_", clean_suffix)
 }
 ```
 
-**Purpose**: Converts spaces to hyphens and optionally adds unique suffixes
-**Operation**: 
-- Uses regex `\\s+` to match one or more whitespace characters
-- Replaces with hyphens for HTML ID compatibility
-- Appends suffix with hyphen separator if provided
-**Accessibility Impact**: Ensures consistent ID naming across HTML elements
+**Purpose**: Adds unique suffixes for multi-table documents
+**Operation**: Cleans the suffix and appends with underscore separator
+**Use Case**: Prevents ID conflicts in RMarkdown documents with multiple tables
 
-### 5. Change Detection and Application (Line 52)
+### 6. Mapping Preservation
+
+```r
+if (preserve_mapping) {
+  name_mapping <- data.frame(
+    original = original_names,
+    fixed = fixed_names,
+    stringsAsFactors = FALSE
+  )
+  attr(fixed_table, "name_mapping") <- name_mapping
+}
+```
+
+**Purpose**: Stores the transformation mapping for debugging
+**Operation**: Creates a data frame with original→fixed mappings and stores as attribute
+**Access**: Use `get_name_mapping(table)` to retrieve mappings
+
+### 7. Change Detection and Application
 
 ```r
 if (any(original_names != fixed_names)) {
@@ -75,7 +119,7 @@ if (any(original_names != fixed_names)) {
 **Operation**: Compares original and fixed name vectors
 **Efficiency**: Avoids unnecessary processing when no changes are needed
 
-### 6. Data Column Renaming (Line 54)
+### 8. Data Column Renaming
 
 ```r
 names(fixed_table$`_data`) <- fixed_names
@@ -85,7 +129,7 @@ names(fixed_table$`_data`) <- fixed_names
 **Operation**: Direct assignment to the names attribute
 **Impact**: Changes the underlying data structure column identifiers
 
-### 7. Boxhead Metadata Update (Lines 57-62)
+### 9. Boxhead Metadata Update
 
 ```r
 if (!is.null(fixed_table$`_boxhead`)) {
@@ -102,7 +146,7 @@ if (!is.null(fixed_table$`_boxhead`)) {
 - Updates only valid matches (non-NA indices)
 **GT Structure**: Boxhead contains column display information and formatting rules
 
-### 8. Spanner Information Update (Lines 65-75)
+### 10. Spanner Information Update
 
 ```r
 if (!is.null(fixed_table$`_spanners`) && nrow(fixed_table$`_spanners`) > 0) {
@@ -124,7 +168,7 @@ if (!is.null(fixed_table$`_spanners`) && nrow(fixed_table$`_spanners`) > 0) {
 - Maintains spanner grouping while fixing column name references
 **GT Feature**: Spanners create grouped column headers in tables
 
-### 9. Formatting Rules Update (Lines 78-88)
+### 11. Formatting Rules Update
 
 ```r
 if (!is.null(fixed_table$`_formats`) && length(fixed_table$`_formats`) > 0) {
@@ -147,7 +191,7 @@ if (!is.null(fixed_table$`_formats`) && length(fixed_table$`_formats`) > 0) {
 - Preserves formatting while fixing column identifiers
 **GT Feature**: Maintains custom number formatting, date formatting, etc.
 
-### 10. Styles Update (Lines 91-101)
+### 12. Styles Update
 
 ```r
 if (!is.null(fixed_table$`_styles`) && nrow(fixed_table$`_styles`) > 0) {
@@ -170,7 +214,7 @@ if (!is.null(fixed_table$`_styles`) && nrow(fixed_table$`_styles`) > 0) {
 - Maintains visual formatting while fixing accessibility
 **GT Feature**: Preserves custom cell styling and conditional formatting
 
-### 11. Footnotes Update (Lines 104-114)
+### 13. Footnotes Update
 
 ```r
 if (!is.null(fixed_table$`_footnotes`) && nrow(fixed_table$`_footnotes`) > 0) {
@@ -193,7 +237,7 @@ if (!is.null(fixed_table$`_footnotes`) && nrow(fixed_table$`_footnotes`) > 0) {
 - Maintains documentation while fixing identifiers
 **GT Feature**: Preserves table footnotes and their column associations
 
-### 12. Return Modified Table (Line 118)
+### 14. Return Modified Table
 
 ```r
 fixed_table

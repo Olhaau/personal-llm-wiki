@@ -70,6 +70,67 @@
 
 library(gt)
 
+# ---- Character Mapping Table ----
+
+#' Character mapping table for converting problematic characters to HTML-safe alternatives
+#' 
+#' This table defines replacements for characters that are invalid in HTML IDs
+#' according to the W3C HTML 4.0 specification (Section 6.2). Per the W3C HTML 4.0
+#' conventions, ID and NAME tokens must begin with a letter ([A-Za-z]) and may be
+#' followed by any number of letters, digits ([0-9]), hyphens ("-"), underscores ("_"),
+#' colons (":"), and periods ("."). The mapping preserves semantic meaning where possible
+#' while ensuring compliance with these W3C HTML 4.0 naming conventions.
+#' 
+#' @format A named character vector where names are the problematic characters
+#' and values are their HTML-safe replacements compliant with W3C HTML 4.0 conventions
+CHARACTER_MAPPING <- c(
+  # German umlauts and special characters
+  "ä" = "ae",
+  "ö" = "oe", 
+  "ü" = "ue",
+  "Ä" = "Ae",
+  "Ö" = "Oe",
+  "Ü" = "Ue",
+  "ß" = "ss",
+  
+  # Common symbols
+  "°" = ".deg.",
+  "™" = ".tm.",
+  "®" = ".reg.",
+  "©" = ".copy.",
+  
+  # Mathematical and comparison operators  
+  ">=" = ".gte.",
+  "<=" = ".lte.",
+  "!=" = ".neq.",
+  "==" = ".eq.",
+  ">" = ".gt.",
+  "<" = ".lt.",
+  "=" = ".equals.",
+  
+  # Logical and common operators
+  "&" = ".and.",
+  "|" = ".or.",
+  "+" = ".plus.",
+  "/" = ".div.",
+  "*" = ".mult.",
+  
+  # Special symbols with semantic meaning
+  "$" = ".dollar.",
+  "%" = ".pct.",
+  "@" = ".at.",
+  "#" = ".num.",
+  "?" = ".q.",
+  "!" = ".excl.",
+  
+  # Quotes and punctuation
+  "\"" = ".quote.",
+  "'" = ".quote.",
+  "`" = ".quote.",
+  ";" = ".semi.",
+  "\\" = ".backslash."
+)
+
 #' Generate Valid HTML ID from Any String Following W3C HTML 4.0 Specification
 #'
 #' @param name Character string to convert to valid HTML ID
@@ -94,55 +155,35 @@ generate_valid_html_id <- function(name) {
   # Start with the original name
   id <- name
   
-  # Step 1: Handle German umlauts and common symbols first
-  # Convert German characters to standard ASCII equivalents
-  id <- gsub("ä", "ae", id)                         # German a-umlaut
-  id <- gsub("ö", "oe", id)                         # German o-umlaut  
-  id <- gsub("ü", "ue", id)                         # German u-umlaut
-  id <- gsub("Ä", "Ae", id)                         # German A-umlaut
-  id <- gsub("Ö", "Oe", id)                         # German O-umlaut
-  id <- gsub("Ü", "Ue", id)                         # German U-umlaut
-  id <- gsub("ß", "ss", id)                         # German eszett (sharp s)
+  # Step 1: Apply character mappings from the mapping table
+  # Process all mappings using fixed string replacement
+  # Sort by length descending to handle longer patterns first
+  mapping_order <- order(nchar(names(CHARACTER_MAPPING)), decreasing = TRUE)
   
-  # Common symbols used in German contexts
-  id <- gsub("°", ".deg.", id)                      # Degree symbol (°C, °F)
-  id <- gsub("™", ".tm.", id)                       # Trademark
-  id <- gsub("®", ".reg.", id)                      # Registered
-  id <- gsub("©", ".copy.", id)                     # Copyright
+  for (i in mapping_order) {
+    char <- names(CHARACTER_MAPPING)[i]
+    replacement <- CHARACTER_MAPPING[[i]]
+    
+    # Simple fixed replacement - exact match
+    id <- gsub(char, replacement, id, fixed = TRUE)
+    
+    # For operators, also handle common whitespace variations
+    if (char %in% c(">", "<", "=", "&", "|", "+", "/", "*", ">=", "<=", "!=", "==")) {
+      # Handle with spaces around
+      id <- gsub(paste0(" ", char, " "), replacement, id, fixed = TRUE)
+      id <- gsub(paste0(" ", char), replacement, id, fixed = TRUE)  
+      id <- gsub(paste0(char, " "), replacement, id, fixed = TRUE)
+      # Handle with tabs
+      id <- gsub(paste0("\t", char, "\t"), replacement, id, fixed = TRUE)
+      id <- gsub(paste0("\t", char), replacement, id, fixed = TRUE)
+      id <- gsub(paste0(char, "\t"), replacement, id, fixed = TRUE)
+    }
+  }
   
-  # Step 2: Handle mathematical and comparison operators
-  id <- gsub("\\s*>=\\s*", ".gte.", id)             # Greater or equal  
-  id <- gsub("\\s*<=\\s*", ".lte.", id)             # Less or equal
-  id <- gsub("\\s*!=\\s*", ".neq.", id)             # Not equal
-  id <- gsub("\\s*==\\s*", ".eq.", id)              # Equal comparison
-  id <- gsub("\\s*>\\s*", ".gt.", id)               # Greater than
-  id <- gsub("\\s*<\\s*", ".lt.", id)               # Less than
-  id <- gsub("\\s*=\\s*", ".equals.", id)           # Assignment/equal
-  
-  # Logical and common operators
-  id <- gsub("\\s*&\\s*", ".and.", id)              # Ampersand
-  id <- gsub("\\s*\\|\\s*", ".or.", id)             # Pipe/or
-  id <- gsub("\\s*\\+\\s*", ".plus.", id)           # Plus
-  id <- gsub("\\s*/\\s*", ".div.", id)              # Division
-  id <- gsub("\\s*\\*\\s*", ".mult.", id)           # Multiply
-  
-  # Special symbols with semantic meaning
-  id <- gsub("\\$", ".dollar.", id)                 # Dollar sign
-  id <- gsub("%", ".pct.", id)                      # Percent
-  id <- gsub("@", ".at.", id)                       # At symbol  
-  id <- gsub("#", ".num.", id)                      # Hash/number/pound
-  id <- gsub("\\?", ".q.", id)                      # Question mark
-  id <- gsub("!", ".excl.", id)                     # Exclamation
-  
-  # Handle parentheses and brackets (extract content, use periods)
+  # Step 2: Handle parentheses and brackets (extract content, use periods)
   id <- gsub("\\(([^)]*?)\\)", ".\\1.", id)         # (content) -> .content.
   id <- gsub("\\[([^]]*?)\\]", ".\\1.", id)         # [content] -> .content.  
   id <- gsub("\\{([^}]*?)\\}", ".\\1.", id)         # {content} -> .content.
-  
-  # Handle quotes and punctuation
-  id <- gsub("[\"'`]", ".quote.", id)               # Various quotes
-  id <- gsub(";", ".semi.", id)                     # Semicolon
-  id <- gsub("\\\\", ".backslash.", id)             # Backslash
   
   # Step 3: Handle any remaining non-ASCII characters
   # Try transliteration for any remaining accented characters
@@ -415,13 +456,13 @@ validate_html_ids <- function(ids) {
 #' @param gt_table A gt table object
 #' @param filename File path to save the HTML
 #' @param ... Additional arguments passed to writeLines
-# save_html <- function(gt_table, filename, ...) {
-#   if (inherits(gt_table, "gt_tbl")) {
-#     # Convert gt table to HTML
-#     html_output <- as_raw_html(gt_table, inline_css = FALSE)
-#     writeLines(html_output, filename, ...)
-#   } else {
-#     stop("Input must be a gt table object")
-#   }
-# }
+save_html <- function(gt_table, filename, ...) {
+  if (inherits(gt_table, "gt_tbl")) {
+    # Convert gt table to HTML
+    html_output <- as_raw_html(gt_table, inline_css = FALSE)
+    writeLines(html_output, filename, ...)
+  } else {
+    stop("Input must be a gt table object")
+  }
+}
 
