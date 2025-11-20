@@ -177,8 +177,8 @@ create_gt_style_worksheet <- function(wb, data, structure, title, subtitle = NUL
   mergeCells(wb, sheet_name, cols = 1:structure$num_cols, rows = current_row)
   addStyle(wb, sheet_name, styles$title, rows = current_row, cols = 1:structure$num_cols)
   
-  # Add title as comment for screen readers
-  title_comment <- createComment(comment = paste("Table title:", title))
+  # Add title as comment for screen readers (keep comments short for Excel compatibility)
+  title_comment <- createComment(comment = paste("Title:", substr(title, 1, 50)))
   writeComment(wb, sheet_name, col = 1, row = current_row, comment = title_comment)
   
   current_row <- current_row + 1
@@ -306,8 +306,8 @@ create_spanner_headers <- function(wb, sheet_name, structure, styles, current_ro
         spanner_row[i] <- group_name
         spanner_groups[[group_name]] <- c(i, i)
         
-        # Add accessible description as comment
-        group_comment <- createComment(comment = paste("Column group:", group_name, "- Contains related data fields"))
+        # Add accessible description as comment (keep short)
+        group_comment <- createComment(comment = paste("Group:", group_name))
         writeComment(wb, sheet_name, col = i, row = current_row, comment = group_comment)
       } else {
         spanner_row[i] <- ""
@@ -337,13 +337,13 @@ create_spanner_headers <- function(wb, sheet_name, structure, styles, current_ro
   writeData(wb, sheet_name, t(sub_headers), startRow = current_row, startCol = 1, colNames = FALSE)
   addStyle(wb, sheet_name, styles$header, rows = current_row, cols = 1:structure$num_cols)
   
-  # Add accessibility comments for each header
+  # Add accessibility comments for each header (simplified for Excel compatibility)
   for (i in seq_along(structure$columns)) {
     col_info <- structure$columns[[i]]
     comment_text <- if (col_info$has_spanner) {
-      paste("Column:", col_info$accessible_name, "- Part of", col_info$group, "group")
+      paste(col_info$group, "-", substr(col_info$sub_column, 1, 30))
     } else {
-      paste("Column:", col_info$accessible_name)
+      substr(col_info$accessible_name, 1, 40)
     }
     header_comment <- createComment(comment = comment_text)
     writeComment(wb, sheet_name, col = i, row = current_row, comment = header_comment)
@@ -360,9 +360,9 @@ create_simple_headers <- function(wb, sheet_name, structure, styles, current_row
   writeData(wb, sheet_name, t(headers), startRow = current_row, startCol = 1, colNames = FALSE)
   addStyle(wb, sheet_name, styles$header, rows = current_row, cols = 1:structure$num_cols)
   
-  # Add accessibility comments
+  # Add accessibility comments (simplified)
   for (i in seq_along(headers)) {
-    header_comment <- createComment(comment = paste("Column header:", headers[i]))
+    header_comment <- createComment(comment = substr(headers[i], 1, 40))
     writeComment(wb, sheet_name, col = i, row = current_row, comment = header_comment)
   }
   
