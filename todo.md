@@ -2,6 +2,7 @@
 
 ## Open
 
+- [ ] structure the articles and knowledge as knowledge graph
 - [ ] different areas: work: sharepoint, archive, active
 - [ ] more agents 
 - Test scraping
