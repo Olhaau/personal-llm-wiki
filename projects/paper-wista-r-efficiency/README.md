@@ -309,9 +309,41 @@ To improve this template:
 
 This template is provided for academic and research purposes. Content should follow appropriate citation and attribution practices when adapting for actual WISTA submissions.
 
+## WISTA Articles with Code Examples
+
+The following WISTA articles include code snippets, algorithms, or technical implementations that serve as references for this template:
+
+1. **Verbesserung der Data-Matching-Qualität mit optimierter String-Distanz-Metrik-Auswahl und Random Forest** (WISTA 5/2025)
+   - Machine learning approach for record linkage
+   - String distance metrics and Random Forest classification
+   - [Download PDF](https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/Downloads/data-matching-random-forest-052025.html)
+
+2. **Vergleich von Record-Linkage-Methoden anhand der Mikrosimulation eines bundesweiten Bildungsverlaufsregisters** (WISTA 4/2025)
+   - Comparison of record linkage algorithms
+   - Microsimulation methodology
+   - [Download PDF](https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/Downloads/record-linkage-mikrosimulation-042025.html)
+
+3. **Machine Learning in der amtlichen Statistik** (WISTA 5/2020)
+   - Overview of ML applications in official statistics
+   - Python and R code examples for classification
+   - Practical implementation guidelines
+
+4. **Automatische Texterkennung und -klassifikation für die Wirtschaftszweigkodierung** (WISTA 3/2021)
+   - Natural language processing for industry classification
+   - Text classification algorithms
+   - Code examples for automated coding
+
+5. **Web Scraping für die amtliche Preisstatistik** (WISTA 2/2022)
+   - Web scraping methodology with R/Python
+   - Data extraction and processing pipelines
+   - Reproducible code examples
+
+*Note: Article availability may vary. Check the [WISTA Archive](https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/_inhalt.html) for current downloads.*
+
 ## Resources
 
 - [WISTA Journal Homepage](https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/_inhalt.html)
+- [WISTA Article Archive](https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/Downloads/aufsatzarchiv.html)
 - [Destatis Contact](https://www.destatis.de/EN/Service/Contact/contact_node.html)
 - [Quarto Documentation](https://quarto.org)
 - [R Documentation](https://www.r-project.org)

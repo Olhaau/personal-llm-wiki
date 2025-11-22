@@ -9,14 +9,12 @@ project:
 title: "Effizienzanalyse statistischer Verfahren in der amtlichen Statistik"
 subtitle: "Eine empirische Untersuchung am Beispiel der Datenverarbeitung"
 author: 
-  - name: "Max Mustermann"
+  - name: "Oliver Hauke"
     affiliations:
       - name: "Statistisches Bundesamt"
-        department: "Abteilung für methodische Grundsatzfragen"
-  - name: "Dr. Anna Schmidt"
+  - name: "Annette Kristiansen"
     affiliations:
-      - name: "Universität München"
-        department: "Institut für Statistik"
+      - name: "Statistisches Bundesamt"
 date: today
 
 bibliography: references.bib
@@ -112,7 +110,7 @@ format:
         % Header and footer setup with blue line under header
         \pagestyle{fancy}
         \fancyhf{}
-        \fancyhead[L]{\small\textit{Max Mustermann, Dr. Anna Schmidt}}
+        \fancyhead[L]{\small\textit{Oliver Hauke, Annette Kristiansen}}
         \fancyhead[R]{\small\textit{Effizienzanalyse statistischer Verfahren}}
         \fancyfoot[L]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
         \fancyfoot[R]{\small\thepage}
