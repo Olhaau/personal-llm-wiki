@@ -24,7 +24,7 @@ Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik fü
 
 Die technische Infrastruktur des FDZ-Bund umfasst verschiedene Systemkomponenten:
 
-::: {.fullwidth}
+
 ```{r}
 #| label: tbl-fdz-infrastructure
 #| tbl-cap: "Technische Ausstattung des FDZ-Bund (beispielhafte Konfiguration)"
@@ -45,10 +45,8 @@ knitr::kable(infra_data,
       format = "latex",
       align = c("l", "l", "c"),
       booktabs = TRUE,
-      col.names = c("Komponente", "Spezifikation", "Anzahl")) %>%
-  kableExtra::kable_styling(latex_options = c("scale_down"))
+      col.names = c("Komponente", "Spezifikation", "Anzahl"))
 ```
-:::
 
 ### Software-Umgebung
 
@@ -127,7 +125,7 @@ Die Arbeit in der geschützten FDZ-Umgebung stellt besondere Anforderungen:
 
 Verschiedene Strategien helfen, die Performanz zu optimieren:
 
-::: {.fullwidth}
+
 ```{r}
 #| label: fig-optimization-strategies
 #| fig-cap: "Strategien zur Performanz-Optimierung im FDZ-Bund"
@@ -170,7 +168,6 @@ ggplot(strategies, aes(x = Aufwand, y = Nutzen, color = Kategorie, size = 3)) +
   ) +
   guides(size = "none")
 ```
-:::
 
 ## Akkreditierung und Qualitätssicherung
 

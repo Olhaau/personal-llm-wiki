@@ -17,7 +17,7 @@ Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
 
 ### Ladezeiten und Speicherverbrauch
 
-::: {.fullwidth}
+
 ```{r}
 #| label: fig-format-performance
 #| fig-cap: "Ladezeiten verschiedener Datenformate (BTP-Datensatz, 5 Mio. Zeilen, 50 Variablen)"
@@ -57,11 +57,10 @@ ggplot(format_perf, aes(x = reorder(Format, -Wert), y = Wert, fill = Format)) +
     strip.text = element_text(size = 11, face = "bold")
   )
 ```
-:::
 
 ### Aggregations-Performance
 
-::: {.fullwidth}
+
 ```{r}
 #| label: tbl-aggregation-performance
 #| tbl-cap: "Ausführungszeiten für Szenario A: Einfache Aggregation (in Sekunden)"
@@ -86,17 +85,14 @@ knitr::kable(agg_perf,
       format = "latex",
       align = c("l", "r", "r", "r", "r"),
       digits = 1,
-      booktabs = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("scale_down")) %>%
-  kableExtra::add_header_above(c(" " = 1, "Ausführungszeit (s)" = 3, " " = 1))
+      booktabs = TRUE)
 ```
-:::
 
 ## Skalierungsverhalten
 
 ### Performance bei wachsender Datenmenge
 
-::: {.fullwidth}
+
 ```{r}
 #| label: fig-scaling-behavior
 #| fig-cap: "Skalierungsverhalten verschiedener Ansätze (Szenario B: Komplexe Aggregation)"
@@ -142,7 +138,6 @@ ggplot(scaling_data, aes(x = Datensatzgröße, y = Zeit_Sekunden, color = Ansatz
     legend.position = "bottom"
   )
 ```
-:::
 
 ## Join-Performance
 
@@ -150,7 +145,7 @@ ggplot(scaling_data, aes(x = Datensatzgröße, y = Zeit_Sekunden, color = Ansatz
 
 Die Verknüpfung großer Datensätze ist eine häufige Operation bei der Arbeit mit dem BTP:
 
-::: {.fullwidth}
+
 ```{r}
 #| label: fig-join-performance
 #| fig-cap: "Join-Performance bei verschiedenen Datensatzgrößen (Inner Join zweier Tabellen)"
@@ -191,13 +186,12 @@ ggplot(join_perf, aes(x = Größe, y = Zeit, fill = Tool)) +
     legend.position = "bottom"
   )
 ```
-:::
 
 ## Parallelisierungs-Effizienz
 
 ### Speedup durch Multi-Threading
 
-::: {.fullwidth}
+
 ```{r}
 #| label: tbl-parallel-speedup
 #| tbl-cap: "Speedup durch Parallelisierung (Szenario D: Filterkette, 10 Mio. Zeilen)"
@@ -217,11 +211,8 @@ knitr::kable(parallel_speedup,
       format = "latex",
       align = c("c", "r", "r", "r", "r"),
       digits = 1,
-      booktabs = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("scale_down")) %>%
-  kableExtra::add_header_above(c(" " = 1, "Ausführungszeit" = 2, "Speedup vs. 1 Core" = 2))
+      booktabs = TRUE)
 ```
-:::
 
 ## Speichereffizienz
 
@@ -229,7 +220,7 @@ knitr::kable(parallel_speedup,
 
 Ein kritischer Faktor in der FDZ-Umgebung ist der Speicherverbrauch:
 
-::: {.fullwidth}
+
 ```{r}
 #| label: fig-memory-efficiency
 #| fig-cap: "Peak Memory Usage verschiedener Ansätze (5 Mio. Zeilen)"
@@ -269,7 +260,6 @@ ggplot(memory_data, aes(x = Szenario, y = Memory_GB, fill = Ansatz)) +
     axis.text.x = element_text(angle = 0)
   )
 ```
-:::
 
 ## Praktische Implikationen
 
@@ -277,7 +267,7 @@ ggplot(memory_data, aes(x = Szenario, y = Memory_GB, fill = Ansatz)) +
 
 Basierend auf den Performanzmessungen lassen sich folgende Empfehlungen ableiten:
 
-::: {.fullwidth}
+
 ```{r}
 #| label: tbl-recommendations
 #| tbl-cap: "Empfohlene Werkzeuge nach Anwendungsfall"
@@ -305,12 +295,8 @@ colnames(recommendations) <- c("Anwendungsfall", "1. Wahl", "2. Wahl", "Begründ
 knitr::kable(recommendations, 
       format = "latex",
       align = c("l", "l", "l", "l"),
-      booktabs = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("scale_down")) %>%
-  kableExtra::column_spec(1, width = "5cm") %>%
-  kableExtra::column_spec(4, width = "6cm")
+      booktabs = TRUE)
 ```
-:::
 
 ## Zusammenfassung der Erkenntnisse
 
@@ -327,5 +313,3 @@ Die empirischen Messungen zeigen deutlich:
 5. **Speicher ist der Engpass:** Moderne Ansätze benötigen 3-7x weniger RAM als Base R
 
 Diese Ergebnisse zeigen, dass durch den Einsatz moderner Auswertungsmethoden die Effizienz der Datenanalyse in Forschungsdatenzentren erheblich gesteigert werden kann.
-
-\endmaintext

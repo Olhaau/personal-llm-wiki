@@ -62,7 +62,7 @@ Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit Arrow zusamm
 
 ### Vergleich zu Alternativen
 
-::: {.fullwidth}
+
 ```{r}
 #| label: tbl-format-comparison
 #| tbl-cap: "Vergleich verschiedener Datenformate für die BTP-Analyse"
@@ -80,10 +80,8 @@ format_comp <- data.frame(
 knitr::kable(format_comp, 
       format = "latex",
       align = c("l", "r", "l", "l", "c", "l"),
-      booktabs = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("scale_down"))
+      booktabs = TRUE)
 ```
-:::
 
 ### Empfehlung für FDZ
 

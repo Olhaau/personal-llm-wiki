@@ -1,5 +1,3 @@
-\startmaintext
-
 # Einleitung {.unnumbered}
 
 ## Zusammenfassung {.unnumbered}
@@ -34,6 +32,6 @@ Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
 
 ## Aufbau der Arbeit
 
-Die Arbeit gliedert sich in zwei Hauptteile. Im ersten Teil (@sec-methodology) werden die methodischen Grundlagen der Effizienzanalyse dargestellt und das verwendete Bewertungsframework entwickelt. Der zweite Teil (@sec-results) präsentiert die empirischen Ergebnisse der Verfahrensvergleiche und diskutiert deren Implikationen für die Praxis der amtlichen Statistik.
+Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums. In @sec-methoden werden verschiedene Auswertungsmethoden vorgestellt. @sec-performance präsentiert die empirischen Performanzergebnisse. Die Arbeit schließt mit einem Ausblick in @sec-ausblick.
 
 Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.

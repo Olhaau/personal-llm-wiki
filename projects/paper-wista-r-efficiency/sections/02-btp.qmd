@@ -20,7 +20,7 @@ Im BTP werden folgende Datensätze zusammengeführt:
 
 Das BTP umfasst einen außergewöhnlich umfangreichen Datensatz mit beeindruckenden Dimensionen:
 
-::: {.fullwidth}
+
 ```{r}
 #| label: tbl-btp-overview
 #| tbl-cap: "Übersicht über die Dimensionen des Business-Tax-Panel"
@@ -39,7 +39,6 @@ knitr::kable(btp_stats,
       booktabs = TRUE,
       col.names = c("Merkmal", "Wert"))
 ```
-:::
 
 ### Hauptmerkmale des Datensatzes
 
