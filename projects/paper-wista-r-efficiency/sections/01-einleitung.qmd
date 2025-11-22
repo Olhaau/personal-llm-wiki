@@ -1,0 +1,27 @@
+# Einleitung {#sec-einleitung}
+
+## Motivation und Zielsetzung
+
+Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
+
+In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion amtlicher Statistiken erheblich verändert. Die Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren Datenquellen geführt, sondern auch neue Möglichkeiten für die statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
+
+Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist es daher, die Effizienz verschiedener statistischer Verfahren systematisch zu bewerten und Handlungsempfehlungen für die Praxis abzuleiten.
+
+## Forschungsfragen
+
+Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
+
+1. **Methodische Effizienz:** Wie unterscheiden sich verschiedene statistische Verfahren hinsichtlich ihrer Rechenzeit und Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+
+2. **Skalierbarkeit:** Welche Verfahren zeigen die beste Performance bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
+
+3. **Praktische Anwendbarkeit:** Welche Infrastrukturanforderungen stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
+
+## Aufbau der Arbeit
+
+Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt, der als empirisches Beispiel für die Analysen dient. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen durchgeführt werden. 
+
+In @sec-methoden werden verschiedene effiziente Auswertungsmethoden vorgestellt und deren theoretische Grundlagen erläutert. @sec-performance präsentiert die empirischen Performanzergebnisse der verschiedenen Ansätze. Die Arbeit schließt mit einem Ausblick auf zukünftige Entwicklungen in @sec-ausblick.
+
+Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.

@@ -12,7 +12,7 @@ suppressPackageStartupMessages({
 
 # Source required functions
 source("fix_gt_headers.R")
-source("create_openxlsx_accessible.R")
+source("create_simple_accessible_excel.R")
 
 cat("=== Creating Accessible Excel from GT Table ===\n\n")
 
@@ -50,23 +50,12 @@ cat("✓ Loaded Mikrozensus data with", nrow(df), "rows and", ncol(df), "columns
 
 cat("Creating accessible Excel file with GT-style formatting...\n")
 
-create_openxlsx_accessible_table(
+create_simple_accessible_excel(
   data = df,
   filename = "demo_mikrozensus_accessible_fixed.xlsx",
   title = "Mikrozensus Deutschland 2023 - Accessible Version",
   subtitle = "WCAG-compliant Excel table with GT formatting and structure",
-  description = paste(
-    "German micro census statistical data with comprehensive accessibility features.",
-    "Data includes demographics, employment, housing, social factors, health, and family information.",
-    "Column headers contain special characters, German umlauts, and symbols properly handled.",
-    "Optimized for screen readers (NVDA, JAWS) and assistive technologies.",
-    "Meets WCAG 2.1 Level AA accessibility standards.",
-    "Multiple worksheets provide different access methods for various user needs."
-  ),
-  spanner_delimiter = "_",
-  author = "R Accessible Tables Project - German Federal Statistical Office Demo",
-  include_summary = TRUE,
-  high_contrast = FALSE
+  spanner_delimiter = "_"
 )
 
 cat("\n")

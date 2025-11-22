@@ -1,0 +1,232 @@
+# Effiziente Auswertungsmethoden {#sec-methoden}
+
+## Motivation
+
+Die Analyse großer Datensätze wie des BTP (>66 Millionen Einheiten, >2.700 Variablen) in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile.
+
+## Apache Arrow: Spaltenorientiertes In-Memory-Format
+
+### Grundprinzip
+
+Apache Arrow ist ein sprach- und plattformübergreifendes In-Memory-Format für spaltenorientierte Datenverarbeitung. Im Gegensatz zu zeilenorientierten Formaten werden Daten spaltenweise organisiert, was erhebliche Vorteile bietet:
+
+- **Effiziente Kompression:** Ähnliche Werte in einer Spalte lassen sich besser komprimieren
+- **Schnellere Aggregationen:** Nur benötigte Spalten müssen gelesen werden (Columnar Scanning)
+- **Zero-Copy:** Daten können ohne Kopieren zwischen Prozessen und Sprachen ausgetauscht werden
+- **SIMD-Optimierung:** Moderne CPU-Instruktionen können effizient genutzt werden
+
+### Anwendung in R
+
+Das `arrow`-Paket in R bietet vollständige Integration:
+
+```r
+library(arrow)
+
+# Lesen eines Parquet-Datasets mit Filterung
+dataset <- open_dataset("btp_data.parquet")
+
+result <- dataset |>
+  filter(year >= 2015, sector == "Manufacturing") |>
+  select(company_id, year, revenue, employees) |>
+  group_by(year) |>
+  summarise(
+    total_revenue = sum(revenue),
+    mean_employees = mean(employees)
+  ) |>
+  collect()  # Erst hier wird die Berechnung ausgeführt
+```
+
+### Vorteile für FDZ-Analysen
+
+- **Out-of-Core Processing:** Datensätze müssen nicht vollständig in den RAM passen
+- **Lazy Evaluation:** Operationen werden optimiert, bevor sie ausgeführt werden
+- **Predicate Pushdown:** Filter werden direkt beim Lesen angewendet
+- **Partitionierung:** Datensätze können nach Kriterien (z.B. Jahr) partitioniert werden
+
+### Limitationen
+
+- **Lernkurve:** Neue Syntax für Nutzer mit Base-R-Erfahrung
+- **Noch in Entwicklung:** Nicht alle R-Funktionen werden unterstützt
+- **Setup-Aufwand:** Daten müssen einmalig ins Parquet-Format konvertiert werden
+
+## Parquet: Persistentes spaltenorientiertes Format
+
+### Eigenschaften
+
+Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit Arrow zusammenarbeitet:
+
+- **Kompression:** Typischerweise 5-10x kleinere Dateien als CSV
+- **Metadaten:** Enthält Schema-Informationen und Statistiken
+- **Partitionierung:** Ermöglicht selektives Lesen nach Partitionskeys
+- **Kompatibilität:** Von vielen Tools unterstützt (R, Python, Spark, DuckDB)
+
+### Vergleich zu Alternativen
+
+::: {.fullwidth}
+```{r}
+#| label: tbl-format-comparison
+#| tbl-cap: "Vergleich verschiedener Datenformate für die BTP-Analyse"
+#| echo: false
+
+format_comp <- data.frame(
+  Format = c("CSV", "RDS (R)", "Feather", "Parquet", "Parquet (partitioniert)"),
+  Größe = c("100%", "45%", "95%", "15%", "15%"),
+  Ladezeit = c("Sehr langsam", "Mittel", "Sehr schnell", "Schnell", "Sehr schnell (selektiv)"),
+  Kompression = c("Keine", "Gzip", "LZ4/ZSTD", "Snappy/GZIP", "Snappy/GZIP"),
+  Partitionierung = c("Nein", "Nein", "Nein", "Möglich", "Ja"),
+  Kompatibilität = c("Universal", "Nur R", "Arrow-Ökosystem", "Sehr hoch", "Sehr hoch")
+)
+
+knitr::kable(format_comp, 
+      format = "latex",
+      align = c("l", "r", "l", "l", "c", "l"),
+      booktabs = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down"))
+```
+:::
+
+### Empfehlung für FDZ
+
+**Parquet ist das empfohlene Format für große Datensätze im FDZ** wegen:
+
+1. Drastischer Reduktion der Dateigröße (wichtig bei begrenztem Speicherplatz)
+2. Deutlich schnelleren Ladezeiten
+3. Möglichkeit der selektiven Filterung ohne vollständiges Laden
+4. Kompatibilität mit verschiedenen Analysewerkzeugen
+
+## DuckDB: Analytical Database System
+
+### Konzept
+
+DuckDB ist ein einbettbares analytisches Datenbanksystem, speziell für OLAP-Workloads (Online Analytical Processing) entwickelt:
+
+- **In-Process:** Läuft im gleichen Prozess wie R (keine separate Datenbank-Server-Installation nötig)
+- **Columnar Vectorized:** Spaltenorientierte Verarbeitung in SIMD-optimierten Batches
+- **SQL-Interface:** Bekannte SQL-Syntax für komplexe Abfragen
+- **Arrow-Integration:** Zero-Copy-Integration mit Arrow-Daten
+
+### Warum DuckDB?
+
+DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
+
+1. **Komplexe Aggregationen:** Window Functions, CTEs, komplexe Joins
+2. **SQL-Komfort:** Mächtige Abfragesprache statt R-Code für Datentransformationen
+3. **Out-of-Core:** Kann größere Daten als RAM verarbeiten
+4. **Geschwindigkeit:** Hochoptimierte Query Engine
+
+### Anwendungsbeispiel
+
+```r
+library(duckdb)
+library(arrow)
+
+# Verbindung erstellen
+con <- dbConnect(duckdb::duckdb())
+
+# Arrow-Dataset registrieren (ohne Laden)
+duckdb_register_arrow(con, "btp", arrow_dataset)
+
+# Komplexe SQL-Abfrage
+result <- dbGetQuery(con, "
+  SELECT 
+    year,
+    sector,
+    COUNT(*) as n_companies,
+    MEDIAN(revenue) as median_revenue,
+    PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY revenue) as p90_revenue,
+    LAG(MEDIAN(revenue)) OVER (
+      PARTITION BY sector 
+      ORDER BY year
+    ) as prev_year_median
+  FROM btp
+  WHERE year BETWEEN 2015 AND 2019
+    AND revenue > 0
+  GROUP BY year, sector
+  ORDER BY year, sector
+")
+
+dbDisconnect(con, shutdown = TRUE)
+```
+
+### Vorteile
+
+- **Kein Setup:** Keine separate Datenbank-Installation erforderlich
+- **Hohe Performance:** Oft schneller als spezialisierte Data-Frame-Bibliotheken
+- **SQL-Funktionen:** Umfangreiche Funktionen (Window Functions, Array-Operationen)
+- **Ressourceneffizient:** Intelligentes Memory Management
+- **R-Integration:** Direktes Arbeiten mit Arrow-Datasets oder R-Data-Frames
+
+### Limitationen
+
+- **SQL-Kenntnisse:** Erfordert SQL-Grundkenntnisse
+- **Debugging:** SQL-Fehler können schwerer zu debuggen sein als R-Code
+- **Noch jung:** Weniger etabliert als traditionelle Datenbanken (aber sehr aktiv entwickelt)
+
+## Vergleich mit Alternativen
+
+### Base R
+
+**Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten
+**Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
+
+**Empfehlung:** Nur für kleine Datensätze (<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
+
+### data.table
+
+**Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax
+**Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung
+
+**Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird
+
+### dplyr + dbplyr
+
+**Vorteile:** Vertraute dplyr-Syntax, gut mit Datenbanken integriert
+**Nachteile:** Langsamer als Arrow/DuckDB, benötigt Backend-Datenbank, SQL-Translation manchmal limitiert
+
+**Empfehlung:** Wenn bereits PostgreSQL- oder ähnliche Datenbank-Infrastruktur vorhanden ist
+
+## Unsere Empfehlung: Arrow + DuckDB + Parquet
+
+Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
+
+1. **Datenspeicherung:** Parquet-Format, idealerweise partitioniert nach relevanten Dimensionen (z.B. Jahr)
+2. **Datenmanipulation:** Arrow für einfache Filter/Select-Operationen
+3. **Komplexe Analysen:** DuckDB für Aggregationen, Joins, Window Functions
+4. **Ergebnisse:** R-Data-Frames für finale Visualisierung und Modellierung
+
+### Workflow-Beispiel
+
+```r
+library(arrow)
+library(duckdb)
+
+# 1. Daten als Parquet-Dataset öffnen
+btp <- open_dataset("data/btp.parquet")
+
+# 2. Einfache Filterung mit Arrow
+filtered <- btp |>
+  filter(year >= 2015, revenue > 0) |>
+  select(year, sector, revenue, employees)
+
+# 3. Komplexe Aggregation mit DuckDB
+con <- dbConnect(duckdb::duckdb())
+duckdb_register_arrow(con, "btp_filtered", filtered)
+
+result <- dbGetQuery(con, "
+  SELECT sector,
+         AVG(revenue) as mean_revenue,
+         STDDEV(revenue) as sd_revenue
+  FROM btp_filtered
+  GROUP BY sector
+  HAVING COUNT(*) >= 30
+")
+
+# 4. Aufräumen
+dbDisconnect(con, shutdown = TRUE)
+
+# 5. Weiterverarbeitung in R
+result <- result |> 
+  mutate(cv = sd_revenue / mean_revenue)
+```
+
+Dieser Workflow kombiniert die Stärken aller Werkzeuge und ist optimal für FDZ-Bedingungen geeignet.

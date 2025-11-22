@@ -4,6 +4,7 @@
 Knowledge curation and AI-assisted development workspace using OpenCode for content creation, R package development, data analysis projects, and technical documentation.
 
 ## Build/Test Commands
+- **Quarto Projects**: `quarto render` (full build), `quarto preview` (development), `quarto render sections/[file].qmd` (single section)
 - **R Projects**: `Rscript test_[component].R` (single test), `Rscript projects/[project]/test_*.R` (project tests)  
 - **Python Scripts**: `python3 .opencode/helpers/get_transcript.py [args]` (direct execution)
 - **Shell Scripts**: `bash .opencode/command/test-*.sh` (validation scripts)
@@ -28,6 +29,13 @@ Knowledge curation and AI-assisted development workspace using OpenCode for cont
 - **Headers**: Include shebang `#!/bin/bash` and description comments
 - **Error handling**: Use `set -e` for strict error handling when appropriate
 - **Variables**: Use `"${VAR}"` for variable expansion to handle spaces
+
+### Quarto Documents (.qmd)
+- **Code chunks**: Use `#| label: fig-name` and `#| tbl-cap:` for cross-references
+- **R code**: Follow R style guide, use `library()` calls at chunk start
+- **German/English**: Support bilingual content with proper LaTeX packages
+- **Citations**: Use `[@key]` format with BibTeX references
+- **Cross-refs**: Use `@sec-name`, `@tbl-name`, `@fig-name` for internal links
 
 ## Content & Documentation Standards
 - **Articles**: Comprehensive markdown with footnoted external resources  

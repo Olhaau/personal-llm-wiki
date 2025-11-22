@@ -1,0 +1,39 @@
+\startmaintext
+
+# Einleitung {.unnumbered}
+
+## Zusammenfassung {.unnumbered}
+
+Die vorliegende Studie untersucht die Effizienz statistischer Verfahren in der amtlichen Statistik am Beispiel moderner Datenverarbeitungsmethoden. Dabei werden insbesondere die Auswirkungen verschiedener algorithmischer Ansätze auf die Qualität und Geschwindigkeit der statistischen Auswertungen analysiert. Die Ergebnisse zeigen signifikante Verbesserungen bei der Verwendung optimierter Verfahren.
+
+**Schlagwörter:** Statistische Verfahren, Effizienzanalyse, Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung
+
+## Abstract {.unnumbered}
+
+This study examines the efficiency of statistical procedures in official statistics using modern data processing methods as an example. The analysis focuses particularly on the effects of different algorithmic approaches on the quality and speed of statistical evaluations. The results show significant improvements when using optimized procedures.
+
+**Keywords:** Statistical procedures, efficiency analysis, data processing, official statistics, algorithm optimization
+
+## Motivation und Zielsetzung
+
+Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
+
+In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion amtlicher Statistiken erheblich verändert. Die Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren Datenquellen geführt, sondern auch neue Möglichkeiten für die statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
+
+Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist es daher, die Effizienz verschiedener statistischer Verfahren systematisch zu bewerten und Handlungsempfehlungen für die Praxis abzuleiten.
+
+## Forschungsfragen
+
+Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
+
+1.  **Methodische Effizienz:** Wie unterscheiden sich verschiedene statistische Verfahren hinsichtlich ihrer Rechenzeit und Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+
+2.  **Skalierbarkeit:** Welche Verfahren zeigen die beste Performance bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
+
+3.  **Qualitätssicherung:** Inwiefern beeinflussen effizienzorientierte Optimierungen die statistische Qualität der Ergebnisse?
+
+## Aufbau der Arbeit
+
+Die Arbeit gliedert sich in zwei Hauptteile. Im ersten Teil (@sec-methodology) werden die methodischen Grundlagen der Effizienzanalyse dargestellt und das verwendete Bewertungsframework entwickelt. Der zweite Teil (@sec-results) präsentiert die empirischen Ergebnisse der Verfahrensvergleiche und diskutiert deren Implikationen für die Praxis der amtlichen Statistik.
+
+Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.
