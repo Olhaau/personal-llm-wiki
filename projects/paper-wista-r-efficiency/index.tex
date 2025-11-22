@@ -340,37 +340,34 @@ Datenverarbeitung}
 \thispagestyle{empty}
 \onecolumn
 
-% Vertical blue line on the left (5.5cm from left edge)
+% Vertical blue line on the left (8.5cm from left edge)
 \begin{tikzpicture}[remember picture, overlay]
   \draw[wistaBlue, line width=2pt] 
-    ([xshift=5.5cm, yshift=-1cm]current page.north west) -- 
-    ([xshift=5.5cm, yshift=1cm]current page.south west);
+    ([xshift=8.5cm, yshift=-1cm]current page.north west) -- 
+    ([xshift=8.5cm, yshift=1cm]current page.south west);
 \end{tikzpicture}
 
 \vspace*{1cm}
 
-\begin{minipage}[t]{4cm}
-% Left side - Author information
+% Left side - short author bios
+\begin{minipage}[t]{7cm}
 \raggedright
 \small
-\textbf{Oliver Hauke}\\
-Statistisches Bundesamt\\
-\vspace{0.5cm}
-\textbf{Annette Kristiansen}\\
-Statistisches Bundesamt\\
+{\color{wistaBlue}\textbf{Oliver Hauke}}: IT-Referent im Kompetenzzentrum "Analyse und Auswertung" beim FDZ Bund, betreut die Infrastruktur und forscht zu Effizienzsteigerung in R.\\[0.5cm]
+{\color{wistaBlue}\textbf{Annette Kristiansen}}: Spezialistin für Daten-Matching und Record Linkage, Autorin mehrerer WISTA-Beiträge zu Mikrosimulation und Methodenentwicklung.
 \end{minipage}%
-\hspace{1.5cm}%
-\begin{minipage}[t]{10cm}
-% Right side - Title and content
+\hfill%
+% Right side - title, authors, keywords, abstracts
+\begin{minipage}[t]{9cm}
 \raggedright
 
-% Title in dark gray
-{\Huge\bfseries\color{wistaDarkGray}Effizienzanalyse statistischer Verfahren in der amtlichen Statistik}
+% Title (uppercase)
+{\Huge\bfseries\color{wistaDarkGray}BEREITSTELLUNG MODERNER ANALYSETOOLS IN R ZUR EFFIZIENTEN AUSWERTUNG VON FORSCHUNGSDATEN}
 
-\vspace{0.3cm}
+\vspace{0.5cm}
 
-% Subtitle in dark gray
-{\Large\color{wistaDarkGray}Eine empirische Untersuchung am Beispiel der Datenverarbeitung}
+% Subtitle
+{\Large\color{wistaDarkGray}Eine empirische Untersuchung im FDZ Bund}
 
 \vspace{0.5cm}
 
@@ -379,49 +376,36 @@ Statistisches Bundesamt\\
 
 \vspace{0.5cm}
 
-% Authors
-{\large\bfseries Oliver Hauke}\\
-{\large\bfseries Annette Kristiansen}\\
+% Authors inline, dark gray
+{\large\color{wistaDarkGray}\bfseries Oliver Hauke, Annette Kristiansen}
+
+\vspace{0.5cm}
+
+% Blue line
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.5cm}
+
+% Keywords (blue arrow then bold label and blue text)
+{\color{wistaBlue}$\searrow$ {\bfseries Schlüsselwörter:} Statistische Verfahren, Effizienzanalyse, Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung}
 
 \vspace{0.3cm}
 
-% Another blue line
-{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
-
-\vspace{0.8cm}
-
-% Keywords in lighter blue
-{\color{wistaLightBlue}\bfseries Schlüsselwörter:}\\
-\vspace{0.2cm}
-Statistische Verfahren, Effizienzanalyse, Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung
-
-\vspace{0.6cm}
-
 % Zusammenfassung
 {\color{wistaDarkGray}\bfseries Zusammenfassung}\\
-\vspace{0.2cm}
 \small
-Die vorliegende Studie untersucht die Effizienz statistischer Verfahren in der amtlichen Statistik am Beispiel moderner Datenverarbeitungsmethoden. Dabei werden insbesondere die Auswirkungen verschiedener algorithmischer Ansätze auf die Qualität und Geschwindigkeit der statistischen Auswertungen analysiert. Die Ergebnisse zeigen signifikante Verbesserungen bei der Verwendung optimierter Verfahren.
+Die vorliegende Studie untersucht die Effizienz statistischer Verfahren in der amtlichen Statistik am Beispiel moderner Datenverarbeitungsmethoden. Die Analyse zeigt signifikante Verbesserungen durch optimierte Tools in R.
 
-\vspace{0.8cm}
+\vspace{0.5cm}
 
-% Blue line before English section
-{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+% English keywords and abstract
+{\color{wistaBlue}$\searrow$ {\bfseries Keywords:} Statistical procedures, efficiency analysis, data processing, official statistics, algorithm optimization}
 
-\vspace{0.6cm}
+\vspace{0.3cm}
 
-% Keywords in English
-{\color{wistaLightBlue}\bfseries Keywords:}\\
-\vspace{0.2cm}
-Statistical procedures, efficiency analysis, data processing, official statistics, algorithm optimization
-
-\vspace{0.6cm}
-
-% Abstract
 {\color{wistaDarkGray}\bfseries Abstract}\\
-\vspace{0.2cm}
 \small
-This study examines the efficiency of statistical procedures in official statistics using modern data processing methods as an example. The analysis focuses particularly on the effects of different algorithmic approaches on the quality and speed of statistical evaluations. The results show significant improvements when using optimized procedures.
+This paper presents modern R-based analysis tools for efficient processing of research data in secure FDZ environments. Performance benchmarks demonstrate substantial speedups and reduced memory usage.
 
 \end{minipage}
 
