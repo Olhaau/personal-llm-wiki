@@ -309,36 +309,114 @@ To improve this template:
 
 This template is provided for academic and research purposes. Content should follow appropriate citation and attribution practices when adapting for actual WISTA submissions.
 
-## WISTA Articles with Code Examples
+## Publishing Code for WISTA Articles
 
-The following WISTA articles include code snippets, algorithms, or technical implementations that serve as references for this template:
+WISTA articles typically do not include code directly in the publication. For reproducible research and transparency, code should be published separately on appropriate platforms. Below are best practices for publishing and referencing code.
 
-1. **Verbesserung der Data-Matching-Qualität mit optimierter String-Distanz-Metrik-Auswahl und Random Forest** (WISTA 5/2025)
-   - Machine learning approach for record linkage
-   - String distance metrics and Random Forest classification
-   - [Download PDF](https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/Downloads/data-matching-random-forest-052025.html)
+### Recommended Platforms
 
-2. **Vergleich von Record-Linkage-Methoden anhand der Mikrosimulation eines bundesweiten Bildungsverlaufsregisters** (WISTA 4/2025)
-   - Comparison of record linkage algorithms
-   - Microsimulation methodology
-   - [Download PDF](https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/Downloads/record-linkage-mikrosimulation-042025.html)
+1. **OpenCoDE** (German Public Administration)
+   - Official platform for open source code in German public administration
+   - URL: [https://opencode.de](https://opencode.de)
+   - Ideal for: Code from federal and state statistical offices
+   - Benefits: Compliant with German public sector requirements, long-term availability
 
-3. **Machine Learning in der amtlichen Statistik** (WISTA 5/2020)
-   - Overview of ML applications in official statistics
-   - Python and R code examples for classification
-   - Practical implementation guidelines
+2. **GitHub / GitLab**
+   - Standard platforms for open source code
+   - Good for: Version control, collaboration, issue tracking
+   - Consider: Zenodo integration for DOI assignment
 
-4. **Automatische Texterkennung und -klassifikation für die Wirtschaftszweigkodierung** (WISTA 3/2021)
-   - Natural language processing for industry classification
-   - Text classification algorithms
-   - Code examples for automated coding
+3. **Zenodo**
+   - URL: [https://zenodo.org](https://zenodo.org)
+   - Provides DOI for citability
+   - Long-term archival by CERN
 
-5. **Web Scraping für die amtliche Preisstatistik** (WISTA 2/2022)
-   - Web scraping methodology with R/Python
-   - Data extraction and processing pipelines
-   - Reproducible code examples
+### Best Practices for Code Publication
 
-*Note: Article availability may vary. Check the [WISTA Archive](https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/_inhalt.html) for current downloads.*
+#### 1. Repository Structure
+```
+project-name/
+├── README.md           # Project description, installation, usage
+├── LICENSE             # Open source license (e.g., MIT, EUPL)
+├── CITATION.cff        # Citation metadata
+├── R/                  # R scripts
+├── python/             # Python scripts
+├── data/               # Sample data (if permissible)
+├── docs/               # Additional documentation
+└── tests/              # Unit tests
+```
+
+#### 2. README Requirements
+- Clear project description
+- Installation instructions
+- Usage examples
+- Reference to the WISTA article
+- Contact information
+- License information
+
+#### 3. Citation File (CITATION.cff)
+```yaml
+cff-version: 1.2.0
+title: "Code for: [Article Title]"
+message: "If you use this code, please cite the associated WISTA article."
+authors:
+  - family-names: Hauke
+    given-names: Oliver
+    affiliation: Statistisches Bundesamt
+  - family-names: Kristiansen
+    given-names: Annette
+    affiliation: Statistisches Bundesamt
+preferred-citation:
+  type: article
+  title: "[Article Title]"
+  journal: "WISTA – Wirtschaft und Statistik"
+  year: 2025
+  issue: 6
+```
+
+#### 4. Referencing Code in WISTA Articles
+
+In the article text, include a section like:
+
+> **Code Availability**
+> 
+> The R/Python code used for this analysis is available at:
+> https://opencode.de/repo/destatis/project-name
+> 
+> DOI: 10.5281/zenodo.XXXXXXX
+
+Or in German:
+
+> **Verfügbarkeit des Codes**
+> 
+> Der für diese Analyse verwendete R/Python-Code ist verfügbar unter:
+> https://opencode.de/repo/destatis/project-name
+> 
+> DOI: 10.5281/zenodo.XXXXXXX
+
+#### 5. Licensing Recommendations
+
+| License | Use Case |
+|---------|----------|
+| EUPL-1.2 | Recommended for German public administration |
+| MIT | Permissive, widely used |
+| GPL-3.0 | Copyleft, ensures derivatives remain open |
+| CC-BY-4.0 | For documentation and data |
+
+### Example Reference in Article
+
+```latex
+\section*{Verfügbarkeit des Codes}
+
+Der vollständige Quellcode für die in diesem Artikel beschriebenen 
+Analysen ist auf OpenCoDE verfügbar:
+
+\begin{itemize}
+  \item Repository: \url{https://opencode.de/repo/destatis/wista-efficiency-analysis}
+  \item Version: 1.0.0
+  \item Lizenz: EUPL-1.2
+\end{itemize}
+```
 
 ## Resources
 
