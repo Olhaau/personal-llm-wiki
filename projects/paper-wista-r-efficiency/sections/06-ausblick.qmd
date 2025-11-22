@@ -1,6 +1,6 @@
-# Ausblick {#sec-ausblick}
+## Ausblick {#sec-ausblick}
 
-## Zusammenfassung der Erkenntnisse
+### Zusammenfassung der Erkenntnisse
 
 Die vorliegende Untersuchung hat gezeigt, dass moderne spaltenorientierte Technologien erhebliche Vorteile für die Analyse großer Datensätze in der amtlichen Statistik bieten. Die Kombination von **Apache Arrow**, **DuckDB** und **Parquet** ermöglicht:
 
@@ -9,9 +9,9 @@ Die vorliegende Untersuchung hat gezeigt, dass moderne spaltenorientierte Techno
 - **Out-of-Core-Verarbeitung** für Datensätze, die den verfügbaren RAM übersteigen
 - **Effiziente Query-Optimierung** durch Lazy Evaluation und Predicate Pushdown
 
-## Implikationen für die Forschungsdatenzentren
+### Implikationen für die Forschungsdatenzentren
 
-### Infrastrukturentwicklung
+#### Infrastrukturentwicklung
 
 Die FDZ sollten die Integration dieser Technologien vorantreiben:
 
@@ -20,7 +20,7 @@ Die FDZ sollten die Integration dieser Technologien vorantreiben:
 3. **Schulungsangebote**: Workshops und Dokumentation für Forschende bereitstellen
 4. **Best-Practice-Katalog**: Erfolgreiche Analysemuster dokumentieren und teilen
 
-### Nutzerunterstützung
+#### Nutzerunterstützung
 
 Forschende profitieren von:
 
@@ -29,9 +29,9 @@ Forschende profitieren von:
 - **Geringere Ressourcenkonflikte**: Effizientere Nutzung geteilter Infrastruktur
 - **Reproduzierbare Workflows**: Parquet-basierte Pipelines gut dokumentierbar
 
-## Technologische Entwicklungen
+### Technologische Entwicklungen
 
-### Kurz- bis mittelfristig
+#### Kurz- bis mittelfristig
 
 **Weitere Optimierungen** der bestehenden Tools sind zu erwarten:
 
@@ -40,7 +40,7 @@ Forschende profitieren von:
 - **DuckDB Extensions**: Spezielle Module für statistische Analysen
 - **GPU-Beschleunigung**: Erste Implementierungen für Arrow-basierte Berechnungen
 
-### Langfristig
+#### Langfristig
 
 **Neue Paradigmen** könnten zusätzliche Verbesserungen bringen:
 
@@ -49,7 +49,7 @@ Forschende profitieren von:
 - **Streaming Analytics**: Echtzeitverarbeitung großer Datenströme
 - **Privacy-Preserving Computation**: Analysen auf verschlüsselten Daten
 
-## Offene Forschungsfragen
+### Offene Forschungsfragen
 
 Weitere Untersuchungen sollten folgende Aspekte betrachten:
 
@@ -61,9 +61,9 @@ Weitere Untersuchungen sollten folgende Aspekte betrachten:
 
 4. **Heterogene Systeme**: Wie lassen sich verschiedene Datenquellen und -formate optimal integrieren?
 
-## Handlungsempfehlungen
+### Handlungsempfehlungen
 
-### Für Forschungsdatenzentren
+#### Für Forschungsdatenzentren
 
 **Pilotprojekte** sollten initiiert werden:
 
@@ -72,7 +72,7 @@ Weitere Untersuchungen sollten folgende Aspekte betrachten:
 - Feedback von Power-Usern systematisch einholen
 - Erkenntnisse in Qualitätsstandards überführen
 
-### Für Forschende
+#### Für Forschende
 
 **Schrittweise Einführung** wird empfohlen:
 
@@ -81,7 +81,7 @@ Weitere Untersuchungen sollten folgende Aspekte betrachten:
 3. Performanzgewinne und Limitationen dokumentieren
 4. Bei Erfolg schrittweise auf größere Projekte übertragen
 
-## Schlussbetrachtung
+### Schlussbetrachtung
 
 Die Analyse großer Datensätze in Forschungsdatenzen tren steht vor einem Technologiewandel. Die hier untersuchten Werkzeuge – **Arrow, DuckDB und Parquet** – bieten das Potenzial, die Effizienz erheblich zu steigern und neue Analysemöglichkeiten zu eröffnen.
 

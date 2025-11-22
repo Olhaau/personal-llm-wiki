@@ -1,6 +1,6 @@
-# Einleitung {#sec-einleitung}
+## Einleitung {#sec-einleitung}
 
-## Motivation und Zielsetzung
+### Motivation und Zielsetzung
 
 Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
 
@@ -8,7 +8,7 @@ In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion a
 
 Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist es daher, die Effizienz verschiedener statistischer Verfahren systematisch zu bewerten und Handlungsempfehlungen für die Praxis abzuleiten.
 
-## Forschungsfragen
+### Forschungsfragen
 
 Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
 
@@ -18,7 +18,7 @@ Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
 
 3. **Praktische Anwendbarkeit:** Welche Infrastrukturanforderungen stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
 
-## Aufbau der Arbeit
+### Aufbau der Arbeit
 
 Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt, der als empirisches Beispiel für die Analysen dient. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen durchgeführt werden. 
 

@@ -1,37 +1,29 @@
 project:
-  type: book
-  title: "WISTA Article Project"
+  type: default
   output-dir: _book
+  render:
+    - index.qmd
   post-render:
     - "bash -c 'git add _book/*.pdf && git commit -m \"Update PDF $(date +%Y-%m-%d_%H:%M)\" && git push || true'"
 
-book:
-  title: "Effizienzanalyse statistischer Verfahren in der amtlichen Statistik"
-  subtitle: "Eine empirische Untersuchung am Beispiel der Datenverarbeitung"
-  author: 
-    - name: "Max Mustermann"
-      affiliations:
-        - name: "Statistisches Bundesamt"
-          department: "Abteilung für methodische Grundsatzfragen"
-    - name: "Dr. Anna Schmidt"
-      affiliations:
-        - name: "Universität München"
-          department: "Institut für Statistik"
-  date: today
-  chapters:
-    - index.qmd
-    - sections/01-einleitung.qmd
-    - sections/02-btp.qmd
-    - sections/03-infrastruktur.qmd
-    - sections/04-methoden.qmd
-    - sections/05-performance.qmd
-    - sections/06-ausblick.qmd
+title: "Effizienzanalyse statistischer Verfahren in der amtlichen Statistik"
+subtitle: "Eine empirische Untersuchung am Beispiel der Datenverarbeitung"
+author: 
+  - name: "Max Mustermann"
+    affiliations:
+      - name: "Statistisches Bundesamt"
+        department: "Abteilung für methodische Grundsatzfragen"
+  - name: "Dr. Anna Schmidt"
+    affiliations:
+      - name: "Universität München"
+        department: "Institut für Statistik"
+date: today
 
 bibliography: references.bib
   
 format:
   pdf:
-    documentclass: book
+    documentclass: article
     classoption:
       - twocolumn
     geometry:
@@ -78,15 +70,6 @@ format:
         \definecolor{wistaDarkGray}{RGB}{64,64,64}
         \definecolor{wistaLightGray}{RGB}{128,128,128}
         
-        % Custom chapter formatting - number on top with column-width rule  
-        \titleformat{\chapter}[display]
-          {\normalfont\huge\bfseries\color{wistaDarkGray}}
-          {\color{wistaBlue}\large\chaptertitlename\ \thechapter\vspace{0.2cm}\\\noindent\rule{\columnwidth}{1.5pt}}
-          {0.5cm}
-          {\Huge\color{wistaDarkGray}}
-          [\vspace{0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{1pt}}\vspace{0.5cm}]
-        \titlespacing*{\chapter}{0pt}{-20pt}{20pt}
-        
         % Custom section formatting - number on top with column-width underline
         \titleformat{\section}[display]
           {\normalfont\large\bfseries}
@@ -94,9 +77,9 @@ format:
           {0.3cm}
           {\color{wistaDarkGray}\large\bfseries}
           [\vspace{0.1cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.5pt}}\vspace{0.3cm}]
-        \titlespacing*{\section}{0pt}{1.5ex plus 1ex minus .2ex}{1ex plus .2ex}
+        \titlespacing*{\section}{0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
         
-        % Smaller formatting for subsections (within columns)
+        % Subsection formatting - number and title with underline
         \titleformat{\subsection}
           {\color{wistaDarkGray}\normalsize\bfseries}
           {\color{wistaBlue}\normalsize\bfseries\thesubsection}
@@ -104,7 +87,7 @@ format:
           {\color{wistaDarkGray}\normalsize\bfseries}
           [\vspace{0.05cm}\noindent{\color{wistaBlue}\rule{0.5\columnwidth}{0.4pt}}\vspace{0.1cm}]
           
-        % Even smaller for subsubsections  
+        % Subsubsection formatting
         \titleformat{\subsubsection}
           {\color{wistaDarkGray}\small\bfseries}
           {\color{wistaBlue}\small\bfseries\thesubsubsection}

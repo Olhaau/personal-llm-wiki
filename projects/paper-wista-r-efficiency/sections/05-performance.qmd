@@ -1,10 +1,10 @@
-# Performanzergebnisse {#sec-performance}
+## Performanzergebnisse {#sec-performance}
 
-## Experimentelles Setup
+### Experimentelles Setup
 
 Die Performanzmessungen wurden auf einem repräsentativen FDZ-System durchgeführt (2x Intel Xeon Gold 6248R, 48 Kerne, 384 GB RAM, Ubuntu 22.04 LTS). Alle Tests wurden mit R 4.3.2 und aktuellen Versionen der verwendeten Pakete durchgeführt.
 
-### Test-Szenarien
+#### Test-Szenarien
 
 Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
 
@@ -13,9 +13,9 @@ Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
 3. **Szenario C: Join-Operation** - Verknüpfung zweier großer Tabellen
 4. **Szenario D: Filterkette** - Mehrere aufeinanderfolgende Filter- und Transformationsoperationen
 
-## Vergleich der Datenformate
+### Vergleich der Datenformate
 
-### Ladezeiten und Speicherverbrauch
+#### Ladezeiten und Speicherverbrauch
 
 
 ```{r}
@@ -58,7 +58,7 @@ ggplot(format_perf, aes(x = reorder(Format, -Wert), y = Wert, fill = Format)) +
   )
 ```
 
-### Aggregations-Performance
+#### Aggregations-Performance
 
 
 ```{r}
@@ -88,9 +88,9 @@ knitr::kable(agg_perf,
       booktabs = TRUE)
 ```
 
-## Skalierungsverhalten
+### Skalierungsverhalten
 
-### Performance bei wachsender Datenmenge
+#### Performance bei wachsender Datenmenge
 
 
 ```{r}
@@ -139,9 +139,9 @@ ggplot(scaling_data, aes(x = Datensatzgröße, y = Zeit_Sekunden, color = Ansatz
   )
 ```
 
-## Join-Performance
+### Join-Performance
 
-### Verschiedene Join-Strategien
+#### Verschiedene Join-Strategien
 
 Die Verknüpfung großer Datensätze ist eine häufige Operation bei der Arbeit mit dem BTP:
 
@@ -187,9 +187,9 @@ ggplot(join_perf, aes(x = Größe, y = Zeit, fill = Tool)) +
   )
 ```
 
-## Parallelisierungs-Effizienz
+### Parallelisierungs-Effizienz
 
-### Speedup durch Multi-Threading
+#### Speedup durch Multi-Threading
 
 
 ```{r}
@@ -214,9 +214,9 @@ knitr::kable(parallel_speedup,
       booktabs = TRUE)
 ```
 
-## Speichereffizienz
+### Speichereffizienz
 
-### Memory Footprint
+#### Memory Footprint
 
 Ein kritischer Faktor in der FDZ-Umgebung ist der Speicherverbrauch:
 
@@ -261,9 +261,9 @@ ggplot(memory_data, aes(x = Szenario, y = Memory_GB, fill = Ansatz)) +
   )
 ```
 
-## Praktische Implikationen
+### Praktische Implikationen
 
-### Empfehlungen nach Anwendungsfall
+#### Empfehlungen nach Anwendungsfall
 
 Basierend auf den Performanzmessungen lassen sich folgende Empfehlungen ableiten:
 
@@ -298,7 +298,7 @@ knitr::kable(recommendations,
       booktabs = TRUE)
 ```
 
-## Zusammenfassung der Erkenntnisse
+### Zusammenfassung der Erkenntnisse
 
 Die empirischen Messungen zeigen deutlich:
 

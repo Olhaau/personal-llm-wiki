@@ -1,0 +1,579 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  ngerman,
+  10pt,
+  twocolumn]{article}
+\usepackage{xcolor}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2cm,right=2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage[german]{selnolig} % disable illegal ligatures
+\fi
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[style=authoryear,backend=biber,style=authoryear-comp,uniquename=false,uniquelist=false]{biblatex}
+\addbibresource{../references.bib}
+
+
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{afterpage}
+
+% Define WISTA colors (brighter blue)
+\definecolor{wistaBlue}{RGB}{30,110,180}
+\definecolor{wistaLightBlue}{RGB}{51,153,204}
+\definecolor{wistaDarkGray}{RGB}{64,64,64}
+\definecolor{wistaLightGray}{RGB}{128,128,128}
+
+% Custom section formatting - number on top with column-width underline
+\titleformat{\section}[display]
+  {\normalfont\large\bfseries}
+  {\color{wistaBlue}\large\bfseries\thesection\vspace{0.1cm}\\\noindent\rule{\columnwidth}{1pt}}
+  {0.3cm}
+  {\color{wistaDarkGray}\large\bfseries}
+  [\vspace{0.1cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.5pt}}\vspace{0.3cm}]
+\titlespacing*{\section}{0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+% Subsection formatting - number and title with underline
+\titleformat{\subsection}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaBlue}\normalsize\bfseries\thesubsection}
+  {0.5em}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  [\vspace{0.05cm}\noindent{\color{wistaBlue}\rule{0.5\columnwidth}{0.4pt}}\vspace{0.1cm}]
+  
+% Subsubsection formatting
+\titleformat{\subsubsection}
+  {\color{wistaDarkGray}\small\bfseries}
+  {\color{wistaBlue}\small\bfseries\thesubsubsection}
+  {0.3em}
+  {\color{wistaDarkGray}\small\bfseries}
+
+% Header and footer setup
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[LE]{\small\textit{Max Mustermann, Dr. Anna Schmidt}}
+\fancyhead[RO]{\small\textit{Effizienzanalyse statistischer Verfahren}}
+\fancyfoot[LE]{\small\thepage}
+\fancyfoot[RE]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
+\fancyfoot[LO]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
+\fancyfoot[RO]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Make all figures and tables span both columns (full width)
+% Redefine figure environment to use figure*
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][htbp]{%
+  \origfigure*[#1]%
+}{%
+  \endorigfigure*%
+}
+
+% Redefine table environment to use table*
+\let\origtable\table
+\let\endorigtable\endtable
+\renewenvironment{table}[1][htbp]{%
+  \origtable*[#1]%
+}{%
+  \endorigtable*%
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Inhaltsverzeichnis}
+\else
+  \newcommand\contentsname{Inhaltsverzeichnis}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Abbildungsverzeichnis}
+\else
+  \newcommand\listfigurename{Abbildungsverzeichnis}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Tabellenverzeichnis}
+\else
+  \newcommand\listtablename{Tabellenverzeichnis}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Abbildung}
+\else
+  \newcommand\figurename{Abbildung}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabelle}
+\else
+  \newcommand\tablename{Tabelle}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{Listingverzeichnis}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Effizienzanalyse statistischer Verfahren in der amtlichen Statistik},
+  pdfauthor={Max Mustermann; Dr.~Anna Schmidt},
+  pdflang={de},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Effizienzanalyse statistischer Verfahren in der amtlichen
+Statistik}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Eine empirische Untersuchung am Beispiel der
+Datenverarbeitung}
+\author{Max Mustermann \and Dr.~Anna Schmidt}
+\date{2025-11-22}
+\begin{document}
+\maketitle
+
+
+\setstretch{1.1}
+\subsection{Infrastruktur des FDZ-Bund}\label{sec-infrastruktur}
+
+\subsubsection{Die Forschungsdatenzentren der amtlichen
+Statistik}\label{die-forschungsdatenzentren-der-amtlichen-statistik}
+
+Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus
+zwei organisatorisch voneinander getrennten Einrichtungen: dem
+\textbf{Forschungsdatenzentrum des Statistischen Bundesamts} und dem
+\textbf{Forschungsdatenzentrum der Statistischen Ämter der Länder}.
+Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und
+Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten
+der amtlichen Statistiken.
+
+\paragraph{Entstehung und Entwicklung}\label{entstehung-und-entwicklung}
+
+Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur
+Verbesserung der informationellen Infrastruktur zwischen Wissenschaft
+und Statistik'' (KVI) von 1999 zurück. Mit finanzieller Förderung des
+Bundesministeriums für Bildung und Forschung (BMBF) wurde im Herbst 2001
+zunächst das FDZ des Statistischen Bundesamts gegründet. Das FDZ der
+Statistischen Ämter der Länder folgte im April 2002.
+
+\paragraph{Aufgaben und Ziele}\label{aufgaben-und-ziele}
+
+Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen
+Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern
+fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Datenzugang:} Bereitstellung hochwertiger Mikrodaten für die
+  wissenschaftliche Forschung
+\item
+  \textbf{Datenschutz:} Gewährleistung des Schutzes personenbezogener
+  und unternehmensbezogener Daten nach § 16 BStatG
+\item
+  \textbf{Beratung:} Unterstützung der Forschenden bei der Datennutzung
+  und methodischen Fragen
+\item
+  \textbf{Infrastruktur:} Bereitstellung einer sicheren und
+  leistungsfähigen Auswertungsumgebung
+\item
+  \textbf{Regionalisierung:} Flächendeckende Standorte in ganz
+  Deutschland für kurze Anfahrtswege
+\end{itemize}
+
+\subsubsection{Technische Infrastruktur}\label{technische-infrastruktur}
+
+\paragraph{Hardware-Ausstattung}\label{hardware-ausstattung}
+
+Die technische Infrastruktur des FDZ-Bund umfasst verschiedene
+Systemkomponenten:
+
+\begin{table}
+
+\caption{\label{tbl-fdz-infrastructure}Technische Ausstattung des
+FDZ-Bund (beispielhafte Konfiguration)}
+
+\centering{
+
+\begin{tabular}{llc}
+\toprule
+Komponente & Spezifikation & Anzahl\\
+\midrule
+Rechenknoten (Standard) & 2x Intel Xeon Gold 6248R (48 Kerne), 384 GB RAM & 12\\
+Rechenknoten (High-Memory) & 2x Intel Xeon Platinum 8280 (56 Kerne), 1,5 TB RAM & 4\\
+Speichersystem & NAS-System mit 500 TB nutzbarem Speicher & 1\\
+Netzwerk & 10 Gbit/s Ethernet, InfiniBand für parallele Operationen & -\\
+Backup-System & Tägliches Backup, räumlich getrennte Archivierung & -\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\paragraph{Software-Umgebung}\label{software-umgebung}
+
+Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Statistische Software:} R, Python, Stata, SAS, SPSS
+\item
+  \textbf{Datenbanksysteme:} PostgreSQL, DuckDB
+\item
+  \textbf{Entwicklungsumgebungen:} RStudio Server, JupyterLab
+\item
+  \textbf{Versionskontrolle:} Git (lokal, ohne externe Verbindung)
+\end{itemize}
+
+\subsubsection{Infrastrukturkonzept}\label{infrastrukturkonzept}
+
+\paragraph{Fachlich zentralisierte
+Datenhaltung}\label{fachlich-zentralisierte-datenhaltung}
+
+In Deutschland wird der überwiegende Teil der amtlichen
+Statistikproduktion dezentral in den Statistischen Ämtern der Länder
+durchgeführt (über 90\% aller amtlichen Statistiken). Da sich
+wissenschaftliche Analysen in der Regel jedoch auf mehrere Bundesländer
+oder das gesamte Bundesgebiet beziehen, haben die FDZ eine
+\textbf{fachlich zentralisierte Datenhaltung} eingerichtet. Diese
+ermöglicht es, die Daten des gesamten Bundesgebiets länderübergreifend
+an jedem Standort bereitzustellen.
+
+\paragraph{Regionalisierte
+Infrastruktur}\label{regionalisierte-infrastruktur}
+
+Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein.
+Dies wird durch über ganz Deutschland verteilte Standorte erreicht.
+Standorte befinden sich u.a. in:
+
+\begin{itemize}
+\tightlist
+\item
+  Berlin, Bonn, Wiesbaden (Bund)
+\item
+  Bad Ems, Bremen, Dresden, Düsseldorf, Erfurt, Frankfurt, Hamburg,
+  Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
+\end{itemize}
+
+\subsubsection{Zugangsformen und
+Nutzungsmodelle}\label{zugangsformen-und-nutzungsmodelle}
+
+Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich
+anonymisierte Datenprodukte bereitgestellt werden:
+
+\paragraph{Off-Site-Zugang}\label{off-site-zugang}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Public Use Files (PUF):} Stark anonymisierte Daten für freie
+  Nutzung
+\item
+  \textbf{Scientific Use Files (SUF):} Faktisch anonymisierte Daten für
+  wissenschaftliche Zwecke
+\item
+  \textbf{Remote Scientific Use Files (Remote-SUF):} Neuer Zugangsweg
+  mit höherer Detailtiefe
+\end{itemize}
+
+\paragraph{On-Site-Zugang}\label{on-site-zugang}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Gastwissenschaftsarbeitsplatz (GWAP):} Zugang zu formal
+  anonymisierten Daten vor Ort
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Vorteile: Höchste Datendetailtiefe, direkte Beratung
+  \item
+    Anforderungen: Terminvereinbarung, Zutrittskontrolle,
+    Output-Kontrolle
+  \end{itemize}
+\item
+  \textbf{Kontrollierte Datenfernverarbeitung (KDFV):} Remote-Ausführung
+  von Analyseskripten
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Vorteile: Keine Anreise, zeitlich flexibel
+  \item
+    Einschränkungen: Keine interaktive Arbeit, Ergebnisfreigabe
+    erforderlich
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Datenschutz und
+Sicherheit}\label{datenschutz-und-sicherheit}
+
+\paragraph{Mehrstufiges
+Sicherheitskonzept}\label{mehrstufiges-sicherheitskonzept}
+
+Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Physische Sicherheit:} Zutrittskontrolle, gesicherte
+  Räumlichkeiten
+\item
+  \textbf{Netzwerksicherheit:} Isolierte Netzwerke, Firewalls, Intrusion
+  Detection
+\item
+  \textbf{Zugriffsrechte:} Rollenbasierte Zugriffskontrolle,
+  Authentifizierung
+\item
+  \textbf{Output-Kontrolle:} Prüfung aller Ergebnisse vor Freigabe
+\item
+  \textbf{Audit-Logging:} Protokollierung aller Zugriffe und Operationen
+\end{enumerate}
+
+\paragraph{Output-Kontrolle}\label{output-kontrolle}
+
+Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie
+eine mehrstufige Kontrolle:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Automatische Prüfung:} Screening auf kritische Werte (z.B.
+  Fallzahlen \textless{} 5)
+\item
+  \textbf{Manuelle Prüfung:} Sichtung durch geschulte Mitarbeiter
+\item
+  \textbf{Dokumentation:} Nachvollziehbare Begründung der
+  Freigabeentscheidung
+\end{itemize}
+
+\subsubsection{Performanz-Optimierung in der
+FDZ-Umgebung}\label{performanz-optimierung-in-der-fdz-umgebung}
+
+\paragraph{Herausforderungen}\label{herausforderungen}
+
+Die Arbeit in der geschützten FDZ-Umgebung stellt besondere
+Anforderungen:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Begrenzte Ressourcen:} Mehrere Nutzer teilen sich die
+  verfügbare Hardware
+\item
+  \textbf{Keine Cloud-Dienste:} Externe Rechenressourcen können nicht
+  genutzt werden
+\item
+  \textbf{Datengröße:} Große Datensätze müssen effizient verarbeitet
+  werden
+\item
+  \textbf{Reproduzierbarkeit:} Analysen müssen dokumentiert und
+  nachvollziehbar sein
+\end{itemize}
+
+\paragraph{Optimierungsstrategien}\label{optimierungsstrategien}
+
+Verschiedene Strategien helfen, die Performanz zu optimieren:
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{03-infrastruktur_files/figure-pdf/fig-optimization-strategies-1.pdf}}
+
+}
+
+\caption{\label{fig-optimization-strategies}Strategien zur
+Performanz-Optimierung im FDZ-Bund}
+
+\end{figure}%
+
+\subsubsection{Akkreditierung und
+Qualitätssicherung}\label{akkreditierung-und-qualituxe4tssicherung}
+
+Die Forschungsdatenzentren der Statistischen Ämter des Bundes und der
+Länder sind durch den \textbf{Rat für Sozial- und WirtschaftsDaten
+(RatSWD) akkreditiert}. Der RatSWD akkreditiert seit 2008
+Forschungsdatenzentren, die den Zugang zu qualitativ hochwertigen
+sensiblen Daten für die Wissenschaft ermöglichen und dabei die
+erforderlichen Kriterien erfüllen.
+
+\subsubsection{Best Practices für
+FDZ-Nutzende}\label{best-practices-fuxfcr-fdz-nutzende}
+
+Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für
+effizientes Arbeiten ableiten:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Datenreduktion:} Frühzeitige Filterung auf relevante
+  Beobachtungen und Variablen
+\item
+  \textbf{Inkrementelle Entwicklung:} Erst mit Stichproben arbeiten,
+  dann auf Vollsatz skalieren
+\item
+  \textbf{Effiziente Datenformate:} Nutzung moderner Formate
+  (Arrow/Parquet) statt CSV
+\item
+  \textbf{Dokumentation:} Sorgfältige Dokumentation des Analyseprozesses
+  für Output-Kontrolle
+\item
+  \textbf{Ressourcenplanung:} Bewusste Planung rechenintensiver
+  Operationen bei geteilter Infrastruktur
+\item
+  \textbf{Beratung nutzen:} Frühzeitige Kontaktaufnahme mit
+  FDZ-Mitarbeitern bei methodischen Fragen
+\end{enumerate}
+
+
+\printbibliography
+
+
+
+\end{document}

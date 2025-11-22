@@ -1,14 +1,14 @@
-# Infrastruktur des FDZ-Bund {#sec-infrastruktur}
+## Infrastruktur des FDZ-Bund {#sec-infrastruktur}
 
-## Die Forschungsdatenzentren der amtlichen Statistik
+### Die Forschungsdatenzentren der amtlichen Statistik
 
 Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus zwei organisatorisch voneinander getrennten Einrichtungen: dem **Forschungsdatenzentrum des Statistischen Bundesamts** und dem **Forschungsdatenzentrum der Statistischen Ämter der Länder**. Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten der amtlichen Statistiken.
 
-### Entstehung und Entwicklung
+#### Entstehung und Entwicklung
 
 Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur Verbesserung der informationellen Infrastruktur zwischen Wissenschaft und Statistik" (KVI) von 1999 zurück. Mit finanzieller Förderung des Bundesministeriums für Bildung und Forschung (BMBF) wurde im Herbst 2001 zunächst das FDZ des Statistischen Bundesamts gegründet. Das FDZ der Statistischen Ämter der Länder folgte im April 2002.
 
-### Aufgaben und Ziele
+#### Aufgaben und Ziele
 
 Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
 
@@ -18,9 +18,9 @@ Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik fü
 - **Infrastruktur:** Bereitstellung einer sicheren und leistungsfähigen Auswertungsumgebung
 - **Regionalisierung:** Flächendeckende Standorte in ganz Deutschland für kurze Anfahrtswege
 
-## Technische Infrastruktur
+### Technische Infrastruktur
 
-### Hardware-Ausstattung
+#### Hardware-Ausstattung
 
 Die technische Infrastruktur des FDZ-Bund umfasst verschiedene Systemkomponenten:
 
@@ -48,7 +48,7 @@ knitr::kable(infra_data,
       col.names = c("Komponente", "Spezifikation", "Anzahl"))
 ```
 
-### Software-Umgebung
+#### Software-Umgebung
 
 Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 
@@ -57,30 +57,30 @@ Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 - **Entwicklungsumgebungen:** RStudio Server, JupyterLab
 - **Versionskontrolle:** Git (lokal, ohne externe Verbindung)
 
-## Infrastrukturkonzept
+### Infrastrukturkonzept
 
-### Fachlich zentralisierte Datenhaltung
+#### Fachlich zentralisierte Datenhaltung
 
 In Deutschland wird der überwiegende Teil der amtlichen Statistikproduktion dezentral in den Statistischen Ämtern der Länder durchgeführt (über 90% aller amtlichen Statistiken). Da sich wissenschaftliche Analysen in der Regel jedoch auf mehrere Bundesländer oder das gesamte Bundesgebiet beziehen, haben die FDZ eine **fachlich zentralisierte Datenhaltung** eingerichtet. Diese ermöglicht es, die Daten des gesamten Bundesgebiets länderübergreifend an jedem Standort bereitzustellen.
 
-### Regionalisierte Infrastruktur
+#### Regionalisierte Infrastruktur
 
 Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein. Dies wird durch über ganz Deutschland verteilte Standorte erreicht. Standorte befinden sich u.a. in:
 
 - Berlin, Bonn, Wiesbaden (Bund)
 - Bad Ems, Bremen, Dresden, Düsseldorf, Erfurt, Frankfurt, Hamburg, Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
 
-## Zugangsformen und Nutzungsmodelle
+### Zugangsformen und Nutzungsmodelle
 
 Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisierte Datenprodukte bereitgestellt werden:
 
-### Off-Site-Zugang
+#### Off-Site-Zugang
 
 - **Public Use Files (PUF):** Stark anonymisierte Daten für freie Nutzung
 - **Scientific Use Files (SUF):** Faktisch anonymisierte Daten für wissenschaftliche Zwecke
 - **Remote Scientific Use Files (Remote-SUF):** Neuer Zugangsweg mit höherer Detailtiefe
 
-### On-Site-Zugang
+#### On-Site-Zugang
 
 - **Gastwissenschaftsarbeitsplatz (GWAP):** Zugang zu formal anonymisierten Daten vor Ort
   - Vorteile: Höchste Datendetailtiefe, direkte Beratung
@@ -90,9 +90,9 @@ Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisie
   - Vorteile: Keine Anreise, zeitlich flexibel
   - Einschränkungen: Keine interaktive Arbeit, Ergebnisfreigabe erforderlich
 
-## Datenschutz und Sicherheit
+### Datenschutz und Sicherheit
 
-### Mehrstufiges Sicherheitskonzept
+#### Mehrstufiges Sicherheitskonzept
 
 Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
 
@@ -102,7 +102,7 @@ Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
 4. **Output-Kontrolle:** Prüfung aller Ergebnisse vor Freigabe
 5. **Audit-Logging:** Protokollierung aller Zugriffe und Operationen
 
-### Output-Kontrolle
+#### Output-Kontrolle
 
 Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie eine mehrstufige Kontrolle:
 
@@ -110,9 +110,9 @@ Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie eine mehrs
 - **Manuelle Prüfung:** Sichtung durch geschulte Mitarbeiter
 - **Dokumentation:** Nachvollziehbare Begründung der Freigabeentscheidung
 
-## Performanz-Optimierung in der FDZ-Umgebung
+### Performanz-Optimierung in der FDZ-Umgebung
 
-### Herausforderungen
+#### Herausforderungen
 
 Die Arbeit in der geschützten FDZ-Umgebung stellt besondere Anforderungen:
 
@@ -121,7 +121,7 @@ Die Arbeit in der geschützten FDZ-Umgebung stellt besondere Anforderungen:
 - **Datengröße:** Große Datensätze müssen effizient verarbeitet werden
 - **Reproduzierbarkeit:** Analysen müssen dokumentiert und nachvollziehbar sein
 
-### Optimierungsstrategien
+#### Optimierungsstrategien
 
 Verschiedene Strategien helfen, die Performanz zu optimieren:
 
@@ -169,11 +169,11 @@ ggplot(strategies, aes(x = Aufwand, y = Nutzen, color = Kategorie, size = 3)) +
   guides(size = "none")
 ```
 
-## Akkreditierung und Qualitätssicherung
+### Akkreditierung und Qualitätssicherung
 
 Die Forschungsdatenzentren der Statistischen Ämter des Bundes und der Länder sind durch den **Rat für Sozial- und WirtschaftsDaten (RatSWD) akkreditiert**. Der RatSWD akkreditiert seit 2008 Forschungsdatenzentren, die den Zugang zu qualitativ hochwertigen sensiblen Daten für die Wissenschaft ermöglichen und dabei die erforderlichen Kriterien erfüllen.
 
-## Best Practices für FDZ-Nutzende
+### Best Practices für FDZ-Nutzende
 
 Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für effizientes Arbeiten ableiten:
 
