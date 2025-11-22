@@ -33,7 +33,8 @@ format:
       - left=2cm
       - right=2cm
     fontsize: 10pt
-    linestretch: 1.1
+    linestretch: 1.0
+    number-sections: true
     cite-method: biblatex
     biblio-style: authoryear
     biblatexoptions: 
@@ -42,6 +43,9 @@ format:
       - uniquename=false
       - uniquelist=false
     keep-tex: true
+    include-before-body:
+      - title.tex
+    title-block-style: none
 
     include-in-header:
       text: |
@@ -64,10 +68,11 @@ format:
         \usepackage{etoolbox}
         \usepackage{tabularx}
         \usepackage{afterpage}
+        \usepackage{tikz}
         
-        % Define WISTA colors (brighter blue)
+        % Define WISTA colors
         \definecolor{wistaBlue}{RGB}{30,110,180}
-        \definecolor{wistaLightBlue}{RGB}{51,153,204}
+        \definecolor{wistaLightBlue}{RGB}{80,140,200}
         \definecolor{wistaDarkGray}{RGB}{64,64,64}
         \definecolor{wistaLightGray}{RGB}{128,128,128}
         
@@ -104,20 +109,20 @@ format:
           [.]
         \titlespacing*{\paragraph}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.5em}
         
-        % Header and footer setup
+        % Header and footer setup with blue line under header
         \pagestyle{fancy}
-        \fancyhf{} % Clear all header and footer fields
-        \fancyhead[LE]{\small\textit{Max Mustermann, Dr. Anna Schmidt}}
-        \fancyhead[RO]{\small\textit{Effizienzanalyse statistischer Verfahren}}
-        \fancyfoot[LE]{\small\thepage}
-        \fancyfoot[RE]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
-        \fancyfoot[LO]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
-        \fancyfoot[RO]{\small\thepage}
+        \fancyhf{}
+        \fancyhead[L]{\small\textit{Max Mustermann, Dr. Anna Schmidt}}
+        \fancyhead[R]{\small\textit{Effizienzanalyse statistischer Verfahren}}
+        \fancyfoot[L]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
+        \fancyfoot[R]{\small\thepage}
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}
+        % Add blue line under header
+        \renewcommand{\headrule}{\color{wistaBlue}\hrule width\headwidth height 1pt \vskip 2pt}
+        \renewcommand{\headrulewidth}{1pt}
         
         % Make all figures and tables span both columns (full width)
-        % Redefine figure environment to use figure*
         \let\origfigure\figure
         \let\endorigfigure\endfigure
         \renewenvironment{figure}[1][htbp]{%
@@ -126,7 +131,6 @@ format:
           \endorigfigure*%
         }
         
-        % Redefine table environment to use table*
         \let\origtable\table
         \let\endorigtable\endtable
         \renewenvironment{table}[1][htbp]{%
@@ -134,6 +138,20 @@ format:
         }{%
           \endorigtable*%
         }
+        
+        % Footnotes stay within column
+        \usepackage[stable]{footmisc}
+        
+        % Custom bullet points with ">"
+        \usepackage{enumitem}
+        \setlist[itemize]{label={\color{wistaBlue}\textgreater}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
+        
+        % Blue arrow for cross-references (bottom-right arrow)
+        \usepackage{amssymb}
+        
+        % Redefine ref to include blue arrow for figure/table/section references
+        \let\oldref\ref
+        \renewcommand{\ref}[1]{{\color{wistaBlue}$\searrow$}\oldref{#1}}
         
 
         

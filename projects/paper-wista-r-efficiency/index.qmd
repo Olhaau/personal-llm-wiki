@@ -1,18 +1,4 @@
-## Einleitung {.unnumbered}
-
-### Zusammenfassung {.unnumbered}
-
-Die vorliegende Studie untersucht die Effizienz statistischer Verfahren in der amtlichen Statistik am Beispiel moderner Datenverarbeitungsmethoden. Dabei werden insbesondere die Auswirkungen verschiedener algorithmischer Ansätze auf die Qualität und Geschwindigkeit der statistischen Auswertungen analysiert. Die Ergebnisse zeigen signifikante Verbesserungen bei der Verwendung optimierter Verfahren.
-
-**Schlagwörter:** Statistische Verfahren, Effizienzanalyse, Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung
-
-### Abstract {.unnumbered}
-
-This study examines the efficiency of statistical procedures in official statistics using modern data processing methods as an example. The analysis focuses particularly on the effects of different algorithmic approaches on the quality and speed of statistical evaluations. The results show significant improvements when using optimized procedures.
-
-**Keywords:** Statistical procedures, efficiency analysis, data processing, official statistics, algorithm optimization
-
-### Motivation und Zielsetzung
+## Motivation und Zielsetzung {#sec-intro}
 
 Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
 
@@ -35,8 +21,6 @@ Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
 Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums. In @sec-methoden werden verschiedene Auswertungsmethoden vorgestellt. @sec-performance präsentiert die empirischen Performanzergebnisse. Die Arbeit schließt mit einem Ausblick in @sec-ausblick.
 
 Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.
-
-{{< include sections/01-einleitung.qmd >}}
 
 {{< include sections/02-btp.qmd >}}
 

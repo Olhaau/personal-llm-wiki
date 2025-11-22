@@ -1,0 +1,103 @@
+% Custom WISTA-style title page
+\begin{titlepage}
+\thispagestyle{empty}
+\onecolumn
+
+% Vertical blue line on the left (5.5cm from left edge)
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[wistaBlue, line width=2pt] 
+    ([xshift=5.5cm, yshift=-1cm]current page.north west) -- 
+    ([xshift=5.5cm, yshift=1cm]current page.south west);
+\end{tikzpicture}
+
+\vspace*{1cm}
+
+\begin{minipage}[t]{4cm}
+% Left side - Author information
+\raggedright
+\small
+\textbf{Max Mustermann}\\
+Statistisches Bundesamt\\
+\textit{Abteilung für methodische Grundsatzfragen}\\
+\vspace{0.5cm}
+\textbf{Dr. Anna Schmidt}\\
+Universität München\\
+\textit{Institut für Statistik}\\
+\end{minipage}%
+\hspace{1.5cm}%
+\begin{minipage}[t]{10cm}
+% Right side - Title and content
+\raggedright
+
+% Title in dark gray
+{\Huge\bfseries\color{wistaDarkGray}Effizienzanalyse statistischer Verfahren in der amtlichen Statistik}
+
+\vspace{0.3cm}
+
+% Subtitle in dark gray
+{\Large\color{wistaDarkGray}Eine empirische Untersuchung am Beispiel der Datenverarbeitung}
+
+\vspace{0.5cm}
+
+% Blue horizontal line
+{\color{wistaBlue}\rule{\linewidth}{1.5pt}}
+
+\vspace{0.5cm}
+
+% Authors
+{\large\bfseries Max Mustermann}\\
+{\large\bfseries Dr. Anna Schmidt}\\
+
+\vspace{0.3cm}
+
+% Another blue line
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.8cm}
+
+% Keywords in lighter blue
+{\color{wistaLightBlue}\bfseries Schlüsselwörter:}\\
+\vspace{0.2cm}
+Statistische Verfahren, Effizienzanalyse, Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung
+
+\vspace{0.6cm}
+
+% Zusammenfassung
+{\color{wistaDarkGray}\bfseries Zusammenfassung}\\
+\vspace{0.2cm}
+\small
+Die vorliegende Studie untersucht die Effizienz statistischer Verfahren in der amtlichen Statistik am Beispiel moderner Datenverarbeitungsmethoden. Dabei werden insbesondere die Auswirkungen verschiedener algorithmischer Ansätze auf die Qualität und Geschwindigkeit der statistischen Auswertungen analysiert. Die Ergebnisse zeigen signifikante Verbesserungen bei der Verwendung optimierter Verfahren.
+
+\vspace{0.8cm}
+
+% Blue line before English section
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.6cm}
+
+% Keywords in English
+{\color{wistaLightBlue}\bfseries Keywords:}\\
+\vspace{0.2cm}
+Statistical procedures, efficiency analysis, data processing, official statistics, algorithm optimization
+
+\vspace{0.6cm}
+
+% Abstract
+{\color{wistaDarkGray}\bfseries Abstract}\\
+\vspace{0.2cm}
+\small
+This study examines the efficiency of statistical procedures in official statistics using modern data processing methods as an example. The analysis focuses particularly on the effects of different algorithmic approaches on the quality and speed of statistical evaluations. The results show significant improvements when using optimized procedures.
+
+\end{minipage}
+
+\vfill
+
+% Footer with date
+\begin{center}
+{\small\color{wistaLightGray}\today}
+\end{center}
+
+\end{titlepage}
+
+% Switch back to two-column mode
+\twocolumn

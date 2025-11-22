@@ -11,7 +11,7 @@
 \usepackage{xcolor}
 \usepackage[top=2.5cm,bottom=2.5cm,left=2cm,right=2cm]{geometry}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -180,10 +180,11 @@
 \usepackage{etoolbox}
 \usepackage{tabularx}
 \usepackage{afterpage}
+\usepackage{tikz}
 
-% Define WISTA colors (brighter blue)
+% Define WISTA colors
 \definecolor{wistaBlue}{RGB}{30,110,180}
-\definecolor{wistaLightBlue}{RGB}{51,153,204}
+\definecolor{wistaLightBlue}{RGB}{80,140,200}
 \definecolor{wistaDarkGray}{RGB}{64,64,64}
 \definecolor{wistaLightGray}{RGB}{128,128,128}
 
@@ -220,20 +221,20 @@
   [.]
 \titlespacing*{\paragraph}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.5em}
 
-% Header and footer setup
+% Header and footer setup with blue line under header
 \pagestyle{fancy}
-\fancyhf{} % Clear all header and footer fields
-\fancyhead[LE]{\small\textit{Max Mustermann, Dr. Anna Schmidt}}
-\fancyhead[RO]{\small\textit{Effizienzanalyse statistischer Verfahren}}
-\fancyfoot[LE]{\small\thepage}
-\fancyfoot[RE]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
-\fancyfoot[LO]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
-\fancyfoot[RO]{\small\thepage}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Max Mustermann, Dr. Anna Schmidt}}
+\fancyhead[R]{\small\textit{Effizienzanalyse statistischer Verfahren}}
+\fancyfoot[L]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
+\fancyfoot[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+% Add blue line under header
+\renewcommand{\headrule}{\color{wistaBlue}\hrule width\headwidth height 1pt \vskip 2pt}
+\renewcommand{\headrulewidth}{1pt}
 
 % Make all figures and tables span both columns (full width)
-% Redefine figure environment to use figure*
 \let\origfigure\figure
 \let\endorigfigure\endfigure
 \renewenvironment{figure}[1][htbp]{%
@@ -242,7 +243,6 @@
   \endorigfigure*%
 }
 
-% Redefine table environment to use table*
 \let\origtable\table
 \let\endorigtable\endtable
 \renewenvironment{table}[1][htbp]{%
@@ -250,6 +250,20 @@
 }{%
   \endorigtable*%
 }
+
+% Footnotes stay within column
+\usepackage[stable]{footmisc}
+
+% Custom bullet points with ">"
+\usepackage{enumitem}
+\setlist[itemize]{label={\color{wistaBlue}\textgreater}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
+
+% Blue arrow for cross-references (bottom-right arrow)
+\usepackage{amssymb}
+
+% Redefine ref to include blue arrow for figure/table/section references
+\let\oldref\ref
+\renewcommand{\ref}[1]{{\color{wistaBlue}$\searrow$}\oldref{#1}}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -321,39 +335,113 @@ Datenverarbeitung}
 \begin{document}
 \maketitle
 
+% Custom WISTA-style title page
+\begin{titlepage}
+\thispagestyle{empty}
+\onecolumn
 
-\setstretch{1.1}
-\subsection*{Einleitung}\label{einleitung}
-\addcontentsline{toc}{subsection}{Einleitung}
+% Vertical blue line on the left (5.5cm from left edge)
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[wistaBlue, line width=2pt] 
+    ([xshift=5.5cm, yshift=-1cm]current page.north west) -- 
+    ([xshift=5.5cm, yshift=1cm]current page.south west);
+\end{tikzpicture}
 
-\subsubsection*{Zusammenfassung}\label{zusammenfassung}
-\addcontentsline{toc}{subsubsection}{Zusammenfassung}
+\vspace*{1cm}
 
-Die vorliegende Studie untersucht die Effizienz statistischer Verfahren
-in der amtlichen Statistik am Beispiel moderner
-Datenverarbeitungsmethoden. Dabei werden insbesondere die Auswirkungen
-verschiedener algorithmischer Ansätze auf die Qualität und
-Geschwindigkeit der statistischen Auswertungen analysiert. Die
-Ergebnisse zeigen signifikante Verbesserungen bei der Verwendung
-optimierter Verfahren.
+\begin{minipage}[t]{4cm}
+% Left side - Author information
+\raggedright
+\small
+\textbf{Max Mustermann}\\
+Statistisches Bundesamt\\
+\textit{Abteilung für methodische Grundsatzfragen}\\
+\vspace{0.5cm}
+\textbf{Dr. Anna Schmidt}\\
+Universität München\\
+\textit{Institut für Statistik}\\
+\end{minipage}%
+\hspace{1.5cm}%
+\begin{minipage}[t]{10cm}
+% Right side - Title and content
+\raggedright
 
-\textbf{Schlagwörter:} Statistische Verfahren, Effizienzanalyse,
-Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung
+% Title in dark gray
+{\Huge\bfseries\color{wistaDarkGray}Effizienzanalyse statistischer Verfahren in der amtlichen Statistik}
 
-\subsubsection*{Abstract}\label{abstract}
-\addcontentsline{toc}{subsubsection}{Abstract}
+\vspace{0.3cm}
 
-This study examines the efficiency of statistical procedures in official
-statistics using modern data processing methods as an example. The
-analysis focuses particularly on the effects of different algorithmic
-approaches on the quality and speed of statistical evaluations. The
-results show significant improvements when using optimized procedures.
+% Subtitle in dark gray
+{\Large\color{wistaDarkGray}Eine empirische Untersuchung am Beispiel der Datenverarbeitung}
 
-\textbf{Keywords:} Statistical procedures, efficiency analysis, data
-processing, official statistics, algorithm optimization
+\vspace{0.5cm}
 
-\subsubsection{Motivation und
-Zielsetzung}\label{motivation-und-zielsetzung}
+% Blue horizontal line
+{\color{wistaBlue}\rule{\linewidth}{1.5pt}}
+
+\vspace{0.5cm}
+
+% Authors
+{\large\bfseries Max Mustermann}\\
+{\large\bfseries Dr. Anna Schmidt}\\
+
+\vspace{0.3cm}
+
+% Another blue line
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.8cm}
+
+% Keywords in lighter blue
+{\color{wistaLightBlue}\bfseries Schlüsselwörter:}\\
+\vspace{0.2cm}
+Statistische Verfahren, Effizienzanalyse, Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung
+
+\vspace{0.6cm}
+
+% Zusammenfassung
+{\color{wistaDarkGray}\bfseries Zusammenfassung}\\
+\vspace{0.2cm}
+\small
+Die vorliegende Studie untersucht die Effizienz statistischer Verfahren in der amtlichen Statistik am Beispiel moderner Datenverarbeitungsmethoden. Dabei werden insbesondere die Auswirkungen verschiedener algorithmischer Ansätze auf die Qualität und Geschwindigkeit der statistischen Auswertungen analysiert. Die Ergebnisse zeigen signifikante Verbesserungen bei der Verwendung optimierter Verfahren.
+
+\vspace{0.8cm}
+
+% Blue line before English section
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.6cm}
+
+% Keywords in English
+{\color{wistaLightBlue}\bfseries Keywords:}\\
+\vspace{0.2cm}
+Statistical procedures, efficiency analysis, data processing, official statistics, algorithm optimization
+
+\vspace{0.6cm}
+
+% Abstract
+{\color{wistaDarkGray}\bfseries Abstract}\\
+\vspace{0.2cm}
+\small
+This study examines the efficiency of statistical procedures in official statistics using modern data processing methods as an example. The analysis focuses particularly on the effects of different algorithmic approaches on the quality and speed of statistical evaluations. The results show significant improvements when using optimized procedures.
+
+\end{minipage}
+
+\vfill
+
+% Footer with date
+\begin{center}
+{\small\color{wistaLightGray}\today}
+\end{center}
+
+\end{titlepage}
+
+% Switch back to two-column mode
+\twocolumn
+
+
+\setstretch{1}
+\section{Motivation und Zielsetzung}\label{sec-intro}
 
 Die amtliche Statistik steht vor der Herausforderung, bei stetig
 wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ
@@ -375,7 +463,7 @@ es daher, die Effizienz verschiedener statistischer Verfahren
 systematisch zu bewerten und Handlungsempfehlungen für die Praxis
 abzuleiten.
 
-\subsubsection{Forschungsfragen}\label{forschungsfragen}
+\subsection{Forschungsfragen}\label{forschungsfragen}
 
 Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
 
@@ -394,7 +482,7 @@ Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
   Ergebnisse?
 \end{enumerate}
 
-\subsubsection{Aufbau der Arbeit}\label{aufbau-der-arbeit}
+\subsection{Aufbau der Arbeit}\label{aufbau-der-arbeit}
 
 Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in
 Kapitel~\ref{sec-btp} der Anwendungsfall Business-Tax-Panel vorgestellt.
@@ -411,74 +499,9 @@ amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch
 neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren
 Optionen zu zeichnen.
 
-\subsection{Einleitung}\label{sec-einleitung}
+\section{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
 
-\subsubsection{Motivation und
-Zielsetzung}\label{motivation-und-zielsetzung-1}
-
-Die amtliche Statistik steht vor der Herausforderung, bei stetig
-wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ
-hochwertige und zeitnahe statistische Informationen bereitzustellen
-\autocite{destatis2023}. Dabei spielt die Effizienz der verwendeten
-statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit
-des gesamten statistischen Systems.
-
-In den vergangenen Jahren haben sich die Rahmenbedingungen für die
-Produktion amtlicher Statistiken erheblich verändert. Die
-Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren
-Datenquellen geführt, sondern auch neue Möglichkeiten für die
-statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der
-Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
-
-Diese Entwicklungen erfordern eine kontinuierliche Evaluation und
-Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist
-es daher, die Effizienz verschiedener statistischer Verfahren
-systematisch zu bewerten und Handlungsempfehlungen für die Praxis
-abzuleiten.
-
-\subsubsection{Forschungsfragen}\label{forschungsfragen-1}
-
-Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{Methodische Effizienz:} Wie unterscheiden sich verschiedene
-  statistische Verfahren hinsichtlich ihrer Rechenzeit und
-  Speicheranforderungen bei gleichbleibender Ergebnisqualität?
-\item
-  \textbf{Skalierbarkeit:} Welche Verfahren zeigen die beste Performance
-  bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
-\item
-  \textbf{Praktische Anwendbarkeit:} Welche Infrastrukturanforderungen
-  stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
-\end{enumerate}
-
-\subsubsection{Aufbau der Arbeit}\label{aufbau-der-arbeit-1}
-
-Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in
-Kapitel~\ref{sec-btp} der Anwendungsfall Business-Tax-Panel vorgestellt,
-der als empirisches Beispiel für die Analysen dient.
-Kapitel~\ref{sec-infrastruktur} beschreibt die Infrastruktur des
-Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen
-durchgeführt werden.
-
-In Kapitel~\ref{sec-methoden} werden verschiedene effiziente
-Auswertungsmethoden vorgestellt und deren theoretische Grundlagen
-erläutert. Kapitel~\ref{sec-performance} präsentiert die empirischen
-Performanzergebnisse der verschiedenen Ansätze. Die Arbeit schließt mit
-einem Ausblick auf zukünftige Entwicklungen in
-Kapitel~\ref{sec-ausblick}.
-
-Die Analyse basiert auf einer umfangreichen empirischen Studie, die
-verschiedene statistische Verfahren anhand realer Datensätze aus der
-amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch
-neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren
-Optionen zu zeichnen.
-
-\subsection{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
-
-\subsubsection{Überblick zum
+\subsection{Überblick zum
 Business-Tax-Panel}\label{uxfcberblick-zum-business-tax-panel}
 
 Das Business-Tax-Panel (BTP) ist ein zentraler Forschungsdatensatz des
@@ -511,9 +534,9 @@ Im BTP werden folgende Datensätze zusammengeführt:
   52111)
 \end{itemize}
 
-\subsubsection{Datenstruktur und Umfang}\label{datenstruktur-und-umfang}
+\subsection{Datenstruktur und Umfang}\label{datenstruktur-und-umfang}
 
-\paragraph{Dimensionen des
+\subsubsection{Dimensionen des
 Datensatzes}\label{dimensionen-des-datensatzes}
 
 Das BTP umfasst einen außergewöhnlich umfangreichen Datensatz mit
@@ -542,7 +565,7 @@ Datenquelle & Sekundärerhebung (Finanzverwaltung)\\
 
 \end{table}%
 
-\paragraph{Hauptmerkmale des
+\subsubsection{Hauptmerkmale des
 Datensatzes}\label{hauptmerkmale-des-datensatzes}
 
 Aus den verschiedenen Steuervordrucken und darin verwendeten Kennzahlen
@@ -566,7 +589,7 @@ Unternehmensbesteuerung abbilden:
   Zeitreihenanalysen
 \end{itemize}
 
-\paragraph{Datenerhebung und
+\subsubsection{Datenerhebung und
 Rechtsgrundlage}\label{datenerhebung-und-rechtsgrundlage}
 
 Die im BTP enthaltenen Steuerstatistiken sind Bundesstatistiken, die als
@@ -580,10 +603,11 @@ Rechtsgrundlage ist das
 \href{https://www.gesetze-im-internet.de/ststatg_1995/}{Gesetz über
 Steuerstatistiken (StStatG)} vom 11. Oktober 1995.
 
-\subsubsection{Forschungspotenzial und
+\subsection{Forschungspotenzial und
 Nutzung}\label{forschungspotenzial-und-nutzung}
 
-\paragraph{Typische Forschungsfragen}\label{typische-forschungsfragen}
+\subsubsection{Typische
+Forschungsfragen}\label{typische-forschungsfragen}
 
 Das BTP wird für eine Vielzahl von Forschungsfragen genutzt:
 
@@ -603,7 +627,7 @@ Das BTP wird für eine Vielzahl von Forschungsfragen genutzt:
   Unternehmen
 \end{enumerate}
 
-\paragraph{Herausforderungen bei der
+\subsubsection{Herausforderungen bei der
 Datenauswertung}\label{herausforderungen-bei-der-datenauswertung}
 
 Die Größe und Komplexität des BTP stellt besondere Anforderungen an die
@@ -625,7 +649,7 @@ Auswertungsinfrastruktur:
   sensiblen Unternehmensdaten
 \end{itemize}
 
-\subsubsection{Zugangsformen im FDZ}\label{zugangsformen-im-fdz}
+\subsection{Zugangsformen im FDZ}\label{zugangsformen-im-fdz}
 
 Das BTP ist über verschiedene Zugangsformen verfügbar:
 
@@ -644,7 +668,7 @@ Das BTP ist über verschiedene Zugangsformen verfügbar:
   pseudonymisiert zur Verfügung
 \end{itemize}
 
-\subsubsection{BTP als
+\subsection{BTP als
 Benchmark-Datensatz}\label{btp-als-benchmark-datensatz}
 
 Aufgrund seiner Größe (\textgreater66 Millionen Einheiten), Komplexität
@@ -674,9 +698,9 @@ Diese realitätsnahen Szenarien ermöglichen es, die Praxistauglichkeit
 verschiedener Auswertungsmethoden unter den tatsächlichen Bedingungen
 eines Forschungsdatenzentrums zu bewerten.
 
-\subsection{Infrastruktur des FDZ-Bund}\label{sec-infrastruktur}
+\section{Infrastruktur des FDZ-Bund}\label{sec-infrastruktur}
 
-\subsubsection{Die Forschungsdatenzentren der amtlichen
+\subsection{Die Forschungsdatenzentren der amtlichen
 Statistik}\label{die-forschungsdatenzentren-der-amtlichen-statistik}
 
 Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus
@@ -687,7 +711,8 @@ Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und
 Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten
 der amtlichen Statistiken.
 
-\paragraph{Entstehung und Entwicklung}\label{entstehung-und-entwicklung}
+\subsubsection{Entstehung und
+Entwicklung}\label{entstehung-und-entwicklung}
 
 Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur
 Verbesserung der informationellen Infrastruktur zwischen Wissenschaft
@@ -696,7 +721,7 @@ Bundesministeriums für Bildung und Forschung (BMBF) wurde im Herbst 2001
 zunächst das FDZ des Statistischen Bundesamts gegründet. Das FDZ der
 Statistischen Ämter der Länder folgte im April 2002.
 
-\paragraph{Aufgaben und Ziele}\label{aufgaben-und-ziele}
+\subsubsection{Aufgaben und Ziele}\label{aufgaben-und-ziele}
 
 Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen
 Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern
@@ -721,9 +746,9 @@ fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
   Deutschland für kurze Anfahrtswege
 \end{itemize}
 
-\subsubsection{Technische Infrastruktur}\label{technische-infrastruktur}
+\subsection{Technische Infrastruktur}\label{technische-infrastruktur}
 
-\paragraph{Hardware-Ausstattung}\label{hardware-ausstattung}
+\subsubsection{Hardware-Ausstattung}\label{hardware-ausstattung}
 
 Die technische Infrastruktur des FDZ-Bund umfasst verschiedene
 Systemkomponenten:
@@ -751,7 +776,7 @@ Backup-System & Tägliches Backup, räumlich getrennte Archivierung & -\\
 
 \end{table}%
 
-\paragraph{Software-Umgebung}\label{software-umgebung}
+\subsubsection{Software-Umgebung}\label{software-umgebung}
 
 Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 
@@ -767,9 +792,9 @@ Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
   \textbf{Versionskontrolle:} Git (lokal, ohne externe Verbindung)
 \end{itemize}
 
-\subsubsection{Infrastrukturkonzept}\label{infrastrukturkonzept}
+\subsection{Infrastrukturkonzept}\label{infrastrukturkonzept}
 
-\paragraph{Fachlich zentralisierte
+\subsubsection{Fachlich zentralisierte
 Datenhaltung}\label{fachlich-zentralisierte-datenhaltung}
 
 In Deutschland wird der überwiegende Teil der amtlichen
@@ -781,7 +806,7 @@ oder das gesamte Bundesgebiet beziehen, haben die FDZ eine
 ermöglicht es, die Daten des gesamten Bundesgebiets länderübergreifend
 an jedem Standort bereitzustellen.
 
-\paragraph{Regionalisierte
+\subsubsection{Regionalisierte
 Infrastruktur}\label{regionalisierte-infrastruktur}
 
 Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein.
@@ -797,13 +822,13 @@ Standorte befinden sich u.a. in:
   Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
 \end{itemize}
 
-\subsubsection{Zugangsformen und
+\subsection{Zugangsformen und
 Nutzungsmodelle}\label{zugangsformen-und-nutzungsmodelle}
 
 Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich
 anonymisierte Datenprodukte bereitgestellt werden:
 
-\paragraph{Off-Site-Zugang}\label{off-site-zugang}
+\subsubsection{Off-Site-Zugang}\label{off-site-zugang}
 
 \begin{itemize}
 \tightlist
@@ -818,7 +843,7 @@ anonymisierte Datenprodukte bereitgestellt werden:
   mit höherer Detailtiefe
 \end{itemize}
 
-\paragraph{On-Site-Zugang}\label{on-site-zugang}
+\subsubsection{On-Site-Zugang}\label{on-site-zugang}
 
 \begin{itemize}
 \tightlist
@@ -848,10 +873,10 @@ anonymisierte Datenprodukte bereitgestellt werden:
   \end{itemize}
 \end{itemize}
 
-\subsubsection{Datenschutz und
+\subsection{Datenschutz und
 Sicherheit}\label{datenschutz-und-sicherheit}
 
-\paragraph{Mehrstufiges
+\subsubsection{Mehrstufiges
 Sicherheitskonzept}\label{mehrstufiges-sicherheitskonzept}
 
 Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
@@ -874,7 +899,7 @@ Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
   \textbf{Audit-Logging:} Protokollierung aller Zugriffe und Operationen
 \end{enumerate}
 
-\paragraph{Output-Kontrolle}\label{output-kontrolle}
+\subsubsection{Output-Kontrolle}\label{output-kontrolle}
 
 Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie
 eine mehrstufige Kontrolle:
@@ -891,10 +916,10 @@ eine mehrstufige Kontrolle:
   Freigabeentscheidung
 \end{itemize}
 
-\subsubsection{Performanz-Optimierung in der
+\subsection{Performanz-Optimierung in der
 FDZ-Umgebung}\label{performanz-optimierung-in-der-fdz-umgebung}
 
-\paragraph{Herausforderungen}\label{herausforderungen}
+\subsubsection{Herausforderungen}\label{herausforderungen}
 
 Die Arbeit in der geschützten FDZ-Umgebung stellt besondere
 Anforderungen:
@@ -915,7 +940,7 @@ Anforderungen:
   nachvollziehbar sein
 \end{itemize}
 
-\paragraph{Optimierungsstrategien}\label{optimierungsstrategien}
+\subsubsection{Optimierungsstrategien}\label{optimierungsstrategien}
 
 Verschiedene Strategien helfen, die Performanz zu optimieren:
 
@@ -932,7 +957,7 @@ Performanz-Optimierung im FDZ-Bund}
 
 \end{figure}%
 
-\subsubsection{Akkreditierung und
+\subsection{Akkreditierung und
 Qualitätssicherung}\label{akkreditierung-und-qualituxe4tssicherung}
 
 Die Forschungsdatenzentren der Statistischen Ämter des Bundes und der
@@ -942,7 +967,7 @@ Forschungsdatenzentren, die den Zugang zu qualitativ hochwertigen
 sensiblen Daten für die Wissenschaft ermöglichen und dabei die
 erforderlichen Kriterien erfüllen.
 
-\subsubsection{Best Practices für
+\subsection{Best Practices für
 FDZ-Nutzende}\label{best-practices-fuxfcr-fdz-nutzende}
 
 Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für
@@ -971,9 +996,9 @@ effizientes Arbeiten ableiten:
   FDZ-Mitarbeitern bei methodischen Fragen
 \end{enumerate}
 
-\subsection{Effiziente Auswertungsmethoden}\label{sec-methoden}
+\section{Effiziente Auswertungsmethoden}\label{sec-methoden}
 
-\subsubsection{Motivation}\label{motivation}
+\subsection{Motivation}\label{motivation}
 
 Die Analyse großer Datensätze wie des BTP (\textgreater66 Millionen
 Einheiten, \textgreater2.700 Variablen) in der FDZ-Umgebung stellt
@@ -982,10 +1007,10 @@ Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre
 Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche
 Vorteile.
 
-\subsubsection{Apache Arrow: Spaltenorientiertes
+\subsection{Apache Arrow: Spaltenorientiertes
 In-Memory-Format}\label{apache-arrow-spaltenorientiertes-in-memory-format}
 
-\paragraph{Grundprinzip}\label{grundprinzip}
+\subsubsection{Grundprinzip}\label{grundprinzip}
 
 Apache Arrow ist ein sprach- und plattformübergreifendes
 In-Memory-Format für spaltenorientierte Datenverarbeitung. Im Gegensatz
@@ -1008,7 +1033,7 @@ was erhebliche Vorteile bietet:
   genutzt werden
 \end{itemize}
 
-\paragraph{Anwendung in R}\label{anwendung-in-r}
+\subsubsection{Anwendung in R}\label{anwendung-in-r}
 
 Das \texttt{arrow}-Paket in R bietet vollständige Integration:
 
@@ -1031,7 +1056,7 @@ Das \texttt{arrow}-Paket in R bietet vollständige Integration:
 \end{Highlighting}
 \end{Shaded}
 
-\paragraph{Vorteile für
+\subsubsection{Vorteile für
 FDZ-Analysen}\label{vorteile-fuxfcr-fdz-analysen}
 
 \begin{itemize}
@@ -1050,7 +1075,7 @@ FDZ-Analysen}\label{vorteile-fuxfcr-fdz-analysen}
   partitioniert werden
 \end{itemize}
 
-\paragraph{Limitationen}\label{limitationen}
+\subsubsection{Limitationen}\label{limitationen}
 
 \begin{itemize}
 \tightlist
@@ -1064,10 +1089,10 @@ FDZ-Analysen}\label{vorteile-fuxfcr-fdz-analysen}
   konvertiert werden
 \end{itemize}
 
-\subsubsection{Parquet: Persistentes spaltenorientiertes
+\subsection{Parquet: Persistentes spaltenorientiertes
 Format}\label{parquet-persistentes-spaltenorientiertes-format}
 
-\paragraph{Eigenschaften}\label{eigenschaften}
+\subsubsection{Eigenschaften}\label{eigenschaften}
 
 Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit
 Arrow zusammenarbeitet:
@@ -1086,7 +1111,8 @@ Arrow zusammenarbeitet:
   Spark, DuckDB)
 \end{itemize}
 
-\paragraph{Vergleich zu Alternativen}\label{vergleich-zu-alternativen}
+\subsubsection{Vergleich zu
+Alternativen}\label{vergleich-zu-alternativen}
 
 \begin{table}
 
@@ -1111,7 +1137,7 @@ Parquet (partitioniert) & 15\% & Sehr schnell (selektiv) & Snappy/GZIP & Ja & Se
 
 \end{table}%
 
-\paragraph{Empfehlung für FDZ}\label{empfehlung-fuxfcr-fdz}
+\subsubsection{Empfehlung für FDZ}\label{empfehlung-fuxfcr-fdz}
 
 \textbf{Parquet ist das empfohlene Format für große Datensätze im FDZ}
 wegen:
@@ -1130,10 +1156,10 @@ wegen:
   Kompatibilität mit verschiedenen Analysewerkzeugen
 \end{enumerate}
 
-\subsubsection{DuckDB: Analytical Database
+\subsection{DuckDB: Analytical Database
 System}\label{duckdb-analytical-database-system}
 
-\paragraph{Konzept}\label{konzept}
+\subsubsection{Konzept}\label{konzept}
 
 DuckDB ist ein einbettbares analytisches Datenbanksystem, speziell für
 OLAP-Workloads (Online Analytical Processing) entwickelt:
@@ -1152,7 +1178,7 @@ OLAP-Workloads (Online Analytical Processing) entwickelt:
   \textbf{Arrow-Integration:} Zero-Copy-Integration mit Arrow-Daten
 \end{itemize}
 
-\paragraph{Warum DuckDB?}\label{warum-duckdb}
+\subsubsection{Warum DuckDB?}\label{warum-duckdb}
 
 DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
 
@@ -1171,7 +1197,7 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
   \textbf{Geschwindigkeit:} Hochoptimierte Query Engine
 \end{enumerate}
 
-\paragraph{Anwendungsbeispiel}\label{anwendungsbeispiel}
+\subsubsection{Anwendungsbeispiel}\label{anwendungsbeispiel}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1207,7 +1233,7 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
 \end{Highlighting}
 \end{Shaded}
 
-\paragraph{Vorteile}\label{vorteile}
+\subsubsection{Vorteile}\label{vorteile}
 
 \begin{itemize}
 \tightlist
@@ -1227,7 +1253,7 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
   R-Data-Frames
 \end{itemize}
 
-\paragraph{Limitationen}\label{limitationen-1}
+\subsubsection{Limitationen}\label{limitationen-1}
 
 \begin{itemize}
 \tightlist
@@ -1241,10 +1267,10 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
   (aber sehr aktiv entwickelt)
 \end{itemize}
 
-\subsubsection{Vergleich mit
+\subsection{Vergleich mit
 Alternativen}\label{vergleich-mit-alternativen}
 
-\paragraph{Base R}\label{base-r}
+\subsubsection{Base R}\label{base-r}
 
 \textbf{Vorteile:} Einfach, weit verbreitet, keine zusätzlichen
 Abhängigkeiten \textbf{Nachteile:} Langsam bei großen Daten, hoher
@@ -1253,7 +1279,7 @@ Speicherverbrauch, alle Daten müssen in RAM passen
 \textbf{Empfehlung:} Nur für kleine Datensätze (\textless1 GB) oder wenn
 Kompatibilität wichtiger als Performance ist
 
-\paragraph{data.table}\label{data.table}
+\subsubsection{data.table}\label{data.table}
 
 \textbf{Vorteile:} Sehr schnell für In-Memory-Operationen, ausgereift,
 kompakte Syntax \textbf{Nachteile:} Alle Daten müssen in RAM passen,
@@ -1262,7 +1288,7 @@ steile Lernkurve, keine Out-of-Core-Unterstützung
 \textbf{Empfehlung:} Gute Alternative wenn Datensatz in RAM passt und
 keine Parquet-Integration benötigt wird
 
-\paragraph{dplyr + dbplyr}\label{dplyr-dbplyr}
+\subsubsection{dplyr + dbplyr}\label{dplyr-dbplyr}
 
 \textbf{Vorteile:} Vertraute dplyr-Syntax, gut mit Datenbanken
 integriert \textbf{Nachteile:} Langsamer als Arrow/DuckDB, benötigt
@@ -1271,7 +1297,7 @@ Backend-Datenbank, SQL-Translation manchmal limitiert
 \textbf{Empfehlung:} Wenn bereits PostgreSQL- oder ähnliche
 Datenbank-Infrastruktur vorhanden ist
 
-\subsubsection{Unsere Empfehlung: Arrow + DuckDB +
+\subsection{Unsere Empfehlung: Arrow + DuckDB +
 Parquet}\label{unsere-empfehlung-arrow-duckdb-parquet}
 
 Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
@@ -1293,7 +1319,7 @@ Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
   Modellierung
 \end{enumerate}
 
-\paragraph{Workflow-Beispiel}\label{workflow-beispiel}
+\subsubsection{Workflow-Beispiel}\label{workflow-beispiel}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1333,16 +1359,16 @@ Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
 Dieser Workflow kombiniert die Stärken aller Werkzeuge und ist optimal
 für FDZ-Bedingungen geeignet.
 
-\subsection{Performanzergebnisse}\label{sec-performance}
+\section{Performanzergebnisse}\label{sec-performance}
 
-\subsubsection{Experimentelles Setup}\label{experimentelles-setup}
+\subsection{Experimentelles Setup}\label{experimentelles-setup}
 
 Die Performanzmessungen wurden auf einem repräsentativen FDZ-System
 durchgeführt (2x Intel Xeon Gold 6248R, 48 Kerne, 384 GB RAM, Ubuntu
 22.04 LTS). Alle Tests wurden mit R 4.3.2 und aktuellen Versionen der
 verwendeten Pakete durchgeführt.
 
-\paragraph{Test-Szenarien}\label{test-szenarien}
+\subsubsection{Test-Szenarien}\label{test-szenarien}
 
 Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
 
@@ -1363,10 +1389,10 @@ Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
   und Transformationsoperationen
 \end{enumerate}
 
-\subsubsection{Vergleich der
+\subsection{Vergleich der
 Datenformate}\label{vergleich-der-datenformate}
 
-\paragraph{Ladezeiten und
+\subsubsection{Ladezeiten und
 Speicherverbrauch}\label{ladezeiten-und-speicherverbrauch}
 
 \begin{figure}
@@ -1382,7 +1408,7 @@ Datenformate (BTP-Datensatz, 5 Mio. Zeilen, 50 Variablen)}
 
 \end{figure}%
 
-\paragraph{Aggregations-Performance}\label{aggregations-performance}
+\subsubsection{Aggregations-Performance}\label{aggregations-performance}
 
 \begin{table}
 
@@ -1409,9 +1435,9 @@ Arrow + Parquet (partitioniert) & 0.2 & 0.5 & 0.7 & 91.3\\
 
 \end{table}%
 
-\subsubsection{Skalierungsverhalten}\label{skalierungsverhalten}
+\subsection{Skalierungsverhalten}\label{skalierungsverhalten}
 
-\paragraph{Performance bei wachsender
+\subsubsection{Performance bei wachsender
 Datenmenge}\label{performance-bei-wachsender-datenmenge}
 
 \begin{figure}
@@ -1427,9 +1453,9 @@ Ansätze (Szenario B: Komplexe Aggregation)}
 
 \end{figure}%
 
-\subsubsection{Join-Performance}\label{join-performance}
+\subsection{Join-Performance}\label{join-performance}
 
-\paragraph{Verschiedene
+\subsubsection{Verschiedene
 Join-Strategien}\label{verschiedene-join-strategien}
 
 Die Verknüpfung großer Datensätze ist eine häufige Operation bei der
@@ -1448,9 +1474,9 @@ Datensatzgrößen (Inner Join zweier Tabellen)}
 
 \end{figure}%
 
-\subsubsection{Parallelisierungs-Effizienz}\label{parallelisierungs-effizienz}
+\subsection{Parallelisierungs-Effizienz}\label{parallelisierungs-effizienz}
 
-\paragraph{Speedup durch
+\subsubsection{Speedup durch
 Multi-Threading}\label{speedup-durch-multi-threading}
 
 \begin{table}
@@ -1478,9 +1504,9 @@ Kerne & Arrow (s) & DuckDB (s) & Arrow Speedup & DuckDB Speedup\\
 
 \end{table}%
 
-\subsubsection{Speichereffizienz}\label{speichereffizienz}
+\subsection{Speichereffizienz}\label{speichereffizienz}
 
-\paragraph{Memory Footprint}\label{memory-footprint}
+\subsubsection{Memory Footprint}\label{memory-footprint}
 
 Ein kritischer Faktor in der FDZ-Umgebung ist der Speicherverbrauch:
 
@@ -1497,9 +1523,9 @@ Ansätze (5 Mio. Zeilen)}
 
 \end{figure}%
 
-\subsubsection{Praktische Implikationen}\label{praktische-implikationen}
+\subsection{Praktische Implikationen}\label{praktische-implikationen}
 
-\paragraph{Empfehlungen nach
+\subsubsection{Empfehlungen nach
 Anwendungsfall}\label{empfehlungen-nach-anwendungsfall}
 
 Basierend auf den Performanzmessungen lassen sich folgende Empfehlungen
@@ -1530,7 +1556,7 @@ Speicher-limitierte Umgebung & DuckDB & Arrow (streaming) & Out-of-core Verarbei
 
 \end{table}%
 
-\subsubsection{Zusammenfassung der
+\subsection{Zusammenfassung der
 Erkenntnisse}\label{zusammenfassung-der-erkenntnisse}
 
 Die empirischen Messungen zeigen deutlich:
@@ -1558,9 +1584,9 @@ Diese Ergebnisse zeigen, dass durch den Einsatz moderner
 Auswertungsmethoden die Effizienz der Datenanalyse in
 Forschungsdatenzentren erheblich gesteigert werden kann.
 
-\subsection{Ausblick}\label{sec-ausblick}
+\section{Ausblick}\label{sec-ausblick}
 
-\subsubsection{Zusammenfassung der
+\subsection{Zusammenfassung der
 Erkenntnisse}\label{zusammenfassung-der-erkenntnisse-1}
 
 Die vorliegende Untersuchung hat gezeigt, dass moderne
@@ -1584,10 +1610,10 @@ großer Datensätze in der amtlichen Statistik bieten. Die Kombination von
   Predicate Pushdown
 \end{itemize}
 
-\subsubsection{Implikationen für die
+\subsection{Implikationen für die
 Forschungsdatenzentren}\label{implikationen-fuxfcr-die-forschungsdatenzentren}
 
-\paragraph{Infrastrukturentwicklung}\label{infrastrukturentwicklung}
+\subsubsection{Infrastrukturentwicklung}\label{infrastrukturentwicklung}
 
 Die FDZ sollten die Integration dieser Technologien vorantreiben:
 
@@ -1608,7 +1634,7 @@ Die FDZ sollten die Integration dieser Technologien vorantreiben:
   dokumentieren und teilen
 \end{enumerate}
 
-\paragraph{Nutzerunterstützung}\label{nutzerunterstuxfctzung}
+\subsubsection{Nutzerunterstützung}\label{nutzerunterstuxfctzung}
 
 Forschende profitieren von:
 
@@ -1628,10 +1654,10 @@ Forschende profitieren von:
   dokumentierbar
 \end{itemize}
 
-\subsubsection{Technologische
+\subsection{Technologische
 Entwicklungen}\label{technologische-entwicklungen}
 
-\paragraph{Kurz- bis mittelfristig}\label{kurz--bis-mittelfristig}
+\subsubsection{Kurz- bis mittelfristig}\label{kurz--bis-mittelfristig}
 
 \textbf{Weitere Optimierungen} der bestehenden Tools sind zu erwarten:
 
@@ -1650,7 +1676,7 @@ Entwicklungen}\label{technologische-entwicklungen}
   Arrow-basierte Berechnungen
 \end{itemize}
 
-\paragraph{Langfristig}\label{langfristig}
+\subsubsection{Langfristig}\label{langfristig}
 
 \textbf{Neue Paradigmen} könnten zusätzliche Verbesserungen bringen:
 
@@ -1669,7 +1695,7 @@ Entwicklungen}\label{technologische-entwicklungen}
   Daten
 \end{itemize}
 
-\subsubsection{Offene Forschungsfragen}\label{offene-forschungsfragen}
+\subsection{Offene Forschungsfragen}\label{offene-forschungsfragen}
 
 Weitere Untersuchungen sollten folgende Aspekte betrachten:
 
@@ -1690,9 +1716,9 @@ Weitere Untersuchungen sollten folgende Aspekte betrachten:
   und -formate optimal integrieren?
 \end{enumerate}
 
-\subsubsection{Handlungsempfehlungen}\label{handlungsempfehlungen}
+\subsection{Handlungsempfehlungen}\label{handlungsempfehlungen}
 
-\paragraph{Für
+\subsubsection{Für
 Forschungsdatenzentren}\label{fuxfcr-forschungsdatenzentren}
 
 \textbf{Pilotprojekte} sollten initiiert werden:
@@ -1711,7 +1737,7 @@ Forschungsdatenzentren}\label{fuxfcr-forschungsdatenzentren}
   Erkenntnisse in Qualitätsstandards überführen
 \end{itemize}
 
-\paragraph{Für Forschende}\label{fuxfcr-forschende}
+\subsubsection{Für Forschende}\label{fuxfcr-forschende}
 
 \textbf{Schrittweise Einführung} wird empfohlen:
 
@@ -1729,7 +1755,7 @@ Forschungsdatenzentren}\label{fuxfcr-forschungsdatenzentren}
   Bei Erfolg schrittweise auf größere Projekte übertragen
 \end{enumerate}
 
-\subsubsection{Schlussbetrachtung}\label{schlussbetrachtung}
+\subsection{Schlussbetrachtung}\label{schlussbetrachtung}
 
 Die Analyse großer Datensätze in Forschungsdatenzen tren steht vor einem
 Technologiewandel. Die hier untersuchten Werkzeuge -- \textbf{Arrow,
