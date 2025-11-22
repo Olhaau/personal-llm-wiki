@@ -4,7 +4,7 @@ project:
   render:
     - index.qmd
   post-render:
-    - "bash -c 'git add _book/*.pdf && git commit -m \"Update PDF $(date +%Y-%m-%d_%H:%M)\" && git push || true'"
+    - bash -c "git add _book/*.pdf && git commit -m 'Update PDF' && git push || true"
 
 title: "Effizienzanalyse statistischer Verfahren in der amtlichen Statistik"
 subtitle: "Eine empirische Untersuchung am Beispiel der Datenverarbeitung"
@@ -24,6 +24,7 @@ bibliography: references.bib
 format:
   pdf:
     documentclass: article
+    output-file: "Effizienzanalyse-statistischer-Verfahren.pdf"
     classoption:
       - twocolumn
     geometry:
@@ -93,6 +94,15 @@ format:
           {\color{wistaBlue}\small\bfseries\thesubsubsection}
           {0.3em}
           {\color{wistaDarkGray}\small\bfseries}
+        
+        % Paragraph formatting (4th level)
+        \titleformat{\paragraph}[runin]
+          {\color{wistaDarkGray}\normalsize\bfseries}
+          {}
+          {0em}
+          {}
+          [.]
+        \titlespacing*{\paragraph}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.5em}
         
         % Header and footer setup
         \pagestyle{fancy}
