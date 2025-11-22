@@ -224,7 +224,7 @@
 % Header and footer setup with blue line under header
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\textit{Max Mustermann, Dr. Anna Schmidt}}
+\fancyhead[L]{\small\textit{Oliver Hauke, Annette Kristiansen}}
 \fancyhead[R]{\small\textit{Effizienzanalyse statistischer Verfahren}}
 \fancyfoot[L]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
 \fancyfoot[R]{\small\thepage}
@@ -310,7 +310,7 @@
 \urlstyle{same}
 \hypersetup{
   pdftitle={Effizienzanalyse statistischer Verfahren in der amtlichen Statistik},
-  pdfauthor={Max Mustermann; Dr.~Anna Schmidt},
+  pdfauthor={Oliver Hauke; Annette Kristiansen},
   pdflang={de},
   colorlinks=true,
   linkcolor={blue},
@@ -330,7 +330,7 @@ Statistik}
 \makeatother
 \subtitle{Eine empirische Untersuchung am Beispiel der
 Datenverarbeitung}
-\author{Max Mustermann \and Dr.~Anna Schmidt}
+\author{Oliver Hauke \and Annette Kristiansen}
 \date{2025-11-22}
 \begin{document}
 \maketitle
@@ -353,13 +353,11 @@ Datenverarbeitung}
 % Left side - Author information
 \raggedright
 \small
-\textbf{Max Mustermann}\\
+\textbf{Oliver Hauke}\\
 Statistisches Bundesamt\\
-\textit{Abteilung für methodische Grundsatzfragen}\\
 \vspace{0.5cm}
-\textbf{Dr. Anna Schmidt}\\
-Universität München\\
-\textit{Institut für Statistik}\\
+\textbf{Annette Kristiansen}\\
+Statistisches Bundesamt\\
 \end{minipage}%
 \hspace{1.5cm}%
 \begin{minipage}[t]{10cm}
@@ -382,8 +380,8 @@ Universität München\\
 \vspace{0.5cm}
 
 % Authors
-{\large\bfseries Max Mustermann}\\
-{\large\bfseries Dr. Anna Schmidt}\\
+{\large\bfseries Oliver Hauke}\\
+{\large\bfseries Annette Kristiansen}\\
 
 \vspace{0.3cm}
 
@@ -498,6 +496,44 @@ verschiedene statistische Verfahren anhand realer Datensätze aus der
 amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch
 neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren
 Optionen zu zeichnen.
+
+\begin{table}
+
+\caption{\label{tbl-methoden-uebersicht}Übersicht der untersuchten
+Auswertungsmethoden und ihrer Eigenschaften}
+
+\centering{
+
+\begin{tabular}{llcccc}
+\toprule
+Methode & Sprache & In-Memory & Parallelisierung & Max. Datengröße & Komplexität\\
+\midrule
+Base R & R & Ja & Nein & RAM & Niedrig\\
+data.table & R & Ja & Ja & RAM & Mittel\\
+dplyr & R & Ja & Begrenzt & RAM & Niedrig\\
+Arrow/Parquet & R/Python & Optional & Ja & >RAM & Mittel\\
+DuckDB & SQL & Optional & Ja & >RAM & Mittel\\
+\addlinespace
+Spark & Scala/R/Python & Nein & Ja & Cluster & Hoch\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-methoden-vergleich-1.pdf}}
+
+}
+
+\caption{\label{fig-methoden-vergleich}Vergleich der Auswertungsmethoden
+nach Geschwindigkeit und Speichereffizienz}
+
+\end{figure}%
 
 \section{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
 
