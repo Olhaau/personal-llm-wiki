@@ -66,6 +66,8 @@ ggplot(format_perf, aes(x = reorder(Format, -Wert), y = Wert, fill = Format)) +
 #| tbl-cap: "Ausführungszeiten für Szenario A: Einfache Aggregation (in Sekunden)"
 #| echo: false
 
+library(kableExtra)
+
 agg_perf <- data.frame(
   Ansatz = c("Base R (read.csv + aggregate)", 
              "data.table (fread + groupby)", 
@@ -81,11 +83,13 @@ agg_perf <- data.frame(
 
 colnames(agg_perf) <- c("Ansatz", "Laden", "Aggregation", "Gesamt", "Speedup")
 
-knitr::kable(agg_perf, 
-      format = "latex",
-      align = c("l", "r", "r", "r", "r"),
-      digits = 1,
-      booktabs = TRUE)
+kbl(agg_perf, 
+    format = "latex",
+    align = c("l", "r", "r", "r", "r"),
+    digits = 1,
+    booktabs = TRUE) |>
+  kable_styling(latex_options = c("hold_position"),
+                full_width = TRUE)
 ```
 
 ### Skalierungsverhalten
@@ -197,6 +201,8 @@ ggplot(join_perf, aes(x = Größe, y = Zeit, fill = Tool)) +
 #| tbl-cap: "Speedup durch Parallelisierung (Szenario D: Filterkette, 10 Mio. Zeilen)"
 #| echo: false
 
+library(kableExtra)
+
 parallel_speedup <- data.frame(
   Kerne = c(1, 2, 4, 8, 16, 32),
   "Arrow" = c(25.3, 13.2, 7.1, 3.9, 2.3, 1.8),
@@ -207,11 +213,13 @@ parallel_speedup <- data.frame(
 
 colnames(parallel_speedup) <- c("Kerne", "Arrow (s)", "DuckDB (s)", "Arrow Speedup", "DuckDB Speedup")
 
-knitr::kable(parallel_speedup, 
-      format = "latex",
-      align = c("c", "r", "r", "r", "r"),
-      digits = 1,
-      booktabs = TRUE)
+kbl(parallel_speedup, 
+    format = "latex",
+    align = c("c", "r", "r", "r", "r"),
+    digits = 1,
+    booktabs = TRUE) |>
+  kable_styling(latex_options = c("hold_position"),
+                full_width = TRUE)
 ```
 
 ### Speichereffizienz
@@ -273,6 +281,8 @@ Basierend auf den Performanzmessungen lassen sich folgende Empfehlungen ableiten
 #| tbl-cap: "Empfohlene Werkzeuge nach Anwendungsfall"
 #| echo: false
 
+library(kableExtra)
+
 recommendations <- data.frame(
   Anwendungsfall = c("Kleine Datensätze (<1M Zeilen)", 
                     "Explorative Analyse, häufige Iterationen",
@@ -292,10 +302,12 @@ recommendations <- data.frame(
 
 colnames(recommendations) <- c("Anwendungsfall", "1. Wahl", "2. Wahl", "Begründung")
 
-knitr::kable(recommendations, 
-      format = "latex",
-      align = c("l", "l", "l", "l"),
-      booktabs = TRUE)
+kbl(recommendations, 
+    format = "latex",
+    align = c("l", "l", "l", "l"),
+    booktabs = TRUE) |>
+  kable_styling(latex_options = c("hold_position", "scale_down"),
+                full_width = TRUE)
 ```
 
 ### Zusammenfassung der Erkenntnisse

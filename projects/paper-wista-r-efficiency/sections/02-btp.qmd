@@ -26,6 +26,8 @@ Das BTP umfasst einen außergewöhnlich umfangreichen Datensatz mit beeindrucken
 #| tbl-cap: "Übersicht über die Dimensionen des Business-Tax-Panel"
 #| echo: false
 
+library(kableExtra)
+
 btp_stats <- data.frame(
   Merkmal = c("Beobachtungszeitraum", "Anzahl Einheiten (2013-2019)", "Anzahl Merkmale", 
               "Erhebungsart", "Datenquelle"),
@@ -33,11 +35,13 @@ btp_stats <- data.frame(
            "Vollerhebung", "Sekundärerhebung (Finanzverwaltung)")
 )
 
-knitr::kable(btp_stats, 
-      format = "latex",
-      align = c("l", "l"),
-      booktabs = TRUE,
-      col.names = c("Merkmal", "Wert"))
+kbl(btp_stats, 
+    format = "latex",
+    align = c("l", "l"),
+    booktabs = TRUE,
+    col.names = c("Merkmal", "Wert")) |>
+  kable_styling(latex_options = c("hold_position"),
+                full_width = TRUE)
 ```
 
 #### Hauptmerkmale des Datensatzes

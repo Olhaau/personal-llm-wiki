@@ -80,11 +80,11 @@ format:
         % Custom section formatting - number on top with column-width underline
         \titleformat{\section}[display]
           {\normalfont\large\bfseries}
-          {\color{wistaBlue}\large\bfseries\thesection\vspace{0.1cm}\\\noindent\rule{\columnwidth}{1pt}}
-          {0.3cm}
+          {\color{wistaBlue}\large\bfseries\thesection\vspace{-0.2cm}\\\noindent\rule{\columnwidth}{1pt}}
+          {0.02cm}
           {\color{wistaDarkGray}\large\bfseries}
-          [\vspace{0.1cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.5pt}}\vspace{0.3cm}]
-        \titlespacing*{\section}{0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
+          [\vspace{-0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.5pt}}\vspace{0.08cm}]
+        \titlespacing*{\section}{0pt}{0.8ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
         
         % Subsection formatting - number and title with underline
         \titleformat{\subsection}
@@ -92,7 +92,7 @@ format:
           {\color{wistaBlue}\normalsize\bfseries\thesubsection}
           {0.5em}
           {\color{wistaDarkGray}\normalsize\bfseries}
-          [\vspace{0.05cm}\noindent{\color{wistaBlue}\rule{0.5\columnwidth}{0.4pt}}\vspace{0.1cm}]
+          [\vspace{-0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.4pt}}\vspace{0.03cm}]
           
         % Subsubsection formatting
         \titleformat{\subsubsection}
@@ -123,7 +123,7 @@ format:
         \renewcommand{\headrule}{\color{wistaBlue}\hrule width\headwidth height 1pt \vskip 2pt}
         \renewcommand{\headrulewidth}{1pt}
         
-        % Make all figures and tables span both columns (full width)
+        % Make all figures span both columns (full width)
         \let\origfigure\figure
         \let\endorigfigure\endfigure
         \renewenvironment{figure}[1][htbp]{%
@@ -132,27 +132,28 @@ format:
           \endorigfigure*%
         }
         
-        \let\origtable\table
-        \let\endorigtable\endtable
-        \renewenvironment{table}[1][htbp]{%
-          \origtable*[#1]%
-        }{%
-          \endorigtable*%
+        % Make bibliography full-width (one column) - for biblatex
+        \defbibheading{bibliography}[\bibname]{%
+          \onecolumn
+          \section*{#1}%
+          \markboth{#1}{#1}%
         }
+        
+
         
         % Footnotes stay within column
         \usepackage[stable]{footmisc}
         
-        % Custom bullet points with ">"
+        % Custom bullet points with ▶ (U+25B6)
         \usepackage{enumitem}
-        \setlist[itemize]{label={\color{wistaBlue}\textgreater}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
+        \setlist[itemize]{label={\color{wistaBlue}▶}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
         
         % Blue arrow for cross-references (bottom-right arrow)
         \usepackage{amssymb}
         
-        % Redefine ref to include blue arrow for figure/table/section references
+        % Redefine ref to include blue arrow ▸ (U+25B8, code 216) for figure/table/section references
         \let\oldref\ref
-        \renewcommand{\ref}[1]{{\color{wistaBlue}$\searrow$}\oldref{#1}}
+        \renewcommand{\ref}[1]{{\color{wistaBlue}▸}\oldref{#1}}
         
 
         

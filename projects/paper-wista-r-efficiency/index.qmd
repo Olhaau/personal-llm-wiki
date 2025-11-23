@@ -1,12 +1,11 @@
-<!-- DEV: Uncomment content below to render full document -->
-<!-- To render only title page, keep this file minimal -->
+{{< include sections/01-einleitung.qmd >}}
 
-<!-- FULL CONTENT COMMENTED OUT FOR TITLE PAGE DEVELOPMENT
+{{< include sections/02-btp.qmd >}}
 
-## Motivation und Zielsetzung {#sec-intro}
+{{< include sections/03-infrastruktur.qmd >}}
 
-Die amtliche Statistik steht vor der Herausforderung...
+{{< include sections/04-methoden.qmd >}}
 
-(content hidden for title page testing)
+{{< include sections/05-performance.qmd >}}
 
--->
+{{< include sections/06-ausblick.qmd >}}

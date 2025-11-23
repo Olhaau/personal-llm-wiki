@@ -67,6 +67,8 @@ Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit Arrow zusamm
 #| tbl-cap: "Vergleich verschiedener Datenformate für die BTP-Analyse"
 #| echo: false
 
+library(kableExtra)
+
 format_comp <- data.frame(
   Format = c("CSV", "RDS (R)", "Feather", "Parquet", "Parquet (partitioniert)"),
   Größe = c("100%", "45%", "95%", "15%", "15%"),
@@ -76,10 +78,12 @@ format_comp <- data.frame(
   Kompatibilität = c("Universal", "Nur R", "Arrow-Ökosystem", "Sehr hoch", "Sehr hoch")
 )
 
-knitr::kable(format_comp, 
-      format = "latex",
-      align = c("l", "r", "l", "l", "c", "l"),
-      booktabs = TRUE)
+kbl(format_comp, 
+    format = "latex",
+    align = c("l", "r", "l", "l", "c", "l"),
+    booktabs = TRUE) |>
+  kable_styling(latex_options = c("hold_position", "scale_down"),
+                full_width = TRUE)
 ```
 
 #### Empfehlung für FDZ

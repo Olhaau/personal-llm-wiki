@@ -30,6 +30,8 @@ Die technische Infrastruktur des FDZ-Bund umfasst verschiedene Systemkomponenten
 #| tbl-cap: "Technische Ausstattung des FDZ-Bund (beispielhafte Konfiguration)"
 #| echo: false
 
+library(kableExtra)
+
 infra_data <- data.frame(
   Komponente = c("Rechenknoten (Standard)", "Rechenknoten (High-Memory)", 
                  "Speichersystem", "Netzwerk", "Backup-System"),
@@ -41,11 +43,13 @@ infra_data <- data.frame(
   Anzahl = c("12", "4", "1", "-", "-")
 )
 
-knitr::kable(infra_data, 
-      format = "latex",
-      align = c("l", "l", "c"),
-      booktabs = TRUE,
-      col.names = c("Komponente", "Spezifikation", "Anzahl"))
+kbl(infra_data, 
+    format = "latex",
+    align = c("l", "l", "c"),
+    booktabs = TRUE,
+    col.names = c("Komponente", "Spezifikation", "Anzahl")) |>
+  kable_styling(latex_options = c("hold_position"),
+                full_width = TRUE)
 ```
 
 #### Software-Umgebung
