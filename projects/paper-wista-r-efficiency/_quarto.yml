@@ -72,7 +72,7 @@ format:
         \renewcommand{\maketitle}{}
         
         % Define WISTA colors (Havelock Blue as main)
-        \definecolor{wistaBlue}{RGB}{85,145,200}
+        \definecolor{wistaBlue}{RGB}{65,125,180}
         \definecolor{wistaLightBlue}{RGB}{120,170,215}
         \definecolor{wistaDarkGray}{RGB}{64,64,64}
         \definecolor{wistaLightGray}{RGB}{128,128,128}
@@ -144,9 +144,9 @@ format:
         % Footnotes stay within column
         \usepackage[stable]{footmisc}
         
-        % Custom bullet points with ▶ (U+25B6)
+        % Custom bullet points with arrow head
         \usepackage{enumitem}
-        \setlist[itemize]{label={\color{wistaBlue}▶}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
+        \setlist[itemize]{label={\color{wistaBlue}$\blacktriangleright$}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
         
         % Blue arrow for cross-references (bottom-right arrow)
         \usepackage{amssymb}

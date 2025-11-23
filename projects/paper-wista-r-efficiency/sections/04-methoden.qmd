@@ -6,7 +6,7 @@ Die Analyse großer Datensätze wie des BTP (\>66 Millionen Einheiten, \>2.700 V
 
 ### Apache Arrow: Spaltenorientiertes In-Memory-Format
 
-#### Grundprinzip
+**Grundprinzip.**
 
 Apache Arrow ist ein sprach- und plattformübergreifendes In-Memory-Format für spaltenorientierte Datenverarbeitung. Im Gegensatz zu zeilenorientierten Formaten werden Daten spaltenweise organisiert, was erhebliche Vorteile bietet:
 
@@ -15,7 +15,7 @@ Apache Arrow ist ein sprach- und plattformübergreifendes In-Memory-Format für 
 -   **Zero-Copy:** Daten können ohne Kopieren zwischen Prozessen und Sprachen ausgetauscht werden
 -   **SIMD-Optimierung:** Moderne CPU-Instruktionen können effizient genutzt werden
 
-#### Anwendung in R
+**Anwendung in R.**
 
 Das `arrow`-Paket in R bietet vollständige Integration:
 
@@ -36,14 +36,14 @@ result <- dataset |>
   collect()  # Erst hier wird die Berechnung ausgeführt
 ```
 
-#### Vorteile für FDZ-Analysen
+**Vorteile für FDZ-Analysen.**
 
 -   **Out-of-Core Processing:** Datensätze müssen nicht vollständig in den RAM passen
 -   **Lazy Evaluation:** Operationen werden optimiert, bevor sie ausgeführt werden
 -   **Predicate Pushdown:** Filter werden direkt beim Lesen angewendet
 -   **Partitionierung:** Datensätze können nach Kriterien (z.B. Jahr) partitioniert werden
 
-#### Limitationen
+**Limitationen.**
 
 -   **Lernkurve:** Neue Syntax für Nutzer mit Base-R-Erfahrung
 -   **Noch in Entwicklung:** Nicht alle R-Funktionen werden unterstützt
@@ -51,7 +51,7 @@ result <- dataset |>
 
 ### Parquet: Persistentes spaltenorientiertes Format
 
-#### Eigenschaften
+**Eigenschaften.**
 
 Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit Arrow zusammenarbeitet:
 
@@ -60,7 +60,7 @@ Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit Arrow zusamm
 -   **Partitionierung:** Ermöglicht selektives Lesen nach Partitionskeys
 -   **Kompatibilität:** Von vielen Tools unterstützt (R, Python, Spark, DuckDB)
 
-#### Vergleich zu Alternativen
+**Vergleich zu Alternativen.**
 
 ```{r}
 #| label: tbl-format-comparison
@@ -86,7 +86,7 @@ kbl(format_comp,
                 full_width = TRUE)
 ```
 
-#### Empfehlung für FDZ
+**Empfehlung für FDZ.**
 
 **Parquet ist das empfohlene Format für große Datensätze im FDZ** wegen:
 
@@ -97,7 +97,7 @@ kbl(format_comp,
 
 ### DuckDB: Analytical Database System
 
-#### Konzept
+**Konzept.**
 
 DuckDB ist ein einbettbares analytisches Datenbanksystem, speziell für OLAP-Workloads (Online Analytical Processing) entwickelt:
 
@@ -106,7 +106,7 @@ DuckDB ist ein einbettbares analytisches Datenbanksystem, speziell für OLAP-Wor
 -   **SQL-Interface:** Bekannte SQL-Syntax für komplexe Abfragen
 -   **Arrow-Integration:** Zero-Copy-Integration mit Arrow-Daten
 
-#### Warum DuckDB?
+**Warum DuckDB?**
 
 DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
 
@@ -115,7 +115,7 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
 3.  **Out-of-Core:** Kann größere Daten als RAM verarbeiten
 4.  **Geschwindigkeit:** Hochoptimierte Query Engine
 
-#### Anwendungsbeispiel
+**Anwendungsbeispiel.**
 
 ``` r
 library(duckdb)
@@ -149,7 +149,7 @@ result <- dbGetQuery(con, "
 dbDisconnect(con, shutdown = TRUE)
 ```
 
-#### Vorteile
+**Vorteile.**
 
 -   **Kein Setup:** Keine separate Datenbank-Installation erforderlich
 -   **Hohe Performance:** Oft schneller als spezialisierte Data-Frame-Bibliotheken
@@ -157,7 +157,7 @@ dbDisconnect(con, shutdown = TRUE)
 -   **Ressourceneffizient:** Intelligentes Memory Management
 -   **R-Integration:** Direktes Arbeiten mit Arrow-Datasets oder R-Data-Frames
 
-#### Limitationen
+**Limitationen.**
 
 -   **SQL-Kenntnisse:** Erfordert SQL-Grundkenntnisse
 -   **Debugging:** SQL-Fehler können schwerer zu debuggen sein als R-Code
@@ -165,19 +165,19 @@ dbDisconnect(con, shutdown = TRUE)
 
 ### Vergleich mit Alternativen
 
-#### Base R
+**Base R.**
 
 **Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
 
 **Empfehlung:** Nur für kleine Datensätze (\<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
 
-#### data.table
+**data.table.**
 
 **Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax **Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung
 
 **Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird
 
-#### dplyr + dbplyr
+**dplyr + dbplyr.**
 
 **Vorteile:** Vertraute dplyr-Syntax, gut mit Datenbanken integriert **Nachteile:** Langsamer als Arrow/DuckDB, benötigt Backend-Datenbank, SQL-Translation manchmal limitiert
 
@@ -192,7 +192,7 @@ Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
 3.  **Komplexe Analysen:** DuckDB für Aggregationen, Joins, Window Functions
 4.  **Ergebnisse:** R-Data-Frames für finale Visualisierung und Modellierung
 
-#### Workflow-Beispiel
+**Workflow-Beispiel.**
 
 ``` r
 library(arrow)

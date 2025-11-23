@@ -11,7 +11,7 @@ Die vorliegende Untersuchung hat gezeigt, dass moderne spaltenorientierte Techno
 
 ### Implikationen für die Forschungsdatenzentren
 
-#### Infrastrukturentwicklung
+**Infrastrukturentwicklung.**
 
 Die FDZ sollten die Integration dieser Technologien vorantreiben:
 
@@ -20,7 +20,7 @@ Die FDZ sollten die Integration dieser Technologien vorantreiben:
 3. **Schulungsangebote**: Workshops und Dokumentation für Forschende bereitstellen
 4. **Best-Practice-Katalog**: Erfolgreiche Analysemuster dokumentieren und teilen
 
-#### Nutzerunterstützung
+**Nutzerunterstützung.**
 
 Forschende profitieren von:
 
@@ -31,7 +31,7 @@ Forschende profitieren von:
 
 ### Technologische Entwicklungen
 
-#### Kurz- bis mittelfristig
+**Kurz- bis mittelfristig.**
 
 **Weitere Optimierungen** der bestehenden Tools sind zu erwarten:
 
@@ -40,7 +40,7 @@ Forschende profitieren von:
 - **DuckDB Extensions**: Spezielle Module für statistische Analysen
 - **GPU-Beschleunigung**: Erste Implementierungen für Arrow-basierte Berechnungen
 
-#### Langfristig
+**Langfristig.**
 
 **Neue Paradigmen** könnten zusätzliche Verbesserungen bringen:
 
@@ -63,7 +63,7 @@ Weitere Untersuchungen sollten folgende Aspekte betrachten:
 
 ### Handlungsempfehlungen
 
-#### Für Forschungsdatenzentren
+**Für Forschungsdatenzentren.**
 
 **Pilotprojekte** sollten initiiert werden:
 
@@ -72,7 +72,7 @@ Weitere Untersuchungen sollten folgende Aspekte betrachten:
 - Feedback von Power-Usern systematisch einholen
 - Erkenntnisse in Qualitätsstandards überführen
 
-#### Für Forschende
+**Für Forschende.**
 
 **Schrittweise Einführung** wird empfohlen:
 

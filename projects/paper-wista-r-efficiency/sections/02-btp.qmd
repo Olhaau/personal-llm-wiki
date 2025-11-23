@@ -16,7 +16,7 @@ Im BTP werden folgende Datensätze zusammengeführt:
 
 ### Datenstruktur und Umfang
 
-#### Dimensionen des Datensatzes
+**Dimensionen des Datensatzes.**
 
 Das BTP umfasst einen außergewöhnlich umfangreichen Datensatz mit beeindruckenden Dimensionen:
 
@@ -44,7 +44,7 @@ kbl(btp_stats,
                 full_width = TRUE)
 ```
 
-#### Hauptmerkmale des Datensatzes
+**Hauptmerkmale des Datensatzes.**
 
 Aus den verschiedenen Steuervordrucken und darin verwendeten Kennzahlen werden über 2.700 Merkmale erfasst, die verschiedene Aspekte der Unternehmensbesteuerung abbilden:
 
@@ -54,7 +54,7 @@ Aus den verschiedenen Steuervordrucken und darin verwendeten Kennzahlen werden �
 - **Geografische Informationen:** Bundesland, Gemeindekennziffer
 - **Panelstruktur:** Längsschnittinformationen ermöglichen Zeitreihenanalysen
 
-#### Datenerhebung und Rechtsgrundlage
+**Datenerhebung und Rechtsgrundlage.**
 
 Die im BTP enthaltenen Steuerstatistiken sind Bundesstatistiken, die als **Vollerhebung** durchgeführt werden. Es handelt sich um **Sekundärerhebungen**: Die Erhebungsmerkmale werden aus den Voranmeldungs- und Veranlagungsbescheiden von der Finanzverwaltung entnommen und über deren Rechenzentren an die Statistischen Ämter der Länder übermittelt.
 
@@ -62,7 +62,7 @@ Rechtsgrundlage ist das [Gesetz über Steuerstatistiken (StStatG)](https://www.g
 
 ### Forschungspotenzial und Nutzung
 
-#### Typische Forschungsfragen
+**Typische Forschungsfragen.**
 
 Das BTP wird für eine Vielzahl von Forschungsfragen genutzt:
 
@@ -71,7 +71,7 @@ Das BTP wird für eine Vielzahl von Forschungsfragen genutzt:
 3. **Wirtschaftsstruktur:** Branchenentwicklung und regionale Unterschiede
 4. **Krisenanalysen:** Auswirkungen von wirtschaftlichen Schocks auf Unternehmen
 
-#### Herausforderungen bei der Datenauswertung
+**Herausforderungen bei der Datenauswertung.**
 
 Die Größe und Komplexität des BTP stellt besondere Anforderungen an die Auswertungsinfrastruktur:
 

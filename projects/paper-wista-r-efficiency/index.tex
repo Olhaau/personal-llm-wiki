@@ -162,6 +162,20 @@
 \addbibresource{references.bib}
 
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \usepackage{csquotes}
 \usepackage{booktabs}
 \usepackage{array}
@@ -187,7 +201,7 @@
 \renewcommand{\maketitle}{}
 
 % Define WISTA colors (Havelock Blue as main)
-\definecolor{wistaBlue}{RGB}{85,145,200}
+\definecolor{wistaBlue}{RGB}{65,125,180}
 \definecolor{wistaLightBlue}{RGB}{120,170,215}
 \definecolor{wistaDarkGray}{RGB}{64,64,64}
 \definecolor{wistaLightGray}{RGB}{128,128,128}
@@ -259,9 +273,9 @@
 % Footnotes stay within column
 \usepackage[stable]{footmisc}
 
-% Custom bullet points with ▶ (U+25B6)
+% Custom bullet points with arrow head
 \usepackage{enumitem}
-\setlist[itemize]{label={\color{wistaBlue}▶}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
+\setlist[itemize]{label={\color{wistaBlue}$\blacktriangleright$}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
 
 % Blue arrow for cross-references (bottom-right arrow)
 \usepackage{amssymb}
@@ -359,10 +373,10 @@
 \tolerance=1000
 \fontsize{7}{8.5}\selectfont
 \vspace{0pt}%
-{\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
+{\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
 ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er betreut die technische Infrastruktur des Forschungsdatenzentrums im Statistischen Bundesamt und Arbeiten für das Netzwerk empirische Steuerforschung.\\[0.5cm]
 
-{\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
+{\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
 ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut das Netzwerk empirische Steuerforschung. Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen.
 
 \end{minipage}%
@@ -538,8 +552,7 @@ Im BTP werden folgende Datensätze zusammengeführt:
 
 \subsection{Datenstruktur und Umfang}\label{datenstruktur-und-umfang}
 
-\subsubsection{Dimensionen des
-Datensatzes}\label{dimensionen-des-datensatzes}
+\textbf{Dimensionen des Datensatzes.}
 
 Das BTP umfasst einen außergewöhnlich umfangreichen Datensatz mit
 beeindruckenden Dimensionen:
@@ -551,7 +564,7 @@ Business-Tax-Panel}
 
 \centering{
 
-\begin{tabular}{ll}
+\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright}X}
 \toprule
 Merkmal & Wert\\
 \midrule
@@ -561,14 +574,13 @@ Anzahl Merkmale & >2.700\\
 Erhebungsart & Vollerhebung\\
 Datenquelle & Sekundärerhebung (Finanzverwaltung)\\
 \bottomrule
-\end{tabular}
+\end{tabu}
 
 }
 
 \end{table}%
 
-\subsubsection{Hauptmerkmale des
-Datensatzes}\label{hauptmerkmale-des-datensatzes}
+\textbf{Hauptmerkmale des Datensatzes.}
 
 Aus den verschiedenen Steuervordrucken und darin verwendeten Kennzahlen
 werden über 2.700 Merkmale erfasst, die verschiedene Aspekte der
@@ -591,8 +603,7 @@ Unternehmensbesteuerung abbilden:
   Zeitreihenanalysen
 \end{itemize}
 
-\subsubsection{Datenerhebung und
-Rechtsgrundlage}\label{datenerhebung-und-rechtsgrundlage}
+\textbf{Datenerhebung und Rechtsgrundlage.}
 
 Die im BTP enthaltenen Steuerstatistiken sind Bundesstatistiken, die als
 \textbf{Vollerhebung} durchgeführt werden. Es handelt sich um
@@ -608,8 +619,7 @@ Steuerstatistiken (StStatG)} vom 11. Oktober 1995.
 \subsection{Forschungspotenzial und
 Nutzung}\label{forschungspotenzial-und-nutzung}
 
-\subsubsection{Typische
-Forschungsfragen}\label{typische-forschungsfragen}
+\textbf{Typische Forschungsfragen.}
 
 Das BTP wird für eine Vielzahl von Forschungsfragen genutzt:
 
@@ -629,8 +639,7 @@ Das BTP wird für eine Vielzahl von Forschungsfragen genutzt:
   Unternehmen
 \end{enumerate}
 
-\subsubsection{Herausforderungen bei der
-Datenauswertung}\label{herausforderungen-bei-der-datenauswertung}
+\textbf{Herausforderungen bei der Datenauswertung.}
 
 Die Größe und Komplexität des BTP stellt besondere Anforderungen an die
 Auswertungsinfrastruktur:
@@ -713,8 +722,7 @@ Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und
 Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten
 der amtlichen Statistiken.
 
-\subsubsection{Entstehung und
-Entwicklung}\label{entstehung-und-entwicklung}
+\textbf{Entstehung und Entwicklung.}
 
 Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur
 Verbesserung der informationellen Infrastruktur zwischen Wissenschaft
@@ -723,7 +731,7 @@ Bundesministeriums für Bildung und Forschung (BMBF) wurde im Herbst 2001
 zunächst das FDZ des Statistischen Bundesamts gegründet. Das FDZ der
 Statistischen Ämter der Länder folgte im April 2002.
 
-\subsubsection{Aufgaben und Ziele}\label{aufgaben-und-ziele}
+\textbf{Aufgaben und Ziele.}
 
 Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen
 Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern
@@ -750,19 +758,16 @@ fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
 
 \subsection{Technische Infrastruktur}\label{technische-infrastruktur}
 
-\subsubsection{Hardware-Ausstattung}\label{hardware-ausstattung}
+\textbf{Hardware-Ausstattung.}
 
 Die technische Infrastruktur des FDZ-Bund umfasst verschiedene
 Systemkomponenten:
 
-\begin{table}
-
-\caption{\label{tbl-fdz-infrastructure}Technische Ausstattung des
-FDZ-Bund (beispielhafte Konfiguration)}
-
-\centering{
-
-\begin{tabular}{llc}
+\begin{table*}[htbp]
+\caption{Technische Ausstattung des FDZ-Bund (beispielhafte Konfiguration)}
+\label{tbl-fdz-infrastructure}
+\centering
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llc@{}}
 \toprule
 Komponente & Spezifikation & Anzahl\\
 \midrule
@@ -772,13 +777,10 @@ Speichersystem & NAS-System mit 500 TB nutzbarem Speicher & 1\\
 Netzwerk & 10 Gbit/s Ethernet, InfiniBand für parallele Operationen & -\\
 Backup-System & Tägliches Backup, räumlich getrennte Archivierung & -\\
 \bottomrule
-\end{tabular}
+\end{tabular*}
+\end{table*}
 
-}
-
-\end{table}%
-
-\subsubsection{Software-Umgebung}\label{software-umgebung}
+\textbf{Software-Umgebung.}
 
 Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 
@@ -796,8 +798,7 @@ Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 
 \subsection{Infrastrukturkonzept}\label{infrastrukturkonzept}
 
-\subsubsection{Fachlich zentralisierte
-Datenhaltung}\label{fachlich-zentralisierte-datenhaltung}
+\textbf{Fachlich zentralisierte Datenhaltung.}
 
 In Deutschland wird der überwiegende Teil der amtlichen
 Statistikproduktion dezentral in den Statistischen Ämtern der Länder
@@ -808,8 +809,7 @@ oder das gesamte Bundesgebiet beziehen, haben die FDZ eine
 ermöglicht es, die Daten des gesamten Bundesgebiets länderübergreifend
 an jedem Standort bereitzustellen.
 
-\subsubsection{Regionalisierte
-Infrastruktur}\label{regionalisierte-infrastruktur}
+\textbf{Regionalisierte Infrastruktur.}
 
 Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein.
 Dies wird durch über ganz Deutschland verteilte Standorte erreicht.
@@ -830,7 +830,7 @@ Nutzungsmodelle}\label{zugangsformen-und-nutzungsmodelle}
 Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich
 anonymisierte Datenprodukte bereitgestellt werden:
 
-\subsubsection{Off-Site-Zugang}\label{off-site-zugang}
+\textbf{Off-Site-Zugang.}
 
 \begin{itemize}
 \tightlist
@@ -845,7 +845,7 @@ anonymisierte Datenprodukte bereitgestellt werden:
   mit höherer Detailtiefe
 \end{itemize}
 
-\subsubsection{On-Site-Zugang}\label{on-site-zugang}
+\textbf{On-Site-Zugang.}
 
 \begin{itemize}
 \tightlist
@@ -878,8 +878,7 @@ anonymisierte Datenprodukte bereitgestellt werden:
 \subsection{Datenschutz und
 Sicherheit}\label{datenschutz-und-sicherheit}
 
-\subsubsection{Mehrstufiges
-Sicherheitskonzept}\label{mehrstufiges-sicherheitskonzept}
+\textbf{Mehrstufiges Sicherheitskonzept.}
 
 Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
 
@@ -901,7 +900,7 @@ Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
   \textbf{Audit-Logging:} Protokollierung aller Zugriffe und Operationen
 \end{enumerate}
 
-\subsubsection{Output-Kontrolle}\label{output-kontrolle}
+\textbf{Output-Kontrolle.}
 
 Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie
 eine mehrstufige Kontrolle:
@@ -921,7 +920,7 @@ eine mehrstufige Kontrolle:
 \subsection{Performanz-Optimierung in der
 FDZ-Umgebung}\label{performanz-optimierung-in-der-fdz-umgebung}
 
-\subsubsection{Herausforderungen}\label{herausforderungen}
+\textbf{Herausforderungen.}
 
 Die Arbeit in der geschützten FDZ-Umgebung stellt besondere
 Anforderungen:
@@ -942,7 +941,7 @@ Anforderungen:
   nachvollziehbar sein
 \end{itemize}
 
-\subsubsection{Optimierungsstrategien}\label{optimierungsstrategien}
+\textbf{Optimierungsstrategien.}
 
 Verschiedene Strategien helfen, die Performanz zu optimieren:
 
@@ -1012,7 +1011,7 @@ Vorteile.
 \subsection{Apache Arrow: Spaltenorientiertes
 In-Memory-Format}\label{apache-arrow-spaltenorientiertes-in-memory-format}
 
-\subsubsection{Grundprinzip}\label{grundprinzip}
+\textbf{Grundprinzip.}
 
 Apache Arrow ist ein sprach- und plattformübergreifendes
 In-Memory-Format für spaltenorientierte Datenverarbeitung. Im Gegensatz
@@ -1035,7 +1034,7 @@ was erhebliche Vorteile bietet:
   genutzt werden
 \end{itemize}
 
-\subsubsection{Anwendung in R}\label{anwendung-in-r}
+\textbf{Anwendung in R.}
 
 Das \texttt{arrow}-Paket in R bietet vollständige Integration:
 
@@ -1058,8 +1057,7 @@ Das \texttt{arrow}-Paket in R bietet vollständige Integration:
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Vorteile für
-FDZ-Analysen}\label{vorteile-fuxfcr-fdz-analysen}
+\textbf{Vorteile für FDZ-Analysen.}
 
 \begin{itemize}
 \tightlist
@@ -1077,7 +1075,7 @@ FDZ-Analysen}\label{vorteile-fuxfcr-fdz-analysen}
   partitioniert werden
 \end{itemize}
 
-\subsubsection{Limitationen}\label{limitationen}
+\textbf{Limitationen.}
 
 \begin{itemize}
 \tightlist
@@ -1094,7 +1092,7 @@ FDZ-Analysen}\label{vorteile-fuxfcr-fdz-analysen}
 \subsection{Parquet: Persistentes spaltenorientiertes
 Format}\label{parquet-persistentes-spaltenorientiertes-format}
 
-\subsubsection{Eigenschaften}\label{eigenschaften}
+\textbf{Eigenschaften.}
 
 Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit
 Arrow zusammenarbeitet:
@@ -1113,8 +1111,7 @@ Arrow zusammenarbeitet:
   Spark, DuckDB)
 \end{itemize}
 
-\subsubsection{Vergleich zu
-Alternativen}\label{vergleich-zu-alternativen}
+\textbf{Vergleich zu Alternativen.}
 
 \begin{table}
 
@@ -1123,7 +1120,8 @@ Datenformate für die BTP-Analyse}
 
 \centering{
 
-\begin{tabular}{lrllcl}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedleft}X>{\raggedright}X>{\raggedright}X>{\centering}X>{\raggedright}X}
 \toprule
 Format & Größe & Ladezeit & Kompression & Partitionierung & Kompatibilität\\
 \midrule
@@ -1133,13 +1131,13 @@ Feather & 95\% & Sehr schnell & LZ4/ZSTD & Nein & Arrow-Ökosystem\\
 Parquet & 15\% & Schnell & Snappy/GZIP & Möglich & Sehr hoch\\
 Parquet (partitioniert) & 15\% & Sehr schnell (selektiv) & Snappy/GZIP & Ja & Sehr hoch\\
 \bottomrule
-\end{tabular}
+\end{tabu}}
 
 }
 
 \end{table}%
 
-\subsubsection{Empfehlung für FDZ}\label{empfehlung-fuxfcr-fdz}
+\textbf{Empfehlung für FDZ.}
 
 \textbf{Parquet ist das empfohlene Format für große Datensätze im FDZ}
 wegen:
@@ -1161,7 +1159,7 @@ wegen:
 \subsection{DuckDB: Analytical Database
 System}\label{duckdb-analytical-database-system}
 
-\subsubsection{Konzept}\label{konzept}
+\textbf{Konzept.}
 
 DuckDB ist ein einbettbares analytisches Datenbanksystem, speziell für
 OLAP-Workloads (Online Analytical Processing) entwickelt:
@@ -1180,7 +1178,7 @@ OLAP-Workloads (Online Analytical Processing) entwickelt:
   \textbf{Arrow-Integration:} Zero-Copy-Integration mit Arrow-Daten
 \end{itemize}
 
-\subsubsection{Warum DuckDB?}\label{warum-duckdb}
+\textbf{Warum DuckDB?}
 
 DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
 
@@ -1199,7 +1197,7 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
   \textbf{Geschwindigkeit:} Hochoptimierte Query Engine
 \end{enumerate}
 
-\subsubsection{Anwendungsbeispiel}\label{anwendungsbeispiel}
+\textbf{Anwendungsbeispiel.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1235,7 +1233,7 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Vorteile}\label{vorteile}
+\textbf{Vorteile.}
 
 \begin{itemize}
 \tightlist
@@ -1255,7 +1253,7 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
   R-Data-Frames
 \end{itemize}
 
-\subsubsection{Limitationen}\label{limitationen-1}
+\textbf{Limitationen.}
 
 \begin{itemize}
 \tightlist
@@ -1272,7 +1270,7 @@ DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
 \subsection{Vergleich mit
 Alternativen}\label{vergleich-mit-alternativen}
 
-\subsubsection{Base R}\label{base-r}
+\textbf{Base R.}
 
 \textbf{Vorteile:} Einfach, weit verbreitet, keine zusätzlichen
 Abhängigkeiten \textbf{Nachteile:} Langsam bei großen Daten, hoher
@@ -1281,7 +1279,7 @@ Speicherverbrauch, alle Daten müssen in RAM passen
 \textbf{Empfehlung:} Nur für kleine Datensätze (\textless1 GB) oder wenn
 Kompatibilität wichtiger als Performance ist
 
-\subsubsection{data.table}\label{data.table}
+\textbf{data.table.}
 
 \textbf{Vorteile:} Sehr schnell für In-Memory-Operationen, ausgereift,
 kompakte Syntax \textbf{Nachteile:} Alle Daten müssen in RAM passen,
@@ -1290,7 +1288,7 @@ steile Lernkurve, keine Out-of-Core-Unterstützung
 \textbf{Empfehlung:} Gute Alternative wenn Datensatz in RAM passt und
 keine Parquet-Integration benötigt wird
 
-\subsubsection{dplyr + dbplyr}\label{dplyr-dbplyr}
+\textbf{dplyr + dbplyr.}
 
 \textbf{Vorteile:} Vertraute dplyr-Syntax, gut mit Datenbanken
 integriert \textbf{Nachteile:} Langsamer als Arrow/DuckDB, benötigt
@@ -1321,7 +1319,7 @@ Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
   Modellierung
 \end{enumerate}
 
-\subsubsection{Workflow-Beispiel}\label{workflow-beispiel}
+\textbf{Workflow-Beispiel.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1370,7 +1368,7 @@ durchgeführt (2x Intel Xeon Gold 6248R, 48 Kerne, 384 GB RAM, Ubuntu
 22.04 LTS). Alle Tests wurden mit R 4.3.2 und aktuellen Versionen der
 verwendeten Pakete durchgeführt.
 
-\subsubsection{Test-Szenarien}\label{test-szenarien}
+\textbf{Test-Szenarien.}
 
 Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
 
@@ -1394,8 +1392,7 @@ Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
 \subsection{Vergleich der
 Datenformate}\label{vergleich-der-datenformate}
 
-\subsubsection{Ladezeiten und
-Speicherverbrauch}\label{ladezeiten-und-speicherverbrauch}
+\textbf{Ladezeiten und Speicherverbrauch.}
 
 \begin{figure}
 
@@ -1410,7 +1407,7 @@ Datenformate (BTP-Datensatz, 5 Mio. Zeilen, 50 Variablen)}
 
 \end{figure}%
 
-\subsubsection{Aggregations-Performance}\label{aggregations-performance}
+\textbf{Aggregations-Performance.}
 
 \begin{table}
 
@@ -1419,7 +1416,7 @@ Szenario A: Einfache Aggregation (in Sekunden)}
 
 \centering{
 
-\begin{tabular}{lrrrr}
+\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X}
 \toprule
 Ansatz & Laden & Aggregation & Gesamt & Speedup\\
 \midrule
@@ -1431,7 +1428,7 @@ DuckDB + Parquet & 0.3 & 0.8 & 1.1 & 58.1\\
 \addlinespace
 Arrow + Parquet (partitioniert) & 0.2 & 0.5 & 0.7 & 91.3\\
 \bottomrule
-\end{tabular}
+\end{tabu}
 
 }
 
@@ -1439,8 +1436,7 @@ Arrow + Parquet (partitioniert) & 0.2 & 0.5 & 0.7 & 91.3\\
 
 \subsection{Skalierungsverhalten}\label{skalierungsverhalten}
 
-\subsubsection{Performance bei wachsender
-Datenmenge}\label{performance-bei-wachsender-datenmenge}
+\textbf{Performance bei wachsender Datenmenge.}
 
 \begin{figure}
 
@@ -1457,8 +1453,7 @@ Ansätze (Szenario B: Komplexe Aggregation)}
 
 \subsection{Join-Performance}\label{join-performance}
 
-\subsubsection{Verschiedene
-Join-Strategien}\label{verschiedene-join-strategien}
+\textbf{Verschiedene Join-Strategien.}
 
 Die Verknüpfung großer Datensätze ist eine häufige Operation bei der
 Arbeit mit dem BTP:
@@ -1478,8 +1473,7 @@ Datensatzgrößen (Inner Join zweier Tabellen)}
 
 \subsection{Parallelisierungs-Effizienz}\label{parallelisierungs-effizienz}
 
-\subsubsection{Speedup durch
-Multi-Threading}\label{speedup-durch-multi-threading}
+\textbf{Speedup durch Multi-Threading.}
 
 \begin{table}
 
@@ -1488,7 +1482,7 @@ Multi-Threading}\label{speedup-durch-multi-threading}
 
 \centering{
 
-\begin{tabular}{crrrr}
+\begin{tabu} to \linewidth {>{\centering}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X}
 \toprule
 Kerne & Arrow (s) & DuckDB (s) & Arrow Speedup & DuckDB Speedup\\
 \midrule
@@ -1500,7 +1494,7 @@ Kerne & Arrow (s) & DuckDB (s) & Arrow Speedup & DuckDB Speedup\\
 \addlinespace
 32 & 1.8 & 0.7 & 14.1 & 14.0\\
 \bottomrule
-\end{tabular}
+\end{tabu}
 
 }
 
@@ -1508,7 +1502,7 @@ Kerne & Arrow (s) & DuckDB (s) & Arrow Speedup & DuckDB Speedup\\
 
 \subsection{Speichereffizienz}\label{speichereffizienz}
 
-\subsubsection{Memory Footprint}\label{memory-footprint}
+\textbf{Memory Footprint.}
 
 Ein kritischer Faktor in der FDZ-Umgebung ist der Speicherverbrauch:
 
@@ -1527,8 +1521,7 @@ Ansätze (5 Mio. Zeilen)}
 
 \subsection{Praktische Implikationen}\label{praktische-implikationen}
 
-\subsubsection{Empfehlungen nach
-Anwendungsfall}\label{empfehlungen-nach-anwendungsfall}
+\textbf{Empfehlungen nach Anwendungsfall.}
 
 Basierend auf den Performanzmessungen lassen sich folgende Empfehlungen
 ableiten:
@@ -1540,7 +1533,8 @@ Anwendungsfall}
 
 \centering{
 
-\begin{tabular}{llll}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright}X>{\raggedright}X>{\raggedright}X}
 \toprule
 Anwendungsfall & 1. Wahl & 2. Wahl & Begründung\\
 \midrule
@@ -1552,7 +1546,7 @@ Produktions-Pipelines & Arrow + Parquet & DuckDB & Persistenz, Partitionierung, 
 \addlinespace
 Speicher-limitierte Umgebung & DuckDB & Arrow (streaming) & Out-of-core Verarbeitung möglich\\
 \bottomrule
-\end{tabular}
+\end{tabu}}
 
 }
 
@@ -1615,7 +1609,7 @@ großer Datensätze in der amtlichen Statistik bieten. Die Kombination von
 \subsection{Implikationen für die
 Forschungsdatenzentren}\label{implikationen-fuxfcr-die-forschungsdatenzentren}
 
-\subsubsection{Infrastrukturentwicklung}\label{infrastrukturentwicklung}
+\textbf{Infrastrukturentwicklung.}
 
 Die FDZ sollten die Integration dieser Technologien vorantreiben:
 
@@ -1636,7 +1630,7 @@ Die FDZ sollten die Integration dieser Technologien vorantreiben:
   dokumentieren und teilen
 \end{enumerate}
 
-\subsubsection{Nutzerunterstützung}\label{nutzerunterstuxfctzung}
+\textbf{Nutzerunterstützung.}
 
 Forschende profitieren von:
 
@@ -1659,7 +1653,7 @@ Forschende profitieren von:
 \subsection{Technologische
 Entwicklungen}\label{technologische-entwicklungen}
 
-\subsubsection{Kurz- bis mittelfristig}\label{kurz--bis-mittelfristig}
+\textbf{Kurz- bis mittelfristig.}
 
 \textbf{Weitere Optimierungen} der bestehenden Tools sind zu erwarten:
 
@@ -1678,7 +1672,7 @@ Entwicklungen}\label{technologische-entwicklungen}
   Arrow-basierte Berechnungen
 \end{itemize}
 
-\subsubsection{Langfristig}\label{langfristig}
+\textbf{Langfristig.}
 
 \textbf{Neue Paradigmen} könnten zusätzliche Verbesserungen bringen:
 
@@ -1720,8 +1714,7 @@ Weitere Untersuchungen sollten folgende Aspekte betrachten:
 
 \subsection{Handlungsempfehlungen}\label{handlungsempfehlungen}
 
-\subsubsection{Für
-Forschungsdatenzentren}\label{fuxfcr-forschungsdatenzentren}
+\textbf{Für Forschungsdatenzentren.}
 
 \textbf{Pilotprojekte} sollten initiiert werden:
 
@@ -1739,7 +1732,7 @@ Forschungsdatenzentren}\label{fuxfcr-forschungsdatenzentren}
   Erkenntnisse in Qualitätsstandards überführen
 \end{itemize}
 
-\subsubsection{Für Forschende}\label{fuxfcr-forschende}
+\textbf{Für Forschende.}
 
 \textbf{Schrittweise Einführung} wird empfohlen:
 

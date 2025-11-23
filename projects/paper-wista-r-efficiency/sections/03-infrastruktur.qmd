@@ -4,11 +4,11 @@
 
 Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus zwei organisatorisch voneinander getrennten Einrichtungen: dem **Forschungsdatenzentrum des Statistischen Bundesamts** und dem **Forschungsdatenzentrum der Statistischen Ämter der Länder**. Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten der amtlichen Statistiken.
 
-#### Entstehung und Entwicklung
+**Entstehung und Entwicklung.**
 
 Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur Verbesserung der informationellen Infrastruktur zwischen Wissenschaft und Statistik" (KVI) von 1999 zurück. Mit finanzieller Förderung des Bundesministeriums für Bildung und Forschung (BMBF) wurde im Herbst 2001 zunächst das FDZ des Statistischen Bundesamts gegründet. Das FDZ der Statistischen Ämter der Länder folgte im April 2002.
 
-#### Aufgaben und Ziele
+**Aufgaben und Ziele.**
 
 Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
 
@@ -20,39 +20,31 @@ Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik fü
 
 ### Technische Infrastruktur
 
-#### Hardware-Ausstattung
+**Hardware-Ausstattung.**
 
 Die technische Infrastruktur des FDZ-Bund umfasst verschiedene Systemkomponenten:
 
 
-```{r}
-#| label: tbl-fdz-infrastructure
-#| tbl-cap: "Technische Ausstattung des FDZ-Bund (beispielhafte Konfiguration)"
-#| echo: false
-
-library(kableExtra)
-
-infra_data <- data.frame(
-  Komponente = c("Rechenknoten (Standard)", "Rechenknoten (High-Memory)", 
-                 "Speichersystem", "Netzwerk", "Backup-System"),
-  Spezifikation = c("2x Intel Xeon Gold 6248R (48 Kerne), 384 GB RAM",
-                   "2x Intel Xeon Platinum 8280 (56 Kerne), 1,5 TB RAM",
-                   "NAS-System mit 500 TB nutzbarem Speicher",
-                   "10 Gbit/s Ethernet, InfiniBand für parallele Operationen",
-                   "Tägliches Backup, räumlich getrennte Archivierung"),
-  Anzahl = c("12", "4", "1", "-", "-")
-)
-
-kbl(infra_data, 
-    format = "latex",
-    align = c("l", "l", "c"),
-    booktabs = TRUE,
-    col.names = c("Komponente", "Spezifikation", "Anzahl")) |>
-  kable_styling(latex_options = c("hold_position"),
-                full_width = TRUE)
+```{=latex}
+\begin{table*}[htbp]
+\caption{Technische Ausstattung des FDZ-Bund (beispielhafte Konfiguration)}
+\label{tbl-fdz-infrastructure}
+\centering
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llc@{}}
+\toprule
+Komponente & Spezifikation & Anzahl\\
+\midrule
+Rechenknoten (Standard) & 2x Intel Xeon Gold 6248R (48 Kerne), 384 GB RAM & 12\\
+Rechenknoten (High-Memory) & 2x Intel Xeon Platinum 8280 (56 Kerne), 1,5 TB RAM & 4\\
+Speichersystem & NAS-System mit 500 TB nutzbarem Speicher & 1\\
+Netzwerk & 10 Gbit/s Ethernet, InfiniBand für parallele Operationen & -\\
+Backup-System & Tägliches Backup, räumlich getrennte Archivierung & -\\
+\bottomrule
+\end{tabular*}
+\end{table*}
 ```
 
-#### Software-Umgebung
+**Software-Umgebung.**
 
 Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 
@@ -63,11 +55,11 @@ Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 
 ### Infrastrukturkonzept
 
-#### Fachlich zentralisierte Datenhaltung
+**Fachlich zentralisierte Datenhaltung.**
 
 In Deutschland wird der überwiegende Teil der amtlichen Statistikproduktion dezentral in den Statistischen Ämtern der Länder durchgeführt (über 90% aller amtlichen Statistiken). Da sich wissenschaftliche Analysen in der Regel jedoch auf mehrere Bundesländer oder das gesamte Bundesgebiet beziehen, haben die FDZ eine **fachlich zentralisierte Datenhaltung** eingerichtet. Diese ermöglicht es, die Daten des gesamten Bundesgebiets länderübergreifend an jedem Standort bereitzustellen.
 
-#### Regionalisierte Infrastruktur
+**Regionalisierte Infrastruktur.**
 
 Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein. Dies wird durch über ganz Deutschland verteilte Standorte erreicht. Standorte befinden sich u.a. in:
 
@@ -78,13 +70,13 @@ Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein. Dies wi
 
 Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisierte Datenprodukte bereitgestellt werden:
 
-#### Off-Site-Zugang
+**Off-Site-Zugang.**
 
 - **Public Use Files (PUF):** Stark anonymisierte Daten für freie Nutzung
 - **Scientific Use Files (SUF):** Faktisch anonymisierte Daten für wissenschaftliche Zwecke
 - **Remote Scientific Use Files (Remote-SUF):** Neuer Zugangsweg mit höherer Detailtiefe
 
-#### On-Site-Zugang
+**On-Site-Zugang.**
 
 - **Gastwissenschaftsarbeitsplatz (GWAP):** Zugang zu formal anonymisierten Daten vor Ort
   - Vorteile: Höchste Datendetailtiefe, direkte Beratung
@@ -96,7 +88,7 @@ Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisie
 
 ### Datenschutz und Sicherheit
 
-#### Mehrstufiges Sicherheitskonzept
+**Mehrstufiges Sicherheitskonzept.**
 
 Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
 
@@ -106,7 +98,7 @@ Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
 4. **Output-Kontrolle:** Prüfung aller Ergebnisse vor Freigabe
 5. **Audit-Logging:** Protokollierung aller Zugriffe und Operationen
 
-#### Output-Kontrolle
+**Output-Kontrolle.**
 
 Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie eine mehrstufige Kontrolle:
 
@@ -116,7 +108,7 @@ Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie eine mehrs
 
 ### Performanz-Optimierung in der FDZ-Umgebung
 
-#### Herausforderungen
+**Herausforderungen.**
 
 Die Arbeit in der geschützten FDZ-Umgebung stellt besondere Anforderungen:
 
@@ -125,7 +117,7 @@ Die Arbeit in der geschützten FDZ-Umgebung stellt besondere Anforderungen:
 - **Datengröße:** Große Datensätze müssen effizient verarbeitet werden
 - **Reproduzierbarkeit:** Analysen müssen dokumentiert und nachvollziehbar sein
 
-#### Optimierungsstrategien
+**Optimierungsstrategien.**
 
 Verschiedene Strategien helfen, die Performanz zu optimieren:
 
