@@ -1,0 +1,1232 @@
+---
+title: "Use Cases von Out-of-Memory Computation im StBA"
+subtitle: "Datenbereitstellung und -analysen im Rahmen des FDZ"
+author: "Oliver Hauke (C34)"
+date: "25.06.2024"
+output: 
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+    number_sections: true
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    code_fold: hide
+    keep_md: true
+lang: "de"
+---
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+library(kableExtra)
+if(knitr::is_html_output()){print_table = function(dat, pageLength = 5)
+  mutate(dat, across(where(is.numeric), ~round(.x,2))) %>%
+  DT::datatable(filter = "top", options = list(pageLength = pageLength))
+} else {
+  print_table = function(dt, ...){
+    kbl(dt, booktabs = T, ...) |>
+      kable_styling(latex_options = c("striped", "hold_position"))
+  }
+}
+
+knitr::knit_hooks$set(
+   error = function(x, options) {
+     paste('\n\n<div class="alert alert-danger">',
+           gsub('##', '\n', gsub('^##\ Error', '**Error**', x)),
+           '</div>', sep = '\n')
+   },
+   warning = function(x, options) {
+     paste('\n\n<div class="alert alert-warning">',
+           gsub('##', '\n', gsub('^##\ Warning:', '**Warning**', x)),
+           '</div>', sep = '\n')
+   },
+   message = function(x, options) {
+     paste('\n\n<div class="alert alert-info">',
+           gsub('##', '\n', x),
+           '</div>', sep = '\n')
+   }
+)
+#https://selbydavid.com/2017/06/18/rmarkdown-alerts/
+
+knitr::opts_chunk$set(
+  #collapse = TRUE,
+  comment = "#>",
+  dev=c('png', 'svg'),
+  fig.align = "center",
+  fig.dim = c(8, 6),
+  verbose = FALSE,
+  output = "hold",
+  results = "hold",
+  echo = TRUE,
+  error = TRUE, 
+  message = FALSE,
+  warning = FALSE, fold.output=FALSE, fold.plot=FALSE
+)
+```
+
+\newpage
+
+# Einleitung
+
+## Baselines
+
+- Üblicherweise werden für Datenverarbeitung in `R` verwendet: `data.table`, `readr`, `r-base` und viele weitere
+- die Pakete unterscheiden sich stark in Performance
+- Alle o.g. Pakete können nur Daten verarbeiten, indem sie vollständig in den Arbeitsspeicher geladen werden. 
+- Falls der Umfang der Daten  die Nähe des verfügbaren Arbeitsspeicher erreicht, kommt es zu langen Wartezeiten, Fehlern und Abbrüchen. - Dies ist insbesondere bei umfangreichen FDZ-Daten der Fall und o.g. Probleme führen i.d.R. zu Abstimmungen mit externen Forschenden.
+- Hier können die Bibliotheken `Arrow` und `DuckDB` helfen, da...
+  - sie auf hohe Performanz ausgelegt sind.
+  - Daten nutzen können, ohne sie vollständig in den Arbeitsspeicher zu laden.
+
+## Arrow
+
+`Arrow` ist eine Bibliothek in diversen Programmiersprachen, die das 
+Einlesen und Bearbeiten von Daten effizient ermöglicht. Es bietet die Möglichkeit Datensätze zu verwenden, die nicht vollständig in den Arbeitsspeicher passen.
+Für Effizienzgewinne sorgen insbesondere ein geschickt gewähltes Datenformat und die optimierte Nutzung moderner Mulitcore-Prozessoren. Zusätzlich können sog. `Arrow Tables` mit Daten arbeiten, die sich verteilt auf einer Festplatte befinden, ohne sie vollständig in den Arbeitsspeicher zu laden.
+
+Es folgt ausgewählte Details über `Arrow` aus
+
+1. https://arrow.apache.org/ 
+2. https://arrow.apache.org/docs/r/index.html
+
+- The arrow package provides functions for reading single data files into memory, in several common formats. 
+- By default, calling any of these functions returns an R data frame. 
+- To return an **Arrow Table**, set argument `as_data_frame = FALSE`.
+
+**Arrow Table** is a data structure than enhance interoperability and performance. Key features:
+
+Advantages:
+
+- Columnar Storage: column-by-column storage is advantageous for analytics.
+- Minimizes memory overhead.
+- Interoperability between programming languages, Standarization
+- Zero-Copy Reads: avoids duplication 
+- Memory Mapping: maps files from disk directly into access space of the process.  Only portions of the file are loaded into memory as needed.
+- Out-of-core Processing: Process data that doesn't fit in Memory by breaking the data into smaller chunks.
+
+Disadvantages:
+
+- "Columnar Storage" ungünstig für Kalkulation für Interaktion zwischen Spalten
+- "Memory Mapping" abhängig von Dateistruktur, -format, ...
+- "Out-of-core Processing" + "Columnar Storage" zeilenweise Kalkulation aufwändig bzw. wenig supported. Kein nutzbarer Index für Kalkulationen.
+
+Some Resources:
+
+- https://blog.djnavarro.net/posts/2022-03-04_data-types-in-arrow-and-r/
+- https://blog.djnavarro.net/posts/2022-05-25_arrays-and-tables-in-arrow/
+- https://blog.streamlit.io/all-in-on-apache-arrow/
+
+Wer wie Wickham et al. an der Performance von Arrow zweifelt, dem sei dieser Vortrag ans Herz gelegt: Neal Richardson | Bigger Data With Ease Using Apache Arrow | RStudio (2021), https://www.youtube.com/watch?v=zND-Wj2XPvc. Dort wird gezeigt, dass das Paket 2-3x schneller CSV einlesen kann als `data.table`. Die dortige (high level) Erklärung führt dies auf C++ Multithreading und SIMD Optimization zurück.
+
+
+## DuckDB
+
+`DuckDB` bietet ähnliche Funktionalitäten wie `Arrow` (vgl. https://duckdb.org/docs/api/r)
+
+Meiner Erfahrung nach: 
+
+- `Arrow` ermöglicht das Einlesen von Daten leichter (`Duckdb` ist eher SQL-mäßig)
+- `Duckdb` hat bereits mehr Funktionen für Analysen implementiert (für Daten größer als RAM: windowed Aggregation, Median/Quantile, Kreuzkalkulationen)
+- Also was nimmt man? => Beides, die Packages haben eine Schnittstelle implementiert (`to_duckdb()` überführt Arrow in DuckDB und `to_arrow()` zurück).
+
+## Parquet
+
+Ist ein spaltenbasiertes Datenformat, das sich effizient in div. Programmiersprachen einlesen lässt und durch automatische Kompression Fesplattenspeicherbedarf reduziert. Es ist inzwischen ein beliebter Standard im Big Data Bereich und lässt sich native mit `Arrow` verbinden. Vgl. https://parquet.apache.org/.
+
+# Vorbereitung
+
+## htop checken
+
+Vor Ausführung langfristiger oder ressourcenstrapazierenden Programme sollte im Terminal die Auslastung mit `htop` gecheckt werden.
+
+## Pakete laden
+
+```{r libs}
+
+library(data.table, warn.conflicts = FALSE)
+library(readr, warn.conflicts = FALSE)
+library(arrow, warn.conflicts = FALSE)
+library(duckdb, warn.conflicts = FALSE)
+
+# Tidyverse Tools
+library(dplyr, warn.conflicts = FALSE)
+library(dbplyr, warn.conflicts = FALSE)
+library(stringr, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
+
+
+# Performance-Messung
+library(tictoc, warn.conflicts = FALSE)
+library(lobstr, warn.conflicts = FALSE)
+library(microbenchmark, warn.conflicts = FALSE)
+
+# Manuelles Monitoring und Parallelisierung
+library(progress)
+library(foreach)
+
+arrow::set_cpu_count(36)
+```
+
+Hinweis: Arrow supported auf dem R-Server aktuell kein gzip :( (Stand 02.07.2024)
+
+
+## Datenablage und -Aufteilung
+
+Die Datensätze sind in RAM-gerechte Blöcke aufgeteilt. Bei der Wahl von geeigneten Paketen, entsteht dadurch beim Einlesen keine Anpassung der Usability (s.u.). Datensätze, die als einzige Datei (größer als der verfügbare RAM) abgespeichert werden, lassen sie sich nur sehr unhandlich und engeschränkt betrachten und verarbeiten.
+
+`Arrow` empfiehlt: 
+
+> *The most optimal partitioning layout will depend on your data, access patterns, and which systems will be reading the data. Most systems, including Arrow, should work across a range of file sizes and partitioning layouts, but there are extremes you should avoid. These guidelines can help avoid some known worst cases:*
+
+>  - *Avoid files smaller than 20MB and larger than 2GB.*
+
+>  - *Avoid partitioning layouts with more than 10,000 distinct partitions.*
+
+S. https://arrow.apache.org/docs/r/articles/dataset.html#partitioning-performance-considerations. 
+
+
+```{r data_location}
+datenpfad <- "~/fdzDaten/daten/drg/onsite_material"
+
+datenpfade <- function(filetype = "gz", full.names = TRUE){
+   list.files(file.path(datenpfad, filetype), 
+              recursive = TRUE, 
+              full.names = full.names)
+}
+
+cat(datenpfade("gz", FALSE)[1:10], sep = "\n")
+cat("...\n")
+cat(datenpfade("parquet", FALSE)[1:10], sep = "\n")
+cat("...")
+```
+
+# Einführung anhand RAM-gerechter Daten
+
+Erprobt anhand der ersten 2 Mio. Beobachtungen der DRG 2005 (im RAM je nach Methode ca. 20 GB). Wenn die Daten in den RAM passen, wird für das Einlesen (klassisch) verwendet:
+
+1. Base `read.csv`
+2. `readr::read_csv`
+3. `data.table::fread`
+4. `vroom`
+5. `arrow`
+6. `duckdb`
+
+Nr. 1: ist nicht zu empfehlen (langsam und unhandlich). 
+Nr. 2: tlw. am Benutzerfreundlichsten aber i.d.R langsamer als andere Optionen.
+Nr. 3: Schnell, flexibel und mächtig, aber benötigt eigene Einarbeitung.
+Nr. 4: Nr. 3 oft schneller, aber tlw vergleichbar perfomant oder in Spezialfällen auch am schnellsten (s. https://vroom.r-lib.org/articles/benchmarks.html). Hat Benutzerfreundlichkeit aus Nr. 2. 
+Nr. 5 / Nr. 6: s.u.
+
+## Benchmarks
+
+- Fangen wir klein an: 2 Mio. Beobachtung aus 2005
+- Einlesen hauptsächlich von csv.gz. Da die `arrow` Installation auf dem R-Server dies nicht ermöglicht, wird Parquet stattdessen genutzt.
+- Name und Größe der betrachteten Dateien:
+
+
+
+```{r 2005-1-loc}
+pfad1_gz <- datenpfade("gz")[1]
+pfad1_pq <- datenpfade("parquet")[1]
+pfad1_zip <- datenpfade("zip")[1]
+
+cat(paste0(basename( pfad1_gz ), ":  ", fs::file_size(pfad1_gz)))
+cat("\n")
+cat(paste0(basename( pfad1_pq ), ": ", fs::file_size(pfad1_pq)))
+```
+
+**Ein kleiner Test (Arrow erstellt kleine Samples in Sekunden)**
+
+Wird nicht ausgeführt, aber kann für Weiterentwicklungen verwendet werden.
+
+```{r small_test, eval = FALSE}
+tic()
+pfad1_pq <- datenpfade("parquet")[1]
+da <- read_parquet(pfad1_pq, as_data_frame = FALSE)
+dah <- head(da, 100)
+dah |> write_csv_arrow("temp/dat.csv")
+fread("temp/dat.csv") |> fwrite("temp/dat.csv.gz")
+fread("temp/dat.csv") |> fwrite("temp/dat.csv.zip")
+dah |> write_parquet("temp/dat.parquet")
+pfad1_pq <- "temp/dat.parquet"
+pfad1_gz <- "temp/dat.csv.gz"
+pfad1_zip <- "temp/dat.csv.zip"
+toc()
+```
+
+
+**Vergleich der Einlesezeiten**
+
+```{r baseline_mbm, cache = TRUE}
+mbm <- microbenchmark(
+  read.csv2(pfad1_gz),
+  readr::read_csv2(pfad1_gz, show_col_types = FALSE),
+  data.table::fread(pfad1_gz),
+  fread_zip = data.table::fread(pfad1_gz), #fread(cmd = paste("unzip -p", pfad1_zip)),
+  arrow::read_parquet(pfad1_pq),
+  arrow::read_parquet(pfad1_pq, as_data_frame = FALSE),
+  times = 3, unit = "seconds"
+) 
+```
+
+```{r r baseline_mbm_tab, cache = TRUE, echo = FALSE}
+
+Pakete <- c("Base-R", "Readr", "Datatable", "Datatable", "Arrow", "Arrow")
+
+summary(mbm) |> 
+  tibble() |> 
+  mutate(
+    across(where(is.numeric), ~ round(.x, digits = 2)),
+    Paket = Pakete) |>
+  select(Paket, Ausdruck = expr, min, mean, median, max) |>
+  print_table(caption = "Einlesezeiten (in sec)")
+```
+
+
+## Arrow für moderate Datenmengen
+
+Leider fehlt `Gzip`-Support auf dem R-Server (Stand 05.07.2024):
+
+```{r 2005-1-arrow-gz, error=TRUE, cache = TRUE}
+dat <- read_csv_arrow(pfad1_gz)
+```
+
+Wie in anderen Paketen üblich, kann `Arrow` Daten vollständig in den Arbeitsspeicher laden. Es wird jedoch eine spaltenbasierte Repräsentation im RAM verwendet, die De- bzw. Serialisierung reduziert und beschleunigt. Kurz gesagt, Daten sind schneller und  kleiner im RAM. `Arrow` bevorzugt das Einlesen aus `Parquet`- oder `Feather`-Dateien. Beide Formate sind spaltenbasiert und lassen sich leichter `Arrow`-lesbar konvertieren als zeilenbasierte CSV-Dateien o.Ä. `Feather` ist sogar speziell eine Festplatten-Version des Arrow RAM Formats.
+
+### Vorteile
+
+```{r 2005-1-arrow-pq-in}
+tic()
+dat <- read_parquet(pfad1_pq)
+toc()
+obj_size(dat)
+```
+
+Das Einlesen geht schnell und verbraucht nur 25% des RAMs aller anderen Paketen. Aggregationen können wie gewohnt ausgeführt werden und sind ebenfalls sehr schnell.
+
+```{r 2005-1-arrow-pq-count}
+tic()
+dat |> group_by(kh_land) |>
+  summarize(Fallzahl = n())
+toc()
+```
+
+Aber `Arrow` hat zustäzlich die mächtige Option (`as_data_frame = FALSE`), die nur eine Verbindung zur Festplatte herzustellt, ohne einen Datensatz vollständig in den Arbeitsspeicher zu laden. Dies verbraucht fast gar keinen RAM und kann viele ausgewählte Datenoperationen sehr schnell durchführen, auch wenn die Daten nicht vollständig in den Arbeitsspeicher passen.
+
+
+```{r 2005-1-arrow-pq-nodf-in}
+tic()
+dat <- read_parquet(pfad1_pq, as_data_frame = FALSE)
+toc()
+obj_size(dat)
+```
+
+```{r 2005-1-arrow-pq-nodf-show, cache = TRUE}
+dat %>% select(1:20)
+cat("...")
+```
+
+Das Objekt ist aber nicht ohne weiteres vollständig im RAM verfügbar und außer Variablentypen wird daher auch nichts angezeigt. Für Datenverarbeitungen können bequem viele `dplyr` Verbs verwendet werden. Die Ergebnisse von `dplyr` Pipes werden aber nicht direkt kalkuliert.
+
+
+```{r 2005-1-arrow-pq-nodf-count1, cache = TRUE}
+dat |> group_by(kh_land) |>
+  summarize(Fallzahl = n())
+```
+
+
+In der Handhabung müssen `dplyr` Pipes ausschließlich um einen Befehl `collect()` ergänzt werden, damit das Ergebnis kalkuliert und angezeigt werden. Durch diese sog. `Lazy` Computation wird vermieden, dass unnötige Rechenschritte ausgeführt werden und dadurch Wartezeiten minimiert. 
+
+
+```{r 2005-1-arrow-pq-nodf-count-collect, cache = TRUE}
+tic()
+dat |> group_by(kh_land) |>
+  summarize(Fallzahl = n()) |>
+  collect() |> 
+  print_table()
+toc()
+```
+
+Falls nur ein Zwischenergebnis kalkuliert werden soll, ist empfehlenswert `collect()` durch `compute()` zu ersetzen. Dies löst die Query auf und generiert das Ergebnis als `Arrow Table`, das nicht ohne weiter Schritte bzw. Umwandlung angezeit wird, aber perfekt geeignet ist um mit `Arrow` oder `Dplyr` weiterverarbeitet zu werden.
+
+```{r 2005-1-arrow-pq-nodf-count-collect2, cache = TRUE}
+tic()
+dat |> group_by(kh_land) |>
+  summarize(Fallzahl = n()) |>
+  compute() |> 
+  # Konversion um Ergebnis anzuzeigen
+  tibble::as.tibble() |>
+  print_table()
+toc()
+```
+
+
+
+### Einschränkungen
+
+Alle `dplyr` Verbs sind leider (noch) nicht in `Arrow` verfügbar. Wenn eine Operation nicht unterstützt wird, hat `Arrow` zwei Strategien:
+
+1. Falls der Aufwand (Datenmenge, Operation) klein ist, führt `Arrow` die Operation im RAM aus und liefert das Ergebnis.
+2. Falls der Aufwand (Datenmenge, Operation) groß ist, bricht `Arrow` ab.
+
+Vgl. https://arrow.apache.org/docs/r/articles/data_wrangling.html#handling-unsupported-expressions. Es folgen einige Beispiele.
+
+#### Windowed Aggregation
+
+Lt. Doku des `Arrow` R-Pakets (https://arrow.apache.org/docs/r/articles/data_wrangling.html#one-table-dplyr-verbs
+):
+
+> *Note, however, that window functions such as ntile() are not yet supported.* 
+
+Dies funktioniert ohne Einschränkung:
+
+```{r arrow_windowed_agg_2, cache = TRUE}
+dat |> group_by(kh_land) |>
+  summarize(mittleres_alter = round(mean(alter), 0 )) |>
+  collect() |> 
+  print_table()
+```
+
+Dies geht nur im **Arbeitsspeicher**:
+
+```{r arrow_windowed_agg, warning = TRUE, cache = TRUE}
+dat |> group_by(kh_land) |>
+  filter(alter < mean(alter)) |>
+  summarize(fallzahl_jung = n()) |>
+  collect() |> 
+  print_table()
+```
+
+#### Cross-Calculation
+
+Kovarianz etc. zwischen Variablen ist auch nur im RAM supported.
+
+```{r arrow_crosscalc, warning = TRUE, cache = TRUE}
+dat %>% 
+  mutate(sex = ifelse(sex == "w", 0, 1)) |>
+  summarize(cov_alter_sex = cov(alter, sex)) |> 
+  collect()
+```
+
+#### Regression
+
+Regressionen sind auch nur im RAM supported.
+
+```{r arrow_regr-1, warning = TRUE, error = TRUE, cache = TRUE}
+dat %>% 
+  {glm(alter~sex+kh_land, data = .)} %>% 
+  summary()
+```
+
+Falls eine Operation nicht unterstützt wird, kann `collect()` vorab genutzt werden. Zumindest wenn die Kapazitäten und Performance des Systems für die Operation ausreicht.
+
+```{r arrow_regr-2, warning = TRUE, cache = TRUE}
+dat %>% collect() %>%
+  {glm(alter ~ sex + kh_land, data = .)} %>% 
+  summary()
+```
+
+#### Zeilenweise Operationen
+
+Zeilenweise Operationen sind auch nur im RAM supported, können aber umformuliert werden.
+
+```{r arrow_rowwise, error = TRUE, warning = TRUE, cache = TRUE}
+tic()
+dat |> 
+  #collect() |>
+  rowwise() |>
+  mutate(icd = paste(c_across(icd_nd1:icd_nd89), collapse ="; ")) |>
+  select(icd) |> head()
+toc()
+```
+
+```{r arrow_rowwise-fix, error = TRUE, warning = TRUE, cache = TRUE}
+tic()
+dat |> 
+  #collect() |>
+  rowwise() |>
+  mutate(icd = paste(c_across(icd_nd1:icd_nd89), collapse ="; ")) |>
+  select(icd) |> head()
+toc()
+```
+
+
+#### Indexabhängige Operationen
+
+Indexabhängige Operationen sind auch nur im RAM supported.
+
+
+```{r arrow_index, error = TRUE, warning = TRUE, cache = TRUE}
+tic()
+dat |> 
+  #collect() |>
+  mutate(id = 1:nrow(dat)) |> select(id)
+toc()
+```
+
+
+### Lösungen mit DuckDB
+
+`Duckdb` lässt sich nahtlos mit `Arrow` kombinieren und  ergänzt viele Operationen (auch out of Memory).
+
+
+#### Windowed Aggregation
+
+gehen:
+
+```{r arrow_ddb_windowed, cache = TRUE}
+tic()
+dat |> 
+  to_duckdb() |>
+  group_by(kh_land) |>
+  filter(alter < mean(alter)) |>
+  summarize(fallzahl_jung = n()) |>
+  collect() |> 
+  print_table()
+toc()
+```
+#### Cross-Calculation
+
+gehen:
+
+```{r arrow_ddb_cross, cache = TRUE}
+tic()
+dat |>
+  to_duckdb() |>
+  mutate(sex = ifelse(sex == "w", 0, 1)) |>
+  summarize(cov_alter_sex = cov(alter, sex)) |> 
+  collect()
+toc()
+```
+
+#### Regression
+
+gehen:
+
+```{r arrow_ddb_regr-1, warning = TRUE, error = TRUE, cache = TRUE}
+dat %>% 
+  to_duckdb() %>%
+  {glm(alter~sex+kh_land, data = .)} %>% 
+  summary()
+```
+
+#### Zeilenweise Operationen
+
+Zeilenweise Operationen gehen auch mit `duckdb` nicht:
+
+```{r arrow_ddb_rowwise, error = TRUE, warning = TRUE, cache = TRUE}
+tic()
+dat |> 
+  to_duckdb() |>
+  rowwise() |>
+  mutate(icd = paste(c_across(icd_nd1:icd_nd89), collapse ="; ")) |>
+  select(icd) |> head()
+toc()
+```
+
+# Workflow Optimierungsvorschlag
+
+## Experimentieren
+
+Wir tasten uns an die Grenzen ran und erforschen die Größenordnung, die verarbeitet werden kann. Um eine Baseline zu erhalten, verwenden wir das perforamnteste Paket (abgesehen von `Arrow`): `Datatable`. Zunächst betrachten wir einen Chunk.
+
+### Breite 
+
+```{r 2005-DT-dev-head, error = TRUE, warning = TRUE, cache = TRUE}
+tic()
+drg05_head <- fread(pfad1_gz, nrows = 100)
+toc()
+obj_size(drg05_head)
+```
+
+### Länge 
+
+```{r 2005-DT-dev-select-chunk, error = TRUE, warning = TRUE, cache = TRUE}
+var_auswahl <- drg05_head %>% 
+  {names(.)[grepl("kh_|sex|alter|icd_hd|icd_nd", names(.))]}
+
+cat("Anzahl betrachteter Variablen: ",length(var_auswahl),"\n")
+
+tic()
+DT <- fread(pfad1_gz, select = var_auswahl)
+toc()
+obj_size(DT)
+```
+
+### Alle Chunks
+
+```{r 2005-DT-dev-select-all-chunks, error = TRUE, warning = TRUE, cache = TRUE}
+pfad_drg05 <- datenpfade("gz/drg2005")
+
+tic()
+DT_demo <- rbindlist(lapply(
+  pfad_drg05[1:2], function(file)fread(file, select = var_auswahl[1:3])
+  ))
+toc()
+obj_size(DT_demo)
+```
+
+## Reduzieren
+
+Wir definieren den Scope in den festgestellten Grenzen. Dazu:
+
+1. Auswahl von Variablen
+1. Zusammenfügen von Variablen: alle `icd_nd` Codes zu einer Variablen
+
+Ein Test:
+
+```{r 2005-DT-dev-reducevars, error = TRUE, warning = TRUE, cache = TRUE}
+#' Fügt icd_nd1 bis icd_nd89 zu einer Variable icd_nd zusammen und löscht den Rest.
+collapse_nd <- function(DRG){
+  icd_nd <- with(DRG, paste(
+    icd_nd1, icd_nd2, icd_nd3, icd_nd4, icd_nd5, icd_nd6, icd_nd7, icd_nd8, icd_nd9, 
+    icd_nd10,icd_nd11, icd_nd12, icd_nd13, icd_nd14, icd_nd15, icd_nd16, icd_nd17, 
+    icd_nd18, icd_nd19, icd_nd20, icd_nd21, icd_nd22, icd_nd23, icd_nd24, icd_nd25, 
+    icd_nd26, icd_nd27, icd_nd28, icd_nd29, icd_nd30, icd_nd31, icd_nd32, icd_nd33, 
+    icd_nd34, icd_nd35, icd_nd36, icd_nd37, icd_nd38, icd_nd39, icd_nd40, icd_nd41, 
+    icd_nd42, icd_nd43, icd_nd44, icd_nd45, icd_nd46, icd_nd47, icd_nd48, icd_nd49, 
+    icd_nd50, icd_nd51, icd_nd52, icd_nd53, icd_nd54, icd_nd55, icd_nd56, icd_nd57, 
+    icd_nd58, icd_nd59, icd_nd60, icd_nd61, icd_nd62, icd_nd63, icd_nd64, icd_nd65, 
+    icd_nd66, icd_nd67, icd_nd68, icd_nd69, icd_nd70, icd_nd71, icd_nd72, icd_nd73, 
+    icd_nd74, icd_nd75, icd_nd76, icd_nd77, icd_nd78, icd_nd79, icd_nd80, icd_nd81, 
+    icd_nd82, icd_nd83, icd_nd84, icd_nd85, icd_nd86, icd_nd87, icd_nd88, icd_nd89, 
+    sep = "; "))  
+  icd_nd <- stringr::str_remove_all(icd_nd, "NA")
+  icd_nd <- stringr::str_remove_all(icd_nd, " ;")
+  icd_nd <- stringr::str_remove(icd_nd, " $")
+  icd_nd <- stringr::str_replace(icd_nd, "^;$", "")
+
+  new_vars <- (names(DRG)[!grepl("icd_nd", names(DRG))])
+  DRG_red <- DRG[, ..new_vars][, `:=`(icd_nd = icd_nd)]
+  DRG_red
+}
+
+tic()
+DT_red <- collapse_nd(DT)
+toc()
+
+obj_sizes(DT, DT_red)
+```
+
+
+**Produktion: alle Chunks**
+
+```{r 2005-DT-dev-reducevars-all-chunks, error = TRUE, warning = TRUE, cache = TRUE}
+pb <- progress_bar$new(
+  format = "(:spin) [:bar] :percent [Elapsed::elapsed || Remaining: ~:eta]",
+  total = length(pfad_drg05),
+  clear = FALSE,    # If TRUE, clears the bar when finish
+)      
+DT_list <- list()
+
+for(pfad in pfad_drg05){
+  DT_new  <- collapse_nd(fread(pfad, select = var_auswahl, showProgress = FALSE))
+  DT_list <- append(DT_list, list(DT_new))
+  pb$tick()
+}
+
+DT <- rbindlist(DT_list)
+rm(DT_list)#; gc(verbose = FALSE)
+obj_size(DT)
+```
+
+## Exkurs: Optimieren
+
+- Parallelisierung bspw. in https://www.blasbenito.com/post/02_parallelizing_loops_with_r/
+- Caching auch empfehlenswert
+
+```
+parallel::detectCores()
+my.cluster <- parallel::makeCluster(6)
+doParallel::registerDoParallel(my.cluster)
+
+tic()
+
+DT_list <- foreach (pfad = pfad_drg05) %dopar% {
+  collapse_nd(
+    data.table::fread(pfad, select = var_auswahl, showProgress = FALSE, nThread = 6)
+  )
+}
+
+toc()
+
+parallel::stopCluster(cl = my.cluster)
+
+# 165.665 sec elapsed = 2.45 min
+
+
+DT <- rbindlist(DT_list)
+```
+
+## Auswerten
+
+Bspw. Verteilung von Anzahl der Nebendiagnosen.
+
+```{r 2005-DT-dev-reducevars_auswertung, error = TRUE, warning = TRUE, cache = TRUE}
+tic()
+DT[, `:=`(anzahl_nebendiagnosen = str_count(icd_nd, ";"), jung = (alter < 60))]
+DT_out <- DT[order(anzahl_nebendiagnosen), .(count = .N), by = list(anzahl_nebendiagnosen, jung)]
+#DT %>% ggplot(aes(x = anzahl_nebendiagnosen, fill = jung)) + geom_bar()
+#DT_out <- DT[anzahl_nebendiagnosen > 50]
+DT_out
+toc()
+# 25.573 sec elapsed
+```
+
+
+```{r 2005-DT-auswahl-auswerten, error = TRUE, warning = TRUE, cache = TRUE}
+drg05_sel[, .(.N), by = kh_land]
+
+drg05_sel[order(kh_land), .(anzahl = .N), by = kh_land]
+
+
+drg05_sel %>% mutate(jung = alter < 60) %>%
+  group_by(kh_land, sex, jung) %>% 
+  summarise(anzahl = n()) %>%
+  group_by(kh_land) %>%
+  mutate(anteil_land = anzahl / sum(anzahl) * 100)
+
+drg05_sel %>%
+  group_by(kh_land) %>% 
+  summarise(anzahl = n())
+
+drg05_sel[order(kh_land), .(anzahl = .N), by = kh_land]
+```
+
+# Out-of-Memory Computation mit Arrow
+
+Der in 3. beschriebene Prozess bietet schon effiziente Analysen, aber ist gegenüber `Arrow` stark manuell und daher...
+
+1. aufwändig,
+1. komplex,
+1. spezifisch (im Anwendungsfall),
+1. benötigt Abstimmung, Schleifen mit GaWi's und "Feingefühl" (bspw. Steuerung der Cores)
+
+Daher die Empfehlung: `Arrow` vereinfacht und optimiert das vorgestellte Vorgehen. Auch wenn noch nicht alles voll ausgereift durch entwickelt ist (und wir auch nicht die neuste Version haben). 
+
+## Einlesen
+
+### Schema einmalig definieren (Empfehlung)
+
+**Achtung:** Es kann Euch das Folgende begegnet: 
+
+```
+#Error in `compute.arrow_dplyr_query()`:
+#! Invalid: Failed to parse value: 
+#Backtrace:
+# 1. ... %>% str()
+# 4. arrow:::collect.arrow_dplyr_query(.)
+# 5. arrow:::compute.arrow_dplyr_query(x)
+
+#Error in compute.arrow_dplyr_query(x) :
+```
+
+Dagegen hilft es, Variablentypen vorab in Form eines `Schema` zu definieren. Dies geht sicher auch "automatisierter" als hier dargestellt:
+
+```{r, eval = FALSE}
+schema <- schema(
+  berichtsjahr = int32(), int32(), kh_rb = int32(), 
+  kh_kreis = int32(), kh_gem = int32(), kh_plz = int32(), 
+  kh_typ_gem3 = int32(), pat_land = utf8(), pat_rb = utf8()
+  #, ...
+)
+
+qs::qsave(schema0$code(), "cache/drg_schema_test.qs")
+```
+
+Das einmalig erzeugte Schema lässt sich als R-Objekt abspeichern und für jedes Projekt wiederverwenden. Das klassische `rds` ist dafür i.d.R. nicht zu empfehlen, da das Paket `qs` die gleiche Funktionalität deutlich schneller und Festplattenschonender umsetzt (vgl. https://cran.r-project.org/web/packages/qs/vignettes/vignette.html). Die alternative `fs` kann schneller für Daten sein, aber ist nicht wie `qs` und `rds` für alle R-Objekte universell einsetzbar.
+
+### Verbindung zum Dateisystem herstellen
+
+Arrow kommt damit klar, dass Datensätze über mehrere Dateien verteilt vorliegen. Es muss lediglich der Ordnerpfad spezifiziert werden und wenn eine Ordnerstruktur vorliegt, in welche Variable die Ordnerinfo abgelegt werden soll (hier: `berichtsjahr`). Im vorliegenden Dateisystem ist die Struktur wie nachfolgend aufgebaut:
+
+- berichtsjahr=2005/drg2005-part1.parquet
+- berichtsjahr=2005/drg2005-part2.parquet
+- berichtsjahr=2005/drg2005-part3.parquet
+- berichtsjahr=2005/drg2005-part4.parquet
+- berichtsjahr=2005/drg2005-part5.parquet
+- berichtsjahr=2005/drg2005-part6.parquet
+- berichtsjahr=2005/drg2005-part7.parquet
+- berichtsjahr=2005/drg2005-part8.parquet
+- berichtsjahr=2005/drg2005-part9.parquet
+- berichtsjahr=2006/drg2006-part1.parquet
+- berichtsjahr=2006/drg2006-part....parquet
+- ...
+- berichtsjahr=2022/drg2022-part....parquet
+
+ Die Angabe des Schema's ist optional, sorgt aber für mehr Stabilität.
+
+```{r arrow-2005-con, error = TRUE, warning = TRUE}
+tic()
+
+schema_drg <- eval(qs::qread("cache/drg_schema.qs"))
+ordner_drg <- "/daten1/home/hauke-o/fdzDaten/daten/drg/onsite_material/parquet/"
+
+da <- open_dataset(ordner_drg, schema=schema_drg, partitioning = "berichtsjahr")
+
+toc()
+obj_size(da)
+```
+
+Das ging schnell und ist sehr klein. Sind damit wirklich die Daten verfügbar? Ein Test (Fallzahl pro Berichtsjahr) ergibt:
+
+```{r import-test-cases, error = TRUE, warning = TRUE}
+tic()
+auswertung1 <- da |> group_by(berichtsjahr) |> 
+  summarize(Fallzahl = n()) |> 
+  collect()
+auswertung1
+toc()
+```
+```{r plot1, include=FALSE, eval=FALSE}
+auswertung1 |> ggplot(aes(x = factor(berichtsjahr), y = Fallzahl)) + 
+  geom_bar(stat = "identity")
+```
+
+
+## Ein exemplarisches Experiment
+
+### Aufbereitung
+
+`icd_nd` Codes werden zusammengefasst.
+
+```{r arrow-2005-prep}
+tic()
+da_out05 <- da %>% 
+  filter(berichtsjahr == 2005) %>%
+  select(starts_with("kh_"), sex, alter, icd_hd, starts_with("icd_nd")) %>%
+  
+  mutate(icd_nd = paste(
+    icd_nd1, icd_nd2, icd_nd3, icd_nd4, icd_nd5, icd_nd6, icd_nd7, icd_nd8, 
+    icd_nd9, icd_nd10, icd_nd11, icd_nd12, icd_nd13, icd_nd14, icd_nd15, 
+    icd_nd16, icd_nd17, icd_nd18, icd_nd19, icd_nd20, icd_nd21, icd_nd22, 
+    icd_nd23, icd_nd24, icd_nd25, icd_nd26, icd_nd27, icd_nd28, icd_nd29, 
+    icd_nd30, icd_nd31, icd_nd32, icd_nd33, icd_nd34, icd_nd35, icd_nd36, 
+    icd_nd37, icd_nd38, icd_nd39, icd_nd40, icd_nd41, icd_nd42, icd_nd43, 
+    icd_nd44, icd_nd45, icd_nd46, icd_nd47, icd_nd48, icd_nd49, icd_nd50, 
+    icd_nd51, icd_nd52, icd_nd53, icd_nd54, icd_nd55, icd_nd56, icd_nd57, 
+    icd_nd58, icd_nd59, icd_nd60, icd_nd61, icd_nd62, icd_nd63, icd_nd64, 
+    icd_nd65, icd_nd66, icd_nd67, icd_nd68, icd_nd69, icd_nd70, icd_nd71, 
+    icd_nd72, icd_nd73, icd_nd74, icd_nd75, icd_nd76, icd_nd77, icd_nd78, 
+    icd_nd79, icd_nd80, icd_nd81, icd_nd82, icd_nd83, icd_nd84, icd_nd85, 
+    icd_nd86, icd_nd87, icd_nd88, icd_nd89
+    , sep = "; "
+    ),
+    .keep = "unused") %>%
+
+  mutate(icd_nd = 
+           str_remove_all(icd_nd, "NA") %>% 
+           str_remove_all(" ;") %>% 
+           str_remove_all(" $") %>%
+           str_replace("^;$", "")
+         ) %>% 
+  mutate(anzahl_nebendiagnosen = str_count(icd_nd, ";")) 
+
+da_out05 %>% head() %>% collect()  %>% str()
+
+toc()
+# 2.15 sec elapsed
+obj_size(da_out05)
+# 493.41 kB
+```
+
+### Auswertung
+
+Anzahl der Nebendiagnosen in Abhängigkeit des Alters im Jahr 2005.
+
+```{r auswertung_anzahl_nebendiagnosen, cache=TRUE}
+tic()
+auswertung1 <- da_out05 |> mutate(jung = (alter < 60)) |>
+  group_by(anzahl_nebendiagnosen) |>
+  summarize(anzahl_gesamt = n(), 
+            anzahl_jung = sum(jung == TRUE), 
+            anteil_jung = round(anzahl_jung/anzahl_gesamt * 100, 2)
+  ) |> arrange(anzahl_nebendiagnosen) |>
+  collect()
+toc()
+obj_size(auswertung1)
+
+print(auswertung1, n = 100)
+```
+
+D.h. alte Menschen haben tendentiell mehr Nebendiagnosen.
+
+```{r cleanup00}
+rm(list = ls())
+gc()
+```
+
+
+## Realer Use Case
+
+Hierbei handelt es sich um einen Teil eines realen Forschungsprojekts. Wir betrachten
+
+- Beobachtungen: Alle ab DRG 2011
+- Variablen: Ort, sex, alter, tage, entl_grd, ik, icd_hd_xx, icd_nd_xx, ops_ko_xx
+
+Es werden Einflussfaktoren gewisser Diagnosen untersucht.
+
+
+```{r arrow-drg-con, error = TRUE, warning = TRUE}
+tic()
+
+schema_drg <- eval(qs::qread("cache/drg_schema.qs"))
+ordner_drg <- "/daten1/home/hauke-o/fdzDaten/daten/drg/onsite_material/parquet/"
+
+da <- open_dataset(ordner_drg, schema=schema_drg, partitioning = "berichtsjahr")
+
+toc()
+obj_size(da)
+```
+
+### Auswahl
+
+```{r uc-auswahl}
+tic()
+
+auswahl <- function(da){
+  
+  da %>% filter(berichtsjahr > 2010) %>%
+  select(
+    berichtsjahr,
+    kh_land, kh_typ_gem3,
+    sex, alter, aufn_anl, cm_vol,
+    starts_with(c("icd_hd","icd_nd", "ops_ko")),
+    tage, entl_grd, ik
+  ) 
+}
+
+da %>% auswahl() %>% head() %>% collect() %>% str()
+
+toc()
+
+#3.917 sec elapsed
+```
+
+### Aufbereitung
+
+Wie zuvor werden `icd_nd` Codes zusammgefasst. Zusätzlich wird analog mit `ops_ko` verfahren.
+
+```{r uc-aufbereitung}
+tic()
+
+aufbereitung <- function(da){
+  da %>%
+
+  mutate(icd_nd = paste(
+    icd_nd1, icd_nd2, icd_nd3, icd_nd4, icd_nd5, icd_nd6, icd_nd7, icd_nd8, 
+    icd_nd9, icd_nd10, icd_nd11, icd_nd12, icd_nd13, icd_nd14, icd_nd15, 
+    icd_nd16, icd_nd17, icd_nd18, icd_nd19, icd_nd20, icd_nd21, icd_nd22, 
+    icd_nd23, icd_nd24, icd_nd25, icd_nd26, icd_nd27, icd_nd28, icd_nd29, 
+    icd_nd30, icd_nd31, icd_nd32, icd_nd33, icd_nd34, icd_nd35, icd_nd36, 
+    icd_nd37, icd_nd38, icd_nd39, icd_nd40, icd_nd41, icd_nd42, icd_nd43, 
+    icd_nd44, icd_nd45, icd_nd46, icd_nd47, icd_nd48, icd_nd49, icd_nd50, 
+    icd_nd51, icd_nd52, icd_nd53, icd_nd54, icd_nd55, icd_nd56, icd_nd57, 
+    icd_nd58, icd_nd59, icd_nd60, icd_nd61, icd_nd62, icd_nd63, icd_nd64, 
+    icd_nd65, icd_nd66, icd_nd67, icd_nd68, icd_nd69, icd_nd70, icd_nd71, 
+    icd_nd72, icd_nd73, icd_nd74, icd_nd75, icd_nd76, icd_nd77, icd_nd78, 
+    icd_nd79, icd_nd80, icd_nd81, icd_nd82, icd_nd83, icd_nd84, icd_nd85, 
+    icd_nd86, icd_nd87, icd_nd88, icd_nd89, 
+    sep = "; "
+    ) %>% 
+    str_remove_all("NA") %>% 
+    str_remove_all(" ;") %>% 
+    str_remove_all(" $") %>%
+    str_replace("^;$", "")
+    , .keep = "unused"
+  
+  ) %>%
+  # ops_ko---------------
+  mutate(ops_ko = paste(
+    ops_ko1, ops_ko2, ops_ko3, ops_ko4, ops_ko5, ops_ko6, ops_ko7, ops_ko8, 
+    ops_ko9, ops_ko10, ops_ko11, ops_ko12, ops_ko13, ops_ko14, ops_ko15, 
+    ops_ko16, ops_ko17, ops_ko18, ops_ko19, ops_ko20, ops_ko21, ops_ko22, 
+    ops_ko23, ops_ko24, ops_ko25, ops_ko26, ops_ko27, ops_ko28, ops_ko29, 
+    ops_ko30, ops_ko31, ops_ko32, ops_ko33, ops_ko34, ops_ko35, ops_ko36, 
+    ops_ko37, ops_ko38, ops_ko39, ops_ko40, ops_ko41, ops_ko42, ops_ko43, 
+    ops_ko44, ops_ko45, ops_ko46, ops_ko47, ops_ko48, ops_ko49, ops_ko50, 
+    ops_ko51, ops_ko52, ops_ko53, ops_ko54, ops_ko55, ops_ko56, ops_ko57, 
+    ops_ko58, ops_ko59, ops_ko60, ops_ko61, ops_ko62, ops_ko63, ops_ko64, 
+    ops_ko65, ops_ko66, ops_ko67, ops_ko68, ops_ko69, ops_ko70, ops_ko71, 
+    ops_ko72, ops_ko73, ops_ko74, ops_ko75, ops_ko76, ops_ko77, ops_ko78, 
+    ops_ko79, ops_ko80, ops_ko81, ops_ko82, ops_ko83, ops_ko84, ops_ko85, 
+    ops_ko86, ops_ko87, ops_ko88, ops_ko89, ops_ko90, ops_ko91, ops_ko92, 
+    ops_ko93, ops_ko94, ops_ko95, ops_ko96, ops_ko97, ops_ko98, ops_ko99,
+    ops_ko100, ops_ko101, 
+    sep = "; "
+  ) %>% 
+    str_remove_all("NA") %>% 
+    str_remove_all(" ;") %>% 
+    str_remove_all(" $") %>%
+    str_replace("^;$", "")
+    , .keep = "unused"
+  
+  ) 
+}
+
+da %>% auswahl() %>% aufbereitung() %>% 
+  head() %>% collect() %>% str()
+
+toc()
+
+```
+
+
+### Anreicherung
+
+Neue Variablen werden generieren, in diesem Fall werde relevante Diagnosen markiert. Hierbei ist das Fachwissen der Forschenden wesentlich erforderlich.
+
+```{r uc-anreicherung}
+
+tic()
+
+#"^8821" immuneadsorption
+#"^8820" plasmasep
+
+anreicherung <- function(da){
+  da %>% mutate(
+    
+    icd_ANCA_overlap = grepl("^M313|^M317", icd_nd),
+    icd_bleeding = grepl("^D62|^D699|^H356|^H431|^I609|^I610|^I613|^I614|^I615|^I619|^I620|^J942|^K250|^K254|^K260|^K264|^K290|^K625|^K661|^K921|^K922|^N939|^R040|^R31", icd_nd),
+    ops_immuneadsorption = grepl("^8821", ops_ko),
+    ops_plasmasep        = grepl("^8820", ops_ko),
+    ops_transfusion = grepl("^8800", ops_ko),
+    ops_permanent_dialysis = grepl("^53995|^55492|^5392", ops_ko)
+    #, ...
+  )
+}
+
+da %>% auswahl() %>% 
+  aufbereitung() %>% 
+  anreicherung() %>%
+  
+  #filter(ops_immuneadsorption | ops_plasmasep) %>%
+  
+  head() %>% collect() %>% str()
+
+toc()
+
+
+```
+
+### Auswertungsdatensatz erstellen
+
+Sollte als Job ausgeführt werden:
+
+```{r generate_auswertung, eval=FALSE}
+
+da %>% auswahl() %>%
+  aufbereitung() %>%
+  anreicherung() %>%
+  filter(ops_immuneadsorption | ops_plasmasep) %>%
+  write_parquet("cache/auswertungsdaten_neu.parquet")
+
+```
+
+Ein exemplarisches Skript für den Job Launcher:
+
+```{r, eval = FALSE}
+source("07-mustersyntax-arrow-drg-roh.R")
+```
+
+```{r, echo = FALSE}
+readLines("07-mustersyntax-arrow-drg-roh.R") |>
+  paste(collapse = "\n") |> cat()
+```
+
+
+
+```{r cleanup01}
+rm(list = ls()); gc()
+```
+
+### Auswertung
+
+```{r auswertung_einlesen}
+tic()
+DF <- read_parquet("cache/auswertungsdaten.parquet")
+toc()
+obj_size(DF)
+
+str(DF)
+```
+
+#### Weitere Anreicherung
+
+```{r auswertung_anreicherung}
+tic()
+zentrum <- DF |> group_by(berichtsjahr, ik) |>
+  summarize(
+    n_zentrum = n(),
+    n_iad = sum(ops_immuneadsorption),
+    n_pe = sum(ops_plasmasep),
+    .groups = "drop"
+  ) |> mutate(erfahrung = ntile(n_zentrum, 4))
+
+DF <- DF |>   
+  left_join(zentrum, by = c("ik", "berichtsjahr")) |>
+  mutate(death = (entl_grd == 7)) 
+
+toc()
+zentrum |> head() |> print_table()
+```
+
+
+#### Tabellen
+
+**Outcome vs ANCA Overlap**
+
+```{r auswertung_anca}
+tic()
+DF |> group_by(icd_ANCA_overlap) |>
+  summarize(
+    n = n(),
+    death = sum(death)
+  ) |> mutate(freq = round(death / n, 4)) |>
+  print_table()
+toc()
+```
+
+**IAD vs PSE**
+
+```{r auswertung_IADvsPE}
+tic()
+DF |> group_by(ops_plasmasep, ops_immuneadsorption) |>
+  summarize(
+    n = n(),
+    death = sum(death)
+  ) |> mutate(freq = round(death / n, 4)) |>
+  print_table()
+toc()
+```
+
+**Outcome abhängig davon op IAD im Zentrum behandelt wird**
+
+```{r auswertung_centre}
+tic()
+DF |>
+  mutate(iad_centre = (n_iad > 0)) |>
+  group_by(iad_centre) |>
+  summarize(
+    n = n(),
+    endpt = sum(death)
+  ) |> mutate(freq = round(endpt / n, 4)) |>
+  print_table()
+toc()
+```
+
+**PE vs IAD in IAD centres**
+
+```{r auswertung_PEvsIAD_centre}
+tic()
+DF %>% 
+  mutate(iad_centre = (n_iad > 0)) %>%
+  filter(iad_centre) %>%
+  group_by(ops_plasmasep, ops_immuneadsorption) %>%
+  summarize(
+    n = n(),
+    death = sum(death)
+  ) %>% mutate(freq = round(death / n, 4))
+toc()
+```
+
+**Struktur in IAD-IKs**
+
+
+```{r auswertung_iadVSnot}
+DF %>%
+  mutate(
+    alter = paste0("Ü",(round(alter / 30)) * 30),
+    iad_centre = (n_iad > 0)
+         
+  ) %>% 
+  group_by(iad_centre, ops_plasmasep, ops_immuneadsorption) %>%
+  summarize(
+    n = n(),
+    Ü0 = sum(alter == "Ü0"),
+    Ü30 = sum(alter == "Ü30"),
+    Ü60 = sum(alter == "Ü60"),
+    Ü90 = sum(alter == "Ü90"),
+    W = sum(sex == "w"),
+    large = sum(erfahrung > 3),
+    anca = sum(icd_ANCA_overlap),
+    #ct, boncho, kidney_biopsy, komplikationen ...
+    
+    tage_median = median(tage),
+    tage_mean = mean(tage),
+    tage_var = var(tage),
+    tage_sd = sd(tage),
+    tage_iqr = IQR(tage, na.rm = TRUE, type = 7),
+    ops_transfusion = sum(ops_transfusion),
+    verstorben = sum(entl_grd == 7),
+    .groups = "drop"
+    )
+```
+
+
+#### Modelle
+
+Vorbereitung auf Regression:
+
+```{r mod_data}
+tic()
+DF_mod <- DF %>% mutate(
+  pe_vs_iad = ifelse(ops_plasmasep & !ops_immuneadsorption, 1, 0),
+  alter_10 = alter / 10,
+  big_center = ifelse(erfahrung > 3, 1, 0),
+  icd_ANCA_overlap = ifelse(icd_ANCA_overlap, 1, 0)
+)
+toc()
+```
+
+**Ausführung**
+
+GLM, um herauszufinden, wie der Tod des Patienten von der Diagnose (PSE vs IAD), begleitenden Symptomen (ANCA), Fokus der Klinik und Alter abhängt. 
+
+```{r mod_calc}
+tic()
+regression <- function(outcome){
+  glm(formula(
+    paste0(outcome, "~ pe_vs_iad+alter_10+big_center+icd_ANCA_overlap")), 
+    data =DF_mod, family = "binomial")
+}
+
+#regression("ops_transfusion") %>% summary()
+#regression("ops_permanent_dialysis") %>% summary()
+#regression("icd_bleeding") %>% summary()
+
+# outcome dauerhaft Dialyse oder tod
+regression("death") %>% summary() 
+toc()
+```
+
+# Abschluss
+
+- Mustersyntax (ggf. für Fortgeschrittene)
+- interne Datenoperationen?
+
+Mögliche **weiterführende Themen**
+
+- Version Control mit `git`
+- Workflow Tools (bspw. [targets](https://books.ropensci.org/targets/)
+- Python Alternativen (hier gibt es mehr!)
+
+<!--
+
+# Anhang
+
+Warning message:
+In png(..., res = dpi, units = "in") :
+  unable to open connection to X11 display ''
+
+
+ *** caught segfault ***
+address 0x110, cause 'memory not mapped'
+An irrecoverable exception occurred. R is aborting now ...
+
+-->
+
