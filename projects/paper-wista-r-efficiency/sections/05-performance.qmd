@@ -75,21 +75,24 @@ agg_perf <- data.frame(
              "Arrow + Parquet",
              "DuckDB + Parquet",
              "Arrow + Parquet (partitioniert)"),
-  "Vollständiges_Laden" = c(45.2, 12.1, 43.8, 4.8, 0.3, 0.2),
-  "Aggregation" = c(18.7, 2.3, 8.9, 1.2, 0.8, 0.5),
-  "Gesamt" = c(63.9, 14.4, 52.7, 6.0, 1.1, 0.7),
-  "Relativer_Speedup" = c(1.0, 4.4, 1.2, 10.7, 58.1, 91.3)
+  Vollstaendiges_Laden = c(45.2, 12.1, 43.8, 4.8, 0.3, 0.2),
+  Aggregation = c(18.7, 2.3, 8.9, 1.2, 0.8, 0.5),
+  Gesamt = c(63.9, 14.4, 52.7, 6.0, 1.1, 0.7),
+  Relativer_Speedup = c(1.0, 4.4, 1.2, 10.7, 58.1, 91.3)
 )
 
 colnames(agg_perf) <- c("Ansatz", "Laden", "Aggregation", "Gesamt", "Speedup")
 
-kbl(agg_perf, 
-    format = "latex",
-    align = c("l", "r", "r", "r", "r"),
-    digits = 1,
-    booktabs = TRUE) |>
-  kable_styling(latex_options = c("hold_position"),
-                full_width = TRUE)
+if (knitr::is_latex_output()) {
+  kbl(agg_perf, 
+      align = c("l", "r", "r", "r", "r"),
+      digits = 1,
+      booktabs = TRUE) |>
+    kable_styling(latex_options = c("hold_position"),
+                  full_width = TRUE)
+} else {
+  knitr::kable(agg_perf, digits = 1)
+}
 ```
 
 ### Skalierungsverhalten
@@ -108,7 +111,7 @@ kbl(agg_perf,
 library(ggplot2)
 
 scaling_data <- data.frame(
-  Datensatzgröße = rep(c(1e5, 5e5, 1e6, 5e6, 1e7), 4),
+  Datensatzgroesse = rep(c(1e5, 5e5, 1e6, 5e6, 1e7), 4),
   Ansatz = rep(c("Base R", "data.table", "Arrow + Parquet", "DuckDB"), each = 5),
   Zeit_Sekunden = c(
     # Base R - quadratisch skalierend
@@ -121,8 +124,7 @@ scaling_data <- data.frame(
     c(0.2, 0.7, 1.3, 5.2, 9.8)
   )
 )
-
-ggplot(scaling_data, aes(x = Datensatzgröße, y = Zeit_Sekunden, color = Ansatz, group = Ansatz)) +
+ggplot(scaling_data, aes(x = Datensatzgroesse, y = Zeit_Sekunden, color = Ansatz, group = Ansatz)) +
   geom_line(size = 1) +
   geom_point(size = 2.5) +
   scale_x_log10(labels = scales::label_number(scale = 1e-6, suffix = " Mio.")) +
@@ -159,7 +161,7 @@ Die Verknüpfung großer Datensätze ist eine häufige Operation bei der Arbeit 
 #| fig-height: 5
 
 join_perf <- data.frame(
-  Größe = rep(c("Klein\n(100k × 50k)", "Mittel\n(1M × 500k)", "Groß\n(5M × 2M)"), 4),
+  Groesse = rep(c("Klein\n(100k x 50k)", "Mittel\n(1M x 500k)", "Gross\n(5M x 2M)"), 4),
   Tool = rep(c("dplyr", "data.table", "Arrow", "DuckDB"), each = 3),
   Zeit = c(
     # dplyr
@@ -172,16 +174,15 @@ join_perf <- data.frame(
     c(0.3, 3.2, 21.8)
   )
 )
+join_perf$Groesse <- factor(join_perf$Groesse, levels = c("Klein\n(100k x 50k)", "Mittel\n(1M x 500k)", "Gross\n(5M x 2M)"))
 
-join_perf$Größe <- factor(join_perf$Größe, levels = c("Klein\n(100k × 50k)", "Mittel\n(1M × 500k)", "Groß\n(5M × 2M)"))
-
-ggplot(join_perf, aes(x = Größe, y = Zeit, fill = Tool)) +
+ggplot(join_perf, aes(x = Groesse, y = Zeit, fill = Tool)) +
   geom_col(position = "dodge") +
   scale_fill_brewer(type = "qual", palette = "Set2") +
   labs(
     title = "Join-Performance verschiedener Tools",
-    x = "Datensatzgröße (Tabelle 1 × Tabelle 2)",
-    y = "Ausführungszeit (Sekunden)",
+    x = "Datensatzgroesse (Tabelle 1 x Tabelle 2)",
+    y = "Ausfuehrungszeit (Sekunden)",
     fill = "Tool"
   ) +
   theme_minimal() +
@@ -213,13 +214,16 @@ parallel_speedup <- data.frame(
 
 colnames(parallel_speedup) <- c("Kerne", "Arrow (s)", "DuckDB (s)", "Arrow Speedup", "DuckDB Speedup")
 
-kbl(parallel_speedup, 
-    format = "latex",
-    align = c("c", "r", "r", "r", "r"),
-    digits = 1,
-    booktabs = TRUE) |>
-  kable_styling(latex_options = c("hold_position"),
-                full_width = TRUE)
+if (knitr::is_latex_output()) {
+  kbl(parallel_speedup, 
+      align = c("c", "r", "r", "r", "r"),
+      digits = 1,
+      booktabs = TRUE) |>
+    kable_styling(latex_options = c("hold_position"),
+                  full_width = TRUE)
+} else {
+  knitr::kable(parallel_speedup, digits = 1)
+}
 ```
 
 ### Speichereffizienz
@@ -284,30 +288,46 @@ Basierend auf den Performanzmessungen lassen sich folgende Empfehlungen ableiten
 library(kableExtra)
 
 recommendations <- data.frame(
-  Anwendungsfall = c("Kleine Datensätze (<1M Zeilen)", 
-                    "Explorative Analyse, häufige Iterationen",
-                    "Große Aggregationen (>5M Zeilen)",
+  Anwendungsfall = c("Kleine Datensaetze (<1M Zeilen)", 
+                    "Explorative Analyse, haeufige Iterationen",
+                    "Grosse Aggregationen (>5M Zeilen)",
                     "Komplexe Joins",
                     "Produktions-Pipelines",
                     "Speicher-limitierte Umgebung"),
   Empfehlung_1 = c("data.table", "DuckDB", "DuckDB", "DuckDB", "Arrow + Parquet", "DuckDB"),
   Empfehlung_2 = c("Base R", "Arrow", "Arrow + Parquet", "data.table", "DuckDB", "Arrow (streaming)"),
-  Begründung = c("Einfachheit, gute Performance",
+  Begruendung = c("Einfachheit, gute Performance",
                 "SQL-Komfort, schnelle Iteration",
                 "Beste Skalierung, niedrigster Speicherverbrauch",
                 "Optimierter Hash-Join, Index-Support",
                 "Persistenz, Partitionierung, Reproduzierbarkeit",
-                "Out-of-core Verarbeitung möglich")
+                "Out-of-core Verarbeitung moeglich")
 )
+
+recommendations$Anwendungsfall <- c("Kleine Datensätze (<1M Zeilen)", 
+                                    "Explorative Analyse, häufige Iterationen",
+                                    "Große Aggregationen (>5M Zeilen)",
+                                    "Komplexe Joins",
+                                    "Produktions-Pipelines",
+                                    "Speicher-limitierte Umgebung")
+recommendations$Begruendung <- c("Einfachheit, gute Performance",
+                                 "SQL-Komfort, schnelle Iteration",
+                                 "Beste Skalierung, niedrigster Speicherverbrauch",
+                                 "Optimierter Hash-Join, Index-Support",
+                                 "Persistenz, Partitionierung, Reproduzierbarkeit",
+                                 "Out-of-core Verarbeitung möglich")
 
 colnames(recommendations) <- c("Anwendungsfall", "1. Wahl", "2. Wahl", "Begründung")
 
-kbl(recommendations, 
-    format = "latex",
-    align = c("l", "l", "l", "l"),
-    booktabs = TRUE) |>
-  kable_styling(latex_options = c("hold_position", "scale_down"),
-                full_width = TRUE)
+if (knitr::is_latex_output()) {
+  kbl(recommendations, 
+      align = c("l", "l", "l", "l"),
+      booktabs = TRUE) |>
+    kable_styling(latex_options = c("hold_position", "scale_down"),
+                  full_width = TRUE)
+} else {
+  knitr::kable(recommendations)
+}
 ```
 
 ### Zusammenfassung der Erkenntnisse

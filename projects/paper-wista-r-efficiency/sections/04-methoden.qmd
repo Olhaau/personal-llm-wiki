@@ -71,19 +71,24 @@ library(kableExtra)
 
 format_comp <- data.frame(
   Format = c("CSV", "RDS (R)", "Feather", "Parquet", "Parquet (partitioniert)"),
-  Größe = c("100%", "45%", "95%", "15%", "15%"),
+  Groesse = c("100%", "45%", "95%", "15%", "15%"),
   Ladezeit = c("Sehr langsam", "Mittel", "Sehr schnell", "Schnell", "Sehr schnell (selektiv)"),
   Kompression = c("Keine", "Gzip", "LZ4/ZSTD", "Snappy/GZIP", "Snappy/GZIP"),
-  Partitionierung = c("Nein", "Nein", "Nein", "Möglich", "Ja"),
-  Kompatibilität = c("Universal", "Nur R", "Arrow-Ökosystem", "Sehr hoch", "Sehr hoch")
+  Partitionierung = c("Nein", "Nein", "Nein", "Moeglich", "Ja"),
+  Kompatibilitaet = c("Universal", "Nur R", "Arrow-Oekosystem", "Sehr hoch", "Sehr hoch")
 )
 
-kbl(format_comp, 
-    format = "latex",
-    align = c("l", "r", "l", "l", "c", "l"),
-    booktabs = TRUE) |>
-  kable_styling(latex_options = c("hold_position", "scale_down"),
-                full_width = TRUE)
+colnames(format_comp) <- c("Format", "Größe", "Ladezeit", "Kompression", "Partitionierung", "Kompatibilität")
+
+if (knitr::is_latex_output()) {
+  kbl(format_comp, 
+      align = c("l", "r", "l", "l", "c", "l"),
+      booktabs = TRUE) |>
+    kable_styling(latex_options = c("hold_position", "scale_down"),
+                  full_width = TRUE)
+} else {
+  knitr::kable(format_comp)
+}
 ```
 
 **Empfehlung für FDZ.**

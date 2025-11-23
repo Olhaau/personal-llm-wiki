@@ -559,8 +559,8 @@ beeindruckenden Dimensionen:
 
 \begin{table}
 
-\caption{\label{tbl-btp-overview}Übersicht über die Dimensionen des
-Business-Tax-Panel}
+\caption{\label{tbl-btp-overview}\textless U+00DC\textgreater bersicht
+\textless U+00FC\textgreater ber die Dimensionen des Business-Tax-Panel}
 
 \centering{
 
@@ -568,11 +568,11 @@ Business-Tax-Panel}
 \toprule
 Merkmal & Wert\\
 \midrule
-Beobachtungszeitraum & 2013-2019 (jährliche Erweiterung)\\
+Beobachtungszeitraum & 2013-2019 (j<U+00E4>hrliche Erweiterung)\\
 Anzahl Einheiten (2013-2019) & >66 Millionen\\
 Anzahl Merkmale & >2.700\\
 Erhebungsart & Vollerhebung\\
-Datenquelle & Sekundärerhebung (Finanzverwaltung)\\
+Datenquelle & Sekund<U+00E4>rerhebung (Finanzverwaltung)\\
 \bottomrule
 \end{tabu}
 
@@ -1116,19 +1116,19 @@ Arrow zusammenarbeitet:
 \begin{table}
 
 \caption{\label{tbl-format-comparison}Vergleich verschiedener
-Datenformate für die BTP-Analyse}
+Datenformate f\textless U+00FC\textgreater r die BTP-Analyse}
 
 \centering{
 
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{tabu} to \linewidth {>{\raggedright}X>{\raggedleft}X>{\raggedright}X>{\raggedright}X>{\centering}X>{\raggedright}X}
 \toprule
-Format & Größe & Ladezeit & Kompression & Partitionierung & Kompatibilität\\
+Format & Gr<U+00F6><U+00DF>e & Ladezeit & Kompression & Partitionierung & Kompatibilit<U+00E4>t\\
 \midrule
 CSV & 100\% & Sehr langsam & Keine & Nein & Universal\\
 RDS (R) & 45\% & Mittel & Gzip & Nein & Nur R\\
-Feather & 95\% & Sehr schnell & LZ4/ZSTD & Nein & Arrow-Ökosystem\\
-Parquet & 15\% & Schnell & Snappy/GZIP & Möglich & Sehr hoch\\
+Feather & 95\% & Sehr schnell & LZ4/ZSTD & Nein & Arrow-Oekosystem\\
+Parquet & 15\% & Schnell & Snappy/GZIP & Moeglich & Sehr hoch\\
 Parquet (partitioniert) & 15\% & Sehr schnell (selektiv) & Snappy/GZIP & Ja & Sehr hoch\\
 \bottomrule
 \end{tabu}}
@@ -1411,8 +1411,9 @@ Datenformate (BTP-Datensatz, 5 Mio. Zeilen, 50 Variablen)}
 
 \begin{table}
 
-\caption{\label{tbl-aggregation-performance}Ausführungszeiten für
-Szenario A: Einfache Aggregation (in Sekunden)}
+\caption{\label{tbl-aggregation-performance}Ausf\textless U+00FC\textgreater hrungszeiten
+f\textless U+00FC\textgreater r Szenario A: Einfache Aggregation (in
+Sekunden)}
 
 \centering{
 
@@ -1536,15 +1537,15 @@ Anwendungsfall}
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright}X>{\raggedright}X>{\raggedright}X}
 \toprule
-Anwendungsfall & 1. Wahl & 2. Wahl & Begründung\\
+Anwendungsfall & 1. Wahl & 2. Wahl & Begr<U+00FC>ndung\\
 \midrule
-Kleine Datensätze (<1M Zeilen) & data.table & Base R & Einfachheit, gute Performance\\
-Explorative Analyse, häufige Iterationen & DuckDB & Arrow & SQL-Komfort, schnelle Iteration\\
-Große Aggregationen (>5M Zeilen) & DuckDB & Arrow + Parquet & Beste Skalierung, niedrigster Speicherverbrauch\\
+Kleine Datens<U+00E4>tze (<1M Zeilen) & data.table & Base R & Einfachheit, gute Performance\\
+Explorative Analyse, h<U+00E4>ufige Iterationen & DuckDB & Arrow & SQL-Komfort, schnelle Iteration\\
+Gro<U+00DF>e Aggregationen (>5M Zeilen) & DuckDB & Arrow + Parquet & Beste Skalierung, niedrigster Speicherverbrauch\\
 Komplexe Joins & DuckDB & data.table & Optimierter Hash-Join, Index-Support\\
 Produktions-Pipelines & Arrow + Parquet & DuckDB & Persistenz, Partitionierung, Reproduzierbarkeit\\
 \addlinespace
-Speicher-limitierte Umgebung & DuckDB & Arrow (streaming) & Out-of-core Verarbeitung möglich\\
+Speicher-limitierte Umgebung & DuckDB & Arrow (streaming) & Out-of-core Verarbeitung m<U+00F6>glich\\
 \bottomrule
 \end{tabu}}
 

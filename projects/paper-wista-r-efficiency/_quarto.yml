@@ -19,6 +19,11 @@ date: today
 bibliography: references.bib
   
 format:
+  docx:
+    output-file: "Effiziente-Analyse-Forschungsdaten-R.docx"
+    number-sections: true
+    toc: false
+    highlight-style: github
   pdf:
     documentclass: article
     output-file: "Effiziente-Analyse-Forschungsdaten-R.pdf"

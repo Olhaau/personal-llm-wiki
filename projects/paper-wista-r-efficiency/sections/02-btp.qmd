@@ -31,17 +31,23 @@ library(kableExtra)
 btp_stats <- data.frame(
   Merkmal = c("Beobachtungszeitraum", "Anzahl Einheiten (2013-2019)", "Anzahl Merkmale", 
               "Erhebungsart", "Datenquelle"),
-  Wert = c("2013-2019 (jährliche Erweiterung)", ">66 Millionen", ">2.700", 
-           "Vollerhebung", "Sekundärerhebung (Finanzverwaltung)")
+  Wert = c("2013-2019 (jaehrliche Erweiterung)", ">66 Millionen", ">2.700", 
+           "Vollerhebung", "Sekundaererhebung (Finanzverwaltung)")
 )
 
-kbl(btp_stats, 
-    format = "latex",
-    align = c("l", "l"),
-    booktabs = TRUE,
-    col.names = c("Merkmal", "Wert")) |>
-  kable_styling(latex_options = c("hold_position"),
-                full_width = TRUE)
+btp_stats$Wert <- c("2013-2019 (jährliche Erweiterung)", ">66 Millionen", ">2.700", 
+                    "Vollerhebung", "Sekundärerhebung (Finanzverwaltung)")
+
+if (knitr::is_latex_output()) {
+  kbl(btp_stats, 
+      align = c("l", "l"),
+      booktabs = TRUE,
+      col.names = c("Merkmal", "Wert")) |>
+    kable_styling(latex_options = c("hold_position"),
+                  full_width = TRUE)
+} else {
+  knitr::kable(btp_stats, col.names = c("Merkmal", "Wert"))
+}
 ```
 
 **Hauptmerkmale des Datensatzes.**
