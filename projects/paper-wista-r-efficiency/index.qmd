@@ -1,101 +1,12 @@
+<!-- DEV: Uncomment content below to render full document -->
+<!-- To render only title page, keep this file minimal -->
+
+<!-- FULL CONTENT COMMENTED OUT FOR TITLE PAGE DEVELOPMENT
+
 ## Motivation und Zielsetzung {#sec-intro}
 
-Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
+Die amtliche Statistik steht vor der Herausforderung...
 
-In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion amtlicher Statistiken erheblich verändert. Die Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren Datenquellen geführt, sondern auch neue Möglichkeiten für die statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
+(content hidden for title page testing)
 
-Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist es daher, die Effizienz verschiedener statistischer Verfahren systematisch zu bewerten und Handlungsempfehlungen für die Praxis abzuleiten.
-
-### Forschungsfragen
-
-Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
-
-1.  **Methodische Effizienz:** Wie unterscheiden sich verschiedene statistische Verfahren hinsichtlich ihrer Rechenzeit und Speicheranforderungen bei gleichbleibender Ergebnisqualität?
-
-2.  **Skalierbarkeit:** Welche Verfahren zeigen die beste Performance bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
-
-3.  **Qualitätssicherung:** Inwiefern beeinflussen effizienzorientierte Optimierungen die statistische Qualität der Ergebnisse?
-
-### Aufbau der Arbeit
-
-Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums. In @sec-methoden werden verschiedene Auswertungsmethoden vorgestellt. @sec-performance präsentiert die empirischen Performanzergebnisse. Die Arbeit schließt mit einem Ausblick in @sec-ausblick.
-
-Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.
-
-```{r}
-#| label: tbl-methoden-uebersicht
-#| tbl-cap: "Übersicht der untersuchten Auswertungsmethoden und ihrer Eigenschaften"
-#| echo: false
-
-methoden_uebersicht <- data.frame(
-  Methode = c("Base R", "data.table", "dplyr", "Arrow/Parquet", "DuckDB", "Spark"),
-  Sprache = c("R", "R", "R", "R/Python", "SQL", "Scala/R/Python"),
-  `In-Memory` = c("Ja", "Ja", "Ja", "Optional", "Optional", "Nein"),
-  Parallelisierung = c("Nein", "Ja", "Begrenzt", "Ja", "Ja", "Ja"),
-  `Max. Datengröße` = c("RAM", "RAM", "RAM", ">RAM", ">RAM", "Cluster"),
-  Komplexität = c("Niedrig", "Mittel", "Niedrig", "Mittel", "Mittel", "Hoch"),
-  check.names = FALSE
-)
-
-knitr::kable(methoden_uebersicht, 
-      format = "latex",
-      align = c("l", "l", "c", "c", "c", "c"),
-      booktabs = TRUE)
-```
-
-```{r}
-#| label: fig-methoden-vergleich
-#| fig-cap: "Vergleich der Auswertungsmethoden nach Geschwindigkeit und Speichereffizienz"
-#| echo: false
-#| fig-width: 10
-#| fig-height: 5
-
-library(ggplot2)
-
-vergleich_data <- data.frame(
-  Methode = c("Base R", "data.table", "dplyr", "Arrow/Parquet", "DuckDB", "Spark"),
-  Geschwindigkeit = c(1, 4.5, 2, 4, 5, 3.5),
-  Speichereffizienz = c(1, 2, 1.5, 4.5, 5, 4),
-  Kategorie = c("Traditionell", "Traditionell", "Tidyverse", "Modern", "Modern", "Distributed")
-)
-
-ggplot(vergleich_data, aes(x = Geschwindigkeit, y = Speichereffizienz, 
-                            color = Kategorie, label = Methode)) +
-  geom_point(size = 8, alpha = 0.7) +
-  geom_text(vjust = -1.2, size = 3.5, fontface = "bold") +
-  scale_x_continuous(limits = c(0, 6), breaks = 1:5, 
-                     labels = c("Langsam", "", "Mittel", "", "Schnell")) +
-  scale_y_continuous(limits = c(0, 6), breaks = 1:5,
-                     labels = c("Niedrig", "", "Mittel", "", "Hoch")) +
-  scale_color_manual(values = c("Traditionell" = "#1E6EB4", 
-                                 "Tidyverse" = "#338CCC",
-                                 "Modern" = "#50A0D0",
-                                 "Distributed" = "#78B8E0")) +
-  labs(x = "Verarbeitungsgeschwindigkeit",
-       y = "Speichereffizienz",
-       color = "Kategorie") +
-  theme_minimal(base_size = 11) +
-  theme(
-    panel.grid.minor = element_blank(),
-    panel.grid.major = element_line(color = "gray90"),
-    legend.position = "bottom",
-    plot.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = "white", color = NA),
-    axis.title = element_text(color = "#404040", face = "bold"),
-    legend.title = element_text(face = "bold")
-  ) +
-  annotate("rect", xmin = 3.5, xmax = 5.5, ymin = 3.5, ymax = 5.5, 
-           alpha = 0.1, fill = "#1E6EB4") +
-  annotate("text", x = 4.5, y = 3.2, label = "Empfohlener Bereich", 
-           size = 3, color = "#1E6EB4", fontface = "italic")
-```
-
-{{< include sections/02-btp.qmd >}}
-
-{{< include sections/03-infrastruktur.qmd >}}
-
-{{< include sections/04-methoden.qmd >}}
-
-{{< include sections/05-performance.qmd >}}
-
-{{< include sections/06-ausblick.qmd >}}
+-->

@@ -1,85 +1,100 @@
 % Custom WISTA-style title page
 \begin{titlepage}
 \thispagestyle{empty}
+\pagestyle{empty}
 \onecolumn
 
-% Vertical blue line on the left (8.5cm from left edge)
+% Horizontal blue line at top (header line)
+\noindent{\color{wistaBlue}\rule{\textwidth}{1pt}}
+
+\vspace{-0.5cm}
+
+% Vertical blue line on the left (6.3cm from left edge, starts below header line, stops above footer)
 \begin{tikzpicture}[remember picture, overlay]
   \draw[wistaBlue, line width=2pt] 
-    ([xshift=8.5cm, yshift=-1cm]current page.north west) -- 
-    ([xshift=8.5cm, yshift=1cm]current page.south west);
+    ([xshift=6.3cm, yshift=-4cm]current page.north west) -- 
+    ([xshift=6.3cm, yshift=3.5cm]current page.south west);
 \end{tikzpicture}
 
-\vspace*{1cm}
+\vspace*{0.5cm}
 
-% Left side - short author bios
-\begin{minipage}[t]{7cm}
-\raggedright
-\small
-{\color{wistaBlue}\textbf{Oliver Hauke}}: IT-Referent im Kompetenzzentrum "Analyse und Auswertung" beim FDZ Bund, betreut die Infrastruktur und forscht zu Effizienzsteigerung in R.\\[0.5cm]
-{\color{wistaBlue}\textbf{Annette Kristiansen}}: Spezialistin für Daten-Matching und Record Linkage, Autorin mehrerer WISTA-Beiträge zu Mikrosimulation und Methodenentwicklung.
+% Left side - short author bios (right-aligned to the vertical line)
+\begin{minipage}[t]{3.9cm}
+\selectlanguage{ngerman}%
+\raggedleft
+\hyphenpenalty=0
+\tolerance=1000
+\fontsize{7}{8.5}\selectfont
+\vspace{0pt}%
+{\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
+ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er betreut die technische Infrastruktur des Forschungsdatenzentrums im Statistischen Bundesamt und Arbeiten für das Netzwerk empirische Steuerforschung.\\[0.5cm]
+
+{\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
+ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut das Netzwerk empirische Steuerforschung. Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen.
+
 \end{minipage}%
-\hfill%
+\hspace{0.4cm}% Gap to vertical line (left side)
+\hspace{0.4cm}% Gap from vertical line (right side)
 % Right side - title, authors, keywords, abstracts
-\begin{minipage}[t]{9cm}
+\begin{minipage}[t]{11.8cm}
 \raggedright
+\vspace{1.2cm}%
 
-% Title (uppercase)
-{\Huge\bfseries\color{wistaDarkGray}BEREITSTELLUNG MODERNER ANALYSETOOLS IN R ZUR EFFIZIENTEN AUSWERTUNG VON FORSCHUNGSDATEN}
+% Title (uppercase via command, not bold)
+{\LARGE\color{wistaDarkGray}\begin{spacing}{1.3}\MakeUppercase{Effiziente Analyse großer Forschungsdaten mithilfe von R}\end{spacing}}
 
-\vspace{0.5cm}
+\vspace{0.15cm}
 
-% Subtitle
-{\Large\color{wistaDarkGray}Eine empirische Untersuchung im FDZ Bund}
-
-\vspace{0.5cm}
-
-% Blue horizontal line
-{\color{wistaBlue}\rule{\linewidth}{1.5pt}}
+% Blue horizontal line (underline for title)
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
 
 \vspace{0.5cm}
 
 % Authors inline, dark gray
 {\large\color{wistaDarkGray}\bfseries Oliver Hauke, Annette Kristiansen}
 
-\vspace{0.5cm}
+%\vspace{0.15cm}
 
-% Blue line
+% Blue line (underline for authors)
 {\color{wistaBlue}\rule{\linewidth}{0.5pt}}
 
 \vspace{0.5cm}
 
 % Keywords (blue arrow then bold label and blue text)
-{\color{wistaBlue}$\searrow$ {\bfseries Schlüsselwörter:} Statistische Verfahren, Effizienzanalyse, Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung}
+{\color{wistaBlue}\footnotesize$\searrow$\normalsize\ {\bfseries Schlüsselwörter:} Effiziente Analysen, R-Programmierung, Forschungsdaten, Unternehmenssteuerstatistik, Business-Tax-Panel, Netzwerk empirische Steuerforschung}
 
 \vspace{0.3cm}
 
-% Zusammenfassung
-{\color{wistaDarkGray}\bfseries Zusammenfassung}\\
+% Zusammenfassung (uppercase via command)
+{\color{wistaDarkGray}\bfseries\MakeUppercase{Zusammenfassung}}\\[0.15cm]
 \small
-Die vorliegende Studie untersucht die Effizienz statistischer Verfahren in der amtlichen Statistik am Beispiel moderner Datenverarbeitungsmethoden. Die Analyse zeigt signifikante Verbesserungen durch optimierte Tools in R.
+Das Forschungsdatenzentrum des Statistischen Bundesamtes baut seine technische Infrastruktur gezielt aus, um der Wissenschaft erweiterte Analysemöglichkeiten amtlicher Daten bereitzustellen. Ab November 2025 steht Forschenden exklusiver Zugang zu diesen erweiterten Systemressourcen in R und Stata zur Verfügung. R-basierte Tools -- insbesondere Apache Arrow, Parquet und DuckDB -- ermöglichen es, gängige Analysen großer Forschungsdatensätze in Echtzeit auszuführen. Am Beispiel des Business-Tax-Panel (2013 bis 2019) werden die erzielbaren Effizienzgewinne bei der Auswertung umfangreicher steuerstatistischer Daten im Rahmen des Netzwerks empirische Steuerforschung demonstriert.
 
 \vspace{0.5cm}
 
-% English keywords and abstract
-{\color{wistaBlue}$\searrow$ {\bfseries Keywords:} Statistical procedures, efficiency analysis, data processing, official statistics, algorithm optimization}
+% English keywords and abstract (italicized)
+{\itshape\color{wistaBlue}\footnotesize$\searrow$\normalsize\ {\bfseries Keywords:} Efficient analysis -- R programming -- research data -- corporate tax statistics -- Business Tax Panel -- empirical tax research network}
 
 \vspace{0.3cm}
 
-{\color{wistaDarkGray}\bfseries Abstract}\\
-\small
-This paper presents modern R-based analysis tools for efficient processing of research data in secure FDZ environments. Performance benchmarks demonstrate substantial speedups and reduced memory usage.
+{\itshape\color{wistaDarkGray}\bfseries\MakeUppercase{Abstract}}\\[0.15cm]
+\small\itshape
+The Research Data Centre at the Federal Statistical Office is expanding its technical infrastructure to provide researchers with enhanced analytical capabilities for official data. From November 2025, researchers will have exclusive access to these extended system resources in R and Stata. R-based tools -- particularly Apache Arrow, Parquet, and DuckDB -- enable real-time analysis of large research datasets. Using the Business Tax Panel (2013--2019), the achievable efficiency gains in analysing large-scale tax statistics within the empirical tax research network are demonstrated.
 
 \end{minipage}
 
 \vfill
 
-% Footer with date
-\begin{center}
-{\small\color{wistaLightGray}\today}
-\end{center}
+\vspace{0.5cm}
+% Footer matching document style
+\noindent\makebox[\textwidth]{%
+  \small 1%
+  \hfill%
+  \small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025%
+}
 
 \end{titlepage}
 
-% Switch back to two-column mode
+% Switch back to two-column mode and restore fancy page style
 \twocolumn
+\pagestyle{fancy}
