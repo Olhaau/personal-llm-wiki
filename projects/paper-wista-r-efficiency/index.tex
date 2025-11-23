@@ -5,7 +5,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  ngerman,
+  german,
   10pt,
   twocolumn,
   twoside]{article}
@@ -215,12 +215,12 @@
   [\vspace{-0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.5pt}}\vspace{0.08cm}]
 \titlespacing*{\section}{0pt}{0.8ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
 
-% Subsection formatting - number and title with underline
+% Subsection formatting - number and title with underline, bigger and dark grey
 \titleformat{\subsection}
-  {\color{wistaDarkGray}\normalsize\bfseries}
-  {\color{wistaBlue}\normalsize\bfseries\thesubsection}
+  {\color{wistaDarkGray}\large\bfseries}
+  {\color{wistaDarkGray}\large\bfseries\thesubsection}
   {0.5em}
-  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaDarkGray}\large\bfseries}
   [\vspace{-0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.4pt}}\vspace{0.03cm}]
   
 % Subsubsection formatting
@@ -273,16 +273,16 @@
 % Footnotes stay within column
 \usepackage[stable]{footmisc}
 
-% Custom bullet points with arrow head
+% Pifont for dingbat symbols
+\usepackage{pifont}
+
+% Custom bullet points with > character - 35% width, 95% height, black extra bold, half line spacing
 \usepackage{enumitem}
-\setlist[itemize]{label={\color{wistaBlue}$\blacktriangleright$}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
+\setlist[itemize]{label={\scalebox{0.35}[0.95]{\fontseries{bx}\selectfont >}}, leftmargin=1.5em, itemsep=5pt, topsep=3pt, parsep=0pt}
 
-% Blue arrow for cross-references (bottom-right arrow)
-\usepackage{amssymb}
-
-% Redefine ref to include blue arrow ▸ (U+25B8, code 216) for figure/table/section references
+% Redefine ref to include pifont 247 (arrow) for figure/table/section references
 \let\oldref\ref
-\renewcommand{\ref}[1]{{\color{wistaBlue}▸}\oldref{#1}}
+\renewcommand{\ref}[1]{{\color{wistaBlue}\ding{247}}\oldref{#1}}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -374,7 +374,7 @@
 \fontsize{7}{8.5}\selectfont
 \vspace{0pt}%
 {\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
-ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er betreut die technische Infrastruktur des Forschungsdatenzentrums im Statistischen Bundesamt und Arbeiten für das Netzwerk empirische Steuerforschung.\\[0.5cm]
+ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums und berät das Netzwerk empirische Steuerforschung in der effizienten Nutzung der Systeme.\\[0.5cm]
 
 {\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
 ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut das Netzwerk empirische Steuerforschung. Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen.
@@ -407,28 +407,28 @@ ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistische
 
 \vspace{0.5cm}
 
-% Keywords (blue arrow then bold label and blue text)
+% Keywords (pifont 247 arrow then bold label and blue text)
 \hangindent=1.2em\hangafter=1
-{\color{wistaBlue}\footnotesize$\searrow$\normalsize\ {\bfseries Schlüsselwörter:} Effiziente Analysen, R-Programmierung, Forschungsdaten, Unternehmenssteuerstatistik, Business-Tax-Panel, Netzwerk empirische Steuerforschung}
+{\color{wistaBlue}\ding{247}\ {\bfseries Schlüsselwörter:} Effiziente Analysen, R-Programmierung, Forschungsdaten, Unternehmenssteuerstatistik, Business-Tax-Panel, Netzwerk empirische Steuerforschung}
 
 \vspace{0.3cm}
 
 % Zusammenfassung (uppercase via command)
 {\color{wistaDarkGray}\bfseries\MakeUppercase{Zusammenfassung}}\\[0.15cm]
 \small
-Das Forschungsdatenzentrum des Statistischen Bundesamtes baut seine technische Infrastruktur gezielt aus, um der Wissenschaft erweiterte Analysemöglichkeiten amtlicher Daten bereitzustellen. Ab November 2025 steht Forschenden exklusiver Zugang zu diesen erweiterten Systemressourcen in R und Stata zur Verfügung. R-basierte Tools -- insbesondere Apache Arrow, Parquet und DuckDB -- ermöglichen es, gängige Analysen großer Forschungsdatensätze in Echtzeit auszuführen. Am Beispiel des Business-Tax-Panel (2013 bis 2019) werden die erzielbaren Effizienzgewinne bei der Auswertung umfangreicher steuerstatistischer Daten im Rahmen des Netzwerks empirische Steuerforschung demonstriert.
+Das Forschungsdatenzentrum des Statistischen Bundesamtes baut seine technische Infrastruktur gezielt aus, um der Wissenschaft erweiterte Analysemöglichkeiten amtlicher Daten bereitzustellen. Seit November 2025 steht Forschenden exklusiver Zugang zu diesen erweiterten Systemressourcen in R und Stata zur Verfügung. R-basierte Tools -- insbesondere Apache Arrow, Parquet und DuckDB -- ermöglichen es, gängige Analysen großer Forschungsdatensätze in Echtzeit auszuführen. Am Beispiel des Business-Tax-Panel (2013 bis 2019) werden die erzielbaren Effizienzgewinne bei der Auswertung umfangreicher steuerstatistischer Daten im Rahmen des Netzwerks empirische Steuerforschung demonstriert.
 
 \vspace{0.5cm}
 
 % English keywords and abstract (italicized)
 \hangindent=1.2em\hangafter=1
-{\itshape\color{wistaBlue}\footnotesize$\searrow$\normalsize\ {\bfseries Keywords:} Efficient analysis -- R programming -- research data -- corporate tax statistics -- Business Tax Panel -- empirical tax research network}
+{\itshape\color{wistaBlue}\ding{247}\ {\bfseries Keywords:} Efficient analysis -- R programming -- research data -- corporate tax statistics -- Business Tax Panel -- empirical tax research network}
 
 \vspace{0.3cm}
 
 {\itshape\color{wistaDarkGray}\bfseries\MakeUppercase{Abstract}}\\[0.15cm]
 \small\itshape
-The Research Data Centre at the Federal Statistical Office is expanding its technical infrastructure to provide researchers with enhanced analytical capabilities for official data. From November 2025, researchers will have exclusive access to these extended system resources in R and Stata. R-based tools -- particularly Apache Arrow, Parquet, and DuckDB -- enable real-time analysis of large research datasets. Using the Business Tax Panel (2013--2019), the achievable efficiency gains in analysing large-scale tax statistics within the empirical tax research network are demonstrated.
+The Research Data Centre at the Federal Statistical Office is strategically expanding its technical infrastructure to provide researchers with enhanced analytical capabilities for official data. Since November 2025, researchers have had exclusive access to these extended system resources in R and Stata. R-based tools -- particularly Apache Arrow, Parquet, and DuckDB -- enable real-time analysis of large research datasets. Using the Business Tax Panel (2013--2019), this paper demonstrates the achievable efficiency gains in analysing large-scale tax statistics within the empirical tax research network.
 
 \end{minipage}
 
@@ -559,8 +559,8 @@ beeindruckenden Dimensionen:
 
 \begin{table}
 
-\caption{\label{tbl-btp-overview}\textless U+00DC\textgreater bersicht
-\textless U+00FC\textgreater ber die Dimensionen des Business-Tax-Panel}
+\caption{\label{tbl-btp-overview}Übersicht über die Dimensionen des
+Business-Tax-Panel}
 
 \centering{
 
@@ -568,11 +568,11 @@ beeindruckenden Dimensionen:
 \toprule
 Merkmal & Wert\\
 \midrule
-Beobachtungszeitraum & 2013-2019 (j<U+00E4>hrliche Erweiterung)\\
+Beobachtungszeitraum & 2013-2019 (jährliche Erweiterung)\\
 Anzahl Einheiten (2013-2019) & >66 Millionen\\
 Anzahl Merkmale & >2.700\\
 Erhebungsart & Vollerhebung\\
-Datenquelle & Sekund<U+00E4>rerhebung (Finanzverwaltung)\\
+Datenquelle & Sekundärerhebung (Finanzverwaltung)\\
 \bottomrule
 \end{tabu}
 
@@ -1116,14 +1116,14 @@ Arrow zusammenarbeitet:
 \begin{table}
 
 \caption{\label{tbl-format-comparison}Vergleich verschiedener
-Datenformate f\textless U+00FC\textgreater r die BTP-Analyse}
+Datenformate für die BTP-Analyse}
 
 \centering{
 
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{tabu} to \linewidth {>{\raggedright}X>{\raggedleft}X>{\raggedright}X>{\raggedright}X>{\centering}X>{\raggedright}X}
 \toprule
-Format & Gr<U+00F6><U+00DF>e & Ladezeit & Kompression & Partitionierung & Kompatibilit<U+00E4>t\\
+Format & Größe & Ladezeit & Kompression & Partitionierung & Kompatibilität\\
 \midrule
 CSV & 100\% & Sehr langsam & Keine & Nein & Universal\\
 RDS (R) & 45\% & Mittel & Gzip & Nein & Nur R\\
@@ -1411,9 +1411,8 @@ Datenformate (BTP-Datensatz, 5 Mio. Zeilen, 50 Variablen)}
 
 \begin{table}
 
-\caption{\label{tbl-aggregation-performance}Ausf\textless U+00FC\textgreater hrungszeiten
-f\textless U+00FC\textgreater r Szenario A: Einfache Aggregation (in
-Sekunden)}
+\caption{\label{tbl-aggregation-performance}Ausführungszeiten für
+Szenario A: Einfache Aggregation (in Sekunden)}
 
 \centering{
 
@@ -1537,15 +1536,15 @@ Anwendungsfall}
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright}X>{\raggedright}X>{\raggedright}X}
 \toprule
-Anwendungsfall & 1. Wahl & 2. Wahl & Begr<U+00FC>ndung\\
+Anwendungsfall & 1. Wahl & 2. Wahl & Begründung\\
 \midrule
-Kleine Datens<U+00E4>tze (<1M Zeilen) & data.table & Base R & Einfachheit, gute Performance\\
-Explorative Analyse, h<U+00E4>ufige Iterationen & DuckDB & Arrow & SQL-Komfort, schnelle Iteration\\
-Gro<U+00DF>e Aggregationen (>5M Zeilen) & DuckDB & Arrow + Parquet & Beste Skalierung, niedrigster Speicherverbrauch\\
+Kleine Datensätze (<1M Zeilen) & data.table & Base R & Einfachheit, gute Performance\\
+Explorative Analyse, häufige Iterationen & DuckDB & Arrow & SQL-Komfort, schnelle Iteration\\
+Große Aggregationen (>5M Zeilen) & DuckDB & Arrow + Parquet & Beste Skalierung, niedrigster Speicherverbrauch\\
 Komplexe Joins & DuckDB & data.table & Optimierter Hash-Join, Index-Support\\
 Produktions-Pipelines & Arrow + Parquet & DuckDB & Persistenz, Partitionierung, Reproduzierbarkeit\\
 \addlinespace
-Speicher-limitierte Umgebung & DuckDB & Arrow (streaming) & Out-of-core Verarbeitung m<U+00F6>glich\\
+Speicher-limitierte Umgebung & DuckDB & Arrow (streaming) & Out-of-core Verarbeitung möglich\\
 \bottomrule
 \end{tabu}}
 

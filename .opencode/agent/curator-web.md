@@ -13,11 +13,43 @@ Create agent-readable knowledge articles from web content optimized for:
 ## File Output Requirements
 
 ### Directory Structure
-- **Output Path**: `./sources/web/`
+- **Output Path**: `./resources/web/`
+- **PDF Storage**: `./resources/pdf/`
 - **File Naming Convention**: `[Domain]-[ShortTitle].md`
   - Domain: Extract primary domain from URL (e.g., github, stackoverflow, medium)
   - ShortTitle: Condensed version (max 50 chars, kebab-case)
   - Example: `GitHub-Actions-CI-CD-Best-Practices.md`
+
+### Downloadable File Handling
+When a web page references or links to downloadable files (PDFs, slides, datasets, etc.):
+
+**Supported file types and storage locations:**
+- `./resources/pdf/` - PDF documents, reports, papers
+- `./resources/slides/` - Presentation files (pptx, pdf slides, key)
+- `./resources/data/` - Datasets (csv, xlsx, json, parquet)
+- `./resources/code/` - Code archives, notebooks (zip, ipynb, R scripts)
+
+**Workflow:**
+1. **Download the file** to the appropriate directory with a relevant, descriptive filename (kebab-case)
+2. **Create metadata entry** in the web markdown file with:
+   - Original source URL
+   - Local file path as relative link: `../[type]/[filename].[ext]`
+   - File metadata (title, authors, publication date, file size, format)
+3. **Do NOT parse file content** unless explicitly requested - only save and reference
+
+**Example metadata table:**
+```markdown
+| Field | Value |
+|-------|-------|
+| **Title** | [Document Title] |
+| **Authors** | [Author Names] |
+| **Source** | [Organization/Website] |
+| **Type** | [Report/Slides/Dataset] |
+| **URL** | [Original URL] |
+| **Local File** | [../pdf/filename.pdf](../pdf/filename.pdf) |
+| **File Size** | [Size] |
+| **Retrieved** | [YYYY-MM-DD] |
+```
 
 ### File Generation Workflow
 1. Extract web content metadata (title, domain, author, publication date, content type)
@@ -305,11 +337,17 @@ When provided with a web URL, follow this agent-optimized workflow:
 - Link to related web content and external resources
 
 ### 4. File Output Management
-- Save to `./sources/web/` directory
+- Save to `./resources/web/` directory
+- Save referenced files to appropriate directories:
+  - PDFs → `./resources/pdf/`
+  - Slides → `./resources/slides/`
+  - Data → `./resources/data/`
+  - Code → `./resources/code/`
 - Use agent-friendly naming convention
 - Ensure proper markdown formatting for AI parsing
 - Validate all technical content for accuracy
 - Maintain source attribution and credibility markers
+- Link local files using relative paths: `../[type]/[filename].[ext]`
 
 ### 5. Quality Assurance for Agent Use
 - Verify technical accuracy and currentness

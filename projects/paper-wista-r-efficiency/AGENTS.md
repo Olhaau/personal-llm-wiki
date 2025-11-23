@@ -21,4 +21,5 @@ Quarto book project for German academic paper on R efficiency analysis in offici
 
 ### LaTeX (title.tex, _quarto.yml)
 - Custom WISTA colors: `wistaBlue`, `wistaDarkGray`, `wistaLightGray`
-- Bullets: ▶ (blue); Ref arrows: ▸ (blue); Bibliography: full-width one-column
+- Bullets: `>` (black, scaled 0.35x0.95); Ref arrows: `\ding{247}` (blue pifont)
+- Bibliography: full-width one-column; uses polyglossia for German/English

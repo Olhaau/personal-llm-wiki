@@ -11,3 +11,5 @@ projects/r-import-benchmark/data/
 
 # Compressed files (often large)
 *.gz
+
+resources/raw

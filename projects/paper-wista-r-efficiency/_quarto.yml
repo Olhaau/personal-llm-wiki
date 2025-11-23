@@ -6,25 +6,27 @@ project:
   post-render:
     - bash -c "git add _book/*.pdf && git commit -m 'Update PDF' && git push || true"
 
-title: "Effiziente Analyse großer Forschungsdaten mithilfe von R"
-author: 
-  - name: "Oliver Hauke"
-    affiliations:
-      - name: "Statistisches Bundesamt"
-  - name: "Annette Kristiansen"
-    affiliations:
-      - name: "Statistisches Bundesamt"
-date: today
-
 bibliography: references.bib
   
 format:
   docx:
     output-file: "Effiziente-Analyse-Forschungsdaten-R.docx"
+    reference-doc: reference.docx
     number-sections: true
     toc: false
     highlight-style: github
+    filters:
+      - section-break.lua
   pdf:
+    title: "Effiziente Analyse großer Forschungsdaten mithilfe von R"
+    author: 
+      - name: "Oliver Hauke"
+        affiliations:
+          - name: "Statistisches Bundesamt"
+      - name: "Annette Kristiansen"
+        affiliations:
+          - name: "Statistisches Bundesamt"
+    date: today
     documentclass: article
     output-file: "Effiziente-Analyse-Forschungsdaten-R.pdf"
     classoption:
@@ -91,12 +93,12 @@ format:
           [\vspace{-0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.5pt}}\vspace{0.08cm}]
         \titlespacing*{\section}{0pt}{0.8ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
         
-        % Subsection formatting - number and title with underline
+        % Subsection formatting - number and title with underline, bigger and dark grey
         \titleformat{\subsection}
-          {\color{wistaDarkGray}\normalsize\bfseries}
-          {\color{wistaBlue}\normalsize\bfseries\thesubsection}
+          {\color{wistaDarkGray}\large\bfseries}
+          {\color{wistaDarkGray}\large\bfseries\thesubsection}
           {0.5em}
-          {\color{wistaDarkGray}\normalsize\bfseries}
+          {\color{wistaDarkGray}\large\bfseries}
           [\vspace{-0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.4pt}}\vspace{0.03cm}]
           
         % Subsubsection formatting
@@ -149,16 +151,16 @@ format:
         % Footnotes stay within column
         \usepackage[stable]{footmisc}
         
-        % Custom bullet points with arrow head
+        % Pifont for dingbat symbols
+        \usepackage{pifont}
+        
+        % Custom bullet points with > character - 35% width, 95% height, black extra bold, half line spacing
         \usepackage{enumitem}
-        \setlist[itemize]{label={\color{wistaBlue}$\blacktriangleright$}, leftmargin=1.5em, itemsep=0pt, parsep=0pt}
+        \setlist[itemize]{label={\scalebox{0.35}[0.95]{\fontseries{bx}\selectfont >}}, leftmargin=1.5em, itemsep=5pt, topsep=3pt, parsep=0pt}
         
-        % Blue arrow for cross-references (bottom-right arrow)
-        \usepackage{amssymb}
-        
-        % Redefine ref to include blue arrow ▸ (U+25B8, code 216) for figure/table/section references
+        % Redefine ref to include pifont 247 (arrow) for figure/table/section references
         \let\oldref\ref
-        \renewcommand{\ref}[1]{{\color{wistaBlue}▸}\oldref{#1}}
+        \renewcommand{\ref}[1]{{\color{wistaBlue}\ding{247}}\oldref{#1}}
         
 
         
@@ -170,3 +172,8 @@ execute:
 editor: visual
 
 lang: de
+babel-lang: german
+polyglossia-lang:
+  name: german
+polyglossia-otherlangs:
+  - name: english
