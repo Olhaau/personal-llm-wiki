@@ -17,7 +17,10 @@ if (requireNamespace("haven", quietly = TRUE)) {
 #' of the German Business-Tax-Panel (BTP) 2013-2019. The BTP integrates 7 official
 #' tax statistics with the enterprise register (Unternehmensregister).
 #'
-#' @param obs Integer. Number of unique panel units to generate (default: 100).
+#' @param obs Integer. Number of unique panel units (firms) to generate (default: 100).
+#'   Note: Total rows will be greater than obs for unbalanced panels (default),
+#'   as each unit may appear in multiple years. For balanced panels, 
+#'   total rows = obs × length(years).
 #' @param years Integer vector. Years to include (default: 2013:2019).
 #' @param select Character. Statistics to include (default: "all").
 #'   Options:
@@ -50,12 +53,15 @@ if (requireNamespace("haven", quietly = TRUE)) {
 #'
 #' @examples
 #' # Generate small balanced panel with all statistics
+#' # 50 units × 7 years = 350 rows
 #' df <- synth_btp(obs = 50, balanced = TRUE, seed = 42)
 #'
 #' # Generate larger unbalanced panel with selected statistics
+#' # 1000 units, ~4700 rows (varies due to unbalanced structure)
 #' df <- synth_btp(obs = 1000, select = "gkv", seed = 123)
 #'
 #' # Panel only for recent years
+#' # 200 units × 3 years = 600 rows (if balanced)
 #' df <- synth_btp(obs = 200, years = 2017:2019, select = "k")
 #'
 #' @export
@@ -117,6 +123,10 @@ synth_btp <- function(obs = 100,
   attr(df, "years") <- years
   attr(df, "statistics") <- stats_selected
   attr(df, "balanced") <- balanced
+  
+  # Print summary
+  cat(sprintf("\nGenerated BTP dataset: %d units, %d rows, %d variables\n", 
+              length(unique(df$id)), nrow(df), ncol(df)))
   
   return(df)
 }
