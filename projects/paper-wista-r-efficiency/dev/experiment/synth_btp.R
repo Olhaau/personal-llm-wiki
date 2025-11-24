@@ -22,12 +22,12 @@ if (requireNamespace("haven", quietly = TRUE)) {
 #' @param select Character. Statistics to include (default: "all").
 #'   Options:
 #'   - "all": All statistics
-#'   - "g": Gewerbesteuer (Trade tax)
-#'   - "k": Körperschaftsteuer (Corporate tax)
-#'   - "u": Umsatzsteuer-Voranmeldung (VAT advance returns)
-#'   - "p": Personengesellschaften (Partnerships)
-#'   - "v": Umsatzsteuer-Veranlagung (VAT annual)
-#'   - "e": Einnahmenüberschussrechnung (Income surplus calculation)
+#'   - "g": Gewerbesteuer (Trade tax) - 428 variables
+#'   - "k": Körperschaftsteuer (Corporate tax) - 1239 variables
+#'   - "u": Umsatzsteuer-Voranmeldung (VAT advance) - 75 variables
+#'   - "p": Personengesellschaften (Partnerships) - 1139 variables
+#'   - "v": Umsatzsteuer-Veranlagung (VAT annual) - 120 variables
+#'   - "e": Einnahmenüberschussrechnung (EUR) - 682 variables
 #'   - Combinations: "gk", "gkv", etc.
 #' @param balanced Logical. If TRUE, all units appear in all years (default: FALSE).
 #' @param seed Integer. Random seed for reproducibility (default: NULL).
@@ -36,6 +36,7 @@ if (requireNamespace("haven", quietly = TRUE)) {
 #'   - Panel structure variables (id, jahr, verk, verk_qual, ags)
 #'   - Enterprise register variables (urs_*)
 #'   - Tax statistics variables (g_*, k_*, u_*, p_*, v_*, e_*)
+#'   Total variables: 3683 (when select="all")
 #'
 #' @details
 #' The generator respects key BTP characteristics:
@@ -44,6 +45,7 @@ if (requireNamespace("haven", quietly = TRUE)) {
 #' - Proper German municipality codes (AGS)
 #' - Variable naming conventions: [stat]_[type][area][number]
 #' - Labeled variables with metadata
+#' - Variables are NA for years where statistic not filled (filled==0)
 #'
 #' @examples
 #' # Generate small balanced panel with all statistics
@@ -109,7 +111,7 @@ synth_btp <- function(obs = 100,
   # Add metadata attributes ----
   attr(df, "generated") <- Sys.time()
   attr(df, "generator") <- "synth_btp"
-  attr(df, "version") <- "1.0"
+  attr(df, "version") <- "2.0"
   attr(df, "obs") <- obs
   attr(df, "years") <- years
   attr(df, "statistics") <- stats_selected
@@ -296,234 +298,337 @@ generate_urs_variables <- function(dt) {
 }
 
 
-#' Generate Gewerbesteuer (Trade Tax) variables
+#' Load variable definitions from JSON
+#' @keywords internal
+load_variable_definitions <- function() {
+  json_file <- system.file("extdata", "btp_variables.json", package = "synthbtp")
+  
+  # If package file not found, try local path
+  if (json_file == "") {
+    json_file <- "btp_variables.json"
+  }
+  
+  if (!file.exists(json_file)) {
+    # Return minimal definitions if file not found
+    return(NULL)
+  }
+  
+  jsonlite::fromJSON(json_file)
+}
+
+
+#' Generate variables from definitions
+#' @keywords internal
+generate_vars_from_defs <- function(dt, prefix, has_col, var_defs = NULL) {
+  # Try to load definitions if not provided
+  if (is.null(var_defs)) {
+    var_defs <- load_variable_definitions()
+  }
+  
+  # If definitions available, use them
+  if (!is.null(var_defs) && prefix %in% names(var_defs)) {
+    stat_def <- var_defs[[prefix]]
+    variables <- stat_def$variables
+    descriptions <- stat_def$descriptions
+    formats <- stat_def$formats
+    
+    for (i in seq_along(variables)) {
+      varname <- variables[i]
+      description <- if (i <= length(descriptions)) descriptions[i] else varname
+      format <- if (i <= length(formats)) formats[i] else "Num"
+      
+      # Generate variable based on format
+      if (format == "Char") {
+        # Character variable
+        dt[get(has_col) == TRUE, (varname) := sample(c("A", "B", "C", "D", "E"), 
+                                                      sum(get(has_col)), 
+                                                      replace = TRUE)]
+      } else {
+        # Numeric variable
+        dt[get(has_col) == TRUE, (varname) := rnorm(sum(get(has_col)), 
+                                                     mean = 10000, 
+                                                     sd = 50000)]
+      }
+      
+      # Add label
+      dt[, (varname) := labelled(get(varname), label = description)]
+    }
+  } else {
+    # Fallback: generate generic variables
+    warning(sprintf("Variable definitions not found for %s, generating generic variables", prefix))
+  }
+  
+  return(dt)
+}
+
+
+#' Generate Gewerbesteuer (Trade Tax) variables - 428 variables
 #' @keywords internal
 generate_gewerbesteuer <- function(dt) {
+  # Load JSON definitions
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
+  }
+  
+  var_defs <- jsonlite::fromJSON(json_file)$g
+  
   # Only generate for observations where 'g' is in verk
   dt[, has_g := grepl("g", verk)]
+  n_has_g <- sum(dt$has_g)
   
-  # g_fef17: Business size class
-  dt[has_g == TRUE, g_fef17 := sample(1:9, sum(has_g), replace = TRUE,
-                                       prob = c(0.45, 0.20, 0.15, 0.08, 
-                                               0.05, 0.03, 0.02, 0.01, 0.01))]
-  dt[, g_fef17 := labelled(g_fef17,
-                           label = "Betriebsgrößenklasse",
-                           labels = c("Kleinbetrieb" = 1, "Mittelbetrieb" = 5,
-                                     "Großbetrieb" = 9))]
+  if (n_has_g == 0) {
+    dt[, has_g := NULL]
+    return(dt)
+  }
   
-  # g_fef20: Type of income determination
-  dt[has_g == TRUE, g_fef20 := sample(c("E", "B", "T"), sum(has_g), 
-                                       replace = TRUE, prob = c(0.55, 0.40, 0.05))]
-  dt[, g_fef20 := labelled(g_fef20,
-                           label = "Art der Ertragsermittlung",
-                           labels = c("Einnahmenüberschussrechnung" = "E",
-                                     "Bilanzierung" = "B",
-                                     "Tonnagebesteuerung" = "T"))]
+  # Generate all variables at once for efficiency
+  cat(sprintf("Generating %d variables for %d observations with Gewerbesteuer...\n", 
+              length(var_defs$variables), n_has_g))
   
-  # g_fef21: Organschaft (fiscal unity)
-  dt[has_g == TRUE, g_fef21 := sample(0:1, sum(has_g), replace = TRUE,
-                                       prob = c(0.92, 0.08))]
-  dt[, g_fef21 := labelled(g_fef21,
-                           label = "Organschaft",
-                           labels = c("Nein" = 0, "Ja" = 1))]
-  
-  # g_c0101: Profit from business operations
-  dt[has_g == TRUE, g_c0101 := rnorm(sum(has_g), mean = 50000, sd = 100000)]
-  dt[, g_c0101 := labelled(g_c0101, label = "Gewinn aus Gewerbebetrieb")]
-  
-  # g_c0102: Loss from business operations
-  dt[has_g == TRUE & g_c0101 < 0, g_c0102 := abs(g_c0101)]
-  dt[has_g == TRUE & g_c0101 >= 0, g_c0102 := 0]
-  dt[, g_c0102 := labelled(g_c0102, label = "Verlust aus Gewerbebetrieb")]
-  
-  # g_c0301: Rounded trade income
-  dt[has_g == TRUE, g_c0301 := pmax(0, g_c0101 * runif(sum(has_g), 0.8, 1.2))]
-  dt[, g_c0301 := labelled(g_c0301, label = "Abgerundeter Gewerbeertrag")]
-  
-  # g_c0401: Trade tax assessment
-  dt[has_g == TRUE, g_c0401 := pmax(0, g_c0301 * 0.035)]
-  dt[, g_c0401 := labelled(g_c0401, label = "Festgesetzte Gewerbesteuer")]
+  for (i in seq_along(var_defs$variables)) {
+    varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
+    format <- var_defs$formats[i]
+    
+    if (format == "Char") {
+      vals <- sample(c("0", "1", "2", "A", "B", "E"), n_has_g, replace = TRUE)
+      dt[has_g == TRUE, (varname) := vals]
+    } else {
+      vals <- rnorm(n_has_g, mean = 50000, sd = 100000)
+      dt[has_g == TRUE, (varname) := vals]
+    }
+    
+    # Apply label without calling labelled on entire column
+    setattr(dt[[varname]], "label", description)
+    
+    # Progress indicator every 50 variables
+    if (i %% 50 == 0) {
+      cat(sprintf("  ...generated %d/%d variables\n", i, length(var_defs$variables)))
+    }
+  }
   
   dt[, has_g := NULL]
   return(dt)
 }
 
 
-#' Generate Körperschaftsteuer (Corporate Tax) variables
+#' Generate Körperschaftsteuer (Corporate Tax) variables - 1239 variables
 #' @keywords internal
 generate_koerperschaftsteuer <- function(dt) {
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
+  }
+  
+  var_defs <- jsonlite::fromJSON(json_file)$k
+  
   dt[, has_k := grepl("k", verk)]
+  n_has_k <- sum(dt$has_k)
   
-  # k_fef13: Legal form
-  dt[has_k == TRUE, k_fef13 := sample(c("AG", "GmbH", "eG", "VVaG"), 
-                                       sum(has_k), replace = TRUE,
-                                       prob = c(0.02, 0.92, 0.04, 0.02))]
-  dt[, k_fef13 := labelled(k_fef13,
-                           label = "Rechtsform",
-                           labels = c("Aktiengesellschaft" = "AG",
-                                     "GmbH" = "GmbH",
-                                     "Genossenschaft" = "eG",
-                                     "Versicherungsverein" = "VVaG"))]
+  if (n_has_k == 0) {
+    dt[, has_k := NULL]
+    return(dt)
+  }
   
-  # k_k0101: Taxable income
-  dt[has_k == TRUE, k_k0101 := rnorm(sum(has_k), mean = 60000, sd = 120000)]
-  dt[, k_k0101 := labelled(k_k0101, label = "Zu versteuerndes Einkommen")]
+  cat(sprintf("Generating %d variables for %d observations with Körperschaftsteuer...\n", 
+              length(var_defs$variables), n_has_k))
   
-  # k_k0201: Balance sheet profit
-  dt[has_k == TRUE, k_k0201 := pmax(0, k_k0101 * runif(sum(has_k), 0.9, 1.1))]
-  dt[, k_k0201 := labelled(k_k0201, label = "Bilanzgewinn")]
-  
-  # k_k0202: Balance sheet loss
-  dt[has_k == TRUE & k_k0101 < 0, k_k0202 := abs(k_k0101)]
-  dt[has_k == TRUE & k_k0101 >= 0, k_k0202 := 0]
-  dt[, k_k0202 := labelled(k_k0202, label = "Bilanzverlust")]
-  
-  # k_k0501: Assessed corporate tax
-  dt[has_k == TRUE, k_k0501 := pmax(0, k_k0101 * 0.15)]
-  dt[, k_k0501 := labelled(k_k0501, label = "Festgesetzte Körperschaftsteuer")]
-  
-  # k_k0502: Solidarity surcharge
-  dt[has_k == TRUE, k_k0502 := pmax(0, k_k0501 * 0.055)]
-  dt[, k_k0502 := labelled(k_k0502, label = "Solidaritätszuschlag")]
+  for (i in seq_along(var_defs$variables)) {
+    varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
+    format <- var_defs$formats[i]
+    
+    if (format == "Char") {
+      vals <- sample(c("0", "1", "2", "AG", "GmbH", "eG"), n_has_k, replace = TRUE)
+      dt[has_k == TRUE, (varname) := vals]
+    } else {
+      vals <- rnorm(n_has_k, mean = 60000, sd = 120000)
+      dt[has_k == TRUE, (varname) := vals]
+    }
+    
+    setattr(dt[[varname]], "label", description)
+    
+    if (i %% 100 == 0) {
+      cat(sprintf("  ...generated %d/%d variables\n", i, length(var_defs$variables)))
+    }
+  }
   
   dt[, has_k := NULL]
   return(dt)
 }
 
 
-#' Generate Umsatzsteuer-Voranmeldung (VAT Advance) variables
+#' Generate Umsatzsteuer-Voranmeldung (VAT Advance) variables - 75 variables
 #' @keywords internal
 generate_ust_voranmeldung <- function(dt) {
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
+  }
+  
+  var_defs <- jsonlite::fromJSON(json_file)$u
+  
   dt[, has_u := grepl("u", verk)]
+  n_has_u <- sum(dt$has_u)
   
-  # u_c0101: Taxable supplies at 19%
-  dt[has_u == TRUE, u_c0101 := pmax(0, rlnorm(sum(has_u), meanlog = 11, sdlog = 1.5))]
-  dt[, u_c0101 := labelled(u_c0101, label = "Steuerbare Umsätze 19%")]
+  if (n_has_u == 0) {
+    dt[, has_u := NULL]
+    return(dt)
+  }
   
-  # u_c0102: VAT at 19%
-  dt[has_u == TRUE, u_c0102 := u_c0101 * 0.19]
-  dt[, u_c0102 := labelled(u_c0102, label = "Umsatzsteuer 19%")]
+  cat(sprintf("Generating %d variables for %d observations with Umsatzsteuer-Voranmeldung...\n", 
+              length(var_defs$variables), n_has_u))
   
-  # u_c0201: Taxable supplies at 7%
-  dt[has_u == TRUE, u_c0201 := pmax(0, rlnorm(sum(has_u), meanlog = 10, sdlog = 1.8))]
-  dt[, u_c0201 := labelled(u_c0201, label = "Steuerbare Umsätze 7%")]
-  
-  # u_c0202: VAT at 7%
-  dt[has_u == TRUE, u_c0202 := u_c0201 * 0.07]
-  dt[, u_c0202 := labelled(u_c0202, label = "Umsatzsteuer 7%")]
-  
-  # u_c0301: Input tax
-  dt[has_u == TRUE, u_c0301 := pmax(0, (u_c0102 + u_c0202) * runif(sum(has_u), 0.6, 0.9))]
-  dt[, u_c0301 := labelled(u_c0301, label = "Vorsteuer")]
-  
-  # u_c0401: VAT payment/refund
-  dt[has_u == TRUE, u_c0401 := (u_c0102 + u_c0202) - u_c0301]
-  dt[, u_c0401 := labelled(u_c0401, label = "Umsatzsteuer-Zahllast/-Erstattung")]
+  for (i in seq_along(var_defs$variables)) {
+    varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
+    format <- var_defs$formats[i]
+    
+    if (format == "Char") {
+      vals <- sample(c("0", "1", "2", "3"), n_has_u, replace = TRUE)
+      dt[has_u == TRUE, (varname) := vals]
+    } else {
+      vals <- pmax(0, rlnorm(n_has_u, meanlog = 11, sdlog = 1.5))
+      dt[has_u == TRUE, (varname) := vals]
+    }
+    
+    setattr(dt[[varname]], "label", description)
+  }
   
   dt[, has_u := NULL]
   return(dt)
 }
 
 
-#' Generate Personengesellschaften (Partnerships) variables
+#' Generate Personengesellschaften (Partnerships) variables - 1139 variables
 #' @keywords internal
 generate_personengesellschaften <- function(dt) {
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
+  }
+  
+  var_defs <- jsonlite::fromJSON(json_file)$p
+  
   dt[, has_p := grepl("p", verk)]
+  n_has_p <- sum(dt$has_p)
   
-  # p_fef14: Type of determination
-  dt[has_p == TRUE, p_fef14 := sample(1:3, sum(has_p), replace = TRUE,
-                                       prob = c(0.85, 0.10, 0.05))]
-  dt[, p_fef14 := labelled(p_fef14,
-                           label = "Art der Feststellung",
-                           labels = c("Gesonderte Feststellung" = 1,
-                                     "Einheitliche Feststellung" = 2,
-                                     "Gesonderte und einheitliche" = 3))]
+  if (n_has_p == 0) {
+    dt[, has_p := NULL]
+    return(dt)
+  }
   
-  # p_c0101: Total profit
-  dt[has_p == TRUE, p_c0101 := rnorm(sum(has_p), mean = 40000, sd = 80000)]
-  dt[, p_c0101 := labelled(p_c0101, label = "Summe der Einkünfte")]
+  cat(sprintf("Generating %d variables for %d observations with Personengesellschaften...\n", 
+              length(var_defs$variables), n_has_p))
   
-  # p_c0201: Business profit
-  dt[has_p == TRUE, p_c0201 := p_c0101 * runif(sum(has_p), 0.7, 1.0)]
-  dt[, p_c0201 := labelled(p_c0201, label = "Gewinn aus Gewerbebetrieb")]
-  
-  # p_c0301: Number of partners
-  dt[has_p == TRUE, p_c0301 := sample(2:10, sum(has_p), replace = TRUE,
-                                       prob = c(0.50, 0.25, 0.12, 0.06, 
-                                               0.03, 0.02, 0.01, 0.005, 0.005))]
-  dt[, p_c0301 := labelled(p_c0301, label = "Anzahl der Beteiligten")]
+  for (i in seq_along(var_defs$variables)) {
+    varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
+    format <- var_defs$formats[i]
+    
+    if (format == "Char") {
+      vals <- sample(c("0", "1", "2", "3", "20", "21"), n_has_p, replace = TRUE)
+      dt[has_p == TRUE, (varname) := vals]
+    } else {
+      vals <- rnorm(n_has_p, mean = 40000, sd = 80000)
+      dt[has_p == TRUE, (varname) := vals]
+    }
+    
+    setattr(dt[[varname]], "label", description)
+    
+    if (i %% 100 == 0) {
+      cat(sprintf("  ...generated %d/%d variables\n", i, length(var_defs$variables)))
+    }
+  }
   
   dt[, has_p := NULL]
   return(dt)
 }
 
 
-#' Generate Umsatzsteuer-Veranlagung (VAT Annual) variables
+#' Generate Umsatzsteuer-Veranlagung (VAT Annual) variables - 120 variables
 #' @keywords internal
 generate_ust_veranlagung <- function(dt) {
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
+  }
+  
+  var_defs <- jsonlite::fromJSON(json_file)$v
+  
   dt[, has_v := grepl("v", verk)]
+  n_has_v <- sum(dt$has_v)
   
-  # v_c0101: Annual taxable supplies at 19%
-  dt[has_v == TRUE, v_c0101 := pmax(0, rlnorm(sum(has_v), meanlog = 12, sdlog = 1.5))]
-  dt[, v_c0101 := labelled(v_c0101, label = "Steuerbare Umsätze 19% (Jahr)")]
+  if (n_has_v == 0) {
+    dt[, has_v := NULL]
+    return(dt)
+  }
   
-  # v_c0102: Annual VAT at 19%
-  dt[has_v == TRUE, v_c0102 := v_c0101 * 0.19]
-  dt[, v_c0102 := labelled(v_c0102, label = "Umsatzsteuer 19% (Jahr)")]
+  cat(sprintf("Generating %d variables for %d observations with Umsatzsteuer-Veranlagung...\n", 
+              length(var_defs$variables), n_has_v))
   
-  # v_c0201: Annual taxable supplies at 7%
-  dt[has_v == TRUE, v_c0201 := pmax(0, rlnorm(sum(has_v), meanlog = 11, sdlog = 1.8))]
-  dt[, v_c0201 := labelled(v_c0201, label = "Steuerbare Umsätze 7% (Jahr)")]
-  
-  # v_c0202: Annual VAT at 7%
-  dt[has_v == TRUE, v_c0202 := v_c0201 * 0.07]
-  dt[, v_c0202 := labelled(v_c0202, label = "Umsatzsteuer 7% (Jahr)")]
-  
-  # v_c0301: Annual input tax
-  dt[has_v == TRUE, v_c0301 := pmax(0, (v_c0102 + v_c0202) * runif(sum(has_v), 0.6, 0.9))]
-  dt[, v_c0301 := labelled(v_c0301, label = "Vorsteuer (Jahr)")]
-  
-  # v_c0401: Annual VAT payment/refund
-  dt[has_v == TRUE, v_c0401 := (v_c0102 + v_c0202) - v_c0301]
-  dt[, v_c0401 := labelled(v_c0401, label = "Umsatzsteuer-Zahllast/-Erstattung (Jahr)")]
-  
-  # v_c0501: Total turnover
-  dt[has_v == TRUE, v_c0501 := v_c0101 + v_c0201]
-  dt[, v_c0501 := labelled(v_c0501, label = "Gesamtumsatz")]
+  for (i in seq_along(var_defs$variables)) {
+    varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
+    format <- var_defs$formats[i]
+    
+    if (format == "Char") {
+      vals <- sample(c("0", "1", "2", "3"), n_has_v, replace = TRUE)
+      dt[has_v == TRUE, (varname) := vals]
+    } else {
+      vals <- pmax(0, rlnorm(n_has_v, meanlog = 12, sdlog = 1.5))
+      dt[has_v == TRUE, (varname) := vals]
+    }
+    
+    setattr(dt[[varname]], "label", description)
+  }
   
   dt[, has_v := NULL]
   return(dt)
 }
 
 
-#' Generate Einnahmenüberschussrechnung (Income Surplus) variables
+#' Generate Einnahmenüberschussrechnung (Income Surplus) variables - 682 variables
 #' @keywords internal
 generate_eur <- function(dt) {
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
+  }
+  
+  var_defs <- jsonlite::fromJSON(json_file)$e
+  
   dt[, has_e := grepl("e", verk)]
+  n_has_e <- sum(dt$has_e)
   
-  # e_c0101: Operating revenues
-  dt[has_e == TRUE, e_c0101 := pmax(0, rlnorm(sum(has_e), meanlog = 11, sdlog = 1.5))]
-  dt[, e_c0101 := labelled(e_c0101, label = "Betriebseinnahmen")]
+  if (n_has_e == 0) {
+    dt[, has_e := NULL]
+    return(dt)
+  }
   
-  # e_c0201: Operating expenses
-  dt[has_e == TRUE, e_c0201 := pmax(0, e_c0101 * runif(sum(has_e), 0.6, 0.95))]
-  dt[, e_c0201 := labelled(e_c0201, label = "Betriebsausgaben")]
+  cat(sprintf("Generating %d variables for %d observations with Einnahmenüberschussrechnung...\n", 
+              length(var_defs$variables), n_has_e))
   
-  # e_c0301: Income surplus (profit)
-  dt[has_e == TRUE, e_c0301 := e_c0101 - e_c0201]
-  dt[, e_c0301 := labelled(e_c0301, label = "Gewinn (Einnahmenüberschuss)")]
-  
-  # e_c0401: Goods and materials expenses
-  dt[has_e == TRUE, e_c0401 := pmax(0, e_c0201 * runif(sum(has_e), 0.3, 0.6))]
-  dt[, e_c0401 := labelled(e_c0401, label = "Waren und Rohstoffe")]
-  
-  # e_c0501: Personnel expenses
-  dt[has_e == TRUE, e_c0501 := pmax(0, e_c0201 * runif(sum(has_e), 0.2, 0.4))]
-  dt[, e_c0501 := labelled(e_c0501, label = "Personalkosten")]
-  
-  # e_c0601: Depreciation
-  dt[has_e == TRUE, e_c0601 := pmax(0, e_c0201 * runif(sum(has_e), 0.05, 0.15))]
-  dt[, e_c0601 := labelled(e_c0601, label = "Abschreibungen")]
+  for (i in seq_along(var_defs$variables)) {
+    varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
+    format <- var_defs$formats[i]
+    
+    if (format == "Char") {
+      vals <- sample(c("0", "1", "2", "A", "B"), n_has_e, replace = TRUE)
+      dt[has_e == TRUE, (varname) := vals]
+    } else {
+      vals <- pmax(0, rlnorm(n_has_e, meanlog = 11, sdlog = 1.5))
+      dt[has_e == TRUE, (varname) := vals]
+    }
+    
+    setattr(dt[[varname]], "label", description)
+    
+    if (i %% 100 == 0) {
+      cat(sprintf("  ...generated %d/%d variables\n", i, length(var_defs$variables)))
+    }
+  }
   
   dt[, has_e := NULL]
   return(dt)
@@ -593,6 +698,18 @@ summarize_btp_panel <- function(btp_data) {
     pct = .N / nrow(dt) * 100
   ), by = verk_qual]
   
+  # Count variables by statistic
+  var_counts <- list(
+    total_vars = ncol(btp_data),
+    g_vars = sum(grepl("^g_", names(btp_data))),
+    k_vars = sum(grepl("^k_", names(btp_data))),
+    u_vars = sum(grepl("^u_", names(btp_data))),
+    p_vars = sum(grepl("^p_", names(btp_data))),
+    v_vars = sum(grepl("^v_", names(btp_data))),
+    e_vars = sum(grepl("^e_", names(btp_data))),
+    urs_vars = sum(grepl("^urs_", names(btp_data)))
+  )
+  
   return(list(
     n_observations = n_obs,
     n_units = n_units,
@@ -601,6 +718,7 @@ summarize_btp_panel <- function(btp_data) {
     pct_balanced = pct_all_years,
     observations_per_unit = balance_dist,
     statistics_coverage = stats_coverage,
-    linkage_quality = linkage_qual
+    linkage_quality = linkage_qual,
+    variable_counts = var_counts
   ))
 }

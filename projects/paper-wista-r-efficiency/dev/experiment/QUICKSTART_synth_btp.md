@@ -1,265 +1,231 @@
-# Quick Start Guide - Synthetic BTP Generator
+# Synthetic BTP - Quick Start Guide
 
 ## Installation
 
 ```r
-# Install required packages
-install.packages("data.table")
-# Optional: install.packages("haven")
+# Required packages
+install.packages(c("data.table", "jsonlite", "haven"))
 
 # Load the generator
 source("synth_btp.R")
 ```
 
-## 5-Minute Tutorial
+## Basic Usage
 
-### 1. Generate Your First Dataset (10 seconds)
+### Example 1: Small Balanced Panel with All Statistics
 
 ```r
-# Simple generation with defaults
-df <- synth_btp(obs = 100, seed = 42)
+# Generate 50 units across all years (2013-2019), all statistics
+df <- synth_btp(obs = 50, balanced = TRUE, seed = 42)
 
-# What did we get?
-dim(df)                    # 471 rows × 47 columns
-head(df[, 1:8])           # Preview first 8 columns
-names(df)                  # All variable names
+# Check dimensions
+dim(df)  
+# [1]  350 3694  (50 units × 7 years = 350 obs, 3694 variables)
+
+# View structure
+str(df, list.len = 20)
+
+# Summarize
+summary_stats <- summarize_btp_panel(df)
+print(summary_stats$variable_counts)
 ```
 
-### 2. Understand the Panel Structure (1 minute)
+### Example 2: Unbalanced Panel (Realistic)
 
 ```r
-# Summarize the panel
-summary <- summarize_btp_panel(df)
-summary$n_units           # 100 unique units
-summary$pct_balanced      # % appearing in all years
-summary$observations_per_unit  # Distribution
+# Generate realistic unbalanced panel
+df <- synth_btp(obs = 1000, balanced = FALSE, seed = 123)
 
-# Check years covered
-table(df$jahr)
-
-# Check linkage patterns
-table(df$verk_qual)
+# Check balance
+summary_stats <- summarize_btp_panel(df)
+cat("Observations:", summary_stats$n_observations, "\n")
+cat("Units:", summary_stats$n_units, "\n")
+cat("% in all years:", round(summary_stats$pct_balanced, 1), "%\n")
+# Expected: ~28.4%
 ```
 
-### 3. Explore the Statistics (2 minutes)
+### Example 3: Selected Statistics Only
 
 ```r
-# How many observations have each statistic?
-c(
-  Gewerbesteuer = sum(grepl("g", df$verk)),
-  Koerperschaftsteuer = sum(grepl("k", df$verk)),
-  USt_Voranmeldung = sum(grepl("u", df$verk)),
-  Personengesellschaften = sum(grepl("p", df$verk)),
-  USt_Veranlagung = sum(grepl("v", df$verk)),
-  EUR = sum(grepl("e", df$verk))
-)
-
-# Focus on one statistic
-trade_tax <- df[grepl("g", df$verk), ]
-summary(trade_tax$g_c0401)  # Trade tax amounts
-```
-
-### 4. Variable Labels (1 minute)
-
-```r
-# Extract metadata for all variables
-metadata <- extract_btp_metadata(df)
-metadata[1:10, ]  # View first 10 variables
-
-# Find variables with value labels
-subset(metadata, has_value_labels == TRUE)
-```
-
-### 5. Generate Custom Datasets (1 minute)
-
-```r
-# Balanced panel for econometric methods
-balanced <- synth_btp(obs = 500, balanced = TRUE, seed = 123)
-all(table(balanced$id) == 7)  # TRUE - all units in all 7 years
-
-# Focus on corporations (Gewerbesteuer + Körperschaftsteuer)
-corps <- synth_btp(obs = 1000, select = "gk", years = 2015:2019)
+# Only Gewerbesteuer and Körperschaftsteuer
+df_gk <- synth_btp(obs = 200, select = "gk", seed = 456)
+ncol(df_gk)  # 11 core + 428 g + 1239 k = 1678 variables
 
 # Only VAT statistics
-vat_only <- synth_btp(obs = 800, select = "uv", seed = 456)
+df_vat <- synth_btp(obs = 300, select = "uv", seed = 789)
+ncol(df_vat)  # 11 core + 75 u + 120 v = 206 variables
 
-# Large dataset for performance testing
-large <- synth_btp(obs = 10000)
-nrow(large)  # ~47,000 observations
+# Single statistic
+df_k <- synth_btp(obs = 100, select = "k", years = 2015:2019)
+ncol(df_k)  # 11 core + 1239 k = 1250 variables
 ```
 
-## Common Tasks
-
-### Export to Different Formats
+### Example 4: Recent Years Only
 
 ```r
-df <- synth_btp(obs = 100, seed = 42)
-
-# CSV
-write.csv(df, "btp_synthetic.csv", row.names = FALSE)
-
-# RDS (preserves labels)
-saveRDS(df, "btp_synthetic.rds")
-
-# Parquet (if arrow installed)
-# library(arrow)
-# write_parquet(df, "btp_synthetic.parquet")
+# Focus on recent years
+df_recent <- synth_btp(obs = 500, years = 2017:2019, select = "all", seed = 999)
+unique(df_recent$jahr)  # [1] 2017 2018 2019
 ```
 
-### Analyze Panel Data
+## Exploring the Data
+
+### Check Linkage Pattern
 
 ```r
-df <- synth_btp(obs = 200, balanced = TRUE, seed = 42)
+# View first observation
+obs1 <- df[1, ]
+cat("verk:", obs1$verk, "\n")
+cat("has Gewerbesteuer:", grepl("g", obs1$verk), "\n")
+cat("has Körperschaftsteuer:", grepl("k", obs1$verk), "\n")
 
-# Time trends
-library(dplyr)
-df %>%
-  group_by(jahr) %>%
-  summarise(
-    mean_turnover = mean(urs_we_umsatz, na.rm = TRUE),
-    mean_employees = mean(urs_we_tp_stichtag, na.rm = TRUE),
-    n = n()
-  )
-
-# By legal form
-df %>%
-  group_by(urs_rechtsform) %>%
-  summarise(
-    mean_turnover = mean(urs_we_umsatz, na.rm = TRUE),
-    n = n()
-  )
+# Check if variables are NA when not in verk
+cat("g_ef4 (Gewerbe):", !is.na(obs1$g_ef4), "\n")
+cat("k_ef4 (Körperschaft):", !is.na(obs1$k_ef4), "\n")
 ```
 
-### Fixed Effects Model Example
+### Statistics Coverage
 
 ```r
-df <- synth_btp(obs = 500, balanced = TRUE, select = "g", seed = 42)
+# How many units participate in each statistic?
+summary_stats <- summarize_btp_panel(df)
+print(summary_stats$statistics_coverage)
 
-# Only units with trade tax data
-df_g <- df[grepl("g", df$verk) & !is.na(df$g_c0401), ]
-
-# Fixed effects regression (requires plm package)
-# library(plm)
-# pdata <- pdata.frame(df_g, index = c("id", "jahr"))
-# model <- plm(g_c0401 ~ urs_we_tp_stichtag + urs_we_umsatz,
-#              data = pdata, model = "within")
-# summary(model)
+# Example output:
+#   stat    n    pct
+# 1    _   27   5.4    # No statistics
+# 2    g  210  42.0    # Gewerbesteuer
+# 3    k   70  14.0    # Körperschaftsteuer
+# etc.
 ```
 
-### Benchmark Data Processing
+### Variable Metadata
 
 ```r
-df <- synth_btp(obs = 5000)
+# Extract all variable labels
+metadata <- extract_btp_metadata(df)
+head(metadata, 20)
 
-# Compare data.table vs dplyr
+# Find specific variables
+g_vars <- metadata[grepl("^g_", metadata$variable), ]
+cat("Gewerbesteuer variables:", nrow(g_vars), "\n")
+
+k_vars <- metadata[grepl("^k_", metadata$variable), ]
+cat("Körperschaftsteuer variables:", nrow(k_vars), "\n")
+
+# Check label for a specific variable
+cat("g_ef4:", attr(df$g_ef4, "label"), "\n")
+# Output: "Lieferart"
+```
+
+## Working with Specific Statistics
+
+### Gewerbesteuer (Trade Tax)
+
+```r
+df_g <- synth_btp(obs = 100, select = "g", seed = 42)
+
+# Key Gewerbesteuer variables
+g_cols <- grep("^g_", names(df_g), value = TRUE)
+length(g_cols)  # 428 variables
+
+# Example analysis: Gewerbeertrag by year
 library(data.table)
-library(dplyr)
-library(microbenchmark)
-
-dt <- as.data.table(df)
-
-microbenchmark(
-  data.table = dt[, mean(urs_we_umsatz), by = jahr],
-  dplyr = df %>% group_by(jahr) %>% summarise(m = mean(urs_we_umsatz)),
-  times = 10
-)
+dt <- as.data.table(df_g)
+dt[!is.na(g_c0301), .(mean_ertrag = mean(g_c0301)), by = jahr]
 ```
 
-## Parameter Reference
+### Körperschaftsteuer (Corporate Tax)
 
 ```r
-synth_btp(
-  obs = 100,           # Number of unique units
-  years = 2013:2019,   # Years to include
-  select = "all",      # Statistics: "all", "g", "k", "u", "p", "v", "e", or combinations
-  balanced = FALSE,    # TRUE = all units in all years
-  seed = NULL         # Random seed for reproducibility
-)
+df_k <- synth_btp(obs = 100, select = "k", seed = 42)
+
+# Key Körperschaftsteuer variables
+k_cols <- grep("^k_", names(df_k), value = TRUE)
+length(k_cols)  # 1239 variables
+
+# Example: Corporate income distribution
+library(ggplot2)
+ggplot(df_k[!is.na(df_k$k_k0101), ], aes(x = k_k0101)) +
+  geom_histogram(bins = 30) +
+  labs(title = "Zu versteuerndes Einkommen",
+       x = "Amount", y = "Frequency")
 ```
 
-## Statistics Codes
+## Advanced Usage
 
-| Code | Statistic |
-|------|-----------|
-| `g` | Gewerbesteuer (Trade tax) |
-| `k` | Körperschaftsteuer (Corporate tax) |
-| `u` | Umsatzsteuer-Voranmeldung (VAT advance) |
-| `p` | Personengesellschaften (Partnerships) |
-| `v` | Umsatzsteuer-Veranlagung (VAT annual) |
-| `e` | Einnahmenüberschussrechnung (Income surplus) |
+### Generate Multiple Datasets
 
-**Combinations:** `select = "gk"` (trade + corporate), `select = "uv"` (VAT advance + annual), etc.
+```r
+# Generate datasets for different scenarios
+scenarios <- list(
+  small_balanced = synth_btp(obs = 50, balanced = TRUE, seed = 1),
+  medium_unbalanced = synth_btp(obs = 500, balanced = FALSE, seed = 2),
+  large_recent = synth_btp(obs = 2000, years = 2016:2019, seed = 3)
+)
 
-## Key Variables Quick Reference
+# Compare structures
+lapply(scenarios, function(x) {
+  list(
+    n_obs = nrow(x),
+    n_vars = ncol(x),
+    years = unique(x$jahr)
+  )
+})
+```
 
-| Variable | Description |
-|----------|-------------|
-| `id` | Panel identifier |
-| `jahr` | Year |
-| `verk` | Which statistics are linked (e.g., "gkupvre") |
-| `verk_qual` | Linkage quality (1-3) |
-| `ags` | Municipality code |
-| `urs_we_umsatz` | Turnover (1,000 EUR) |
-| `urs_we_tp_stichtag` | Employees |
-| `urs_rechtsform` | Legal form |
-| `g_c0401` | Trade tax |
-| `k_k0501` | Corporate tax |
-| `v_c0501` | Total turnover |
+### Export Data
+
+```r
+# Save as RDS (preserves labels)
+saveRDS(df, "synth_btp.rds")
+
+# Save as CSV (loses labels)
+write.csv(df, "synth_btp.csv", row.names = FALSE)
+
+# Save with haven (preserves labels for SPSS/Stata)
+library(haven)
+write_sav(df, "synth_btp.sav")
+write_dta(df, "synth_btp.dta")
+```
+
+## Performance Tips
+
+1. **Start small**: Test with `obs = 50` before scaling up
+2. **Select statistics**: Use `select = "g"` instead of `"all"` when possible
+3. **Limit years**: Use `years = 2017:2019` instead of full range
+4. **Use seeds**: Always set `seed` for reproducibility
 
 ## Troubleshooting
 
-### Missing Package Error
+### Error: "btp_variables.json not found"
 
 ```r
-# Error: there is no package called 'data.table'
-install.packages("data.table")
+# Make sure you're in the correct directory
+getwd()
+# Should be: .../dev/experiment/
+
+# Check if file exists
+file.exists("btp_variables.json")
+# Should be TRUE
+
+# If FALSE, ensure the JSON file is in the working directory
 ```
 
-### Labels Not Showing
+### Memory Issues
 
 ```r
-# Install haven for better label support
-install.packages("haven")
+# For very large datasets, monitor memory
+cat("Estimated memory:", format(object.size(df), units = "MB"), "\n")
 
-# Or check labels manually
-attr(df$verk_qual, "label")
-attr(df$verk_qual, "labels")
+# Consider generating in batches or using fewer statistics
+df <- synth_btp(obs = 10000, select = "g", seed = 42)  # Instead of "all"
 ```
-
-### Too Many Variables
-
-```r
-# Focus on specific statistics
-df <- synth_btp(select = "g")  # Only trade tax + core + URS
-ncol(df)  # Fewer columns
-```
-
-### Need More Variables
-
-The generator includes ~50 key variables. To add more variables from specific statistics, extend the generator functions in `synth_btp.R`:
-- `generate_gewerbesteuer()`
-- `generate_koerperschaftsteuer()`
-- etc.
-
-Refer to Excel files in `/resources/raw/BTP_*.xlsx` for complete variable lists.
 
 ## Next Steps
 
-1. **Read full documentation**: `README_synth_btp.md`
-2. **Run tests**: `source("test_synth_btp.R")`
-3. **Explore examples**: See README for 6 detailed use cases
-4. **Customize**: Modify generator functions to add more variables
+- See `INDEX_synth_btp.md` for complete variable list
+- See `README_synth_btp.md` for detailed documentation
+- See `test_synth_btp.R` for testing examples
+- Explore `btp_variables.json` for variable definitions
 
-## Getting Real BTP Data
-
-This generator creates **synthetic data only**. For actual research:
-
-**FDZ des Statistischen Bundesamtes**
-- Website: https://www.forschungsdatenzentrum.de/de/steuern/btp
-- Email: forschungsdatenzentrum@destatis.de
-- Access: KDFV (remote) or GWAP (on-site)
-- DOI: 10.21242/73511.2019.00.05.1.1.0
-
----
-
-**Generated:** November 2024 | **Version:** 1.0
