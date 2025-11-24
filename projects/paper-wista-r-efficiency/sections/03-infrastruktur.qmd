@@ -1,5 +1,7 @@
 ## Infrastruktur des FDZ-Bund {#sec-infrastruktur}
 
+Womit wir arbeiten können...
+
 ### Die Forschungsdatenzentren der amtlichen Statistik
 
 Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus zwei organisatorisch voneinander getrennten Einrichtungen: dem **Forschungsdatenzentrum des Statistischen Bundesamts** und dem **Forschungsdatenzentrum der Statistischen Ämter der Länder**. Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten der amtlichen Statistiken.
@@ -12,18 +14,17 @@ Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur Verbesserung 
 
 Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
 
-- **Datenzugang:** Bereitstellung hochwertiger Mikrodaten für die wissenschaftliche Forschung
-- **Datenschutz:** Gewährleistung des Schutzes personenbezogener und unternehmensbezogener Daten nach § 16 BStatG
-- **Beratung:** Unterstützung der Forschenden bei der Datennutzung und methodischen Fragen
-- **Infrastruktur:** Bereitstellung einer sicheren und leistungsfähigen Auswertungsumgebung
-- **Regionalisierung:** Flächendeckende Standorte in ganz Deutschland für kurze Anfahrtswege
+-   **Datenzugang:** Bereitstellung hochwertiger Mikrodaten für die wissenschaftliche Forschung
+-   **Datenschutz:** Gewährleistung des Schutzes personenbezogener und unternehmensbezogener Daten nach § 16 BStatG
+-   **Beratung:** Unterstützung der Forschenden bei der Datennutzung und methodischen Fragen
+-   **Infrastruktur:** Bereitstellung einer sicheren und leistungsfähigen Auswertungsumgebung
+-   **Regionalisierung:** Flächendeckende Standorte in ganz Deutschland für kurze Anfahrtswege
 
 ### Technische Infrastruktur
 
 **Hardware-Ausstattung.**
 
 Die technische Infrastruktur des FDZ-Bund umfasst verschiedene Systemkomponenten:
-
 
 ```{=latex}
 \begin{table*}[htbp]
@@ -48,10 +49,10 @@ Backup-System & Tägliches Backup, räumlich getrennte Archivierung & -\\
 
 Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 
-- **Statistische Software:** R, Python, Stata, SAS, SPSS
-- **Datenbanksysteme:** PostgreSQL, DuckDB
-- **Entwicklungsumgebungen:** RStudio Server, JupyterLab
-- **Versionskontrolle:** Git (lokal, ohne externe Verbindung)
+-   **Statistische Software:** R, Python, Stata, SAS, SPSS
+-   **Datenbanksysteme:** PostgreSQL, DuckDB
+-   **Entwicklungsumgebungen:** RStudio Server, JupyterLab
+-   **Versionskontrolle:** Git (lokal, ohne externe Verbindung)
 
 ### Infrastrukturkonzept
 
@@ -63,8 +64,8 @@ In Deutschland wird der überwiegende Teil der amtlichen Statistikproduktion dez
 
 Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein. Dies wird durch über ganz Deutschland verteilte Standorte erreicht. Standorte befinden sich u.a. in:
 
-- Berlin, Bonn, Wiesbaden (Bund)
-- Bad Ems, Bremen, Dresden, Düsseldorf, Erfurt, Frankfurt, Hamburg, Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
+-   Berlin, Bonn, Wiesbaden (Bund)
+-   Bad Ems, Bremen, Dresden, Düsseldorf, Erfurt, Frankfurt, Hamburg, Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
 
 ### Zugangsformen und Nutzungsmodelle
 
@@ -72,19 +73,18 @@ Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisie
 
 **Off-Site-Zugang.**
 
-- **Public Use Files (PUF):** Stark anonymisierte Daten für freie Nutzung
-- **Scientific Use Files (SUF):** Faktisch anonymisierte Daten für wissenschaftliche Zwecke
-- **Remote Scientific Use Files (Remote-SUF):** Neuer Zugangsweg mit höherer Detailtiefe
+-   **Public Use Files (PUF):** Stark anonymisierte Daten für freie Nutzung
+-   **Scientific Use Files (SUF):** Faktisch anonymisierte Daten für wissenschaftliche Zwecke
+-   **Remote Scientific Use Files (Remote-SUF):** Neuer Zugangsweg mit höherer Detailtiefe
 
 **On-Site-Zugang.**
 
-- **Gastwissenschaftsarbeitsplatz (GWAP):** Zugang zu formal anonymisierten Daten vor Ort
-  - Vorteile: Höchste Datendetailtiefe, direkte Beratung
-  - Anforderungen: Terminvereinbarung, Zutrittskontrolle, Output-Kontrolle
-  
-- **Kontrollierte Datenfernverarbeitung (KDFV):** Remote-Ausführung von Analyseskripten
-  - Vorteile: Keine Anreise, zeitlich flexibel
-  - Einschränkungen: Keine interaktive Arbeit, Ergebnisfreigabe erforderlich
+-   **Gastwissenschaftsarbeitsplatz (GWAP):** Zugang zu formal anonymisierten Daten vor Ort
+    -   Vorteile: Höchste Datendetailtiefe, direkte Beratung
+    -   Anforderungen: Terminvereinbarung, Zutrittskontrolle, Output-Kontrolle
+-   **Kontrollierte Datenfernverarbeitung (KDFV):** Remote-Ausführung von Analyseskripten
+    -   Vorteile: Keine Anreise, zeitlich flexibel
+    -   Einschränkungen: Keine interaktive Arbeit, Ergebnisfreigabe erforderlich
 
 ### Datenschutz und Sicherheit
 
@@ -92,19 +92,19 @@ Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisie
 
 Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
 
-1. **Physische Sicherheit:** Zutrittskontrolle, gesicherte Räumlichkeiten
-2. **Netzwerksicherheit:** Isolierte Netzwerke, Firewalls, Intrusion Detection
-3. **Zugriffsrechte:** Rollenbasierte Zugriffskontrolle, Authentifizierung
-4. **Output-Kontrolle:** Prüfung aller Ergebnisse vor Freigabe
-5. **Audit-Logging:** Protokollierung aller Zugriffe und Operationen
+1.  **Physische Sicherheit:** Zutrittskontrolle, gesicherte Räumlichkeiten
+2.  **Netzwerksicherheit:** Isolierte Netzwerke, Firewalls, Intrusion Detection
+3.  **Zugriffsrechte:** Rollenbasierte Zugriffskontrolle, Authentifizierung
+4.  **Output-Kontrolle:** Prüfung aller Ergebnisse vor Freigabe
+5.  **Audit-Logging:** Protokollierung aller Zugriffe und Operationen
 
 **Output-Kontrolle.**
 
 Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie eine mehrstufige Kontrolle:
 
-- **Automatische Prüfung:** Screening auf kritische Werte (z.B. Fallzahlen < 5)
-- **Manuelle Prüfung:** Sichtung durch geschulte Mitarbeiter
-- **Dokumentation:** Nachvollziehbare Begründung der Freigabeentscheidung
+-   **Automatische Prüfung:** Screening auf kritische Werte (z.B. Fallzahlen \< 5)
+-   **Manuelle Prüfung:** Sichtung durch geschulte Mitarbeiter
+-   **Dokumentation:** Nachvollziehbare Begründung der Freigabeentscheidung
 
 ### Performanz-Optimierung in der FDZ-Umgebung
 
@@ -112,15 +112,14 @@ Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie eine mehrs
 
 Die Arbeit in der geschützten FDZ-Umgebung stellt besondere Anforderungen:
 
-- **Begrenzte Ressourcen:** Mehrere Nutzer teilen sich die verfügbare Hardware
-- **Keine Cloud-Dienste:** Externe Rechenressourcen können nicht genutzt werden
-- **Datengröße:** Große Datensätze müssen effizient verarbeitet werden
-- **Reproduzierbarkeit:** Analysen müssen dokumentiert und nachvollziehbar sein
+-   **Begrenzte Ressourcen:** Mehrere Nutzer teilen sich die verfügbare Hardware
+-   **Keine Cloud-Dienste:** Externe Rechenressourcen können nicht genutzt werden
+-   **Datengröße:** Große Datensätze müssen effizient verarbeitet werden
+-   **Reproduzierbarkeit:** Analysen müssen dokumentiert und nachvollziehbar sein
 
 **Optimierungsstrategien.**
 
 Verschiedene Strategien helfen, die Performanz zu optimieren:
-
 
 ```{r}
 #| label: fig-optimization-strategies
@@ -173,9 +172,9 @@ Die Forschungsdatenzentren der Statistischen Ämter des Bundes und der Länder s
 
 Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für effizientes Arbeiten ableiten:
 
-1. **Datenreduktion:** Frühzeitige Filterung auf relevante Beobachtungen und Variablen
-2. **Inkrementelle Entwicklung:** Erst mit Stichproben arbeiten, dann auf Vollsatz skalieren
-3. **Effiziente Datenformate:** Nutzung moderner Formate (Arrow/Parquet) statt CSV
-4. **Dokumentation:** Sorgfältige Dokumentation des Analyseprozesses für Output-Kontrolle
-5. **Ressourcenplanung:** Bewusste Planung rechenintensiver Operationen bei geteilter Infrastruktur
-6. **Beratung nutzen:** Frühzeitige Kontaktaufnahme mit FDZ-Mitarbeitern bei methodischen Fragen
+1.  **Datenreduktion:** Frühzeitige Filterung auf relevante Beobachtungen und Variablen
+2.  **Inkrementelle Entwicklung:** Erst mit Stichproben arbeiten, dann auf Vollsatz skalieren
+3.  **Effiziente Datenformate:** Nutzung moderner Formate (Arrow/Parquet) statt CSV
+4.  **Dokumentation:** Sorgfältige Dokumentation des Analyseprozesses für Output-Kontrolle
+5.  **Ressourcenplanung:** Bewusste Planung rechenintensiver Operationen bei geteilter Infrastruktur
+6.  **Beratung nutzen:** Frühzeitige Kontaktaufnahme mit FDZ-Mitarbeitern bei methodischen Fragen
