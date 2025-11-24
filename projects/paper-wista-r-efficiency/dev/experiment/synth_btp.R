@@ -215,9 +215,9 @@ generate_linkage_variables <- function(dt, stats_selected) {
   # Example: "gkupvre" = all statistics, "g_u____" = only g and u
   
   # Load realistic year-specific probabilities
-  dist_file <- "btp_obs_distribution.rds"
+  dist_file <- "btp_obs_distribution.csv"
   if (file.exists(dist_file)) {
-    dist_data <- readRDS(dist_file)
+    dist_data <- read.csv(dist_file, stringsAsFactors = FALSE)
   } else {
     # Fallback to average probabilities if distribution file not found
     dist_data <- data.frame(

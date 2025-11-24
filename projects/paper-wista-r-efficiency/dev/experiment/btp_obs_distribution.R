@@ -45,8 +45,8 @@ for (year in 2013:2019) {
     btp_stat_year_ratios$avg_coverage * btp_stat_year_ratios[[year_col]]
 }
 
-# Save for use in synth_btp
-saveRDS(btp_stat_year_ratios, "btp_obs_distribution.rds")
+# Save for use in synth_btp (CSV for version control)
+write.csv(btp_stat_year_ratios, "btp_obs_distribution.csv", row.names = FALSE)
 
 # Print summary table
 cat("\nBTP Statistic Coverage Probabilities by Year\n")
