@@ -21,13 +21,13 @@ if (requireNamespace("haven", quietly = TRUE)) {
 #' @param years Integer vector. Years to include (default: 2013:2019).
 #' @param select Character. Statistics to include (default: "all").
 #'   Options:
-#'   - "all": All statistics
-#'   - "g": Gewerbesteuer (Trade tax) - 428 variables
-#'   - "k": Körperschaftsteuer (Corporate tax) - 1239 variables
-#'   - "u": Umsatzsteuer-Voranmeldung (VAT advance) - 75 variables
-#'   - "p": Personengesellschaften (Partnerships) - 1139 variables
-#'   - "v": Umsatzsteuer-Veranlagung (VAT annual) - 120 variables
-#'   - "e": Einnahmenüberschussrechnung (EUR) - 682 variables
+  #'   - "all": All statistics
+  #'   - "g": Gewerbesteuer (Trade tax) - 328 variables
+  #'   - "k": Körperschaftsteuer (Corporate tax) - 1088 variables
+  #'   - "u": Umsatzsteuer-Voranmeldung (VAT advance) - 75 variables
+  #'   - "p": Personengesellschaften (Partnerships) - 1078 variables
+  #'   - "v": Umsatzsteuer-Veranlagung (VAT annual) - 120 variables
+  #'   - "e": Einnahmenüberschussrechnung (EUR) - 349 variables
 #'   - Combinations: "gk", "gkv", etc.
 #' @param balanced Logical. If TRUE, all units appear in all years (default: FALSE).
 #' @param seed Integer. Random seed for reproducibility (default: NULL).
@@ -36,7 +36,8 @@ if (requireNamespace("haven", quietly = TRUE)) {
 #'   - Panel structure variables (id, jahr, verk, verk_qual, ags)
 #'   - Enterprise register variables (urs_*)
 #'   - Tax statistics variables (g_*, k_*, u_*, p_*, v_*, e_*)
-#'   Total variables: 3683 (when select="all")
+#'   Total variables: 3038 (when select="all")
+#'   Note: Excludes 645 variables with no values in any reporting year
 #'
 #' @details
 #' The generator respects key BTP characteristics:
@@ -362,7 +363,7 @@ generate_vars_from_defs <- function(dt, prefix, has_col, var_defs = NULL) {
 }
 
 
-#' Generate Gewerbesteuer (Trade Tax) variables - 428 variables
+#' Generate Gewerbesteuer (Trade Tax) variables - 328 variables
 #' @keywords internal
 generate_gewerbesteuer <- function(dt) {
   # Load JSON definitions
@@ -413,7 +414,7 @@ generate_gewerbesteuer <- function(dt) {
 }
 
 
-#' Generate Körperschaftsteuer (Corporate Tax) variables - 1239 variables
+#' Generate Körperschaftsteuer (Corporate Tax) variables - 1088 variables
 #' @keywords internal
 generate_koerperschaftsteuer <- function(dt) {
   json_file <- "btp_variables.json"
@@ -501,7 +502,7 @@ generate_ust_voranmeldung <- function(dt) {
 }
 
 
-#' Generate Personengesellschaften (Partnerships) variables - 1139 variables
+#' Generate Personengesellschaften (Partnerships) variables - 1078 variables
 #' @keywords internal
 generate_personengesellschaften <- function(dt) {
   json_file <- "btp_variables.json"
@@ -589,7 +590,7 @@ generate_ust_veranlagung <- function(dt) {
 }
 
 
-#' Generate Einnahmenüberschussrechnung (Income Surplus) variables - 682 variables
+#' Generate Einnahmenüberschussrechnung (Income Surplus) variables - 349 variables
 #' @keywords internal
 generate_eur <- function(dt) {
   json_file <- "btp_variables.json"
