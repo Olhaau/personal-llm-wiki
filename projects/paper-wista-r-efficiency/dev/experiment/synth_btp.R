@@ -214,19 +214,39 @@ generate_linkage_variables <- function(dt, stats_selected) {
   # Format: 7-character string with stat letters or underscores
   # Example: "gkupvre" = all statistics, "g_u____" = only g and u
   
-  dt[, verk := {
-    # Probability of being in each statistic (simplified)
-    probs <- list(
-      g = 0.42,  # Trade tax
-      k = 0.14,  # Corporate tax
-      u = 0.34,  # VAT advance
-      p = 0.13,  # Partnerships
-      v = 0.71,  # VAT annual
-      r = 0.38,  # Enterprise register (always included)
-      e = 0.51   # Income surplus
+  # Load realistic year-specific probabilities
+  dist_file <- "btp_obs_distribution.rds"
+  if (file.exists(dist_file)) {
+    dist_data <- readRDS(dist_file)
+  } else {
+    # Fallback to average probabilities if distribution file not found
+    dist_data <- data.frame(
+      stat = c("g", "k", "u", "p", "v", "e"),
+      p2013 = c(0.42, 0.14, 0.34, 0.13, 0.71, 0.51),
+      p2014 = c(0.42, 0.14, 0.34, 0.13, 0.71, 0.51),
+      p2015 = c(0.42, 0.14, 0.34, 0.13, 0.71, 0.51),
+      p2016 = c(0.42, 0.14, 0.34, 0.13, 0.71, 0.51),
+      p2017 = c(0.42, 0.14, 0.34, 0.13, 0.71, 0.51),
+      p2018 = c(0.42, 0.14, 0.34, 0.13, 0.71, 0.51),
+      p2019 = c(0.42, 0.14, 0.34, 0.13, 0.71, 0.51)
     )
-    
+  }
+  
+  dt[, verk := {
+    # Use year-specific probabilities
     verk_chars <- sapply(1:.N, function(i) {
+      year_col <- paste0("p", jahr[i])
+      
+      # Get probabilities for this year
+      probs <- list(
+        g = dist_data[dist_data$stat == "g", year_col],
+        k = dist_data[dist_data$stat == "k", year_col],
+        u = dist_data[dist_data$stat == "u", year_col],
+        p = dist_data[dist_data$stat == "p", year_col],
+        v = dist_data[dist_data$stat == "v", year_col],
+        e = dist_data[dist_data$stat == "e", year_col]
+      )
+      
       chars <- c(
         if ("g" %in% stats_selected && runif(1) < probs$g) "g" else "_",
         if ("k" %in% stats_selected && runif(1) < probs$k) "k" else "_",
