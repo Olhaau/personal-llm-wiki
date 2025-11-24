@@ -1,34 +1,26 @@
-::: {.content-visible when-format="docx"}
-
-:::: {.columns}
-
+:::::::: {.content-visible when-format="docx"}
+:::::: columns
 ::: {.column width="24%"}
-
 [**Oliver Hauke**]{custom-style="Author-Name"}
 
 [ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er betreut die technischen Infrastruktur des Forschungsdatenzentrums des Statistischen Bundesamtes und berät -- insbesondere das Netzwerk empirische Steuerforschung -- in der effizienten Nutzung der Systeme.]{custom-style="Author-Bio"}
 
 [**Annette Kristiansen**]{custom-style="Author-Name"}
 
-
-[ist Ökonomin und Referentin im Referaten "Unternehmenssteuern" und "Umsatzsteuer" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Steuerstatistiken und betreut das Netzwerk empirische Steuerforschung. 
-<!-- Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen. -->
-]{custom-style="Author-Bio"}
-
+[ist Ökonomin und Referentin im Referaten "Unternehmenssteuern" und "Umsatzsteuer" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Steuerstatistiken und betreut das Netzwerk empirische Steuerforschung. <!-- Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen. -->]{custom-style="Author-Bio"}
 :::
 
 ::: {.column width="5%"}
 :::
 
 ::: {.column width="71%"}
-
 [EFFIZIENTE ANALYSE GROSSER FORSCHUNGSDATEN MITHILFE VON R]{custom-style="Title"}
 
----
+------------------------------------------------------------------------
 
 **Oliver Hauke, Annette Kristiansen**
 
----
+------------------------------------------------------------------------
 
 [**Schlüsselwörter:**]{custom-style="Keywords-Label"} Effiziente Analysen, R-Programmierung, Forschungsdaten, Unternehmenssteuerstatistik, Business-Tax-Panel, Netzwerk empirische Steuerforschung
 
@@ -41,19 +33,16 @@
 [***ABSTRACT***]{custom-style="Abstract-Title"}
 
 [*The Research Data Centre at the Federal Statistical Office is strategically expanding its technical infrastructure to provide researchers with enhanced analytical capabilities for official data. Since November 2025, researchers have had exclusive access to these extended system resources in R and Stata. R-based tools -- particularly Apache Arrow, Parquet, and DuckDB -- enable real-time analysis of large research datasets. Using the Business Tax Panel (2013--2019), this paper demonstrates the achievable efficiency gains in analysing large-scale tax statistics within the empirical tax research network.*]{custom-style="Abstract"}
-
 :::
+::::::
 
-::::
-
-::: {.section-break-twocol}
+::: section-break-twocol
 :::
-
-:::
+::::::::
 
 {{< include sections/01-einleitung.qmd >}}
 
-{{< include sections/02-btp.qmd >}}
+{{< include sections/02-anwendungsfall.qmd >}}
 
 {{< include sections/03-infrastruktur.qmd >}}
 

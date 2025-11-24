@@ -1,6 +1,27 @@
 ## Einleitung {#sec-einleitung}
 
-### Motivation und Zielsetzung
+------------------------------------------------------------------------
+
+Erwähnen: StBA, FDZ, NeSt.
+
+### Herausforderungen und Anpassungen daran
+
+- Herausforderungen (größere Datenmengen, komplexere Analysen, schnellere Antworten notwendig)
+    - Wachsende Datenmenge in der amtl. Statistik, Verweis auf [@destatis2023]
+    - hohe Anforderungen der Öffentlichkeit und besonders Wissenschaft. Verweis auf Gutachten des Stat. Beirats und Gründung "Netzwerk emp. Steuerforschung"
+        - Schnelle Bereitstellung von am besten vollständigen, wenig Anonymisierten Datensätzen an Wissenschaft via FDZ. Erste Analysen seitens StBA und hohe Expertise erwartet (Exploration der Daten nötig)
+        - Bereitstellung von Zusatzdokumentation durch StBA. Metadatenreport
+        - schnelle Bereitstellung, 
+        - zeitnahe Nutzung in FDZ
+        - keine Wartezeiten in FDZ
+        - sofortig Antworten auf Analysefragen
+        - Erhöhte Komplexität Analysen mit größeren, Komplexeren Datensätzen
+    - Rückstände/Altlasten: weiterentwickelnde Infrastruktur, nicht state of the art 
+    (ausgelegt auf konsistenz und zuverlässigkeit, nicht schnelligkeit), gesetzlicher Auftrag
+        - hauptsächlich SAS für große Datenmenge verwendet, funktioniert, aber langsam
+        - FDZ Bund integriert in Standardarbeitsplätze des StBA
+        - Bereitstellungsaufwände und Abhängigkeiten moderner Software
+
 
 Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
 
@@ -8,20 +29,65 @@ In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion a
 
 Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist es daher, die Effizienz verschiedener statistischer Verfahren systematisch zu bewerten und Handlungsempfehlungen für die Praxis abzuleiten.
 
-### Forschungsfragen
 
-Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
+### Technische Lösungsansätze 
 
-1. **Methodische Effizienz:** Wie unterscheiden sich verschiedene statistische Verfahren hinsichtlich ihrer Rechenzeit und Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+- Modernisierung der amtl. Stat, FDZs -> Zugangswege, Kapazitäten, ...
+- Technische Weiterentwicklung, stärkere Hardware, leichtere Bereitstellung, virtualisierung
+- Schnelle Weiterentwicklung von Open-Source Software, R, div. Packages, e.g. Verweis auf Changelog von Arrow, Polars
 
-2. **Skalierbarkeit:** Welche Verfahren zeigen die beste Performance bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
 
-3. **Praktische Anwendbarkeit:** Welche Infrastrukturanforderungen stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
+### Anforderungen für Technologieauswahl
 
-### Aufbau der Arbeit
+- möglichst leicht nutzbar und gewohnt/verbreitet -> R+dpylr
+    - wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit unterschiedlichen Analytischen und technischen Kenntnissen
+- stabil
+- schnell, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum
+- ressourcensparend (RAM Problematik)
 
-Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt, der als empirisches Beispiel für die Analysen dient. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen durchgeführt werden. 
+### Konkrete Umsetzung im StBA
+
+- NeSt Förderung, Datenprodukterstellung, Bereitstellung der FDZ auch technischen Infrastruktur und Knowhow der effizienten Nutzung
+- Bereitstellung des OSS seit Nov. 2025
+- Vorbereitend Exploration und Beratung in geeigneten Aüßerst effizienten Methoden -> Ergebnisse in Echtzeit
+- Szenario FDZ GWAP Besuch, statt KDFV, sofort Ergebnisse
+- Diese Arbeit
+
+### Inhalt dieser Arbeit
+
+Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt, der als empirisches Beispiel für die Analysen dient. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen durchgeführt werden.
 
 In @sec-methoden werden verschiedene effiziente Auswertungsmethoden vorgestellt und deren theoretische Grundlagen erläutert. @sec-performance präsentiert die empirischen Performanzergebnisse der verschiedenen Ansätze. Die Arbeit schließt mit einem Ausblick auf zukünftige Entwicklungen in @sec-ausblick.
 
 Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.
+
+#### Übersicht über neue FDZ Infrastruktur
+
+#### Konkreter Anwendungsfall der emp. Steuerforschung
+    
+    - Datenbereitstellung: MDR
+    - Forschungsprojekt
+        - Lorenzkurve -> Verteilung der Verlustvorträge 
+        - Logistische Regression -> Einflussfaktoren auf Verlustvorträge
+- Übersicht potenzieller Softwarelösungen
+
+#### Systematischer Vergleich effizienter Methoden in R 
+
+Benchmark Experiment
+
+-> Empfehlung Systemressourcen für IT-Betrieb
+-> Software- und Methodenempfehlung für Wissenschaft
+
+Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
+
+1.  **Methodische Effizienz:** Wie unterscheiden sich verschiedene statistische Verfahren hinsichtlich ihrer Rechenzeit und Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+
+2.  **Skalierbarkeit:** Welche Verfahren zeigen die beste Performance bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
+
+3.  **Praktische Anwendbarkeit:** Welche Infrastrukturanforderungen stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
+
+#### Ausblick
+
+- Weiteres Vorgehen: Pilotprojekt NeSt
+- Update BTP, flexibel reagieren, neue MDR, DSB, ...
+

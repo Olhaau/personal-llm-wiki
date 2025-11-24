@@ -1,5 +1,7 @@
 ## Still needs curation
 
+- Wiss. Beirat des BMF Gutachten "Notwendigkeit, Potenzial und Ansatzpunkte einer Verbesserung der Dateninfrastruktur für die Steuerpolitik"
+
 (All items completed)
 
 ## Completed curations
