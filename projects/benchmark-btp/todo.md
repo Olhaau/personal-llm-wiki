@@ -1,0 +1,9 @@
+- [x] change benchmark output to bm_input_expression_runtime_timestamp
+- [x] add to operation list more methods to calculate the crosstable: arrow (csv/parquet, lazy/in-mem), duckdb, polars, vroom, ...
+  - [x] arrow (CSV)
+  - [x] data.table
+  - [x] vroom
+  - [ ] duckdb
+  - [ ] polars
+  - [ ] arrow parquet (lazy/in-mem)
+- [ ] aggregate the bm benchmark results to a combined table in csv
