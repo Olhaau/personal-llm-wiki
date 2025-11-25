@@ -1,15 +1,3 @@
-# Initialize labelled function ----
-# Use haven if available, otherwise use base R attributes
-if (requireNamespace("haven", quietly = TRUE)) {
-  labelled <- haven::labelled
-} else {
-  labelled <- function(x, label = NULL, labels = NULL) {
-    if (!is.null(label)) attr(x, "label") <- label
-    if (!is.null(labels)) attr(x, "labels") <- labels
-    return(x)
-  }
-}
-
 #' Synthetic Business-Tax-Panel (BTP) Data Generator
 #'
 #' @description
@@ -48,28 +36,27 @@ if (requireNamespace("haven", quietly = TRUE)) {
 #' - Realistic linkage patterns across statistics
 #' - Proper German municipality codes (AGS)
 #' - Variable naming conventions: [stat]_[type][area][number]
-#' - Labeled variables with metadata
 #' - Variables are NA for years where statistic not filled (filled==0)
 #'
 #' @examples
 #' # Generate small balanced panel with all statistics
 #' # 50 units × 7 years = 350 rows
-#' df <- synth_btp(obs = 50, balanced = TRUE, seed = 42)
+#' df <- generate_btp_synth(obs = 50, balanced = TRUE, seed = 42)
 #'
 #' # Generate larger unbalanced panel with selected statistics
 #' # 1000 units, ~4700 rows (varies due to unbalanced structure)
-#' df <- synth_btp(obs = 1000, select = "gkv", seed = 123)
+#' df <- generate_btp_synth(obs = 1000, select = "gkv", seed = 123)
 #'
 #' # Panel only for recent years
 #' # 200 units × 3 years = 600 rows (if balanced)
-#' df <- synth_btp(obs = 200, years = 2017:2019, select = "k")
+#' df <- generate_btp_synth(obs = 200, years = 2017:2019, select = "k")
 #'
 #' @export
-synth_btp <- function(obs = 100,
-                      years = 2013:2019,
-                      select = "all",
-                      balanced = FALSE,
-                      seed = NULL) {
+generate_btp_synth <- function(obs = 100,
+                                years = 2013:2019,
+                                select = "all",
+                                balanced = FALSE,
+                                seed = NULL) {
   
   # Set seed for reproducibility ----
   if (!is.null(seed)) set.seed(seed)
@@ -117,7 +104,7 @@ synth_btp <- function(obs = 100,
   
   # Add metadata attributes ----
   attr(df, "generated") <- Sys.time()
-  attr(df, "generator") <- "synth_btp"
+  attr(df, "generator") <- "generate_btp_synth"
   attr(df, "version") <- "2.0"
   attr(df, "obs") <- obs
   attr(df, "years") <- years
@@ -181,12 +168,6 @@ generate_core_variables <- function(panel_structure, years) {
   dt <- data.table(panel_structure)
   setkey(dt, id, jahr)
   
-  # id: Already generated, just label it
-  dt[, id := labelled(id, label = "Zeitkonsistenter Panelidentifikator")]
-  
-  # jahr: Already generated, just label it
-  dt[, jahr := labelled(jahr, label = "Berichtsjahr")]
-  
   # ags: Amtliche Gemeindeschlüssel (German municipality codes)
   # Format: 2-digit state + 3-digit district + 3-digit municipality
   # Generate realistic codes for major states
@@ -201,7 +182,6 @@ generate_core_variables <- function(panel_structure, years) {
     municipality <- sprintf("%03d", sample(1:999, .N, replace = TRUE))
     paste0(state, district, municipality)
   }]
-  dt[, ags := labelled(ags, label = "Amtlicher Gemeindeschlüssel")]
   
   return(dt)
 }
@@ -215,7 +195,12 @@ generate_linkage_variables <- function(dt, stats_selected) {
   # Example: "gkupvre" = all statistics, "g_u____" = only g and u
   
   # Load realistic year-specific probabilities
-  dist_file <- "btp_obs_distribution.csv"
+  if (requireNamespace("here", quietly = TRUE)) {
+    dist_file <- here::here("data", "btp_obs_distribution.csv")
+  } else {
+    dist_file <- "data/btp_obs_distribution.csv"
+  }
+  
   if (file.exists(dist_file)) {
     dist_data <- read.csv(dist_file, stringsAsFactors = FALSE)
   } else {
@@ -260,17 +245,10 @@ generate_linkage_variables <- function(dt, stats_selected) {
     })
     verk_chars
   }]
-  dt[, verk := labelled(verk, 
-                        label = "Verknüpfungsvariable (gkupvre = alle Statistiken)")]
   
   # verk_qual: Linkage quality (1 = best, 3 = manual/cluster)
   dt[, verk_qual := sample(1:3, .N, replace = TRUE, 
                            prob = c(0.70, 0.20, 0.10))]
-  dt[, verk_qual := labelled(verk_qual,
-                             label = "Verknüpfungsqualität",
-                             labels = c("Aktuelle Steuernummer" = 1,
-                                       "Aktuelle + alte Steuernummer" = 2,
-                                       "Handelsregister/manuell/Cluster" = 3))]
   
   return(dt)
 }
@@ -281,49 +259,26 @@ generate_linkage_variables <- function(dt, stats_selected) {
 generate_urs_variables <- function(dt) {
   # urs_we_umsatz: Turnover in 1,000 EUR
   dt[, urs_we_umsatz := pmax(0, rlnorm(.N, meanlog = 5, sdlog = 2))]
-  dt[, urs_we_umsatz := labelled(urs_we_umsatz, 
-                                  label = "Umsatz in 1.000 EUR")]
   
   # urs_we_umsatz_quelle: Source of turnover data
   dt[, urs_we_umsatz_quelle := sample(c(1, 4, 5), .N, replace = TRUE,
                                        prob = c(0.4, 0.5, 0.1))]
-  dt[, urs_we_umsatz_quelle := labelled(urs_we_umsatz_quelle,
-                                         label = "Umsatzquelle",
-                                         labels = c("Erhebung" = 1,
-                                                   "Finanzverwaltung" = 4,
-                                                   "Schätzung" = 5))]
   
   # urs_we_tp_stichtag: Active persons (estimated) as of Dec 31
   dt[, urs_we_tp_stichtag := pmax(1, rpois(.N, lambda = 15))]
-  dt[, urs_we_tp_stichtag := labelled(urs_we_tp_stichtag,
-                                       label = "Tätige Personen zum 31.12.")]
   
   # urs_we_svb_stichtag: Employees subject to social insurance
   dt[, urs_we_svb_stichtag := pmax(0, 
                                     rbinom(.N, size = urs_we_tp_stichtag, 
                                           prob = 0.75))]
-  dt[, urs_we_svb_stichtag := labelled(urs_we_svb_stichtag,
-                                        label = "Sozialversicherungspflichtig Beschäftigte")]
   
   # urs_rt_gruppen_kennz: Enterprise group status
   dt[, urs_rt_gruppen_kennz := sample(c(0, 1, 3, 6), .N, replace = TRUE,
                                        prob = c(0.85, 0.10, 0.03, 0.02))]
-  dt[, urs_rt_gruppen_kennz := labelled(urs_rt_gruppen_kennz,
-                                         label = "Unternehmensgruppen-Status",
-                                         labels = c("Keine Gruppe" = 0,
-                                                   "Inland kontrolliert" = 1,
-                                                   "Ausland kontrolliert" = 3,
-                                                   "Ausland kontrolliert (EU)" = 6))]
   
   # urs_rechtsform: Legal form
   dt[, urs_rechtsform := sample(c(101, 201, 301, 401), .N, replace = TRUE,
                                  prob = c(0.70, 0.15, 0.10, 0.05))]
-  dt[, urs_rechtsform := labelled(urs_rechtsform,
-                                   label = "Rechtsform",
-                                   labels = c("Einzelunternehmen" = 101,
-                                             "Personengesellschaft" = 201,
-                                             "Kapitalgesellschaft" = 301,
-                                             "Übrige juristische Personen" = 401))]
   
   return(dt)
 }
@@ -334,12 +289,9 @@ generate_urs_variables <- function(dt) {
 load_variable_definitions <- function() {
   # Try different paths for CSV file
   if (requireNamespace("here", quietly = TRUE)) {
-    csv_file <- here::here("source", "00_gen_synth_btp", "btp_variables_format.csv")
+    csv_file <- here::here("data", "btp_variables_format.csv")
   } else {
-    csv_file <- "source/00_gen_synth_btp/btp_variables_format.csv"
-    if (!file.exists(csv_file)) {
-      csv_file <- "btp_variables_format.csv"
-    }
+    csv_file <- "data/btp_variables_format.csv"
   }
   
   if (!file.exists(csv_file)) {
@@ -364,55 +316,9 @@ load_variable_definitions <- function() {
 }
 
 
-#' Generate variables from definitions
-#' @keywords internal
-generate_vars_from_defs <- function(dt, prefix, has_col, var_defs = NULL) {
-  # Try to load definitions if not provided
-  if (is.null(var_defs)) {
-    var_defs <- load_variable_definitions()
-  }
-  
-  # If definitions available, use them
-  if (!is.null(var_defs) && prefix %in% names(var_defs)) {
-    stat_def <- var_defs[[prefix]]
-    variables <- stat_def$variables
-    descriptions <- stat_def$descriptions
-    formats <- stat_def$formats
-    
-    for (i in seq_along(variables)) {
-      varname <- variables[i]
-      description <- if (i <= length(descriptions)) descriptions[i] else varname
-      format <- if (i <= length(formats)) formats[i] else "Num"
-      
-      # Generate variable based on format
-      if (format == "Char") {
-        # Character variable
-        dt[get(has_col) == TRUE, (varname) := sample(c("A", "B", "C", "D", "E"), 
-                                                      sum(get(has_col)), 
-                                                      replace = TRUE)]
-      } else {
-        # Numeric variable
-        dt[get(has_col) == TRUE, (varname) := rnorm(sum(get(has_col)), 
-                                                     mean = 10000, 
-                                                     sd = 50000)]
-      }
-      
-      # Add label
-      dt[, (varname) := labelled(get(varname), label = description)]
-    }
-  } else {
-    # Fallback: generate generic variables
-    warning(sprintf("Variable definitions not found for %s, generating generic variables", prefix))
-  }
-  
-  return(dt)
-}
-
-
 #' Generate Gewerbesteuer (Trade Tax) variables - 328 variables
 #' @keywords internal
 generate_gewerbesteuer <- function(dt) {
-  # Load CSV definitions
   var_defs <- load_variable_definitions()
   
   if (is.null(var_defs) || !"g" %in% names(var_defs)) {
@@ -421,7 +327,6 @@ generate_gewerbesteuer <- function(dt) {
   
   var_defs <- var_defs$g
   
-  # Only generate for observations where 'g' is in verk
   dt[, has_g := grepl("g", verk)]
   n_has_g <- sum(dt$has_g)
   
@@ -430,7 +335,6 @@ generate_gewerbesteuer <- function(dt) {
     return(dt)
   }
   
-  # Generate all variables at once for efficiency
   cat(sprintf("Generating %d variables for %d observations with Gewerbesteuer...\n", 
               length(var_defs$variables), n_has_g))
   
@@ -446,7 +350,6 @@ generate_gewerbesteuer <- function(dt) {
       dt[has_g == TRUE, (varname) := vals]
     }
     
-    # Progress indicator every 50 variables
     if (i %% 50 == 0) {
       cat(sprintf("  ...generated %d/%d variables\n", i, length(var_defs$variables)))
     }
@@ -460,7 +363,6 @@ generate_gewerbesteuer <- function(dt) {
 #' Generate Körperschaftsteuer (Corporate Tax) variables - 1088 variables
 #' @keywords internal
 generate_koerperschaftsteuer <- function(dt) {
-  # Load CSV definitions
   var_defs <- load_variable_definitions()
   
   if (is.null(var_defs) || !"k" %in% names(var_defs)) {
@@ -505,7 +407,6 @@ generate_koerperschaftsteuer <- function(dt) {
 #' Generate Umsatzsteuer-Voranmeldung (VAT Advance) variables - 75 variables
 #' @keywords internal
 generate_ust_voranmeldung <- function(dt) {
-  # Load CSV definitions
   var_defs <- load_variable_definitions()
   
   if (is.null(var_defs) || !"u" %in% names(var_defs)) {
@@ -546,7 +447,6 @@ generate_ust_voranmeldung <- function(dt) {
 #' Generate Personengesellschaften (Partnerships) variables - 1078 variables
 #' @keywords internal
 generate_personengesellschaften <- function(dt) {
-  # Load CSV definitions
   var_defs <- load_variable_definitions()
   
   if (is.null(var_defs) || !"p" %in% names(var_defs)) {
@@ -591,7 +491,6 @@ generate_personengesellschaften <- function(dt) {
 #' Generate Umsatzsteuer-Veranlagung (VAT Annual) variables - 120 variables
 #' @keywords internal
 generate_ust_veranlagung <- function(dt) {
-  # Load CSV definitions
   var_defs <- load_variable_definitions()
   
   if (is.null(var_defs) || !"v" %in% names(var_defs)) {
@@ -632,7 +531,6 @@ generate_ust_veranlagung <- function(dt) {
 #' Generate Einnahmenüberschussrechnung (Income Surplus) variables - 349 variables
 #' @keywords internal
 generate_eur <- function(dt) {
-  # Load CSV definitions
   var_defs <- load_variable_definitions()
   
   if (is.null(var_defs) || !"e" %in% names(var_defs)) {
@@ -671,93 +569,4 @@ generate_eur <- function(dt) {
   
   dt[, has_e := NULL]
   return(dt)
-}
-
-
-# Helper function to extract metadata ----
-
-#' Extract variable metadata from generated BTP data
-#'
-#' @param btp_data Data frame generated by synth_btp()
-#' @return Data frame with variable metadata (name, label, type)
-#' @export
-extract_btp_metadata <- function(btp_data) {
-  metadata <- data.frame(
-    variable = names(btp_data),
-    label = sapply(btp_data, function(x) {
-      lbl <- attr(x, "label")
-      if (is.null(lbl)) NA_character_ else lbl
-    }),
-    type = sapply(btp_data, function(x) {
-      if (is.numeric(x)) "numeric"
-      else if (is.character(x)) "character"
-      else if (is.factor(x)) "factor"
-      else "other"
-    }),
-    has_value_labels = sapply(btp_data, function(x) {
-      !is.null(attr(x, "labels"))
-    }),
-    stringsAsFactors = FALSE
-  )
-  
-  return(metadata)
-}
-
-
-# Helper function to summarize panel structure ----
-
-#' Summarize panel structure of BTP data
-#'
-#' @param btp_data Data frame generated by synth_btp()
-#' @return List with panel summary statistics
-#' @export
-summarize_btp_panel <- function(btp_data) {
-  dt <- data.table::as.data.table(btp_data)
-  
-  # Basic counts
-  n_obs <- nrow(dt)
-  n_units <- length(unique(dt$id))
-  years <- sort(unique(dt$jahr))
-  n_years <- length(years)
-  
-  # Panel balance
-  obs_per_unit <- dt[, .N, by = id]
-  balance_dist <- table(obs_per_unit$N)
-  pct_all_years <- mean(obs_per_unit$N == n_years) * 100
-  
-  # Statistics coverage
-  stats_coverage <- dt[, .(
-    n = .N,
-    pct = .N / nrow(dt) * 100
-  ), by = .(stat = substr(verk, 1, 1))]
-  
-  # Linkage quality
-  linkage_qual <- dt[, .(
-    n = .N,
-    pct = .N / nrow(dt) * 100
-  ), by = verk_qual]
-  
-  # Count variables by statistic
-  var_counts <- list(
-    total_vars = ncol(btp_data),
-    g_vars = sum(grepl("^g_", names(btp_data))),
-    k_vars = sum(grepl("^k_", names(btp_data))),
-    u_vars = sum(grepl("^u_", names(btp_data))),
-    p_vars = sum(grepl("^p_", names(btp_data))),
-    v_vars = sum(grepl("^v_", names(btp_data))),
-    e_vars = sum(grepl("^e_", names(btp_data))),
-    urs_vars = sum(grepl("^urs_", names(btp_data)))
-  )
-  
-  return(list(
-    n_observations = n_obs,
-    n_units = n_units,
-    years = years,
-    n_years = n_years,
-    pct_balanced = pct_all_years,
-    observations_per_unit = balance_dist,
-    statistics_coverage = stats_coverage,
-    linkage_quality = linkage_qual,
-    variable_counts = var_counts
-  ))
 }

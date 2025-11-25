@@ -1,5 +1,23 @@
 ## Anwendungsfall Business-Tax-Panel {#sec-btp}
 
+- TODO: Zufügen von öffentlich verfügbaren Informationen zu Struktur und Verteilung des BTP. Verteilung über Statistik und Jahr, ...
+  - was ist wichtig? Randverteilung, missings, vollständigkeit der variablen
+  - erstmal eine Tabelle mit Variablenanzahl, Entfernung durch Hinweis feld. Tabelle: Variablenzahl komplett, Variablenanzahl ohne Hinweisfeld, Variablenanzahl Befüllt?
+  - Hinweis Befüllungsgrad tlw. gering... x Variablen fehlen zu 90%, 80%, 70%, 60%, 50% ?
+  - Verteilung der Zeilen auf Statistik und Jahr, inkl. Trend
+  - Verteilung auf Kombinationen genauer
+
+### Annette's Input
+
+*Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags- sowie Umsatzsteuerstatistiken im Quer-  und Längsschnitt. Verfügbar sind Informationen aus den folgenden Statistiken : Gewerbesteuer, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung, Statistik über die Personengesellschaften und Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen Unternehmensregister. Alle verwendeten Steuerarte sind ab dem Berichtsjahr 2013 jährlich verfügbar, dies bildet den Beginn des Beobachtungszeitraums. Aufgrund der Festsetzungsfrist von vier Jahren bei den Veranlagungsstatistiken endet der Beobachtungszeitraum aktuell mit dem Berichtsjahr 2020.*    
+
+*Bei den verwendeten Statistiken handelt es sich um Vollerhebungen, teilweise mit Erfassungsgrenze. Insgesamt liegen 77,8 Mio. Beobachtungen vor, die auf 16,7  Mio. Einheiten zurückzuführen sind. Der Merkmalsumfang variiert je nach Statistik zwischen 120 und 1.300 Merkmalen was insgesamt zu einem Merkmalsumfang von über 2.700 Merkmalen führt. Hierdurch sind Analyse von Anpassungsreaktionen sowie Verteilungsanalysen für verschiedene Beobachtungszeiträume möglich. Insgesamt deckt der Forschungsdatensatz eine Vielzahl an Analysemöglichkeiten, die für die evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.*
+
+*Für die vielfältigen Analysewünsche der Forschenden, den Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der Erstellung des Metadatenreports des Forschungsdatenzentrums ist der Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen ist der Datensatz möglichst wenig beschränkt worden und dadurch ressourcenintensive. Der damit einhergehende hohe Bedarf an Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung dar.*
+
+==Wodurch ...==
+
+
 ### Überblick zum Business-Tax-Panel
 
 Das Business-Tax-Panel (BTP) ist ein zentraler Forschungsdatensatz des Statistischen Bundesamtes, der umfassende Informationen zur Unternehmensbesteuerung in Deutschland bereitstellt. Das Panel kombiniert Daten aus verschiedenen Steuerstatistiken miteinander und ermöglicht somit eine umfassende Analyse der Besteuerung von Unternehmen über Zeit.
@@ -64,6 +82,13 @@ Aus den verschiedenen Steuervordrucken und darin verwendeten Kennzahlen werden �
 Die im BTP enthaltenen Steuerstatistiken sind Bundesstatistiken, die als **Vollerhebung** durchgeführt werden. Es handelt sich um **Sekundärerhebungen**: Die Erhebungsmerkmale werden aus den Voranmeldungs- und Veranlagungsbescheiden von der Finanzverwaltung entnommen und über deren Rechenzentren an die Statistischen Ämter der Länder übermittelt.
 
 Rechtsgrundlage ist das [Gesetz über Steuerstatistiken (StStatG)](https://www.gesetze-im-internet.de/ststatg_1995/) vom 11. Oktober 1995.
+
+
+
+### Technische Requirements
+
+- Größe in Datentypen
+- Vorbereitung OSS
 
 ### Forschungspotenzial und Nutzung
 

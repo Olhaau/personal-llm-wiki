@@ -178,6 +178,44 @@ benchmark <- function(input_path, expr, expr_name = NULL, output_json = NULL) {
   )
   message("Benchmark results saved to: ", output_json)
   
+  # Also save as CSV (one-line with header)
+  output_csv <- sub("\\.json$", ".csv", output_json)
+  
+  # Prepare CSV-friendly version of results
+  csv_results <- benchmark_results
+  
+  # Handle the result field - convert to string representation
+  if (!is.null(csv_results$result)) {
+    if (is.data.frame(csv_results$result)) {
+      # For data frames, show dimensions
+      csv_results$result <- sprintf("data.frame[%d x %d]", 
+                                     nrow(csv_results$result), 
+                                     ncol(csv_results$result))
+    } else if (is.list(csv_results$result) && !is.data.frame(csv_results$result)) {
+      # For lists, show length
+      csv_results$result <- sprintf("list[%d]", length(csv_results$result))
+    } else if (is.vector(csv_results$result) && length(csv_results$result) > 1) {
+      # For vectors, show type and length
+      csv_results$result <- sprintf("%s[%d]", typeof(csv_results$result), 
+                                     length(csv_results$result))
+    } else if (is.atomic(csv_results$result) && length(csv_results$result) == 1) {
+      # For single atomic values, keep as is
+      csv_results$result <- as.character(csv_results$result)
+    } else {
+      # For other complex objects, show class
+      csv_results$result <- sprintf("%s", paste(class(csv_results$result), collapse = ", "))
+    }
+  } else {
+    csv_results$result <- NA_character_
+  }
+  
+  # Convert to data frame for CSV output
+  csv_df <- as.data.frame(csv_results, stringsAsFactors = FALSE)
+  
+  # Write CSV
+  write.csv(csv_df, output_csv, row.names = FALSE)
+  message("Benchmark results also saved to: ", output_csv)
+  
   return(benchmark_results)
 }
 

@@ -2,6 +2,8 @@
 
 Womit wir arbeiten können...
 
+TODO: Vorbereitung der Daten auf neue Methoden, Werkzeuge
+
 ### Die Forschungsdatenzentren der amtlichen Statistik
 
 Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus zwei organisatorisch voneinander getrennten Einrichtungen: dem **Forschungsdatenzentrum des Statistischen Bundesamts** und dem **Forschungsdatenzentrum der Statistischen Ämter der Länder**. Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten der amtlichen Statistiken.

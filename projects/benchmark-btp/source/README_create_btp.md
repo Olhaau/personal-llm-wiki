@@ -40,7 +40,19 @@ Creates a directory `data/btp_obs{N}/` where N is the number of observations, co
 - **`parquet_nach_jahr/`** - Parquet partitioned by year (2013-2019)
 - **`parquet_gleich_aufgeteilt/`** - Parquet with equal partitions
 
-## Variables
+## Variable Definitions
+
+Variable definitions are stored in two CSV files in `source/00_gen_synth_btp/`:
+
+1. **`btp_variables_format.csv`** - Used by `synth_btp.R` for data generation
+   - Contains: prefix (statistic type), variable name, format (Char/Num)
+   - 3,038 variables across 6 tax statistics (g, k, u, p, v, e)
+
+2. **`btp_variables_metadata.csv`** - Documentation and metadata reference
+   - Contains: prefix, variable name, n_vars, description
+   - Human-readable descriptions for all variables
+
+## Key Variables
 
 The script keeps 10 key variables from the full BTP dataset:
 

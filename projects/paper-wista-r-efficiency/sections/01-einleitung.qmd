@@ -6,22 +6,26 @@ Erwähnen: StBA, FDZ, NeSt.
 
 ### Herausforderungen und Anpassungen daran
 
-- Herausforderungen (größere Datenmengen, komplexere Analysen, schnellere Antworten notwendig)
-    - Wachsende Datenmenge in der amtl. Statistik, Verweis auf [@destatis2023]
-    - hohe Anforderungen der Öffentlichkeit und besonders Wissenschaft. Verweis auf Gutachten des Stat. Beirats und Gründung "Netzwerk emp. Steuerforschung"
-        - Schnelle Bereitstellung von am besten vollständigen, wenig Anonymisierten Datensätzen an Wissenschaft via FDZ. Erste Analysen seitens StBA und hohe Expertise erwartet (Exploration der Daten nötig)
-        - Bereitstellung von Zusatzdokumentation durch StBA. Metadatenreport
-        - schnelle Bereitstellung, 
-        - zeitnahe Nutzung in FDZ
-        - keine Wartezeiten in FDZ
-        - sofortig Antworten auf Analysefragen
-        - Erhöhte Komplexität Analysen mit größeren, Komplexeren Datensätzen
-    - Rückstände/Altlasten: weiterentwickelnde Infrastruktur, nicht state of the art 
-    (ausgelegt auf konsistenz und zuverlässigkeit, nicht schnelligkeit), gesetzlicher Auftrag
-        - hauptsächlich SAS für große Datenmenge verwendet, funktioniert, aber langsam
-        - FDZ Bund integriert in Standardarbeitsplätze des StBA
-        - Bereitstellungsaufwände und Abhängigkeiten moderner Software
+-   Herausforderungen (größere Datenmengen, komplexere Analysen, schnellere Antworten notwendig)
+    -   Wachsende Datenmenge in der amtl. Statistik, Verweis auf [@destatis2023]
+    -   hohe Anforderungen der Öffentlichkeit und besonders Wissenschaft. Verweis auf Gutachten des Stat. Beirats und Gründung "Netzwerk emp. Steuerforschung"
+        -   Schnelle Bereitstellung von am besten vollständigen, wenig Anonymisierten Datensätzen an Wissenschaft via FDZ. Erste Analysen seitens StBA und hohe Expertise erwartet (Exploration der Daten nötig)
+        -   Bereitstellung von Zusatzdokumentation durch StBA. Metadatenreport
+        -   schnelle Bereitstellung,
+        -   zeitnahe Nutzung in FDZ
+        -   keine Wartezeiten in FDZ
+        -   sofortig Antworten auf Analysefragen
+        -   Erhöhte Komplexität Analysen mit größeren, Komplexeren Datensätzen
+    -   Rückstände/Altlasten: weiterentwickelnde Infrastruktur, nicht state of the art (ausgelegt auf konsistenz und zuverlässigkeit, nicht schnelligkeit), gesetzlicher Auftrag
+        -   hauptsächlich SAS für große Datenmenge verwendet, funktioniert, aber langsam
+        -   FDZ Bund integriert in Standardarbeitsplätze des StBA
+        -   Bereitstellungsaufwände und Abhängigkeiten moderner Software
 
+Annette: -> Impuls aus der Wissenschaft, dann Fachbereich - Fachbereich/Verbund im Grunde Hauptnutzende da Tools und Daten zur Verfügung stehen
+Technische Möglichkeit entwickelt sich weiter usw..
+
+Der Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung (2023) hat in seinem Gutachten 2023/24 auf eine technisch veraltete Infrastruktur und auf die fehlende Nutzerfreundlichkeit hingewiesen. Seitdem hat sich die die Infrastruktur in dem Forschungsdatenzentrum des Bundes verbessert. Seit Januar 2025 besteht ein Remote Access System als neuer Zugangsweg für die Wissenschaft. Im Bereich der Steuerstatistiken wird derzeit geprüft, inwiefern auch Einzeldaten aus diesem Bereich über Remote Access genutzt werden können. Als Übergang und Erleichterung für bestehende Forschungsprojekte wird in diesem
+Kapitel 2  
 
 Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
 
@@ -31,26 +35,25 @@ Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung de
 
 ### Technische Lösungsansätze
 
-- Modernisierung der amtl. Stat, FDZs -> Zugangswege, Kapazitäten, ...
-- Technische Weiterentwicklung, stärkere Hardware, leichtere Bereitstellung, virtualisierung
-- Schnelle Weiterentwicklung von Open-Source Software, R, div. Packages, e.g. Verweis auf Changelog von Arrow, Polars
-
+-   Modernisierung der amtl. Stat, FDZs -\> Zugangswege, Kapazitäten, ...
+-   Technische Weiterentwicklung, stärkere Hardware, leichtere Bereitstellung, virtualisierung
+-   Schnelle Weiterentwicklung von Open-Source Software, R, div. Packages, e.g. Verweis auf Changelog von Arrow, Polars
 
 ### Anforderungen für Technologieauswahl
 
-- möglichst leicht nutzbar und gewohnt/verbreitet -> R+dpylr
-    - wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit unterschiedlichen Analytischen und technischen Kenntnissen
-- stabil
-- schnell, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum
-- ressourcensparend (RAM Problematik)
+-   möglichst leicht nutzbar und gewohnt/verbreitet -\> R+dpylr
+    -   wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit unterschiedlichen Analytischen und technischen Kenntnissen
+-   stabil
+-   schnell, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum
+-   ressourcensparend (RAM Problematik)
 
 ### Konkrete Umsetzung im StBA
 
-- NeSt Förderung, Datenprodukterstellung, Bereitstellung der FDZ auch technischen Infrastruktur und Knowhow der effizienten Nutzung
-- Bereitstellung des OSS seit Nov. 2025
-- Vorbereitend Exploration und Beratung in geeigneten Aüßerst effizienten Methoden -> Ergebnisse in Echtzeit
-- Szenario FDZ GWAP Besuch, statt KDFV, sofort Ergebnisse
-- Diese Arbeit
+-   NeSt Förderung, Datenprodukterstellung, Bereitstellung der FDZ auch technischen Infrastruktur und Knowhow der effizienten Nutzung
+-   Bereitstellung des OSS seit Nov. 2025
+-   Vorbereitend Exploration und Beratung in geeigneten Aüßerst effizienten Methoden -\> Ergebnisse in Echtzeit
+-   Szenario FDZ GWAP Besuch, statt KDFV, sofort Ergebnisse
+-   Diese Arbeit
 
 ### Inhalt dieser Arbeit
 
@@ -63,19 +66,21 @@ Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene
 #### Übersicht über neue FDZ Infrastruktur
 
 #### Konkreter Anwendungsfall der emp. Steuerforschung
-    
-    - Datenbereitstellung: MDR
-    - Forschungsprojekt
-        - Lorenzkurve -> Verteilung der Verlustvorträge 
-        - Logistische Regression -> Einflussfaktoren auf Verlustvorträge
-- Übersicht potenzieller Softwarelösungen
 
-#### Systematischer Vergleich effizienter Methoden in R 
+```         
+- Datenbereitstellung: MDR
+- Forschungsprojekt
+    - Lorenzkurve -> Verteilung der Verlustvorträge 
+    - Logistische Regression -> Einflussfaktoren auf Verlustvorträge
+```
+
+-   Übersicht potenzieller Softwarelösungen
+
+#### Systematischer Vergleich effizienter Methoden in R
 
 Benchmark Experiment
 
--> Empfehlung Systemressourcen für IT-Betrieb
--> Software- und Methodenempfehlung für Wissenschaft
+-\> Empfehlung Systemressourcen für IT-Betrieb -\> Software- und Methodenempfehlung für Wissenschaft
 
 Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
 
@@ -87,6 +92,5 @@ Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
 
 #### Ausblick
 
-- Weiteres Vorgehen: Pilotprojekt NeSt
-- Update BTP, flexibel reagieren, neue MDR, DSB, ...
-
+-   Weiteres Vorgehen: Pilotprojekt NeSt
+-   Update BTP, flexibel reagieren, neue MDR, DSB, ...

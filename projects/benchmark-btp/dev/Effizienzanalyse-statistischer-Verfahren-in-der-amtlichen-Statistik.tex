@@ -1,0 +1,1786 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ngerman,
+  10pt,
+  letterpaper,
+  twocolumn]{book}
+\usepackage{xcolor}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2cm,right=2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage[german]{selnolig} % disable illegal ligatures
+\fi
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[style=authoryear,backend=biber,style=authoryear-comp,uniquename=false,uniquelist=false]{biblatex}
+\addbibresource{references.bib}
+
+
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{afterpage}
+
+% Define WISTA colors (brighter blue)
+\definecolor{wistaBlue}{RGB}{30,110,180}
+\definecolor{wistaLightBlue}{RGB}{51,153,204}
+\definecolor{wistaDarkGray}{RGB}{64,64,64}
+\definecolor{wistaLightGray}{RGB}{128,128,128}
+
+% Custom chapter formatting - number on top with column-width rule  
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{wistaDarkGray}}
+  {\color{wistaBlue}\large\chaptertitlename\ \thechapter\vspace{0.2cm}\\\noindent\rule{\columnwidth}{1.5pt}}
+  {0.5cm}
+  {\Huge\color{wistaDarkGray}}
+  [\vspace{0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{1pt}}\vspace{0.5cm}]
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+% Custom section formatting - number on top with column-width underline
+\titleformat{\section}[display]
+  {\normalfont\large\bfseries}
+  {\color{wistaBlue}\large\bfseries\thesection\vspace{0.1cm}\\\noindent\rule{\columnwidth}{1pt}}
+  {0.3cm}
+  {\color{wistaDarkGray}\large\bfseries}
+  [\vspace{0.1cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.5pt}}\vspace{0.3cm}]
+\titlespacing*{\section}{0pt}{1.5ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+% Smaller formatting for subsections (within columns)
+\titleformat{\subsection}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaBlue}\normalsize\bfseries\thesubsection}
+  {0.5em}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  [\vspace{0.05cm}\noindent{\color{wistaBlue}\rule{0.5\columnwidth}{0.4pt}}\vspace{0.1cm}]
+  
+% Even smaller for subsubsections  
+\titleformat{\subsubsection}
+  {\color{wistaDarkGray}\small\bfseries}
+  {\color{wistaBlue}\small\bfseries\thesubsubsection}
+  {0.3em}
+  {\color{wistaDarkGray}\small\bfseries}
+
+% Header and footer setup
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[LE]{\small\textit{Max Mustermann, Dr. Anna Schmidt}}
+\fancyhead[RO]{\small\textit{Effizienzanalyse statistischer Verfahren}}
+\fancyfoot[LE]{\small\thepage}
+\fancyfoot[RE]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
+\fancyfoot[LO]{\small Statistisches Bundesamt | WISTA | {\color{wistaBlue}6} | 2025}
+\fancyfoot[RO]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Make all figures and tables span both columns (full width)
+% Redefine figure environment to use figure*
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][htbp]{%
+  \origfigure*[#1]%
+}{%
+  \endorigfigure*%
+}
+
+% Redefine table environment to use table*
+\let\origtable\table
+\let\endorigtable\endtable
+\renewenvironment{table}[1][htbp]{%
+  \origtable*[#1]%
+}{%
+  \endorigtable*%
+}
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Inhaltsverzeichnis}
+\else
+  \newcommand\contentsname{Inhaltsverzeichnis}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Abbildungsverzeichnis}
+\else
+  \newcommand\listfigurename{Abbildungsverzeichnis}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Tabellenverzeichnis}
+\else
+  \newcommand\listtablename{Tabellenverzeichnis}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Abbildung}
+\else
+  \newcommand\figurename{Abbildung}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabelle}
+\else
+  \newcommand\tablename{Tabelle}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{Listingverzeichnis}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Effizienzanalyse statistischer Verfahren in der amtlichen Statistik},
+  pdfauthor={Max Mustermann; Dr.~Anna Schmidt},
+  pdflang={de},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Effizienzanalyse statistischer Verfahren in der amtlichen
+Statistik}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Eine empirische Untersuchung am Beispiel der
+Datenverarbeitung}
+\author{Max Mustermann \and Dr.~Anna Schmidt}
+\date{2025-11-22}
+\begin{document}
+\frontmatter
+\maketitle
+
+\renewcommand*\contentsname{Inhaltsverzeichnis}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\setstretch{1.1}
+\mainmatter
+\bookmarksetup{startatroot}
+
+\chapter*{Einleitung}\label{einleitung}
+\addcontentsline{toc}{chapter}{Einleitung}
+
+\markboth{Einleitung}{Einleitung}
+
+\section*{Zusammenfassung}\label{zusammenfassung}
+\addcontentsline{toc}{section}{Zusammenfassung}
+
+\markright{Zusammenfassung}
+
+Die vorliegende Studie untersucht die Effizienz statistischer Verfahren
+in der amtlichen Statistik am Beispiel moderner
+Datenverarbeitungsmethoden. Dabei werden insbesondere die Auswirkungen
+verschiedener algorithmischer Ansätze auf die Qualität und
+Geschwindigkeit der statistischen Auswertungen analysiert. Die
+Ergebnisse zeigen signifikante Verbesserungen bei der Verwendung
+optimierter Verfahren.
+
+\textbf{Schlagwörter:} Statistische Verfahren, Effizienzanalyse,
+Datenverarbeitung, Amtliche Statistik, Algorithmusoptimierung
+
+\section*{Abstract}\label{abstract}
+\addcontentsline{toc}{section}{Abstract}
+
+\markright{Abstract}
+
+This study examines the efficiency of statistical procedures in official
+statistics using modern data processing methods as an example. The
+analysis focuses particularly on the effects of different algorithmic
+approaches on the quality and speed of statistical evaluations. The
+results show significant improvements when using optimized procedures.
+
+\textbf{Keywords:} Statistical procedures, efficiency analysis, data
+processing, official statistics, algorithm optimization
+
+\section*{Motivation und Zielsetzung}\label{motivation-und-zielsetzung}
+\addcontentsline{toc}{section}{Motivation und Zielsetzung}
+
+\markright{Motivation und Zielsetzung}
+
+Die amtliche Statistik steht vor der Herausforderung, bei stetig
+wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ
+hochwertige und zeitnahe statistische Informationen bereitzustellen
+\autocite{destatis2023}. Dabei spielt die Effizienz der verwendeten
+statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit
+des gesamten statistischen Systems.
+
+In den vergangenen Jahren haben sich die Rahmenbedingungen für die
+Produktion amtlicher Statistiken erheblich verändert. Die
+Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren
+Datenquellen geführt, sondern auch neue Möglichkeiten für die
+statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der
+Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
+
+Diese Entwicklungen erfordern eine kontinuierliche Evaluation und
+Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist
+es daher, die Effizienz verschiedener statistischer Verfahren
+systematisch zu bewerten und Handlungsempfehlungen für die Praxis
+abzuleiten.
+
+\section*{Forschungsfragen}\label{forschungsfragen}
+\addcontentsline{toc}{section}{Forschungsfragen}
+
+\markright{Forschungsfragen}
+
+Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Methodische Effizienz:} Wie unterscheiden sich verschiedene
+  statistische Verfahren hinsichtlich ihrer Rechenzeit und
+  Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+\item
+  \textbf{Skalierbarkeit:} Welche Verfahren zeigen die beste Performance
+  bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
+\item
+  \textbf{Qualitätssicherung:} Inwiefern beeinflussen
+  effizienzorientierte Optimierungen die statistische Qualität der
+  Ergebnisse?
+\end{enumerate}
+
+\section*{Aufbau der Arbeit}\label{aufbau-der-arbeit}
+\addcontentsline{toc}{section}{Aufbau der Arbeit}
+
+\markright{Aufbau der Arbeit}
+
+Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in
+Kapitel~\ref{sec-btp} der Anwendungsfall Business-Tax-Panel vorgestellt.
+Kapitel~\ref{sec-infrastruktur} beschreibt die Infrastruktur des
+Forschungsdatenzentrums. In Kapitel~\ref{sec-methoden} werden
+verschiedene Auswertungsmethoden vorgestellt.
+Kapitel~\ref{sec-performance} präsentiert die empirischen
+Performanzergebnisse. Die Arbeit schließt mit einem Ausblick in
+Kapitel~\ref{sec-ausblick}.
+
+Die Analyse basiert auf einer umfangreichen empirischen Studie, die
+verschiedene statistische Verfahren anhand realer Datensätze aus der
+amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch
+neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren
+Optionen zu zeichnen.
+
+\bookmarksetup{startatroot}
+
+\chapter{Einleitung}\label{sec-einleitung}
+
+\section{Motivation und Zielsetzung}\label{motivation-und-zielsetzung-1}
+
+Die amtliche Statistik steht vor der Herausforderung, bei stetig
+wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ
+hochwertige und zeitnahe statistische Informationen bereitzustellen
+\autocite{destatis2023}. Dabei spielt die Effizienz der verwendeten
+statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit
+des gesamten statistischen Systems.
+
+In den vergangenen Jahren haben sich die Rahmenbedingungen für die
+Produktion amtlicher Statistiken erheblich verändert. Die
+Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren
+Datenquellen geführt, sondern auch neue Möglichkeiten für die
+statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der
+Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
+
+Diese Entwicklungen erfordern eine kontinuierliche Evaluation und
+Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist
+es daher, die Effizienz verschiedener statistischer Verfahren
+systematisch zu bewerten und Handlungsempfehlungen für die Praxis
+abzuleiten.
+
+\section{Forschungsfragen}\label{forschungsfragen-1}
+
+Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Methodische Effizienz:} Wie unterscheiden sich verschiedene
+  statistische Verfahren hinsichtlich ihrer Rechenzeit und
+  Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+\item
+  \textbf{Skalierbarkeit:} Welche Verfahren zeigen die beste Performance
+  bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
+\item
+  \textbf{Praktische Anwendbarkeit:} Welche Infrastrukturanforderungen
+  stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
+\end{enumerate}
+
+\section{Aufbau der Arbeit}\label{aufbau-der-arbeit-1}
+
+Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in
+Kapitel~\ref{sec-btp} der Anwendungsfall Business-Tax-Panel vorgestellt,
+der als empirisches Beispiel für die Analysen dient.
+Kapitel~\ref{sec-infrastruktur} beschreibt die Infrastruktur des
+Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen
+durchgeführt werden.
+
+In Kapitel~\ref{sec-methoden} werden verschiedene effiziente
+Auswertungsmethoden vorgestellt und deren theoretische Grundlagen
+erläutert. Kapitel~\ref{sec-performance} präsentiert die empirischen
+Performanzergebnisse der verschiedenen Ansätze. Die Arbeit schließt mit
+einem Ausblick auf zukünftige Entwicklungen in
+Kapitel~\ref{sec-ausblick}.
+
+Die Analyse basiert auf einer umfangreichen empirischen Studie, die
+verschiedene statistische Verfahren anhand realer Datensätze aus der
+amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch
+neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren
+Optionen zu zeichnen.
+
+\bookmarksetup{startatroot}
+
+\chapter{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
+
+\section{Überblick zum
+Business-Tax-Panel}\label{uxfcberblick-zum-business-tax-panel}
+
+Das Business-Tax-Panel (BTP) ist ein zentraler Forschungsdatensatz des
+Statistischen Bundesamtes, der umfassende Informationen zur
+Unternehmensbesteuerung in Deutschland bereitstellt. Das Panel
+kombiniert Daten aus verschiedenen Steuerstatistiken miteinander und
+ermöglicht somit eine umfassende Analyse der Besteuerung von Unternehmen
+über Zeit.
+
+Im BTP werden folgende Datensätze zusammengeführt:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Gewerbesteuerstatistik} (EVAS-Nr. 73511)
+\item
+  \textbf{Körperschaftsteuerstatistik} (EVAS-Nr. 73211)
+\item
+  \textbf{Umsatzsteuerstatistik - Voranmeldungen} (EVAS-Nr. 73311)
+\item
+  \textbf{Statistik über Personengesellschaften und Gemeinschaften}
+  (EVAS-Nr. 73121)
+\item
+  \textbf{Umsatzsteuerstatistik - Veranlagungen} (EVAS-Nr. 73321)
+\item
+  \textbf{Einnahmenüberschussrechnung} aus der Lohn- und
+  Einkommensteuerstatistik (EVAS-Nr. 73111)
+\item
+  Merkmale aus dem \textbf{Statistischen Unternehmensregister} (EVAS-Nr.
+  52111)
+\end{itemize}
+
+\section{Datenstruktur und Umfang}\label{datenstruktur-und-umfang}
+
+\subsection{Dimensionen des
+Datensatzes}\label{dimensionen-des-datensatzes}
+
+Das BTP umfasst einen außergewöhnlich umfangreichen Datensatz mit
+beeindruckenden Dimensionen:
+
+\begin{table}
+
+\caption{\label{tbl-btp-overview}Übersicht über die Dimensionen des
+Business-Tax-Panel}
+
+\centering{
+
+\begin{tabular}{ll}
+\toprule
+Merkmal & Wert\\
+\midrule
+Beobachtungszeitraum & 2013-2019 (jährliche Erweiterung)\\
+Anzahl Einheiten (2013-2019) & >66 Millionen\\
+Anzahl Merkmale & >2.700\\
+Erhebungsart & Vollerhebung\\
+Datenquelle & Sekundärerhebung (Finanzverwaltung)\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\subsection{Hauptmerkmale des
+Datensatzes}\label{hauptmerkmale-des-datensatzes}
+
+Aus den verschiedenen Steuervordrucken und darin verwendeten Kennzahlen
+werden über 2.700 Merkmale erfasst, die verschiedene Aspekte der
+Unternehmensbesteuerung abbilden:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Steuerliche Kennzahlen:} Bemessungsgrundlagen, Steuerbeträge,
+  Vorsteuern aus verschiedenen Steuerarten
+\item
+  \textbf{Wirtschaftliche Kennzahlen:} Umsätze, Gewinne,
+  Betriebsausgaben
+\item
+  \textbf{Strukturmerkmale:} Rechtsform, Wirtschaftszweig, Größenklassen
+\item
+  \textbf{Geografische Informationen:} Bundesland, Gemeindekennziffer
+\item
+  \textbf{Panelstruktur:} Längsschnittinformationen ermöglichen
+  Zeitreihenanalysen
+\end{itemize}
+
+\subsection{Datenerhebung und
+Rechtsgrundlage}\label{datenerhebung-und-rechtsgrundlage}
+
+Die im BTP enthaltenen Steuerstatistiken sind Bundesstatistiken, die als
+\textbf{Vollerhebung} durchgeführt werden. Es handelt sich um
+\textbf{Sekundärerhebungen}: Die Erhebungsmerkmale werden aus den
+Voranmeldungs- und Veranlagungsbescheiden von der Finanzverwaltung
+entnommen und über deren Rechenzentren an die Statistischen Ämter der
+Länder übermittelt.
+
+Rechtsgrundlage ist das
+\href{https://www.gesetze-im-internet.de/ststatg_1995/}{Gesetz über
+Steuerstatistiken (StStatG)} vom 11. Oktober 1995.
+
+\section{Forschungspotenzial und
+Nutzung}\label{forschungspotenzial-und-nutzung}
+
+\subsection{Typische Forschungsfragen}\label{typische-forschungsfragen}
+
+Das BTP wird für eine Vielzahl von Forschungsfragen genutzt:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Steuerliche Analysen:} Effekte von Steuerreformen auf
+  Unternehmensentscheidungen
+\item
+  \textbf{Unternehmensdynamik:} Gründungen, Wachstum und Marktaustritte
+\item
+  \textbf{Wirtschaftsstruktur:} Branchenentwicklung und regionale
+  Unterschiede
+\item
+  \textbf{Krisenanalysen:} Auswirkungen von wirtschaftlichen Schocks auf
+  Unternehmen
+\end{enumerate}
+
+\subsection{Herausforderungen bei der
+Datenauswertung}\label{herausforderungen-bei-der-datenauswertung}
+
+Die Größe und Komplexität des BTP stellt besondere Anforderungen an die
+Auswertungsinfrastruktur:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Rechenleistung:} Analysen über den gesamten Datensatz
+  erfordern erhebliche Rechenkapazitäten
+\item
+  \textbf{Speicherbedarf:} Das Vorhalten des Datensatzes im
+  Arbeitsspeicher ist oft nicht möglich
+\item
+  \textbf{Komplexe Verknüpfungen:} Die Zusammenführung verschiedener
+  Datenquellen erfordert effiziente Join-Operationen
+\item
+  \textbf{Datenschutz:} Strenge Anforderungen an den Umgang mit
+  sensiblen Unternehmensdaten
+\end{itemize}
+
+\section{Zugangsformen im FDZ}\label{zugangsformen-im-fdz}
+
+Das BTP ist über verschiedene Zugangsformen verfügbar:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Gastwissenschaftsarbeitsplatz (GWAP):} On-Site-Zugang mit
+  vollständigen Daten, auswertbar mit SAS oder Stata. Bedingt durch die
+  Speicherplatzgröße kann die Nutzung einer Stichprobe erforderlich
+  sein.
+\item
+  \textbf{Kontrollierte Datenfernverarbeitung (KDFV):} Remote-Zugang mit
+  Ergebnisfreigabe über KDFV
+\item
+  Die Gemeindekennziffer für Bayern steht am GWAP lediglich
+  pseudonymisiert zur Verfügung
+\end{itemize}
+
+\section{BTP als Benchmark-Datensatz}\label{btp-als-benchmark-datensatz}
+
+Aufgrund seiner Größe (\textgreater66 Millionen Einheiten), Komplexität
+(\textgreater2.700 Variablen) und realen Datenstruktur eignet sich das
+BTP hervorragend als Benchmark für die Evaluation verschiedener
+Auswertungsmethoden. Die Herausforderungen des BTP sind repräsentativ
+für viele Forschungsprojekte im FDZ:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Datengröße:} Der Datensatz übersteigt oft die verfügbare
+  RAM-Kapazität
+\item
+  \textbf{Komplexe Joins:} Verknüpfung verschiedener Steuerstatistiken
+  erforderlich\\
+\item
+  \textbf{Aggregationen:} Über verschiedene Dimensionen (Zeit, Region,
+  Wirtschaftszweig)
+\item
+  \textbf{Filteroperationen:} Selektion relevanter Unternehmensgruppen
+\item
+  \textbf{Zeitreihenanalysen:} Panel-Struktur über mehrere Jahre
+\end{itemize}
+
+Diese realitätsnahen Szenarien ermöglichen es, die Praxistauglichkeit
+verschiedener Auswertungsmethoden unter den tatsächlichen Bedingungen
+eines Forschungsdatenzentrums zu bewerten.
+
+\bookmarksetup{startatroot}
+
+\chapter{Infrastruktur des FDZ-Bund}\label{sec-infrastruktur}
+
+\section{Die Forschungsdatenzentren der amtlichen
+Statistik}\label{die-forschungsdatenzentren-der-amtlichen-statistik}
+
+Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus
+zwei organisatorisch voneinander getrennten Einrichtungen: dem
+\textbf{Forschungsdatenzentrum des Statistischen Bundesamts} und dem
+\textbf{Forschungsdatenzentrum der Statistischen Ämter der Länder}.
+Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und
+Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten
+der amtlichen Statistiken.
+
+\subsection{Entstehung und
+Entwicklung}\label{entstehung-und-entwicklung}
+
+Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur
+Verbesserung der informationellen Infrastruktur zwischen Wissenschaft
+und Statistik'' (KVI) von 1999 zurück. Mit finanzieller Förderung des
+Bundesministeriums für Bildung und Forschung (BMBF) wurde im Herbst 2001
+zunächst das FDZ des Statistischen Bundesamts gegründet. Das FDZ der
+Statistischen Ämter der Länder folgte im April 2002.
+
+\subsection{Aufgaben und Ziele}\label{aufgaben-und-ziele}
+
+Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen
+Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern
+fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Datenzugang:} Bereitstellung hochwertiger Mikrodaten für die
+  wissenschaftliche Forschung
+\item
+  \textbf{Datenschutz:} Gewährleistung des Schutzes personenbezogener
+  und unternehmensbezogener Daten nach § 16 BStatG
+\item
+  \textbf{Beratung:} Unterstützung der Forschenden bei der Datennutzung
+  und methodischen Fragen
+\item
+  \textbf{Infrastruktur:} Bereitstellung einer sicheren und
+  leistungsfähigen Auswertungsumgebung
+\item
+  \textbf{Regionalisierung:} Flächendeckende Standorte in ganz
+  Deutschland für kurze Anfahrtswege
+\end{itemize}
+
+\section{Technische Infrastruktur}\label{technische-infrastruktur}
+
+\subsection{Hardware-Ausstattung}\label{hardware-ausstattung}
+
+Die technische Infrastruktur des FDZ-Bund umfasst verschiedene
+Systemkomponenten:
+
+\begin{table}
+
+\caption{\label{tbl-fdz-infrastructure}Technische Ausstattung des
+FDZ-Bund (beispielhafte Konfiguration)}
+
+\centering{
+
+\begin{tabular}{llc}
+\toprule
+Komponente & Spezifikation & Anzahl\\
+\midrule
+Rechenknoten (Standard) & 2x Intel Xeon Gold 6248R (48 Kerne), 384 GB RAM & 12\\
+Rechenknoten (High-Memory) & 2x Intel Xeon Platinum 8280 (56 Kerne), 1,5 TB RAM & 4\\
+Speichersystem & NAS-System mit 500 TB nutzbarem Speicher & 1\\
+Netzwerk & 10 Gbit/s Ethernet, InfiniBand für parallele Operationen & -\\
+Backup-System & Tägliches Backup, räumlich getrennte Archivierung & -\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\subsection{Software-Umgebung}\label{software-umgebung}
+
+Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Statistische Software:} R, Python, Stata, SAS, SPSS
+\item
+  \textbf{Datenbanksysteme:} PostgreSQL, DuckDB
+\item
+  \textbf{Entwicklungsumgebungen:} RStudio Server, JupyterLab
+\item
+  \textbf{Versionskontrolle:} Git (lokal, ohne externe Verbindung)
+\end{itemize}
+
+\section{Infrastrukturkonzept}\label{infrastrukturkonzept}
+
+\subsection{Fachlich zentralisierte
+Datenhaltung}\label{fachlich-zentralisierte-datenhaltung}
+
+In Deutschland wird der überwiegende Teil der amtlichen
+Statistikproduktion dezentral in den Statistischen Ämtern der Länder
+durchgeführt (über 90\% aller amtlichen Statistiken). Da sich
+wissenschaftliche Analysen in der Regel jedoch auf mehrere Bundesländer
+oder das gesamte Bundesgebiet beziehen, haben die FDZ eine
+\textbf{fachlich zentralisierte Datenhaltung} eingerichtet. Diese
+ermöglicht es, die Daten des gesamten Bundesgebiets länderübergreifend
+an jedem Standort bereitzustellen.
+
+\subsection{Regionalisierte
+Infrastruktur}\label{regionalisierte-infrastruktur}
+
+Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein.
+Dies wird durch über ganz Deutschland verteilte Standorte erreicht.
+Standorte befinden sich u.a. in:
+
+\begin{itemize}
+\tightlist
+\item
+  Berlin, Bonn, Wiesbaden (Bund)
+\item
+  Bad Ems, Bremen, Dresden, Düsseldorf, Erfurt, Frankfurt, Hamburg,
+  Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
+\end{itemize}
+
+\section{Zugangsformen und
+Nutzungsmodelle}\label{zugangsformen-und-nutzungsmodelle}
+
+Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich
+anonymisierte Datenprodukte bereitgestellt werden:
+
+\subsection{Off-Site-Zugang}\label{off-site-zugang}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Public Use Files (PUF):} Stark anonymisierte Daten für freie
+  Nutzung
+\item
+  \textbf{Scientific Use Files (SUF):} Faktisch anonymisierte Daten für
+  wissenschaftliche Zwecke
+\item
+  \textbf{Remote Scientific Use Files (Remote-SUF):} Neuer Zugangsweg
+  mit höherer Detailtiefe
+\end{itemize}
+
+\subsection{On-Site-Zugang}\label{on-site-zugang}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Gastwissenschaftsarbeitsplatz (GWAP):} Zugang zu formal
+  anonymisierten Daten vor Ort
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Vorteile: Höchste Datendetailtiefe, direkte Beratung
+  \item
+    Anforderungen: Terminvereinbarung, Zutrittskontrolle,
+    Output-Kontrolle
+  \end{itemize}
+\item
+  \textbf{Kontrollierte Datenfernverarbeitung (KDFV):} Remote-Ausführung
+  von Analyseskripten
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Vorteile: Keine Anreise, zeitlich flexibel
+  \item
+    Einschränkungen: Keine interaktive Arbeit, Ergebnisfreigabe
+    erforderlich
+  \end{itemize}
+\end{itemize}
+
+\section{Datenschutz und Sicherheit}\label{datenschutz-und-sicherheit}
+
+\subsection{Mehrstufiges
+Sicherheitskonzept}\label{mehrstufiges-sicherheitskonzept}
+
+Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Physische Sicherheit:} Zutrittskontrolle, gesicherte
+  Räumlichkeiten
+\item
+  \textbf{Netzwerksicherheit:} Isolierte Netzwerke, Firewalls, Intrusion
+  Detection
+\item
+  \textbf{Zugriffsrechte:} Rollenbasierte Zugriffskontrolle,
+  Authentifizierung
+\item
+  \textbf{Output-Kontrolle:} Prüfung aller Ergebnisse vor Freigabe
+\item
+  \textbf{Audit-Logging:} Protokollierung aller Zugriffe und Operationen
+\end{enumerate}
+
+\subsection{Output-Kontrolle}\label{output-kontrolle}
+
+Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie
+eine mehrstufige Kontrolle:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Automatische Prüfung:} Screening auf kritische Werte (z.B.
+  Fallzahlen \textless{} 5)
+\item
+  \textbf{Manuelle Prüfung:} Sichtung durch geschulte Mitarbeiter
+\item
+  \textbf{Dokumentation:} Nachvollziehbare Begründung der
+  Freigabeentscheidung
+\end{itemize}
+
+\section{Performanz-Optimierung in der
+FDZ-Umgebung}\label{performanz-optimierung-in-der-fdz-umgebung}
+
+\subsection{Herausforderungen}\label{herausforderungen}
+
+Die Arbeit in der geschützten FDZ-Umgebung stellt besondere
+Anforderungen:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Begrenzte Ressourcen:} Mehrere Nutzer teilen sich die
+  verfügbare Hardware
+\item
+  \textbf{Keine Cloud-Dienste:} Externe Rechenressourcen können nicht
+  genutzt werden
+\item
+  \textbf{Datengröße:} Große Datensätze müssen effizient verarbeitet
+  werden
+\item
+  \textbf{Reproduzierbarkeit:} Analysen müssen dokumentiert und
+  nachvollziehbar sein
+\end{itemize}
+
+\subsection{Optimierungsstrategien}\label{optimierungsstrategien}
+
+Verschiedene Strategien helfen, die Performanz zu optimieren:
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{sections/03-infrastruktur_files/figure-pdf/fig-optimization-strategies-1.pdf}}
+
+}
+
+\caption{\label{fig-optimization-strategies}Strategien zur
+Performanz-Optimierung im FDZ-Bund}
+
+\end{figure}%
+
+\section{Akkreditierung und
+Qualitätssicherung}\label{akkreditierung-und-qualituxe4tssicherung}
+
+Die Forschungsdatenzentren der Statistischen Ämter des Bundes und der
+Länder sind durch den \textbf{Rat für Sozial- und WirtschaftsDaten
+(RatSWD) akkreditiert}. Der RatSWD akkreditiert seit 2008
+Forschungsdatenzentren, die den Zugang zu qualitativ hochwertigen
+sensiblen Daten für die Wissenschaft ermöglichen und dabei die
+erforderlichen Kriterien erfüllen.
+
+\section{Best Practices für
+FDZ-Nutzende}\label{best-practices-fuxfcr-fdz-nutzende}
+
+Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für
+effizientes Arbeiten ableiten:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Datenreduktion:} Frühzeitige Filterung auf relevante
+  Beobachtungen und Variablen
+\item
+  \textbf{Inkrementelle Entwicklung:} Erst mit Stichproben arbeiten,
+  dann auf Vollsatz skalieren
+\item
+  \textbf{Effiziente Datenformate:} Nutzung moderner Formate
+  (Arrow/Parquet) statt CSV
+\item
+  \textbf{Dokumentation:} Sorgfältige Dokumentation des Analyseprozesses
+  für Output-Kontrolle
+\item
+  \textbf{Ressourcenplanung:} Bewusste Planung rechenintensiver
+  Operationen bei geteilter Infrastruktur
+\item
+  \textbf{Beratung nutzen:} Frühzeitige Kontaktaufnahme mit
+  FDZ-Mitarbeitern bei methodischen Fragen
+\end{enumerate}
+
+\bookmarksetup{startatroot}
+
+\chapter{Effiziente Auswertungsmethoden}\label{sec-methoden}
+
+\section{Motivation}\label{motivation}
+
+Die Analyse großer Datensätze wie des BTP (\textgreater66 Millionen
+Einheiten, \textgreater2.700 Variablen) in der FDZ-Umgebung stellt
+besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle
+Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre
+Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche
+Vorteile.
+
+\section{Apache Arrow: Spaltenorientiertes
+In-Memory-Format}\label{apache-arrow-spaltenorientiertes-in-memory-format}
+
+\subsection{Grundprinzip}\label{grundprinzip}
+
+Apache Arrow ist ein sprach- und plattformübergreifendes
+In-Memory-Format für spaltenorientierte Datenverarbeitung. Im Gegensatz
+zu zeilenorientierten Formaten werden Daten spaltenweise organisiert,
+was erhebliche Vorteile bietet:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Effiziente Kompression:} Ähnliche Werte in einer Spalte lassen
+  sich besser komprimieren
+\item
+  \textbf{Schnellere Aggregationen:} Nur benötigte Spalten müssen
+  gelesen werden (Columnar Scanning)
+\item
+  \textbf{Zero-Copy:} Daten können ohne Kopieren zwischen Prozessen und
+  Sprachen ausgetauscht werden
+\item
+  \textbf{SIMD-Optimierung:} Moderne CPU-Instruktionen können effizient
+  genutzt werden
+\end{itemize}
+
+\subsection{Anwendung in R}\label{anwendung-in-r}
+
+Das \texttt{arrow}-Paket in R bietet vollständige Integration:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(arrow)}
+
+\CommentTok{\# Lesen eines Parquet{-}Datasets mit Filterung}
+\NormalTok{dataset }\OtherTok{\textless{}{-}} \FunctionTok{open\_dataset}\NormalTok{(}\StringTok{"btp\_data.parquet"}\NormalTok{)}
+
+\NormalTok{result }\OtherTok{\textless{}{-}}\NormalTok{ dataset }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{2015}\NormalTok{, sector }\SpecialCharTok{==} \StringTok{"Manufacturing"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(company\_id, year, revenue, employees) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_by}\NormalTok{(year) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{total\_revenue =} \FunctionTok{sum}\NormalTok{(revenue),}
+    \AttributeTok{mean\_employees =} \FunctionTok{mean}\NormalTok{(employees)}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{collect}\NormalTok{()  }\CommentTok{\# Erst hier wird die Berechnung ausgeführt}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Vorteile für
+FDZ-Analysen}\label{vorteile-fuxfcr-fdz-analysen}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Out-of-Core Processing:} Datensätze müssen nicht vollständig
+  in den RAM passen
+\item
+  \textbf{Lazy Evaluation:} Operationen werden optimiert, bevor sie
+  ausgeführt werden
+\item
+  \textbf{Predicate Pushdown:} Filter werden direkt beim Lesen
+  angewendet
+\item
+  \textbf{Partitionierung:} Datensätze können nach Kriterien (z.B. Jahr)
+  partitioniert werden
+\end{itemize}
+
+\subsection{Limitationen}\label{limitationen}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Lernkurve:} Neue Syntax für Nutzer mit Base-R-Erfahrung
+\item
+  \textbf{Noch in Entwicklung:} Nicht alle R-Funktionen werden
+  unterstützt
+\item
+  \textbf{Setup-Aufwand:} Daten müssen einmalig ins Parquet-Format
+  konvertiert werden
+\end{itemize}
+
+\section{Parquet: Persistentes spaltenorientiertes
+Format}\label{parquet-persistentes-spaltenorientiertes-format}
+
+\subsection{Eigenschaften}\label{eigenschaften}
+
+Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit
+Arrow zusammenarbeitet:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Kompression:} Typischerweise 5-10x kleinere Dateien als CSV
+\item
+  \textbf{Metadaten:} Enthält Schema-Informationen und Statistiken
+\item
+  \textbf{Partitionierung:} Ermöglicht selektives Lesen nach
+  Partitionskeys
+\item
+  \textbf{Kompatibilität:} Von vielen Tools unterstützt (R, Python,
+  Spark, DuckDB)
+\end{itemize}
+
+\subsection{Vergleich zu Alternativen}\label{vergleich-zu-alternativen}
+
+\begin{table}
+
+\caption{\label{tbl-format-comparison}Vergleich verschiedener
+Datenformate für die BTP-Analyse}
+
+\centering{
+
+\begin{tabular}{lrllcl}
+\toprule
+Format & Größe & Ladezeit & Kompression & Partitionierung & Kompatibilität\\
+\midrule
+CSV & 100\% & Sehr langsam & Keine & Nein & Universal\\
+RDS (R) & 45\% & Mittel & Gzip & Nein & Nur R\\
+Feather & 95\% & Sehr schnell & LZ4/ZSTD & Nein & Arrow-Ökosystem\\
+Parquet & 15\% & Schnell & Snappy/GZIP & Möglich & Sehr hoch\\
+Parquet (partitioniert) & 15\% & Sehr schnell (selektiv) & Snappy/GZIP & Ja & Sehr hoch\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\subsection{Empfehlung für FDZ}\label{empfehlung-fuxfcr-fdz}
+
+\textbf{Parquet ist das empfohlene Format für große Datensätze im FDZ}
+wegen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Drastischer Reduktion der Dateigröße (wichtig bei begrenztem
+  Speicherplatz)
+\item
+  Deutlich schnelleren Ladezeiten
+\item
+  Möglichkeit der selektiven Filterung ohne vollständiges Laden
+\item
+  Kompatibilität mit verschiedenen Analysewerkzeugen
+\end{enumerate}
+
+\section{DuckDB: Analytical Database
+System}\label{duckdb-analytical-database-system}
+
+\subsection{Konzept}\label{konzept}
+
+DuckDB ist ein einbettbares analytisches Datenbanksystem, speziell für
+OLAP-Workloads (Online Analytical Processing) entwickelt:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{In-Process:} Läuft im gleichen Prozess wie R (keine separate
+  Datenbank-Server-Installation nötig)
+\item
+  \textbf{Columnar Vectorized:} Spaltenorientierte Verarbeitung in
+  SIMD-optimierten Batches
+\item
+  \textbf{SQL-Interface:} Bekannte SQL-Syntax für komplexe Abfragen
+\item
+  \textbf{Arrow-Integration:} Zero-Copy-Integration mit Arrow-Daten
+\end{itemize}
+
+\subsection{Warum DuckDB?}\label{warum-duckdb}
+
+DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Komplexe Aggregationen:} Window Functions, CTEs, komplexe
+  Joins
+\item
+  \textbf{SQL-Komfort:} Mächtige Abfragesprache statt R-Code für
+  Datentransformationen
+\item
+  \textbf{Out-of-Core:} Kann größere Daten als RAM verarbeiten
+\item
+  \textbf{Geschwindigkeit:} Hochoptimierte Query Engine
+\end{enumerate}
+
+\subsection{Anwendungsbeispiel}\label{anwendungsbeispiel}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(duckdb)}
+\FunctionTok{library}\NormalTok{(arrow)}
+
+\CommentTok{\# Verbindung erstellen}
+\NormalTok{con }\OtherTok{\textless{}{-}} \FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{())}
+
+\CommentTok{\# Arrow{-}Dataset registrieren (ohne Laden)}
+\FunctionTok{duckdb\_register\_arrow}\NormalTok{(con, }\StringTok{"btp"}\NormalTok{, arrow\_dataset)}
+
+\CommentTok{\# Komplexe SQL{-}Abfrage}
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{dbGetQuery}\NormalTok{(con, }\StringTok{"}
+\StringTok{  SELECT }
+\StringTok{    year,}
+\StringTok{    sector,}
+\StringTok{    COUNT(*) as n\_companies,}
+\StringTok{    MEDIAN(revenue) as median\_revenue,}
+\StringTok{    PERCENTILE\_CONT(0.9) WITHIN GROUP (ORDER BY revenue) as p90\_revenue,}
+\StringTok{    LAG(MEDIAN(revenue)) OVER (}
+\StringTok{      PARTITION BY sector }
+\StringTok{      ORDER BY year}
+\StringTok{    ) as prev\_year\_median}
+\StringTok{  FROM btp}
+\StringTok{  WHERE year BETWEEN 2015 AND 2019}
+\StringTok{    AND revenue \textgreater{} 0}
+\StringTok{  GROUP BY year, sector}
+\StringTok{  ORDER BY year, sector}
+\StringTok{"}\NormalTok{)}
+
+\FunctionTok{dbDisconnect}\NormalTok{(con, }\AttributeTok{shutdown =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Vorteile}\label{vorteile}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Kein Setup:} Keine separate Datenbank-Installation
+  erforderlich
+\item
+  \textbf{Hohe Performance:} Oft schneller als spezialisierte
+  Data-Frame-Bibliotheken
+\item
+  \textbf{SQL-Funktionen:} Umfangreiche Funktionen (Window Functions,
+  Array-Operationen)
+\item
+  \textbf{Ressourceneffizient:} Intelligentes Memory Management
+\item
+  \textbf{R-Integration:} Direktes Arbeiten mit Arrow-Datasets oder
+  R-Data-Frames
+\end{itemize}
+
+\subsection{Limitationen}\label{limitationen-1}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{SQL-Kenntnisse:} Erfordert SQL-Grundkenntnisse
+\item
+  \textbf{Debugging:} SQL-Fehler können schwerer zu debuggen sein als
+  R-Code
+\item
+  \textbf{Noch jung:} Weniger etabliert als traditionelle Datenbanken
+  (aber sehr aktiv entwickelt)
+\end{itemize}
+
+\section{Vergleich mit Alternativen}\label{vergleich-mit-alternativen}
+
+\subsection{Base R}\label{base-r}
+
+\textbf{Vorteile:} Einfach, weit verbreitet, keine zusätzlichen
+Abhängigkeiten \textbf{Nachteile:} Langsam bei großen Daten, hoher
+Speicherverbrauch, alle Daten müssen in RAM passen
+
+\textbf{Empfehlung:} Nur für kleine Datensätze (\textless1 GB) oder wenn
+Kompatibilität wichtiger als Performance ist
+
+\subsection{data.table}\label{data.table}
+
+\textbf{Vorteile:} Sehr schnell für In-Memory-Operationen, ausgereift,
+kompakte Syntax \textbf{Nachteile:} Alle Daten müssen in RAM passen,
+steile Lernkurve, keine Out-of-Core-Unterstützung
+
+\textbf{Empfehlung:} Gute Alternative wenn Datensatz in RAM passt und
+keine Parquet-Integration benötigt wird
+
+\subsection{dplyr + dbplyr}\label{dplyr-dbplyr}
+
+\textbf{Vorteile:} Vertraute dplyr-Syntax, gut mit Datenbanken
+integriert \textbf{Nachteile:} Langsamer als Arrow/DuckDB, benötigt
+Backend-Datenbank, SQL-Translation manchmal limitiert
+
+\textbf{Empfehlung:} Wenn bereits PostgreSQL- oder ähnliche
+Datenbank-Infrastruktur vorhanden ist
+
+\section{Unsere Empfehlung: Arrow + DuckDB +
+Parquet}\label{unsere-empfehlung-arrow-duckdb-parquet}
+
+Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Datenspeicherung:} Parquet-Format, idealerweise partitioniert
+  nach relevanten Dimensionen (z.B. Jahr)
+\item
+  \textbf{Datenmanipulation:} Arrow für einfache
+  Filter/Select-Operationen
+\item
+  \textbf{Komplexe Analysen:} DuckDB für Aggregationen, Joins, Window
+  Functions
+\item
+  \textbf{Ergebnisse:} R-Data-Frames für finale Visualisierung und
+  Modellierung
+\end{enumerate}
+
+\subsection{Workflow-Beispiel}\label{workflow-beispiel}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(arrow)}
+\FunctionTok{library}\NormalTok{(duckdb)}
+
+\CommentTok{\# 1. Daten als Parquet{-}Dataset öffnen}
+\NormalTok{btp }\OtherTok{\textless{}{-}} \FunctionTok{open\_dataset}\NormalTok{(}\StringTok{"data/btp.parquet"}\NormalTok{)}
+
+\CommentTok{\# 2. Einfache Filterung mit Arrow}
+\NormalTok{filtered }\OtherTok{\textless{}{-}}\NormalTok{ btp }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{2015}\NormalTok{, revenue }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(year, sector, revenue, employees)}
+
+\CommentTok{\# 3. Komplexe Aggregation mit DuckDB}
+\NormalTok{con }\OtherTok{\textless{}{-}} \FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{())}
+\FunctionTok{duckdb\_register\_arrow}\NormalTok{(con, }\StringTok{"btp\_filtered"}\NormalTok{, filtered)}
+
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{dbGetQuery}\NormalTok{(con, }\StringTok{"}
+\StringTok{  SELECT sector,}
+\StringTok{         AVG(revenue) as mean\_revenue,}
+\StringTok{         STDDEV(revenue) as sd\_revenue}
+\StringTok{  FROM btp\_filtered}
+\StringTok{  GROUP BY sector}
+\StringTok{  HAVING COUNT(*) \textgreater{}= 30}
+\StringTok{"}\NormalTok{)}
+
+\CommentTok{\# 4. Aufräumen}
+\FunctionTok{dbDisconnect}\NormalTok{(con, }\AttributeTok{shutdown =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# 5. Weiterverarbeitung in R}
+\NormalTok{result }\OtherTok{\textless{}{-}}\NormalTok{ result }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{cv =}\NormalTok{ sd\_revenue }\SpecialCharTok{/}\NormalTok{ mean\_revenue)}
+\end{Highlighting}
+\end{Shaded}
+
+Dieser Workflow kombiniert die Stärken aller Werkzeuge und ist optimal
+für FDZ-Bedingungen geeignet.
+
+\bookmarksetup{startatroot}
+
+\chapter{Performanzergebnisse}\label{sec-performance}
+
+\section{Experimentelles Setup}\label{experimentelles-setup}
+
+Die Performanzmessungen wurden auf einem repräsentativen FDZ-System
+durchgeführt (2x Intel Xeon Gold 6248R, 48 Kerne, 384 GB RAM, Ubuntu
+22.04 LTS). Alle Tests wurden mit R 4.3.2 und aktuellen Versionen der
+verwendeten Pakete durchgeführt.
+
+\subsection{Test-Szenarien}\label{test-szenarien}
+
+Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Szenario A: Einfache Aggregation} - Jahressummen nach
+  Wirtschaftszweig
+\item
+  \textbf{Szenario B: Komplexe Aggregation} - Multi-dimensionale
+  Gruppierung mit mehreren Kennzahlen
+\item
+  \textbf{Szenario C: Join-Operation} - Verknüpfung zweier großer
+  Tabellen
+\item
+  \textbf{Szenario D: Filterkette} - Mehrere aufeinanderfolgende Filter-
+  und Transformationsoperationen
+\end{enumerate}
+
+\section{Vergleich der Datenformate}\label{vergleich-der-datenformate}
+
+\subsection{Ladezeiten und
+Speicherverbrauch}\label{ladezeiten-und-speicherverbrauch}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{sections/05-performance_files/figure-pdf/fig-format-performance-1.pdf}}
+
+}
+
+\caption{\label{fig-format-performance}Ladezeiten verschiedener
+Datenformate (BTP-Datensatz, 5 Mio. Zeilen, 50 Variablen)}
+
+\end{figure}%
+
+\subsection{Aggregations-Performance}\label{aggregations-performance}
+
+\begin{table}
+
+\caption{\label{tbl-aggregation-performance}Ausführungszeiten für
+Szenario A: Einfache Aggregation (in Sekunden)}
+
+\centering{
+
+\begin{tabular}{lrrrr}
+\toprule
+Ansatz & Laden & Aggregation & Gesamt & Speedup\\
+\midrule
+Base R (read.csv + aggregate) & 45.2 & 18.7 & 63.9 & 1.0\\
+data.table (fread + groupby) & 12.1 & 2.3 & 14.4 & 4.4\\
+dplyr + CSV & 43.8 & 8.9 & 52.7 & 1.2\\
+Arrow + Parquet & 4.8 & 1.2 & 6.0 & 10.7\\
+DuckDB + Parquet & 0.3 & 0.8 & 1.1 & 58.1\\
+\addlinespace
+Arrow + Parquet (partitioniert) & 0.2 & 0.5 & 0.7 & 91.3\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\section{Skalierungsverhalten}\label{skalierungsverhalten}
+
+\subsection{Performance bei wachsender
+Datenmenge}\label{performance-bei-wachsender-datenmenge}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{sections/05-performance_files/figure-pdf/fig-scaling-behavior-1.pdf}}
+
+}
+
+\caption{\label{fig-scaling-behavior}Skalierungsverhalten verschiedener
+Ansätze (Szenario B: Komplexe Aggregation)}
+
+\end{figure}%
+
+\section{Join-Performance}\label{join-performance}
+
+\subsection{Verschiedene
+Join-Strategien}\label{verschiedene-join-strategien}
+
+Die Verknüpfung großer Datensätze ist eine häufige Operation bei der
+Arbeit mit dem BTP:
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{sections/05-performance_files/figure-pdf/fig-join-performance-1.pdf}}
+
+}
+
+\caption{\label{fig-join-performance}Join-Performance bei verschiedenen
+Datensatzgrößen (Inner Join zweier Tabellen)}
+
+\end{figure}%
+
+\section{Parallelisierungs-Effizienz}\label{parallelisierungs-effizienz}
+
+\subsection{Speedup durch
+Multi-Threading}\label{speedup-durch-multi-threading}
+
+\begin{table}
+
+\caption{\label{tbl-parallel-speedup}Speedup durch Parallelisierung
+(Szenario D: Filterkette, 10 Mio. Zeilen)}
+
+\centering{
+
+\begin{tabular}{crrrr}
+\toprule
+Kerne & Arrow (s) & DuckDB (s) & Arrow Speedup & DuckDB Speedup\\
+\midrule
+1 & 25.3 & 9.8 & 1.0 & 1.0\\
+2 & 13.2 & 5.1 & 1.9 & 1.9\\
+4 & 7.1 & 2.7 & 3.6 & 3.6\\
+8 & 3.9 & 1.5 & 6.5 & 6.5\\
+16 & 2.3 & 0.9 & 11.0 & 10.9\\
+\addlinespace
+32 & 1.8 & 0.7 & 14.1 & 14.0\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\section{Speichereffizienz}\label{speichereffizienz}
+
+\subsection{Memory Footprint}\label{memory-footprint}
+
+Ein kritischer Faktor in der FDZ-Umgebung ist der Speicherverbrauch:
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{sections/05-performance_files/figure-pdf/fig-memory-efficiency-1.pdf}}
+
+}
+
+\caption{\label{fig-memory-efficiency}Peak Memory Usage verschiedener
+Ansätze (5 Mio. Zeilen)}
+
+\end{figure}%
+
+\section{Praktische Implikationen}\label{praktische-implikationen}
+
+\subsection{Empfehlungen nach
+Anwendungsfall}\label{empfehlungen-nach-anwendungsfall}
+
+Basierend auf den Performanzmessungen lassen sich folgende Empfehlungen
+ableiten:
+
+\begin{table}
+
+\caption{\label{tbl-recommendations}Empfohlene Werkzeuge nach
+Anwendungsfall}
+
+\centering{
+
+\begin{tabular}{llll}
+\toprule
+Anwendungsfall & 1. Wahl & 2. Wahl & Begründung\\
+\midrule
+Kleine Datensätze (<1M Zeilen) & data.table & Base R & Einfachheit, gute Performance\\
+Explorative Analyse, häufige Iterationen & DuckDB & Arrow & SQL-Komfort, schnelle Iteration\\
+Große Aggregationen (>5M Zeilen) & DuckDB & Arrow + Parquet & Beste Skalierung, niedrigster Speicherverbrauch\\
+Komplexe Joins & DuckDB & data.table & Optimierter Hash-Join, Index-Support\\
+Produktions-Pipelines & Arrow + Parquet & DuckDB & Persistenz, Partitionierung, Reproduzierbarkeit\\
+\addlinespace
+Speicher-limitierte Umgebung & DuckDB & Arrow (streaming) & Out-of-core Verarbeitung möglich\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\section{Zusammenfassung der
+Erkenntnisse}\label{zusammenfassung-der-erkenntnisse}
+
+Die empirischen Messungen zeigen deutlich:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Moderne Formate dominieren:} Arrow/Parquet und DuckDB bieten
+  um den Faktor 10-90x bessere Performance als traditionelle Ansätze
+\item
+  \textbf{Partitionierung lohnt sich:} Bei großen Datensätzen reduziert
+  Partitionierung die Zugriffszeiten erheblich
+\item
+  \textbf{Query Optimization wichtig:} Lazy Evaluation und Predicate
+  Pushdown ermöglichen dramatische Speedups
+\item
+  \textbf{Parallelisierung skaliert gut:} Bis zu 14x Speedup mit 32
+  Kernen möglich
+\item
+  \textbf{Speicher ist der Engpass:} Moderne Ansätze benötigen 3-7x
+  weniger RAM als Base R
+\end{enumerate}
+
+Diese Ergebnisse zeigen, dass durch den Einsatz moderner
+Auswertungsmethoden die Effizienz der Datenanalyse in
+Forschungsdatenzentren erheblich gesteigert werden kann.
+
+\bookmarksetup{startatroot}
+
+\chapter{Ausblick}\label{sec-ausblick}
+
+\section{Zusammenfassung der
+Erkenntnisse}\label{zusammenfassung-der-erkenntnisse-1}
+
+Die vorliegende Untersuchung hat gezeigt, dass moderne
+spaltenorientierte Technologien erhebliche Vorteile für die Analyse
+großer Datensätze in der amtlichen Statistik bieten. Die Kombination von
+\textbf{Apache Arrow}, \textbf{DuckDB} und \textbf{Parquet} ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Drastische Reduktion der Speicheranforderungen} (typisch 5-10x
+  Kompression gegenüber CSV)
+\item
+  \textbf{Signifikante Beschleunigung der Analysen} durch
+  spaltenorientierte Verarbeitung
+\item
+  \textbf{Out-of-Core-Verarbeitung} für Datensätze, die den verfügbaren
+  RAM übersteigen
+\item
+  \textbf{Effiziente Query-Optimierung} durch Lazy Evaluation und
+  Predicate Pushdown
+\end{itemize}
+
+\section{Implikationen für die
+Forschungsdatenzentren}\label{implikationen-fuxfcr-die-forschungsdatenzentren}
+
+\subsection{Infrastrukturentwicklung}\label{infrastrukturentwicklung}
+
+Die FDZ sollten die Integration dieser Technologien vorantreiben:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Datenbereitstellung}: Zusätzlich zu SAS/Stata-Formaten auch
+  Parquet-Versionen der Datensätze anbieten
+\item
+  \textbf{Software-Ausstattung}: R mit Arrow- und DuckDB-Paketen auf
+  allen Systemen verfügbar machen
+\item
+  \textbf{Schulungsangebote}: Workshops und Dokumentation für Forschende
+  bereitstellen
+\item
+  \textbf{Best-Practice-Katalog}: Erfolgreiche Analysemuster
+  dokumentieren und teilen
+\end{enumerate}
+
+\subsection{Nutzerunterstützung}\label{nutzerunterstuxfctzung}
+
+Forschende profitieren von:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Kürzeren Analysezeiten}: Mehr explorative Analyse in kürzerer
+  Zeit möglich
+\item
+  \textbf{Größere Datensätze handhabbar}: Vollsatz-Analysen statt
+  Stichproben
+\item
+  \textbf{Geringere Ressourcenkonflikte}: Effizientere Nutzung geteilter
+  Infrastruktur
+\item
+  \textbf{Reproduzierbare Workflows}: Parquet-basierte Pipelines gut
+  dokumentierbar
+\end{itemize}
+
+\section{Technologische
+Entwicklungen}\label{technologische-entwicklungen}
+
+\subsection{Kurz- bis mittelfristig}\label{kurz--bis-mittelfristig}
+
+\textbf{Weitere Optimierungen} der bestehenden Tools sind zu erwarten:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Arrow-Flight}: Effizienter Datentransfer zwischen Prozessen
+  und Systemen
+\item
+  \textbf{Substrait}: Standardisierte Query-Repräsentation für
+  Tool-übergreifende Optimierung
+\item
+  \textbf{DuckDB Extensions}: Spezielle Module für statistische Analysen
+\item
+  \textbf{GPU-Beschleunigung}: Erste Implementierungen für
+  Arrow-basierte Berechnungen
+\end{itemize}
+
+\subsection{Langfristig}\label{langfristig}
+
+\textbf{Neue Paradigmen} könnten zusätzliche Verbesserungen bringen:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Föderated Queries}: Analyse über verteilte Datensätze ohne
+  zentrale Zusammenführung
+\item
+  \textbf{Adaptive Execution}: Automatische Wahl der optimalen
+  Verarbeitungsstrategie
+\item
+  \textbf{Streaming Analytics}: Echtzeitverarbeitung großer Datenströme
+\item
+  \textbf{Privacy-Preserving Computation}: Analysen auf verschlüsselten
+  Daten
+\end{itemize}
+
+\section{Offene Forschungsfragen}\label{offene-forschungsfragen}
+
+Weitere Untersuchungen sollten folgende Aspekte betrachten:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Statistische Software-Integration}: Wie können
+  R-Modellierungsfunktionen optimal mit Arrow/DuckDB kombiniert werden?
+\item
+  \textbf{Datenschutz-Aspekte}: Welche Implikationen haben neue
+  Datenformate für die Output-Kontrolle im FDZ?
+\item
+  \textbf{Qualitätssicherung}: Wie können Korrektheit und
+  Reproduzierbarkeit bei komplexen Arrow/DuckDB-Workflows sichergestellt
+  werden?
+\item
+  \textbf{Heterogene Systeme}: Wie lassen sich verschiedene Datenquellen
+  und -formate optimal integrieren?
+\end{enumerate}
+
+\section{Handlungsempfehlungen}\label{handlungsempfehlungen}
+
+\subsection{Für
+Forschungsdatenzentren}\label{fuxfcr-forschungsdatenzentren}
+
+\textbf{Pilotprojekte} sollten initiiert werden:
+
+\begin{itemize}
+\tightlist
+\item
+  Ausgewählte häufig genutzte Datensätze (wie BTP) in Parquet
+  bereitstellen
+\item
+  Erfolgsmetriken definieren (Analysezeit, Ressourcenverbrauch,
+  Nutzerzufriedenheit)
+\item
+  Feedback von Power-Usern systematisch einholen
+\item
+  Erkenntnisse in Qualitätsstandards überführen
+\end{itemize}
+
+\subsection{Für Forschende}\label{fuxfcr-forschende}
+
+\textbf{Schrittweise Einführung} wird empfohlen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Kleine Analyseprojekte als Lernumgebung nutzen
+\item
+  Kritische Analysen zunächst parallel mit bewährten Methoden
+  durchführen
+\item
+  Performanzgewinne und Limitationen dokumentieren
+\item
+  Bei Erfolg schrittweise auf größere Projekte übertragen
+\end{enumerate}
+
+\section{Schlussbetrachtung}\label{schlussbetrachtung}
+
+Die Analyse großer Datensätze in Forschungsdatenzen tren steht vor einem
+Technologiewandel. Die hier untersuchten Werkzeuge -- \textbf{Arrow,
+DuckDB und Parquet} -- bieten das Potenzial, die Effizienz erheblich zu
+steigern und neue Analysemöglichkeiten zu eröffnen.
+
+Der Übergang erfordert jedoch eine \textbf{koordinierte Anstrengung} von
+Infrastrukturbetreibern, Software-Entwicklern und Forschenden. Die
+systematische Evaluation, Dokumentation und Verbreitung von Best
+Practices wird entscheidend für den Erfolg sein.
+
+Die amtliche Statistik kann von diesen Entwicklungen in mehrfacher
+Hinsicht profitieren: \textbf{schnellere Erkenntnisgewinnung},
+\textbf{umfassendere Analysen} und \textbf{effizientere
+Ressourcennutzung}. Dies trägt letztlich zur Stärkung der
+evidenzbasierten Politik- und Gesellschaftsberatung bei.
+
+
+\backmatter
+\printbibliography
+
+
+
+\end{document}

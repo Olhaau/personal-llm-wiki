@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-25T00:40:45+0000",
+  "timestamp": "2025-11-25T07:19:04+0000",
   "system": {
     "os": "Linux",
     "release": "6.8.12-16-pve",
@@ -14,7 +14,7 @@
       "logical_cores": 4
     },
     "cpu_frequency": {
-      "mhz": 2899.933,
+      "mhz": 2899.22,
       "ghz": 2.9
     },
     "memory": {

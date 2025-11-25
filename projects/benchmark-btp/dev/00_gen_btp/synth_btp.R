@@ -329,38 +329,22 @@ generate_urs_variables <- function(dt) {
 }
 
 
-#' Load variable definitions from CSV
+#' Load variable definitions from JSON
 #' @keywords internal
 load_variable_definitions <- function() {
-  # Try different paths for CSV file
-  if (requireNamespace("here", quietly = TRUE)) {
-    csv_file <- here::here("source", "00_gen_synth_btp", "btp_variables_format.csv")
-  } else {
-    csv_file <- "source/00_gen_synth_btp/btp_variables_format.csv"
-    if (!file.exists(csv_file)) {
-      csv_file <- "btp_variables_format.csv"
-    }
+  json_file <- system.file("extdata", "btp_variables.json", package = "synthbtp")
+  
+  # If package file not found, try local path
+  if (json_file == "") {
+    json_file <- "btp_variables.json"
   }
   
-  if (!file.exists(csv_file)) {
-    # Return NULL if file not found
+  if (!file.exists(json_file)) {
+    # Return minimal definitions if file not found
     return(NULL)
   }
   
-  # Read CSV
-  var_data <- read.csv(csv_file, stringsAsFactors = FALSE)
-  
-  # Convert to nested list structure for compatibility
-  result <- list()
-  for (prefix in unique(var_data$prefix)) {
-    prefix_data <- var_data[var_data$prefix == prefix, ]
-    result[[prefix]] <- list(
-      variables = prefix_data$variable,
-      formats = prefix_data$format
-    )
-  }
-  
-  return(result)
+  jsonlite::fromJSON(json_file)
 }
 
 
@@ -412,14 +396,13 @@ generate_vars_from_defs <- function(dt, prefix, has_col, var_defs = NULL) {
 #' Generate Gewerbesteuer (Trade Tax) variables - 328 variables
 #' @keywords internal
 generate_gewerbesteuer <- function(dt) {
-  # Load CSV definitions
-  var_defs <- load_variable_definitions()
-  
-  if (is.null(var_defs) || !"g" %in% names(var_defs)) {
-    stop("Variable definitions not found for Gewerbesteuer (g)")
+  # Load JSON definitions
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
   }
   
-  var_defs <- var_defs$g
+  var_defs <- jsonlite::fromJSON(json_file)$g
   
   # Only generate for observations where 'g' is in verk
   dt[, has_g := grepl("g", verk)]
@@ -436,6 +419,7 @@ generate_gewerbesteuer <- function(dt) {
   
   for (i in seq_along(var_defs$variables)) {
     varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
     format <- var_defs$formats[i]
     
     if (format == "Char") {
@@ -445,6 +429,9 @@ generate_gewerbesteuer <- function(dt) {
       vals <- rnorm(n_has_g, mean = 50000, sd = 100000)
       dt[has_g == TRUE, (varname) := vals]
     }
+    
+    # Apply label without calling labelled on entire column
+    setattr(dt[[varname]], "label", description)
     
     # Progress indicator every 50 variables
     if (i %% 50 == 0) {
@@ -460,14 +447,12 @@ generate_gewerbesteuer <- function(dt) {
 #' Generate Körperschaftsteuer (Corporate Tax) variables - 1088 variables
 #' @keywords internal
 generate_koerperschaftsteuer <- function(dt) {
-  # Load CSV definitions
-  var_defs <- load_variable_definitions()
-  
-  if (is.null(var_defs) || !"k" %in% names(var_defs)) {
-    stop("Variable definitions not found for Körperschaftsteuer (k)")
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
   }
   
-  var_defs <- var_defs$k
+  var_defs <- jsonlite::fromJSON(json_file)$k
   
   dt[, has_k := grepl("k", verk)]
   n_has_k <- sum(dt$has_k)
@@ -482,6 +467,7 @@ generate_koerperschaftsteuer <- function(dt) {
   
   for (i in seq_along(var_defs$variables)) {
     varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
     format <- var_defs$formats[i]
     
     if (format == "Char") {
@@ -491,6 +477,8 @@ generate_koerperschaftsteuer <- function(dt) {
       vals <- rnorm(n_has_k, mean = 60000, sd = 120000)
       dt[has_k == TRUE, (varname) := vals]
     }
+    
+    setattr(dt[[varname]], "label", description)
     
     if (i %% 100 == 0) {
       cat(sprintf("  ...generated %d/%d variables\n", i, length(var_defs$variables)))
@@ -505,14 +493,12 @@ generate_koerperschaftsteuer <- function(dt) {
 #' Generate Umsatzsteuer-Voranmeldung (VAT Advance) variables - 75 variables
 #' @keywords internal
 generate_ust_voranmeldung <- function(dt) {
-  # Load CSV definitions
-  var_defs <- load_variable_definitions()
-  
-  if (is.null(var_defs) || !"u" %in% names(var_defs)) {
-    stop("Variable definitions not found for Umsatzsteuer-Voranmeldung (u)")
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
   }
   
-  var_defs <- var_defs$u
+  var_defs <- jsonlite::fromJSON(json_file)$u
   
   dt[, has_u := grepl("u", verk)]
   n_has_u <- sum(dt$has_u)
@@ -527,6 +513,7 @@ generate_ust_voranmeldung <- function(dt) {
   
   for (i in seq_along(var_defs$variables)) {
     varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
     format <- var_defs$formats[i]
     
     if (format == "Char") {
@@ -536,6 +523,8 @@ generate_ust_voranmeldung <- function(dt) {
       vals <- pmax(0, rlnorm(n_has_u, meanlog = 11, sdlog = 1.5))
       dt[has_u == TRUE, (varname) := vals]
     }
+    
+    setattr(dt[[varname]], "label", description)
   }
   
   dt[, has_u := NULL]
@@ -546,14 +535,12 @@ generate_ust_voranmeldung <- function(dt) {
 #' Generate Personengesellschaften (Partnerships) variables - 1078 variables
 #' @keywords internal
 generate_personengesellschaften <- function(dt) {
-  # Load CSV definitions
-  var_defs <- load_variable_definitions()
-  
-  if (is.null(var_defs) || !"p" %in% names(var_defs)) {
-    stop("Variable definitions not found for Personengesellschaften (p)")
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
   }
   
-  var_defs <- var_defs$p
+  var_defs <- jsonlite::fromJSON(json_file)$p
   
   dt[, has_p := grepl("p", verk)]
   n_has_p <- sum(dt$has_p)
@@ -568,6 +555,7 @@ generate_personengesellschaften <- function(dt) {
   
   for (i in seq_along(var_defs$variables)) {
     varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
     format <- var_defs$formats[i]
     
     if (format == "Char") {
@@ -577,6 +565,8 @@ generate_personengesellschaften <- function(dt) {
       vals <- rnorm(n_has_p, mean = 40000, sd = 80000)
       dt[has_p == TRUE, (varname) := vals]
     }
+    
+    setattr(dt[[varname]], "label", description)
     
     if (i %% 100 == 0) {
       cat(sprintf("  ...generated %d/%d variables\n", i, length(var_defs$variables)))
@@ -591,14 +581,12 @@ generate_personengesellschaften <- function(dt) {
 #' Generate Umsatzsteuer-Veranlagung (VAT Annual) variables - 120 variables
 #' @keywords internal
 generate_ust_veranlagung <- function(dt) {
-  # Load CSV definitions
-  var_defs <- load_variable_definitions()
-  
-  if (is.null(var_defs) || !"v" %in% names(var_defs)) {
-    stop("Variable definitions not found for Umsatzsteuer-Veranlagung (v)")
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
   }
   
-  var_defs <- var_defs$v
+  var_defs <- jsonlite::fromJSON(json_file)$v
   
   dt[, has_v := grepl("v", verk)]
   n_has_v <- sum(dt$has_v)
@@ -613,6 +601,7 @@ generate_ust_veranlagung <- function(dt) {
   
   for (i in seq_along(var_defs$variables)) {
     varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
     format <- var_defs$formats[i]
     
     if (format == "Char") {
@@ -622,6 +611,8 @@ generate_ust_veranlagung <- function(dt) {
       vals <- pmax(0, rlnorm(n_has_v, meanlog = 12, sdlog = 1.5))
       dt[has_v == TRUE, (varname) := vals]
     }
+    
+    setattr(dt[[varname]], "label", description)
   }
   
   dt[, has_v := NULL]
@@ -632,14 +623,12 @@ generate_ust_veranlagung <- function(dt) {
 #' Generate Einnahmenüberschussrechnung (Income Surplus) variables - 349 variables
 #' @keywords internal
 generate_eur <- function(dt) {
-  # Load CSV definitions
-  var_defs <- load_variable_definitions()
-  
-  if (is.null(var_defs) || !"e" %in% names(var_defs)) {
-    stop("Variable definitions not found for Einnahmenüberschussrechnung (e)")
+  json_file <- "btp_variables.json"
+  if (!file.exists(json_file)) {
+    stop("btp_variables.json not found. Please ensure it's in the working directory.")
   }
   
-  var_defs <- var_defs$e
+  var_defs <- jsonlite::fromJSON(json_file)$e
   
   dt[, has_e := grepl("e", verk)]
   n_has_e <- sum(dt$has_e)
@@ -654,6 +643,7 @@ generate_eur <- function(dt) {
   
   for (i in seq_along(var_defs$variables)) {
     varname <- var_defs$variables[i]
+    description <- var_defs$descriptions[i]
     format <- var_defs$formats[i]
     
     if (format == "Char") {
@@ -663,6 +653,8 @@ generate_eur <- function(dt) {
       vals <- pmax(0, rlnorm(n_has_e, meanlog = 11, sdlog = 1.5))
       dt[has_e == TRUE, (varname) := vals]
     }
+    
+    setattr(dt[[varname]], "label", description)
     
     if (i %% 100 == 0) {
       cat(sprintf("  ...generated %d/%d variables\n", i, length(var_defs$variables)))

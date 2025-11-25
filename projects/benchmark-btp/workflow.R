@@ -139,11 +139,25 @@ exprs <- list(
 
 # Run benchmarks ----
 # Loop through all input files and expressions
+# Each benchmark() call creates both .json and .csv output files
 for (input in inputs) {
   for (expr_name in names(exprs)) {
+    cat(sprintf("Benchmarking: %s with %s\n", basename(input), expr_name))
     benchmark(input, exprs[[expr_name]], expr_name = expr_name)
   }
 }
+
+# Aggregate benchmark results ----
+source(here("source", "aggregate_benchmarks.R"))
+aggregate_benchmarks()
+
+# Summary ----
+cat("\n=== Benchmark Workflow Complete ===\n")
+cat(sprintf("Total JSON files: %d\n", length(list.files("results", pattern = "\\.json$"))))
+cat(sprintf("Total CSV files: %d\n", length(list.files("results", pattern = "\\.csv$"))))
+cat("\nResults saved in: results/\n")
+cat("  - JSON files: Full detailed results\n")
+cat("  - CSV files: One-line tabular format for easy aggregation\n\n")
 
 # Example: Single benchmark call ----
 # benchmark(here("data", "btp_obs10", "data.csv"), read.csv, expr_name = "read.csv")
