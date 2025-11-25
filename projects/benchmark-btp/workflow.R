@@ -12,139 +12,50 @@ source(here("source", "system_info.R"))
 # Collect and save system information ----
 save_system_info()
 
-# Define input files ----
-inputs <- c(
-  here("data", "btp_obs10", "data.csv"),
-  here("data", "btp_obs100", "data.csv")
-)
+# Load and run operations from operations folder ----
+operations_dir <- here("source", "operations")
+operation_files <- list.files(operations_dir, pattern = "\\.R$", full.names = TRUE)
 
-# Define expressions to benchmark ----
-exprs <- list(
-  rbase_fallzahl = function(input) {
-    df <- read.csv(input)
-    stat_cols <- c("g_k2110", "k_c13110", "v_ef48", "e_c25100")
-    total_rows <- nrow(df)
-    
-    # Calculate proportions for each jahr x stat combination
-    proportions <- sapply(stat_cols, function(stat) {
-      sapply(sort(unique(df$jahr)), function(year) {
-        sum(df$jahr == year & !is.na(df[[stat]])) / total_rows
-      })
-    })
-    
-    rownames(proportions) <- sort(unique(df$jahr))
-    return(proportions)
-  },
-  
-  data_table_fallzahl = function(input) {
-    suppressPackageStartupMessages(library(data.table))
-    
-    dt <- fread(input)
-    stat_cols <- c("g_k2110", "k_c13110", "v_ef48", "e_c25100")
-    total_rows <- nrow(dt)
-    
-    # Melt to long format
-    dt_long <- melt(dt, id.vars = "jahr", measure.vars = stat_cols, 
-                    variable.name = "stat", value.name = "value")
-    
-    # Calculate counts and proportions by jahr and stat
-    result <- dt_long[!is.na(value), .(count = .N), by = .(jahr, stat)]
-    result[, proportion := count / total_rows]
-    
-    # Convert to wide format (matrix)
-    wide_table <- dcast(result, jahr ~ stat, value.var = "proportion", fill = 0)
-    
-    # Convert to matrix with proper dimnames
-    jahr_values <- wide_table$jahr
-    wide_matrix <- as.matrix(wide_table[, -1])
-    rownames(wide_matrix) <- jahr_values
-    
-    return(wide_matrix)
-  },
-  
-  arrow_fallzahl = function(input) {
-    
-    df <- read_csv_arrow(input)
-    stat_cols <- c("g_k2110", "k_c13110", "v_ef48", "e_c25100")
-    total_rows <- nrow(df)
-    
-    proportions <- sapply(stat_cols, function(stat) {
-      sapply(sort(unique(df$jahr)), function(year) {
-        sum(df$jahr == year & !is.na(df[[stat]])) / total_rows
-      })
-    })
-    
-    rownames(proportions) <- sort(unique(df$jahr))
-    return(proportions)
-  },
-  
-  vroom_fallzahl = function(input) {
-    suppressPackageStartupMessages(library(vroom))
-    
-    df <- vroom(input, show_col_types = FALSE)
-    stat_cols <- c("g_k2110", "k_c13110", "v_ef48", "e_c25100")
-    total_rows <- nrow(df)
-    
-    proportions <- sapply(stat_cols, function(stat) {
-      sapply(sort(unique(df$jahr)), function(year) {
-        sum(df$jahr == year & !is.na(df[[stat]])) / total_rows
-      })
-    })
-    
-    rownames(proportions) <- sort(unique(df$jahr))
-    return(proportions)
-  },
-  
-  arrow_parquet_fallzahl = function(input) {
-    # Replace .csv with .parquet
-    parquet_input <- sub("\\.csv$", ".parquet", input)
-    
-    df <- read_parquet(parquet_input)
-    stat_cols <- c("g_k2110", "k_c13110", "v_ef48", "e_c25100")
-    total_rows <- nrow(df)
-    
-    proportions <- sapply(stat_cols, function(stat) {
-      sapply(sort(unique(df$jahr)), function(year) {
-        sum(df$jahr == year & !is.na(df[[stat]])) / total_rows
-      })
-    })
-    
-    rownames(proportions) <- sort(unique(df$jahr))
-    return(proportions)
-  },
-  
-  duckdb_fallzahl = function(input) {
-    suppressPackageStartupMessages(library(duckdb))
-    
-    con <- dbConnect(duckdb())
-    on.exit(dbDisconnect(con, shutdown = TRUE))
-    
-    # Read CSV into DuckDB
-    query <- sprintf("SELECT * FROM read_csv_auto('%s')", input)
-    df <- dbGetQuery(con, query)
-    
-    stat_cols <- c("g_k2110", "k_c13110", "v_ef48", "e_c25100")
-    total_rows <- nrow(df)
-    
-    proportions <- sapply(stat_cols, function(stat) {
-      sapply(sort(unique(df$jahr)), function(year) {
-        sum(df$jahr == year & !is.na(df[[stat]])) / total_rows
-      })
-    })
-    
-    rownames(proportions) <- sort(unique(df$jahr))
-    return(proportions)
-  }
-)
+if (length(operation_files) == 0) {
+  stop("No operation files found in: ", operations_dir)
+}
 
-# Run benchmarks ----
-# Loop through all input files and expressions
-# Each benchmark() call creates both .json and .csv output files
-for (input in inputs) {
-  for (expr_name in names(exprs)) {
-    cat(sprintf("Benchmarking: %s with %s\n", basename(input), expr_name))
-    benchmark(input, exprs[[expr_name]], expr_name = expr_name)
+cat(sprintf("Found %d operation files:\n", length(operation_files)))
+for (file in operation_files) {
+  cat(sprintf("  - %s\n", basename(file)))
+}
+cat("\n")
+
+# Run benchmarks for each operation ----
+for (operation_file in operation_files) {
+  cat(sprintf("Loading operation: %s\n", basename(operation_file)))
+  
+  # Source the operation file to load input, method, and operation_name
+  source(operation_file)
+  
+  # Validate that required variables are defined
+  if (!exists("input") || !exists("method") || !exists("operation_name")) {
+    warning(sprintf("Skipping %s: missing required variables (input, method, operation_name)", 
+                   basename(operation_file)))
+    next
   }
+  
+  # Run benchmarks for each input file defined in the operation
+  for (input_file in input) {
+    if (file.exists(input_file)) {
+      cat(sprintf("Benchmarking: %s with %s\n", basename(input_file), operation_name))
+      benchmark(input_file, method, expr_name = operation_name)
+    } else {
+      warning(sprintf("Input file not found: %s", input_file))
+    }
+  }
+  
+  # Clean up variables for next iteration
+  if (exists("input")) rm(input)
+  if (exists("method")) rm(method)
+  if (exists("operation_name")) rm(operation_name)
+  
+  cat("\n")
 }
 
 # Aggregate benchmark results ----

@@ -15,8 +15,6 @@
 #' @return A data.frame containing aggregated benchmark results
 #'
 #' @export
-#' 
-#' 
 aggregate_benchmarks <- function(results_dir = "results", 
                                    output_csv = "results/benchmark_summary.csv") {
   # Load required packages
@@ -107,20 +105,6 @@ aggregate_benchmarks <- function(results_dir = "results",
 }
 
 
-
-
-library(data.table)
-library(dplyr)
-library(readr)
-library(purrr)
-
-aggregate_benchmarks <- function(result_dir = "results", output_csv="results/benchmark_summary.csv"){
-  bm_results <- list.files(result_dir, pattern= "bm_.*\\.csv", full.names = TRUE)
-  bmsum <- map_dfr(bm_results, ~read_csv(.x, show_col_types=FALSE))
-
-  write_csv2(bmsum, "results/benchmark_summary.csv")
-}
-
 #' Print Benchmark Summary Statistics
 #'
 #' Prints summary statistics grouped by input and expression.
@@ -151,5 +135,3 @@ print_benchmark_summary <- function(results_df) {
   
   cat("\n")
 }
-
-aggregate_benchmarks()

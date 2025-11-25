@@ -328,7 +328,6 @@ generate_urs_variables <- function(dt) {
   return(dt)
 }
 
-
 #' Load variable definitions from CSV
 #' @keywords internal
 load_variable_definitions <- function() {

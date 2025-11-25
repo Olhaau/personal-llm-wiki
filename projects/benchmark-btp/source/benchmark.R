@@ -169,14 +169,14 @@ benchmark <- function(input_path, expr, expr_name = NULL, output_json = NULL) {
     )
   }
   
-  # Save to JSON
-  jsonlite::write_json(
-    benchmark_results,
-    output_json,
-    pretty = TRUE,
-    auto_unbox = TRUE
-  )
-  message("Benchmark results saved to: ", output_json)
+  ## Save to JSON
+  #jsonlite::write_json(
+  #  benchmark_results,
+  #  output_json,
+  #  pretty = TRUE,
+  #  auto_unbox = TRUE
+  #)
+  #message("Benchmark results saved to: ", output_json)
   
   # Also save as CSV (one-line with header)
   output_csv <- sub("\\.json$", ".csv", output_json)
