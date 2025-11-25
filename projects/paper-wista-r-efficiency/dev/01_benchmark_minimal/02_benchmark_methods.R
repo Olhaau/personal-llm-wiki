@@ -187,13 +187,14 @@ benchmark_polars <- function(data_info, output_dir) {
   }
   
   # Create contingency table
-  result <- df$
-    with_columns(pl$col("verk")$str$slice(0, 1)$alias("stat"))$
-    filter(pl$col("stat")$is_in(c("g", "k", "u", "p", "v", "e")))$
-    group_by(c("jahr", "stat"))$
-    agg(pl$len()$alias("n"))$
-    collect()$
-    to_data_frame()
+  # Collect data first, then process with base R
+  result_pl <- as.data.frame(df$select(c("jahr", "verk"))$collect())
+  
+  # Process with base R
+  result_pl$stat <- substr(gsub("_", "", result_pl$verk), 1, 1)
+  result_pl <- result_pl[result_pl$stat %in% c("g", "k", "u", "p", "v", "e"), ]
+  result <- aggregate(verk ~ jahr + stat, data = result_pl, FUN = length)
+  names(result)[3] <- "n"
   
   # Convert to wide format
   result_wide <- tidyr::pivot_wider(result,

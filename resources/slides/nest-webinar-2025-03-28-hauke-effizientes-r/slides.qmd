@@ -15,62 +15,67 @@ format:
 
 **NeSt Produkt (2024)**
 
-- Großer Datensatz: **840 GB** dta-Dateien
-- **2.700+** Merkmale (Verknüpfung von 6 Unternehmenssteuerstatistiken + Unternehmensregister)
-- **67 Mio.** Beobachtungen (2013-2019)
+-   Großer Datensatz: **840 GB** dta-Dateien
+-   **2.700+** Merkmale (Verknüpfung von 6 Unternehmenssteuerstatistiken + Unternehmensregister)
+-   **67 Mio.** Beobachtungen (2013-2019)
 
-::: {.callout-note}
+::: callout-note
 ## Bisherige Laufzeiten
-- Datenbereitstellung in SAS: ca. **54 min**
-- Wissenschaftliche Auswertung in SAS: ca. **2 Stunden**
+
+-   Datenbereitstellung in SAS: ca. **54 min**
+-   Wissenschaftliche Auswertung in SAS: ca. **2 Stunden**
 :::
 
----
+------------------------------------------------------------------------
 
 ## FDZ-Infrastruktur
 
 ### Bisherige Infrastruktur
-| Ressource | Wert |
-|-----------|------|
-| RAM | 754 GB, max. 128 GB pro User |
-| Kerne | 72, <36 empfohlen |
+
+| Ressource | Wert                         |
+|-----------|------------------------------|
+| RAM       | 754 GB, max. 128 GB pro User |
+| Kerne     | 72, \<36 empfohlen           |
 
 ### Neue On-Site Server (seit 2025)
-| Ressource | Wert |
-|-----------|------|
-| Server | 6 Stück |
-| RAM | **3 TB** (512 GB pro Server) |
-| Kerne | 96 (16 pro Server) |
 
----
+| Ressource | Wert                         |
+|-----------|------------------------------|
+| Server    | 6 Stück                      |
+| RAM       | **3 TB** (512 GB pro Server) |
+| Kerne     | 96 (16 pro Server)           |
+
+------------------------------------------------------------------------
 
 ## Technischer Ansatz
 
 ### {Parquet} Speicherformat
-- Effizient lesbar und schreibbar
-- Spaltenbasiert
-- Standardmäßig komprimiert
-- Ermöglicht aufgeteilte Speicherung
+
+-   Effizient lesbar und schreibbar
+-   Spaltenbasiert
+-   Standardmäßig komprimiert
+-   Ermöglicht aufgeteilte Speicherung
 
 ### {arrow} R-Package
-- Nutzung von Daten **außerhalb des Arbeitsspeichers**
-- Lazy Computation
-- Parallelisierung
-- Gewohnte R-Syntax
 
-::: {.callout-tip}
+-   Nutzung von Daten **außerhalb des Arbeitsspeichers**
+-   Lazy Computation
+-   Parallelisierung
+-   Gewohnte R-Syntax
+
+::: callout-tip
 {data.table} kann in-memory effizienter sein für kleinere Datenmengen.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Neue Datenhaltung: Parquet-Struktur
 
-:::: {.columns}
-
+::::: columns
 ::: {.column width="50%"}
 **Bisherig (SAS/Stata)**
-```
+
+```         
 btp_var_2013.sas7bdat  39.1 GB
 btp_var_2014.sas7bdat  38.5 GB
 ...
@@ -83,7 +88,8 @@ Total:                301 GB
 
 ::: {.column width="50%"}
 **Neu (Parquet)**
-```
+
+```         
 btp/
   stat=e/
     Jahr=2013/
@@ -97,16 +103,15 @@ btp/
 Total:                 19 GB
 ```
 :::
-
-::::
+:::::
 
 **Kompression: 840 GB → 19 GB (95%)**
 
----
+------------------------------------------------------------------------
 
 ## Schema für Konsistenz
 
-```r
+``` r
 Schema_btp <- schema(
   stat = utf8(),
   Jahr = int32(),
@@ -117,93 +122,95 @@ Schema_btp <- schema(
 
 Sorgt beim Einlesen für **Stabilität & Konsistenz**
 
----
+------------------------------------------------------------------------
 
 ## Live Demo
 
-::: {.r-fit-text}
+::: r-fit-text
 🖥️
 :::
 
----
+------------------------------------------------------------------------
 
 ## Ergebnis: Fallzahlen
 
 **Performance**
 
-- Schnell: **~20 Sekunden**
-- Ressourcenarm: **< 4 GB RAM**
+-   Schnell: **\~20 Sekunden**
+-   Ressourcenarm: **\< 4 GB RAM**
 
 **Potenzial**
 
-- Ausweitung der Kennzahlen (Mittelwerte, ...)
-- Visuelle Darstellungen
-- Effiziente Aktualisierungen
+-   Ausweitung der Kennzahlen (Mittelwerte, ...)
+-   Visuelle Darstellungen
+-   Effiziente Aktualisierungen
 
----
+------------------------------------------------------------------------
 
 ## Ergebnis: Numerische Kennzahlen
 
 **Performance**
 
-- Schnell: **~6 Sekunden**
+-   Schnell: **\~6 Sekunden**
 
----
+------------------------------------------------------------------------
 
 ## Ergebnis: Lorenzkurve
 
 **Performance**
 
-- Minimaler Ressourcenbedarf
-- **< 2 Sekunden**
-- **< 700 MB RAM**
+-   Minimaler Ressourcenbedarf
+-   **\< 2 Sekunden**
+-   **\< 700 MB RAM**
 
 **Potenzial**
 
-- Ausweitung der Exploration, Analysen, Qualität
-- Optimale Nutzung der begrenzten Zugriffszeit
+-   Ausweitung der Exploration, Analysen, Qualität
+-   Optimale Nutzung der begrenzten Zugriffszeit
 
----
+------------------------------------------------------------------------
 
 ## Ergebnis: Verknüpfung + Logit
 
 **Performance**
 
-- Minimaler Ressourcenbedarf
-- **< 12 Sekunden**
+-   Minimaler Ressourcenbedarf
+-   **\< 12 Sekunden**
 
----
+------------------------------------------------------------------------
 
 ## Weiteres Vorgehen
 
 ### Infrastruktur
+
 Bereitstellung der FDZ On-Site Server!
 
 ### Effiziente Nutzung
-1. Mustersyntaxen und Anleitungen
-2. Vorträge und Publikationen (Statistische Woche 2025)
-3. Beratung von Forschenden
 
----
+1.  Mustersyntaxen und Anleitungen
+2.  Vorträge und Publikationen (Statistische Woche 2025)
+3.  Beratung von Forschenden
+
+------------------------------------------------------------------------
 
 ## Weiterführende Literatur
 
-- <https://www.forschungsdatenzentrum.de/de/steuern/btp>
-- <https://parquet.apache.org/>
-- <https://arrow.apache.org/>
-- <https://arrow.apache.org/docs/r/>
-- <https://duckdb.org/>
-- <https://r4ds.hadley.nz/arrow>
-- <https://arrow.apache.org/cookbook/r>
-- <https://github.com/thisisnic/awesome-arrow-r>
+-   <https://www.forschungsdatenzentrum.de/de/steuern/btp>
+-   <https://parquet.apache.org/>
+-   <https://arrow.apache.org/>
+-   <https://arrow.apache.org/docs/r/>
+-   <https://duckdb.org/>
+-   <https://r4ds.hadley.nz/arrow>
+-   <https://arrow.apache.org/cookbook/r>
+-   <https://github.com/thisisnic/awesome-arrow-r>
 
----
+------------------------------------------------------------------------
 
 ## Kontakt
 
 **Statistisches Bundesamt**
 
-Oliver Hauke  
-📧 oliver.hauke@destatis.de
+Oliver Hauke\
+📧 oliver.hauke\@destatis.de
 
 🌐 www.destatis.de

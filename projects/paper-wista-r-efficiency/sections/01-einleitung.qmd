@@ -29,8 +29,7 @@ In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion a
 
 Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist es daher, die Effizienz verschiedener statistischer Verfahren systematisch zu bewerten und Handlungsempfehlungen für die Praxis abzuleiten.
 
-
-### Technische Lösungsansätze 
+### Technische Lösungsansätze
 
 - Modernisierung der amtl. Stat, FDZs -> Zugangswege, Kapazitäten, ...
 - Technische Weiterentwicklung, stärkere Hardware, leichtere Bereitstellung, virtualisierung

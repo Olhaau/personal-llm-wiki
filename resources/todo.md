@@ -9,9 +9,6 @@
 - [ ] https://www.forschungsdatenzentrum.de/de/ueber-die-fdz
 - [ ] https://www.forschungsdatenzentrum.de/de/zugang <- curate with a section about the technical specs
 
-
-
-
 ## Completed curations
 
 1. ~~p. 503-505 of NTTS 2025 Book of Abstracts~~ - Saved to `resources/raw/ntts-2025-abstracts-p503-505.md`
