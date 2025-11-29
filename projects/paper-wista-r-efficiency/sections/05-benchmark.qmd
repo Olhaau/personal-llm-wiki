@@ -43,6 +43,8 @@ Je nach Datenmenge andere Gewinner
 
 -> nicht eindeutig. Für kleinere Datenmengen mehr Auswahl und das vertraute auszuwählen. Für größere Datenmengen klare Empfehlung Arrow, w.g. einfacher Anwendung, Stabilität (ggü. Nutzerfehlern), Skalierbarkeit an die RAM-Grenze und darüber hinaus, höchste Performance für unsere Datenmengen+gute System Ressourcen.
 
+-> für kleine Datenmengen macht chunking keinen Sinn.
+
 Beide Anwendungen lassen sich in unter 20 Z. mit Arrow programmieren (verständlich lesbar) s. Opencode Repo.
 
 

@@ -2,6 +2,9 @@
 
 ### Human in the loop
 
+
+- Benchmark für regr parquet nach aufgeteilten Daten
+
 - get DSF write upsample and test performance...
 - cores vs performance
 - some tools, different data source (parquet, ...) and performance, easy case aggregated table (line of code -> proxy for simplicity, runtime, RAM usage, storage size, cores ...)

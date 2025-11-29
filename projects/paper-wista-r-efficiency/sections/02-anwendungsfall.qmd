@@ -6,6 +6,9 @@
   - Hinweis Befüllungsgrad tlw. gering... x Variablen fehlen zu 90%, 80%, 70%, 60%, 50% ?
   - Verteilung der Zeilen auf Statistik und Jahr, inkl. Trend
   - Verteilung auf Kombinationen genauer
+- Anwendungsfälle volles Spektrum
+  - Datenbereitstellung, interne Analysen, Schätzungen
+  - Auswertung durch Wissenschaft im FDZ
 - Technische Herausforderung: 
   - effiziente und verständliche Speicherung
   - Herausfiltern großer Datenmengen irrelevanter Merkmale

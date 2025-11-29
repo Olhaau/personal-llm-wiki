@@ -1,5 +1,11 @@
 ## Anwendung auf BTP {#sec-ergebnis}
 
+### Kernaussagen
+
+- Beste Methoden, die für die Datenmenge mit der vorliegenden Infrastruktur nutzbar sind, werden hier auf das echte vollst. BTP angewandt. 
+
+
+
 ### (Zusammenfassung der Erkenntnisse)
 
 Die vorliegende Untersuchung hat gezeigt, dass moderne spaltenorientierte Technologien erhebliche Vorteile für die Analyse großer Datensätze in der amtlichen Statistik bieten. Die Kombination von **Apache Arrow**, **DuckDB** und **Parquet** ermöglicht:
