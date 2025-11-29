@@ -2,7 +2,7 @@
 
 ### Human in the loop
 
-
+- Wieviel platz braucht ein BJ echtes BTP im RAM?
 - Benchmark für regr parquet nach aufgeteilten Daten
 
 - get DSF write upsample and test performance...

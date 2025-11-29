@@ -1,3 +1,9 @@
+## Fazit
+
+- Was heißt das für die Datenbereitstellung? Empfehlung zu aufgeteilten Parquet (BJ, ggf. mehr) für R. bei kleineren Mengen keine Blöcke. 
+- Fokus auf R.
+
+
 ```         
 *Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags- sowie Umsatzsteuerstatistiken im Quer-  und Längsschnitt. Verfügbar sind Informationen aus den folgenden Statistiken : Gewerbesteuer, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung, Statistik über die Personengesellschaften und Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen Unternehmensregister. Alle verwendeten Steuerarte sind ab dem Berichtsjahr 2013 jährlich verfügbar, dies bildet den Beginn des Beobachtungszeitraums. Aufgrund der Festsetzungsfrist von vier Jahren bei den Veranlagungsstatistiken endet der Beobachtungszeitraum aktuell mit dem Berichtsjahr 2020.*    
 
