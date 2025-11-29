@@ -2,7 +2,7 @@
 
 # Large data files and benchmark data
 projects/r-import-benchmark/data/
-*.csv
+#*.csv
 !projects/r-accessible-tables/exploration/demographic_table_accessible.csv
 !projects/r-import-benchmark/benchmark_comparison.csv
 

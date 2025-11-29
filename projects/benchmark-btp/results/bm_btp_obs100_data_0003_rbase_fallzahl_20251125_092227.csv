@@ -1,0 +1,2 @@
+"function_name","input_name","input_path","result","filesize_bytes","filesize_mb","max_memory_mb","runtime_seconds","timestamp"
+"rbase_fallzahl","btp_obs100_data","/home/oli/newwork/dev/projects/benchmark-btp/data/btp_obs100/data.csv","matrix, array",59798,0.057,0.5703,0.002816,"2025-11-25T09:22:27+0000"
