@@ -1,6 +1,70 @@
 ## Performanzergebnisse {#sec-performance}
 
-### Experimentelles Setup
+### Kernaussage
+
+- Datengrundlage: Öffentlich verfügbare Metadaten wurden zu künstlichem Fake Datensatz zu technischen Zwecken erstellt. Datengenerator verfügbar in Repo, der falsche Angaben in der technisch richtigen Struktur erfüllt. Achtung, es lassen sich keine Analyseergebnisse generienen / Erkenntnisse gewinnen, die nicht bereits mit MDR und DSB bereitgestellt wurden.
+- Ausgangslage
+  - technische Ressourcen, genauer in Opencode.
+- 5-fache Benchmarks unterschiedlicher Technologien, Methoden. Performanzmessung (Festplatte, RAM, Rechenzeit/Wartezeit)
+- fokus auf lesen und verarbeitung, nicht schreiben
+- Hinweis: Newly using polars, not as profound than other tools
+- 2 Use Cases. Datenbereitstellung Begleitdokument
+
+- EIGENE BENCHMARK NÖTIG: Schnellste Technologie/Methodik nicht eindeutig, abhängig von der Datenmenge. Daher für die zu verarbeitenden Daten und den Anwendungsfall-spezifisch. Kann variieren. Eigene Benchmark nötig oder ausgeglichene Methodik nehmen (unter wenigen Unterschiede egal) Externe Benchmarks kommen zu anderen Ergebnissen
+  - polars: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
+  - vroom: https://vroom.r-lib.org/articles/benchmarks.html
+  - https://prof-thiagooliveira.netlify.app/post/data-read-write-performance/
+  - https://blog.hwr-berlin.de/codeandstats/aggregating-data-in-r-benchmarks/
+  - https://iyarlin.github.io/2020/05/26/dtplyr_benchmarks/
+
+
+### Ergebnisse
+
+Allg: Parquet spart Speicher wie rds/qs oder .gz, aber bleibt extrem schnell lesbar. Portabel, in anderen Sprachen nutzbar
+
+- großer Use Case 10 % BTP
+  Für Große Datenmengen (betrachtet bis zu 7 Mio Obs, ca. 10 % des vollen BTP, 45 GB Parquet, 121 GB CSV) ist arrow (mit aufgeteilten Parquet) am schnellsten für 1. Fallzahlen (5.67s) und 2. Logistische Regression (5.19s). Dazu sehr Arbeitspeicherschonend (mit nur 668 MB im Arbeitsspeicher für 48 GB parquet Daten)
+  - Bei Fallzahlen dicht gefolgt von duckdb mit 5.14 sec
+  - Bei Arrow kann durch etwas Geschick/Kompetenz, erst die maximale Performance erreicht werden. Dateiaufteilung oder Variablen auswahl verwendet werden, sonst erhöht sich die Laufzeit um einen Faktor von 4.4 zu 20.6s
+  - polars mit Paruqet für 10% BTP extrem abgeschlagen, unter den schlechtesten Methoden mit 1.17 min das 15x zu der besten Methode ist für kleiner Datengrößen 1% und 0.1% BTP die schnellste Variante, jedoch dicht gefolgt von Arrow und Duckdb, Datatable
+  - {data.table} ist die beste "klassische" R-Methode und erreicht maximal 23.58s, in der größen Ordnung wie die nicht optimierte Arrow Performance. D.h. ein {data.table} Profi, ist besser als ein schlechter Arrow Programmierer, der aber größeres Potenzial für Verbesserungen hat. Für {data.table} ist die geschickte Programmierung noch viel wichtiger. Arrow wird höchstens langsam und beansprucht viel weniger RAM. Wohingegen data.table für den gesamten Datensatz (ohne Sel) das 600x an RAM belegt wie Arrow, damit viel schneller Abbricht und den schlechten Programmierer Abbrüche beschert.
+    - ohne Vorauswahl bricht DT ab, wenn das gesamte BTP verwendet werden soll. Arrow nur, wenn die Auswertung auch dazu führt, dass wirklich alle Variablen verarbeitet werden.
+    - mit DT lässt sich nicht so flexibel/schön arbeiten
+  - Arrow verzeiht Fehler leichter als DT. Alleine durch die Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet durch das FDZ), erreichen wir Count Ergebnisse in 11.73s, nur 5s über dem absoluten Optimum.
+  - Wenn noch weniger RAM einsetzbar ist, benötigt Polars den wenigsten RAM, DuckDB nur geringfügig mehr
+
+
+Je nach Datenmenge andere Gewinner
+
+10  %: arrow + aufgeteilte parquet, duckdb, arrow variante
+1   %: polars + ein parquet, duckdb, arrow
+0.1 %: polars + ein parquet, DT, arrow
+0.01%: DT + csv, readr, polars
+
+-> nicht eindeutig. Für kleinere Datenmengen mehr Auswahl und das vertraute auszuwählen. Für größere Datenmengen klare Empfehlung Arrow, w.g. einfacher Anwendung, Stabilität (ggü. Nutzerfehlern), Skalierbarkeit an die RAM-Grenze und darüber hinaus, höchste Performance für unsere Datenmengen+gute System Ressourcen.
+
+Beide Anwendungen lassen sich in unter 20 Z. mit Arrow programmieren (verständlich lesbar) s. Opencode Repo.
+
+
+RAM Wachstum Arrow, Polars, DuckDB, Data.table, readr, baser
+mit und ohne sel.
+
+512 im FDZ Obergrenze.
+
+Gewinne ggü. Klassischen Methoden 7.X Min DT und sehr viel RAM im Default. Dennoch nicht komplett davon abraten.
+
+
+
+### Fazit (nach Hinten)
+
+- Empfehlung (insb. für unerfahrerene Nutzende): Arrow, stabil, flexibel, einfach zu nutzen
+- Profi's in `data.table`, die sehr vertraut sind mit der Syntax, müssen nur in Randfällen welchseln. Falls die wirklich genutzten Variablenauswahl nicht durch den verfügbaren Arbeitsspeicher bedient werden können (dt brauchte ca. 3x RAM ggü. Festplatte).
+- neuste, beste, experimentell, bietet `polars` für moderate Datenmengen die effizienteste Variante
+- wer mit sql vertraut ist oder Features außerhalb des Scopes von Arrow braucht (auf großen Inputs), nutzt auch gerne duckdb
+
+### KI-Anhang
+
+#### Experimentelles Setup
 
 Die Performanzmessungen wurden auf einem repräsentativen FDZ-System durchgeführt (2x Intel Xeon Gold 6248R, 48 Kerne, 384 GB RAM, Ubuntu 22.04 LTS). Alle Tests wurden mit R 4.3.2 und aktuellen Versionen der verwendeten Pakete durchgeführt.
 
@@ -12,8 +76,8 @@ Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
 2.  **Szenario B: Komplexe Aggregation** - Multi-dimensionale Gruppierung mit mehreren Kennzahlen
 3.  **Szenario C: Join-Operation** - Verknüpfung zweier großer Tabellen
 4.  **Szenario D: Filterkette** - Mehrere aufeinanderfolgende Filter- und Transformationsoperationen
-
-### Vergleich der Datenformate
+auf
+#### Vergleich der Datenformate
 
 **Ladezeiten und Speicherverbrauch.**
 
@@ -93,7 +157,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-### Skalierungsverhalten
+#### Skalierungsverhalten
 
 **Performance bei wachsender Datenmenge.**
 
@@ -142,7 +206,7 @@ ggplot(scaling_data, aes(x = Datensatzgroesse, y = Zeit_Sekunden, color = Ansatz
   )
 ```
 
-### Join-Performance
+#### Join-Performance
 
 **Verschiedene Join-Strategien.**
 
@@ -188,7 +252,7 @@ ggplot(join_perf, aes(x = Groesse, y = Zeit, fill = Tool)) +
   )
 ```
 
-### Parallelisierungs-Effizienz
+#### Parallelisierungs-Effizienz
 
 **Speedup durch Multi-Threading.**
 
@@ -221,7 +285,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-### Speichereffizienz
+#### Speichereffizienz
 
 **Memory Footprint.**
 
@@ -267,7 +331,7 @@ ggplot(memory_data, aes(x = Szenario, y = Memory_GB, fill = Ansatz)) +
   )
 ```
 
-### Praktische Implikationen
+#### Praktische Implikationen
 
 **Empfehlungen nach Anwendungsfall.**
 
@@ -323,7 +387,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-### Zusammenfassung der Erkenntnisse
+#### Zusammenfassung der Erkenntnisse
 
 Die empirischen Messungen zeigen deutlich:
 

@@ -4,7 +4,13 @@
 
 Erwähnen: StBA, FDZ, NeSt.
 
+Zu erwähnende Quellen
+
+- rio? https://cran.r-project.org/web/packages/rio/vignettes/rio.html
+
 ### Herausforderungen und Anpassungen daran
+
+- R verbreitung steigt, bei uns in Kinderschuhen. Wie fängt man denn am besten an? Was ist von anfang an der richtige Weg daten in R zu verarbeiten?
 
 -   Herausforderungen (größere Datenmengen, komplexere Analysen, schnellere Antworten notwendig)
     -   Wachsende Datenmenge in der amtl. Statistik, Verweis auf [@destatis2023]
@@ -21,11 +27,9 @@ Erwähnen: StBA, FDZ, NeSt.
         -   FDZ Bund integriert in Standardarbeitsplätze des StBA
         -   Bereitstellungsaufwände und Abhängigkeiten moderner Software
 
-Annette: -> Impuls aus der Wissenschaft, dann Fachbereich - Fachbereich/Verbund im Grunde Hauptnutzende da Tools und Daten zur Verfügung stehen
-Technische Möglichkeit entwickelt sich weiter usw..
+Annette: -\> Impuls aus der Wissenschaft, dann Fachbereich - Fachbereich/Verbund im Grunde Hauptnutzende da Tools und Daten zur Verfügung stehen Technische Möglichkeit entwickelt sich weiter usw..
 
-Der Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung (2023) hat in seinem Gutachten 2023/24 auf eine technisch veraltete Infrastruktur und auf die fehlende Nutzerfreundlichkeit hingewiesen. Seitdem hat sich die die Infrastruktur in dem Forschungsdatenzentrum des Bundes verbessert. Seit Januar 2025 besteht ein Remote Access System als neuer Zugangsweg für die Wissenschaft. Im Bereich der Steuerstatistiken wird derzeit geprüft, inwiefern auch Einzeldaten aus diesem Bereich über Remote Access genutzt werden können. Als Übergang und Erleichterung für bestehende Forschungsprojekte wird in diesem
-Kapitel 2  
+Der Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung (2023) hat in seinem Gutachten 2023/24 auf eine technisch veraltete Infrastruktur und auf die fehlende Nutzerfreundlichkeit hingewiesen. Seitdem hat sich die die Infrastruktur in dem Forschungsdatenzentrum des Bundes verbessert. Seit Januar 2025 besteht ein Remote Access System als neuer Zugangsweg für die Wissenschaft. Im Bereich der Steuerstatistiken wird derzeit geprüft, inwiefern auch Einzeldaten aus diesem Bereich über Remote Access genutzt werden können. Als Übergang und Erleichterung für bestehende Forschungsprojekte wird in diesem Kapitel 2
 
 Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
 

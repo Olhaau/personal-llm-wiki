@@ -1,5 +1,78 @@
 ## Effiziente Auswertungsmethoden {#sec-methoden}
 
+### Kernaussagen
+
+#### Ausgangslage
+
+SAS
+
+- verbreitet
+- geeignet für größere Datenmengen (langsam)
+
+Stata
+
+- beliebt in Wiss.
+- hat entsprechend zugeschnittene Features
+- Bei RAM-Grenze ist Schluss
+
+#### Kategorien
+
+Open Source -> breite Auswahl an Parketen zum Einlesen, Transformieren und Auswerten von Daten.
+
+- Unterscheidung klassischer/r-nativer Methoden (base-r, readr / vroom und data.table), effiziente/moderne Methoden (arrow, duckdb, polars)
+- Klassische Methoden
+  - base-r zu vermeiden
+  - readr
+    - in tidyverse
+    - nutzerfreundlich, einfach zu lernen / nutzen
+  - data.table
+    - benchmarking: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
+  - datenformate in R: qs, rds
+  - dtplyr?
+
+#### Empfehlung FDZ Bbk
+
+https://www.bundesbank.de/resource/blob/623988/62b8c17881d63bccc61efd11af0b47db/472B63F073F071307366337C94F8C870/2021-04-large-data-data.pdf 
+
+- nur RAM passend betrachtet, max. 235.4 dta.gz
+- empfohlen werden Stata oder R gleichermaßen
+- R zeigt große Performancevorteile gegenüber Stata für FDZ Aufgaben
+- Zu Beachten: Optimierung der Gesamtzeit (d.h. Rechenzeit + **Entwicklungszeit**), d.h. Erfahrung, Knowhow ebenso entscheidend. 
+  - (-> Fazit moderat erfahrenere Nutzende bleiben bei ihrem Fokus, Seniors lernen auch neue Technologie schnell, Anfänger können gleich eine schnelle und einfache Variante wählen)
+  - kein Internetzugriff direkt am GWAP, Debugging erschwert
+- Zu Beachten: Code muss mehrfach ausgeführt werden (Wickham&Grolemund 2016)
+- rds is default compressed using gzip
+- Even though rds is a compressed format, there is a faster and more flexible solution: parquet,
+which is available to R via the {arrow} package (Richardson et al., 2021). Parquet is the on-disk
+representation of the arrow format which is actively developed by The Apache Software Founda-
+tion.
+- Note that using parquet and R reduces the computing time compared to the optimised
+Stata approach by 65.1% from 77.6 to 27.1 seconds
+- 2 methoden: rds / parquet oder dta / dta.gz (.gz schneller auf Netzwerkdrive)
+- The RDSC usually provides data
+in these two formats.
+- Auswahl der Variablen bei Einlesen -> in R Speedup of 39.9%, in Stata 33.9%
+- data wrangling recommondations: 
+  - stata {gtools} package
+  - r {data.table}, designed for large data ~100GB in RAM
+  - As you can see, {data.table}
+does a terrific job and is 90.1% faster than the optimised Stata solution using {gtools} which is
+already 76.2% faster than the base Stata solution.
+- Type Conversion important (4.2)
+- recommend: start small (5.1)
+
+Verfügbare Ressourcen
+
+- default: 4 CPU cores, 8 threads, 16 gb ram
+- 10 Virtual Clients: 8 Cores / 16 threads, bis 128 GB RAM, faster network connection
+
+-> Aufhänger für unsere Benchmark
+
+Therefore, you need to decide for yourself which tool makes most sense for your research project
+dealing with large data. If you are a proficient R user, possibly familiar with {data.table}, you should
+definitely prefer R to Stata. Otherwise, there is no simple answer. You should carefully weigh the
+benefits and the learning curve of programming in a new language.
+
 ### Motivation
 
 Die Analyse großer Datensätze wie des BTP (\>66 Millionen Einheiten, \>2.700 Variablen) in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile.

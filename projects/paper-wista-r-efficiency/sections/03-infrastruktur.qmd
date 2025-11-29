@@ -4,7 +4,30 @@ Womit wir arbeiten können...
 
 TODO: Vorbereitung der Daten auf neue Methoden, Werkzeuge
 
-### Die Forschungsdatenzentren der amtlichen Statistik
+Neu seit November 2025 sind im FDZ OnSite-Server Bund verfügbar. 
+
+Zugriff zu Analyseservern in umfangreichen Kapazitäten.
+
+Für Stata oder R in KDFV oder GWAP
+
+- bis zu 512 GB RAM pro Nutzung
+- bis zu 16 Kerne á X MHZ ...
+- schnelle Verbindung zu Netzwerkspeicher
+
+Intern ist R in größeren Kapazitäten nutzbar und Stata nur lokal.
+
+Nonetheless, the idea carries over to intermediate datasets stored in
+your project directory and highlights the fact that small changes in your code can result in large
+performance gains.
+This also shows that common tasks can usually be accomplished much faster using R than using
+Stata. However, we also pointed out that you should not only focus on computing time alone as
+shorter computing times might be offset by longer programming time
+
+
+
+### KI Anhang
+
+#### Die Forschungsdatenzentren der amtlichen Statistik
 
 Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus zwei organisatorisch voneinander getrennten Einrichtungen: dem **Forschungsdatenzentrum des Statistischen Bundesamts** und dem **Forschungsdatenzentrum der Statistischen Ämter der Länder**. Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten der amtlichen Statistiken.
 
@@ -22,7 +45,7 @@ Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik fü
 -   **Infrastruktur:** Bereitstellung einer sicheren und leistungsfähigen Auswertungsumgebung
 -   **Regionalisierung:** Flächendeckende Standorte in ganz Deutschland für kurze Anfahrtswege
 
-### Technische Infrastruktur
+#### Technische Infrastruktur
 
 **Hardware-Ausstattung.**
 
@@ -56,7 +79,7 @@ Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
 -   **Entwicklungsumgebungen:** RStudio Server, JupyterLab
 -   **Versionskontrolle:** Git (lokal, ohne externe Verbindung)
 
-### Infrastrukturkonzept
+#### Infrastrukturkonzept
 
 **Fachlich zentralisierte Datenhaltung.**
 
@@ -69,7 +92,7 @@ Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein. Dies wi
 -   Berlin, Bonn, Wiesbaden (Bund)
 -   Bad Ems, Bremen, Dresden, Düsseldorf, Erfurt, Frankfurt, Hamburg, Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
 
-### Zugangsformen und Nutzungsmodelle
+#### Zugangsformen und Nutzungsmodelle
 
 Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisierte Datenprodukte bereitgestellt werden:
 
@@ -88,7 +111,7 @@ Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisie
     -   Vorteile: Keine Anreise, zeitlich flexibel
     -   Einschränkungen: Keine interaktive Arbeit, Ergebnisfreigabe erforderlich
 
-### Datenschutz und Sicherheit
+#### Datenschutz und Sicherheit
 
 **Mehrstufiges Sicherheitskonzept.**
 
@@ -108,7 +131,7 @@ Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie eine mehrs
 -   **Manuelle Prüfung:** Sichtung durch geschulte Mitarbeiter
 -   **Dokumentation:** Nachvollziehbare Begründung der Freigabeentscheidung
 
-### Performanz-Optimierung in der FDZ-Umgebung
+#### Performanz-Optimierung in der FDZ-Umgebung
 
 **Herausforderungen.**
 
@@ -166,11 +189,11 @@ ggplot(strategies, aes(x = Aufwand, y = Nutzen, color = Kategorie, size = 3)) +
   guides(size = "none")
 ```
 
-### Akkreditierung und Qualitätssicherung
+#### Akkreditierung und Qualitätssicherung
 
 Die Forschungsdatenzentren der Statistischen Ämter des Bundes und der Länder sind durch den **Rat für Sozial- und WirtschaftsDaten (RatSWD) akkreditiert**. Der RatSWD akkreditiert seit 2008 Forschungsdatenzentren, die den Zugang zu qualitativ hochwertigen sensiblen Daten für die Wissenschaft ermöglichen und dabei die erforderlichen Kriterien erfüllen.
 
-### Best Practices für FDZ-Nutzende
+#### Best Practices für FDZ-Nutzende
 
 Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für effizientes Arbeiten ableiten:
 
