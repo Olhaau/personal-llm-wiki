@@ -1,5 +1,32 @@
 ## Performanzergebnisse {#sec-performance}
 
+
+
+### Testaufbau
+
+- 3-fach Ausführung, Bereinigung dazwischen
+
+
+### Disclaimer
+
+- weniger Erfahrung mit Polars als mit anderen Tools
+- Verwendung von Tidypolars (geringere Sprachbarriere)
+
+### Hauptergebnis für große Datenmenge
+
+### Erkenntnisse für kleine Datenmengen
+
+### Auswahl für Anwendung auf BTP
+
+
+### ... Bewertung
+
+- Abstufungen in Rechenzeit
+  - Echtzeit, unter 5 Sek
+  - Kurz, unter 1 min
+  - Moderat (Kaffeepause), ab 1 min
+  - Langzeit, ab 30 min
+
 ### Kernaussage
 
 - Datengrundlage: Öffentlich verfügbare Metadaten wurden zu künstlichem Fake Datensatz zu technischen Zwecken erstellt. Datengenerator verfügbar in Repo, der falsche Angaben in der technisch richtigen Struktur erfüllt. Achtung, es lassen sich keine Analyseergebnisse generienen / Erkenntnisse gewinnen, die nicht bereits mit MDR und DSB bereitgestellt wurden.
@@ -27,7 +54,7 @@ Allg: Parquet spart Speicher wie rds/qs oder .gz, aber bleibt extrem schnell les
   - Bei Fallzahlen dicht gefolgt von duckdb mit 5.14 sec
   - Bei Arrow kann durch etwas Geschick/Kompetenz, erst die maximale Performance erreicht werden. Dateiaufteilung oder Variablen auswahl verwendet werden, sonst erhöht sich die Laufzeit um einen Faktor von 4.4 zu 20.6s
   - polars mit Paruqet für 10% BTP extrem abgeschlagen, unter den schlechtesten Methoden mit 1.17 min das 15x zu der besten Methode ist für kleiner Datengrößen 1% und 0.1% BTP die schnellste Variante, jedoch dicht gefolgt von Arrow und Duckdb, Datatable
-  - {data.table} ist die beste "klassische" R-Methode und erreicht maximal 23.58s, in der größen Ordnung wie die nicht optimierte Arrow Performance. D.h. ein {data.table} Profi, ist besser als ein schlechter Arrow Programmierer, der aber größeres Potenzial für Verbesserungen hat. Für {data.table} ist die geschickte Programmierung noch viel wichtiger. Arrow wird höchstens langsam und beansprucht viel weniger RAM. Wohingegen data.table für den gesamten Datensatz (ohne Sel) das 600x an RAM belegt wie Arrow, damit viel schneller Abbricht und den schlechten Programmierer Abbrüche beschert.
+  - {data.table}+csv ist die beste "klassische" R-Methode und erreicht maximal 23.58s, in der größen Ordnung wie die nicht optimierte Arrow Performance. Das die beste gemessene Performance für CSV (aufgeteilte Parquet sind doppelt so schnell). D.h. ein {data.table} Profi, ist besser als ein schlechter Arrow Programmierer, der aber größeres Potenzial für Verbesserungen hat. Für {data.table} ist die geschickte Programmierung noch viel wichtiger. Arrow wird höchstens langsam und beansprucht viel weniger RAM. Wohingegen data.table für den gesamten Datensatz (ohne Sel) das 600x an RAM belegt wie Arrow, damit viel schneller Abbricht und den schlechten Programmierer Abbrüche beschert.
     - ohne Vorauswahl bricht DT ab, wenn das gesamte BTP verwendet werden soll. Arrow nur, wenn die Auswertung auch dazu führt, dass wirklich alle Variablen verarbeitet werden.
     - mit DT lässt sich nicht so flexibel/schön arbeiten
   - Arrow verzeiht Fehler leichter als DT. Alleine durch die Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet durch das FDZ), erreichen wir Count Ergebnisse in 11.73s, nur 5s über dem absoluten Optimum.
@@ -44,6 +71,8 @@ Je nach Datenmenge andere Gewinner
 -> nicht eindeutig. Für kleinere Datenmengen mehr Auswahl und das vertraute auszuwählen. Für größere Datenmengen klare Empfehlung Arrow, w.g. einfacher Anwendung, Stabilität (ggü. Nutzerfehlern), Skalierbarkeit an die RAM-Grenze und darüber hinaus, höchste Performance für unsere Datenmengen+gute System Ressourcen.
 
 -> für kleine Datenmengen macht chunking keinen Sinn.
+
+Dateitypen: 
 
 Beide Anwendungen lassen sich in unter 20 Z. mit Arrow programmieren (verständlich lesbar) s. Opencode Repo.
 

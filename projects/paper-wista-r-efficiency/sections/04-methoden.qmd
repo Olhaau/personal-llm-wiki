@@ -1,45 +1,37 @@
-## Effiziente Auswertungsmethoden {#sec-methoden}
+## Auswertungsmethoden in R {#sec-methoden}
 
-### Kernaussagen
+Die Analyse großer Datensätze wie des BTP (\>66 Millionen Einheiten, \>2.700 Variablen) in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile.
 
-#### Ausgangslage
+Sog. Datenverarbeitungsmethoden in R.
 
-SAS
+- Fokus auf Daten lesen und modifizieren, aggregieren, auswerten, nicht schreiben.
 
-- verbreitet
-- geeignet für größere Datenmengen (langsam)
+beachte/erwähne: https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
-Stata
+#### Auswahl
 
-- beliebt in Wiss.
-- hat entsprechend zugeschnittene Features
-- Bei RAM-Grenze ist Schluss
+**Base R.**
 
-#### Kategorien
+**Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten 
+**Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
 
-Open Source -> breite Auswahl an Parketen zum Einlesen, Transformieren und Auswerten von Daten.
+**Empfehlung:** Nur für kleine Datensätze (\<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
 
-- Unterscheidung klassischer/r-nativer Methoden (base-r, readr / vroom und data.table), effiziente/moderne Methoden (arrow, duckdb, polars)
-- Klassische Methoden
-  - base-r zu vermeiden
-  - readr
-    - in tidyverse
-    - nutzerfreundlich, einfach zu lernen / nutzen
-  - data.table
-    - benchmarking: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
-  - datenformate in R: qs, rds
-  - dtplyr?
+**data.table.**
 
+**Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax 
+**Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung
 
-#### Zu beschreibende Features
+**Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird
 
-Alle Supporten die nachfolgenden Features
+**dplyr + dbplyr.**
 
-- Chunking
-- Selection (in Einlesefunktion), später rauswerfen, erzeugt dennoch übermäßig Rechenzeit und RAM Problem. Beispiel s. opencode repo
+**Vorteile:** Vertraute dplyr-Syntax, gut mit Datenbanken integriert 
+**Nachteile:** Langsamer als Arrow/DuckDB, benötigt Backend-Datenbank, SQL-Translation manchmal limitiert
 
+**Empfehlung:** Wenn bereits PostgreSQL- oder ähnliche Datenbank-Infrastruktur vorhanden ist
 
-#### Empfehlung FDZ Bbk
+### Empfehlung FDZ Bbk
 
 https://www.bundesbank.de/resource/blob/623988/62b8c17881d63bccc61efd11af0b47db/472B63F073F071307366337C94F8C870/2021-04-large-data-data.pdf 
 
@@ -82,56 +74,66 @@ dealing with large data. If you are a proficient R user, possibly familiar with 
 definitely prefer R to Stata. Otherwise, there is no simple answer. You should carefully weigh the
 benefits and the learning curve of programming in a new language.
 
-### Motivation
 
-Die Analyse großer Datensätze wie des BTP (\>66 Millionen Einheiten, \>2.700 Variablen) in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile.
+### Paradigmenwechsel: in RAM (Klassisch) vs not-in RAM-fähig (high-perf)
 
-### Apache Arrow: Spaltenorientiertes In-Memory-Format
+- vollständinges Einladen in Arbeitsspeicher und verarbeitung von dort.
+- Für große Datensätze, wie das BTP,  kann ein Teil dieser Tools nicht mehr genutzt werden. Die Effizienteren Varianten, haben Strategien implementert (selection, ...), aber benötigen mehr Erfahrung und regelmäßige und größere manuelle Anpassungen an den jeweiligen Anwendungsfall (Selection)
 
-**Grundprinzip.**
 
-Apache Arrow ist ein sprach- und plattformübergreifendes In-Memory-Format für spaltenorientierte Datenverarbeitung. Im Gegensatz zu zeilenorientierten Formaten werden Daten spaltenweise organisiert, was erhebliche Vorteile bietet:
+### Weitere Auswahlkriteren neben Performanz
 
--   **Effiziente Kompression:** Ähnliche Werte in einer Spalte lassen sich besser komprimieren
--   **Schnellere Aggregationen:** Nur benötigte Spalten müssen gelesen werden (Columnar Scanning)
--   **Zero-Copy:** Daten können ohne Kopieren zwischen Prozessen und Sprachen ausgetauscht werden
--   **SIMD-Optimierung:** Moderne CPU-Instruktionen können effizient genutzt werden
+- Differenzierte Auswahl der Technologie
+- zu optimieren ist die Gesamtzeit (Entwicklung und Rechenzeit)
+- Wenn erst Kenntnisse und Erfahrungen aufgebaut werden müssen, kann das gegen die effizienteste Methode sprechen.
+- Style (Tidy, Base, Python, SQL) zu vorhandenen Kenntnissen. Bei den untenstehenden Beschreibungen zu beachten.
+- Nicht alle abstufungen sind relevant (1 oder 4 sec, 10 oder 20 sec, 10 oder 20 min), andere Faktoren zu berücksichtigen.
+- im StBA mehr Erfahrungen mit DT, Tidyverse, als bspw. mit Polars
 
-**Anwendung in R.**
+**Benötigte Erfahrungen / Fallstricke**
 
-Das `arrow`-Paket in R bietet vollständige Integration:
+- Selection kann an verschiedenen Stellen und auf verschiedene Weisen erfolgen. Bringt aber bzgl. Performanz nur etwas, wenn die Selection-Optionen direkt der Einlese Funktionen verwendet wird. Ansonsten erwarten einen vermeidbare Wartezeiten und im Schlimmsten Fall Abbrüche durch RAM Overflow. Selection ist dadurch immer Anwendungsfall spezfisch. Wenn sich die Auswertung ändert, muss der ganze Code neu ausgeführt werden und Daten neu geladen.
+- Typumwandlungen. Oft sehen wir, dass sich aus allen Paketen das beste zusammengesucht wird. Lässt sich in R auch leicht umsetzen, ohne dass der Nutzende es dann merkt, führt R Typumwanldungen zwischen Datenformaten im RAM um (die bzgl. Rechenzeit teuer sind). I.d.R muss man mit klassischen Methoden sich für eine Technologie entscheiden und diese durchziehen bis zu einem Punkt, wo die Datenmenge ausreichend reduziert ist
+- Tracking von Arbeitsspeicher, Systemressourcen nötig
 
-``` r
-library(arrow)
+**High-Performance R-Pakete und Dateiformate können sich darum im Hintergrund kümmern, ohne die User Experience zu beeinflussen.**
 
-## Lesen eines Parquet-Datasets mit Filterung
-dataset <- open_dataset("btp_data.parquet")
+Hinweis: R-spezfische binäre Datenformate sind eine zsl. Möglichkeit. Daten nicht portabel, außerhalb R leicht nutzbar o.Ä. Können aber ebenfalls tricky sein (nicht alle Features aus dpylr vorhanden, variablentypen, tlw. tieferes Verständnis zu Parallelisierung o.Ä. nötig)
 
-result <- dataset |>
-  filter(year >= 2015, sector == "Manufacturing") |>
-  select(company_id, year, revenue, employees) |>
-  group_by(year) |>
-  summarise(
-    total_revenue = sum(revenue),
-    mean_employees = mean(employees)
-  ) |>
-  collect()  # Erst hier wird die Berechnung ausgeführt
-```
+### Klassische Methoden
 
-**Vorteile für FDZ-Analysen.**
+Brauchen übermäßig viel RAM. Üblich ist CSV als Dateiformat und die hier beschriebenen klassichen Datenmethoden benötigen für die gleichen Daten ca. das 3-4-fache im Arbeitsspeicher (interne Kopien usw.).
 
--   **Out-of-Core Processing:** Datensätze müssen nicht vollständig in den RAM passen
--   **Lazy Evaluation:** Operationen werden optimiert, bevor sie ausgeführt werden
--   **Predicate Pushdown:** Filter werden direkt beim Lesen angewendet
--   **Partitionierung:** Datensätze können nach Kriterien (z.B. Jahr) partitioniert werden
+#### Base-R / data.table
 
-**Limitationen.**
+- R eingebaute Auswertungsmethoden, funktioneren, aber weder sonderlich effizient,  intuitiv
+- Grundlagen in Base-R können leicht in `data.table` adaptiert werden und dies ist unter den effizientesten Paketen, mit dem Daten durch das o.g. klassischen Vorgehen in R verarbeitet werden können.
+- benötigen dafür aber übermäßig viel RAM 3-4x Speicher ggü. den Eingangsdaten, sodass dies für große Datenmengen oft ungeeignet ist. Sodass dies für große Datenmengen nur eine Option ist, mit sehr viel Programmiergeschick
 
--   **Lernkurve:** Neue Syntax für Nutzer mit Base-R-Erfahrung
--   **Noch in Entwicklung:** Nicht alle R-Funktionen werden unterstützt
--   **Setup-Aufwand:** Daten müssen einmalig ins Parquet-Format konvertiert werden
+-> Je weniger effizient die genutzte Technologie ist, umso genauer muss der/die Anwender/-in programmieren (bspw. RAM-Abbrüche manuellabfangen)
 
-### Parquet: Persistentes spaltenorientiertes Format
+#### tidyverse, readr, vroom
+
+- Fokus auf User Experience (einfache an menschliche Sprache orientierte Syntax). readr klassisch, vroom schneller Variante hierbei. readr ist dtl. langsamer als data.table und vroom ist vergleichbar zu data.table (Fußnote: für charactervariablen besser, für num. variablen schlechter) lt. einer Benchmark vgl. https://cran.r-project.org/web/packages/vroom/vignettes/benchmarks.html 
+- ebenso hoher RAM-Bedarf wie Base-R / data.table.
+
+### Hoch-Perfomante Methoden in R
+
+- dazu fähig Daten außerhalb des RAMs und sehr sparsam und schnell im RAM zu verabeiten -> nutzen RAM sehr effizient
+
+Alle supporten die nachfolgenden Features. Exemplarische Best-Practices, um das nötige Programmiergeschick zu beschreiben.
+
+- Chunking
+- Selection (in Einlesefunktion), später rauswerfen, erzeugt dennoch übermäßig Rechenzeit und RAM Problem. Beispiel s. opencode repo
+
+#### Parquet
+
+- spaltenbasiert, leicht & schnell nutzbar für Auswertungen
+- komprimiert, wenig Festplattenspeicher
+- heranwachsender Standard Softwareübergreifend
+- Alternative diskutieren qs, rds ...
+
+##### Parquet: Persistentes spaltenorientiertes Format
 
 **Eigenschaften.**
 
@@ -182,7 +184,58 @@ if (knitr::is_latex_output()) {
 3.  Möglichkeit der selektiven Filterung ohne vollständiges Laden
 4.  Kompatibilität mit verschiedenen Analysewerkzeugen
 
-### DuckDB: Analytical Database System
+
+#### Apache Arrow
+
+- nutzt dplyr interface nativ, adaptiert die bekannte und einfache tidyverse-Syntax, nur effizienter
+
+Aktuell in V. 22.0.0. Major Releases:
+
+- 2025: 19-22, d.h. 4 Major Releases
+- 2024: 15-18: 4
+- 2023: 12-14: 3
+
+- spezfische Features noch nicht vorhanden. Daher nächster...
+
+##### Apache Arrow: Spaltenorientiertes In-Memory-Format
+
+**Grundprinzip.**
+
+Apache Arrow ist ein sprach- und plattformübergreifendes In-Memory-Format für spaltenorientierte Datenverarbeitung. Im Gegensatz zu zeilenorientierten Formaten werden Daten spaltenweise organisiert, was erhebliche Vorteile bietet:
+
+-   **Effiziente Kompression:** Ähnliche Werte in einer Spalte lassen sich besser komprimieren
+-   **Schnellere Aggregationen:** Nur benötigte Spalten müssen gelesen werden (Columnar Scanning)
+-   **Zero-Copy:** Daten können ohne Kopieren zwischen Prozessen und Sprachen ausgetauscht werden
+-   **SIMD-Optimierung:** Moderne CPU-Instruktionen können effizient genutzt werden
+
+**Anwendung in R.**
+
+Das `arrow`-Paket in R bietet vollständige Integration in R.
+
+
+
+**Vorteile für FDZ-Analysen.**
+
+-   **Out-of-Core Processing:** Datensätze müssen nicht vollständig in den RAM passen
+-   **Lazy Evaluation:** Operationen werden optimiert, bevor sie ausgeführt werden
+-   **Predicate Pushdown:** Filter werden direkt beim Lesen angewendet
+-   **Partitionierung:** Datensätze können nach Kriterien (z.B. Jahr) partitioniert werden
+
+**Limitationen.**
+
+-   **Lernkurve:** Neue Syntax für Nutzer mit Base-R-Erfahrung
+-   **Noch in Entwicklung:** Nicht alle R-Funktionen werden unterstützt
+-   **Setup-Aufwand:** Daten müssen einmalig ins Parquet-Format konvertiert werden
+
+#### DuckDB
+
+Andere Technologie (in-mem Database), kann mit SQL Syntax genutzt werden, aber auch mit tidyverse
+
+Vorteil von DuckDB/Polars: https://www.r-bloggers.com/2025/03/converting-arbitrarily-large-csvs-to-parquet-with-r/
+
+Ergänzung: Tidypolars https://duckplyr.tidyverse.org/
+
+##### DuckDB: Analytical Database System
 
 **Konzept.**
 
@@ -250,68 +303,20 @@ dbDisconnect(con, shutdown = TRUE)
 -   **Debugging:** SQL-Fehler können schwerer zu debuggen sein als R-Code
 -   **Noch jung:** Weniger etabliert als traditionelle Datenbanken (aber sehr aktiv entwickelt)
 
-### Vergleich mit Alternativen
 
-**Base R.**
+#### Polars
 
-**Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
+- Neuer
+- Syntax an Python orientiert
+- Benchmark: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
+- https://www.r-bloggers.com/2024/09/why-im-switching-to-polars/
+- https://www.r-bloggers.com/2024/10/comparing-data-table-reshape-to-duckdb-and-polars/
 
-**Empfehlung:** Nur für kleine Datensätze (\<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
 
-**data.table.**
+- Hat tidy wrapper, but 40% slowdown https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
-**Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax **Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung
+### Stellenwert der eigenen Benchmark
 
-**Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird
+O.g. Technologien stellen oft eigene Benchmarks (Performanz-Vergleiche) bereit und präsentieren i.d.R. die Vorteile der eigenen Technologie. Im Vergleich findet jede Technologie einen Spezielfall, wo sie am besten ist, auf die sie optimiert ist. Die Benchmarks geben tlw. Indikationen, ob die Technologie für den Anwendungsfall geeignet ist. Eigene Tests notwendig, ob die Performance für eigenen Anwendungsfall genügt.
 
-**dplyr + dbplyr.**
-
-**Vorteile:** Vertraute dplyr-Syntax, gut mit Datenbanken integriert **Nachteile:** Langsamer als Arrow/DuckDB, benötigt Backend-Datenbank, SQL-Translation manchmal limitiert
-
-**Empfehlung:** Wenn bereits PostgreSQL- oder ähnliche Datenbank-Infrastruktur vorhanden ist
-
-### Unsere Empfehlung: Arrow + DuckDB + Parquet
-
-Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
-
-1.  **Datenspeicherung:** Parquet-Format, idealerweise partitioniert nach relevanten Dimensionen (z.B. Jahr)
-2.  **Datenmanipulation:** Arrow für einfache Filter/Select-Operationen
-3.  **Komplexe Analysen:** DuckDB für Aggregationen, Joins, Window Functions
-4.  **Ergebnisse:** R-Data-Frames für finale Visualisierung und Modellierung
-
-**Workflow-Beispiel.**
-
-``` r
-library(arrow)
-library(duckdb)
-
-## 1. Daten als Parquet-Dataset öffnen
-btp <- open_dataset("data/btp.parquet")
-
-## 2. Einfache Filterung mit Arrow
-filtered <- btp |>
-  filter(year >= 2015, revenue > 0) |>
-  select(year, sector, revenue, employees)
-
-## 3. Komplexe Aggregation mit DuckDB
-con <- dbConnect(duckdb::duckdb())
-duckdb_register_arrow(con, "btp_filtered", filtered)
-
-result <- dbGetQuery(con, "
-  SELECT sector,
-         AVG(revenue) as mean_revenue,
-         STDDEV(revenue) as sd_revenue
-  FROM btp_filtered
-  GROUP BY sector
-  HAVING COUNT(*) >= 30
-")
-
-## 4. Aufräumen
-dbDisconnect(con, shutdown = TRUE)
-
-## 5. Weiterverarbeitung in R
-result <- result |> 
-  mutate(cv = sd_revenue / mean_revenue)
-```
-
-Dieser Workflow kombiniert die Stärken aller Werkzeuge und ist optimal für FDZ-Bedingungen geeignet.
+-> folgende Benchmark entwickelt

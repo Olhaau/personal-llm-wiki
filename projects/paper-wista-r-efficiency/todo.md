@@ -2,7 +2,7 @@
 
 ### Human in the loop
 
-- Wieviel platz braucht ein BJ echtes BTP im RAM?
+- Wieviel platz braucht ein BJ echtes BTP parquet im RAM? oder csv?
 - Benchmark für regr parquet nach aufgeteilten Daten
 
 - get DSF write upsample and test performance...
@@ -10,6 +10,10 @@
 - some tools, different data source (parquet, ...) and performance, easy case aggregated table (line of code -> proxy for simplicity, runtime, RAM usage, storage size, cores ...)
 - need to mention the versions
 - SAS and Stata Benchmarks from csv, dta?
+
+Zu erwähnende Quellen
+
+- rio? https://cran.r-project.org/web/packages/rio/vignettes/rio.html
 
 ### AI Agent
 

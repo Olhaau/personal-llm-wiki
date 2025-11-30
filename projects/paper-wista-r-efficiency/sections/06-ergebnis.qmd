@@ -1,10 +1,15 @@
 ## Anwendung auf BTP {#sec-ergebnis}
 
+Anwendung der besten Methoden auf das vollständige BTP
+
+- Repräsentant high perf: Arrow ->
+- Datatable (RAM-Fehler?)
+- Datatable Sel.
+
+
 ### Kernaussagen
 
-- Beste Methoden, die für die Datenmenge mit der vorliegenden Infrastruktur nutzbar sind, werden hier auf das echte vollst. BTP angewandt. 
-
-
+-   Beste Methoden, die für die Datenmenge mit der vorliegenden Infrastruktur nutzbar sind, werden hier auf das echte vollst. BTP angewandt.
 
 ### (Zusammenfassung der Erkenntnisse)
 

@@ -2,13 +2,107 @@
 
 ------------------------------------------------------------------------
 
-Erwähnen: StBA, FDZ, NeSt.
 
-Zu erwähnende Quellen
+### TLDR
 
-- rio? https://cran.r-project.org/web/packages/rio/vignettes/rio.html
+...
 
-### Herausforderungen und Anpassungen daran
+Spannungsfeld, Weiterentwicklung und Technologie-Empfehlung...
+
+### Steigende Datenmenge der amtlichen Statistik
+
+StBA
+
+- Qualitätsbericht
+- Datenverarbeitung im StBA erklären
+- neues NeSt Produkt BTP zeigt Umfang, hoch interessant für Wissenschaft
+- Datenverarbeitungsaufgaben des StBA erklären
+- Nicht mehr durch vorhandene Systemkapazitäten (insb. Arbeitsspeicher) gedeckt
+
+### Steigende Anforderungen der Öffentlichkeit insb. Wissenschaft
+
+FDZ, NeSt
+
+- Schnelle Reaktionen erforderlich
+- Komplexere (Forschungsfragen) zu beantworten
+- FDZ erklären
+- Gutachten BMF ansprechen
+- NeSt erklären, Bedarfe durch Produkt BTP beantwortet.. aber wie kann es in angme
+
+### Vorschreitende Innovation der Datenverarbeitungstechnologien
+
+##### Ausgangslage - SAS und Stata
+
+- SAS, zsl. Stata in den FDZ. Session zu SAS Ablösung
+- Weiterentwicklung der Infrastruktur: neue Server für R im StBA und für FDZ eigene neue Server für R und Stata
+
+##### Vormarsch von Open Source
+
+- in der internationalen amtlichen Statistik seit Jahren auf dem Vormarsch. Langsam steigt auch Verbreitung von R steigt auch in den dt. Statistikämtern. 
+
+##### Fokus auf R
+
+R ist weltweit bekannt und verbreitet als die Lingua Franca für Statistik, Methodologie und Data Science. Dies macht R zu der natürlichen Wahl für die amtlichen Statistik mit viele attraktive Vorteile.
+
+- aktive globale Community sorgt für schnelle Innovation und Verbesserung
+
+- CRAN bietet offiziell aktuell Zusatzfunktionalitäten in Form von X R-Paketen. Darunter sind viele klassische Pakete für Datenverarbeitung und -anayse.
+
+- R
+    - The reasons why the official statistics community is rapidly embracing R are clear. S. 
+    erfolg / Wachstum der Conference uRos https://r-project.ro/conference2025.html#Presentations
+    - R lingua franca for statisticians, methodologists and data scientists worldwide -> nativ geeignet für amtl. Statistik
+    - R Open Source bietet vorteile
+        - aktive globale Community
+        - support from the industry
+        - it combines a vast amount of functionalities for data preparation, methodology, visualisation and application building
+        - free = ideal environment for sharing, collaboration and industrialising official statistics
+        - Packages CRAN, github...
+
+
+Arrow bspw. hatte in 2024 und 2025 jeweils 4 Major Releases mit diversen neuen Funktionalitäten und Performanz-Verbesserung
+
+Neue Entwicklung zu R in der dt. OSS, bei Integration in Statistikproduktion und Datenbereitstellung direkt mit den richtigen Features und Methoden beginnen. Wie die folgenden... 
+
+Open Source -> breite Auswahl an Parketen zum Einlesen, Transformieren und Auswerten von Daten.
+
+- Unterscheidung klassischer/r-nativer Methoden (base-r, readr / vroom und data.table), effiziente/moderne Methoden (arrow, duckdb, polars)
+- Klassische Methoden
+  - base-r zu vermeiden
+  - readr
+    - in tidyverse
+    - nutzerfreundlich, einfach zu lernen / nutzen
+  - data.table
+    - benchmarking: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
+  - datenformate in R: qs, rds
+  - dtplyr?
+
+
+##### Hoch-performante R-Pakete
+
+- R darüber hinaus vermehrt hoch-performante Analysetools, die sich ständig verbessern
+- ermöglichen sehr schnelle Verarbeitung von Daten, mit einem sehr hohen Gesamtvolumen, das sogar den verfügbaren RAM übersteigt.
+
+##### Umsetzungsideen/-vorschläge im StBA
+
+- möglichst leicht nutzbar mit den vorhandenen Systemen und organisatorischen Strukturen ergibt Anforderungen
+    - hohe-performanz bereits mit R Grundlagenwissen
+    - minimale Anforderungen an zsl. Software
+
+### Technische Weiterentwicklung StBA/FDZ
+
+...
+
+### Kernfrage des Artikels
+
+Leitet in den weiteren Artikel über zu der Kernfrage
+
+- Bei der Integration von R und umfangreichen Auswahl, welche Technologie sollte Datenaufbereitung, -analyse und -auswertung genutzt werden?
+- Wir nutzen eine Kontrollierte Benchmark 
+
+### AI Anhang
+
+#### Herausforderungen und Anpassungen daran
 
 - R verbreitung steigt, bei uns in Kinderschuhen. Wie fängt man denn am besten an? Was ist von anfang an der richtige Weg daten in R zu verarbeiten?
 
@@ -37,13 +131,13 @@ In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion a
 
 Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist es daher, die Effizienz verschiedener statistischer Verfahren systematisch zu bewerten und Handlungsempfehlungen für die Praxis abzuleiten.
 
-### Technische Lösungsansätze
+#### Technische Lösungsansätze
 
 -   Modernisierung der amtl. Stat, FDZs -\> Zugangswege, Kapazitäten, ...
 -   Technische Weiterentwicklung, stärkere Hardware, leichtere Bereitstellung, virtualisierung
 -   Schnelle Weiterentwicklung von Open-Source Software, R, div. Packages, e.g. Verweis auf Changelog von Arrow, Polars
 
-### Anforderungen für Technologieauswahl
+##### Anforderungen für Technologieauswahl
 
 -   möglichst leicht nutzbar und gewohnt/verbreitet -\> R+dpylr
     -   wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit unterschiedlichen Analytischen und technischen Kenntnissen
@@ -51,7 +145,7 @@ Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung de
 -   schnell, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum
 -   ressourcensparend (RAM Problematik)
 
-### Konkrete Umsetzung im StBA
+#### Konkrete Umsetzung im StBA
 
 -   NeSt Förderung, Datenprodukterstellung, Bereitstellung der FDZ auch technischen Infrastruktur und Knowhow der effizienten Nutzung
 -   Bereitstellung des OSS seit Nov. 2025
@@ -59,7 +153,7 @@ Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung de
 -   Szenario FDZ GWAP Besuch, statt KDFV, sofort Ergebnisse
 -   Diese Arbeit
 
-### Inhalt dieser Arbeit
+#### Inhalt dieser Arbeit
 
 Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt, der als empirisches Beispiel für die Analysen dient. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen durchgeführt werden.
 

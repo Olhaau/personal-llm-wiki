@@ -2,7 +2,54 @@
 
 - Was heißt das für die Datenbereitstellung? Empfehlung zu aufgeteilten Parquet (BJ, ggf. mehr) für R. bei kleineren Mengen keine Blöcke. 
 - Fokus auf R.
+- Parquet: für jeden was dabei arrow prosa, duckdb sql, polars (nahe an Python)
 
+
+### Unsere Empfehlung: Arrow + DuckDB + Parquet
+
+Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
+
+1.  **Datenspeicherung:** Parquet-Format, idealerweise partitioniert nach relevanten Dimensionen (z.B. Jahr)
+2.  **Datenmanipulation:** Arrow für einfache Filter/Select-Operationen
+3.  **Komplexe Analysen:** DuckDB für Aggregationen, Joins, Window Functions
+4.  **Ergebnisse:** R-Data-Frames für finale Visualisierung und Modellierung
+
+**Workflow-Beispiel.**
+
+``` r
+library(arrow)
+library(duckdb)
+
+## 1. Daten als Parquet-Dataset öffnen
+btp <- open_dataset("data/btp.parquet")
+
+## 2. Einfache Filterung mit Arrow
+filtered <- btp |>
+  filter(year >= 2015, revenue > 0) |>
+  select(year, sector, revenue, employees)
+
+## 3. Komplexe Aggregation mit DuckDB
+con <- dbConnect(duckdb::duckdb())
+duckdb_register_arrow(con, "btp_filtered", filtered)
+
+result <- dbGetQuery(con, "
+  SELECT sector,
+         AVG(revenue) as mean_revenue,
+         STDDEV(revenue) as sd_revenue
+  FROM btp_filtered
+  GROUP BY sector
+  HAVING COUNT(*) >= 30
+")
+
+## 4. Aufräumen
+dbDisconnect(con, shutdown = TRUE)
+
+## 5. Weiterverarbeitung in R
+result <- result |> 
+  mutate(cv = sd_revenue / mean_revenue)
+```
+
+Dieser Workflow kombiniert die Stärken aller Werkzeuge und ist optimal für FDZ-Bedingungen geeignet.
 
 ```         
 *Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags- sowie Umsatzsteuerstatistiken im Quer-  und Längsschnitt. Verfügbar sind Informationen aus den folgenden Statistiken : Gewerbesteuer, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung, Statistik über die Personengesellschaften und Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen Unternehmensregister. Alle verwendeten Steuerarte sind ab dem Berichtsjahr 2013 jährlich verfügbar, dies bildet den Beginn des Beobachtungszeitraums. Aufgrund der Festsetzungsfrist von vier Jahren bei den Veranlagungsstatistiken endet der Beobachtungszeitraum aktuell mit dem Berichtsjahr 2020.*    
