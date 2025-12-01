@@ -123,27 +123,53 @@ display "Creating derived variables..."
 
 // Create vl_dummy: Positive loss carryforward indicator
 // R: vl_dummy = ifelse(k_k65270 > 0 & !is.na(k_k65270), 1, 0)
-gen vl_dummy = .
+
+// First ensure k_k65270 is numeric
+capture confirm numeric variable k_k65270
+if _rc != 0 {
+    display "Converting k_k65270 from string to numeric"
+    destring k_k65270, replace force
+}
+
+gen vl_dummy = 0
 replace vl_dummy = 1 if k_k65270 > 0 & !missing(k_k65270)
-replace vl_dummy = 0 if missing(vl_dummy)
 label variable vl_dummy "Positive loss carryforward indicator"
 
 // Create ifats_dummy: International activity indicator  
 // R: ifats_dummy = ifelse(urs_rt_gruppen_kennz %in% c(3,6), 1, 0)
-gen ifats_dummy = .
+
+// First ensure urs_rt_gruppen_kennz is numeric
+capture confirm numeric variable urs_rt_gruppen_kennz
+if _rc != 0 {
+    display "Converting urs_rt_gruppen_kennz from string to numeric"
+    destring urs_rt_gruppen_kennz, replace force
+}
+
+gen ifats_dummy = 0
 replace ifats_dummy = 1 if inlist(urs_rt_gruppen_kennz, 3, 6)
-replace ifats_dummy = 0 if missing(ifats_dummy)
 label variable ifats_dummy "International activity indicator (auslandskontrolliert)"
 
 // Ensure all numeric variables are properly typed (equivalent to as.numeric)
 // Note: In Stata, this is typically handled automatically, but we can confirm types
-foreach var of varlist jahr k_k65270 k_k65823 k_c15018 k_ef20 k_k65172 urs_we_tp_stichtag urs_rt_gruppen_kennz {
+display "Checking and converting variable types..."
+
+local numeric_vars "jahr k_k65823 k_c15018 k_ef20 k_k65172 urs_we_tp_stichtag"
+
+foreach var of local numeric_vars {
     capture confirm numeric variable `var'
     if _rc == 0 {
         display "  `var': numeric type confirmed"
     }
     else {
-        display "  `var': WARNING - not numeric type"
+        display "  `var': converting from string to numeric"
+        destring `var', replace force
+        capture confirm numeric variable `var'
+        if _rc == 0 {
+            display "  `var': successfully converted to numeric"
+        }
+        else {
+            display "  `var': ERROR - could not convert to numeric"
+        }
     }
 }
 

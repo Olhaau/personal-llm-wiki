@@ -98,6 +98,14 @@ keep jahr verk
 
 // Create indicator variables for letter detection (equivalent to mutate with str_detect)
 display "Creating letter detection variables..."
+
+// Ensure verk is string type for regexm function
+capture confirm string variable verk
+if _rc != 0 {
+    display "Converting verk to string for pattern matching"
+    tostring verk, replace
+}
+
 gen e = regexm(verk, "e")
 gen g = regexm(verk, "g") 
 gen k = regexm(verk, "k")
