@@ -45,14 +45,44 @@ display "Processors: " c(processors)
 display "Memory: " c(memory) " MB"
 display "=============================================================================="
 
-// Start performance timer
+// Start performance timer (BEFORE dataset loading)
 timer clear
 timer on 1
 
-// Store initial memory usage
+// Store initial memory usage (before dataset loading)
 quietly memory
 local initial_memory = r(data_memory)
-display "Initial memory usage: `initial_memory' bytes"
+display "Initial memory usage (before dataset): `initial_memory' bytes"
+display ""
+
+//==============================================================================
+// DATASET LOADING (INCLUDED IN RUNTIME MEASUREMENT)
+//==============================================================================
+
+// Load dataset - MODIFY THIS PATH AS NEEDED
+local dataset_path "PATH_TO_DATASET"  // *** USER: Replace with actual dataset path ***
+
+display "Loading dataset from: `dataset_path'"
+use "`dataset_path'", clear
+
+// Verify required variables exist
+local required_vars "jahr verk"
+foreach var of local required_vars {
+    capture confirm variable `var'
+    if _rc != 0 {
+        display as error "Error: Required variable '`var'' not found in dataset"
+        exit 111
+    }
+}
+
+display "Dataset loaded successfully. Observations: " _N
+display "Required variables confirmed: `required_vars'"
+
+// Store memory usage after dataset loading
+quietly memory
+local post_load_memory = r(data_memory)
+local load_memory_diff = `post_load_memory' - `initial_memory'
+display "Memory after dataset loading: `post_load_memory' bytes (diff: +`load_memory_diff' bytes)"
 display ""
 
 //==============================================================================
@@ -121,10 +151,12 @@ display ""
 display "=============================================================================="
 display "PERFORMANCE METRICS"
 display "=============================================================================="
-display "Runtime: " %9.3f `runtime' " seconds"
-display "Initial memory: " %12.0fc `initial_memory' " bytes"
+display "Total runtime (including dataset loading): " %9.3f `runtime' " seconds"
+display "Initial memory (before dataset): " %12.0fc `initial_memory' " bytes"
+display "Memory after dataset loading: " %12.0fc `post_load_memory' " bytes"
+display "Dataset loading memory impact: " %12.0fc `load_memory_diff' " bytes"
 display "Final memory: " %12.0fc `final_memory' " bytes" 
-display "Memory difference: " %12.0fc `memory_diff' " bytes"
+display "Total memory difference: " %12.0fc `memory_diff' " bytes"
 display "`cpu_info'"
 display "Observations processed: " %12.0fc `nrow_df'
 display "Observations per second: " %12.1f (`nrow_df'/`runtime')
@@ -142,10 +174,15 @@ display "Runtime: " %6.3f `runtime' " seconds"
 /*==============================================================================
  * USAGE INSTRUCTIONS:
  * 
- * 1. Load your dataset containing 'jahr' and 'verk' variables
- * 2. Run: do count-dplyr.do
- * 3. Check the generated log file for detailed performance metrics
+ * 1. Edit the dataset_path local macro at the top of the script:
+ *    local dataset_path "your/path/to/dataset.dta"
+ * 2. Ensure your dataset contains required variables: 'jahr' and 'verk'
+ * 3. Run: do count-dplyr.do
+ * 4. Check the generated log file for detailed performance metrics
  * 
  * The log file will be named with timestamp and Stata version, e.g.:
  * count_dplyr_01Dec2024_143052_stata17_SE.log
+ * 
+ * Note: The script will automatically verify that required variables exist
+ * and will exit with an error message if any are missing.
  *==============================================================================*/

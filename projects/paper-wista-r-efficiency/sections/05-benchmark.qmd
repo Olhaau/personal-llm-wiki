@@ -1,6 +1,8 @@
 ## Performanzergebnisse {#sec-performance}
 
-### Testaufbau
+### Aufbau der Benchmark
+
+Um zwischen den in  Datenverarbeitungsmethoden abzuwägen, haben wir ein systematisches Benchmark-Experiment in den FDZ OnSite-Servern für R durchgeführt. Die zwei betrachteten Anwendungsfälle Fallzahl (pro Statistik und Jahr) und Logistische Regression (Einflussfaktoren auf positive Verlustvorträge) wurden dabei mehrfach mit verschiedenen R-Paketen und Konfigurationen berechnet mit dem Ziel Laufzeit, RAM-Bedarf und Festplattenspeicher zu vergleichen.
 
 - Ausgeführt in R
 - Betrachtung der Anwendugsfälle "Fallzahl (Statistik und Jahr)", "Logistische Regression (Einflussfaktoren auf positive Verlustvorträge)"
