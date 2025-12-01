@@ -1,9 +1,12 @@
 ## Fazit
 
-- Was heißt das für die Datenbereitstellung? Empfehlung zu aufgeteilten Parquet (BJ, ggf. mehr) für R. bei kleineren Mengen keine Blöcke. 
-- Fokus auf R.
-- Parquet: für jeden was dabei arrow prosa, duckdb sql, polars (nahe an Python)
+-   Was heißt das für die Datenbereitstellung? Empfehlung zu aufgeteilten Parquet (BJ, ggf. mehr) für R. bei kleineren Mengen keine Blöcke.
+-   Fokus auf R.
+-   Parquet: für jeden was dabei arrow prosa, duckdb sql, polars (nahe an Python)
 
+<!-- -->
+
+-   Weiteres Vorgehen: Pilotprojekt NeSt
 
 ### Unsere Empfehlung: Arrow + DuckDB + Parquet
 

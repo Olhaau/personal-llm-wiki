@@ -1,28 +1,70 @@
 ## Anwendungsfall Business-Tax-Panel {#sec-btp}
 
-- TODO: Zufügen von öffentlich verfügbaren Informationen zu Struktur und Verteilung des BTP. Verteilung über Statistik und Jahr, ...
-  - was ist wichtig? Randverteilung, missings, vollständigkeit der variablen
-  - erstmal eine Tabelle mit Variablenanzahl, Entfernung durch Hinweis feld. Tabelle: Variablenzahl komplett, Variablenanzahl ohne Hinweisfeld, Variablenanzahl Befüllt?
-  - Hinweis Befüllungsgrad tlw. gering... x Variablen fehlen zu 90%, 80%, 70%, 60%, 50% ?
-  - Verteilung der Zeilen auf Statistik und Jahr, inkl. Trend
-  - Verteilung auf Kombinationen genauer
-- Anwendungsfälle volles Spektrum
-  - Datenbereitstellung, interne Analysen, Schätzungen
-  - Auswertung durch Wissenschaft im FDZ
-- Technische Herausforderung: 
-  - effiziente und verständliche Speicherung
-  - Herausfiltern großer Datenmengen irrelevanter Merkmale
+### Datengrundlage
+
+-   Umfang über verfügbaren Arbeitsspeicher
+-   Besonders breit mit 3000 Merkmalen, 80 Mio. Obs.
+
+### Auswertungsbedarfe
+
+Breites Spektrum: Datenaufbereitung/-bereitstellung und Auswertung von Mikrodaten durch die Wissenschaft.
+
+1.  deskriptive Eckdaten, für BTP als Panel im Quer- und Längsschnitt: Fallzahl pro Statistik und Jahr (s.MDR Produkt S. 9f https://www.forschungsdatenzentrum.de/sites/default/files/btp_2013-2019_on-site_mdr-prod.pdf)
+
+2.  Verlustvorträge (s. Vortrag NeSt) als Indikator für ... und Einflussgrößen auf Verlustvorträge, für Vermutung von Einfluss der Unternehmensgröße (großes Gesamtvolumen, Löhne, Spenden, tätige Personen; Auslandskontrolle oder WZ) auf positive Verlustvorträge.
+
+Beide Anwendungsfälle können bereits im mit den folgenden X von 3000 Variablen untersucht werden:
+
+| Variable | Statistik | Beschreibung |
+|------------------------|------------------------|------------------------|
+| jahr | Allgemein | Berichtsjahr |
+| verk | Allgemein |  |
+| k_k65270 | KStSt | Verlustvorträge |
+| k_k65823 | KStSt | Gesamtbetrag der Einkünfte |
+| k_c15018 | KStSt | Summe der Umsätze/Löhne/Gehälter |
+| k_ef20 | KStSt | WZ Generierung |
+| k_k65172 | KStSt | Spende |
+| urs_we_tp_stichtag | URS | Tätige Personen |
+| urs_rt_gruppen_kennz | URS | Statuskennzeichen, = 3/6 heißt "auslandskontrolliert" |
+
+: Betrachtete Variablen des BTP
+
+Kennzahlen um inhaltlose Testdaten zu generieren werden folgende Eckdaten benötigt und im nächsten BTP berücksichtigt:
+
+-   Befüllung
+-   Statistische Eckdaten univariate (Quantile), multivariate (gemeinsame Verteilung)
+
+Update BTP, flexibel reagieren, neue MDR, DSB, ...
+
+- Datenbereitstellung: MDR
+- Forschungsprojekt
+    - Lorenzkurve -> Verteilung der Verlustvorträge 
+    - Logistische Regression -> Einflussfaktoren auf Verlustvorträge
+
+### ...
+
+-   TODO: Zufügen von öffentlich verfügbaren Informationen zu Struktur und Verteilung des BTP. Verteilung über Statistik und Jahr, ...
+    -   was ist wichtig? Randverteilung, missings, vollständigkeit der variablen
+    -   erstmal eine Tabelle mit Variablenanzahl, Entfernung durch Hinweis feld. Tabelle: Variablenzahl komplett, Variablenanzahl ohne Hinweisfeld, Variablenanzahl Befüllt?
+    -   Hinweis Befüllungsgrad tlw. gering... x Variablen fehlen zu 90%, 80%, 70%, 60%, 50% ?
+    -   Verteilung der Zeilen auf Statistik und Jahr, inkl. Trend
+    -   Verteilung auf Kombinationen genauer
+-   Anwendungsfälle volles Spektrum
+    -   Datenbereitstellung, interne Analysen, Schätzungen
+    -   Auswertung durch Wissenschaft im FDZ
+-   Technische Herausforderung:
+    -   effiziente und verständliche Speicherung
+    -   Herausfiltern großer Datenmengen irrelevanter Merkmale
 
 ### Annette's Input
 
-*Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags- sowie Umsatzsteuerstatistiken im Quer-  und Längsschnitt. Verfügbar sind Informationen aus den folgenden Statistiken : Gewerbesteuer, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung, Statistik über die Personengesellschaften und Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen Unternehmensregister. Alle verwendeten Steuerarte sind ab dem Berichtsjahr 2013 jährlich verfügbar, dies bildet den Beginn des Beobachtungszeitraums. Aufgrund der Festsetzungsfrist von vier Jahren bei den Veranlagungsstatistiken endet der Beobachtungszeitraum aktuell mit dem Berichtsjahr 2020.*    
+*Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags- sowie Umsatzsteuerstatistiken im Quer- und Längsschnitt. Verfügbar sind Informationen aus den folgenden Statistiken : Gewerbesteuer, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung, Statistik über die Personengesellschaften und Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen Unternehmensregister. Alle verwendeten Steuerarte sind ab dem Berichtsjahr 2013 jährlich verfügbar, dies bildet den Beginn des Beobachtungszeitraums. Aufgrund der Festsetzungsfrist von vier Jahren bei den Veranlagungsstatistiken endet der Beobachtungszeitraum aktuell mit dem Berichtsjahr 2020.*
 
-*Bei den verwendeten Statistiken handelt es sich um Vollerhebungen, teilweise mit Erfassungsgrenze. Insgesamt liegen 77,8 Mio. Beobachtungen vor, die auf 16,7  Mio. Einheiten zurückzuführen sind. Der Merkmalsumfang variiert je nach Statistik zwischen 120 und 1.300 Merkmalen was insgesamt zu einem Merkmalsumfang von über 2.700 Merkmalen führt. Hierdurch sind Analyse von Anpassungsreaktionen sowie Verteilungsanalysen für verschiedene Beobachtungszeiträume möglich. Insgesamt deckt der Forschungsdatensatz eine Vielzahl an Analysemöglichkeiten, die für die evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.*
+*Bei den verwendeten Statistiken handelt es sich um Vollerhebungen, teilweise mit Erfassungsgrenze. Insgesamt liegen 77,8 Mio. Beobachtungen vor, die auf 16,7 Mio. Einheiten zurückzuführen sind. Der Merkmalsumfang variiert je nach Statistik zwischen 120 und 1.300 Merkmalen was insgesamt zu einem Merkmalsumfang von über 2.700 Merkmalen führt. Hierdurch sind Analyse von Anpassungsreaktionen sowie Verteilungsanalysen für verschiedene Beobachtungszeiträume möglich. Insgesamt deckt der Forschungsdatensatz eine Vielzahl an Analysemöglichkeiten, die für die evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.*
 
 *Für die vielfältigen Analysewünsche der Forschenden, den Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der Erstellung des Metadatenreports des Forschungsdatenzentrums ist der Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen ist der Datensatz möglichst wenig beschränkt worden und dadurch ressourcenintensive. Der damit einhergehende hohe Bedarf an Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung dar.*
 
 ==Wodurch ...==
-
 
 ### Überblick zum Business-Tax-Panel
 
@@ -89,12 +131,10 @@ Die im BTP enthaltenen Steuerstatistiken sind Bundesstatistiken, die als **Volle
 
 Rechtsgrundlage ist das [Gesetz über Steuerstatistiken (StStatG)](https://www.gesetze-im-internet.de/ststatg_1995/) vom 11. Oktober 1995.
 
-
-
 ### Technische Requirements
 
-- Größe in Datentypen
-- Vorbereitung OSS
+-   Größe in Datentypen
+-   Vorbereitung OSS
 
 ### Forschungspotenzial und Nutzung
 

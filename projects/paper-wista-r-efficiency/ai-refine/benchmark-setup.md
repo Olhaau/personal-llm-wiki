@@ -1,0 +1,17 @@
+- Ausgeführt in R
+- Betrachtung der Anwendugsfälle "Fallzahl (Statistik und Jahr)", "Logistische Regression (Einflussfaktoren auf positive Verlustvorträge)"
+- Mehrfache Berechnung der Ergebnisse in den FDZ OnSite-Servern
+- Unterschiedliche Packages und Ausführungsmethoden
+- Kernexperiment Dummydaten von etwa 10% des BTP auf 1 Mio Einheiten, ca. 7 Mio Zeilen, etwa 10% des BTP Dummydaten
+  - genutze Variablen modelliert, Rest zufällig. R-Funktion Datengenerator, der Metainformationen zu ein aussagelosen Dummy-BTP einer beliebigen Größe erstellt. Nicht geeignet für Auswertungen, lediglich für technische Tests geeignet. FDZ bietet davon unterschiedliche Datenstrukturfile an, das sich aus echten Mikrodaten ableitet. 
+- In kleineren Benchmarks wurden noch mehr verschiedene Packages und Umsetzungsvarianten erprobt.
+- Exakte Messungen via Bench
+- Verweis zu OpenCode: Quellcode und Benchmarkergebnisse werden vollständig auf OpenCode veröffentlicht.
+- Versionen, aus organisatorischen Gründen meist nicht auf dem aller aktuellsten Stand
+  - R 4.5.0
+  - Data.table: 1.17.8
+  - Arrow V. 20.0.0.2
+  - Tidyverse V. ...
+  - Duckdb V. 1.3.2
+  - Polars V. 1.0.1
+- 3-fach Ausführung, Bereinigung dazwischen. 
