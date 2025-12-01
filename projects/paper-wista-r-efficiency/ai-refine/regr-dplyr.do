@@ -123,12 +123,16 @@ display "Creating derived variables..."
 
 // Create vl_dummy: Positive loss carryforward indicator
 // R: vl_dummy = ifelse(k_k65270 > 0 & !is.na(k_k65270), 1, 0)
-gen byte vl_dummy = (k_k65270 > 0 & !missing(k_k65270))
+gen vl_dummy = .
+replace vl_dummy = 1 if k_k65270 > 0 & !missing(k_k65270)
+replace vl_dummy = 0 if missing(vl_dummy)
 label variable vl_dummy "Positive loss carryforward indicator"
 
 // Create ifats_dummy: International activity indicator  
 // R: ifats_dummy = ifelse(urs_rt_gruppen_kennz %in% c(3,6), 1, 0)
-gen byte ifats_dummy = inlist(urs_rt_gruppen_kennz, 3, 6)
+gen ifats_dummy = .
+replace ifats_dummy = 1 if inlist(urs_rt_gruppen_kennz, 3, 6)
+replace ifats_dummy = 0 if missing(ifats_dummy)
 label variable ifats_dummy "International activity indicator (auslandskontrolliert)"
 
 // Ensure all numeric variables are properly typed (equivalent to as.numeric)

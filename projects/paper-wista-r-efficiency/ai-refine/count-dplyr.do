@@ -98,13 +98,13 @@ keep jahr verk
 
 // Create indicator variables for letter detection (equivalent to mutate with str_detect)
 display "Creating letter detection variables..."
-gen byte e = regexm(verk, "e")
-gen byte g = regexm(verk, "g") 
-gen byte k = regexm(verk, "k")
-gen byte p = regexm(verk, "p")
-gen byte r = regexm(verk, "r")
-gen byte u = regexm(verk, "u")
-gen byte v = regexm(verk, "v")
+gen e = regexm(verk, "e")
+gen g = regexm(verk, "g") 
+gen k = regexm(verk, "k")
+gen p = regexm(verk, "p")
+gen r = regexm(verk, "r")
+gen u = regexm(verk, "u")
+gen v = regexm(verk, "v")
 
 // Calculate proportions by year (equivalent to group_by + summarize)
 display "Calculating proportions by year..."
