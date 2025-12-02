@@ -17,19 +17,25 @@ Aus technischer Sicht, ist die Kernaufgabe den Großteil (von 2991 Variablen) ef
 
 Beide Anwendungsfälle können bereits im mit den folgenden X von 3000 Variablen untersucht werden:
 
-| Variable | Statistik | Beschreibung |
-|------------------------|------------------------|------------------------|
-| jahr | Allgemein | Berichtsjahr |
-| verk | Allgemein |  |
-| k_k65270 | KStSt | Verlustvorträge |
-| k_k65823 | KStSt | Gesamtbetrag der Einkünfte |
-| k_c15018 | KStSt | Summe der Umsätze/Löhne/Gehälter |
-| k_ef20 | KStSt | WZ Generierung |
-| k_k65172 | KStSt | Spende |
-| urs_we_tp_stichtag | URS | Tätige Personen |
-| urs_rt_gruppen_kennz | URS | Statuskennzeichen, = 3/6 heißt "auslandskontrolliert" |
+```{r}
+#| echo: false
 
-: Betrachtete Variablen des BTP
+# Create variable table as data frame
+variables_table <- data.frame(
+  Variable = c("jahr", "verk", "k_k65270", "k_k65823", "k_c15018", "k_ef20", 
+               "k_k65172", "urs_we_tp_stichtag", "urs_rt_gruppen_kennz"),
+  Statistik = c("Allgemein", "Allgemein", "KStSt", "KStSt", "KStSt", "KStSt",
+                "KStSt", "URS", "URS"),
+  Beschreibung = c("Berichtsjahr", "", "Verlustvorträge", "Gesamtbetrag der Einkünfte",
+                   "Summe der Umsätze/Löhne/Gehälter", "WZ Generierung", "Spende",
+                   "Tätige Personen", "Statuskennzeichen, = 3/6 heißt \"auslandskontrolliert\"")
+)
+
+knitr::kable(variables_table, 
+             col.names = c("Variable", "Statistik", "Beschreibung"),
+             caption = "Betrachtete Variablen des BTP",
+             booktabs = TRUE)
+```
 
 Kennzahlen um inhaltlose Testdaten zu generieren werden folgende Eckdaten benötigt und im nächsten BTP berücksichtigt:
 
@@ -95,6 +101,10 @@ Das BTP umfasst einen außergewöhnlich umfangreichen Datensatz mit beeindrucken
 
 library(kableExtra)
 
+# Set options for PDF table compatibility
+options(knitr.table.format = "latex")
+options(kableExtra.latex.load_packages = FALSE)
+
 btp_stats <- data.frame(
   Merkmal = c("Beobachtungszeitraum", "Anzahl Einheiten (2013-2019)", "Anzahl Merkmale", 
               "Erhebungsart", "Datenquelle"),
@@ -105,16 +115,10 @@ btp_stats <- data.frame(
 btp_stats$Wert <- c("2013-2019 (jährliche Erweiterung)", ">66 Millionen", ">2.700", 
                     "Vollerhebung", "Sekundärerhebung (Finanzverwaltung)")
 
-if (knitr::is_latex_output()) {
-  kbl(btp_stats, 
-      align = c("l", "l"),
-      booktabs = TRUE,
-      col.names = c("Merkmal", "Wert")) |>
-    kable_styling(latex_options = c("hold_position"),
-                  full_width = TRUE)
-} else {
-  knitr::kable(btp_stats, col.names = c("Merkmal", "Wert"))
-}
+# Use simple kable for two-column PDF to avoid longtable issues
+knitr::kable(btp_stats, 
+             col.names = c("Merkmal", "Wert"),
+             booktabs = TRUE)
 ```
 
 **Hauptmerkmale des Datensatzes.**

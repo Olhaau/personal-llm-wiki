@@ -146,7 +146,7 @@ Exemplarische deskreptive Auswertung (Fallzahl pro Statistik und Jahr)
 
 summarize(n = sum(g = str_detect(verk, "g")), k = str_detect(verk, "k"), ...) -\> Aggregiere auf eine beobachtung pro Gruppe und zähle dort alle Beobachtungen, die das Zeichen "g" bzw. "k" in `verk` haben (Fallzahl Gewerbesteuer bzwp Körperschaftssteuer) usw.
 
-:   Auswertungsbefehle in Tidyverse
+**Auswertungsbefehle in Tidyverse**
 
 Syntax echtes Herausstellungsmerkmal, sodass zsl. Pakete die Syntax für alle hier genannten Auswertungsmethoden adaptieren. Bspw. lässt sich data.table mit dtplyr in der o.g. Syntax verwenden (jedoch mit Performanzverlusten, s. bspw. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/ )
 
@@ -199,6 +199,10 @@ Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit Arrow zusamm
 
 library(kableExtra)
 
+# Set options for PDF table compatibility
+options(knitr.table.format = "latex")
+options(kableExtra.latex.load_packages = FALSE)
+
 format_comp <- data.frame(
   Format = c("CSV", "RDS (R)", "Feather", "Parquet", "Parquet (partitioniert)"),
   Groesse = c("100%", "45%", "95%", "15%", "15%"),
@@ -210,15 +214,8 @@ format_comp <- data.frame(
 
 colnames(format_comp) <- c("Format", "Größe", "Ladezeit", "Kompression", "Partitionierung", "Kompatibilität")
 
-if (knitr::is_latex_output()) {
-  kbl(format_comp, 
-      align = c("l", "r", "l", "l", "c", "l"),
-      booktabs = TRUE) |>
-    kable_styling(latex_options = c("hold_position", "scale_down"),
-                  full_width = TRUE)
-} else {
-  knitr::kable(format_comp)
-}
+# Use simple kable for two-column PDF to avoid longtable issues
+knitr::kable(format_comp, booktabs = TRUE)
 ```
 
 **Empfehlung für FDZ.**

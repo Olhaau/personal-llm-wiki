@@ -21,6 +21,18 @@ format:
       - heightrounded
     fontfamily: libertinus
     colorlinks: true
+    documentclass: article
+    classoption: ["oneside"]
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{longtable}
+        \usepackage{array}
+        \usepackage{multirow}
+        \usepackage{wrapfig}
+        \usepackage{float}
+        \usepackage{colortbl}
+        \usepackage{pdflscape}
 execute:
   warning: false
   message: false
@@ -39,6 +51,10 @@ library(scales)
 # Set German locale for formatting
 Sys.setlocale("LC_TIME", "de_DE.UTF-8")
 options(OutDec = ",")
+
+# Set knitr options for PDF compatibility
+options(knitr.table.format = "latex")
+options(kableExtra.latex.load_packages = FALSE)
 ```
 
 ## Überblick
@@ -75,10 +91,9 @@ packages_info <- tibble(
 )
 
 packages_info %>%
-  kbl(caption = "Übersicht der getesteten R-Packages") %>%
-  kable_styling(latex_options = c("hold_position"), full_width = TRUE) %>%
-  column_spec(1, bold = TRUE) %>%
-  column_spec(4, width = "8cm")
+  kbl(caption = "Übersicht der getesteten R-Packages", booktabs = TRUE, longtable = FALSE) %>%
+  kable_styling(latex_options = c("hold_position"), full_width = FALSE) %>%
+  column_spec(1, bold = TRUE)
 ```
 
 ## Benchmark-Daten generieren
@@ -148,8 +163,9 @@ benchmark_data %>%
     Runtime_Sek = round(Runtime_Sek, 3),
     Memory_MB = round(Memory_MB, 1)
   ) %>%
-  kbl(caption = "Beispiel der Benchmark-Rohdaten (erste 12 Zeilen)") %>%
-  kable_styling(latex_options = c("hold_position"), full_width = TRUE)
+  kbl(caption = "Beispiel der Benchmark-Rohdaten (erste 12 Zeilen)", 
+      booktabs = TRUE, longtable = FALSE) %>%
+  kable_styling(latex_options = c("hold_position"), full_width = FALSE)
 ```
 
 ## Median-Berechnung und Tabellenerzeugung
@@ -185,8 +201,9 @@ median_results %>%
     Median_Runtime_Sek = round(Median_Runtime_Sek, 3),
     Median_Memory_MB = round(Median_Memory_MB, 1)
   ) %>%
-  kbl(caption = "Median-Werte der Benchmark-Ergebnisse") %>%
-  kable_styling(latex_options = c("hold_position"), full_width = TRUE)
+  kbl(caption = "Median-Werte der Benchmark-Ergebnisse", 
+      booktabs = TRUE, longtable = FALSE) %>%
+  kable_styling(latex_options = c("hold_position"), full_width = FALSE)
 ```
 
 ## Dynamische Performance-Tabelle {#sec-performance-table}
@@ -235,15 +252,16 @@ performance_table %>%
       "Runtime", "Memory",
       "Runtime", "Memory"
     ),
-    align = c("l", rep("r", 4))
+    align = c("l", rep("r", 4)),
+    booktabs = TRUE,
+    longtable = FALSE
   ) %>%
   kable_styling(
-    latex_options = c("hold_position", "striped"), 
-    full_width = TRUE
+    latex_options = c("hold_position"), 
+    full_width = FALSE
   ) %>%
   add_header_above(c(" " = 1, "Fallzahl-Aggregation" = 2, "Logistische Regression" = 2)) %>%
   column_spec(1, bold = TRUE) %>%
-  column_spec(c(2, 4), background = "#f8f9fa") %>%
   footnote(
     general = c(
       "Werte zeigen Median aus 3 Iterationen",
@@ -397,7 +415,8 @@ session_summary <- tibble(
 )
 
 session_summary %>%
-  kbl(caption = "Session-Informationen für Reproduzierbarkeit") %>%
+  kbl(caption = "Session-Informationen für Reproduzierbarkeit", 
+      booktabs = TRUE, longtable = FALSE) %>%
   kable_styling(latex_options = c("hold_position"), full_width = FALSE)
 ```
 

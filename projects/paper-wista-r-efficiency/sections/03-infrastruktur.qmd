@@ -18,11 +18,21 @@ Zugriff zu Analyseservern in umfangreichen Kapazitäten.
 
 IM FDZ Bund Für Stata oder R in KDFV oder GWAP stehen jeder Nutzung zur Verfügung:
 
+::: {.content-visible unless-format="pdf"}
 | Komponente          | Umfang        |
 |---------------------|---------------|
 | Arbeitsspeicher     | bis zu 512 GB |
 | Kernanzahl          | 16            |
 | CPU-Geschwindigkeit | 3.1 GHz       |
+:::
+
+::: {.content-visible when-format="pdf"}
+**Systemspezifikationen:**
+
+- **Arbeitsspeicher:** bis zu 512 GB
+- **Kernanzahl:** 16  
+- **CPU-Geschwindigkeit:** 3.1 GHz
+:::
 
 -   schnelle Direktverbindung zu Netzwerkspeicher
 -   Fußnote RAM in R 128 GB kann erweitert werden.

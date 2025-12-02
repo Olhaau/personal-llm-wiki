@@ -51,6 +51,9 @@ format:
     include-before-body:
       - title.tex
     title-block-style: none
+    pandoc:
+      variables:
+        tables: false
 
     include-in-header:
       text: |
@@ -74,6 +77,8 @@ format:
         \usepackage{tabularx}
         \usepackage{afterpage}
         \usepackage{tikz}
+        
+
         
         % Suppress default maketitle
         \renewcommand{\maketitle}{}
@@ -153,6 +158,31 @@ format:
         
         % Pifont for dingbat symbols
         \usepackage{pifont}
+        
+        % Completely disable problematic table elements for two-column mode
+        \usepackage{array,tabularx,calc}
+        \makeatletter
+        % Replace longtable with simple tabular
+        \renewenvironment{longtable}{\@ifnextchar[{\@longtable}{\@longtable[c]}}{\end{tabular}}
+        \def\@longtable[#1]#2{\begin{tabular}{*{10}{l}}} % Use up to 10 left-aligned columns
+        % Disable all longtable-specific commands
+        \let\endhead\@empty
+        \let\endfirsthead\@empty
+        \let\endfoot\@empty
+        \let\endlastfoot\@empty
+        \let\tabularnewline\\
+        % Completely replace booktabs rules with simple versions
+        \renewcommand{\toprule}{\relax}
+        \renewcommand{\midrule}{\relax}
+        \renewcommand{\bottomrule}{\relax}
+        % Create commands to absorb problematic table commands
+        \def\noalign#1{}
+        % Handle caption commands outside floats by redefining after caption package loads
+        \AtBeginDocument{
+          \let\oldcaption\caption
+          \renewcommand{\caption}[1]{\par\noindent\textbf{#1}\par}
+        }
+        \makeatother
         
         % Custom bullet points with > character - 35% width, 95% height, black extra bold, half line spacing
         \usepackage{enumitem}

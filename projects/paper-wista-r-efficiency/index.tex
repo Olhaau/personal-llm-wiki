@@ -109,16 +109,6 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
-\usepackage{longtable,booktabs,array}
-\usepackage{calc} % for calculating minipage widths
-% Correct order of tables after \paragraph or \subparagraph
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
-\makeatother
-% Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
-\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
 \newsavebox\pandoc@box
@@ -196,6 +186,8 @@
 \usepackage{tabularx}
 \usepackage{afterpage}
 \usepackage{tikz}
+
+
 
 % Suppress default maketitle
 \renewcommand{\maketitle}{}
@@ -275,6 +267,31 @@
 
 % Pifont for dingbat symbols
 \usepackage{pifont}
+
+% Completely disable problematic table elements for two-column mode
+\usepackage{array,tabularx,calc}
+\makeatletter
+% Replace longtable with simple tabular
+\renewenvironment{longtable}{\@ifnextchar[{\@longtable}{\@longtable[c]}}{\end{tabular}}
+\def\@longtable[#1]#2{\begin{tabular}{*{10}{l}}} % Use up to 10 left-aligned columns
+% Disable all longtable-specific commands
+\let\endhead\@empty
+\let\endfirsthead\@empty
+\let\endfoot\@empty
+\let\endlastfoot\@empty
+\let\tabularnewline\\
+% Completely replace booktabs rules with simple versions
+\renewcommand{\toprule}{\relax}
+\renewcommand{\midrule}{\relax}
+\renewcommand{\bottomrule}{\relax}
+% Create commands to absorb problematic table commands
+\def\noalign#1{}
+% Handle caption commands outside floats by redefining after caption package loads
+\AtBeginDocument{
+  \let\oldcaption\caption
+  \renewcommand{\caption}[1]{\par\noindent\textbf{#1}\par}
+}
+\makeatother
 
 % Custom bullet points with > character - 35% width, 95% height, black extra bold, half line spacing
 \usepackage{enumitem}
@@ -459,6 +476,9 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \ldots{}
 
 Spannungsfeld, Weiterentwicklung und Technologie-Empfehlung\ldots{}
+
+Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz FDZ
+Netzwerk empririscher Steuerforschung, hier kurz NeSt
 
 \subsection{Handlungsbedarf}\label{handlungsbedarf}
 
@@ -928,13 +948,17 @@ Mikrodaten durch die Wissenschaft.
   Personen; Auslandskontrolle oder WZ) auf positive Verlustvorträge.
 \end{enumerate}
 
+Aus technischer Sicht, ist die Kernaufgabe den Großteil (von 2991
+Variablen) effizient zu entfernen, sodass lediglich der relevante
+Ausschnitt von kleinem Umfang ausgewertet werden kann.
+
 Beide Anwendungsfälle können bereits im mit den folgenden X von 3000
 Variablen untersucht werden:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2471}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1176}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6353}}@{}}
 \caption{Betrachtete Variablen des BTP}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
@@ -1132,7 +1156,7 @@ Business-Tax-Panel}
 
 \centering{
 
-\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright}X}
+\begin{tabular}{ll}
 \toprule
 Merkmal & Wert\\
 \midrule
@@ -1142,7 +1166,7 @@ Anzahl Merkmale & >2.700\\
 Erhebungsart & Vollerhebung\\
 Datenquelle & Sekundärerhebung (Finanzverwaltung)\\
 \bottomrule
-\end{tabu}
+\end{tabular}
 
 }
 
@@ -1309,17 +1333,17 @@ Zugriff zu Analyseservern in umfangreichen Kapazitäten.
 IM FDZ Bund Für Stata oder R in KDFV oder GWAP stehen jeder Nutzung zur
 Verfügung:
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule\noalign{}
-Komponente & Umfang \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Arbeitsspeicher & bis zu 512 GB \\
-Kernanzahl & 16 \\
-CPU-Geschwindigkeit & 3.1 GHz \\
-\end{longtable}
+\textbf{Systemspezifikationen:}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Arbeitsspeicher:} bis zu 512 GB
+\item
+  \textbf{Kernanzahl:} 16\\
+\item
+  \textbf{CPU-Geschwindigkeit:} 3.1 GHz
+\end{itemize}
 
 \begin{itemize}
 \tightlist
@@ -1985,14 +2009,13 @@ Exemplarische deskreptive Auswertung (Fallzahl pro Statistik und Jahr)
 Statistik & & \\
 \end{longtable}
 
-\begin{description}
-\item[summarize(n = sum(g = str\_detect(verk, ``g'')), k =
-str\_detect(verk, ``k''), \ldots) -\textgreater{} Aggregiere auf eine
-beobachtung pro Gruppe und zähle dort alle Beobachtungen, die das
-Zeichen ``g'' bzw. ``k'' in \texttt{verk} haben (Fallzahl Gewerbesteuer
-bzwp Körperschaftssteuer) usw.]
-Auswertungsbefehle in Tidyverse
-\end{description}
+summarize(n = sum(g = str\_detect(verk, ``g'')), k = str\_detect(verk,
+``k''), \ldots) -\textgreater{} Aggregiere auf eine beobachtung pro
+Gruppe und zähle dort alle Beobachtungen, die das Zeichen ``g'' bzw.
+``k'' in \texttt{verk} haben (Fallzahl Gewerbesteuer bzwp
+Körperschaftssteuer) usw.
+
+\textbf{Auswertungsbefehle in Tidyverse}
 
 Syntax echtes Herausstellungsmerkmal, sodass zsl. Pakete die Syntax für
 alle hier genannten Auswertungsmethoden adaptieren. Bspw. lässt sich
@@ -2083,8 +2106,7 @@ Datenformate für die BTP-Analyse}
 
 \centering{
 
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedleft}X>{\raggedright}X>{\raggedright}X>{\centering}X>{\raggedright}X}
+\begin{tabular}{llllll}
 \toprule
 Format & Größe & Ladezeit & Kompression & Partitionierung & Kompatibilität\\
 \midrule
@@ -2094,7 +2116,7 @@ Feather & 95\% & Sehr schnell & LZ4/ZSTD & Nein & Arrow-Oekosystem\\
 Parquet & 15\% & Schnell & Snappy/GZIP & Moeglich & Sehr hoch\\
 Parquet (partitioniert) & 15\% & Sehr schnell (selektiv) & Snappy/GZIP & Ja & Sehr hoch\\
 \bottomrule
-\end{tabu}}
+\end{tabular}
 
 }
 
@@ -2416,11 +2438,6 @@ gemeinsam mit den in Abschnitt Kapitel~\ref{sec-methoden} beschriebenen
 Methoden (selektives Einlesen, Datenaufteilung):
 
 \begin{longtable}[]{@{}ll@{}}
-\caption{Versionen betrachteter R-Pakete}\tabularnewline
-\toprule\noalign{}
-Paket & Version \\
-\midrule\noalign{}
-\endfirsthead
 \toprule\noalign{}
 Paket & Version \\
 \midrule\noalign{}
@@ -2434,6 +2451,8 @@ arrow & 20.0.0.2 \\
 duckdb & 1.3.2 \\
 polars & 1.0.1 \\
 \end{longtable}
+
+\textbf{Versionen betrachteter R-Pakete}
 
 Wie in Abschnitt Kapitel~\ref{sec-infrastruktur} beschrieben war es
 nicht möglich, die neuste Version aller Pakete zu verwenden und die
@@ -2454,11 +2473,6 @@ Performanzmessungen für 1\% des simulierten BTP durchgeführt (800.000
 Beobachtungen) :
 
 \begin{longtable}[]{@{}lllll@{}}
-\caption{Performanz von SAS und Stata}\tabularnewline
-\toprule\noalign{}
-Anwendungsfall & Software & Arbeitspeicher & Laufzeit & Speicher \\
-\midrule\noalign{}
-\endfirsthead
 \toprule\noalign{}
 Anwendungsfall & Software & Arbeitspeicher & Laufzeit & Speicher \\
 \midrule\noalign{}
@@ -2471,6 +2485,8 @@ Fallzahl & Stata & ca. 33 GB & 55 Sekunden & 32 GB \\
 Regression & Stata & ca. 33 GB & 56 Sekunden & 32 GB \\
 \end{longtable}
 
+\textbf{Performanz von SAS und Stata}
+
 Der Arbeitsspeicher des FDZ OnSite-Servers nicht um das ganze BTP in
 Stata zu verarbeiten, sodass zwingend mit selektivem Einlesen gearbeitet
 werden muss.
@@ -2479,30 +2495,12 @@ werden muss.
 Datenmengen}\label{hauptergebnis-fuxfcr-grouxdfe-datenmengen}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3836}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1233}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1233}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1233}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1233}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1233}}@{}}
-\caption{Benchmarkergebnisse für Berechnung der Fallzahl des 10\% des
-simulierten BTP}\tabularnewline
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Paket
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Datenformat
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Optimierung
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Arbeitsspeicher
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Laufzeit
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Festplatte
-\end{minipage} \\
-\midrule\noalign{}
-\endfirsthead
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2568}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1486}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Paket
@@ -2529,8 +2527,12 @@ Festplatte
 \{arrow\} & Ein Parquet & & & 20.61 Sekunden & \\
 \end{longtable}
 
-Anhand unserer Untersuchung, bietet \{arrow\} im Gesamtpaket die
-eindeutige besten Datenverarbeitungsmethoden für unsere Zwecke.
+\textbf{Benchmarkergebnisse für Berechnung der Fallzahl des 10\% des
+simulierten BTP}
+
+Anhand unserer Untersuchung, bietet \{arrow\}+\{parquet\} (bei Bedarf
++\{duckdb\}) im Gesamtpaket die eindeutige besten
+Datenverarbeitungsmethoden für unsere Zwecke.
 
 \begin{itemize}
 \item
@@ -2557,7 +2559,14 @@ eindeutige besten Datenverarbeitungsmethoden für unsere Zwecke.
     hohe Stabilität, fehlende Features können durch leicht in duckdb
     oder in den Arbeitsspeicher überführt und dennoch ausgeführt werden
   \end{itemize}
+\item
+  kleiner Nachteil: Erfahrung notwendig, da erst
+  Datenaufteilung/selektives Einlesen die maximale Performanz erreichen
 \end{itemize}
+
+Unerwarteterweise ist \{polars\} für das simulierte 10\% BTP
+abgeschlagen (unter den schlechtesten Methoden) und für andere
+Datenmengen optimal schnell.
 
 \subsection{Erkenntnisse für kleine
 Datenmengen}\label{erkenntnisse-fuxfcr-kleine-datenmengen}
@@ -2582,17 +2591,19 @@ Datenmengen}\label{erkenntnisse-fuxfcr-kleine-datenmengen}
   Beobachtungen eindeutig Parquet -- sowohl in Speicherbedarf als auch
   in Laufzeit.
 \item
-  Datenaufteilung bietet lediglich high-performance Methoden erst ab
-  einer gewissen Datenmenge Vorteile. Für kleine Mengen überwiegt der
-  Overhead durch das Lesen mehrer kleiner Dateien. Klassische Methoden
-  werden durch eine Datenaufteilung nur negativ beeinflusst.
+  Datenaufteilung bietet nur high-performance Methoden ab einer gewissen
+  Datenmenge Vorteile. Für kleine Mengen überwiegt der Overhead durch
+  das Lesen mehrer kleiner Dateien. Klassische Methoden werden durch
+  eine Datenaufteilung nur negativ beeinflusst.
 \item
-  Die Ergänzung von selektivem Einlesen ist immer Vorteilhaft.
+  Die Ergänzung von selektivem Einlesen ist immer vorteilhaft.
   High-Performance Methoden können aber bei einer aufgeteilten
   Datenhaltung darauf verzichten.
 \item
   Von den klassischen Methoden ist DT+SEL am effizientesten, aber für
-  unseren größten Anwendungsfall
+  unseren größten Anwendungsfall. Ein geschickter DTler kann mit
+  moderaten Datenmengen auch sehr effizient arbeiten. Anfängern ist eher
+  \{arrow\} zu empfehlen.
 
   \begin{itemize}
   \item
@@ -2604,40 +2615,6 @@ Datenmengen}\label{erkenntnisse-fuxfcr-kleine-datenmengen}
     Beachtung der Arbeitsspeicher Restriktionen)
   \item
     SPLIT verschlechtert DT im Gegensatz zu arrow
-  \end{itemize}
-\item
-  base+readr sind immer weit abgeschlagen
-\end{itemize}
-
-\subsection{Ergebnisse}\label{ergebnisse}
-
-Allg: Parquet spart Speicher wie rds/qs oder .gz, aber bleibt extrem
-schnell lesbar. Portabel, in anderen Sprachen nutzbar
-
-\begin{itemize}
-\tightlist
-\item
-  großer Use Case 10 \% BTP Für Große Datenmengen (betrachtet bis zu 7
-  Mio Obs, ca. 10 \% des vollen BTP, 45 GB Parquet, 121 GB CSV) ist
-  arrow (mit aufgeteilten Parquet) am schnellsten für 1. Fallzahlen
-  (5.67s) und 2. Logistische Regression (5.19s). Dazu sehr
-  Arbeitspeicherschonend (mit nur 668 MB im Arbeitsspeicher für 48 GB
-  parquet Daten)
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Bei Fallzahlen dicht gefolgt von duckdb mit 5.14 sec
-  \item
-    Bei Arrow kann durch etwas Geschick/Kompetenz, erst die maximale
-    Performance erreicht werden. Dateiaufteilung oder Variablen auswahl
-    verwendet werden, sonst erhöht sich die Laufzeit um einen Faktor von
-    4.4 zu 20.6s
-  \item
-    polars mit Paruqet für 10\% BTP extrem abgeschlagen, unter den
-    schlechtesten Methoden mit 1.17 min das 15x zu der besten Methode
-    ist für kleiner Datengrößen 1\% und 0.1\% BTP die schnellste
-    Variante, jedoch dicht gefolgt von Arrow und Duckdb, Datatable
   \item
     \{data.table\}+csv ist die beste ``klassische'' R-Methode und
     erreicht maximal 23.58s, in der größen Ordnung wie die nicht
@@ -2645,6 +2622,17 @@ schnell lesbar. Portabel, in anderen Sprachen nutzbar
     für CSV (aufgeteilte Parquet sind doppelt so schnell). D.h. ein
     \{data.table\} Profi, ist besser als ein schlechter Arrow
     Programmierer, der aber größeres Potenzial für Verbesserungen hat.
+  \end{itemize}
+\item
+  base+readr sind immer weit abgeschlagen
+\end{itemize}
+
+\subsection{Ergebnisse}\label{ergebnisse}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \item
     Für \{data.table\} ist die geschickte Programmierung noch viel
     wichtiger. Arrow wird höchstens langsam und beansprucht viel weniger
     RAM. Wohingegen data.table für den gesamten Datensatz (ohne Sel) das
@@ -2670,8 +2658,6 @@ schnell lesbar. Portabel, in anderen Sprachen nutzbar
     RAM, DuckDB nur geringfügig mehr
   \end{itemize}
 \end{itemize}
-
-Je nach Datenmenge andere Gewinner
 
 10 \%: arrow + aufgeteilte parquet, duckdb, arrow variante 1 \%: polars
 + ein parquet, duckdb, arrow 0.1 \%: polars + ein parquet, DT, arrow
@@ -2718,224 +2704,6 @@ Default. Dennoch nicht komplett davon abraten.
   braucht (auf großen Inputs), nutzt auch gerne duckdb
 \end{itemize}
 
-\subsection{KI-Anhang}\label{ki-anhang-1}
-
-\subsubsection{Experimentelles Setup}\label{experimentelles-setup}
-
-Die Performanzmessungen wurden auf einem repräsentativen FDZ-System
-durchgeführt (2x Intel Xeon Gold 6248R, 48 Kerne, 384 GB RAM, Ubuntu
-22.04 LTS). Alle Tests wurden mit R 4.3.2 und aktuellen Versionen der
-verwendeten Pakete durchgeführt.
-
-\textbf{Test-Szenarien.}
-
-Die Evaluation umfasst realistische Auswertungsszenarien aus dem BTP:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Szenario A: Einfache Aggregation} - Jahressummen nach
-  Wirtschaftszweig
-\item
-  \textbf{Szenario B: Komplexe Aggregation} - Multi-dimensionale
-  Gruppierung mit mehreren Kennzahlen
-\item
-  \textbf{Szenario C: Join-Operation} - Verknüpfung zweier großer
-  Tabellen
-\item
-  \textbf{Szenario D: Filterkette} - Mehrere aufeinanderfolgende Filter-
-  und Transformationsoperationen auf \#\#\#\# Vergleich der Datenformate
-\end{enumerate}
-
-\textbf{Ladezeiten und Speicherverbrauch.}
-
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-format-performance-1.pdf}}
-
-}
-
-\caption{\label{fig-format-performance}Ladezeiten verschiedener
-Datenformate (BTP-Datensatz, 5 Mio. Zeilen, 50 Variablen)}
-
-\end{figure}%
-
-\textbf{Aggregations-Performance.}
-
-\begin{table}
-
-\caption{\label{tbl-aggregation-performance}Ausführungszeiten für
-Szenario A: Einfache Aggregation (in Sekunden)}
-
-\centering{
-
-\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X}
-\toprule
-Ansatz & Laden & Aggregation & Gesamt & Speedup\\
-\midrule
-Base R (read.csv + aggregate) & 45.2 & 18.7 & 63.9 & 1.0\\
-data.table (fread + groupby) & 12.1 & 2.3 & 14.4 & 4.4\\
-dplyr + CSV & 43.8 & 8.9 & 52.7 & 1.2\\
-Arrow + Parquet & 4.8 & 1.2 & 6.0 & 10.7\\
-DuckDB + Parquet & 0.3 & 0.8 & 1.1 & 58.1\\
-\addlinespace
-Arrow + Parquet (partitioniert) & 0.2 & 0.5 & 0.7 & 91.3\\
-\bottomrule
-\end{tabu}
-
-}
-
-\end{table}%
-
-\subsubsection{Skalierungsverhalten}\label{skalierungsverhalten}
-
-\textbf{Performance bei wachsender Datenmenge.}
-
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-scaling-behavior-1.pdf}}
-
-}
-
-\caption{\label{fig-scaling-behavior}Skalierungsverhalten verschiedener
-Ansätze (Szenario B: Komplexe Aggregation)}
-
-\end{figure}%
-
-\subsubsection{Join-Performance}\label{join-performance}
-
-\textbf{Verschiedene Join-Strategien.}
-
-Die Verknüpfung großer Datensätze ist eine häufige Operation bei der
-Arbeit mit dem BTP:
-
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-join-performance-1.pdf}}
-
-}
-
-\caption{\label{fig-join-performance}Join-Performance bei verschiedenen
-Datensatzgrößen (Inner Join zweier Tabellen)}
-
-\end{figure}%
-
-\subsubsection{Parallelisierungs-Effizienz}\label{parallelisierungs-effizienz}
-
-\textbf{Speedup durch Multi-Threading.}
-
-\begin{table}
-
-\caption{\label{tbl-parallel-speedup}Speedup durch Parallelisierung
-(Szenario D: Filterkette, 10 Mio. Zeilen)}
-
-\centering{
-
-\begin{tabu} to \linewidth {>{\centering}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X}
-\toprule
-Kerne & Arrow (s) & DuckDB (s) & Arrow Speedup & DuckDB Speedup\\
-\midrule
-1 & 25.3 & 9.8 & 1.0 & 1.0\\
-2 & 13.2 & 5.1 & 1.9 & 1.9\\
-4 & 7.1 & 2.7 & 3.6 & 3.6\\
-8 & 3.9 & 1.5 & 6.5 & 6.5\\
-16 & 2.3 & 0.9 & 11.0 & 10.9\\
-\addlinespace
-32 & 1.8 & 0.7 & 14.1 & 14.0\\
-\bottomrule
-\end{tabu}
-
-}
-
-\end{table}%
-
-\subsubsection{Speichereffizienz}\label{speichereffizienz}
-
-\textbf{Memory Footprint.}
-
-Ein kritischer Faktor in der FDZ-Umgebung ist der Speicherverbrauch:
-
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-memory-efficiency-1.pdf}}
-
-}
-
-\caption{\label{fig-memory-efficiency}Peak Memory Usage verschiedener
-Ansätze (5 Mio. Zeilen)}
-
-\end{figure}%
-
-\subsubsection{Praktische Implikationen}\label{praktische-implikationen}
-
-\textbf{Empfehlungen nach Anwendungsfall.}
-
-Basierend auf den Performanzmessungen lassen sich folgende Empfehlungen
-ableiten:
-
-\begin{table}
-
-\caption{\label{tbl-recommendations}Empfohlene Werkzeuge nach
-Anwendungsfall}
-
-\centering{
-
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright}X>{\raggedright}X>{\raggedright}X}
-\toprule
-Anwendungsfall & 1. Wahl & 2. Wahl & Begründung\\
-\midrule
-Kleine Datensätze (<1M Zeilen) & data.table & Base R & Einfachheit, gute Performance\\
-Explorative Analyse, häufige Iterationen & DuckDB & Arrow & SQL-Komfort, schnelle Iteration\\
-Große Aggregationen (>5M Zeilen) & DuckDB & Arrow + Parquet & Beste Skalierung, niedrigster Speicherverbrauch\\
-Komplexe Joins & DuckDB & data.table & Optimierter Hash-Join, Index-Support\\
-Produktions-Pipelines & Arrow + Parquet & DuckDB & Persistenz, Partitionierung, Reproduzierbarkeit\\
-\addlinespace
-Speicher-limitierte Umgebung & DuckDB & Arrow (streaming) & Out-of-core Verarbeitung möglich\\
-\bottomrule
-\end{tabu}}
-
-}
-
-\end{table}%
-
-\subsubsection{Zusammenfassung der
-Erkenntnisse}\label{zusammenfassung-der-erkenntnisse}
-
-Die empirischen Messungen zeigen deutlich:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{Moderne Formate dominieren:} Arrow/Parquet und DuckDB bieten
-  um den Faktor 10-90x bessere Performance als traditionelle Ansätze
-\item
-  \textbf{Partitionierung lohnt sich:} Bei großen Datensätzen reduziert
-  Partitionierung die Zugriffszeiten erheblich
-\item
-  \textbf{Query Optimization wichtig:} Lazy Evaluation und Predicate
-  Pushdown ermöglichen dramatische Speedups
-\item
-  \textbf{Parallelisierung skaliert gut:} Bis zu 14x Speedup mit 32
-  Kernen möglich
-\item
-  \textbf{Speicher ist der Engpass:} Moderne Ansätze benötigen 3-7x
-  weniger RAM als Base R
-\end{enumerate}
-
-Diese Ergebnisse zeigen, dass durch den Einsatz moderner
-Auswertungsmethoden die Effizienz der Datenanalyse in
-Forschungsdatenzentren erheblich gesteigert werden kann.
-
 \section{Anwendung auf BTP}\label{sec-ergebnis}
 
 Anwendung der besten Methoden auf das vollständige BTP
@@ -2945,7 +2713,7 @@ Anwendung der besten Methoden auf das vollständige BTP
 \item
   Repräsentant high perf: Arrow -\textgreater{}
 \item
-  Datatable (RAM-Fehler?)
+  Datatable ohne sekeltives Einlesen führt zu RAM Crash (RAM-Fehler?)
 \item
   Datatable Sel.
 \end{itemize}
@@ -2961,7 +2729,7 @@ Anwendung der besten Methoden auf das vollständige BTP
 \end{itemize}
 
 \subsection{(Zusammenfassung der
-Erkenntnisse)}\label{zusammenfassung-der-erkenntnisse-1}
+Erkenntnisse)}\label{zusammenfassung-der-erkenntnisse}
 
 Die vorliegende Untersuchung hat gezeigt, dass moderne
 spaltenorientierte Technologien erhebliche Vorteile für die Analyse
@@ -3247,7 +3015,7 @@ für FDZ-Bedingungen geeignet.
 \section{Ausblick}\label{sec-ausblick}
 
 \subsection{Zusammenfassung der
-Erkenntnisse}\label{zusammenfassung-der-erkenntnisse-2}
+Erkenntnisse}\label{zusammenfassung-der-erkenntnisse-1}
 
 Die vorliegende Untersuchung hat gezeigt, dass moderne
 spaltenorientierte Technologien erhebliche Vorteile für die Analyse
