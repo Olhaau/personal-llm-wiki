@@ -18,7 +18,11 @@ Aus technischer Sicht, ist die Kernaufgabe den Großteil (von 2991 Variablen) ef
 Beide Anwendungsfälle können bereits im mit den folgenden X von 3000 Variablen untersucht werden:
 
 ```{r}
+#| label: tbl-variables
+#| tbl-cap: "Betrachtete Variablen des BTP"
 #| echo: false
+
+library(kableExtra)
 
 # Create variable table as data frame
 variables_table <- data.frame(
@@ -33,8 +37,18 @@ variables_table <- data.frame(
 
 knitr::kable(variables_table, 
              col.names = c("Variable", "Statistik", "Beschreibung"),
-             caption = "Betrachtete Variablen des BTP",
-             booktabs = TRUE)
+             booktabs = FALSE,
+             format = "latex",
+             escape = FALSE) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    font_size = 9,
+    full_width = FALSE
+  ) %>%
+  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) %>%
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") %>%
+  column_spec(2:3, background = "#f0f8ff") %>%
+  column_spec(3, width = "4cm")
 ```
 
 Kennzahlen um inhaltlose Testdaten zu generieren werden folgende Eckdaten benötigt und im nächsten BTP berücksichtigt:
@@ -115,10 +129,20 @@ btp_stats <- data.frame(
 btp_stats$Wert <- c("2013-2019 (jährliche Erweiterung)", ">66 Millionen", ">2.700", 
                     "Vollerhebung", "Sekundärerhebung (Finanzverwaltung)")
 
-# Use simple kable for two-column PDF to avoid longtable issues
+# WISTA-styled table
 knitr::kable(btp_stats, 
              col.names = c("Merkmal", "Wert"),
-             booktabs = TRUE)
+             booktabs = FALSE,
+             format = "latex",
+             escape = FALSE) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    font_size = 10,
+    full_width = FALSE
+  ) %>%
+  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) %>%
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") %>%
+  column_spec(2, background = "#f0f8ff")
 ```
 
 **Hauptmerkmale des Datensatzes.**

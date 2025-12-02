@@ -3,8 +3,14 @@
 Anwendung der besten Methoden auf das vollständige BTP
 
 -   Repräsentant high perf: Arrow -\>
--   Datatable ohne sekeltives Einlesen führt zu RAM Crash (RAM-Fehler?)
--   Datatable Sel.
+-   (optional) Datatable ohne sekeltives Einlesen führt zu RAM Crash (RAM-Fehler?)
+-   (optional) Datatable Sel.
+
+Real world application unserer Ergebnisse auf das Echte BTP
+
+Ergebnis für gesamten Datensatz
+
+-\> Größere Speicherreduktion, da das echte BTP mehr fehlende Werte enthält, als anhand der externen Daten angenommen.
 
 ### Kernaussagen
 

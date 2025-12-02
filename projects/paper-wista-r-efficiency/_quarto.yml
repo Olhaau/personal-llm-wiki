@@ -42,6 +42,7 @@ format:
     number-sections: true
     cite-method: biblatex
     biblio-style: authoryear
+    tbl-cap-location: top
     biblatexoptions: 
       - backend=biber
       - style=authoryear-comp
@@ -77,6 +78,7 @@ format:
         \usepackage{tabularx}
         \usepackage{afterpage}
         \usepackage{tikz}
+        \usepackage{longtable}
         
 
         
@@ -144,6 +146,11 @@ format:
           \endorigfigure*%
         }
         
+        % Allow manual control of table* environment for full-width tables
+        % Tables by default stay in single column, but can use table* manually
+        
+
+        
         % Make bibliography full-width (one column) - for biblatex
         \defbibheading{bibliography}[\bibname]{%
           \onecolumn
@@ -156,33 +163,72 @@ format:
         % Footnotes stay within column
         \usepackage[stable]{footmisc}
         
+        % Custom footnote formatting: ". |^1" in dark WISTA gray
+        \renewcommand{\thefootnote}{{\color{wistaDarkGray}.\thinspace|$^{\arabic{footnote}}$}}
+        
         % Pifont for dingbat symbols
         \usepackage{pifont}
         
-        % Completely disable problematic table elements for two-column mode
+        % Better table handling for two-column mode
         \usepackage{array,tabularx,calc}
-        \makeatletter
-        % Replace longtable with simple tabular
-        \renewenvironment{longtable}{\@ifnextchar[{\@longtable}{\@longtable[c]}}{\end{tabular}}
-        \def\@longtable[#1]#2{\begin{tabular}{*{10}{l}}} % Use up to 10 left-aligned columns
-        % Disable all longtable-specific commands
-        \let\endhead\@empty
-        \let\endfirsthead\@empty
-        \let\endfoot\@empty
-        \let\endlastfoot\@empty
-        \let\tabularnewline\\
-        % Completely replace booktabs rules with simple versions
-        \renewcommand{\toprule}{\relax}
-        \renewcommand{\midrule}{\relax}
-        \renewcommand{\bottomrule}{\relax}
-        % Create commands to absorb problematic table commands
-        \def\noalign#1{}
-        % Handle caption commands outside floats by redefining after caption package loads
-        \AtBeginDocument{
-          \let\oldcaption\caption
-          \renewcommand{\caption}[1]{\par\noindent\textbf{#1}\par}
+        
+        % Custom WISTA table format
+        \usepackage{caption}
+        \usepackage{xcolor}
+        \usepackage{colortbl}
+        \usepackage{array}
+        
+        % Define custom caption format for WISTA tables
+        \DeclareCaptionFormat{wista}{%
+          {\color{wistaLightBlue}\bfseries #1#2}\par\vspace{0.2em}%
+          {\color{wistaDarkGray}\normalfont #3}\par\vspace{0.3em}%
+          \noindent{\color{wistaDarkGray}\rule{\columnwidth}{1pt}}%
         }
-        \makeatother
+        
+        % Set up table captions with custom WISTA format
+        \captionsetup[table]{
+          position=top,
+          format=wista,
+          justification=justified,
+          singlelinecheck=false,
+          labelsep=none,
+          skip=0.3em
+        }
+        
+        % Better table spacing and white inner lines
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{1.15}
+        
+        % Set white lines for tables by default, blue for first column
+        \AtBeginDocument{
+          \arrayrulecolor{white}
+        }
+        
+        % Define commands for colored table borders
+        \newcommand{\bluevrule}{\color{wistaBlue}\vrule}
+        \newcommand{\whitevrule}{\color{white}\vrule}
+        
+        % Define WISTA table colors
+        \definecolor{wistaTableBg}{RGB}{240,248,255}     % Very light blue background
+        \definecolor{wistaHeaderBg}{RGB}{220,230,240}    % Light blue header background
+        \definecolor{wistaFirstCol}{RGB}{65,125,180}     % Blue for first column lines
+        
+        % Custom WISTA table command
+        \newcommand{\wistaTableStart}{%
+          \rowcolors{2}{wistaTableBg}{wistaTableBg}%
+          \arrayrulecolor{wistaFirstCol}%
+        }
+        
+        % Custom commands for table styling
+        \newcommand{\wistaHeaderRow}[1]{%
+          \rowcolor{wistaHeaderBg}%
+          \arrayrulecolor{wistaDarkGray}%
+          #1 \\
+          \arrayrulecolor{white}%
+        }
+        
+        \newcommand{\wistaFirstColRule}{\arrayrulecolor{wistaFirstCol}}
+        \newcommand{\wistaWhiteRule}{\arrayrulecolor{white}}
         
         % Custom bullet points with > character - 35% width, 95% height, black extra bold, half line spacing
         \usepackage{enumitem}

@@ -8,9 +8,7 @@
 
 Spannungsfeld, Weiterentwicklung und Technologie-Empfehlung...
 
-Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz FDZ
-Netzwerk empririscher Steuerforschung, hier kurz NeSt
-
+Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz FDZ Netzwerk empririscher Steuerforschung, hier kurz NeSt
 
 ### Handlungsbedarf
 
@@ -61,7 +59,7 @@ FDZ, NeSt
 -   Gutachten BMF ansprechen
 -   NeSt erklären, Bedarfe durch Produkt BTP beantwortet.. aber wie kann es in angme
 
-he Need for Speed
+The Need for Speed
 
 As we start working with larger and larger datasets, the basic tools of the tidyverse start to look a little slow. In the last few years several packages more suited to large datasets have emerged. Some of these are column, rather than row, oriented. Some use parallel processing. Some are vector optimized. Speedy databases that have made their way into the R ecosystem are data.table, arrow, polars and duckdb. All of these are available for Python as well. Each of these carries with it its own interface and learning curve. duckdb, for example is a dialect of SQL, an entirely different language so our dplyr code above has to look like this in SQL: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
@@ -126,6 +124,8 @@ Open Source -\> breite Auswahl an Parketen zum Einlesen, Transformieren und Ausw
 
 #### Hoch-performante R-Pakete
 
+Als Desktopanwendung konzipiert ist R nicht für hoch-performante Auswertungen von Big Data bekannt. Wie unsere Untersuchung zeigen wird, beansprucht R nativ übermäßige Systemressourcen, um die Nutzerfreundlichkeit zu erhöhen. Dadurch dass R Open Source ist ändern dies jedoch diverse Entwicklerteams weltweit und stellen R Zusatzfunktionen in Form von R-Paketen zur Verfügung die in R hoch-performante Auswertung großer Datenmengen ermöglichen.
+
 -   R darüber hinaus vermehrt hoch-performante Analysetools, die sich ständig verbessern
 -   ermöglichen sehr schnelle Verarbeitung von Daten, mit einem sehr hohen Gesamtvolumen, das sogar den verfügbaren RAM übersteigt.
 -   sollte möglichst leicht nutzbar sein, nativ in R ohne viele Abhängkeiten (organisatorische Einschränkungen)
@@ -133,19 +133,28 @@ Open Source -\> breite Auswahl an Parketen zum Einlesen, Transformieren und Ausw
 ### Umsetzungsideen/-vorschläge im StBA/FDZ
 
 -   möglichst leicht nutzbar und gewohnt/verbreitet -\> R+dpylr
+
     -   wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit unterschiedlichen Analytischen und technischen Kenntnissen
+
 -   stabil
+
 -   schnell, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum
+
 -   ressourcensparend (RAM Problematik)
 
 -   möglichst leicht nutzbar mit den vorhandenen Systemen und organisatorischen Strukturen ergibt Anforderungen
+
     -   hohe-performanz bereits mit R Grundlagenwissen
     -   minimale Anforderungen an zsl. Software
 
 -   NeSt Förderung, Datenprodukterstellung, Bereitstellung der FDZ auch technischen Infrastruktur und Knowhow der effizienten Nutzung
+
 -   Bereitstellung des OSS seit Nov. 2025
+
 -   Vorbereitend Exploration und Beratung in geeigneten Aüßerst effizienten Methoden -\> Ergebnisse in Echtzeit
+
 -   Szenario FDZ GWAP Besuch, statt KDFV, sofort Ergebnisse
+
 -   Diese Arbeit
 
 ##### Technische Lösungsansätze
@@ -184,4 +193,3 @@ Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der 
 In @sec-methoden werden verschiedene effiziente Auswertungsmethoden vorgestellt und deren theoretische Grundlagen erläutert. @sec-performance präsentiert die empirischen Performanzergebnisse der verschiedenen Ansätze. Die Arbeit schließt mit einem Ausblick auf zukünftige Entwicklungen in @sec-ausblick.
 
 Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.
-

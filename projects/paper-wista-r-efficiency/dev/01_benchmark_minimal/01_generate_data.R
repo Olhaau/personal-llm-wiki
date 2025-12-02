@@ -12,6 +12,7 @@ N_PARTITIONS <- 10  # Number of partitions for multi-parquet
 suppressPackageStartupMessages({
   library(data.table)
   library(arrow)
+  library(fs)
 })
 
 # Source synth_btp function ----
@@ -87,7 +88,7 @@ csv_path <- file.path(OUTPUT_DIR, "btp_synth.csv")
 t1 <- Sys.time()
 fwrite(dt, csv_path)
 t2 <- Sys.time()
-csv_size <- file.size(csv_path)
+csv_size <- as.numeric(file_size(csv_path))
 csv_time <- as.numeric(difftime(t2, t1, units = "secs"))
 cat(sprintf("   Saved: %s (%.1f MB) in %.2f seconds\n\n", 
             csv_path, csv_size / 1e6, csv_time))
@@ -98,7 +99,7 @@ csvgz_path <- file.path(OUTPUT_DIR, "btp_synth.csv.gz")
 t1 <- Sys.time()
 fwrite(dt, csvgz_path, compress = "auto")
 t2 <- Sys.time()
-csvgz_size <- file.size(csvgz_path)
+csvgz_size <- as.numeric(file_size(csvgz_path))
 csvgz_time <- as.numeric(difftime(t2, t1, units = "secs"))
 cat(sprintf("   Saved: %s (%.1f MB) in %.2f seconds\n", 
             csvgz_path, csvgz_size / 1e6, csvgz_time))
@@ -111,7 +112,7 @@ parquet_path <- file.path(OUTPUT_DIR, "btp_synth.parquet")
 t1 <- Sys.time()
 write_parquet(dt, parquet_path, compression = "snappy")
 t2 <- Sys.time()
-parquet_size <- file.size(parquet_path)
+parquet_size <- as.numeric(file_size(parquet_path))
 parquet_time <- as.numeric(difftime(t2, t1, units = "secs"))
 cat(sprintf("   Saved: %s (%.1f MB) in %.2f seconds\n", 
             parquet_path, parquet_size / 1e6, parquet_time))
@@ -134,8 +135,8 @@ write_dataset(
 )
 t2 <- Sys.time()
 # Calculate total size of partitioned directory
-parquet_part_files <- list.files(parquet_part_dir, recursive = TRUE, full.names = TRUE)
-parquet_part_size <- sum(file.size(parquet_part_files))
+parquet_part_size <- as.numeric(dir_info(parquet_part_dir, recurse = TRUE)$size |> sum())
+parquet_part_files <- dir_ls(parquet_part_dir, recurse = TRUE, type = "file")
 parquet_part_time <- as.numeric(difftime(t2, t1, units = "secs"))
 cat(sprintf("   Saved: %s/ (%d partitions, %.1f MB) in %.2f seconds\n", 
             parquet_part_dir, length(parquet_part_files), 
@@ -166,8 +167,8 @@ dt[, partition := NULL]
 
 t2 <- Sys.time()
 # Calculate total size
-parquet_hash_files <- list.files(parquet_hash_dir, recursive = TRUE, full.names = TRUE)
-parquet_hash_size <- sum(file.size(parquet_hash_files))
+parquet_hash_size <- as.numeric(dir_info(parquet_hash_dir, recurse = TRUE)$size |> sum())
+parquet_hash_files <- dir_ls(parquet_hash_dir, recurse = TRUE, type = "file")
 parquet_hash_time <- as.numeric(difftime(t2, t1, units = "secs"))
 cat(sprintf("   Saved: %s/ (%d partitions, %.1f MB) in %.2f seconds\n", 
             parquet_hash_dir, length(parquet_hash_files), 

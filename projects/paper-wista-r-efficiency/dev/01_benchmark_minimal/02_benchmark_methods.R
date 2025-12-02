@@ -6,6 +6,7 @@
 suppressPackageStartupMessages({
   library(data.table)
   library(jsonlite)
+  library(fs)
 })
 
 # Helper function to detect data files in path ----
@@ -48,9 +49,9 @@ get_memory_usage <- function() {
 get_disk_space <- function(data_info) {
   if (data_info$type == "directory") {
     all_files <- c(data_info$csv_files, data_info$parquet_files)
-    total_size <- sum(file.size(all_files))
+    total_size <- sum(as.numeric(file_size(all_files)))
   } else {
-    total_size <- file.size(data_info$path)
+    total_size <- as.numeric(file_size(data_info$path))
   }
   return(total_size / 1024^2)  # Return in MB
 }

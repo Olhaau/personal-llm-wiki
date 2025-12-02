@@ -10,15 +10,17 @@ beachte/erwähne: https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappe
 
 ### Einordnung
 
+#### Ausgangslage
+
+-   SAS 9.4 M8, EG
+-   Stata V.15 MP-12 und 19 MP-4
+
 #### Generelle Auswahl
 
 -   Nativ in R, wenig externe Abhängigkeiten (kann in Systemen der amtl. Statistik schwierig sein). Nicht alles verfügbar, Einrichtung eingeschränkt und tlw. langwierig. Infrastruktur, Versionen der Software
-
 -   R Syntax ausreichend: Data.table oder Tidy -\> leicht zu lernen, anzuwenden. Wenig mental load auf die Umsetzung, Fokus auf die eigentliche Aufgabe.
-
 -   Keine gesonderte Hardware/Software nötig, keine GPUs oder Spark
-
-- Abgrenzung zu Datenbanken
+-   Abgrenzung zu Datenbanken
 
 **Base R.**
 
@@ -214,8 +216,19 @@ format_comp <- data.frame(
 
 colnames(format_comp) <- c("Format", "Größe", "Ladezeit", "Kompression", "Partitionierung", "Kompatibilität")
 
-# Use simple kable for two-column PDF to avoid longtable issues
-knitr::kable(format_comp, booktabs = TRUE)
+# WISTA-styled table
+knitr::kable(format_comp, 
+             booktabs = FALSE,
+             format = "latex", 
+             escape = FALSE) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    font_size = 9,
+    full_width = FALSE
+  ) %>%
+  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) %>%
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") %>%
+  column_spec(2:ncol(format_comp), background = "#f0f8ff")
 ```
 
 **Empfehlung für FDZ.**

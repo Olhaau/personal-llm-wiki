@@ -1,71 +1,197 @@
+```{=latex}
+\setcounter{section}{4}
+```
+
 ## Vergleich der Performanz {#sec-performance}
 
-### Systematische Benchmark
+### Benchmark-Setup
 
-Um zwischen den Datenverarbeitungsmethoden aus Abschnitt @sec-methoden abzuwägen, haben wir ein systematisches Benchmark-Experiment auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des FDZ durchgeführt. Unser vollständig reproduzierbarer Code und weitere Benchmarks sind auf opencode.de verfügbar (Fußnote zu OpenCode Platzhalter).
+Um zwischen den in Abschnitt @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Benchmark-Experiment auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des FDZ gemessen. Weiterführende Benchmarks sowie der vollständig reproduzierbare Code sind auf opencode.de verfügbar^[www.opencode.de/<tba-url>].
 
-Dazu wurden simulierte Einzeldaten in verschiedenen Größen (0.1%, 1%, 10% der insgesamt 80 Mio Beobachtungen des BTP) aus öffentlich verfügbaren Informationen generiert, um die wesentlichen Strukturen des BTP für unsere Analyse künstlich nachzubilden. Abgrenzend zu den im FDZ bereitgestellten *Datenstrukturfiles* wurden sie nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
+Herangezogen wurden dafür simulierte Einzeldaten in verschiedenen Größen (0.1%/1%/10% von den insgesamt 80 Mio. Beobachtungen des BTP). Sie wurden aus öffentlich verfügbaren Informationen generiert, um die wesentlichen Strukturen des BTP für unsere Analyse künstlich nachzubilden. Abgrenzend zu den im FDZ bereitgestellten *Datenstrukturfiles* wurden die Testdaten nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
 
-1.  **Fallzahl** (pro Statistik und Jahr)
-2.  (logistischer) **Regression** (Einflussfaktoren auf positive Verlustvorträge)
+1.  **Fallzahlen** (pro Statistik und Jahr)
+2.  **Regression** (Einflussfaktoren auf Verlustvorträge)
 
-Jede Datenverarbeitungsmethoden wurde im Rahmen des Experiments dreifach angewandt mit dem Ziel derr zuverlässingen Performanz-Messung. Verglichen werden die Methoden anhand der mittleren Messungen der folgenden Zielgrößen:
+Um eine zuverlässige Performanz-Messung zu erhalten, wurde jede Datenverarbeitungsmethode dreifach angewandt. Der Vergleich erfolgt anhand der mittleren Messung der folgenden Zielgrößen:
 
-1.  beanspruchter **Arbeitsspeicher** der Auswertung,
+1.  **Arbeitsspeicher**-Beanspruchung der Auswertung,
 2.  **Laufzeit** der Auswertung (real verstrichene Zeit),
 3.  **Festplattenspeicher** der verwendeten Daten.
 
-Die Zielgrößen sind in dieser Reihenfolge zu priorisieren, da ein übermäßiger Arbeitsspeicherverbrauch zu schwerwiegenden Abbrüchen führen kann, während längere Laufzeiten dennoch zu einem erfolgreichen Ergebnis führen können. Festplattenspeicher ist auf den eingesetzten Systemen ausreichen vorhanden, unnötige Belegung sollte dennoch vermieden werden.
+Die Zielgrößen sind in dieser Reihenfolge zu priorisieren, da ein übermäßiger Arbeitsspeicherverbrauch zu schwerwiegenden Abbrüchen führen kann, während längere Laufzeiten dennoch zu einem erfolgreichen Ergebnis führen können. Festplattenspeicher ist ausreichend vorhanden, aber unnötige Belegung sollte vermieden werden.
 
-Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 4 GB Arbeitsspeicher durchführt, wird bereits als optimal bewertet; weitere Optimierungen sind in diesem Fall nicht erforderlich. Unter diesen Bedingungen, gilt es die Aufwände der Entwicklung zu reduzieren, sodass Aspekte, wie die einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für unerfahrene Nutzende -- entscheidend sind.
+Für unsere Aufgaben muss nicht zwingend die 
 
-Wir betrachten in `R` (Version 4.5.0) die folgenden R-Pakete gemeinsam mit den in Abschnitt @sec-methoden beschriebenen Methoden (selektives Einlesen, Datenaufteilung):
+Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. 
 
-| Paket      | Version  |
-|------------|----------|
-| data.table | 1.17.8   |
-| tidyverse  |          |
-| vroom      |          |
-| arrow      | 20.0.0.2 |
-| duckdb     | 1.3.2    |
-| polars     | 1.0.1    |
+Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 4 GB Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte wie die einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für unerfahrene Nutzende -- ausschlaggebend.
 
-**Versionen betrachteter R-Pakete**
+Wir betrachten in R (Version 4.5.0) die folgenden R-Pakete gemeinsam mit den in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
 
-Wie in Abschnitt @sec-infrastruktur beschrieben war es nicht möglich, die neuste Version aller Pakete zu verwenden und die leichter nutzbaren Variationen {duckplyr} bzw. {tidytable} zu nutzen. Die Package wurden aber wenige Tage nach dem Experiment eingerichtet. Die Syntaxtranslation kann dabei die Performanz verschlechtern, sodass bei {duckdb} bzw. {data.table} zwischen Performanz und Code-Verständlichkeit abgewägt werden muss. {arrow} ist schon länger als {duckdb} und {polars} verfügbar, sodass wir darin bereits mehr Erfahrungen aufbauen konnten.
+```{r pkg-packages}
+#| tbl-cap: "Versionen betrachteter R-Pakete"
+#| echo: false
+#| warning: false
+#| message: false
+
+library(kableExtra)
+library(dplyr)
+
+packages_data <- tribble(
+  ~Paket, ~Version,
+  "{data.table}", "1.17.8",
+  "{tidyverse}", "tba",
+  "{vroom}", "tba", 
+  "{arrow}", "20.0.0.2",
+  "{duckdb}", "1.3.2",
+  "{polars}", "1.0.1"
+)
+
+packages_data |>
+  knitr::kable(
+    booktabs = FALSE,
+    format = "latex",
+    escape = FALSE
+  ) |>
+  kable_styling(
+    latex_options = c("hold_position"),
+    font_size = 10,
+    full_width = FALSE
+  ) |>
+  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) |>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:ncol(packages_data), background = "#f0f8ff")
+```
+
+Wie in Abschnitt @sec-infrastruktur beschrieben war es uns aus organisatorischen Gründen nicht möglich, die neuste Version aller Pakete zu verwenden. Die leichter nutzbaren Variationen {duckplyr} bzw. {tidytable} zu nutzen. Die Package wurden aber wenige Tage nach dem Experiment eingerichtet. Die Syntaxtranslation kann dabei die Performanz verschlechtern, sodass bei {duckdb} bzw. {data.table} zwischen Performanz und Code-Verständlichkeit abgewägt werden muss. {arrow} ist schon länger als {polars} im Statistischen Bundesamt verfügbar, sodass wir darin bereits mehr Erfahrungen einsetzen konnten.
 
 ### Baseline
 
-Klassisch werden die betrachteten Auswertungsaufgaben im Statischen Bundesamt hauptsächlich mit SAS und im FDZ mit Stata gelöst. Um die folgenden Ergebnisse einzuordnen, haben wir die folgenden Performanzmessungen für 1% des simulierten BTP durchgeführt (800.000 Beobachtungen) :
+Klassisch werden die betrachteten Auswertungsaufgaben im Statischen Bundesamt hauptsächlich mit SAS und im FDZ mit Stata gelöst. Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen für 1% des simulierten BTP durchgeführt (800.000 Beobachtungen)in SAS und Stata durchgeführt:
 
-| Anwendungsfall | Software | Arbeitspeicher | Laufzeit    | Speicher |
-|----------------|----------|----------------|-------------|----------|
-| Fallzahl       | SAS      | tba            | tba         | tba      |
-| Regression     | SAS      | tba            | tba         | tba      |
-| Fallzahl       | Stata    | ca. 33 GB      | 55 Sekunden | 32 GB    |
-| Regression     | Stata    | ca. 33 GB      | 56 Sekunden | 32 GB    |
+```{r tbl-baseline}
+#| tbl-cap: "Baseline anhand SAS und Stata (1% simuliertes BTP)"
+#| echo: false
+#| warning: false
+#| message: false
 
-**Performanz von SAS und Stata**
+baseline_data <- data.frame(
+  `Software / Fall` = c("SAS Fallzahl", "SAS Regression", "Stata Fallzahl", "Stata Regression"),
+  RAM = c("tba", "tba", "ca. 33 GB", "ca. 33 GB"),
+  Zeit = c("2.43 Min", "tba", "55 Sek", "56 Sek"),
+  Disk = c("33 GB", "tba", "32 GB", "32 GB"),
+  check.names = FALSE
+)
 
-Der Arbeitsspeicher des FDZ OnSite-Servers nicht um das ganze BTP in Stata zu verarbeiten, sodass zwingend mit selektivem Einlesen gearbeitet werden muss.
+
+baseline_data <- tribble(
+  ~Software, ~Anwendung, ~Arbeitsspeicher, ~Laufzeit, ~Festplattenspeicher,
+  
+)
+
+baseline_data |>
+  knitr::kable(
+    booktabs = FALSE,
+    format = "latex",
+    escape = FALSE
+  ) |>
+  kable_styling(
+    latex_options = "hold_position",
+    font_size = 9,
+    full_width = FALSE
+  ) |>
+  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) |>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:ncol(baseline_data), background = "#f0f8ff")
+```
+
+Der Arbeitsspeicher des FDZ OnSite-Servers reicht nicht aus, um das ganze BTP in Stata zu verarbeiten, sodass zwingend mit selektivem Einlesen gearbeitet werden muss.
 
 ### Hauptergebnis für große Datenmengen
 
-| Paket | Datenformat | Optimierung | Arbeitsspeicher | Laufzeit | Festplatte |
-|-------------------|-----------|-----------|-----------|-----------|-----------|
-| {arrow} | Parquet (gleichmäßig auf 10 Dateien aufgeteilt) | \- | 220 MB | 4.7 Sekunden |  |
-| {duckdb} | Ein Parquet |  |  | 5.1 Sekunden |  |
-| {arrow} | Ein Parquet | Selektives Einlesen |  | 7.47 Sekunden |  |
-| {arrow} | Parquet pro Jahr |  |  | 11.73 Sekunden |  |
-| {arrow} | Ein Parquet |  |  | 20.61 Sekunden |  |
+```{r tbl-read-leaderboard}
+#| echo: false
+#| warning: false
+#| message: false
+library(readr)
+library(dplyr)
+library(fs)
+dat_bm <- read_csv2("~/newwork/dev/projects/paper-wista-r-efficiency/output/leaderboard.csv",
+show_col_types=FALSE) |>
+  
+  filter(!is.na(real_time), !grepl("chunks", fns_name)) |>
 
-**Benchmarkergebnisse für Berechnung der Fallzahl des 10% des simulierten BTP**
+  mutate(
+    across(c(datsize, memory), as_fs_bytes),
+    Anwendung = ifelse(app == "count", "Fallzahl", "Regression"),
+    pkg = sprintf("{%s}", pkg),
+    Dateiformat = ifelse(grepl("parquet", input), "Parquet", "CSV"),
+    Dateiformat = ifelse(grepl("gz", input), "CSV.GZ", Dateiformat),
+    Optimierung = ifelse(grepl("_sel", fns_name), 'Variablenauswahl',''),
+    Optimierung = ifelse(grepl("_nach_jahr", input), 'Datenaufteilung (Berichtsjahr)', Optimierung),
+    Optimierung = ifelse(grepl("_aufgeteilt", input), 'Datenaufteilung (gleichmäßig)', Optimierung),
+    fns = fns_name,
+    obs = trimws(format(obs, scientific = FALSE, big.mark = ".")),
+    .keep = "unused"
+  ) |>
+  rename(
+    Beobachtungen = obs, 
+    Paket = pkg,
+    Arbeitsspeicher = memory,
+    Laufzeit = real_time,
+    Festplatte= datsize
+  ) |>
+  
+  relocate(Beobachtungen, Anwendung, Paket, Dateiformat, Optimierung) |>
+  select(-iter, -success_all, -proc_time, -fns)
+```
+
+```{r}
+#| label: tbl-benchmark
+#| tbl-cap: "Benchmarkergebnisse für 10% des BTP"
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+
+library(kableExtra)
+library(dplyr)
+
+dat_bm_filtered <- dat_bm |>
+  filter(Beobachtungen == "1.000.000") |>
+  select(-Beobachtungen)
+n_cols <- ncol(dat_bm_filtered)
+
+tbl_out <- dat_bm_filtered |>
+  knitr::kable(
+    booktabs = FALSE,
+    format = "latex",
+    escape = TRUE
+  ) |>
+  kable_styling(
+    latex_options = c("hold_position"),
+    font_size = 8,
+    full_width = FALSE
+  ) |>
+  #row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) |>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:n_cols, background = "#f0f8ff")
+
+# Convert to table* for full width across both columns
+tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
+tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
+# Remove the [!h] positioning directive
+tbl_out <- gsub("\\[!h\\]", "", tbl_out)
+
+cat(tbl_out)
+```
 
 Anhand unserer Untersuchung, bietet {arrow}+{parquet} (bei Bedarf +{duckdb}) im Gesamtpaket die eindeutige besten Datenverarbeitungsmethoden für unsere Zwecke.
 
 -   Das geringe Arbeitsspeicherprofil Bedarf keiner weiteren Optimierung und ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass die Methoden auf noch größere Datenmengen skalieren können. Ansonsten bietet {duckdb} und {polars} starkere Optimierung des Arbeitsspeichers.
 
--   schnellste Laufzeit für große Datenmengen
+-   schnellste Laufzeit für große Datenmengen <!--(siehe @tbl-benchmark)-->
 
 -   das Parquet Dateiformat reduziert den benötigen Festplattenspeicher massiv.
 
@@ -144,3 +270,91 @@ Gewinne ggü. Klassischen Methoden 7.X Min DT und sehr viel RAM im Default. Denn
 -   Profi's in `data.table`, die sehr vertraut sind mit der Syntax, müssen nur in Randfällen welchseln. Falls die wirklich genutzten Variablenauswahl nicht durch den verfügbaren Arbeitsspeicher bedient werden können (dt brauchte ca. 3x RAM ggü. Festplatte).
 -   neuste, beste, experimentell, bietet `polars` für moderate Datenmengen die effizienteste Variante
 -   wer mit sql vertraut ist oder Features außerhalb des Scopes von Arrow braucht (auf großen Inputs), nutzt auch gerne duckdb
+
+### Anhang
+
+
+```{r}
+#| label: tbl-bm-cnt-small
+#| tbl-cap: "Benchmarkergebnisse für Fallzahlen (kleine Stichproben)"
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+
+dat_bm_small_cnt <- dat_bm |>
+  filter(Beobachtungen %in% c("100.000", "10.000", "1.000"), Anwendung == "Fallzahl") |>
+  select(-Anwendung) |>
+  rename(
+    "Beobach-\ntungen" = Beobachtungen,
+    "Datei-\nformat" = Dateiformat,
+    "Optimie-\nrung" = Optimierung,
+    "Fest-\nplatte" = Festplatte,
+    "Arbeits-\nspeicher" = Arbeitsspeicher
+  )
+
+n_cols_small <- ncol(dat_bm_small_cnt)
+
+tbl_out <- dat_bm_small_cnt |>
+  knitr::kable(
+    booktabs = FALSE,
+    format = "latex",
+    escape = TRUE
+  ) |>
+  kable_styling(
+    latex_options = c("hold_position"),
+    font_size = 8,
+    full_width = FALSE
+  ) |>
+  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) |>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:n_cols_small, background = "#f0f8ff")
+
+# Convert to table* for full width across both columns
+tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
+tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
+# Remove the [!h] positioning directive
+tbl_out <- gsub("\\[!h\\]", "", tbl_out)
+
+cat(tbl_out)
+
+```
+
+
+```{r}
+#| label: tbl-bm-reg-small
+#| tbl-cap: "Benchmarkergebnisse für Regression (kleine Stichproben)"
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+
+dat_bm_small_reg <- dat_bm |>
+  filter(Beobachtungen %in% c("100.000", "10.000", "1.000"), Anwendung == "Regression") |>
+  select(-Anwendung)
+
+n_cols_small_reg <- ncol(dat_bm_small_reg)
+
+tbl_out <- dat_bm_small_reg |>
+  knitr::kable(
+    booktabs = FALSE,
+    format = "latex",
+    escape = TRUE
+  ) |>
+  kable_styling(
+    latex_options = c("hold_position"),
+    font_size = 8,
+    full_width = FALSE
+  ) |>
+  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) |>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:n_cols_small_reg, background = "#f0f8ff")
+
+# Convert to table* for full width across both columns
+tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
+tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
+# Remove the [!h] positioning directive
+tbl_out <- gsub("\\[!h\\]", "", tbl_out)
+
+cat(tbl_out)
+```
