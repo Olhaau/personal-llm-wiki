@@ -2,10 +2,9 @@
 
 Anwendung der besten Methoden auf das vollständige BTP
 
-- Repräsentant high perf: Arrow ->
-- Datatable (RAM-Fehler?)
-- Datatable Sel.
-
+-   Repräsentant high perf: Arrow -\>
+-   Datatable ohne sekeltives Einlesen führt zu RAM Crash (RAM-Fehler?)
+-   Datatable Sel.
 
 ### Kernaussagen
 

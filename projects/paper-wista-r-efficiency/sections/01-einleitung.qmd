@@ -8,6 +8,10 @@
 
 Spannungsfeld, Weiterentwicklung und Technologie-Empfehlung...
 
+Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz FDZ
+Netzwerk empririscher Steuerforschung, hier kurz NeSt
+
+
 ### Handlungsbedarf
 
 #### Steigende Datenmenge der amtlichen Statistik

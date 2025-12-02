@@ -2,7 +2,7 @@
 
 ### Human in the loop
 
-- baseline sas, stata
+- baseline sas
 - Wieviel platz braucht ein BJ echtes BTP parquet im RAM? oder csv?
 - Benchmark für regr parquet nach aufgeteilten Daten
 

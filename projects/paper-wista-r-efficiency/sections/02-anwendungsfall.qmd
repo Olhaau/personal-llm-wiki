@@ -13,6 +13,8 @@ Breites Spektrum: Datenaufbereitung/-bereitstellung und Auswertung von Mikrodate
 
 2.  Verlustvorträge (s. Vortrag NeSt) als Indikator für ... und Einflussgrößen auf Verlustvorträge, für Vermutung von Einfluss der Unternehmensgröße (großes Gesamtvolumen, Löhne, Spenden, tätige Personen; Auslandskontrolle oder WZ) auf positive Verlustvorträge.
 
+Aus technischer Sicht, ist die Kernaufgabe den Großteil (von 2991 Variablen) effizient zu entfernen, sodass lediglich der relevante Ausschnitt von kleinem Umfang ausgewertet werden kann.
+
 Beide Anwendungsfälle können bereits im mit den folgenden X von 3000 Variablen untersucht werden:
 
 | Variable | Statistik | Beschreibung |
@@ -36,10 +38,10 @@ Kennzahlen um inhaltlose Testdaten zu generieren werden folgende Eckdaten benöt
 
 Update BTP, flexibel reagieren, neue MDR, DSB, ...
 
-- Datenbereitstellung: MDR
-- Forschungsprojekt
-    - Lorenzkurve -> Verteilung der Verlustvorträge 
-    - Logistische Regression -> Einflussfaktoren auf Verlustvorträge
+-   Datenbereitstellung: MDR
+-   Forschungsprojekt
+    -   Lorenzkurve -\> Verteilung der Verlustvorträge
+    -   Logistische Regression -\> Einflussfaktoren auf Verlustvorträge
 
 ### ...
 

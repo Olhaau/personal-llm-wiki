@@ -18,6 +18,8 @@ beachte/erwähne: https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappe
 
 -   Keine gesonderte Hardware/Software nötig, keine GPUs oder Spark
 
+- Abgrenzung zu Datenbanken
+
 **Base R.**
 
 **Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
@@ -102,6 +104,18 @@ Hinweis: R-spezfische binäre Datenformate sind eine zsl. Möglichkeit. Daten ni
 O.g. Technologien stellen oft eigene Benchmarks (Performanz-Vergleiche) bereit und präsentieren i.d.R. die Vorteile der eigenen Technologie. Im Vergleich findet jede Technologie einen Spezielfall, wo sie am besten ist, auf die sie optimiert ist. Die Benchmarks geben tlw. Indikationen, ob die Technologie für den Anwendungsfall geeignet ist. Eigene Tests notwendig, ob die Performance für eigenen Anwendungsfall genügt.
 
 -\> folgende Benchmark entwickelt
+
+EIGENE BENCHMARK NÖTIG: Schnellste Technologie/Methodik nicht eindeutig, abhängig von der Datenmenge. Daher für die zu verarbeitenden Daten und den Anwendungsfall-spezifisch. Kann variieren. Eigene Benchmark nötig oder ausgeglichene Methodik nehmen (unter wenigen Unterschiede egal) Externe Benchmarks kommen zu anderen Ergebnissen
+
+polars: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
+
+vroom: https://vroom.r-lib.org/articles/benchmarks.html
+
+https://prof-thiagooliveira.netlify.app/post/data-read-write-performance/
+
+https://blog.hwr-berlin.de/codeandstats/aggregating-data-in-r-benchmarks/
+
+https://iyarlin.github.io/2020/05/26/dtplyr_benchmarks/
 
 ### Klassische Methoden
 
