@@ -486,10 +486,10 @@ FDZ gemessen. Weiterführende Benchmarks sowie der vollständig
 reproduzierbare Code sind auf Opencode verfügbar\footnote{www.opencode.de/URL-To-Be-Announced.}.
 
 Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen
-Größen (0,1\%/1\%/10\% von den insgesamt 80 Mio. Beobachtungen des BTP).
-Sie wurden aus öffentlich verfügbaren Informationen generiert, um die
-wesentlichen Strukturen des BTP für unsere Analyse künstlich
-nachzubilden. Abgrenzend zu den im FDZ bereitgestellten
+Größen (0,1\%/1\%/10\% von den insgesamt 80 Mio. Beobachtungen des BTP)
+betrachtet. Sie wurden aus öffentlich verfügbaren Informationen
+generiert, um die wesentlichen Strukturen des BTP für unsere Analyse
+künstlich nachzubilden. Abgrenzend zu den im FDZ bereitgestellten
 \emph{Datenstrukturfiles} wurden die Testdaten nicht aus echten
 Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für
 technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
@@ -511,7 +511,7 @@ anhand der mittleren Messung der folgenden Zielgrößen:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Arbeitsspeicher}-Beanspruchung der Auswertung,
+  \textbf{Arbeitsspeicher} der Auswertung,
 \item
   \textbf{Laufzeit} der Auswertung (real verstrichene Zeit),
 \item
@@ -520,17 +520,17 @@ anhand der mittleren Messung der folgenden Zielgrößen:
 
 Die Zielgrößen sind in dieser Reihenfolge zu priorisieren, da ein
 übermäßiger Arbeitsspeicherverbrauch zu schwerwiegenden Abbrüchen führen
-kann, während längere Laufzeiten dennoch zu einem erfolgreichen Ergebnis
+kann, während hohe Laufzeiten dennoch zu einem erfolgreichen Ergebnis
 führen können. Festplattenspeicher ist ausreichend vorhanden, aber
 unnötige Belegung sollte vermieden werden.
 
-Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen
-relevant. Eine Methode, die die betrachteten Auswertungen in unter 10
-Sekunden mit weniger als 4 GB Arbeitsspeicher durchführen kann, wird
-bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall
-nicht erforderlich. Falls bereits die gewünschte Performanz erreicht
-wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund.
-Entsprechend sind Aspekte wie einfache Anwendbarkeit und
+Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht
+gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen
+in unter 10 Sekunden mit weniger als 4 GB Arbeitsspeicher durchführen
+kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in
+diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz
+erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den
+Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und
 Nachvollziehbarkeit -- selbst für unerfahrene Nutzende --
 ausschlaggebend.
 
@@ -540,8 +540,8 @@ Stata}\label{baselines-in-sas-und-stata}
 Klassisch werden die betrachteten Auswertungsaufgaben im Statischen
 Bundesamt hauptsächlich mit SAS und im FDZ mit Stata gelöst. Um die
 nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen
-für 1\% des simulierten (etwa. 800.000 Beobachtungen) in SAS und Stata
-durchgeführt.
+für 1\% des simulierten BTP-Daten (etwa. 800.000 Beobachtungen) in SAS
+und Stata durchgeführt.
 
 \begin{table*}
 
@@ -579,40 +579,40 @@ Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand
 der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa
 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
 
-\subsection{Kleiner Vergleich von R zu den
-Baselines}\label{kleiner-vergleich-von-r-zu-den-baselines}
+\subsection{Kleiner Vergleich zwischen R und den
+Baselines}\label{kleiner-vergleich-zwischen-r-und-den-baselines}
 
 Für 1\% der simulierten BTP Daten, reduzieren die
 R-Datenverarbeitungsmethode alle Zielgrößen gegenüber SAS und Stata
-erheblich (siehe Tabelle~\ref{tbl-bm-cnt-small} und
-Tabelle~\ref{tbl-bm-reg-small}). Selbst klassische R-Methoden sind um
-den Faktor 7 schneller und benötigen nur 33 \% des Festplattenspeichers.
-\{polars\}, \{duckdb\} und \{arrow\} lösen die betrachteten Auswertungen
-sogar
+erheblich (siehe Tabelle~\ref{tbl-benchmark-small} und
+Tabelle~\ref{tbl-benchmark-regr-small}). Selbst klassische R-Methoden
+sind um den Faktor 7 schneller und benötigen nur 33 \% des
+Festplattenspeichers. \{polars\}, \{duckdb\} und \{arrow\} lösen die
+betrachteten Auswertungen sogar
 
 \begin{itemize}
 \tightlist
 \item
   in \textbf{unter 2 Sekunden} (27-fach schneller),
 \item
-  mit unter \textbf{300 MB Arbeitsspeicher}, \{duckdb\} und \{arrow\}
+  mit unter \textbf{300 MB Arbeitsspeicher} -- \{duckdb\} und \{arrow\}
   sogar mit unter \textbf{5 MB} (10-fach weniger)\footnote{Lediglich in
     der Arbeitsspeicherbeanspruchung, ist SAS deutlich besser als
     klassische R-Methoden. Gegenüber hoch-performanten R-Methoden
     benötigt SAS jedoch den 10-fachen Arbeitsspeicher.}\footnote{\{arrow\}
     benötigt mit 274 MB deutlich mehr Arbeitsspeicher als \{polars\} und
     \{duckdb\}, aber kommt dennoch mit minimalen Entwicklungsumgebungen
-    aus, bspw. einem standardmäßigen Laptop.},
+    aus, bspw. einem standardmäßigen Laptop.} --
 \item
-  und \textbf{5 GB Festplattenspeicher} (6-fach weniger gegenüber SAS
-  und Stata).
+  und nur mit \textbf{5 GB Festplattenspeicher} (6-fach weniger
+  gegenüber SAS und Stata).
 \end{itemize}
 
 Unter den klassischen R-Methoden bietet \{data.table\} die beste
-Performanz. Dabei ist ganz wichtig, dass direkt bei der Einlesefunktion
-\texttt{fread} auf die Auswahl der relevanten Variablen geachtet werden.
-Dadurch lassen sich unsere Auswertungen um einen Faktor 3 beschleunigen
-und der Arbeitsspeicher um einen Faktor 1000 reduzieren.
+Performanz. Dabei ist wesentlich zu beachten, dass die Einlesefunktion
+\texttt{fread} direkt die relevanten Variablen auswählt. Dadurch lassen
+sich unsere Auswertungen um einen Faktor 3 beschleunigen und vor allem
+der Arbeitsspeicher um einen Faktor 1.000 reduzieren.
 
 Alle hoch-performanten Methoden sind dermaßen effizient, dass die
 Datenmenge von 800.000 Beobachtungen nicht mehr ausreicht, um zwischen
@@ -675,8 +675,8 @@ Fallzahlberechnung anhand 1\% des BTP. tba: mehr}
 
 \end{table*}%
 
-\subsection{Vergrößerung der
-Datenmenge}\label{vergruxf6uxdferung-der-datenmenge}
+\subsection{Größere Datenmengen in
+R}\label{gruxf6uxdfere-datenmengen-in-r}
 
 Die Betrachtung von 10\% der simulierten BTP-Daten, zeigt, dass
 \{arrow\}+\{parquet\} die geringste Laufzeit für unsere Zwecke benötigt
@@ -839,14 +839,14 @@ Experiments}\label{erkenntnisse-des-experiments}
   High-Performance Methoden können aber bei einer
   \textbf{Datenaufteilung} darauf verzichten.
 \item
-  Unter den klassischen Methoden ist \{data.table\} mit Variablenauswahl
-  am effizientesten und schneller als eine schlechte Anwendung von
-  \{arrow\}. D.h. ein \{data.table\} Profi, ist besser als ein
-  schlechter Arrow Programmierer, der aber größeres Potenzial für
-  Verbesserungen hat. Anfängern ist eher \{arrow\} zu empfehlen, da in
-  \{data.table\} die Variablenauswahl abhängig von dem verfügbaren
-  Arbeitsspeicher manuell gesteuert werden muss und daher nicht so
-  flexibel ist.
+  (tba: mit obigem zusammenführen) Unter den klassischen Methoden ist
+  \{data.table\} mit Variablenauswahl am effizientesten und schneller
+  als eine schlechte Anwendung von \{arrow\}. D.h. ein \{data.table\}
+  Profi, ist besser als ein schlechter Arrow Programmierer, der aber
+  größeres Potenzial für Verbesserungen hat. Anfängern ist eher
+  \{arrow\} zu empfehlen, da in \{data.table\} die Variablenauswahl
+  abhängig von dem verfügbaren Arbeitsspeicher manuell gesteuert werden
+  muss und daher nicht so flexibel ist.
 
   \begin{itemize}
   \tightlist
@@ -862,15 +862,16 @@ Experiments}\label{erkenntnisse-des-experiments}
     Datenaufteilung verschlechtert DT im Gegensatz zu arrow
   \end{itemize}
 \item
-  \{arrow\} verzeiht Fehler leichter als DT (schlecht programmiert, ist
-  es immernoch ganz gut). Alleine durch die Datenaufteilung (vorgegeben
-  durch die Datenbereitstellung, vorbereitet durch das FDZ), erreichen
-  wir Count Ergebnisse in 11.73s, nur 5s über dem absoluten Optimum.
+  \{arrow\} verzeiht Fehler leicht(er als DT). Denn schlecht
+  programmiert, ist es immernoch ganz gut). Alleine durch die
+  Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet
+  durch das FDZ), erreichen wir die Fallzahl-Berechung in 11.73s, nur 5s
+  über dem absoluten Optimum.
 \item
   R-base oder readr sind immer weit abgeschlagen und zu vermeiden.
 \item
-  Wenn der RAM extrem begrenzt ist, müssen Polars oder Duckdb eingesetzt
-  werden.
+  Wenn der RAM extrem begrenzt ist, können \{poars\} oder \{duckdb\}
+  dennoch eingesetzt werden.
 \end{itemize}
 
 \subsection{Anhang}\label{anhang}
