@@ -1,5 +1,58 @@
 ## Auswertungsmethoden in R {#sec-methoden}
 
+
+Wir betrachten in R (Version 4.5.0) die folgenden R-Pakete gemeinsam mit den in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
+
+```{r pkg-packages}
+#| tbl-cap: "Versionen betrachteter R-Pakete"
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+
+library(kableExtra)
+library(dplyr)
+
+packages_data <- tribble(
+  ~Paket, ~Version,
+  "{data.table}", "1.17.8",
+  "{tidyverse}", "tba",
+  "{vroom}", "tba", 
+  "{arrow}", "20.0.0.2",
+  "{duckdb}", "1.3.2",
+  "{polars}", "1.0.1"
+)
+
+tbl_out <- packages_data |>
+  knitr::kable(
+    booktabs = TRUE,
+    format = "latex",
+    escape = FALSE,
+    linesep = "",
+    align = c("l", "l")
+  ) |>
+  kable_styling(
+    latex_options = c("hold_position"),
+    font_size = 10,
+    full_width = FALSE
+  ) |>
+  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE, hline_after = FALSE) |>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:ncol(packages_data), background = "#f0f8ff", border_left = TRUE, border_right = TRUE)
+
+# Convert to table* for full width across both columns
+tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
+tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
+# Remove the [!h] positioning directive
+tbl_out <- gsub("\\[!h\\]", "", tbl_out)
+# Add label for cross-referencing
+tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-pkg-packages\\}", tbl_out)
+
+cat(tbl_out)
+```
+
+Wie in Abschnitt @sec-infrastruktur beschrieben war es uns aus organisatorischen Gründen nicht möglich, die neuste Version aller Pakete zu verwenden. Die leichter nutzbaren Variationen {duckplyr} bzw. {tidytable} zu nutzen. Die Package wurden aber wenige Tage nach dem Experiment eingerichtet. Die Syntaxtranslation kann dabei die Performanz verschlechtern, sodass bei {duckdb} bzw. {data.table} zwischen Performanz und Code-Verständlichkeit abgewägt werden muss. {arrow} ist schon länger als {polars} im Statistischen Bundesamt verfügbar, sodass wir darin bereits mehr Erfahrungen einsetzen konnten.
+
 Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile.
 
 Sog. Datenverarbeitungsmethoden in R.

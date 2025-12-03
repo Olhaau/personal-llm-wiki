@@ -163,8 +163,8 @@ format:
         % Footnotes stay within column
         \usepackage[stable]{footmisc}
         
-        % Custom footnote formatting: ". |^1" in dark WISTA gray
-        \renewcommand{\thefootnote}{{\color{wistaDarkGray}.\thinspace|$^{\arabic{footnote}}$}}
+        % Custom footnote formatting: "|^1" in dark WISTA gray
+        \renewcommand{\thefootnote}{{\color{wistaDarkGray}|$^{\arabic{footnote}}$}}
         
         % Pifont for dingbat symbols
         \usepackage{pifont}
@@ -182,7 +182,6 @@ format:
         \DeclareCaptionFormat{wista}{%
           {\color{wistaLightBlue}\bfseries #1#2}\par\vspace{0.2em}%
           {\color{wistaDarkGray}\normalfont #3}\par\vspace{0.3em}%
-          \noindent{\color{wistaDarkGray}\rule{\columnwidth}{1pt}}%
         }
         
         % Set up table captions with custom WISTA format
@@ -202,6 +201,7 @@ format:
         % Set white lines for tables by default, blue for first column
         \AtBeginDocument{
           \arrayrulecolor{white}
+          \setlength{\arrayrulewidth}{0.3pt}
         }
         
         % Define commands for colored table borders
@@ -236,7 +236,7 @@ format:
         
         % Redefine ref to include pifont 247 (arrow) for figure/table/section references
         \let\oldref\ref
-        \renewcommand{\ref}[1]{{\color{wistaBlue}\ding{247}}\oldref{#1}}
+        \renewcommand{\ref}[1]{\oldref{#1}\raisebox{-0.2ex}{\scriptsize\color{wistaBlue}\ding{247}}}
         
 
         
