@@ -27,11 +27,34 @@ Die Verbreitung von R steigt.
 - R ist Open Source und wird ständig weiterentwickelt (aktuell in Version 4.5 verwendet, jährliche Major Releases). 
 - Eine weltweit aktive Community löst Probleme zeitnah und ergänzt stetig Funktionalitäten in Form von sog. *R-Packages*.
 - Bietet nativ bereits viele Datenverarbeitungsmethoden, die jedoch durch diese R-Packages ganz neue Level an Nutzerfreundlichkeit, Funktionsumfang und Performanz erreichen.
-- 
+
+#### Klassische Datenverarbeitungsmethoden
+
+- base-r Grundlage/einstieg, weder sonderlich amschaulich nocb sonderlich performant -> Packages überlassen
+
+-> {data.table} in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
+
+- {tidyverse} Ökosystem von Packages zur Datenverarbeitung. bekannt für besonders hohe Nutzerfreundlichkeit und einer eigenen Programmiersyntax sog. {tidy}-Syntax, die den Anspruch hat menschlicher Sprache abzubilden:
+
+[ Tabelle Beispiel Dplyr ]
+
+So beliebt, dass die Community sie vielen anderen Packages ergänzt hat. Bspw. für {data.table} die Packages {dtplyr} oder {tidytable}. Wie im Falle von {dtplyr} kann es dabei aber zu Einschränkung der Performamz kommen.[^bm-tidy]
+
+[^bm-tidy]: ...
 
 #### Zusätzliche Optimierungen
 
 Wir betrachten in R (Version 4.5.0) die folgenden R-Pakete gemeinsam mit den in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
+
+#### Hoch-performante R-Packages
+
+Definition einfach: können nativ Daten über RAM verarbeiten.
+
+von Desktopanwendung unterm Tisch zi Performamten Analyseserver paradigmenwechsel notwendig: in RAM vs nicht im RAM!
+
+...
+
+Die auf den Servern des StBA und FDZ verfügbaren Packageversionen lassen sich aus organisatorischen Gründen nicht flexibel anpassen (kein Internet, kuration intern, s. A. Inf) können Tabelle X entnommen werden.
 
 ```{r pkg-packages}
 #| tbl-cap: "Versionen betrachteter R-Pakete"
