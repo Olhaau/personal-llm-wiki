@@ -93,7 +93,7 @@ Die Ergebnisse in @tbl-baseline zeigen, dass der umfangreiche Arbeitsspeicher de
 Für 1% der simulierten BTP Daten, reduzieren die R-Datenverarbeitungsmethode alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. {polars}, {duckdb} und {arrow} lösen die betrachteten Auswertungen sogar
 
 - in **unter 2 Sekunden** (27-fach schneller), 
-- mit unter **300 MB Arbeitsspeicher** -- {duckdb} und {arrow} sogar mit unter **5 MB** (10-fach weniger)[^sas-ram][^arrow-ram] --
+- mit unter **300 MB Arbeitsspeicher** -- {duckdb} und {polars} sogar mit unter **5 MB** (10-fach weniger)[^sas-ram][^arrow-ram] --
 - und nur mit **5 GB Festplattenspeicher** (6-fach weniger gegenüber SAS und Stata).
 
 [^sas-ram]: Lediglich in der Arbeitsspeicherbeanspruchung, ist SAS deutlich besser als klassische R-Methoden. Gegenüber hoch-performanten R-Methoden benötigt SAS jedoch den 10-fachen Arbeitsspeicher. 

@@ -14,7 +14,7 @@
 :::
 
 ::: {.column width="71%"}
-[EFFIZIENTE ANALYSE GROSSER FORSCHUNGSDATEN MITHILFE VON R]{custom-style="Title"}
+[EFFIZIENTE AUSWERTUNG GROSSER FORSCHUNGSDATEN MITHILFE VON R]{custom-style="Title"}
 
 ------------------------------------------------------------------------
 
