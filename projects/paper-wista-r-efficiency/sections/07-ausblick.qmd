@@ -1,14 +1,38 @@
 ## Fazit
 
--   Was heißt das für die Datenbereitstellung? Empfehlung zu aufgeteilten Parquet (BJ, ggf. mehr) für R. bei kleineren Mengen keine Blöcke.
--   Fokus auf R.
--   Parquet: für jeden was dabei arrow prosa, duckdb sql, polars (nahe an Python)
+### Kernaussage des Artikels
 
-<!-- -->
+- Unsere Empfehlung: {arrow} + {parquet} (bei Bedarf + {duckdb})
 
--   Weiteres Vorgehen: Pilotprojekt NeSt
+### Auswirkung auf IT-Infrastruktur
 
-### Unsere Empfehlung: Arrow + DuckDB + Parquet
+- Fokus auf Hardware und Software mit größtem Optimierungspotenzial
+- Fokus auf R, Parquet und hier genannte Packages
+- Langfristig kann die Verbreitung geeigneter Software die Hardwareanforderungen reduzieren
+
+### Auswirkungen auf die FDZ
+
+- Berücksichtigung in Mustersyntaxen und Nutzendenberatung im FDZ Bund
+- Bereitstellung von Parquet in geeigneter Aufteilung empfohlen
+- Vorbild für andere FDZ (?)
+- Optimierung von Hardware und Software Angebot
+
+### Auswirkungen auf die Statistikproduktion
+
+- Nutzung für die Überarbeitung des BTP
+- Mindeststeuer (?)
+- Perspektivisch andere große Datensätze: DRG, TPP
+
+### Auswirkung auf die Wissenschaft
+
+- Verwendung von R bietet am FDZ Bund einen deutlichen **Wettbewerbsvorteil in der emp. Forschung**. Lediglich R ist am GWAP und via KDFV am FDZ Bund in der Lage große Datenmengen innerhalb von Sekunden zu analysieren und Datenmengen überhalb des verfügbaren Arbeitspeicher, wie das BTP, ohne vorherige Variablenselektion auszuwerten. 
+- Dazu ist R als frei verfügbare Open-Source Software leicht zu lernen und {arrow} bietet hoch-performante Analysen selbst für R-Basiskenntnisse.
+- Für analoge über-RAM-Verarbeitungen bietet Stata aktuell keine Lösung. SAS bietet bei weitem nicht hier gemessene Performanz von R. R hervorragende Möglichkeiten bietet Performanz und Anwenderfreundlichkeit zu übertreffen.
+- Weiteres Vorgehen: **NeSt-Pilotprojekt**. Aus dem realen Use Case Optimierung der Systemkonfiguration und Beratungsbedarfe identifizieren.
+
+
+
+### 
 
 Für die Analyse großer Datensätze im FDZ empfehlen wir die Kombination:
 
