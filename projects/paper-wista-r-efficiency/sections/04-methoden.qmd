@@ -1,6 +1,69 @@
 ## Auswertungsmethoden in R {#sec-methoden}
 
-Wir betrachten in R (Version 4.5.0) die folgenden R-Pakete gemeinsam mit den in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
+### Ausgangslage
+
+Wir betrachten in dieser Arbeit die Performanz sog. Datenverarbeitungsmethoden, d.h. Softwarelösungen, die Daten einlesen,modifzierern, aggregieren, auswerten oder analysieren. Das Schreiben von Daten wird in unserer Untersuchung ausgeklammert, da es sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den Outputs der Wissenschaft im FDZ um kleine Tabellen handelt, die keine große Performanz erfordern. Dennoch bieten die hier vorstellten Lösungen auch hohe Performanz im Schreiben von Daten.[^externe-benchmarks]
+
+[^externe-benchmarks]: 
+
+- Hauptanalysewerkzeuge sind bisher:
+  - im StBA SAS 9.4 M8, EG
+  - im FDZ zsl. Stata 
+    - bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP). 
+    - neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen Systemkapazitäten.
+
+Daneben wächst der Einsatz von R stetig im StBA und FDZ stetig.
+
+### Anforderungen an Datenverarbeitungsmethoden
+
+- Performanz und Nutzererfahrung auf dem aktuellen Stand der Technik
+- leicht einzurichten auch in den abgeschotteten System der amtl. Statistik (tlw. langwierig und schwierig), d.h. wenig Abhängigkeiten und unabhängig von Internet bzw. Cloud betreibbar.
+- langfristig stabil und gut unterstützt
+- leicht nutzbar, gut dokumentiert, gutes Schulungsangebot
+
+### Geeignete Datenverarbeitungsmethoden in R
+
+- R ist die native Programmiersprache von Statistiker/-innen und Daten-affinen Programmierer/-innen. Frei verfügbar und leicht einzurichten. Somit weit verbreitet, insb. an Universitäten.
+- R ist Open Source und wird ständig weiterentwickelt (aktuell in Version 4.5 verwendet, jährliche Major Releases). 
+- Eine weltweit aktive Community löst Probleme zeitnah und ergänzt stetig Funktionalitäten in Form von sog. *R-Packages*.
+- Bietet nativ bereits viele Datenverarbeitungsmethoden, die jedoch durch diese R-Packages ganz neue Level an Nutzerfreundlichkeit, Funktionsumfang und Performanz erreichen.
+
+#### Klassische Datenverarbeitungsmethoden
+
+
+**Base R.**
+
+**Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
+
+**Empfehlung:** Nur für kleine Datensätze (\<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
+
+- base-r Grundlage/einstieg, weder sonderlich amschaulich nocb sonderlich performant -> Packages überlassen
+
+Zweckdienlich für Einsteiger oder gelegenheitsnutzer oder falls gar keine Abhängigkeiten in Form von Pkg erlaubt sind. Ansonsten...
+
+-> {data.table} in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
+
+- {tidyverse} Ökosystem von Packages zur Datenverarbeitung. bekannt für besonders hohe Nutzerfreundlichkeit und einer eigenen Programmiersyntax sog. {tidy}-Syntax, die den Anspruch hat menschlicher Sprache abzubilden:
+
+[ Tabelle Beispiel Dplyr ]
+
+So beliebt, dass die Community sie vielen anderen Packages ergänzt hat. Bspw. für {data.table} die Packages {dtplyr} oder {tidytable}. Wie im Falle von {dtplyr} kann es dabei aber zu Einschränkung der Performamz kommen.[^bm-tidy]
+
+[^bm-tidy]: ...
+
+#### Ausgewählte Best Practices
+
+in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
+
+#### Hoch-performante R-Packages
+
+Definition einfach: können nativ Daten über RAM verarbeiten.
+
+von Desktopanwendung unterm Tisch zu Performamten Analyseserver paradigmenwechsel notwendig: in RAM vs nicht im RAM!
+
+...
+
+Die auf den Servern des StBA und FDZ verfügbaren Packageversionen lassen sich aus organisatorischen Gründen nicht flexibel anpassen (kein Internet, kuration intern, s. A. Inf) können Tabelle X entnommen werden.
 
 ```{r pkg-packages}
 #| tbl-cap: "Versionen betrachteter R-Pakete"
@@ -54,31 +117,19 @@ Wie in Abschnitt @sec-infrastruktur beschrieben war es uns aus organisatorischen
 
 Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile.
 
-Sog. Datenverarbeitungsmethoden in R.
-
--   Fokus auf Daten lesen und modifizieren, aggregieren, auswerten, nicht schreiben.
 
 beachte/erwähne: https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
 ### Einordnung
 
-#### Ausgangslage
-
--   SAS 9.4 M8, EG
--   Stata V.15 MP-12 und 19 MP-4
-
 #### Generelle Auswahl
 
--   Nativ in R, wenig externe Abhängigkeiten (kann in Systemen der amtl. Statistik schwierig sein). Nicht alles verfügbar, Einrichtung eingeschränkt und tlw. langwierig. Infrastruktur, Versionen der Software
+
 -   R Syntax ausreichend: Data.table oder Tidy -\> leicht zu lernen, anzuwenden. Wenig mental load auf die Umsetzung, Fokus auf die eigentliche Aufgabe.
 -   Keine gesonderte Hardware/Software nötig, keine GPUs oder Spark
 -   Abgrenzung zu Datenbanken
 
-**Base R.**
 
-**Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
-
-**Empfehlung:** Nur für kleine Datensätze (\<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
 
 **data.table.**
 

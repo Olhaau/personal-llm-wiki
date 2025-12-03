@@ -40,6 +40,8 @@
 :::
 ::::::::
 
+\<\<\<\<\<\<\< HEAD
+
 ```{=latex}
 % Table of Contents will be inserted here by Quarto
 \clearpage
@@ -47,6 +49,17 @@
 \twocolumn
 ```
 
+======= <!-- {{< include sections/01-einleitung.qmd >}} -->
+
+```{=html}
+<!-- {{< include sections/02-anwendungsfall.qmd >}}
+ -->
+```
+
+> > > > > > > fc55bc8add10199a7471acf680cdce914c292843
+
 {{< include sections/05-benchmark.qmd >}}
 
---\>
+\<\<\<\<\<\<\< HEAD --\> ======= <!-- {{< include sections/06-ergebnis.qmd >}} -->
+
+{{< include sections/07-ausblick.qmd >}} \>\>\>\>\>\>\> fc55bc8add10199a7471acf680cdce914c292843
