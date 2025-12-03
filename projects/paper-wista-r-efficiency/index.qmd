@@ -40,12 +40,11 @@
 :::
 ::::::::
 
-<!-- <!-- {{< include sections/01-einleitung.qmd >}} -->
+<!-- {{< include sections/01-einleitung.qmd >}} -->
 
-```{=html}
+
 <!-- {{< include sections/02-anwendungsfall.qmd >}}
  -->
-```
 
 <!-- {{< include sections/03-infrastruktur.qmd >}} -->
 
@@ -55,6 +54,4 @@
 
 <!-- {{< include sections/06-ergebnis.qmd >}} -->
 
-<!-- {{< include sections/07-ausblick.qmd >}} -->
-
---\>
+{{< include sections/07-ausblick.qmd >}}

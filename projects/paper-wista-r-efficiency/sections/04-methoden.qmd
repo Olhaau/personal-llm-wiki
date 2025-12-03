@@ -1,5 +1,36 @@
 ## Auswertungsmethoden in R {#sec-methoden}
 
+### Ausgangslage
+
+Wir betrachten in dieser Arbeit die Performanz sog. Datenverarbeitungsmethoden, d.h. Softwarelösungen, die Daten einlesen,modifzierern, aggregieren, auswerten oder analysieren. Das Schreiben von Daten wird in unserer Untersuchung ausgeklammert, da es sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den Outputs der Wissenschaft im FDZ um kleine Tabellen handelt, die keine große Performanz erfordern. Dennoch bieten die hier vorstellten Lösungen auch hohe Performanz im Schreiben von Daten.[^externe-benchmarks]
+
+[^externe-benchmarks]: 
+
+- Hauptanalysewerkzeuge sind bisher:
+  - im StBA SAS 9.4 M8, EG
+  - im FDZ zsl. Stata 
+    - bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP). 
+    - neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen Systemkapazitäten.
+
+Die Verbreitung von R steigt.
+
+### Anforderungen an Datenverarbeitungsmethoden
+
+- Performanz und Nutzererfahrung auf dem aktuellen Stand der Technik
+- leicht einzurichten, d.h. wenig Abhängigkeiten und unabhängig von Internet bzw. Cloud betreibbar
+- langfristig stabil und gut unterstützt
+- leicht nutzbar, gut dokumentiert, schulbar
+
+### Datenverarbeitungsmethoden in R
+
+- R ist die native Programmiersprache von Statistiker/-innen und Daten-affinen Programmierer/-innen. Frei verfügbar und leicht einzurichten. Somit weit verbreitet, insb. an Universitäten.
+- R ist Open Source und wird ständig weiterentwickelt (aktuell in Version 4.5 verwendet, jährliche Major Releases). 
+- Eine weltweit aktive Community löst Probleme zeitnah und ergänzt stetig Funktionalitäten in Form von sog. *R-Packages*.
+- Bietet nativ bereits viele Datenverarbeitungsmethoden, die jedoch durch diese R-Packages ganz neue Level an Nutzerfreundlichkeit, Funktionsumfang und Performanz erreichen.
+- 
+
+#### Zusätzliche Optimierungen
+
 Wir betrachten in R (Version 4.5.0) die folgenden R-Pakete gemeinsam mit den in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
 
 ```{r pkg-packages}
@@ -54,18 +85,12 @@ Wie in Abschnitt @sec-infrastruktur beschrieben war es uns aus organisatorischen
 
 Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile.
 
-Sog. Datenverarbeitungsmethoden in R.
-
--   Fokus auf Daten lesen und modifizieren, aggregieren, auswerten, nicht schreiben.
 
 beachte/erwähne: https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
 ### Einordnung
 
-#### Ausgangslage
 
--   SAS 9.4 M8, EG
--   Stata V.15 MP-12 und 19 MP-4
 
 #### Generelle Auswahl
 
