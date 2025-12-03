@@ -308,18 +308,14 @@ Auch für 10 % der simulierten BTP-Daten, kann R die beiden betrachteten Auswert
 
 Unerwarteterweise ist die Laufzeit von {polars} für diese Datenmenge mit 1,2 Minuten weit abgeschlagen, obwohl das gleiche Auswertungsskript für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da {polars} das jüngste der betrachteten R-Packages ist, vermuten wir Stabilitätsprobleme in der vorliegenden Version 1.0.1.
 
+Klassische Methoden kommen bei der betrachteten Datenmenge bereits ihrer Grenze nahe. Falls {data.table} genauso angewendet wird, wie für kleine Datenmengen, beansprucht in unserem Anwemdungsfall die verfügbaren 512 GB Arbeitsspeicher vollständig. Klassische Methoden müssen also viel geschickter die relevanten Variablen manuell selektieren unter Beachtung der eigenen Arbeitsspeicherverbrauchs.
 
+Insgesamt kommen wir zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} im Gesamtpaket die beste Datenverarbeitungsmethode für die Bewältigung unserer Aufgaben aus den folgenden Gründen ist:
 
-
-Insgesamt kommen wir zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} im Gesamtpaket die beste Datenverarbeitungsmethode für die Bewältigung unserer Aufgaben ist. Denn
-
-1. 
-
-
- die geringste Laufzeit für unsere Zwecke benötigt und ebenso die Entwicklungszeit minimiert hat. Somit bietet {arrow} im Gesamtpaket die beste Datenverarbeitungsmethode für die Bewältigung unserer Aufgaben.
-
--   In der relevanten Größenordnung ist {arrow} die schnellste Methode 
--   {arrow} spart ausreichend Arbeitsspeicher (Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann.
+1. Für die relevant größte Datenmenge ist {arrow} am schnellsten. 
+2. auch die Nutzererfahrung und die damit einhergehenden Entwicklungaufwände waren in {arrow} am geringsten.
+  1. tidy syntax nativ
+3. {arrow} spart ausreichend Arbeitsspeicher (Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann
 -   {parquet} spart gegenüber CSV mind. 50% der Festplatte (für das reale BTP sogar 80%+)
 -   {arrow} zeigte im Experiment die beste Nutzendenerfahrung.
     -   Beide Anwendungen lassen sich in unter 20 Z. mit Arrow programmieren (verständlich lesbar) s. Opencode Repo.
