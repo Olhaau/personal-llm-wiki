@@ -1,6 +1,5 @@
 ## Auswertungsmethoden in R {#sec-methoden}
 
-
 Wir betrachten in R (Version 4.5.0) die folgenden R-Pakete gemeinsam mit den in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
 
 ```{r pkg-packages}

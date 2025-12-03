@@ -41,21 +41,20 @@ library(dplyr)
 library(tibble)
 
 
-realtimes_sas_cnt <- c(2.25, 2.43, 2.32, 2.5, 2.59, 2.43, 2.51)
-realtime_sas_cnt <- sprintf("%.1f Min.", median(realtimes_sas_cnt))
-memorys_sas_cnt <- c(65301.48, 65134.98, 65119.78) / 1000
-memory_sas_cnt <- sprintf("%.0f MB", median(memorys_sas_cnt))
-realtimes_sas_reg <- c(2.4, 2.35, 2.49, 3.45, 3.15, 3.29)
-realtime_sas_reg <- sprintf("%.1f Min.", median(realtimes_sas_reg))
-memorys_sas_reg<- c(7242.09, 6926.34, 6937.09) / 1000
-memory_sas_reg <- sprintf("%.0f MB", median(memorys_sas_reg))
+baseline_data <- data.frame(
+  `Software / Fall` = c("SAS Fallzahl", "SAS Regression", "Stata Fallzahl", "Stata Regression"),
+  RAM = c("tba", "tba", "ca. 33 GB", "ca. 33 GB"),
+  Zeit = c("2,43 Min.", "tba", "55 Sek", "56 Sek"),
+  Disk = c("33 GB", "tba", "32 GB", "32 GB")
+)
+
 
 baseline_data <- tibble::tribble(
   ~Software, ~Anwendung, ~Arbeitsspeicher, ~Laufzeit, ~Festplattenspeicher,
-  "SAS",   "Fallzahl",   memory_sas_cnt, realtime_sas_cnt, "33 GB",
-  "SAS",   "Regression", memory_sas_reg, realtime_sas_reg,"33 GB",
-  "Stata", "Fallzahl",   "33 GB",        "55,2 Sek.",      "32 GB",
-  "Stata", "Regression", "33 GB",        "55,8 Sek.",      "32 GB"
+  "SAS", "Fallzahl", "65 MB","2,32 Min.", "33 GB",
+  "SAS", "Regression", "tba","2,40 Min.", "33 GB",
+  "Stata", "Fallzahl", "33 GB", "55,2 Sek.", "32 GB",
+  "Stata", "Regression", "33 GB", "55,8 Sek.", "32 GB"
 )
 
 tbl_out <- baseline_data |>
@@ -304,24 +303,22 @@ cat(tbl_out)
 
 Auch für 10 % der simulierten BTP-Daten, kann R die beiden betrachteten Auswertungen in Echtzeit mit minimalem Arbeitsspeicher beantworten (siehe @tbl-benchmark und @tbl-benchmark-regr). Die Auswertungsmethoden mit der höchsten Performanz nutzen alle das {parquet} und erreichen:
 
-1. {arrow} benötigt nur **4,7 Sekunden** und 230 MB Arbeitsspeicher,
-2. {duckdb} benötigt nur 5,1 Sekunden und **4,7 MB Arbeitsspeicher**.
+1.  {arrow} benötigt nur **4,7 Sekunden** und 230 MB Arbeitsspeicher,
+2.  {duckdb} benötigt nur 5,1 Sekunden und **4,7 MB Arbeitsspeicher**.
 
-Unerwarteterweise ist die Laufzeit von {polars} für diese Datenmenge mit 1,2 Minuten weit abgeschlagen, obwohl das gleiche Auswertungsskript für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da {polars} das jüngste der betrachteten R-Packages ist, vermuten wir Performanzprobleme in der vorliegenden Version 1.0.1[^4]. Zudem hat es noch größere Entwicklungsaufwände beansprucht, da der an Python angelehnte Syntaxstil deutlich von üblicher Programmierung in R abweicht. Öffentliche Hilfestellung bezieht sich hauptsächlich auf Python (oder Rust), was sich in den Antworten der KI-Chatassistenten wiederspiegelt.
+Unerwarteterweise ist die Laufzeit von {polars} für diese Datenmenge mit 1,2 Minuten weit abgeschlagen, obwohl {polars} mit dem gleichenapfel123 Auswertungsskript für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da {polars} das jüngste der betrachteten R-Packages ist, vermuten wir Stabilitätsprobleme in der vorliegenden Version 1.0.1[^4].
 
 [^4]: Das R-Package {polars} Version 1.0.1 war nur der erste Minor Release nach einer kompletten Überarbeitung. Inzwischen sind 5 neuere Major Releases mit diversen Performanz-Verbesserungen verfügbar.
 
-Klassische Methoden kommen bei der betrachteten Datenmenge bereits an ihre Grenzen. Falls in {data.table} unbedacht der vollständige Datensatz eingelesen wird, werden in unserem Anwemdungsfall die verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Wir klassische Methoden ist somit deutlich mehr Erfahrung der Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
+Insgesamt kommen wir zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} aus den folgenden Gründen die beste Datenverarbeitungsmethode für die Bewältigung unserer Aufgaben ist:
 
-Insgesamt kommen wir zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} im Gesamtpaket die beste Datenverarbeitungsmethode für die Bewältigung unserer Aufgaben aus den folgenden Gründen ist:
+1.  
 
-1. Für die relevanteste Datenmenge zeigte {arrow} die geringsten Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle denkenswerten explorativen Analysen.
-2. auch die Nutzererfahrung war mit {arrow} am besten und die damit einhergehenden Entwicklungaufwände waren dadurch am geringsten.
-  1. die anschauliche {tidyverse} Syntax lässt sich zum Großteil änderungsfrei und ohne Performanzverluste auf {arrow} übertragen. {duckdb} kann bei Kenntnissen in SQL zu bevorzugen sein und {polars} mit Erfahrungen in Python.
-  2. Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in {arrow} programmieren.
-  2. Obwohl nicht alle Features aus {tidyverse} für {arrow} verfügbar sind, haben wir bisher immer eine Lösung gefunden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit {duckdb}.
-3. {arrow} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann
-4. Dadurch das {arrow} die Nutzung auch von mehreren {parquet} Dateien unterstützt spart gegenüber CSV mind. 50% der Festplatte (für das reale BTP sogar 80%+) und ermöglicht schnelle Nutzung auch von Datenmengen überhalb des verfügbaren Arbeitsspeichers.
+die geringste Laufzeit für unsere Zwecke benötigt und ebenso die Entwicklungszeit minimiert hat. Somit bietet {arrow} im Gesamtpaket die beste Datenverarbeitungsmethode für die Bewältigung unserer Aufgaben.
+
+-   In der relevanten Größenordnung ist {arrow} die schnellste Methode
+-   {arrow} spart ausreichend Arbeitsspeicher (Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann.
+-   {parquet} spart gegenüber CSV mind. 50% der Festplatte (für das reale BTP sogar 80%+)
 -   {arrow} zeigte im Experiment die beste Nutzendenerfahrung.
     -   Beide Anwendungen lassen sich in unter 20 Z. mit Arrow programmieren (verständlich lesbar) s. Opencode Repo.
     -   Leicht und verständlich - adaptiert nativ schöne {tidyverse} Syntax. Dagegen sind {duckdb} und {polars} auf Zusatzpakete angewiesen, die tlw. die Performanz reduzieren können.
