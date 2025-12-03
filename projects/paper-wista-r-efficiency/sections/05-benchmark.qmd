@@ -343,7 +343,7 @@ Insgesamt kommen wir zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} im G
     -   aktuell nicht der volle Funktionsumfang von {tidyverse} in {arrow} abgebildet wird, sodass auf fehlende Features mit {duckdb} etc. reagiert werden muss.
 
 ```{r tbl-benchmark}
-#| tbl-cap: "Performanz Messungen für die Fallzahlberechnung anhand 10% des BTP." mehr: tba"
+#| tbl-cap: "Performanz Messungen für die Fallzahlberechnung anhand 10% des BTP. tba: mehr"
 #| echo: false
 #| warning: false
 #| message: false
