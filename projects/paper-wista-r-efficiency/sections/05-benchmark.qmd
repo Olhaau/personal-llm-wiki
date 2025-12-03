@@ -60,7 +60,7 @@ baseline_data <- tibble::tribble(
 
 tbl_out <- baseline_data |>
   knitr::kable(
-    booktabs = TRUE,
+    booktabs = FALSE,
     format = "latex",
     escape = FALSE,
     linesep = "",
@@ -71,10 +71,10 @@ tbl_out <- baseline_data |>
     font_size = 8,
     full_width = FALSE
   ) |>
-  collapse_rows(columns =1, valign="top") |>
-  #row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, color = "black", background = "white") |>
-  column_spec(2:ncol(baseline_data), background = "#f0f8ff", border_left = TRUE)
+  collapse_rows(columns = 1, valign = "top") |>
+  row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:ncol(baseline_data), background = "#f0f8ff", border_left = TRUE, border_right = TRUE)
 
 # Convert to table* for full width across both columns
 tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
@@ -83,6 +83,9 @@ tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
 tbl_out <- gsub("\\[!h\\]", "", tbl_out)
 # Add label for cross-referencing
 tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-baseline\\}", tbl_out)
+# Add white borders by setting arrayrulecolor
+tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
+tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
 
 cat(tbl_out)
 ```
@@ -222,7 +225,7 @@ n_rows <- nrow(dat_bm_filtered)
 
 tbl_out <- dat_bm_filtered |>
   knitr::kable(
-    #booktabs = TRUE,
+    booktabs = FALSE,
     format = "latex",
     escape = TRUE,
     linesep = "",
@@ -233,8 +236,8 @@ tbl_out <- dat_bm_filtered |>
     font_size = 8#,full_width = FALSE
   ) |>
   row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE) |>
-  column_spec(2:n_cols, background = "#f0f8ff", border_left=TRUE, border_right = TRUE)|>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:n_cols, background = "#f0f8ff", border_left = TRUE, border_right = TRUE) |>
   #pack_rows("Fallzahl",1,11, label_row_css = "background-color: #dce6f0;")|>
   #pack_rows("Regression", 12, 14) |>
   add_header_above(c(" " = ncol(df)))
@@ -247,6 +250,9 @@ tbl_out <- gsub("\\[!h\\]", "", tbl_out)
 tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\1", tbl_out)
 tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\\1", tbl_out)
 tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-benchmark-small\\}", tbl_out)
+# Add white borders by setting arrayrulecolor
+tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
+tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
 
 cat(tbl_out)
 ```
@@ -270,7 +276,7 @@ n_rows <- nrow(dat_bm_filtered)
 
 tbl_out <- dat_bm_filtered |>
   knitr::kable(
-    #booktabs = TRUE,
+    booktabs = FALSE,
     format = "latex",
     escape = TRUE,
     linesep = "",
@@ -281,8 +287,8 @@ tbl_out <- dat_bm_filtered |>
     font_size = 8#,full_width = FALSE
   ) |>
   row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE) |>
-  column_spec(2:n_cols, background = "#f0f8ff", border_left=TRUE, border_right = TRUE)|>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:n_cols, background = "#f0f8ff", border_left = TRUE, border_right = TRUE) |>
   #pack_rows("Fallzahl",1,11, label_row_css = "background-color: #dce6f0;")|>
   #pack_rows("Regression", 12, 14) |>
   add_header_above(c(" " = ncol(df)))
@@ -296,9 +302,14 @@ tbl_out <- gsub("\\[!h\\]", "", tbl_out)
 # Add label for cross-referencing
 tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-benchmark-regr-small\\}", tbl_out)
 tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\\1", tbl_out)
+# Add white borders by setting arrayrulecolor
+tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
+tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
 
 cat(tbl_out)
 ```
+
+\clearpage
 
 ### Größere Datenmengen in R
 
@@ -350,7 +361,7 @@ n_rows <- nrow(dat_bm_filtered)
 
 tbl_out <- dat_bm_filtered |>
   knitr::kable(
-    #booktabs = TRUE,
+    booktabs = FALSE,
     format = "latex",
     escape = TRUE,
     linesep = "",
@@ -361,8 +372,8 @@ tbl_out <- dat_bm_filtered |>
     font_size = 8#,full_width = FALSE
   ) |>
   row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE) |>
-  column_spec(2:n_cols, background = "#f0f8ff", border_left=TRUE, border_right = TRUE)|>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:n_cols, background = "#f0f8ff", border_left = TRUE, border_right = TRUE) |>
   #pack_rows("Fallzahl",1,11, label_row_css = "background-color: #dce6f0;")|>
   #pack_rows("Regression", 12, 14) |>
   add_header_above(c(" " = ncol(df)))
@@ -376,6 +387,9 @@ tbl_out <- gsub("\\[!h\\]", "", tbl_out)
 tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\1", tbl_out)
 # Add label for cross-referencing
 tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-benchmark-regr\\}", tbl_out)
+# Add white borders by setting arrayrulecolor
+tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
+tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
 
 cat(tbl_out)
 ```
@@ -400,7 +414,7 @@ n_rows <- nrow(dat_bm_filtered)
 
 tbl_out <- dat_bm_filtered |>
   knitr::kable(
-    #booktabs = TRUE,
+    booktabs = FALSE,
     format = "latex",
     escape = TRUE,
     linesep = "",
@@ -411,8 +425,8 @@ tbl_out <- dat_bm_filtered |>
     font_size = 8#,full_width = FALSE
   ) |>
   row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE) |>
-  column_spec(2:n_cols, background = "#f0f8ff", border_left=TRUE, border_right = TRUE)|>
+  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
+  column_spec(2:n_cols, background = "#f0f8ff", border_left = TRUE, border_right = TRUE) |>
 
   add_header_above(c(" " = ncol(df)))
 
@@ -425,6 +439,9 @@ tbl_out <- gsub("\\[!h\\]", "", tbl_out)
 # Add label for cross-referencing
 tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-benchmark-regr\\}", tbl_out)
 tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\\1", tbl_out)
+# Add white borders by setting arrayrulecolor
+tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
+tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
 
 cat(tbl_out)
 ```
