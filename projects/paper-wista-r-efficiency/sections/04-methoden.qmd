@@ -32,6 +32,8 @@ Die Verbreitung von R steigt.
 
 - base-r Grundlage/einstieg, weder sonderlich amschaulich nocb sonderlich performant -> Packages überlassen
 
+Zweckdienlich für Einsteiger oder gelegenheitsnutzer oder falls gar keine Abhängigkeiten in Form von Pkg erlaubt sind. Ansonsten...
+
 -> {data.table} in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
 
 - {tidyverse} Ökosystem von Packages zur Datenverarbeitung. bekannt für besonders hohe Nutzerfreundlichkeit und einer eigenen Programmiersyntax sog. {tidy}-Syntax, die den Anspruch hat menschlicher Sprache abzubilden:
