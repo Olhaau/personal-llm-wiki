@@ -12,16 +12,16 @@ Wir betrachten in dieser Arbeit die Performanz sog. Datenverarbeitungsmethoden, 
     - bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP). 
     - neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen Systemkapazitäten.
 
-Die Verbreitung von R steigt.
+Daneben wächst der Einsatz von R stetig im StBA und FDZ stetig.
 
 ### Anforderungen an Datenverarbeitungsmethoden
 
 - Performanz und Nutzererfahrung auf dem aktuellen Stand der Technik
-- leicht einzurichten, d.h. wenig Abhängigkeiten und unabhängig von Internet bzw. Cloud betreibbar
+- leicht einzurichten auch in den abgeschotteten System der amtl. Statistik (tlw. langwierig und schwierig), d.h. wenig Abhängigkeiten und unabhängig von Internet bzw. Cloud betreibbar.
 - langfristig stabil und gut unterstützt
-- leicht nutzbar, gut dokumentiert, schulbar
+- leicht nutzbar, gut dokumentiert, gutes Schulungsangebot
 
-### Datenverarbeitungsmethoden in R
+### Geeignete Datenverarbeitungsmethoden in R
 
 - R ist die native Programmiersprache von Statistiker/-innen und Daten-affinen Programmierer/-innen. Frei verfügbar und leicht einzurichten. Somit weit verbreitet, insb. an Universitäten.
 - R ist Open Source und wird ständig weiterentwickelt (aktuell in Version 4.5 verwendet, jährliche Major Releases). 
@@ -29,6 +29,13 @@ Die Verbreitung von R steigt.
 - Bietet nativ bereits viele Datenverarbeitungsmethoden, die jedoch durch diese R-Packages ganz neue Level an Nutzerfreundlichkeit, Funktionsumfang und Performanz erreichen.
 
 #### Klassische Datenverarbeitungsmethoden
+
+
+**Base R.**
+
+**Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
+
+**Empfehlung:** Nur für kleine Datensätze (\<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
 
 - base-r Grundlage/einstieg, weder sonderlich amschaulich nocb sonderlich performant -> Packages überlassen
 
@@ -44,15 +51,15 @@ So beliebt, dass die Community sie vielen anderen Packages ergänzt hat. Bspw. f
 
 [^bm-tidy]: ...
 
-#### Zusätzliche Optimierungen
+#### Ausgewählte Best Practices
 
-Wir betrachten in R (Version 4.5.0) die folgenden R-Pakete gemeinsam mit den in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
+in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
 
 #### Hoch-performante R-Packages
 
 Definition einfach: können nativ Daten über RAM verarbeiten.
 
-von Desktopanwendung unterm Tisch zi Performamten Analyseserver paradigmenwechsel notwendig: in RAM vs nicht im RAM!
+von Desktopanwendung unterm Tisch zu Performamten Analyseserver paradigmenwechsel notwendig: in RAM vs nicht im RAM!
 
 ...
 
@@ -115,20 +122,14 @@ beachte/erwähne: https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappe
 
 ### Einordnung
 
-
-
 #### Generelle Auswahl
 
--   Nativ in R, wenig externe Abhängigkeiten (kann in Systemen der amtl. Statistik schwierig sein). Nicht alles verfügbar, Einrichtung eingeschränkt und tlw. langwierig. Infrastruktur, Versionen der Software
+
 -   R Syntax ausreichend: Data.table oder Tidy -\> leicht zu lernen, anzuwenden. Wenig mental load auf die Umsetzung, Fokus auf die eigentliche Aufgabe.
 -   Keine gesonderte Hardware/Software nötig, keine GPUs oder Spark
 -   Abgrenzung zu Datenbanken
 
-**Base R.**
 
-**Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
-
-**Empfehlung:** Nur für kleine Datensätze (\<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
 
 **data.table.**
 
