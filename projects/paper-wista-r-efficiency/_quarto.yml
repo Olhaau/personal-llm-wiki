@@ -30,7 +30,6 @@ format:
     documentclass: article
     output-file: "Effiziente-Analyse-Forschungsdaten-R.pdf"
     classoption:
-      - twocolumn
       - twoside
     geometry:
       - top=2.5cm
@@ -40,6 +39,8 @@ format:
     fontsize: 10pt
     linestretch: 1.0
     number-sections: true
+    toc: true
+    toc-depth: 3
     cite-method: biblatex
     biblio-style: authoryear
     tbl-cap-location: top
