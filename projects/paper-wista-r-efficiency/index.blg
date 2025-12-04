@@ -1,0 +1,9 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[0] Config.pm:331> INFO - Logfile is 'index.blg'
+[80] biber:342> INFO - === Thu Dec  4, 2025, 13:52:57
+[96] Biber.pm:421> INFO - Reading 'index.bcf'
+[167] Biber.pm:1002> INFO - Found 2 citekeys in bib section 0
+[181] Biber.pm:4487> INFO - Processing section 0
+[191] Biber.pm:4678> INFO - Looking for bibtex file 'references.bib' for section 0
+[200] Utils.pm:479> ERROR - Cannot find 'references.bib'!
+[200] Biber.pm:137> INFO - ERRORS: 1

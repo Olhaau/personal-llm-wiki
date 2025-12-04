@@ -176,7 +176,6 @@ Die Arbeit in der geschützten FDZ-Umgebung stellt besondere Anforderungen:
 **Optimierungsstrategien.**
 
 Verschiedene Strategien helfen, die Performanz zu optimieren:
-<!--
 
 ```{r}
 #| label: fig-optimization-strategies
@@ -235,5 +234,3 @@ Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für effizientes
 4.  **Dokumentation:** Sorgfältige Dokumentation des Analyseprozesses für Output-Kontrolle
 5.  **Ressourcenplanung:** Bewusste Planung rechenintensiver Operationen bei geteilter Infrastruktur
 6.  **Beratung nutzen:** Frühzeitige Kontaktaufnahme mit FDZ-Mitarbeitern bei methodischen Fragen
-
--->

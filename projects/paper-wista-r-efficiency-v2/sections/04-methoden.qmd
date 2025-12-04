@@ -4,16 +4,50 @@
 
 Wir betrachten in dieser Arbeit die Performanz sog. Datenverarbeitungsmethoden, d.h. Softwarelösungen, die Daten einlesen,modifzierern, aggregieren, auswerten oder analysieren. Das Schreiben von Daten wird in unserer Untersuchung ausgeklammert, da es sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den Outputs der Wissenschaft im FDZ um kleine Tabellen handelt, die keine große Performanz erfordern. Dennoch bieten die hier vorstellten Lösungen auch hohe Performanz im Schreiben von Daten.[^1]
 
-[^1]:
-    -   Hauptanalysewerkzeuge sind bisher:
-        -   im StBA SAS 9.4 M8, EG
-        -   im FDZ zsl. Stata
-    -   bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP).
-    -   neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen Systemkapazitäten.
+[^1]: ...
 
-Daneben wächst der Einsatz von R stetig im StBA und FDZ stetig.
+-   Hauptanalysewerkzeuge sind bisher:
+    -   im StBA SAS 9.4 M8, EG
+    -   im FDZ zsl. Stata
+-   bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP).
+-   neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen Systemkapazitäten.
 
-Empfehlung des FDSZ der deutschen Bundesbank @gomolka2021largedata ....
+Daneben wächst der Einsatz von R stetig mit aktuell 200 aktiven Nutzenden im StBA und FDZ stetig.
+
+Empfehlung des FDSZ der deutschen Bundesbank. (@gomolka2021largedata) hat den spezialfall der in-memory Auswertung betrachtet mit den folgenden Ergebnissen:
+
+-R zeigt große Performancevorteile gegenüber Stata für FDZ Aufgaben
+- Zu Beachten: Optimierung der Gesamtzeit (d.h. Rechenzeit + **Entwicklungszeit**)
+- benutzt {parquet} bereits Standardmäßig
+
+<!--
+
+mehr
+
+  https://www.bundesbank.de/resource/blob/623988/62b8c17881d63bccc61efd11af0b47db/472B63F073F071307366337C94F8C870/2021-04-large-data-data.pdf
+
+  -   nur RAM passend betrachtet, max. 235.4 dta.gz
+  -   empfohlen werden Stata oder R gleichermaßen
+  -   R zeigt große Performancevorteile gegenüber Stata für FDZ Aufgaben
+  -   Zu Beachten: Optimierung der Gesamtzeit (d.h. Rechenzeit + **Entwicklungszeit**), d.h. Erfahrung, Knowhow ebenso entscheidend.
+      -   (-\> Fazit moderat erfahrenere Nutzende bleiben bei ihrem Fokus, Seniors lernen auch neue Technologie schnell, Anfänger können gleich eine schnelle und einfache Variante wählen)
+      -   kein Internetzugriff direkt am GWAP, Debugging erschwert
+  -   Zu Beachten: Code muss mehrfach ausgeführt werden (Wickham&Grolemund 2016)
+  -   rds is default compressed using gzip
+  -   Even though rds is a compressed format, there is a faster and more flexible solution: parquet, which is available to R via the {arrow} package (Richardson et al., 2021). Parquet is the on-disk representation of the arrow format which is actively developed by The Apache Software Founda- tion.
+  -   Note that using parquet and R reduces the computing time compared to the optimised Stata approach by 65.1% from 77.6 to 27.1 seconds
+  -   2 methoden: rds / parquet oder dta / dta.gz (.gz schneller auf Netzwerkdrive)
+  -   The RDSC usually provides data in these two formats.
+  -   Auswahl der Variablen bei Einlesen -\> in R Speedup of 39.9%, in Stata 33.9%
+  -   data wrangling recommondations:
+      -   stata {gtools} package
+      -   r {data.table}, designed for large data \~100GB in RAM
+      -   As you can see, {data.table} does a terrific job and is 90.1% faster than the optimised Stata solution using {gtools} which is already 76.2% faster than the base Stata solution.
+  -   Type Conversion important (4.2)
+  -   recommend: start small (5.1)
+
+-->
+
 
 ### Anforderungen an Datenverarbeitungsmethoden
 
@@ -22,34 +56,33 @@ Empfehlung des FDSZ der deutschen Bundesbank @gomolka2021largedata ....
 -   langfristig stabil und gut unterstützt
 -   leicht nutzbar, gut dokumentiert, gutes Schulungsangebot
 
-### Geeignete Datenverarbeitungsmethoden in R
+### Möglichkeiten in R
 
 -   R ist die native Programmiersprache von Statistiker/-innen und Daten-affinen Programmierer/-innen. Frei verfügbar und leicht einzurichten. Somit weit verbreitet, insb. an Universitäten.
 -   R ist Open Source und wird ständig weiterentwickelt (aktuell in Version 4.5 verwendet, jährliche Major Releases).
 -   Eine weltweit aktive Community löst Probleme zeitnah und ergänzt stetig Funktionalitäten in Form von sog. *R-Packages*.
 -   Bietet nativ bereits viele Datenverarbeitungsmethoden, die jedoch durch diese R-Packages ganz neue Level an Nutzerfreundlichkeit, Funktionsumfang und Performanz erreichen.
 
-#### Klassische Methoden
+### Klassische Methoden in R
 
-**Base R.**
+#### Base-R 
 
-**Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
+- Standardmäßige Basisfunktionen in R.
+- Grundlage/einstieg, weder sonderlich amschaulich nocb sonderlich performant -\> Packages überlassen
+- **Vorteile:** Einfach, weit verbreitet, keine zusätzlichen Abhängigkeiten 
+- **Nachteile:** Langsam bei großen Daten, hoher Speicherverbrauch, alle Daten müssen in RAM passen
+- **Empfehlung:** Zweckdienlich für Einsteiger oder gelegenheitsnutzer  für ganz kleine Anwendungenoder falls gar keine Abhängigkeiten in Form von Pkg erlaubt sind. Ansonsten...
 
-**Empfehlung:** Nur für kleine Datensätze (\<1 GB) oder wenn Kompatibilität wichtiger als Performance ist
+#### Data.table
 
--   base-r Grundlage/einstieg, weder sonderlich amschaulich nocb sonderlich performant -\> Packages überlassen
+- {data.table} in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
+- **Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax In teilen der Community sehr beliebt
+- **Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung. 
+- **Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird
 
-Zweckdienlich für Einsteiger oder gelegenheitsnutzer oder falls gar keine Abhängigkeiten in Form von Pkg erlaubt sind. Ansonsten...
+#### Tidyverse
 
-**data.table.**
-
-**Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax **Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung
-
-**Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird
-
--\> {data.table} in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
-
--   {tidyverse} Ökosystem von Packages zur Datenverarbeitung. bekannt für besonders hohe Nutzerfreundlichkeit und einer eigenen Programmiersyntax sog. {tidy}-Syntax, die den Anspruch hat menschlicher Sprache abzubilden:
+-  Ökosystem von Packages zur Datenverarbeitung. bekannt für besonders hohe Nutzerfreundlichkeit und einer eigenen Programmiersyntax sog. {tidy}-Syntax, die den Anspruch hat menschlicher Sprache abzubilden:
 
 \[ Tabelle Beispiel Dplyr \]
 
@@ -61,19 +94,45 @@ Zweckdienlich für Einsteiger oder gelegenheitsnutzer oder falls gar keine Abhä
 
 So beliebt, dass die Community sie vielen anderen Packages ergänzt hat. Bspw. für {data.table} die Packages {dtplyr} oder {tidytable}. Wie im Falle von {dtplyr} kann es dabei aber zu Einschränkung der Performamz kommen.[^2]
 
+beachte/erwähne: https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
+
 [^2]: ...
 
-#### Ausgewählte Best Practices
+### Ausgewählte Best Practices in R 
 
-in Abschnitt @sec-methoden beschriebenen Methoden (Variablenselektion, Datenaufteilung):
+Ab mittleren Datenmengen (abhängig von CPU und RAM) sind Best Practices:
 
-#### Hoch-performante R-Packages
+- *Variablenselektion*: Auswahl der benötigten Variablen in der Einlesefunkktion ist wesentliche Best-Practices (ab mittleren Datenmengen, besonders für klassiche Methoden). Eine Variablenselektion erst nach dem Einlesen verursacht unnötige Wartezeiten, Ressourcenbeanspruchung und Abbrüche
+- *Datenaufteilung*: Wenn der Arbeitsspeicher nicht ausreicht, um die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere RAM-Gerechte Datenpakete helfen. Für klassische Methoden kombiniert mit der mehrfachen Variablenselektion. Die folgenden Hoch-performante Technologien, kommen auch flexibel aus ohne manuelle Selektion
+
+### Hoch-performante Technologien in R
 
 Definition einfach: können nativ Daten über RAM verarbeiten.
 
 von Desktopanwendung unterm Tisch zu Performamten Analyseserver paradigmenwechsel notwendig: in RAM vs nicht im RAM!
 
 Die auf den Servern des StBA und FDZ verfügbaren Packageversionen lassen sich aus organisatorischen Gründen nicht flexibel anpassen (kein Internet, kuration intern, s. A. Inf) können Tabelle X entnommen werden.
+
+#### Apache Parquet
+
+tba
+
+#### Apache Arrow
+
+tba
+
+#### DuckDB
+
+tba
+
+#### Polars
+
+tba
+
+### Disclaimer
+
+- Einrichtbarkeit neuer Package etc. organisatorisch eingeschränkt und verzögert (S. Abschnitt @sec-infrastruktur).
+- Betrachtete Versionen:
 
 ```{r}
 #| echo: false
@@ -94,7 +153,7 @@ packages_data <- tribble(
   "{polars}", "1.0.1"
 )
 
-source("R/table_formatting.R")
+source(if(file.exists("R/table_formatting.R")) "R/table_formatting.R" else "../R/table_formatting.R")
 
 tbl_out <- format_descriptive_table(
   packages_data,
@@ -106,14 +165,18 @@ tbl_out <- format_descriptive_table(
 cat(tbl_out)
 ```
 
-Wie in Abschnitt @sec-infrastruktur beschrieben war es uns aus organisatorischen Gründen nicht möglich, die neuste Version aller Pakete zu verwenden. Die leichter nutzbaren Variationen {duckplyr} bzw. {tidytable} zu nutzen. Die Package wurden aber wenige Tage nach dem Experiment eingerichtet. Die Syntaxtranslation kann dabei die Performanz verschlechtern, sodass bei {duckdb} bzw. {data.table} zwischen Performanz und Code-Verständlichkeit abgewägt werden muss. {arrow} ist schon länger als {polars} im Statistischen Bundesamt verfügbar, sodass wir darin bereits mehr Erfahrungen einsetzen konnten.
 
-Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile.
+<!-- Wie in A beschrieben war es uns aus organisatorischen Gründen nicht möglich, die neuste Version aller Pakete zu verwenden. Die leichter nutzbaren Variationen {duckplyr} bzw. {tidytable} zu nutzen. Die Package wurden aber wenige Tage nach dem Experiment eingerichtet. Die Syntaxtranslation kann dabei die Performanz verschlechtern, sodass bei {duckdb} bzw. {data.table} zwischen Performanz und Code-Verständlichkeit abgewägt werden muss. {arrow} ist schon länger als {polars} im Statistischen Bundesamt verfügbar, sodass wir darin bereits mehr Erfahrungen einsetzen konnten.
 
-beachte/erwähne: https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
+Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien bieten hier deutliche Vorteile. -->
 
-````{=html}
+
+
+
+
+
 <!-- 
+
 
 ### Einordnung
 
@@ -444,4 +507,3 @@ dbDisconnect(con, shutdown = TRUE)
 -   Hat tidy wrapper, but 40% slowdown https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
 -->
-````

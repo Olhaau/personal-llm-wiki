@@ -1,8 +1,8 @@
 project:
   type: default
   output-dir: _book
-  # post-render:
-  #   - bash -c "git add _book/*.pdf _book/*.docx && git commit -m 'Update PDF and DOCX' && git push || true"
+  post-render:
+    - bash -c "git add _book/*.pdf _book/*.docx && git commit -m 'Update PDF and DOCX' && git push || true"
 
 bibliography: references.bib
   
@@ -14,8 +14,8 @@ format:
     toc: true
     toc-depth: 3
     highlight-style: github
-    filters:
-      - section-break.lua
+    # filters:
+    #   - section-break.lua
   pdf:
     title: "EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R"
     author: 

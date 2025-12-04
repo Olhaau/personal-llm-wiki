@@ -1,8 +1,8 @@
-## Vergleich der Performanz {#sec-performance}
+## Performanzvergleich {#sec-performance}
 
-### Benchmark-Setup
+### Versuchsaufbau
 
-Um zwischen den in Abschnitt @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Benchmark-Experiment auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des FDZ gemessen. Weiterführende Benchmarks sowie der vollständig reproduzierbare Code sind auf Opencode verfügbar[^1].
+Um zwischen den in Abschnitt @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Vergleich der Performance auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des FDZ gemessen. Weiterführende Performanzmessung sowie der vollständig reproduzierbare Code sind auf Opencode verfügbar[^1].
 
 [^1]: www.opencode.de/URL-To-Be-Announced.
 
@@ -21,7 +21,7 @@ Die Zielgrößen sind in dieser Reihenfolge zu priorisieren, da ein übermäßig
 
 Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 4 GB Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für unerfahrene Nutzende -- ausschlaggebend.
 
-### Baselines in SAS und Stata
+### Vergleichswert in SAS und Stata
 
 Klassisch werden die betrachteten Auswertungsaufgaben im Statischen Bundesamt hauptsächlich mit SAS und im FDZ mit Stata gelöst. Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen für 1% des simulierten BTP-Daten (etwa. 800.000 Beobachtungen) in SAS und Stata durchgeführt.
 
@@ -31,7 +31,7 @@ Klassisch werden die betrachteten Auswertungsaufgaben im Statischen Bundesamt ha
 #| message: false
 #| results: asis
 
-source("R/table_formatting.R")
+source(if(file.exists("R/table_formatting.R")) "R/table_formatting.R" else "../R/table_formatting.R")
 library(tibble)
 
 realtimes_sas_cnt <- c(2.25, 2.43, 2.32, 2.5, 2.59, 2.43, 2.51)
@@ -61,7 +61,7 @@ output_table(tbl_out)
 
 Die Ergebnisse in @tbl-baseline zeigen, dass der umfangreiche Arbeitsspeicher des FDZ OnSite-Servers nicht ausreicht, um das ganze BTP in Stata einzulesen, sodass zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
 
-### Kleiner Vergleich zwischen R und den Baselines
+### Kleiner Vergleich zwischen R, SAS und Stata
 
 Für 1% der simulierten BTP Daten, reduzieren die R-Datenverarbeitungsmethode alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. {polars}, {duckdb} und {arrow} lösen die betrachteten Auswertungen sogar
 
@@ -278,7 +278,10 @@ tbl_out <- format_benchmark_table(dat_bm_filtered,
 output_table(tbl_out)
 ```
 
-### Erkenntnisse des Experiments
+
+[tba: Plot RAM-Bedarf in Datenmenge]
+
+### (Weitere Erkenntnisse des Experiments)
 
 -   Auswahl der optimalen hoch-performanten Methode erfordert eine Untersuchung in der eigenen Infrastruktur anhand eigener Daten. Jedoch bieten alle HP-Methoden für die meisten Anwendungsfälle starke Performanzgewinne und sollten eingesetzt werden (nach den vorhandenen Erfahrungen und Strukturen: tidy vs Python vs SQL). Falls die Daten in CSV unter 25% des Arbeitsspeichers sind, sind auch klassische Methoden sehr gut nutzbar (bevorzugt {data.table}).
     -   **Package für optimale Laufzeit ist nicht eindeutig.** Je nach Datenmenge hat sich die Top 3 stark unterschieden.

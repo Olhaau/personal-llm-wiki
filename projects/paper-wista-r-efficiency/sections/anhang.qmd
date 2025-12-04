@@ -10,7 +10,7 @@ Inhalte von Opencode.
 #| message: false
 #| results: asis
 
-source("sections/R/table_formatting.R")
+source("R/table_formatting.R")
 
 dat_bm_small_cnt <- dat_bm |>
   filter(Beobachtungen %in% c("10.000", "1.000"), Anwendung == "Fallzahl") |>
@@ -20,7 +20,7 @@ tbl_out <- format_small_benchmark_table(dat_bm_small_cnt,
                                           label = "bm-cnt-small",
                                           caption = "Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP)")
 
-cat(tbl_out)
+output_table(tbl_out)
 
 ```
 
@@ -39,5 +39,5 @@ tbl_out <- format_small_benchmark_table(dat_bm_small_reg,
                                           label = "bm-reg-small",
                                           caption = "Benchmarkergebnisse für Regression (kleine Stichproben des BTP)")
 
-cat(tbl_out)
+output_table(tbl_out)
 ```

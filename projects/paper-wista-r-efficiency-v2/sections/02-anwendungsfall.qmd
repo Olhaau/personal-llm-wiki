@@ -1,0 +1,82 @@
+## Anwendungsfall Business-Tax-Panel 
+
+### Datengrundlage
+
+-   Umfang über verfügbaren Arbeitsspeicher
+-   Besonders breit mit 3000 Merkmalen, 80 Mio. Obs.
+
+### Kennzahlen
+
+### Auswertungsbedarfe
+
+Breites Spektrum: Datenaufbereitung/-bereitstellung und Auswertung von Mikrodaten durch die Wissenschaft.
+
+1.  deskriptive Eckdaten, für BTP als Panel im Quer- und Längsschnitt: Fallzahl pro Statistik und Jahr (s.MDR Produkt S. 9f https://www.forschungsdatenzentrum.de/sites/default/files/btp_2013-2019_on-site_mdr-prod.pdf)
+
+2.  Verlustvorträge (s. Vortrag NeSt) als Indikator für ... und Einflussgrößen auf Verlustvorträge, für Vermutung von Einfluss der Unternehmensgröße (großes Gesamtvolumen, Löhne, Spenden, tätige Personen; Auslandskontrolle oder WZ) auf positive Verlustvorträge.
+
+Aus technischer Sicht, ist die Kernaufgabe den Großteil (von 2991 Variablen) effizient zu entfernen, sodass lediglich der relevante Ausschnitt von kleinem Umfang ausgewertet werden kann.
+
+Beide Anwendungsfälle können bereits im mit den folgenden X von 3000 Variablen untersucht werden:
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+
+library(kableExtra)
+
+# Create variable table as data frame
+variables_table <- data.frame(
+  Variable = c("jahr", "verk", "k_k65270", "k_k65823", "k_c15018", "k_ef20", 
+               "k_k65172", "urs_we_tp_stichtag", "urs_rt_gruppen_kennz"),
+  Statistik = c("Allgemein", "Allgemein", "KStSt", "KStSt", "KStSt", "KStSt",
+                "KStSt", "URS", "URS"),
+  Beschreibung = c("Berichtsjahr", "", "Verlustvorträge", "Gesamtbetrag der Einkünfte",
+                   "Summe der Umsätze/Löhne/Gehälter", "WZ Generierung", "Spende",
+                   "Tätige Personen", "Statuskennzeichen, = 3/6 heißt \"auslandskontrolliert\"")
+)
+
+# #s#ource("R/table_formatting.R")
+
+# tbl_out <- format_descriptive_table(
+#   variables_table,
+#   col_names = c("Variable", "Statistik", "Beschreibung"),
+#   label = "variables",
+#   caption = "Betrachtete Variablen des BTP",
+#   font_size = 9
+# )
+
+# output_table(tbl_out)
+```
+
+Kennzahlen um inhaltlose Testdaten zu generieren werden folgende Eckdaten benötigt und im nächsten BTP berücksichtigt:
+
+-   Befüllung
+-   Statistische Eckdaten univariate (Quantile), multivariate (gemeinsame Verteilung)
+
+Update BTP, flexibel reagieren, neue MDR, DSB, ...
+
+-   Datenbereitstellung: MDR
+-   Forschungsprojekt
+    -   Lorenzkurve -\> Verteilung der Verlustvorträge
+    -   Logistische Regression -\> Einflussfaktoren auf Verlustvorträge
+
+
+
+### ...
+
+-   TODO: Zufügen von öffentlich verfügbaren Informationen zu Struktur und Verteilung des BTP. Verteilung über Statistik und Jahr, ...
+    -   was ist wichtig? Randverteilung, missings, vollständigkeit der variablen
+    -   erstmal eine Tabelle mit Variablenanzahl, Entfernung durch Hinweis feld. Tabelle: Variablenzahl komplett, Variablenanzahl ohne Hinweisfeld, Variablenanzahl Befüllt?
+    -   Hinweis Befüllungsgrad tlw. gering... x Variablen fehlen zu 90%, 80%, 70%, 60%, 50% ?
+    -   Verteilung der Zeilen auf Statistik und Jahr, inkl. Trend
+    -   Verteilung auf Kombinationen genauer
+-   Anwendungsfälle volles Spektrum
+    -   Datenbereitstellung, interne Analysen, Schätzungen
+    -   Auswertung durch Wissenschaft im FDZ
+-   Technische Herausforderung:
+    -   effiziente und verständliche Speicherung
+    -   Herausfiltern großer Datenmengen irrelevanter Merkmale
+

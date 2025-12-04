@@ -38,7 +38,7 @@ variables_table <- data.frame(
                    "Tätige Personen", "Statuskennzeichen, = 3/6 heißt \"auslandskontrolliert\"")
 )
 
-source("sections/R/table_formatting.R")
+source("R/table_formatting.R")
 
 tbl_out <- format_descriptive_table(
   variables_table,
@@ -48,7 +48,7 @@ tbl_out <- format_descriptive_table(
   font_size = 9
 )
 
-cat(tbl_out)
+output_table(tbl_out)
 ```
 
 Kennzahlen um inhaltlose Testdaten zu generieren werden folgende Eckdaten benötigt und im nächsten BTP berücksichtigt:
@@ -128,7 +128,6 @@ btp_stats <- data.frame(
            "Vollerhebung", "Sekundärerhebung (Finanzverwaltung)")
 )
 
-source("sections/R/table_formatting.R")
 
 tbl_out <- format_descriptive_table(
   btp_stats,
@@ -138,7 +137,7 @@ tbl_out <- format_descriptive_table(
   font_size = 10
 )
 
-cat(tbl_out)
+output_table(tbl_out)
 ```
 
 **Hauptmerkmale des Datensatzes.**
@@ -201,3 +200,5 @@ Aufgrund seiner Größe (\>66 Millionen Einheiten), Komplexität (\>2.700 Variab
 -   **Zeitreihenanalysen:** Panel-Struktur über mehrere Jahre
 
 Diese realitätsnahen Szenarien ermöglichen es, die Praxistauglichkeit verschiedener Auswertungsmethoden unter den tatsächlichen Bedingungen eines Forschungsdatenzentrums zu bewerten.
+
+--> 
