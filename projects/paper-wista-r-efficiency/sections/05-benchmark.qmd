@@ -1,5 +1,5 @@
 ```{=latex}
-\setcounter{section}{4}
+\setcounter{subsection}{3}
 ```
 
 ## Vergleich der Performanz {#sec-performance}
@@ -29,17 +29,14 @@ Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaße
 
 Klassisch werden die betrachteten Auswertungsaufgaben im Statischen Bundesamt hauptsächlich mit SAS und im FDZ mit Stata gelöst. Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen für 1% des simulierten BTP-Daten (etwa. 800.000 Beobachtungen) in SAS und Stata durchgeführt.
 
-```{r tbl-baseline}
-#| tbl-cap: "Baselines in SAS und Stata (anhand 1% des simuliertes BTP)"
+```{r}
 #| echo: false
 #| warning: false
 #| message: false
 #| results: asis
 
-library(kableExtra)
-library(dplyr)
+source("sections/R/table_formatting.R")
 library(tibble)
-
 
 realtimes_sas_cnt <- c(2.25, 2.43, 2.32, 2.5, 2.59, 2.43, 2.51)
 realtime_sas_cnt <- sprintf("%.1f Min.", median(realtimes_sas_cnt))
@@ -58,34 +55,10 @@ baseline_data <- tibble::tribble(
   "Stata", "Regression", "33 GB",        "55,8 Sek.",      "32 GB"
 )
 
-tbl_out <- baseline_data |>
-  knitr::kable(
-    booktabs = FALSE,
-    format = "latex",
-    escape = FALSE,
-    linesep = "",
-    align = c("l", "l", "r", "r", "r")
-  ) |>
-  kable_styling(
-    latex_options = "hold_position",
-    font_size = 8,
-    full_width = FALSE
-  ) |>
-  collapse_rows(columns = 1, valign = "top") |>
-  row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
-  column_spec(2:ncol(baseline_data), background = "#f0f8ff", border_left = TRUE, border_right = TRUE)
-
-# Convert to table* for full width across both columns
-tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
-tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
-# Remove the [!h] positioning directive
-tbl_out <- gsub("\\[!h\\]", "", tbl_out)
-# Add label for cross-referencing
-tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-baseline\\}", tbl_out)
-# Add white borders by setting arrayrulecolor
-tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
-tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
+tbl_out <- format_baseline_table(baseline_data, 
+                                   label = "baseline",
+                                   caption = "Baselines in SAS und Stata (anhand 1\\% des simuliertes BTP)",
+                                   collapse_first_col = TRUE)
 
 cat(tbl_out)
 ```
@@ -206,105 +179,36 @@ show_col_types=FALSE) |>
   select(-iter, -success_all, -proc_time, -fns)
 ```
 
-```{r tbl-benchmark-small}
-#| tbl-cap: "Performanz Messungen für die Fallzahlberechnung anhand 1% des BTP. tba: mehr"
+```{r}
 #| echo: false
 #| warning: false
 #| message: false
 #| results: asis
-
-library(kableExtra)
-library(dplyr)
 
 dat_bm_filtered <- dat_bm |>
   filter(Beobachtungen == "100.000")|> filter(Anwendung == "Fallzahl") |>
   select(-Beobachtungen,-Anwendung) 
 
-n_cols <- ncol(dat_bm_filtered)
-n_rows <- nrow(dat_bm_filtered)
-
-tbl_out <- dat_bm_filtered |>
-  knitr::kable(
-    booktabs = FALSE,
-    format = "latex",
-    escape = TRUE,
-    linesep = "",
-    align = c("l", "l", "l", "r", "r", "r")
-  ) |>
-  kable_styling(
-    latex_options = c("hold_position"),
-    font_size = 8#,full_width = FALSE
-  ) |>
-  row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
-  column_spec(2:n_cols, background = "#f0f8ff", border_left = TRUE, border_right = TRUE) |>
-  #pack_rows("Fallzahl",1,11, label_row_css = "background-color: #dce6f0;")|>
-  #pack_rows("Regression", 12, 14) |>
-  add_header_above(c(" " = ncol(df)))
-
-# Convert to table* for full width across both columns
-tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
-tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
-# Remove the [!h] positioning directive
-tbl_out <- gsub("\\[!h\\]", "", tbl_out)
-tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\1", tbl_out)
-tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\\1", tbl_out)
-tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-benchmark-small\\}", tbl_out)
-# Add white borders by setting arrayrulecolor
-tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
-tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
+tbl_out <- format_benchmark_table(dat_bm_filtered, 
+                                    label = "benchmark-small",
+                                    caption = "Performanz Messungen für die Fallzahlberechnung anhand 1\\% des BTP")
 
 cat(tbl_out)
 ```
 
-```{r tbl-benchmark-regr-small}
-#| tbl-cap: "Performanz Messungen für die Fallzahlberechnung anhand 1% des BTP. tba: mehr"
+```{r}
 #| echo: false
 #| warning: false
 #| message: false
 #| results: asis
 
-library(kableExtra)
-library(dplyr)
-
 dat_bm_filtered <- dat_bm |>
   filter(Beobachtungen == "100.000")|> filter(Anwendung == "Regression") |>
   select(-Beobachtungen,-Anwendung) 
 
-n_cols <- ncol(dat_bm_filtered)
-n_rows <- nrow(dat_bm_filtered)
-
-tbl_out <- dat_bm_filtered |>
-  knitr::kable(
-    booktabs = FALSE,
-    format = "latex",
-    escape = TRUE,
-    linesep = "",
-    align = c("l", "l", "l", "r", "r", "r")
-  ) |>
-  kable_styling(
-    latex_options = c("hold_position"),
-    font_size = 8#,full_width = FALSE
-  ) |>
-  row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
-  column_spec(2:n_cols, background = "#f0f8ff", border_left = TRUE, border_right = TRUE) |>
-  #pack_rows("Fallzahl",1,11, label_row_css = "background-color: #dce6f0;")|>
-  #pack_rows("Regression", 12, 14) |>
-  add_header_above(c(" " = ncol(df)))
-
-# Convert to table* for full width across both columns
-tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
-tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
-# Remove the [!h] positioning directive
-tbl_out <- gsub("\\[!h\\]", "", tbl_out)
-# Remove midrule after header if present
-# Add label for cross-referencing
-tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-benchmark-regr-small\\}", tbl_out)
-tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\\1", tbl_out)
-# Add white borders by setting arrayrulecolor
-tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
-tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
+tbl_out <- format_benchmark_table(dat_bm_filtered, 
+                                    label = "benchmark-regr-small",
+                                    caption = "Performanz Messungen für die Regressionsberechnung anhand 1\\% des BTP")
 
 cat(tbl_out)
 ```
@@ -315,8 +219,8 @@ cat(tbl_out)
 
 Auch für 10 % der simulierten BTP-Daten, kann R die beiden betrachteten Auswertungen in Echtzeit mit minimalem Arbeitsspeicher beantworten (siehe @tbl-benchmark und @tbl-benchmark-regr). Die Auswertungsmethoden mit der höchsten Performanz nutzen alle das {parquet} und erreichen:
 
-1. {arrow} benötigt nur **4,7 Sekunden** und 230 MB Arbeitsspeicher,
-2. {duckdb} benötigt nur 5,1 Sekunden und **4,7 MB Arbeitsspeicher**.
+1.  {arrow} benötigt nur **4,7 Sekunden** und 230 MB Arbeitsspeicher,
+2.  {duckdb} benötigt nur 5,1 Sekunden und **4,7 MB Arbeitsspeicher**.
 
 Unerwarteterweise ist die Laufzeit von {polars} für diese Datenmenge mit 1,2 Minuten weit abgeschlagen, obwohl das gleiche Auswertungsskript für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da {polars} das jüngste der betrachteten R-Packages ist, vermuten wir Performanzprobleme in der vorliegenden Version 1.0.1[^4]. Zudem hat es noch größere Entwicklungsaufwände beansprucht, da der an Python angelehnte Syntaxstil deutlich von üblicher Programmierung in R abweicht. Öffentliche Hilfestellung bezieht sich hauptsächlich auf Python (oder Rust), was sich in den Antworten der KI-Chatassistenten wiederspiegelt.
 
@@ -326,13 +230,14 @@ Klassische Methoden kommen bei der betrachteten Datenmenge bereits an ihre Grenz
 
 Insgesamt kommen wir zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} im Gesamtpaket die beste Datenverarbeitungsmethode für die Bewältigung unserer Aufgaben aus den folgenden Gründen ist:
 
-1. Für die relevanteste Datenmenge zeigte {arrow} die geringsten Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle denkenswerten explorativen Analysen.
-2. auch die Nutzererfahrung war mit {arrow} am besten und die damit einhergehenden Entwicklungaufwände waren dadurch am geringsten.
-  1. die anschauliche {tidyverse} Syntax lässt sich zum Großteil änderungsfrei und ohne Performanzverluste auf {arrow} übertragen. {duckdb} kann bei Kenntnissen in SQL zu bevorzugen sein und {polars} mit Erfahrungen in Python.
-  2. Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in {arrow} programmieren.
-  2. Obwohl nicht alle Features aus {tidyverse} für {arrow} verfügbar sind, haben wir bisher immer eine Lösung gefunden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit {duckdb}.
-3. {arrow} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann
-4. Dadurch das {arrow} die Nutzung auch von mehreren {parquet} Dateien unterstützt spart gegenüber CSV mind. 50% der Festplatte (für das reale BTP sogar 80%+) und ermöglicht schnelle Nutzung auch von Datenmengen überhalb des verfügbaren Arbeitsspeichers.
+1.  Für die relevanteste Datenmenge zeigte {arrow} die geringsten Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle denkenswerten explorativen Analysen.
+2.  auch die Nutzererfahrung war mit {arrow} am besten und die damit einhergehenden Entwicklungaufwände waren dadurch am geringsten.
+3.  die anschauliche {tidyverse} Syntax lässt sich zum Großteil änderungsfrei und ohne Performanzverluste auf {arrow} übertragen. {duckdb} kann bei Kenntnissen in SQL zu bevorzugen sein und {polars} mit Erfahrungen in Python.
+4.  Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in {arrow} programmieren.
+5.  Obwohl nicht alle Features aus {tidyverse} für {arrow} verfügbar sind, haben wir bisher immer eine Lösung gefunden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit {duckdb}.
+6.  {arrow} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann
+7.  Dadurch das {arrow} die Nutzung auch von mehreren {parquet} Dateien unterstützt spart gegenüber CSV mind. 50% der Festplatte (für das reale BTP sogar 80%+) und ermöglicht schnelle Nutzung auch von Datenmengen überhalb des verfügbaren Arbeitsspeichers.
+
 -   {arrow} zeigte im Experiment die beste Nutzendenerfahrung.
     -   Beide Anwendungen lassen sich in unter 20 Z. mit Arrow programmieren (verständlich lesbar) s. Opencode Repo.
     -   Leicht und verständlich - adaptiert nativ schöne {tidyverse} Syntax. Dagegen sind {duckdb} und {polars} auf Zusatzpakete angewiesen, die tlw. die Performanz reduzieren können.
@@ -342,106 +247,37 @@ Insgesamt kommen wir zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} im G
     -   erst Datenaufteilung/selektives Einlesen die maximale Performanz erreicht
     -   aktuell nicht der volle Funktionsumfang von {tidyverse} in {arrow} abgebildet wird, sodass auf fehlende Features mit {duckdb} etc. reagiert werden muss.
 
-```{r tbl-benchmark}
-#| tbl-cap: "Performanz Messungen für die Fallzahlberechnung anhand 10% des BTP. tba: mehr"
+```{r}
 #| echo: false
 #| warning: false
 #| message: false
 #| results: asis
-
-library(kableExtra)
-library(dplyr)
 
 dat_bm_filtered <- dat_bm |>
   filter(Beobachtungen == "1.000.000")|> filter(Anwendung == "Fallzahl") |>
   select(-Beobachtungen,-Anwendung) 
 
-n_cols <- ncol(dat_bm_filtered)
-n_rows <- nrow(dat_bm_filtered)
-
-tbl_out <- dat_bm_filtered |>
-  knitr::kable(
-    booktabs = FALSE,
-    format = "latex",
-    escape = TRUE,
-    linesep = "",
-    align = c("l", "l", "l", "r", "r", "r")
-  ) |>
-  kable_styling(
-    latex_options = c("hold_position"),
-    font_size = 8#,full_width = FALSE
-  ) |>
-  row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
-  column_spec(2:n_cols, background = "#f0f8ff", border_left = TRUE, border_right = TRUE) |>
-  #pack_rows("Fallzahl",1,11, label_row_css = "background-color: #dce6f0;")|>
-  #pack_rows("Regression", 12, 14) |>
-  add_header_above(c(" " = ncol(df)))
-
-# Convert to table* for full width across both columns
-tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
-tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
-# Remove the [!h] positioning directive
-tbl_out <- gsub("\\[!h\\]", "", tbl_out)
-# Remove midrule after header if present
-tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\1", tbl_out)
-# Add label for cross-referencing
-tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-benchmark-regr\\}", tbl_out)
-# Add white borders by setting arrayrulecolor
-tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
-tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
+tbl_out <- format_benchmark_table(dat_bm_filtered, 
+                                    label = "benchmark",
+                                    caption = "Performanz Messungen für die Fallzahlberechnung anhand 10\\% des BTP")
 
 cat(tbl_out)
 ```
 
-```{r tbl-benchmark-regr}
-#| tbl-cap: "Performanz Messungen für die Regressionsberechnung anhand 10% des BTP. tba: mehr"
+```{r}
 #| echo: false
 #| warning: false
 #| message: false
 #| results: asis
-
-library(kableExtra)
-library(dplyr)
 
 dat_bm_filtered <- dat_bm |>
   filter(Beobachtungen == "1.000.000") |> 
   filter(Anwendung == "Regression")|>
   select(-Beobachtungen, -Anwendung) 
 
-n_cols <- ncol(dat_bm_filtered)
-n_rows <- nrow(dat_bm_filtered)
-
-tbl_out <- dat_bm_filtered |>
-  knitr::kable(
-    booktabs = FALSE,
-    format = "latex",
-    escape = TRUE,
-    linesep = "",
-    align = c("l", "l", "l", "r", "r", "r")
-  ) |>
-  kable_styling(
-    latex_options = c("hold_position"),
-    font_size = 8#,full_width = FALSE
-  ) |>
-  row_spec(0, color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
-  column_spec(2:n_cols, background = "#f0f8ff", border_left = TRUE, border_right = TRUE) |>
-
-  add_header_above(c(" " = ncol(df)))
-
-# Convert to table* for full width across both columns
-tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
-tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
-# Remove the [!h] positioning directive
-tbl_out <- gsub("\\[!h\\]", "", tbl_out)
-# Remove midrule after header if present
-# Add label for cross-referencing
-tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-benchmark-regr\\}", tbl_out)
-tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\\1", tbl_out)
-# Add white borders by setting arrayrulecolor
-tbl_out <- sub("\\\\begin\\{tabular\\}", "\\{\\\\arrayrulecolor{white}\\\\begin\\{tabular\\}", tbl_out)
-tbl_out <- sub("\\\\end\\{tabular\\}", "\\\\end\\{tabular\\}\\}", tbl_out)
+tbl_out <- format_benchmark_table(dat_bm_filtered, 
+                                    label = "benchmark-regr",
+                                    caption = "Performanz Messungen für die Regressionsberechnung anhand 10\\% des BTP")
 
 cat(tbl_out)
 ```
@@ -464,99 +300,3 @@ cat(tbl_out)
 -   {arrow} verzeiht Fehler leicht(er als DT). Denn schlecht programmiert, ist es immernoch ganz gut). Alleine durch die Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet durch das FDZ), erreichen wir die Fallzahl-Berechung in 11.73s, nur 5s über dem absoluten Optimum.
 -   R-base oder readr sind immer weit abgeschlagen und zu vermeiden.
 -   Wenn der RAM extrem begrenzt ist, können {poars} oder {duckdb} dennoch eingesetzt werden.
-
-### Anhang
-
-Weitere Performancemessungen für kleinere Datenmengen.
-
-```{r}
-#| label: tbl-bm-cnt-small
-#| tbl-cap: "Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP)"
-#| echo: false
-#| warning: false
-#| message: false
-#| results: asis
-
-dat_bm_small_cnt <- dat_bm |>
-  filter(Beobachtungen %in% c("10.000", "1.000"), Anwendung == "Fallzahl") |>
-  select(-Anwendung) |> rename(`Beob.` = Beobachtungen)
-
-n_cols_small <- ncol(dat_bm_small_cnt)
-n_rows_small <- nrow(dat_bm_small_cnt)
-
-tbl_out <- dat_bm_small_cnt |>
-  knitr::kable(
-    booktabs = TRUE,
-    format = "latex",
-    escape = TRUE,
-    linesep = "",
-    align = c("r", "l", "l", "l", "r", "r", "r")
-  ) |>
-  kable_styling(
-    latex_options = c("hold_position"),
-    font_size = 8,
-    full_width = FALSE
-  ) |>
-  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
-  column_spec(2:n_cols_small, background = "#f0f8ff", border_left = TRUE, border_right = TRUE)
-
-# Convert to table* for full width across both columns
-tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
-tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
-# Remove the [!h] positioning directive
-tbl_out <- gsub("\\[!h\\]", "", tbl_out)
-# Remove midrule after header if present
-# Add label for cross-referencing
-tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-bm-cnt-small\\}", tbl_out)
-tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\\1", tbl_out)
-
-cat(tbl_out)
-
-```
-
-```{r}
-#| label: tbl-bm-reg-small
-#| tbl-cap: "Benchmarkergebnisse für Regression (kleine Stichproben des BTP)"
-#| echo: false
-#| warning: false
-#| message: false
-#| results: asis
-
-dat_bm_small_reg <- dat_bm |>
-  filter(Beobachtungen %in% c("10.000", "1.000"), 
-  Anwendung == "Regression") |>
-  select(-Anwendung) |> rename(`Beob.` = Beobachtungen)
-
-n_cols_small_reg <- ncol(dat_bm_small_reg)
-n_rows_small_reg <- nrow(dat_bm_small_reg)
-
-tbl_out <- dat_bm_small_reg |>
-  knitr::kable(
-    booktabs = TRUE,
-    format = "latex",
-    escape = TRUE,
-    linesep = "",
-    align = c("r", "l", "l", "l", "r", "r", "r")
-  ) |>
-  kable_styling(
-    latex_options = c("hold_position"),
-    font_size = 8,
-    full_width = FALSE
-  ) |>
-  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE, hline_after = FALSE) |>
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") |>
-  column_spec(2:n_cols_small_reg, background = "#f0f8ff", border_left = TRUE, border_right = TRUE)
-
-# Convert to table* for full width across both columns
-tbl_out <- gsub("\\\\begin\\{table\\}", "\\\\begin\\{table*\\}", tbl_out)
-tbl_out <- gsub("\\\\end\\{table\\}", "\\\\end\\{table*\\}", tbl_out)
-# Remove the [!h] positioning directive
-tbl_out <- gsub("\\[!h\\]", "", tbl_out)
-# Remove midrule after header if present
-# Add label for cross-referencing
-tbl_out <- sub("\\\\begin\\{table\\*\\}", "\\\\begin\\{table*\\}\\\\label\\{tbl-bm-reg-small\\}", tbl_out)
-tbl_out <- gsub("\\\\midrule\\n(\\\\rowcolor)", "\\1", tbl_out)
-
-cat(tbl_out)
-```

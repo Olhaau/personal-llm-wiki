@@ -1,5 +1,8 @@
 .env
 
+
+projects/article-v2
+
 # Large data files and benchmark data
 projects/r-import-benchmark/data/
 #*.csv

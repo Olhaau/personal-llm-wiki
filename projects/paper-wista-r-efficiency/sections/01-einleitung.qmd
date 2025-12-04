@@ -1,9 +1,5 @@
 ## Einleitung {#sec-einleitung}
 
-------------------------------------------------------------------------
-
-### TLDR
-
 ...
 
 Spannungsfeld, Weiterentwicklung und Technologie-Empfehlung...
@@ -157,7 +153,7 @@ Als Desktopanwendung konzipiert ist R nicht für hoch-performante Auswertungen v
 
 -   Diese Arbeit
 
-##### Technische Lösungsansätze
+**Technische Lösungsansätze.**
 
 -   Modernisierung der amtl. Stat, FDZs -\> Zugangswege, Kapazitäten, ...
 -   Technische Weiterentwicklung, stärkere Hardware, leichtere Bereitstellung, virtualisierung
@@ -193,6 +189,8 @@ Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der 
 In @sec-methoden werden verschiedene effiziente Auswertungsmethoden vorgestellt und deren theoretische Grundlagen erläutert. @sec-performance präsentiert die empirischen Performanzergebnisse der verschiedenen Ansätze. Die Arbeit schließt mit einem Ausblick auf zukünftige Entwicklungen in @sec-ausblick.
 
 Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.
+
+<!--
 
 *Bei den verwendeten Statistiken handelt es sich um Vollerhebungen, teilweise mit Erfassungsgrenze. Insgesamt liegen 77,8 Mio. Beobachtungen vor, die auf 16,7 Mio. Einheiten zurückzuführen sind. Der Merkmalsumfang variiert je nach Statistik zwischen 120 und 1.300 Merkmalen was insgesamt zu einem Merkmalsumfang von über 2.700 Merkmalen führt. Hierdurch sind Analyse von Anpassungsreaktionen sowie Verteilungsanalysen für verschiedene Beobachtungszeiträume möglich. Insgesamt deckt der Forschungsdatensatz eine Vielzahl an Analysemöglichkeiten, die für die evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.*
 

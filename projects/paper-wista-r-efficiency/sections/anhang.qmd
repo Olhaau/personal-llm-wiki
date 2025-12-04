@@ -1,0 +1,43 @@
+## Anhang {.unnumbered}
+
+Inhalte von Opencode.
+
+### Weitere Performancemessungen für kleinere Datenmengen. {.unnumbered}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+
+source("sections/R/table_formatting.R")
+
+dat_bm_small_cnt <- dat_bm |>
+  filter(Beobachtungen %in% c("10.000", "1.000"), Anwendung == "Fallzahl") |>
+  select(-Anwendung) |> rename(`Beob.` = Beobachtungen)
+
+tbl_out <- format_small_benchmark_table(dat_bm_small_cnt, 
+                                          label = "bm-cnt-small",
+                                          caption = "Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP)")
+
+cat(tbl_out)
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+
+dat_bm_small_reg <- dat_bm |>
+  filter(Beobachtungen %in% c("10.000", "1.000"), 
+  Anwendung == "Regression") |>
+  select(-Anwendung) |> rename(`Beob.` = Beobachtungen)
+
+tbl_out <- format_small_benchmark_table(dat_bm_small_reg, 
+                                          label = "bm-reg-small",
+                                          caption = "Benchmarkergebnisse für Regression (kleine Stichproben des BTP)")
+
+cat(tbl_out)
+```

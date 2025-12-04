@@ -5,6 +5,8 @@
 -   Umfang über verfügbaren Arbeitsspeicher
 -   Besonders breit mit 3000 Merkmalen, 80 Mio. Obs.
 
+### Kennzahlen
+
 ### Auswertungsbedarfe
 
 Breites Spektrum: Datenaufbereitung/-bereitstellung und Auswertung von Mikrodaten durch die Wissenschaft.
@@ -18,9 +20,10 @@ Aus technischer Sicht, ist die Kernaufgabe den Großteil (von 2991 Variablen) ef
 Beide Anwendungsfälle können bereits im mit den folgenden X von 3000 Variablen untersucht werden:
 
 ```{r}
-#| label: tbl-variables
-#| tbl-cap: "Betrachtete Variablen des BTP"
 #| echo: false
+#| warning: false
+#| message: false
+#| results: asis
 
 library(kableExtra)
 
@@ -35,20 +38,17 @@ variables_table <- data.frame(
                    "Tätige Personen", "Statuskennzeichen, = 3/6 heißt \"auslandskontrolliert\"")
 )
 
-knitr::kable(variables_table, 
-             col.names = c("Variable", "Statistik", "Beschreibung"),
-             booktabs = FALSE,
-             format = "latex",
-             escape = FALSE) %>%
-  kable_styling(
-    latex_options = "hold_position",
-    font_size = 9,
-    full_width = FALSE
-  ) %>%
-  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) %>%
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") %>%
-  column_spec(2:3, background = "#f0f8ff") %>%
-  column_spec(3, width = "4cm")
+source("sections/R/table_formatting.R")
+
+tbl_out <- format_descriptive_table(
+  variables_table,
+  col_names = c("Variable", "Statistik", "Beschreibung"),
+  label = "variables",
+  caption = "Betrachtete Variablen des BTP",
+  font_size = 9
+)
+
+cat(tbl_out)
 ```
 
 Kennzahlen um inhaltlose Testdaten zu generieren werden folgende Eckdaten benötigt und im nächsten BTP berücksichtigt:
@@ -62,6 +62,8 @@ Update BTP, flexibel reagieren, neue MDR, DSB, ...
 -   Forschungsprojekt
     -   Lorenzkurve -\> Verteilung der Verlustvorträge
     -   Logistische Regression -\> Einflussfaktoren auf Verlustvorträge
+
+
 
 ### ...
 
@@ -77,6 +79,9 @@ Update BTP, flexibel reagieren, neue MDR, DSB, ...
 -   Technische Herausforderung:
     -   effiziente und verständliche Speicherung
     -   Herausfiltern großer Datenmengen irrelevanter Merkmale
+
+
+<!--
 
 ### Annette's Input
 
@@ -109,40 +114,31 @@ Im BTP werden folgende Datensätze zusammengeführt:
 Das BTP umfasst einen außergewöhnlich umfangreichen Datensatz mit beeindruckenden Dimensionen:
 
 ```{r}
-#| label: tbl-btp-overview
-#| tbl-cap: "Übersicht über die Dimensionen des Business-Tax-Panel"
 #| echo: false
+#| warning: false
+#| message: false
+#| results: asis
 
 library(kableExtra)
-
-# Set options for PDF table compatibility
-options(knitr.table.format = "latex")
-options(kableExtra.latex.load_packages = FALSE)
 
 btp_stats <- data.frame(
   Merkmal = c("Beobachtungszeitraum", "Anzahl Einheiten (2013-2019)", "Anzahl Merkmale", 
               "Erhebungsart", "Datenquelle"),
-  Wert = c("2013-2019 (jaehrliche Erweiterung)", ">66 Millionen", ">2.700", 
-           "Vollerhebung", "Sekundaererhebung (Finanzverwaltung)")
+  Wert = c("2013-2019 (jährliche Erweiterung)", ">66 Millionen", ">2.700", 
+           "Vollerhebung", "Sekundärerhebung (Finanzverwaltung)")
 )
 
-btp_stats$Wert <- c("2013-2019 (jährliche Erweiterung)", ">66 Millionen", ">2.700", 
-                    "Vollerhebung", "Sekundärerhebung (Finanzverwaltung)")
+source("sections/R/table_formatting.R")
 
-# WISTA-styled table
-knitr::kable(btp_stats, 
-             col.names = c("Merkmal", "Wert"),
-             booktabs = FALSE,
-             format = "latex",
-             escape = FALSE) %>%
-  kable_styling(
-    latex_options = "hold_position",
-    font_size = 10,
-    full_width = FALSE
-  ) %>%
-  row_spec(0, background = "#dce6f0", color = "#404040", bold = TRUE) %>%
-  column_spec(1, border_left = TRUE, border_right = TRUE, color = "black", background = "white") %>%
-  column_spec(2, background = "#f0f8ff")
+tbl_out <- format_descriptive_table(
+  btp_stats,
+  col_names = c("Merkmal", "Wert"),
+  label = "btp-stats",
+  caption = "Übersicht über die Dimensionen des Business-Tax-Panel",
+  font_size = 10
+)
+
+cat(tbl_out)
 ```
 
 **Hauptmerkmale des Datensatzes.**

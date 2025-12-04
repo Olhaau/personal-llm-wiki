@@ -30,6 +30,7 @@ format:
     documentclass: article
     output-file: "Effiziente-Analyse-Forschungsdaten-R.pdf"
     classoption:
+      - twocolumn
       - twoside
     geometry:
       - top=2.5cm
@@ -39,11 +40,8 @@ format:
     fontsize: 10pt
     linestretch: 1.0
     number-sections: true
-    toc: true
-    toc-depth: 3
     cite-method: biblatex
     biblio-style: authoryear
-    tbl-cap-location: top
     biblatexoptions: 
       - backend=biber
       - style=authoryear-comp
@@ -79,7 +77,6 @@ format:
         \usepackage{tabularx}
         \usepackage{afterpage}
         \usepackage{tikz}
-        \usepackage{longtable}
         
 
         
@@ -92,42 +89,36 @@ format:
         \definecolor{wistaDarkGray}{RGB}{64,64,64}
         \definecolor{wistaLightGray}{RGB}{128,128,128}
         
-        % Section formatting (##) - number on top, line, title (same size), line
-        % e.g., "2" with lines around "Einleitung"
+        % Custom section formatting - number on top with column-width underline
         \titleformat{\section}[display]
           {\normalfont\large\bfseries}
-          {\color{wistaBlue}\large\bfseries\thesection\vspace{0.05cm}\\\noindent\rule{\columnwidth}{1.5pt}}
-          {0pt}
-          {\vspace{0.1cm}\color{wistaDarkGray}\large\bfseries}
-          [\vspace{0.1cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{1.5pt}}\vspace{0.3cm}]
-        \titlespacing*{\section}{0pt}{1.5ex plus 0.3ex minus .1ex}{0.8ex plus .3ex}
+          {\color{wistaBlue}\large\bfseries\thesection\vspace{-0.2cm}\\\noindent\rule{\columnwidth}{1pt}}
+          {0.02cm}
+          {\color{wistaDarkGray}\large\bfseries}
+          [\vspace{-0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.5pt}}\vspace{0.08cm}]
+        \titlespacing*{\section}{0pt}{0.8ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
         
-        % Subsection formatting (###) - grey text with blue line under
-        % e.g., "2.1 Handlungsbedarf"
-        \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+        % Subsection formatting - number and title with underline, bigger and dark grey
         \titleformat{\subsection}
-          {\color{wistaDarkGray}\normalsize\bfseries}
-          {\color{wistaDarkGray}\normalsize\bfseries\thesubsection}
+          {\color{wistaDarkGray}\large\bfseries}
+          {\color{wistaDarkGray}\large\bfseries\thesubsection}
           {0.5em}
-          {\color{wistaDarkGray}\normalsize\bfseries}
-          [\vspace{0.05cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.8pt}}\vspace{0.1cm}]
+          {\color{wistaDarkGray}\large\bfseries}
+          [\vspace{-0.2cm}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.4pt}}\vspace{0.03cm}]
           
-        % Subsubsection formatting (####) - grey text, no underline
-        % e.g., "2.1.1 Steigende Datenmenge"
-        \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+        % Subsubsection formatting
         \titleformat{\subsubsection}
-          {\color{wistaDarkGray}\normalsize\bfseries}
-          {\color{wistaDarkGray}\normalsize\bfseries\thesubsubsection}
-          {0.5em}
-          {\color{wistaDarkGray}\normalsize\bfseries}
+          {\color{wistaDarkGray}\small\bfseries}
+          {\color{wistaBlue}\small\bfseries\thesubsubsection}
+          {0.3em}
+          {\color{wistaDarkGray}\small\bfseries}
         
-        % Paragraph formatting (4th level) - numbered as subsection.subsubsection.paragraph
-        \renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
+        % Paragraph formatting (4th level)
         \titleformat{\paragraph}[runin]
           {\color{wistaDarkGray}\normalsize\bfseries}
-          {\color{wistaBlue}\normalsize\bfseries\theparagraph}
-          {0.5em}
-          {\color{wistaDarkGray}\normalsize\bfseries}
+          {}
+          {0em}
+          {}
           [.]
         \titlespacing*{\paragraph}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.5em}
         
@@ -153,11 +144,6 @@ format:
           \endorigfigure*%
         }
         
-        % Allow manual control of table* environment for full-width tables
-        % Tables by default stay in single column, but can use table* manually
-        
-
-        
         % Make bibliography full-width (one column) - for biblatex
         \defbibheading{bibliography}[\bibname]{%
           \onecolumn
@@ -170,72 +156,33 @@ format:
         % Footnotes stay within column
         \usepackage[stable]{footmisc}
         
-        % Custom footnote formatting: "|^1" in dark WISTA gray
-        \renewcommand{\thefootnote}{{\color{wistaDarkGray}|$^{\arabic{footnote}}$}}
-        
         % Pifont for dingbat symbols
         \usepackage{pifont}
         
-        % Better table handling for two-column mode
+        % Completely disable problematic table elements for two-column mode
         \usepackage{array,tabularx,calc}
-        
-        % Custom WISTA table format
-        \usepackage{caption}
-        \usepackage{xcolor}
-        \usepackage{colortbl}
-        \usepackage{array}
-        
-        % Define custom caption format for WISTA tables
-        \DeclareCaptionFormat{wista}{%
-          {\color{wistaLightBlue}\bfseries #1#2}\par\vspace{0.2em}%
-          {\color{wistaDarkGray}\normalfont #3}\par\vspace{0.3em}%
-        }
-        
-        % Set up table captions with custom WISTA format
-        \captionsetup[table]{
-          position=top,
-          format=wista,
-          justification=justified,
-          singlelinecheck=false,
-          labelsep=none,
-          skip=0.3em
-        }
-        
-        % Better table spacing and white inner lines
-        \setlength{\tabcolsep}{6pt}
-        \renewcommand{\arraystretch}{1.15}
-        
-        % Set white lines for tables by default, blue for first column
+        \makeatletter
+        % Replace longtable with simple tabular
+        \renewenvironment{longtable}{\@ifnextchar[{\@longtable}{\@longtable[c]}}{\end{tabular}}
+        \def\@longtable[#1]#2{\begin{tabular}{*{10}{l}}} % Use up to 10 left-aligned columns
+        % Disable all longtable-specific commands
+        \let\endhead\@empty
+        \let\endfirsthead\@empty
+        \let\endfoot\@empty
+        \let\endlastfoot\@empty
+        \let\tabularnewline\\
+        % Completely replace booktabs rules with simple versions
+        \renewcommand{\toprule}{\relax}
+        \renewcommand{\midrule}{\relax}
+        \renewcommand{\bottomrule}{\relax}
+        % Create commands to absorb problematic table commands
+        \def\noalign#1{}
+        % Handle caption commands outside floats by redefining after caption package loads
         \AtBeginDocument{
-          \arrayrulecolor{white}
-          \setlength{\arrayrulewidth}{0.3pt}
+          \let\oldcaption\caption
+          \renewcommand{\caption}[1]{\par\noindent\textbf{#1}\par}
         }
-        
-        % Define commands for colored table borders
-        \newcommand{\bluevrule}{\color{wistaBlue}\vrule}
-        \newcommand{\whitevrule}{\color{white}\vrule}
-        
-        % Define WISTA table colors
-        \definecolor{wistaTableBg}{RGB}{240,248,255}     % Very light blue background
-        \definecolor{wistaHeaderBg}{RGB}{220,230,240}    % Light blue header background
-        \definecolor{wistaFirstCol}{RGB}{65,125,180}     % Blue for first column lines
-        
-        % Custom WISTA table command
-        \newcommand{\wistaTableStart}{%
-          \rowcolors{2}{wistaTableBg}{wistaTableBg}%
-          \arrayrulecolor{wistaFirstCol}%
-        }
-        
-        % Custom commands for table styling
-        \newcommand{\wistaHeaderRow}[1]{%
-          \rowcolor{wistaHeaderBg}%
-          \arrayrulecolor{wistaDarkGray}%
-          #1 \\
-          \arrayrulecolor{white}%
-        }
-        
-        \newcommand{\wistaFirstColRule}{\arrayrulecolor{wistaFirstCol}}
-        \newcommand{\wistaWhiteRule}{\arrayrulecolor{white}}
+        \makeatother
         
         % Custom bullet points with > character - 35% width, 95% height, black extra bold, half line spacing
         \usepackage{enumitem}
@@ -243,7 +190,7 @@ format:
         
         % Redefine ref to include pifont 247 (arrow) for figure/table/section references
         \let\oldref\ref
-        \renewcommand{\ref}[1]{\oldref{#1}\raisebox{-0.2ex}{\scriptsize\color{wistaBlue}\ding{247}}}
+        \renewcommand{\ref}[1]{{\color{wistaBlue}\ding{247}}\oldref{#1}}
         
 
         
@@ -252,7 +199,7 @@ format:
 execute:
   freeze: auto
   
-#editor: visual
+editor: visual
 
 lang: de
 babel-lang: german
