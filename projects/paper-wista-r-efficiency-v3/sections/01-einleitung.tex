@@ -1,0 +1,1063 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  german,
+  10pt,
+  twoside]{article}
+\usepackage{xcolor}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2cm,right=2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage[german]{selnolig} % disable illegal ligatures
+\fi
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[style=authoryear,backend=biber,style=authoryear-comp,uniquename=false,uniquelist=false]{biblatex}
+\addbibresource{../references.bib}
+
+
+% Font configuration (Statis Sans alternative - use sans-serif throughout)
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{helvet}  % Use Helvetica-like font
+
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{afterpage}
+\usepackage{tikz}
+\usepackage{longtable}
+\usepackage{totcount}
+\usepackage{xstring}
+
+% Time display with Berlin timezone (+1 hour offset)
+\newcount\berlinhr
+\newcount\berlinmin
+\newcommand{\berlintime}{%
+  \berlinhr=\time\relax
+  \divide\berlinhr by 60\relax
+  \berlinmin=\time\relax
+  \multiply\berlinhr by -60\relax
+  \advance\berlinmin by \berlinhr\relax
+  \berlinhr=\time\relax
+  \divide\berlinhr by 60\relax
+  \advance\berlinhr by 1\relax
+  \ifnum\berlinhr>23\relax
+    \advance\berlinhr by -24\relax
+  \fi
+  \ifnum\berlinhr<10 0\fi\the\berlinhr:\ifnum\berlinmin<10 0\fi\the\berlinmin%
+}
+
+% Register counters for total counting
+\regtotcounter{table}
+\regtotcounter{figure}
+
+% Suppress default maketitle
+\renewcommand{\maketitle}{}
+
+% ===== DRAFT MODE CONTROL =====
+% Set \draftmodetrue to enable draft mode (metadata page + ENTWURF header)
+% Set \draftmodefalse to disable draft mode (for final version)
+\newif\ifdraftmode
+\draftmodetrue  % <-- Change to \draftmodefalse to disable draft mode
+
+% Define default commands for counts (will be overridden by filter)
+\providecommand{\totalchars}{0}
+\providecommand{\totalwords}{0}
+\providecommand{\abstractchars}{0}
+\providecommand{\abstractwords}{0}
+\providecommand{\zusammenfassungchars}{0}
+\providecommand{\zusammenfassungwords}{0}
+\providecommand{\footnotecountnum}{0}
+\providecommand{\citationcountnum}{0}
+\providecommand{\schlusselwortercount}{0}
+\providecommand{\keywordscount}{0}
+
+% Define metadata commands from Pandoc variables
+\newcommand{\doctitle}{$title$}
+\newcommand{\docauthors}{$author-short$}
+\newcommand{\docpublication}{$publication$}
+\newcommand{\docpublicationissue}{$publication-issue$}
+\newcommand{\docshorttitle}{$short-title$}
+
+\ifdraftmode
+% Define metadata page command
+\newcommand{\metadatapage}{%
+  \clearpage
+  \thispagestyle{empty}
+  \onecolumn
+  \vspace*{1.5cm}
+  
+  % Header section
+  {\raggedright
+  {\LARGE\bfseries\color{wistaBlue} Dokument-Metadaten}\\[0.5cm]
+  
+  \begin{tabular}{@{}ll}
+    \textbf{Titel:} & \doctitle \\[0.3em]
+    \textbf{Autoren:} & \docauthors \\[0.3em]
+    \textbf{Veröffentlichung:} & \docpublication\ \docpublicationissue \\[0.3em]
+    \textbf{Erstellungsdatum:} & \today\ um \berlintime\ Uhr \\[0.3em]
+  \end{tabular}
+  
+  \vspace{0.5cm}
+  {\color{wistaBlue}\rule{\textwidth}{1pt}}
+  \par}
+  
+  \vspace{1cm}
+  
+  % Dokumentstatistik
+  {\large\bfseries\color{wistaDarkGray} Dokumentstatistik}\\[0.5cm]
+  
+  \small
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+    \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} \\
+    \midrule
+    Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. \\
+    Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. \\
+    Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. \\
+    \midrule
+    \sectionrows
+    \bottomrule
+  \end{tabular}
+  \normalsize
+  
+  \vspace{0.5cm}
+  
+  % Keywords list
+  {\large\bfseries\color{wistaDarkGray} Schlüsselwörter}\\[0.3cm]
+  \small
+  \schlusselworterlist
+  \normalsize
+  
+  \vspace{0.5cm}
+  
+  {\large\bfseries\color{wistaDarkGray} Keywords}\\[0.3cm]
+  \small
+  \keywordslist
+  \normalsize
+  
+  \vspace{1cm}
+  
+  % Tables list
+  {\large\bfseries\color{wistaDarkGray} Tabellen}\\[0.3cm]
+  
+  \small
+  \begin{tabular}{@{}lp{12cm}@{}}
+    \toprule
+    \textbf{Nr.} & \textbf{Beschreibung} \\
+    \midrule
+    \tablerows
+    \bottomrule
+  \end{tabular}
+  \normalsize
+  
+  \vspace{1cm}
+  
+  % Figures list
+  {\large\bfseries\color{wistaDarkGray} Abbildungen}\\[0.3cm]
+  
+  \small
+  \begin{tabular}{@{}lp{12cm}@{}}
+    \toprule
+    \textbf{Nr.} & \textbf{Beschreibung} \\
+    \midrule
+    \figurerows
+    \bottomrule
+  \end{tabular}
+  \normalsize
+  
+  \clearpage
+}
+\fi
+
+% Define WISTA colors (from Kristiansen Word template)
+\definecolor{wistaBlue}{RGB}{91,155,213}
+\definecolor{wistaLightBlue}{RGB}{120,170,215}
+\definecolor{wistaDarkGray}{RGB}{96,94,92}
+\definecolor{wistaLightGray}{RGB}{128,128,128}
+
+% Section formatting (##) - number 20% bigger, lines closer, text closer to bottom line
+% e.g., "2" with lines around "Einleitung"
+\titleformat{\section}[display]
+  {\normalfont\large\bfseries}
+  {\color{wistaBlue}\Large\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
+  {0pt}
+  {\vspace{0pt}\color{wistaDarkGray}\large\bfseries}
+  [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{1.5pt}}\vspace{0.05cm}]
+\titlespacing*{\section}{0pt}{1.5ex plus 0.3ex minus .1ex}{0.2ex plus .1ex}
+
+% Subsection formatting (###) - grey text with blue line under
+% e.g., "2.1 Handlungsbedarf"
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\titleformat{\subsection}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaDarkGray}\normalsize\bfseries\thesubsection}
+  {0.5em}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.8pt}}\vspace{0.05cm}]
+\titlespacing*{\subsection}{0pt}{1ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
+  
+% Subsubsection formatting (####) - grey text, no underline
+% e.g., "2.1.1 Steigende Datenmenge"
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\titleformat{\subsubsection}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaDarkGray}\normalsize\bfseries\thesubsubsection}
+  {0.5em}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+
+% Paragraph formatting (4th level) - numbered as subsection.subsubsection.paragraph
+\renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
+\titleformat{\paragraph}[runin]
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaBlue}\normalsize\bfseries\theparagraph}
+  {0.5em}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  [.]
+\titlespacing*{\paragraph}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.5em}
+
+% Header and footer setup with blue line under header
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{\docauthors}}
+\ifdraftmode
+  \fancyhead[C]{\small\color{red}\textbf{ENTWURF} -- \today}
+\fi
+\fancyhead[R]{\small\textit{\docshorttitle}}
+\fancyfoot[L]{\small\thepage}
+\fancyfoot[R]{\small Statistisches Bundesamt | \docpublication\ | {\color{wistaBlue}\docpublicationissue}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+% Add blue line under header
+\renewcommand{\headrule}{\color{wistaBlue}\hrule width\headwidth height 1pt \vskip 2pt}
+\renewcommand{\headrulewidth}{1pt}
+
+% Make all figures span both columns (full width)
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][htbp]{%
+  \origfigure*[#1]%
+}{%
+  \endorigfigure*%
+}
+
+% Allow manual control of table* environment for full-width tables
+% Tables by default stay in single column, but can use table* manually
+
+
+
+% Make bibliography full-width (one column) - for biblatex
+\defbibheading{bibliography}[\bibname]{%
+  \onecolumn
+  \section*{#1}%
+  \markboth{#1}{#1}%
+}
+
+
+
+% Footnotes stay within column
+\usepackage[stable]{footmisc}
+
+% Custom footnote formatting: "|^1" in dark WISTA gray
+\renewcommand{\thefootnote}{{\color{wistaDarkGray}|$^{\arabic{footnote}}$}}
+
+% Pifont for dingbat symbols
+\usepackage{pifont}
+
+% Better table handling for two-column mode
+\usepackage{array,tabularx,calc}
+
+% Custom WISTA table format
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+
+% Define custom caption format for WISTA tables
+\DeclareCaptionFormat{wista}{%
+  {\color{wistaLightBlue}\bfseries #1#2}\par\vspace{0.2em}%
+  {\color{wistaDarkGray}\normalfont #3}\par\vspace{0.3em}%
+}
+
+% Set up table captions with custom WISTA format
+\captionsetup[table]{
+  position=top,
+  format=wista,
+  justification=justified,
+  singlelinecheck=false,
+  labelsep=none,
+  skip=0.3em
+}
+
+% Better table spacing and white inner lines
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+
+% Set white lines for tables by default, blue for first column
+\AtBeginDocument{
+  \arrayrulecolor{white}
+  \setlength{\arrayrulewidth}{0.3pt}
+}
+
+% Define commands for colored table borders
+\newcommand{\bluevrule}{\color{wistaBlue}\vrule}
+\newcommand{\whitevrule}{\color{white}\vrule}
+
+% Define WISTA table colors
+\definecolor{wistaTableBg}{RGB}{240,248,255}     % Very light blue background
+\definecolor{wistaHeaderBg}{RGB}{220,230,240}    % Light blue header background
+\definecolor{wistaFirstCol}{RGB}{65,125,180}     % Blue for first column lines
+
+% Custom WISTA table command
+\newcommand{\wistaTableStart}{%
+  \rowcolors{2}{wistaTableBg}{wistaTableBg}%
+  \arrayrulecolor{wistaFirstCol}%
+}
+
+% Custom commands for table styling
+\newcommand{\wistaHeaderRow}[1]{%
+  \rowcolor{wistaHeaderBg}%
+  \arrayrulecolor{wistaDarkGray}%
+  #1 \\
+  \arrayrulecolor{white}%
+}
+
+\newcommand{\wistaFirstColRule}{\arrayrulecolor{wistaFirstCol}}
+\newcommand{\wistaWhiteRule}{\arrayrulecolor{white}}
+
+% Custom bullet points with > character - 35% width, 95% height, black extra bold, half line spacing
+\usepackage{enumitem}
+\setlist[itemize]{label={\scalebox{0.35}[0.95]{\fontseries{bx}\selectfont >}}, leftmargin=1.5em, itemsep=5pt, topsep=3pt, parsep=0pt}
+
+% Redefine ref to include pifont 247 (arrow) for figure/table/section references
+\let\oldref\ref
+\renewcommand{\ref}[1]{\oldref{#1}\raisebox{-0.2ex}{\scriptsize\color{wistaBlue}\ding{247}}}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Inhaltsverzeichnis}
+\else
+  \newcommand\contentsname{Inhaltsverzeichnis}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Abbildungsverzeichnis}
+\else
+  \newcommand\listfigurename{Abbildungsverzeichnis}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Tabellenverzeichnis}
+\else
+  \newcommand\listtablename{Tabellenverzeichnis}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Abbildung}
+\else
+  \newcommand\figurename{Abbildung}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabelle}
+\else
+  \newcommand\tablename{Tabelle}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{Listingverzeichnis}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R},
+  pdfauthor={Oliver Hauke; Annette Kristiansen},
+  pdflang={de},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
+\author{Oliver Hauke \and Annette Kristiansen}
+\date{2025-12-05}
+\begin{document}
+\maketitle
+
+% Custom WISTA-style title page
+\begin{titlepage}
+\thispagestyle{empty}
+\pagestyle{empty}
+\onecolumn
+
+% Horizontal blue line at top (header line)
+\noindent{\color{wistaBlue}\rule{\textwidth}{1pt}}
+
+\vspace{-0.5cm}
+
+% Vertical blue line on the left (6.3cm from left edge, starts below header line, stops above footer)
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[wistaBlue, line width=2pt] 
+    ([xshift=6.3cm, yshift=-4cm]current page.north west) -- 
+    ([xshift=6.3cm, yshift=3.5cm]current page.south west);
+\end{tikzpicture}
+
+\vspace*{0.5cm}
+
+% Left side - short author bios (right-aligned to the vertical line)
+\begin{minipage}[t]{3.9cm}
+\selectlanguage{ngerman}%
+\raggedleft
+\hyphenpenalty=0
+\tolerance=1000
+\fontsize{7}{8.5}\selectfont
+\vspace{0pt}%
+{\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
+ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums und berät das Netzwerk empirische Steuerforschung in der effizienten Nutzung der Systeme.\\[0.5cm]
+
+{\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
+ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut das Netzwerk empirische Steuerforschung. Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen.
+
+\end{minipage}%
+\hspace{0.4cm}% Gap to vertical line (left side)
+\hspace{0.4cm}% Gap from vertical line (right side)
+% Right side - title, authors, keywords, abstracts
+\begin{minipage}[t]{11.8cm}
+\raggedright
+\vspace{1.2cm}%
+
+% Title (uppercase via command, not bold)
+{\LARGE\color{wistaDarkGray}\begin{spacing}{1.3}\MakeUppercase{Effiziente Auswertung des Business-Tax-Panels mithilfe von R}\end{spacing}}
+
+\vspace{-0.2cm}
+
+% Blue horizontal line (underline for title)
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.5cm}
+
+% Authors inline, dark gray
+{\large\color{wistaDarkGray} Oliver Hauke, Annette Kristiansen}
+
+\vspace{0.05cm}
+
+% Blue line (underline for authors)
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.5cm}
+
+% Keywords (pifont 247 arrow then bold label and blue text)
+\hangindent=1.2em\hangafter=1
+{\color{wistaBlue}\ding{247}\ {\bfseries Schlüsselwörter:} Effiziente Analysen, R-Programmierung, Forschungsdaten, Unternehmenssteuerstatistik, Business-Tax-Panel, Netzwerk empirische Steuerforschung}
+
+\vspace{0.3cm}
+
+% Zusammenfassung (uppercase via command)
+{\color{wistaDarkGray}\bfseries\MakeUppercase{Zusammenfassung}}\\[0.15cm]
+\small
+Das Forschungsdatenzentrum des Statistischen Bundesamtes baut seine technische Infrastruktur gezielt aus, um der Wissenschaft erweiterte Analysemöglichkeiten amtlicher Daten bereitzustellen. Seit November 2025 steht Forschenden exklusiver Zugang zu diesen erweiterten Systemressourcen in R und Stata zur Verfügung. R-basierte Tools -- insbesondere Apache Arrow, Parquet und DuckDB -- ermöglichen es, gängige Analysen großer Forschungsdatensätze in Echtzeit auszuführen. Am Beispiel des Business-Tax-Panel (2013 bis 2019) werden die erzielbaren Effizienzgewinne bei der Auswertung umfangreicher steuerstatistischer Daten im Rahmen des Netzwerks empirische Steuerforschung demonstriert.
+
+\vspace{0.5cm}
+
+% English keywords and abstract (italicized)
+\hangindent=1.2em\hangafter=1
+{\itshape\color{wistaBlue}\ding{247}\ {\bfseries Keywords:} Efficient analysis -- R programming -- research data -- corporate tax statistics -- Business Tax Panel -- empirical tax research network}
+
+\vspace{0.3cm}
+
+{\itshape\color{wistaDarkGray}\bfseries\MakeUppercase{Abstract}}\\[0.15cm]
+\small\itshape
+The Research Data Centre at the Federal Statistical Office is strategically expanding its technical infrastructure to provide researchers with enhanced analytical capabilities for official data. Since November 2025, researchers have had exclusive access to these extended system resources in R and Stata. R-based tools -- particularly Apache Arrow, Parquet, and DuckDB -- enable real-time analysis of large research datasets. Using the Business Tax Panel (2013--2019), this paper demonstrates the achievable efficiency gains in analysing large-scale tax statistics within the empirical tax research network.
+
+\end{minipage}
+
+\vfill
+
+\vspace{0.5cm}
+% Footer matching document style
+\noindent\makebox[\textwidth]{%
+  \small 1%
+  \hfill%
+  \small Statistisches Bundesamt | WISTA | {\color{wistaBlue}01/2026}%
+}
+
+\end{titlepage}
+
+% Stay in one-column mode for TOC (will be switched later)
+\pagestyle{fancy}
+
+\renewcommand*\contentsname{Inhaltsverzeichnis}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\setstretch{1}
+\renewcommand{\totalchars}{11 263}
+\renewcommand{\totalwords}{1 388}
+\renewcommand{\abstractchars}{0}
+\renewcommand{\abstractwords}{0}
+\renewcommand{\zusammenfassungchars}{0}
+\renewcommand{\zusammenfassungwords}{0}
+\renewcommand{\footnotecountnum}{0}
+\renewcommand{\citationcountnum}{1}
+\renewcommand{\schlusselwortercount}{0}
+\renewcommand{\keywordscount}{0}
+\renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
+\renewcommand{\docauthors}{Oliver Hauke, Annette Kristiansen}
+\renewcommand{\docpublication}{WISTA}
+\renewcommand{\docpublicationissue}{01/2026}
+\renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{3 647}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{370}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{429}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{2 400}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{2 960}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{248}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{1 206}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+}
+\newcommand{\tablerows}{            \hyperref[tbl-pkg-versions]{Tabelle~1} & Versionen verfügbarer R-Packages \\
+            \hyperref[tbl-baseline]{Tabelle~2} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
+            \hyperref[tbl-benchmark-small]{Tabelle~3} & Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark-regr-small]{Tabelle~4} & Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark]{Tabelle~5} & Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-benchmark-regr]{Tabelle~6} & Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-bm-cnt-small]{Tabelle~7} & Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP) \\
+            \hyperref[tbl-bm-reg-small]{Tabelle~8} & Benchmarkergebnisse für Regression (kleine Stichproben des BTP) \\
+}
+\newcommand{\figurerows}{            \hyperref[fig-optimization-strategies]{Abbildung~1} & Strategien zur Performanz-Optimierung im FDZ-Bund \\
+}
+\newcommand{\schlusselworterlist}{}
+\newcommand{\keywordslist}{}
+\ifdraftmode
+\metadatapage
+\fi
+
+\section{Einleitung}\label{sec-einleitung}
+
+Spannungsfeld, Weiterentwicklung zur Lösung und Technologie-Empfehlung
+
+Einbauen: Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz
+FDZ Netzwerk empririscher Steuerforschung, hier kurz NeSt.
+
+\subsection{Handlungsbedarf}\label{handlungsbedarf}
+
+\subsubsection{Steigende Datenmenge in der amtlichen
+Statistik}\label{steigende-datenmenge-in-der-amtlichen-statistik}
+
+\begin{itemize}
+\item
+  Qualitätsbericht. Wachsende Datenmenge in der amtl. Statistik, Verweis
+  auf \autocite{destatis2023}
+\item
+  Datenverarbeitung im StBA \ldots{}
+\item
+  neues NeSt Produkt BTP zeigt Umfang, hoch interessant für Wissenschaft
+\item
+  Datenverarbeitungsaufgaben des StBA erklären
+\item
+  Nicht mehr durch vorhandene Systemkapazitäten (insb. Arbeitsspeicher)
+  gedeckt
+\item
+  Herausforderungen (größere Datenmengen, komplexere Analysen,
+  schnellere Antworten notwendig)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    hohe Anforderungen der Öffentlichkeit und besonders Wissenschaft.
+    Verweis auf Gutachten des Stat. Beirats und Gründung ``Netzwerk emp.
+    Steuerforschung''
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Schnelle Bereitstellung von am besten vollständigen, wenig
+      Anonymisierten Datensätzen an Wissenschaft via FDZ. Erste Analysen
+      seitens StBA und hohe Expertise erwartet (Exploration der Daten
+      nötig)
+    \item
+      Bereitstellung von Zusatzdokumentation durch StBA. Metadatenreport
+    \item
+      schnelle Bereitstellung,
+    \item
+      zeitnahe Nutzung in FDZ
+    \item
+      keine Wartezeiten in FDZ
+    \item
+      sofortig Antworten auf Analysefragen
+    \item
+      Erhöhte Komplexität Analysen mit größeren, Komplexeren Datensätzen
+    \end{itemize}
+  \item
+    Rückstände/Altlasten: weiterentwickelnde Infrastruktur, nicht state
+    of the art (ausgelegt auf konsistenz und zuverlässigkeit, nicht
+    schnelligkeit), gesetzlicher Auftrag
+
+    \begin{itemize}
+    \tightlist
+    \item
+      hauptsächlich SAS für große Datenmenge verwendet, funktioniert,
+      aber langsam
+    \item
+      FDZ Bund integriert in Standardarbeitsplätze des StBA
+    \item
+      Bereitstellungsaufwände und Abhängigkeiten moderner Software
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+Annette: -\textgreater{} Impuls aus der Wissenschaft, dann Fachbereich -
+Fachbereich/Verbund im Grunde Hauptnutzende da Tools und Daten zur
+Verfügung stehen Technische Möglichkeit entwickelt sich weiter usw..
+
+Der Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen
+Entwicklung (2023) hat in seinem Gutachten 2023/24 auf eine technisch
+veraltete Infrastruktur und auf die fehlende Nutzerfreundlichkeit
+hingewiesen. Seitdem hat sich die die Infrastruktur in dem
+Forschungsdatenzentrum des Bundes verbessert. Seit Januar 2025 besteht
+ein Remote Access System als neuer Zugangsweg für die Wissenschaft. Im
+Bereich der Steuerstatistiken wird derzeit geprüft, inwiefern auch
+Einzeldaten aus diesem Bereich über Remote Access genutzt werden können.
+Als Übergang und Erleichterung für bestehende Forschungsprojekte wird in
+diesem Kapitel 2
+
+Die amtliche Statistik steht vor der Herausforderung, bei stetig
+wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ
+hochwertige und zeitnahe statistische Informationen bereitzustellen
+\autocite{destatis2023}. Dabei spielt die Effizienz der verwendeten
+statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit
+des gesamten statistischen Systems.
+
+In den vergangenen Jahren haben sich die Rahmenbedingungen für die
+Produktion amtlicher Statistiken erheblich verändert. Die
+Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren
+Datenquellen geführt, sondern auch neue Möglichkeiten für die
+statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der
+Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
+
+Diese Entwicklungen erfordern eine kontinuierliche Evaluation und
+Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist
+es daher, die Effizienz verschiedener statistischer Verfahren
+systematisch zu bewerten und Handlungsempfehlungen für die Praxis
+abzuleiten.
+
+\subsubsection{Steigende Anforderungen der Wissenschaft und
+Öffentlichkeit}\label{steigende-anforderungen-der-wissenschaft-und-uxf6ffentlichkeit}
+
+FDZ, NeSt
+
+\begin{itemize}
+\tightlist
+\item
+  Schnelle Reaktionen erforderlich
+\item
+  Komplexere (Forschungsfragen) zu beantworten
+\item
+  FDZ erklären
+\item
+  Gutachten BMF ansprechen
+\item
+  NeSt erklären, Bedarfe durch Produkt BTP beantwortet.. aber wie kann
+  es in angme
+\end{itemize}
+
+\subsection{Vorschreitende Innovation der
+Datenverarbeitungstechnologien}\label{vorschreitende-innovation-der-datenverarbeitungstechnologien}
+
+\subsubsection{Ausgangslage}\label{ausgangslage}
+
+SAS für amtl. Statistik und SAS/Stata für FDZ
+
+\begin{itemize}
+\tightlist
+\item
+  SAS, zsl. Stata in den FDZ. Session zu SAS Ablösung
+\item
+  Weiterentwicklung der Infrastruktur: neue Server für R im StBA und für
+  FDZ eigene neue Server für R und Stata
+\item
+  hohe Lizenzkosten, Trend zu Abonnements und Cloud nachteilig,
+  technologielock und Privacy.
+\item
+  Kommen bei unseren Anwendungen Kapazitär an ihre Grenzen und
+  Performanz in anderen Technologien höher.
+\end{itemize}
+
+Anforderungen an Modernisierung
+
+\begin{itemize}
+\tightlist
+\item
+  hohe Performanz, schnelle Ergebnisse, idealenfalls in Echtzeit (d.h.
+  wenigen Sekunden)
+\item
+  moderne Interfaces, möglichst leichte Nutzung, wenig Schulungsbedarf,
+  Allgemeinwissen von Statistiker u.Ä. Fachrichtungen (Werkzeug, nicht
+  Gegenstand der Untersuchung)
+\item
+  leicht einrichtbar, wenig Abhängigkeiten zu vielen Tools, die sich
+  ständig weiterentwicklen, sodass hohe Wartungsaufwände entstehen.
+\end{itemize}
+
+\subsubsection{Vormarsch von Open
+Source}\label{vormarsch-von-open-source}
+
+\begin{itemize}
+\tightlist
+\item
+  in der internationalen amtlichen Statistik seit Jahren auf dem
+  Vormarsch. Langsam steigt auch Verbreitung von R steigt auch in den
+  dt. Statistikämtern.
+\end{itemize}
+
+\subsubsection{Fokus auf R}\label{fokus-auf-r}
+
+R verbreitung steigt, bei uns in Kinderschuhen. Wie fängt man denn am
+besten an? Was ist von anfang an der richtige Weg daten in R zu
+verarbeiten?
+
+R ist weltweit bekannt und verbreitet als die Lingua Franca für
+Statistik, Methodologie und Data Science. Dies macht R zu der
+natürlichen Wahl für die amtlichen Statistik mit viele attraktive
+Vorteile.
+
+\begin{itemize}
+\item
+  aktive globale Community sorgt für schnelle Innovation und
+  Verbesserung
+\item
+  CRAN bietet offiziell aktuell Zusatzfunktionalitäten in Form von X
+  R-Paketen. Darunter sind viele klassische Pakete für Datenverarbeitung
+  und -anayse.
+\item
+  R
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The reasons why the official statistics community is rapidly
+    embracing R are clear. S. erfolg / Wachstum der Conference uRos
+    https://r-project.ro/conference2025.html\#Presentations
+  \item
+    R lingua franca for statisticians, methodologists and data
+    scientists worldwide -\textgreater{} nativ geeignet für amtl.
+    Statistik
+  \item
+    R Open Source bietet vorteile
+
+    \begin{itemize}
+    \tightlist
+    \item
+      aktive globale Community
+    \item
+      support from the industry
+    \item
+      it combines a vast amount of functionalities for data preparation,
+      methodology, visualisation and application building
+    \item
+      free = ideal environment for sharing, collaboration and
+      industrialising official statistics
+    \item
+      Packages CRAN, github\ldots{}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+Arrow bspw. hatte in 2024 und 2025 jeweils 4 Major Releases mit diversen
+neuen Funktionalitäten und Performanz-Verbesserung
+
+Neue Entwicklung zu R in der dt. OSS, bei Integration in
+Statistikproduktion und Datenbereitstellung direkt mit den richtigen
+Features und Methoden beginnen. Wie die folgenden\ldots{}
+
+Open Source -\textgreater{} breite Auswahl an Parketen zum Einlesen,
+Transformieren und Auswerten von Daten.
+
+\begin{itemize}
+\tightlist
+\item
+  Unterscheidung klassischer/r-nativer Methoden (base-r, readr / vroom
+  und data.table), effiziente/moderne Methoden (arrow, duckdb, polars)
+\item
+  Klassische Methoden
+
+  \begin{itemize}
+  \tightlist
+  \item
+    base-r zu vermeiden
+  \item
+    readr
+
+    \begin{itemize}
+    \tightlist
+    \item
+      in tidyverse
+    \item
+      nutzerfreundlich, einfach zu lernen / nutzen
+    \end{itemize}
+  \item
+    data.table
+
+    \begin{itemize}
+    \tightlist
+    \item
+      benchmarking:
+      https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
+    \end{itemize}
+  \item
+    datenformate in R: qs, rds
+  \item
+    dtplyr?
+  \end{itemize}
+\end{itemize}
+
+As we start working with larger and larger datasets, the basic tools of
+the tidyverse start to look a little slow. In the last few years several
+packages more suited to large datasets have emerged. Some of these are
+column, rather than row, oriented. Some use parallel processing. Some
+are vector optimized. Speedy databases that have made their way into the
+R ecosystem are data.table, arrow, polars and duckdb. All of these are
+available for Python as well. Each of these carries with it its own
+interface and learning curve. duckdb, for example is a dialect of SQL,
+an entirely different language so our dplyr code above has to look like
+this in SQL: S.
+https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
+
+\subsubsection{Hoch-performante
+Datenverarbeitungsmethoden}\label{hoch-performante-datenverarbeitungsmethoden}
+
+Als Desktopanwendung konzipiert ist R nicht für hoch-performante
+Auswertungen von Big Data bekannt. Wie unsere Untersuchung zeigen wird,
+beansprucht R nativ übermäßige Systemressourcen, um die
+Nutzerfreundlichkeit zu erhöhen. Dadurch dass R Open Source ist ändern
+dies jedoch diverse Entwicklerteams weltweit und stellen R
+Zusatzfunktionen in Form von R-Paketen zur Verfügung die in R
+hoch-performante Auswertung großer Datenmengen ermöglichen.
+
+\begin{itemize}
+\tightlist
+\item
+  R darüber hinaus vermehrt hoch-performante Analysetools, die sich
+  ständig verbessern
+\item
+  ermöglichen sehr schnelle Verarbeitung von Daten, mit einem sehr hohen
+  Gesamtvolumen, das sogar den verfügbaren RAM übersteigt.
+\item
+  sollte möglichst leicht nutzbar sein, nativ in R ohne viele
+  Abhängkeiten (organisatorische Einschränkungen)
+\end{itemize}
+
+\subsection{Umsetzung im StBA und FDZ}\label{umsetzung-im-stba-und-fdz}
+
+\begin{itemize}
+\item
+  möglichst leicht nutzbar und gewohnt/verbreitet -\textgreater{}
+  R+dpylr
+
+  \begin{itemize}
+  \tightlist
+  \item
+    wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit
+    unterschiedlichen Analytischen und technischen Kenntnissen
+  \end{itemize}
+\item
+  stabil
+\item
+  schnell, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum
+\item
+  ressourcensparend (RAM Problematik)
+\item
+  möglichst leicht nutzbar mit den vorhandenen Systemen und
+  organisatorischen Strukturen ergibt Anforderungen
+
+  \begin{itemize}
+  \tightlist
+  \item
+    hohe-performanz bereits mit R Grundlagenwissen
+  \item
+    minimale Anforderungen an zsl. Software
+  \end{itemize}
+\item
+  NeSt Förderung, Datenprodukterstellung, Bereitstellung der FDZ auch
+  technischen Infrastruktur und Knowhow der effizienten Nutzung
+\item
+  Bereitstellung des OSS seit Nov.~2025
+\item
+  Vorbereitend Exploration und Beratung in geeigneten Aüßerst
+  effizienten Methoden -\textgreater{} Ergebnisse in Echtzeit
+\item
+  Szenario FDZ GWAP Besuch, statt KDFV, sofort Ergebnisse
+\item
+  Diese Arbeit
+\end{itemize}
+
+\textbf{Technische Lösungsansätze.}
+
+\begin{itemize}
+\tightlist
+\item
+  Modernisierung der amtl. Stat, FDZs -\textgreater{} Zugangswege,
+  Kapazitäten, \ldots{}
+\item
+  Technische Weiterentwicklung, stärkere Hardware, leichtere
+  Bereitstellung, virtualisierung
+\item
+  Schnelle Weiterentwicklung von Open-Source Software, R, div. Packages,
+  e.g.~Verweis auf Changelog von Arrow, Polars
+\end{itemize}
+
+\subsection{Diese Arbeit}\label{diese-arbeit}
+
+Ausbreitung von R - gleich die richtige Technologie auswählen und
+einsetzen. Aber welche ist die ``richtige''? Was für Unterschiede
+(Vorteile / Nachteile) haben die Technologien. Dies will dieser Artikel
+im Falle des BTP untersuchen. Kontrollierte Benchmark und weitere
+(qualitative) Aspekte, wie Userexperience.
+
+Zielgruppe: alle Datenanalytiker mit rudimentären R-Kenntnisse, aber
+breit, FDZ, amtl. Stat,
+
+Wir fokussieren uns auf folgende zentrale Forschungsfragen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Methodische Effizienz:} Wie unterscheiden sich verschiedene
+  statistische Verfahren hinsichtlich ihrer Rechenzeit und
+  Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+\item
+  \textbf{Skalierbarkeit:} Welche Verfahren zeigen die beste Performance
+  bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
+\item
+  \textbf{Praktische Anwendbarkeit:} Welche Infrastrukturanforderungen
+  stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
+\end{enumerate}
+
+
+\printbibliography
+
+
+
+\end{document}

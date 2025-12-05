@@ -1,0 +1,2257 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  german,
+  10pt,
+  twoside]{article}
+\usepackage{xcolor}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2cm,right=2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage[german]{selnolig} % disable illegal ligatures
+\fi
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[style=authoryear,backend=biber,style=authoryear-comp,uniquename=false,uniquelist=false]{biblatex}
+\addbibresource{references.bib}
+
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+% Font configuration (Statis Sans alternative - use sans-serif throughout)
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{helvet}  % Use Helvetica-like font
+
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{afterpage}
+\usepackage{tikz}
+\usepackage{longtable}
+\usepackage{totcount}
+\usepackage{xstring}
+
+% Time display with Berlin timezone (+1 hour offset)
+\newcount\berlinhr
+\newcount\berlinmin
+\newcommand{\berlintime}{%
+  \berlinhr=\time\relax
+  \divide\berlinhr by 60\relax
+  \berlinmin=\time\relax
+  \multiply\berlinhr by -60\relax
+  \advance\berlinmin by \berlinhr\relax
+  \berlinhr=\time\relax
+  \divide\berlinhr by 60\relax
+  \advance\berlinhr by 1\relax
+  \ifnum\berlinhr>23\relax
+    \advance\berlinhr by -24\relax
+  \fi
+  \ifnum\berlinhr<10 0\fi\the\berlinhr:\ifnum\berlinmin<10 0\fi\the\berlinmin%
+}
+
+% Register counters for total counting
+\regtotcounter{table}
+\regtotcounter{figure}
+
+% Suppress default maketitle
+\renewcommand{\maketitle}{}
+
+% ===== DRAFT MODE CONTROL =====
+% Set \draftmodetrue to enable draft mode (metadata page + ENTWURF header)
+% Set \draftmodefalse to disable draft mode (for final version)
+\newif\ifdraftmode
+\draftmodetrue  % <-- Change to \draftmodefalse to disable draft mode
+
+% Define default commands for counts (will be overridden by filter)
+\providecommand{\totalchars}{0}
+\providecommand{\totalwords}{0}
+\providecommand{\abstractchars}{0}
+\providecommand{\abstractwords}{0}
+\providecommand{\zusammenfassungchars}{0}
+\providecommand{\zusammenfassungwords}{0}
+\providecommand{\footnotecountnum}{0}
+\providecommand{\citationcountnum}{0}
+\providecommand{\schlusselwortercount}{0}
+\providecommand{\keywordscount}{0}
+\providecommand{\authoronechars}{0}
+\providecommand{\authortwochars}{0}
+
+% Define metadata commands from Pandoc variables
+\newcommand{\doctitle}{$title$}
+\newcommand{\docauthors}{$author-short$}
+\newcommand{\docpublication}{$publication$}
+\newcommand{\docpublicationissue}{$publication-issue$}
+\newcommand{\docshorttitle}{$short-title$}
+
+\ifdraftmode
+% Define metadata page command
+\newcommand{\metadatapage}{%
+  \clearpage
+  \thispagestyle{empty}
+  \onecolumn
+  \vspace*{1.5cm}
+  
+  % Header section
+  {\raggedright
+  {\LARGE\bfseries\color{wistaBlue} Dokument-Metadaten}\\[0.5cm]
+  
+  \begin{tabular}{@{}ll}
+    \textbf{Titel:} & \doctitle \\[0.3em]
+    \textbf{Autoren:} & \docauthors \\[0.3em]
+    \textbf{Veröffentlichung:} & \docpublication\ \docpublicationissue \\[0.3em]
+    \textbf{Erstellungsdatum:} & \today\ um \berlintime\ Uhr \\[0.3em]
+  \end{tabular}
+  
+  \vspace{0.5cm}
+  {\color{wistaBlue}\rule{\textwidth}{1pt}}
+  \par}
+  
+  \vspace{1cm}
+  
+  % Dokumentstatistik
+  {\large\bfseries\color{wistaDarkGray} Dokumentstatistik}\\[0.5cm]
+  
+  \small
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+    \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} \\
+    \midrule
+    Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. \\
+    Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. \\
+    Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. \\
+    Autor 1 (O. Hauke) & --- & \textcolor{wistaBlue}{\textbf{\authoronechars}} & --- & --- & 350 Z. \\
+    Autor 2 (A. Kristiansen) & --- & \textcolor{wistaBlue}{\textbf{\authortwochars}} & --- & --- & 350 Z. \\
+    \midrule
+    \sectionrows
+    \bottomrule
+  \end{tabular}
+  \normalsize
+  
+  \vspace{0.5cm}
+  
+  % Keywords list
+  {\large\bfseries\color{wistaDarkGray} Schlüsselwörter}\\[0.3cm]
+  \small
+  \schlusselworterlist
+  \normalsize
+  
+  \vspace{0.5cm}
+  
+  {\large\bfseries\color{wistaDarkGray} Keywords}\\[0.3cm]
+  \small
+  \keywordslist
+  \normalsize
+  
+  \vspace{1cm}
+  
+  % Tables list
+  {\large\bfseries\color{wistaDarkGray} Tabellen}\\[0.3cm]
+  
+  \small
+  \begin{tabular}{@{}lp{12cm}@{}}
+    \toprule
+    \textbf{Nr.} & \textbf{Beschreibung} \\
+    \midrule
+    \tablerows
+    \bottomrule
+  \end{tabular}
+  \normalsize
+  
+  \vspace{1cm}
+  
+  % Figures list
+  {\large\bfseries\color{wistaDarkGray} Abbildungen}\\[0.3cm]
+  
+  \small
+  \begin{tabular}{@{}lp{12cm}@{}}
+    \toprule
+    \textbf{Nr.} & \textbf{Beschreibung} \\
+    \midrule
+    \figurerows
+    \bottomrule
+  \end{tabular}
+  \normalsize
+  
+  \clearpage
+}
+\fi
+
+% Define WISTA colors (from Kristiansen Word template)
+\definecolor{wistaBlue}{RGB}{91,155,213}
+\definecolor{wistaLightBlue}{RGB}{120,170,215}
+\definecolor{wistaDarkGray}{RGB}{96,94,92}
+\definecolor{wistaLightGray}{RGB}{128,128,128}
+
+% Section formatting (##) - number 20% bigger, lines closer, text closer to bottom line
+% e.g., "2" with lines around "Einleitung"
+\titleformat{\section}[display]
+  {\normalfont\large\bfseries}
+  {\color{wistaBlue}\Large\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
+  {0pt}
+  {\vspace{0pt}\color{wistaDarkGray}\large\bfseries}
+  [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{1.5pt}}\vspace{0.05cm}]
+\titlespacing*{\section}{0pt}{1.5ex plus 0.3ex minus .1ex}{0.2ex plus .1ex}
+
+% Subsection formatting (###) - grey text with blue line under
+% e.g., "2.1 Handlungsbedarf"
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\titleformat{\subsection}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaDarkGray}\normalsize\bfseries\thesubsection}
+  {0.5em}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.8pt}}\vspace{0.05cm}]
+\titlespacing*{\subsection}{0pt}{1ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
+  
+% Subsubsection formatting (####) - grey text, no underline
+% e.g., "2.1.1 Steigende Datenmenge"
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\titleformat{\subsubsection}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaDarkGray}\normalsize\bfseries\thesubsubsection}
+  {0.5em}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+
+% Paragraph formatting (4th level) - numbered as subsection.subsubsection.paragraph
+\renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
+\titleformat{\paragraph}[runin]
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaBlue}\normalsize\bfseries\theparagraph}
+  {0.5em}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  [.]
+\titlespacing*{\paragraph}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.5em}
+
+% Header and footer setup with blue line under header
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{\docauthors}}
+\ifdraftmode
+  \fancyhead[C]{\small\color{red}\textbf{ENTWURF} -- \today}
+\fi
+\fancyhead[R]{\small\textit{\docshorttitle}}
+\fancyfoot[L]{\small\thepage}
+\fancyfoot[R]{\small Statistisches Bundesamt | \docpublication\ | {\color{wistaBlue}\docpublicationissue}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+% Add blue line under header
+\renewcommand{\headrule}{\color{wistaBlue}\hrule width\headwidth height 1pt \vskip 2pt}
+\renewcommand{\headrulewidth}{1pt}
+
+% Make all figures span both columns (full width)
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][htbp]{%
+  \origfigure*[#1]%
+}{%
+  \endorigfigure*%
+}
+
+% Allow manual control of table* environment for full-width tables
+% Tables by default stay in single column, but can use table* manually
+
+
+
+% Make bibliography full-width (one column) - for biblatex
+\defbibheading{bibliography}[\bibname]{%
+  \onecolumn
+  \section*{#1}%
+  \markboth{#1}{#1}%
+}
+
+
+
+% Footnotes stay within column
+\usepackage[stable]{footmisc}
+
+% Custom footnote formatting: "|^1" in dark WISTA gray
+\renewcommand{\thefootnote}{{\color{wistaDarkGray}|$^{\arabic{footnote}}$}}
+
+% Pifont for dingbat symbols
+\usepackage{pifont}
+
+% Better table handling for two-column mode
+\usepackage{array,tabularx,calc}
+
+% Custom WISTA table format
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+
+% Define custom caption format for WISTA tables
+\DeclareCaptionFormat{wista}{%
+  {\color{wistaLightBlue}\bfseries #1#2}\par\vspace{0.2em}%
+  {\color{wistaDarkGray}\normalfont #3}\par\vspace{0.3em}%
+}
+
+% Set up table captions with custom WISTA format
+\captionsetup[table]{
+  position=top,
+  format=wista,
+  justification=justified,
+  singlelinecheck=false,
+  labelsep=none,
+  skip=0.3em
+}
+
+% Better table spacing and white inner lines
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+
+% Set white lines for tables by default, blue for first column
+\AtBeginDocument{
+  \arrayrulecolor{white}
+  \setlength{\arrayrulewidth}{0.3pt}
+}
+
+% Define commands for colored table borders
+\newcommand{\bluevrule}{\color{wistaBlue}\vrule}
+\newcommand{\whitevrule}{\color{white}\vrule}
+
+% Define WISTA table colors
+\definecolor{wistaTableBg}{RGB}{240,248,255}     % Very light blue background
+\definecolor{wistaHeaderBg}{RGB}{220,230,240}    % Light blue header background
+\definecolor{wistaFirstCol}{RGB}{65,125,180}     % Blue for first column lines
+
+% Custom WISTA table command
+\newcommand{\wistaTableStart}{%
+  \rowcolors{2}{wistaTableBg}{wistaTableBg}%
+  \arrayrulecolor{wistaFirstCol}%
+}
+
+% Custom commands for table styling
+\newcommand{\wistaHeaderRow}[1]{%
+  \rowcolor{wistaHeaderBg}%
+  \arrayrulecolor{wistaDarkGray}%
+  #1 \\
+  \arrayrulecolor{white}%
+}
+
+\newcommand{\wistaFirstColRule}{\arrayrulecolor{wistaFirstCol}}
+\newcommand{\wistaWhiteRule}{\arrayrulecolor{white}}
+
+% Custom bullet points with > character - 35% width, 95% height, black extra bold, half line spacing
+\usepackage{enumitem}
+\setlist[itemize]{label={\scalebox{0.35}[0.95]{\fontseries{bx}\selectfont >}}, leftmargin=1.5em, itemsep=5pt, topsep=3pt, parsep=0pt}
+
+% Redefine ref to include pifont 247 (arrow) for figure/table/section references
+\let\oldref\ref
+\renewcommand{\ref}[1]{\oldref{#1}\raisebox{-0.2ex}{\scriptsize\color{wistaBlue}\ding{247}}}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Inhaltsverzeichnis}
+\else
+  \newcommand\contentsname{Inhaltsverzeichnis}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Abbildungsverzeichnis}
+\else
+  \newcommand\listfigurename{Abbildungsverzeichnis}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Tabellenverzeichnis}
+\else
+  \newcommand\listtablename{Tabellenverzeichnis}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Abbildung}
+\else
+  \newcommand\figurename{Abbildung}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabelle}
+\else
+  \newcommand\tablename{Tabelle}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{Listingverzeichnis}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R},
+  pdfauthor={Oliver Hauke; Annette Kristiansen},
+  pdflang={de},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
+\author{Oliver Hauke \and Annette Kristiansen}
+\date{2025-12-05}
+\begin{document}
+\maketitle
+
+% Custom WISTA-style title page
+\begin{titlepage}
+\thispagestyle{empty}
+\pagestyle{empty}
+\onecolumn
+
+% Horizontal blue line at top (header line)
+\noindent{\color{wistaBlue}\rule{\textwidth}{1pt}}
+
+\vspace{-0.5cm}
+
+% Vertical blue line on the left (6.3cm from left edge, starts below header line, stops above footer)
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[wistaBlue, line width=2pt] 
+    ([xshift=6.3cm, yshift=-4cm]current page.north west) -- 
+    ([xshift=6.3cm, yshift=3.5cm]current page.south west);
+\end{tikzpicture}
+
+\vspace*{0.5cm}
+
+% Left side - short author bios (right-aligned to the vertical line)
+\begin{minipage}[t]{3.9cm}
+\selectlanguage{ngerman}%
+\raggedleft
+\hyphenpenalty=0
+\tolerance=1000
+\fontsize{7}{8.5}\selectfont
+\vspace{0pt}%
+{\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
+ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums des Statistischen Bundeamts und berät das Netzwerk empirische Steuerforschung in effizienter Datenanalyse.\\[0.5cm]
+
+{\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
+ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut Arbeiten für das Netzwerk empirische Steuerforschung. 
+
+\end{minipage}%
+\hspace{0.4cm}% Gap to vertical line (left side)
+\hspace{0.4cm}% Gap from vertical line (right side)
+% Right side - title, authors, keywords, abstracts
+\begin{minipage}[t]{11.8cm}
+\raggedright
+\vspace{1.2cm}%
+
+% Title (uppercase via command, not bold)
+{\LARGE\color{wistaDarkGray}\begin{spacing}{1.3}\MakeUppercase{Effiziente Auswertung des Business-Tax-Panels mithilfe von R}\end{spacing}}
+
+\vspace{-0.2cm}
+
+% Blue horizontal line (underline for title)
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.5cm}
+
+% Authors inline, dark gray
+{\large\color{wistaDarkGray} Oliver Hauke, Annette Kristiansen}
+
+\vspace{0.05cm}
+
+% Blue line (underline for authors)
+{\color{wistaBlue}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.5cm}
+
+% Keywords (pifont 247 arrow then bold label and blue text)
+\hangindent=1.2em\hangafter=1
+{\color{wistaBlue}\ding{247}\ {\bfseries Schlüsselwörter:} Effiziente Analysen, R-Programmierung, Forschungsdaten, Unternehmenssteuerstatistik, Business-Tax-Panel, Netzwerk empirische Steuerforschung}
+
+\vspace{0.3cm}
+
+% Zusammenfassung (uppercase via command)
+{\color{wistaDarkGray}\bfseries\MakeUppercase{Zusammenfassung}}\\[0.15cm]
+\small
+Das Forschungsdatenzentrum des Statistischen Bundesamtes baut seine technische Infrastruktur gezielt aus, um der Wissenschaft erweiterte Analysemöglichkeiten amtlicher Daten bereitzustellen. Seit November 2025 steht Forschenden exklusiver Zugang zu diesen erweiterten Systemressourcen in R und Stata zur Verfügung. R-basierte Tools -- insbesondere Apache Arrow, Parquet und DuckDB -- ermöglichen es, gängige Analysen großer Forschungsdatensätze in Echtzeit auszuführen. Am Beispiel des Business-Tax-Panel (2013 bis 2019) werden die erzielbaren Effizienzgewinne bei der Auswertung umfangreicher steuerstatistischer Daten im Rahmen des Netzwerks empirische Steuerforschung demonstriert.
+
+\vspace{0.5cm}
+
+% English keywords and abstract (italicized)
+\hangindent=1.2em\hangafter=1
+{\itshape\color{wistaBlue}\ding{247}\ {\bfseries Keywords:} Efficient analysis -- R programming -- research data -- corporate tax statistics -- Business Tax Panel -- empirical tax research network}
+
+\vspace{0.3cm}
+
+{\itshape\color{wistaDarkGray}\bfseries\MakeUppercase{Abstract}}\\[0.15cm]
+\small\itshape
+The Research Data Centre at the Federal Statistical Office is strategically expanding its technical infrastructure to provide researchers with enhanced analytical capabilities for official data. Since November 2025, researchers have had exclusive access to these extended system resources in R and Stata. R-based tools -- particularly Apache Arrow, Parquet, and DuckDB -- enable real-time analysis of large research datasets. Using the Business Tax Panel (2013--2019), this paper demonstrates the achievable efficiency gains in analysing large-scale tax statistics within the empirical tax research network.
+
+\end{minipage}
+
+\vfill
+
+\vspace{0.5cm}
+% Footer matching document style
+\noindent\makebox[\textwidth]{%
+  \small 1%
+  \hfill%
+  \small Statistisches Bundesamt | WISTA | {\color{wistaBlue}01/2026}%
+}
+
+\end{titlepage}
+
+% Stay in one-column mode for TOC (will be switched later)
+\pagestyle{fancy}
+
+\renewcommand*\contentsname{Inhaltsverzeichnis}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\setstretch{1}
+\renewcommand{\totalchars}{38 394}
+\renewcommand{\totalwords}{4 785}
+\renewcommand{\abstractchars}{623}
+\renewcommand{\abstractwords}{85}
+\renewcommand{\zusammenfassungchars}{707}
+\renewcommand{\zusammenfassungwords}{81}
+\renewcommand{\footnotecountnum}{8}
+\renewcommand{\citationcountnum}{9}
+\renewcommand{\schlusselwortercount}{6}
+\renewcommand{\keywordscount}{6}
+\renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
+\renewcommand{\docauthors}{Oliver Hauke, Annette Kristiansen}
+\renewcommand{\docpublication}{WISTA}
+\renewcommand{\docpublicationissue}{01/2026}
+\renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
+\renewcommand{\authoronechars}{327}
+\renewcommand{\authortwochars}{256}
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{12 434}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
+            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{1 262}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{1 464}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{8 181}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
+            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{10 090}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
+            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{848}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 111}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+}
+\newcommand{\tablerows}{            \hyperref[tbl-pkg-versions]{Tabelle~1} & Versionen verfügbarer R-Packages \\
+            \hyperref[tbl-baseline]{Tabelle~2} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
+            \hyperref[tbl-benchmark-small]{Tabelle~3} & Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark-regr-small]{Tabelle~4} & Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark]{Tabelle~5} & Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-benchmark-regr]{Tabelle~6} & Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-bm-cnt-small]{Tabelle~7} & Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP) \\
+            \hyperref[tbl-bm-reg-small]{Tabelle~8} & Benchmarkergebnisse für Regression (kleine Stichproben des BTP) \\
+}
+\newcommand{\figurerows}{            \hyperref[fig-optimization-strategies]{Abbildung~1} & Strategien zur Performanz-Optimierung im FDZ-Bund \\
+}
+\newcommand{\schlusselworterlist}{\textcolor{wistaBlue}{\ding{247}} Effiziente Analysen\\
+\textcolor{wistaBlue}{\ding{247}} R-Programmierung\\
+\textcolor{wistaBlue}{\ding{247}} Forschungsdaten\\
+\textcolor{wistaBlue}{\ding{247}} Unternehmenssteuerstatistik\\
+\textcolor{wistaBlue}{\ding{247}} Business-Tax-Panel\\
+\textcolor{wistaBlue}{\ding{247}} Netzwerk empirische Steuerforschung\\
+}
+\newcommand{\keywordslist}{\textcolor{wistaBlue}{\ding{247}} Efficient analysis\\
+\textcolor{wistaBlue}{\ding{247}} R programming\\
+\textcolor{wistaBlue}{\ding{247}} research data\\
+\textcolor{wistaBlue}{\ding{247}} corporate tax statistics\\
+\textcolor{wistaBlue}{\ding{247}} Business Tax Panel\\
+\textcolor{wistaBlue}{\ding{247}} empirical tax research network\\
+}
+\ifdraftmode
+\metadatapage
+\fi
+
+% Table of Contents will be inserted here by Quarto
+\clearpage
+% Switch to two-column mode for main document
+\twocolumn
+
+\section{Einleitung}\label{sec-einleitung}
+
+Spannungsfeld, Weiterentwicklung zur Lösung und Technologie-Empfehlung
+
+Einbauen: Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz
+FDZ Netzwerk empririscher Steuerforschung, hier kurz NeSt.
+
+\subsection{Handlungsbedarf}\label{handlungsbedarf}
+
+\subsubsection{Steigende Datenmenge in der amtlichen
+Statistik}\label{steigende-datenmenge-in-der-amtlichen-statistik}
+
+\begin{itemize}
+\item
+  Qualitätsbericht. Wachsende Datenmenge in der amtl. Statistik, Verweis
+  auf \autocite{destatis2023}
+\item
+  Datenverarbeitung im StBA \ldots{}
+\item
+  neues NeSt Produkt BTP zeigt Umfang, hoch interessant für Wissenschaft
+\item
+  Datenverarbeitungsaufgaben des StBA erklären
+\item
+  Nicht mehr durch vorhandene Systemkapazitäten (insb. Arbeitsspeicher)
+  gedeckt
+\item
+  Herausforderungen (größere Datenmengen, komplexere Analysen,
+  schnellere Antworten notwendig)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    hohe Anforderungen der Öffentlichkeit und besonders Wissenschaft.
+    Verweis auf Gutachten des Stat. Beirats und Gründung ``Netzwerk emp.
+    Steuerforschung''
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Schnelle Bereitstellung von am besten vollständigen, wenig
+      Anonymisierten Datensätzen an Wissenschaft via FDZ. Erste Analysen
+      seitens StBA und hohe Expertise erwartet (Exploration der Daten
+      nötig)
+    \item
+      Bereitstellung von Zusatzdokumentation durch StBA. Metadatenreport
+    \item
+      schnelle Bereitstellung,
+    \item
+      zeitnahe Nutzung in FDZ
+    \item
+      keine Wartezeiten in FDZ
+    \item
+      sofortig Antworten auf Analysefragen
+    \item
+      Erhöhte Komplexität Analysen mit größeren, Komplexeren Datensätzen
+    \end{itemize}
+  \item
+    Rückstände/Altlasten: weiterentwickelnde Infrastruktur, nicht state
+    of the art (ausgelegt auf konsistenz und zuverlässigkeit, nicht
+    schnelligkeit), gesetzlicher Auftrag
+
+    \begin{itemize}
+    \tightlist
+    \item
+      hauptsächlich SAS für große Datenmenge verwendet, funktioniert,
+      aber langsam
+    \item
+      FDZ Bund integriert in Standardarbeitsplätze des StBA
+    \item
+      Bereitstellungsaufwände und Abhängigkeiten moderner Software
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+Annette: -\textgreater{} Impuls aus der Wissenschaft, dann Fachbereich -
+Fachbereich/Verbund im Grunde Hauptnutzende da Tools und Daten zur
+Verfügung stehen Technische Möglichkeit entwickelt sich weiter usw..
+
+Der Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen
+Entwicklung (2023) hat in seinem Gutachten 2023/24 auf eine technisch
+veraltete Infrastruktur und auf die fehlende Nutzerfreundlichkeit
+hingewiesen. Seitdem hat sich die die Infrastruktur in dem
+Forschungsdatenzentrum des Bundes verbessert. Seit Januar 2025 besteht
+ein Remote Access System als neuer Zugangsweg für die Wissenschaft. Im
+Bereich der Steuerstatistiken wird derzeit geprüft, inwiefern auch
+Einzeldaten aus diesem Bereich über Remote Access genutzt werden können.
+Als Übergang und Erleichterung für bestehende Forschungsprojekte wird in
+diesem Kapitel 2
+
+Die amtliche Statistik steht vor der Herausforderung, bei stetig
+wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ
+hochwertige und zeitnahe statistische Informationen bereitzustellen
+\autocite{destatis2023}. Dabei spielt die Effizienz der verwendeten
+statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit
+des gesamten statistischen Systems.
+
+In den vergangenen Jahren haben sich die Rahmenbedingungen für die
+Produktion amtlicher Statistiken erheblich verändert. Die
+Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren
+Datenquellen geführt, sondern auch neue Möglichkeiten für die
+statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der
+Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
+
+Diese Entwicklungen erfordern eine kontinuierliche Evaluation und
+Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist
+es daher, die Effizienz verschiedener statistischer Verfahren
+systematisch zu bewerten und Handlungsempfehlungen für die Praxis
+abzuleiten.
+
+\subsubsection{Steigende Anforderungen der Wissenschaft und
+Öffentlichkeit}\label{steigende-anforderungen-der-wissenschaft-und-uxf6ffentlichkeit}
+
+FDZ, NeSt
+
+\begin{itemize}
+\tightlist
+\item
+  Schnelle Reaktionen erforderlich
+\item
+  Komplexere (Forschungsfragen) zu beantworten
+\item
+  FDZ erklären
+\item
+  Gutachten BMF ansprechen
+\item
+  NeSt erklären, Bedarfe durch Produkt BTP beantwortet.. aber wie kann
+  es in angme
+\end{itemize}
+
+\subsection{Vorschreitende Innovation der
+Datenverarbeitungstechnologien}\label{vorschreitende-innovation-der-datenverarbeitungstechnologien}
+
+\subsubsection{Ausgangslage}\label{ausgangslage}
+
+SAS für amtl. Statistik und SAS/Stata für FDZ
+
+\begin{itemize}
+\tightlist
+\item
+  SAS, zsl. Stata in den FDZ. Session zu SAS Ablösung
+\item
+  Weiterentwicklung der Infrastruktur: neue Server für R im StBA und für
+  FDZ eigene neue Server für R und Stata
+\item
+  hohe Lizenzkosten, Trend zu Abonnements und Cloud nachteilig,
+  technologielock und Privacy.
+\item
+  Kommen bei unseren Anwendungen Kapazitär an ihre Grenzen und
+  Performanz in anderen Technologien höher.
+\end{itemize}
+
+Anforderungen an Modernisierung
+
+\begin{itemize}
+\tightlist
+\item
+  hohe Performanz, schnelle Ergebnisse, idealenfalls in Echtzeit (d.h.
+  wenigen Sekunden)
+\item
+  moderne Interfaces, möglichst leichte Nutzung, wenig Schulungsbedarf,
+  Allgemeinwissen von Statistiker u.Ä. Fachrichtungen (Werkzeug, nicht
+  Gegenstand der Untersuchung)
+\item
+  leicht einrichtbar, wenig Abhängigkeiten zu vielen Tools, die sich
+  ständig weiterentwicklen, sodass hohe Wartungsaufwände entstehen.
+\end{itemize}
+
+\subsubsection{Vormarsch von Open
+Source}\label{vormarsch-von-open-source}
+
+\begin{itemize}
+\tightlist
+\item
+  in der internationalen amtlichen Statistik seit Jahren auf dem
+  Vormarsch. Langsam steigt auch Verbreitung von R steigt auch in den
+  dt. Statistikämtern.
+\end{itemize}
+
+\subsubsection{Fokus auf R}\label{fokus-auf-r}
+
+R verbreitung steigt, bei uns in Kinderschuhen. Wie fängt man denn am
+besten an? Was ist von anfang an der richtige Weg daten in R zu
+verarbeiten?
+
+R ist weltweit bekannt und verbreitet als die Lingua Franca für
+Statistik, Methodologie und Data Science. Dies macht R zu der
+natürlichen Wahl für die amtlichen Statistik mit viele attraktive
+Vorteile.
+
+\begin{itemize}
+\item
+  aktive globale Community sorgt für schnelle Innovation und
+  Verbesserung
+\item
+  CRAN bietet offiziell aktuell Zusatzfunktionalitäten in Form von X
+  R-Paketen. Darunter sind viele klassische Pakete für Datenverarbeitung
+  und -anayse.
+\item
+  R
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The reasons why the official statistics community is rapidly
+    embracing R are clear. S. erfolg / Wachstum der Conference uRos
+    https://r-project.ro/conference2025.html\#Presentations
+  \item
+    R lingua franca for statisticians, methodologists and data
+    scientists worldwide -\textgreater{} nativ geeignet für amtl.
+    Statistik
+  \item
+    R Open Source bietet vorteile
+
+    \begin{itemize}
+    \tightlist
+    \item
+      aktive globale Community
+    \item
+      support from the industry
+    \item
+      it combines a vast amount of functionalities for data preparation,
+      methodology, visualisation and application building
+    \item
+      free = ideal environment for sharing, collaboration and
+      industrialising official statistics
+    \item
+      Packages CRAN, github\ldots{}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+Arrow bspw. hatte in 2024 und 2025 jeweils 4 Major Releases mit diversen
+neuen Funktionalitäten und Performanz-Verbesserung
+
+Neue Entwicklung zu R in der dt. OSS, bei Integration in
+Statistikproduktion und Datenbereitstellung direkt mit den richtigen
+Features und Methoden beginnen. Wie die folgenden\ldots{}
+
+Open Source -\textgreater{} breite Auswahl an Parketen zum Einlesen,
+Transformieren und Auswerten von Daten.
+
+\begin{itemize}
+\tightlist
+\item
+  Unterscheidung klassischer/r-nativer Methoden (base-r, readr / vroom
+  und data.table), effiziente/moderne Methoden (arrow, duckdb, polars)
+\item
+  Klassische Methoden
+
+  \begin{itemize}
+  \tightlist
+  \item
+    base-r zu vermeiden
+  \item
+    readr
+
+    \begin{itemize}
+    \tightlist
+    \item
+      in tidyverse
+    \item
+      nutzerfreundlich, einfach zu lernen / nutzen
+    \end{itemize}
+  \item
+    data.table
+
+    \begin{itemize}
+    \tightlist
+    \item
+      benchmarking:
+      https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
+    \end{itemize}
+  \item
+    datenformate in R: qs, rds
+  \item
+    dtplyr?
+  \end{itemize}
+\end{itemize}
+
+As we start working with larger and larger datasets, the basic tools of
+the tidyverse start to look a little slow. In the last few years several
+packages more suited to large datasets have emerged. Some of these are
+column, rather than row, oriented. Some use parallel processing. Some
+are vector optimized. Speedy databases that have made their way into the
+R ecosystem are data.table, arrow, polars and duckdb. All of these are
+available for Python as well. Each of these carries with it its own
+interface and learning curve. duckdb, for example is a dialect of SQL,
+an entirely different language so our dplyr code above has to look like
+this in SQL: S.
+https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
+
+\subsubsection{Hoch-performante
+Datenverarbeitungsmethoden}\label{hoch-performante-datenverarbeitungsmethoden}
+
+Als Desktopanwendung konzipiert ist R nicht für hoch-performante
+Auswertungen von Big Data bekannt. Wie unsere Untersuchung zeigen wird,
+beansprucht R nativ übermäßige Systemressourcen, um die
+Nutzerfreundlichkeit zu erhöhen. Dadurch dass R Open Source ist ändern
+dies jedoch diverse Entwicklerteams weltweit und stellen R
+Zusatzfunktionen in Form von R-Paketen zur Verfügung die in R
+hoch-performante Auswertung großer Datenmengen ermöglichen.
+
+\begin{itemize}
+\tightlist
+\item
+  R darüber hinaus vermehrt hoch-performante Analysetools, die sich
+  ständig verbessern
+\item
+  ermöglichen sehr schnelle Verarbeitung von Daten, mit einem sehr hohen
+  Gesamtvolumen, das sogar den verfügbaren RAM übersteigt.
+\item
+  sollte möglichst leicht nutzbar sein, nativ in R ohne viele
+  Abhängkeiten (organisatorische Einschränkungen)
+\end{itemize}
+
+\subsection{Umsetzung im StBA und FDZ}\label{umsetzung-im-stba-und-fdz}
+
+\begin{itemize}
+\item
+  möglichst leicht nutzbar und gewohnt/verbreitet -\textgreater{}
+  R+dpylr
+
+  \begin{itemize}
+  \tightlist
+  \item
+    wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit
+    unterschiedlichen Analytischen und technischen Kenntnissen
+  \end{itemize}
+\item
+  stabil
+\item
+  schnell, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum
+\item
+  ressourcensparend (RAM Problematik)
+\item
+  möglichst leicht nutzbar mit den vorhandenen Systemen und
+  organisatorischen Strukturen ergibt Anforderungen
+
+  \begin{itemize}
+  \tightlist
+  \item
+    hohe-performanz bereits mit R Grundlagenwissen
+  \item
+    minimale Anforderungen an zsl. Software
+  \end{itemize}
+\item
+  NeSt Förderung, Datenprodukterstellung, Bereitstellung der FDZ auch
+  technischen Infrastruktur und Knowhow der effizienten Nutzung
+\item
+  Bereitstellung des OSS seit Nov.~2025
+\item
+  Vorbereitend Exploration und Beratung in geeigneten Aüßerst
+  effizienten Methoden -\textgreater{} Ergebnisse in Echtzeit
+\item
+  Szenario FDZ GWAP Besuch, statt KDFV, sofort Ergebnisse
+\item
+  Diese Arbeit
+\end{itemize}
+
+\textbf{Technische Lösungsansätze.}
+
+\begin{itemize}
+\tightlist
+\item
+  Modernisierung der amtl. Stat, FDZs -\textgreater{} Zugangswege,
+  Kapazitäten, \ldots{}
+\item
+  Technische Weiterentwicklung, stärkere Hardware, leichtere
+  Bereitstellung, virtualisierung
+\item
+  Schnelle Weiterentwicklung von Open-Source Software, R, div. Packages,
+  e.g.~Verweis auf Changelog von Arrow, Polars
+\end{itemize}
+
+\subsection{Diese Arbeit}\label{diese-arbeit}
+
+Ausbreitung von R - gleich die richtige Technologie auswählen und
+einsetzen. Aber welche ist die ``richtige''? Was für Unterschiede
+(Vorteile / Nachteile) haben die Technologien. Dies will dieser Artikel
+im Falle des BTP untersuchen. Kontrollierte Benchmark und weitere
+(qualitative) Aspekte, wie Userexperience.
+
+Zielgruppe: alle Datenanalytiker mit rudimentären R-Kenntnisse, aber
+breit, FDZ, amtl. Stat,
+
+Wir fokussieren uns auf folgende zentrale Forschungsfragen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Methodische Effizienz:} Wie unterscheiden sich verschiedene
+  statistische Verfahren hinsichtlich ihrer Rechenzeit und
+  Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+\item
+  \textbf{Skalierbarkeit:} Welche Verfahren zeigen die beste Performance
+  bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
+\item
+  \textbf{Praktische Anwendbarkeit:} Welche Infrastrukturanforderungen
+  stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
+\end{enumerate}
+
+\section{Anwendungsfall
+Business-Tax-Panel}\label{anwendungsfall-business-tax-panel}
+
+\subsection{Datengrundlage}\label{datengrundlage}
+
+\emph{Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen
+Ertrags- sowie Umsatzsteuerstatistiken im Quer- und Längsschnitt.
+Verfügbar sind Informationen aus den folgenden Statistiken: Gewerbe-,
+Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung,
+Statistik über die Personengesellschaften und Gemeinschaften,
+Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen
+Unternehmensregister. Insgesamt deckt der Forschungsdatensatz eine
+Vielzahl an Analysemöglichkeiten, wie zum Beispiel Analyse von
+Anpassungsreaktionen oder Verteilungsanalysen, die für die
+evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.}
+
+\emph{Für die vielfältigen Analysewünsche der Forschenden, der damit
+einhergenden Dokumentation des Datensatzes in den Metadatenreports
+(!!hier Fußnote für MDR - siehe Deskriptive Ecktaten 1.) des FDZ, und
+den Auswertungsbedarf des Fachbereiches ist der Datensatz möglichst
+wenig beschränkt worden und dadurch ressourcenintensive. Anstelle einer
+Stichprobe wurden die zugrundeliegenden Vollerhebungen verwendet. Die
+erste Version des BTP (2013 bis 2019) besteht aus ca. 67 Millionen
+Beobachtungen. Mit der Aktualisierung um das Berichtsjahr 2020 wird die
+Zahl der Beobachtungen sich auf ca. 78 Millionen erhöhen. Auch der
+Merkmalsumfang von zurzeit über 2.700 Merkmalen wird durch Erweiterung
+von Berichtsjahren steigen.}
+
+\emph{Bereits aktuell und insbesondere durch die regelmäßige Erweiterung
+um Bereichtsjahre steht der Fachbereich sowie das FDZ vor der
+Herausforderung den hohe Bedarf an Speicherkapazität, Arbeitsspeicher
+und Prozessorleistung zu decken. Daher wird das BTP als Anwendungsfall
+herangezogen}
+
+\subsection{Auswertungsbedarfe}\label{auswertungsbedarfe}
+
+\emph{Um den Auswetungsbedarf des Fachbereichs und des FDZ abzubilden
+wird die Tabelle zur Häufigkeitsverteilung der Beobachtungen je Jahr und
+Steuerstatistik (FDZ, 2024 --\textgreater{} IN QULLEN aufnehmen!)
+verwendet. Im Fachbereich ergibt sich zusätzlich der Bedarf die Daten je
+nach Statistik und Tabelle zu bearbeiten. Auch die Forschenden
+bearbeiten die Daten um sie für die jeweilige Analyse aufzubereiten.
+Daher wird die Datenbearbeitung und anschließende Analyse als zweiter
+Anwendungsbedarf getestet.}
+
+\emph{Die Körperschaftsteuerstatistik zeigt über die Jahre eine Zunahme
+der Steuerpflichtigen mit Verlustvortrag im jeweiligen Berichtsjahr
+(GENESIS Code 73211-0002). Für den zweiten Anwendungsfall wird das
+Vorliegen eines Verlustvortrages im jeweiligen Berichtsjahr als versucht
+anhand verschiedener Einflussfaktoren zu erklären. Anzunehmen ist, dass
+Personalkosten den Verlustvortrag erhöhen können, daher wird die Zahl
+der Sozialversicherungspflichtig Beschäftigen sowie die Summe der Löhne
+und Gehälter als erklärende Variable verwendet. Der jeweilige
+Gesamtbetrag der Einkünfte und die abgezogenen Spenden können ebenfalls
+den Verlustvortrag beeinflussen. Um den Internationalisierungsgrad des
+Unternehmens zu erfassen wird ein Dummy für aufgenommen der Anzeigt, ob
+das Unternehmen auslandskontrolliert ist.}
+
+\subsubsection{Deskriptive Eckdaten}\label{deskriptive-eckdaten}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  deskriptive Eckdaten, für BTP als Panel im Quer- und Längsschnitt:
+  Fallzahl pro Statistik und Jahr (s.MDR Produkt S. 9f
+  https://www.forschungsdatenzentrum.de/sites/default/files/btp\_2013-2019\_on-site\_mdr-prod.pdf)
+\end{enumerate}
+
+Kennzahlen um inhaltlose Testdaten zu generieren werden folgende
+Eckdaten benötigt und im nächsten BTP berücksichtigt:
+
+\begin{itemize}
+\tightlist
+\item
+  Befüllung
+\item
+  Statistische Eckdaten univariate (Quantile),
+\item
+  ggf. multivariate (gemeinsame Verteilung)
+\end{itemize}
+
+Exemplarisch, neues BTP beinhaltet dies. Regelmäßige Updates
+beschleunigen.
+
+\subsubsection{Regressionen}\label{regressionen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Verlustvorträge\footnote{Vortrag Annette 2024 JK} (s. Vortrag NeSt)
+  als Indikator für \ldots{} und Einflussgrößen auf Verlustvorträge, für
+  Vermutung von Einfluss der Unternehmensgröße (großes Gesamtvolumen,
+  Löhne, Spenden, tätige Personen; Auslandskontrolle oder WZ) auf
+  positive Verlustvorträge.
+\end{enumerate}
+
+\subsection{Technische
+Spezifikationen}\label{technische-spezifikationen}
+
+\emph{AK: Habe ich im Bereich Datengrundlage integriert. }
+
+\emph{Für die vielfältigen Analysewünsche der Forschenden, den
+Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der
+Erstellung des Metadatenreports des Forschungsdatenzentrums ist der
+Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen
+ist der Datensatz möglichst wenig beschränkt worden und dadurch
+ressourcenintensive. Der damit einhergehende hohe Bedarf an
+Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl
+im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung
+dar.}
+
+\emph{Für die vielfältigen Analysewünsche der Forschenden, den
+Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der
+Erstellung des Metadatenreports des Forschungsdatenzentrums ist der
+Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen
+ist der Datensatz möglichst wenig beschränkt worden und dadurch
+ressourcenintensive. Der damit einhergehende hohe Bedarf an
+Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl
+im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung
+dar.}
+
+\begin{itemize}
+\item
+  Technische Herausforderung:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    effiziente und verständliche Speicherung
+  \item
+    Herausfiltern großer Datenmengen irrelevanter Merkmale
+  \end{itemize}
+\item
+  Umfang über verfügbaren Arbeitsspeicher
+\item
+  Besonders breit mit 3000 Merkmalen, 69 Mio. Beobachtung, sodass
+  zeilenbasierte Formate problematisch sind.
+\item
+  Technische Herausforderung:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    effiziente und verständliche Speicherung
+  \item
+    Herausfiltern großer Datenmengen irrelevanter Merkmale
+  \end{itemize}
+\end{itemize}
+
+\section{Techniche Infrastruktur}\label{sec-infrastruktur}
+
+Womit wir arbeiten können.
+
+\subsection{Allgemeinn}\label{allgemeinn}
+
+\begin{itemize}
+\tightlist
+\item
+  abgeschottete, innerhalb der eigenen Infrastruktur
+\end{itemize}
+
+\subsection{SAS Server}\label{sas-server}
+
+\subsection{StBA R-Server}\label{stba-r-server}
+
+Intern ist R in größeren Kapazitäten nutzbar und Stata nur lokal.
+
+\begin{itemize}
+\tightlist
+\item
+  10 Server á
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1 TB RAM
+  \item
+    96 Kerne
+  \item
+    2 GPUs mit insg. 96 GB VRAM
+  \end{itemize}
+\end{itemize}
+
+Bereitstellung von Paketen und organisatorische einordnung. Veränderung
+der Infrastruktur langwierig, Beschaffung via Beschaffungsamt etc.
+-\textgreater{} wir müssen für die Zukunft planen und umsetzen.
+
+\subsection{FDZ OnSite-Server}\label{fdz-onsite-server}
+
+StBA R-Server mit noch größeren Kapazitäten und grafischen
+Rechenbeschleunigern.
+
+Neu seit November 2025 steht der sog. OnSite-Server im FDZ Bund allen
+OnSite Nutzungen bereit -- jeweisl in Stata un R via KDFV und an den
+GWAP. Zugriff zu Analyseservern in umfangreichen Kapazitäten.
+
+In FDZ Bund Für Stata (3 Server) oder R (6 Server) in KDFV oder GWAP
+stehen jeder Nutzung zur Verfügung:
+
+::: \textbar{} Komponente \textbar{} Umfang \textbar{}
+\textbar---------------------\textbar---------------\textbar{}
+\textbar{} Arbeitsspeicher \textbar{} bis zu 512 GB \textbar{}
+\textbar{} Kernanzahl \textbar{} 16 \textbar{} \textbar{}
+CPU-Geschwindigkeit \textbar{} 3.1 GHz \textbar{} :::
+
+\begin{itemize}
+\tightlist
+\item
+  schnelle Direktverbindung zu Netzwerkspeicher
+\item
+  Fußnote RAM in R 128 GB kann erweitert werden.
+\end{itemize}
+
+\section{Datenverarbeitungsmethoden}\label{sec-methoden}
+
+Wir betrachten in diesem Artikel die Performanz sog.
+\emph{Datenverarbeitungsmethoden}, d.h. Softwarelösungen, die Daten
+einlesen, modifzierern, aggregieren, auswerten oder analysieren. Das
+Schreiben von Daten wird in unserer Untersuchung ausgeklammert, da es
+sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den
+Outputs der Wissenschaft im FDZ um kleine Tabellen handelt, die i.d.R.
+keine große Performanz erfordern.{[}\^{}writedata Wir vernachlässigen
+Spark, Datenbanken und weitere Technologien, die zusätzliche Einrichtung
+erfordern und nicht direkt als R-Package genutzt werden können.
+
+\subsection{Anforderungen an
+Datenverarbeitungsmethoden}\label{anforderungen-an-datenverarbeitungsmethoden}
+
+\begin{itemize}
+\tightlist
+\item
+  Performanz und Nutzererfahrung auf dem aktuellen Stand der Technik
+\item
+  leicht einzurichten auch in den abgeschotteten System der amtl.
+  Statistik (tlw. langwierig und schwierig), d.h. wenig Abhängigkeiten
+  und unabhängig von Internet bzw. Cloud betreibbar.
+\item
+  langfristig stabil und gut unterstützt
+\item
+  leicht nutzbar, gut dokumentiert, gutes Schulungsangebot
+\end{itemize}
+
+Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt
+besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle
+Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre
+Grenzen. Moderne spaltenorientierte Technologien lösen dieses Problem
+indem sie erlauben, nur relevante Variablen bei Bedarf zu einzulesen.
+
+\subsection{Sachstand}\label{sachstand}
+
+\subsubsection{SAS und Stata}\label{sas-und-stata}
+
+\begin{itemize}
+\tightlist
+\item
+  Hauptanalysewerkzeuge sind bisher:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    im StBA SAS 9.4 M8, EG
+  \item
+    im FDZ zsl. Stata
+  \end{itemize}
+\item
+  Stata
+
+  \begin{itemize}
+  \tightlist
+  \item
+    bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP).
+  \item
+    neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen
+    Systemkapazitäten.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Empfehlung des FDSZ der deutschen
+Bundesbank}\label{empfehlung-des-fdsz-der-deutschen-bundesbank}
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  hat den Spezialfall von in-memory Auswertung betrachtet mit den
+  folgenden Ergebnissen:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  R zeigt große Performanzevorteile gegenüber Stata für FDZ Aufgaben:
+  ``Note that using parquet and R reduces the computing time compared to
+  the optimised Stata approach by 65.1\% from 77.6 to 27.1 seconds''
+\item
+  zu betrachten ist die Gesamtzeit (d.h. Rechenzeit +
+  \textbf{Entwicklungszeit})
+
+  \begin{itemize}
+  \tightlist
+  \item
+    vorhandene Erfahrung und Knowhow (bspw. in Stata) relativiert die
+    Performanzgewinne in R. Zu beachten sind hohe Debugging Aufwände an
+    den GWAPs der FDZ (kein Internetzugriff)
+  \item
+    I.d.R. muss in der Entwicklung Code mehrfach ausgeführt werden,
+    sodass sich die Laufzeit multipliziert (Wickham\&Grolemund 2016).
+  \end{itemize}
+\item
+  Die u.g. Parquet-Dateien werden bereits standardmäßig im FDSZ
+  angeboten.
+\item
+  Variablenselektion hervorgehoben. Bot Beschleuniging von 39.9\% in R
+  und 33.9\% in Stata
+\end{itemize}
+
+\subsection{Analysewerkzeug R}\label{analysewerkzeug-r}
+
+Der Einsatz von R wächst stetig mit aktuell über 200 aktiven Nutzenden
+im StBA und FDZ.
+
+\begin{itemize}
+\tightlist
+\item
+  R ist die native Programmiersprache von Statistiker/-innen und
+  Daten-affinen Programmierer/-innen. Frei verfügbar und leicht
+  einzurichten. Somit weit verbreitet, insb. an Universitäten.
+\item
+  R ist Open Source und wird ständig weiterentwickelt (aktuell in
+  Version 4.5 verwendet, jährliche Major Releases).
+\item
+  Eine weltweit aktive Community löst Probleme zeitnah und ergänzt
+  stetig Funktionalitäten in Form von sog. \emph{R-Packages}.
+\item
+  Bietet nativ bereits viele Datenverarbeitungsmethoden, die jedoch
+  durch diese R-Packages ganz neue Level an Nutzerfreundlichkeit,
+  Funktionsumfang und Performanz erreichen.
+\end{itemize}
+
+\subsection{Klassische Methoden in R}\label{klassische-methoden-in-r}
+
+\subsubsection{Base R}\label{base-r}
+
+\begin{itemize}
+\tightlist
+\item
+  Standardmäßige Basisfunktionen in R.
+\item
+  Grundlage/einstieg, weder sonderlich amschaulich nocb sonderlich
+  performant -\textgreater{} Packages überlassen
+\item
+  \textbf{Vorteile:} Einfach, weit verbreitet, keine zusätzlichen
+  Abhängigkeiten
+\item
+  \textbf{Nachteile:} Langsam bei großen Daten, hoher Speicherverbrauch,
+  alle Daten müssen in RAM passen
+\item
+  \textbf{Empfehlung:} Zweckdienlich für Einsteiger oder
+  gelegenheitsnutzer für ganz kleine Anwendungenoder falls gar keine
+  Abhängigkeiten in Form von Pkg erlaubt sind. Ansonsten\ldots{}
+\end{itemize}
+
+\subsubsection{Data.table}\label{data.table}
+
+\begin{itemize}
+\tightlist
+\item
+  \{data.table\} in den meisten Fällen die performanteste klassische
+  DVM. An die Syntax an base-r angesiedelt und nur hier verwendet,
+  spezielles Wissen notwendig.
+\item
+  \textbf{Vorteile:} Sehr schnell für In-Memory-Operationen, ausgereift,
+  kompakte Syntax In teilen der Community sehr beliebt
+\item
+  \textbf{Nachteile:} Alle Daten müssen in RAM passen, steile Lernkurve,
+  keine Out-of-Core-Unterstützung.
+\item
+  \textbf{Empfehlung:} Gute Alternative wenn Datensatz in RAM passt und
+  keine Parquet-Integration benötigt wird
+\end{itemize}
+
+\subsubsection{Tidyverse}\label{tidyverse}
+
+Tidyverse ist ein Ökosystem von Packages zur Datenverarbeitung, das für
+besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen
+Programmiersyntax, sog. \emph{\{dplyr\}-Syntax}, die den Anspruch hat
+menschlicher Sprache abzubilden. Das R-Package \{dplyr\} ist die
+Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines
+Beispiels in der folgenden Tabelle veranschaulicht wird
+
+{[} Tabelle Beispiel Dplyr {]}
+
+Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie
+vielen anderen Packages ergänzt wurde. Bspw. für \{data.table\} setzen
+dies die Packages \{dtplyr\} oder \{tidytable\} um Wie im Falle von
+\{dtplyr\} kann die Übersetzung zu \{dplyr\} jedoch die Performanz
+verschlechtern.\footnote{S.
+  https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/}
+
+\subsection{Best Practices in R}\label{best-practices-in-r}
+
+Ab mittleren Datenmengen (relativ zu CPU und RAM) sind ausgewählte
+\textbf{Best Practices} in R:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Variablenselektion}: Beim Einlesen von DatenAuswahl der
+  benötigten Variablen in der Einlesefunktion ist wesentliche
+  Best-Practices (besonders für klassiche Methoden, da dies das Risiko
+  für RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen
+  zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren
+  Zeitpunkt) verursacht unnötige Wartezeiten, Ressourcenbelegung und
+  kann zu Abbrüchen führen.
+\item
+  \emph{Datenaufteilung}: Wenn der Arbeitsspeicher nicht ausreicht, um
+  die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere
+  RAM-Gerechte Datenpakete helfen. Für klassische Methoden kombiniert
+  mit der mehrfachen Variablenselektion. Die folgenden hoch-performanten
+  Techniken, kommen auch direkt mehreren Dateien nutzen, ohne manuell
+  die Datensätze zusammenzuführen.
+\end{itemize}
+
+\subsection{Hoch-performante Methoden in R}\label{sec-highperf}
+
+Wir sprechen in diesem Artikel vereinfacht von einer
+\emph{hoch-performanten Methode}, sobald die betrachtete
+Datenverarbeitungsmethode in der Lage ist, Datenmengen überhalb des
+verfügbaren Arbeitsspeichers flexibel und effizient zu nutzen. SAS
+erfüllt den Großteil dieser Definition -- lediglich die Effizienz lässt
+sich deutlich steigern.
+
+Um Datenauswertung auf höhere Datenmengen skalieren zu können ist ein
+Paradigmenwechsel von der ``\emph{vollständigen Verarbeitung im RAM''}
+zu der \emph{Auslagerung aus dem RAM} notwendig. Vollständig im RAM sind
+Daten zwar sehr schnell und einfach zu nutzen, jedoch beansprucht der
+Transport in den RAM (Einlesen) einen Hauptteil der Laufzeit und der
+verfügbare RAM reicht i.d.R. nicht für größere Datenmengen. Die
+nachfolgenden Technologien sind auch in der Lage Daten überhalb des RAMs
+zu verarbeiten. Durch moderne Hardware und Software kann dies sogar sehr
+schnell erfolgen.
+
+\subsubsection{Apache Parquet}\label{apache-parquet}
+
+\begin{itemize}
+\tightlist
+\item
+  Datenformat, spaltenbasiert, komprimiert, \ldots{}
+\item
+  tba - s. Vortrag
+\end{itemize}
+
+\subsubsection{Apache Arrow}\label{apache-arrow}
+
+\begin{itemize}
+\tightlist
+\item
+  R-package, C++ basiert, erlaubt Parallelisierung, Datenaufteilung,
+  Lazy-Computations, Datenformat im RAM passend zu Parquet
+\item
+  tba - s. Vortrag
+\end{itemize}
+
+\subsubsection{DuckDB}\label{duckdb}
+
+\begin{itemize}
+\tightlist
+\item
+  R-Package, in-memory DB, \ldots{}
+\item
+  tba - s. Vortrag
+\end{itemize}
+
+\subsubsection{Polars}\label{polars}
+
+\begin{itemize}
+\tightlist
+\item
+  an Python-angelehnte Syntax
+\item
+  tba
+\item
+  Benchmark des Polars Entwicklerteams \footnote{https://ddotta.github.io/cookbook-rpolars/benchmarking.html}
+\end{itemize}
+
+\subsection{Package-Versionen}\label{package-versionen}
+
+Die auf den Servern des StBA und FDZ verfügbaren Packageversionen lassen
+sich aus organisatorischen Gründen nicht flexibel ändern, da die
+Genehmigung und Einrichtung neuer Packages nur auf Antrag durch unser
+R-Betriebsteam erfolgt (i.d.R. innerhalb von 1-2 Tagen ). Die
+Package-Versionen, die zum Zeitpunkt des in \textbf{?@sec-benchmark}
+dargestellten Performanz-Vergleiches verfügab waren, können Tabelle
+Tabelle~\ref{tbl-pkg-versions} entnommen werden.
+
+\begin{table}
+
+\caption{\label{tbl-pkg-versions}Versionen verfügbarer R-Packages}
+
+\centering{
+
+\begin{verbatim}
+\begin{table*}
+\caption{Versionen verfügbarer R-Packages}\label{tbl-pkg-versions}
+\centering\begingroup\fontsize{10}{12}\selectfont
+
+
+\begin{tabular}{|>{}l|||>{}l|}
+\hline
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Paket}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Version}}}\\
+\hline
+\cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{1.17.8}\\
+\cellcolor{white}{\textcolor{black}{\{tidyverse\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
+\cellcolor{white}{\textcolor{black}{\{vroom\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{20.0.0.2}\\
+\cellcolor{white}{\textcolor{black}{\{duckdb\}}} & \cellcolor[HTML]{f0f8ff}{1.3.2}\\
+\cellcolor{white}{\textcolor{black}{\{polars\}}} & \cellcolor[HTML]{f0f8ff}{1.0.1}\\
+\hline
+\end{tabular}
+\endgroup{}
+\end{table*}
+\end{verbatim}
+
+}
+
+\end{table}%
+
+\section{Performanzvergleich}\label{sec-performance}
+
+\subsection{Versuchsaufbau}\label{versuchsaufbau}
+
+Um zwischen den in Abschnitt Kapitel~\ref{sec-methoden} vorgestellten
+Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in
+einem systematischen Vergleich der Performance auf dem SAS-Server des
+Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des
+FDZ gemessen. Weiterführende Performanzmessung sowie der vollständig
+reproduzierbare Code sind auf Opencode verfügbar\footnote{www.opencode.de/URL-To-Be-Announced.}.
+
+Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen
+Größen (0,1\%/1\%/10\% von den insgesamt 80 Mio. Beobachtungen des BTP)
+betrachtet. Sie wurden aus öffentlich verfügbaren Informationen
+generiert, um die wesentlichen Strukturen des BTP für unsere Analyse
+künstlich nachzubilden. Abgrenzend zu den im FDZ bereitgestellten
+\emph{Datenstrukturfiles} wurden die Testdaten nicht aus echten
+Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für
+technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Fallzahlen} (pro Statistik und Jahr),
+\item
+  \textbf{Regression} (Einflussfaktoren auf Verlustvorträge).
+\end{enumerate}
+
+Um eine zuverlässige Performanz-Messung zu erhalten, wurde jede
+Datenverarbeitungsmethode dreifach angewandt. Der Vergleich erfolgt
+anhand der mittleren Messung der folgenden Zielgrößen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Arbeitsspeicher} der Auswertung,
+\item
+  \textbf{Laufzeit} der Auswertung (real verstrichene Zeit),
+\item
+  \textbf{Festplattenspeicher} der verwendeten Daten.
+\end{enumerate}
+
+Die Zielgrößen sind in dieser Reihenfolge zu priorisieren, da ein
+übermäßiger Arbeitsspeicherverbrauch zu schwerwiegenden Abbrüchen führen
+kann, während hohe Laufzeiten dennoch zu einem erfolgreichen Ergebnis
+führen können. Festplattenspeicher ist ausreichend vorhanden, aber
+unnötige Belegung sollte vermieden werden.
+
+Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht
+gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen
+in unter 10 Sekunden mit weniger als 4 GB Arbeitsspeicher durchführen
+kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in
+diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz
+erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den
+Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und
+Nachvollziehbarkeit -- selbst für unerfahrene Nutzende --
+ausschlaggebend.
+
+\subsection{Vergleichswert in SAS und
+Stata}\label{vergleichswert-in-sas-und-stata}
+
+Klassisch werden die betrachteten Auswertungsaufgaben im Statischen
+Bundesamt hauptsächlich mit SAS und im FDZ mit Stata gelöst. Um die
+nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen
+für 1\% des simulierten BTP-Daten (etwa. 800.000 Beobachtungen) in SAS
+und Stata durchgeführt.
+
+\begin{table*}
+
+\caption{\label{tbl-baseline}Baselines in SAS und Stata (anhand 1\% des simuliertes BTP)}
+
+\centering{
+
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+
+\begin{tabular}{|>{}l||>{}l||>{}r||>{}r||>{}r|}
+\toprule
+Software & Anwendung & Arbeitsspeicher & Laufzeit & Festplattenspeicher\\
+\midrule
+ & \cellcolor[HTML]{f0f8ff}{Fallzahl} & \cellcolor[HTML]{f0f8ff}{65 MB} & \cellcolor[HTML]{f0f8ff}{2.4 Min.} & \cellcolor[HTML]{f0f8ff}{33 GB}\\
+\cmidrule{2-5}
+\multirow[t]{-2}{*}{\raggedright\arraybackslash \cellcolor{white}{\textcolor{black}{SAS}}} & \cellcolor[HTML]{f0f8ff}{Regression} & \cellcolor[HTML]{f0f8ff}{7 MB} & \cellcolor[HTML]{f0f8ff}{2.8 Min.} & \cellcolor[HTML]{f0f8ff}{33 GB}\\
+\cmidrule{1-5}
+ & \cellcolor[HTML]{f0f8ff}{Fallzahl} & \cellcolor[HTML]{f0f8ff}{33 GB} & \cellcolor[HTML]{f0f8ff}{55,2 Sek.} & \cellcolor[HTML]{f0f8ff}{32 GB}\\
+\cmidrule{2-5}
+\multirow[t]{-2}{*}{\raggedright\arraybackslash \cellcolor{white}{\textcolor{black}{Stata}}} & \cellcolor[HTML]{f0f8ff}{Regression} & \cellcolor[HTML]{f0f8ff}{33 GB} & \cellcolor[HTML]{f0f8ff}{55,8 Sek.} & \cellcolor[HTML]{f0f8ff}{32 GB}\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+Die Ergebnisse in Tabelle~\ref{tbl-baseline} zeigen, dass der
+umfangreiche Arbeitsspeicher des FDZ OnSite-Servers nicht ausreicht, um
+das ganze BTP in Stata einzulesen, sodass zwingend mit
+Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand
+der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa
+2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
+
+\subsection{Kleiner Vergleich zwischen R, SAS und
+Stata}\label{kleiner-vergleich-zwischen-r-sas-und-stata}
+
+Für 1\% der simulierten BTP Daten, reduzieren die
+R-Datenverarbeitungsmethode alle Zielgrößen gegenüber SAS und Stata
+erheblich (siehe Tabelle~\ref{tbl-benchmark-small} und
+Tabelle~\ref{tbl-benchmark-regr-small}). Selbst klassische R-Methoden
+sind um den Faktor 7 schneller und benötigen nur 33 \% des
+Festplattenspeichers. \{polars\}, \{duckdb\} und \{arrow\} lösen die
+betrachteten Auswertungen sogar
+
+\begin{itemize}
+\tightlist
+\item
+  in \textbf{unter 2 Sekunden} (27-fach schneller),
+\item
+  mit unter \textbf{300 MB Arbeitsspeicher} -- \{duckdb\} und
+  \{polars\}{[}\^{}polars-ram{]} sogar mit unter \textbf{5 MB} (10-fach
+  weniger)\footnote{Lediglich in der Arbeitsspeicherbeanspruchung, ist
+    SAS deutlich besser als klassische R-Methoden. Gegenüber
+    hoch-performanten R-Methoden benötigt SAS jedoch den 10-fachen
+    Arbeitsspeicher.}\footnote{\{arrow\} benötigt mit 274 MB deutlich
+    mehr Arbeitsspeicher als \{polars\} und \{duckdb\}, aber kommt
+    dennoch mit minimalen Entwicklungsumgebungen aus, bspw. einem
+    standardmäßigen Laptop.} --
+\item
+  und nur mit \textbf{5 GB Festplattenspeicher} (6-fach weniger
+  gegenüber SAS und Stata).
+\end{itemize}
+
+Unter den klassischen R-Methoden bietet \{data.table\} die beste
+Performanz. Dabei ist wesentlich zu beachten, dass die Einlesefunktion
+\texttt{fread} direkt die relevanten Variablen auswählt. Dadurch lassen
+sich unsere Auswertungen um einen Faktor 3 beschleunigen und vor allem
+der Arbeitsspeicher um einen Faktor 1.000 reduzieren.
+
+Alle hoch-performanten Methoden sind dermaßen effizient, dass die
+Datenmenge von 800.000 Beobachtungen nicht mehr ausreicht, um zwischen
+den besten Methoden zu differenzieren. Daher erhöhen wir im nächsten
+Experiment die Datenmenge auf 8.000.000 Beobachtungen (10\% BTP).
+
+\begin{table*}
+
+\caption{\label{tbl-benchmark-small}Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP}
+
+\centering{
+
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+
+\begin{tabular}{|>{}l|||>{}l|||>{}l|||>{}r|||>{}r|||>{}r|}
+\hline
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Package}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Dateiformat}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Optimierung}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Arbeitsspeicher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Laufzeit}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Festplattenspeicher}}}\\
+\hline
+\cellcolor{white}{\textcolor{black}{\{polars\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,3 MB} & \cellcolor[HTML]{f0f8ff}{1,0 Sek} & \cellcolor[HTML]{f0f8ff}{4,9 GB}\\
+\cellcolor{white}{\textcolor{black}{\{duckdb\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{4,8 MB} & \cellcolor[HTML]{f0f8ff}{1,5 Sek} & \cellcolor[HTML]{f0f8ff}{4,9 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{273,7 MB} & \cellcolor[HTML]{f0f8ff}{1,7 Sek} & \cellcolor[HTML]{f0f8ff}{4,9 GB}\\
+\cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{42,9 MB} & \cellcolor[HTML]{f0f8ff}{2,5 Sek} & \cellcolor[HTML]{f0f8ff}{13,0 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (gleichmäßig)} & \cellcolor[HTML]{f0f8ff}{229,7 MB} & \cellcolor[HTML]{f0f8ff}{2,8 Sek} & \cellcolor[HTML]{f0f8ff}{4,9 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{272,8 MB} & \cellcolor[HTML]{f0f8ff}{2,8 Sek} & \cellcolor[HTML]{f0f8ff}{4,9 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{230,4 MB} & \cellcolor[HTML]{f0f8ff}{3,8 Sek} & \cellcolor[HTML]{f0f8ff}{4,9 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{229,9 MB} & \cellcolor[HTML]{f0f8ff}{3,9 Sek} & \cellcolor[HTML]{f0f8ff}{4,8 GB}\\
+\cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{33,7 GB} & \cellcolor[HTML]{f0f8ff}{7,4 Sek} & \cellcolor[HTML]{f0f8ff}{13,0 GB}\\
+\cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{50,4 GB} & \cellcolor[HTML]{f0f8ff}{13,6 Sek} & \cellcolor[HTML]{f0f8ff}{10,5 GB}\\
+\hline
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+\begin{table*}
+
+\caption{\label{tbl-benchmark-regr-small}Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP}
+
+\centering{
+
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+
+\begin{tabular}{|>{}l|||>{}l|||>{}l|||>{}r|||>{}r|||>{}r|}
+\hline
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Package}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Dateiformat}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Optimierung}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Arbeitsspeicher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Laufzeit}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Festplattenspeicher}}}\\
+\hline
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{529,7 MB} & \cellcolor[HTML]{f0f8ff}{3,8 Sek} & \cellcolor[HTML]{f0f8ff}{4,8 GB}\\
+\cellcolor{white}{\textcolor{black}{\{dplyr\}}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{154,8 MB} & \cellcolor[HTML]{f0f8ff}{13,2 Sek} & \cellcolor[HTML]{f0f8ff}{13,0 GB}\\
+\hline
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+\clearpage
+
+\subsection{Größere Datenmengen in
+R}\label{gruxf6uxdfere-datenmengen-in-r}
+
+Auch für 10 \% der simulierten BTP-Daten, kann R die beiden betrachteten
+Auswertungen in Echtzeit mit minimalem Arbeitsspeicher beantworten
+(siehe Tabelle~\ref{tbl-benchmark} und
+Tabelle~\ref{tbl-benchmark-regr}). Die Auswertungsmethoden mit der
+höchsten Performanz nutzen alle das \{parquet\} und erreichen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \{arrow\} benötigt nur \textbf{4,7 Sekunden} und 230 MB
+  Arbeitsspeicher,
+\item
+  \{duckdb\} benötigt nur 5,1 Sekunden und \textbf{4,7 MB
+  Arbeitsspeicher}.
+\end{enumerate}
+
+{[}tba: Plot der Performanz unterschiede{]}
+
+Unerwarteterweise ist die Laufzeit von \{polars\} für diese Datenmenge
+mit 1,2 Minuten weit abgeschlagen, obwohl das gleiche Auswertungsskript
+für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da
+\{polars\} das jüngste der betrachteten R-Packages ist, vermuten wir
+Performanzprobleme in der vorliegenden Version 1.0.1\footnote{Das
+  R-Package \{polars\} Version 1.0.1 war nur der erste Minor Release
+  nach einer kompletten Überarbeitung. Inzwischen sind 5 neuere Major
+  Releases mit diversen Performanz-Verbesserungen verfügbar.}. Zudem hat
+es noch größere Entwicklungsaufwände beansprucht, da der an Python
+angelehnte Syntaxstil deutlich von üblicher Programmierung in R
+abweicht. Öffentliche Hilfestellung bezieht sich hauptsächlich auf
+Python (oder Rust), was sich in den Antworten der KI-Chatassistenten
+wiederspiegelt.
+
+Klassische Methoden kommen bei der betrachteten Datenmenge bereits an
+ihre Grenzen. Falls in \{data.table\} unbedacht der vollständige
+Datensatz eingelesen wird, werden in unserem Anwemdungsfall die
+verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn
+klassische Methoden auf Datenmengen von ca. 25-33\% des verfügbaren
+Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der
+Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu
+selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
+
+Somit kommen wir insgesamt zu dem Ergebnis, dass \{arrow\} kombiniert
+mit \{parquet\} für die Bewältigung unserer Aufgaben die beste
+Datenverarbeitungsmethode ist, da die Methodik hervorragende Performanz
+und zugleich hohe Nutzerfreundlichkeit bietet. Im Detail haben uns der
+folgenden Mehrwerte überzeugt:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Für die relevanteste Datenmenge von 8 Mio. Beobachtungen zeigte
+  \{arrow\} die geringsten Laufzeiten unter 5 Sekunden, was der
+  Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und
+  der Wissenschaft alle denkenswerten explorativen Analysen auszuweiten.
+\item
+  auch die Nutzererfahrung gefiel uns mit \{arrow\} am besten und somit
+  waren die einhergehenden Entwicklungaufwände gegenüber den Anderen
+  Methoden am geringsten.
+\item
+  ,\{arrow\} verwendet die anschauliche \{tidyverse\} Syntax nativ.
+  Vorhandener Code lässt sich zum Großteil änderungsfrei und ohne
+  Performanzverluste auf \{arrow\} übertragen. \{duckdb\} kann bei
+  Kenntnissen in SQL zu bevorzugen sein und \{polars\} mit Erfahrungen
+  in Python.
+\item
+  Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in
+  \{arrow\} programmieren.\footnote{www.opencode.de/URL-To-Be-Announced.}
+\item
+  Obwohl nicht alle Features aus \{tidyverse\} für \{arrow\} verfügbar
+  sind, ließ sich bisher immer eine Lösung finden, um die gewünschte
+  Auswertung umzusetzen, bspw. durch Kombination mit \{duckdb\} oder
+  andere Funktionsaufrufe.
+\item
+  \{arrow\} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB)
+  (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von
+  \{arrow\} ist in unserer Auswertung nahezu konstant abhängig von der
+  Datenmenge, sodass \{arrow\} leicht auf noch größere Datenmengen
+  skalieren kann
+\item
+  Dadurch das \{arrow\} die Nutzung auch von mehreren \{parquet\}
+  Dateien unterstützt spart gegenüber CSV mind. 50\% der Festplatte (für
+  das reale BTP sogar 80\%+) und ermöglicht schnelle Nutzung auch von
+  Datenmengen überhalb des verfügbaren Arbeitsspeichers.
+\end{enumerate}
+
+\begin{table*}
+
+\caption{\label{tbl-benchmark}Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP}
+
+\centering{
+
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+
+\begin{tabular}{|>{}l|||>{}l|||>{}l|||>{}r|||>{}r|||>{}r|}
+\hline
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Package}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Dateiformat}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Optimierung}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Arbeitsspeicher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Laufzeit}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Festplattenspeicher}}}\\
+\hline
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (gleichmäßig)} & \cellcolor[HTML]{f0f8ff}{229,9 MB} & \cellcolor[HTML]{f0f8ff}{4,7 Sek} & \cellcolor[HTML]{f0f8ff}{48,8 GB}\\
+\cellcolor{white}{\textcolor{black}{\{duckdb\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{4,7 MB} & \cellcolor[HTML]{f0f8ff}{5,1 Sek} & \cellcolor[HTML]{f0f8ff}{49,4 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{702,1 MB} & \cellcolor[HTML]{f0f8ff}{7,5 Sek} & \cellcolor[HTML]{f0f8ff}{49,4 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{4,7 MB} & \cellcolor[HTML]{f0f8ff}{11,7 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{230,4 MB} & \cellcolor[HTML]{f0f8ff}{17,0 Sek} & \cellcolor[HTML]{f0f8ff}{49,4 GB}\\
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{701,2 MB} & \cellcolor[HTML]{f0f8ff}{20,6 Sek} & \cellcolor[HTML]{f0f8ff}{49,4 GB}\\
+\cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{427,5 MB} & \cellcolor[HTML]{f0f8ff}{23,6 Sek} & \cellcolor[HTML]{f0f8ff}{130,2 GB}\\
+\cellcolor{white}{\textcolor{black}{\{polars\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,3 MB} & \cellcolor[HTML]{f0f8ff}{1,2 Min} & \cellcolor[HTML]{f0f8ff}{49,4 GB}\\
+\cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{336,0 GB} & \cellcolor[HTML]{f0f8ff}{2,2 Min} & \cellcolor[HTML]{f0f8ff}{130,2 GB}\\
+\cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{506,4 GB} & \cellcolor[HTML]{f0f8ff}{5,0 Min} & \cellcolor[HTML]{f0f8ff}{104,6 GB}\\
+\hline
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+\begin{table*}
+
+\caption{\label{tbl-benchmark-regr}Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP}
+
+\centering{
+
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+
+\begin{tabular}{|>{}l|||>{}l|||>{}l|||>{}r|||>{}r|||>{}r|}
+\hline
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Package}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Dateiformat}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Optimierung}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Arbeitsspeicher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Laufzeit}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Festplattenspeicher}}}\\
+\hline
+\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{782,1 MB} & \cellcolor[HTML]{f0f8ff}{5,2 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 GB}\\
+\cellcolor{white}{\textcolor{black}{\{dplyr\}}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{1,5 GB} & \cellcolor[HTML]{f0f8ff}{1,9 Min} & \cellcolor[HTML]{f0f8ff}{130,2 GB}\\
+\hline
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+{[}tba: Plot RAM-Bedarf abhängig von der Datenmenge{]}
+
+\setcounter{subsection}{4}
+
+\section{Ergebnis für das vollständige BTP}\label{sec-ergebnis}
+
+Anwendung der besten Methode auf die echten Daten des vollständige BTP
+ergibt:
+
+\begin{itemize}
+\tightlist
+\item
+  Performanz von \{arrow\} Fallzahlen (ein paar Sekunden) und Regression
+  (Sekunden)
+\item
+  leicht lesbar in \{arrow\}
+\end{itemize}
+
+\subsection{Ergebnis}\label{ergebnis}
+
+{[}Ergebnistabelle Fallzahl, ggf. als Heatmap{]}
+
+-\textgreater{} Zukünftige Nutzung für MDR wird umgesetzt.
+
+{[}Model Summary?{]}
+
+\subsection{Vergleich zu SAS, (Stata),
+Datatable}\label{vergleich-zu-sas-stata-datatable}
+
+\begin{itemize}
+\tightlist
+\item
+  Ergebnis in SAS
+\item
+  (optional) Datatable ohne sekeltives Einlesen führt zu RAM Crash
+  (RAM-Fehler?)
+\item
+  (optional) Datatable Sel.
+\end{itemize}
+
+Real world application unserer Ergebnisse auf das Echte BTP
+
+Ergebnis für gesamten Datensatz
+
+-\textgreater{} Größere Speicherreduktion, da das echte BTP mehr
+fehlende Werte enthält, als anhand der externen Daten angenommen.
+
+\setcounter{subsection}{5}
+
+\section{Fazit}\label{sec-ausblick}
+
+\subsection{Kernaussage des Artikels}\label{kernaussage-des-artikels}
+
+Wir empfehlen eine Datenhaltung im Parquet-Format und \textbf{R}
+incl.~\{arrow\} + \{parquet\} (bei Bedarf \{duckdb\}, \{polars\}) zu
+erproben und zu etablieren! Denn unsere Untersuchung demonstriert ganz
+neue Möglichkeiten, analytische Fragestellungen anhand großer
+Datenmengen in Echtzeit zu beantworten.
+
+\subsection{Auswirkung auf IT-Infrastruktur und
+Beratung}\label{auswirkung-auf-it-infrastruktur-und-beratung}
+
+\begin{itemize}
+\tightlist
+\item
+  Fokus auf Hardware und Software mit größtem Mehrwert (weniger RAM und
+  R anstatt Spark, GPUs, Datenbanken, Cloud, \ldots)
+\item
+  Fokus auf Maintainance und Patching von R, Parquet und hier genannte
+  Packages \{arrow\}, \{duckdb\}, \{polars\}
+\item
+  Etablierung dieser Softwarelösungen kann langfristig\ldots{}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    die Hardwareanforderungen reduzieren
+  \item
+    die Analysesoftwarevielfalt verschlanken, somit Beschaffungen
+    einsparen (besserer Ausdruck?)
+  \end{itemize}
+\item
+  Schulungsangebot benötigt für \emph{``hoch-performante Auswertungen in
+  R''}
+\item
+  eigener Beitrag zu Open Source entscheidend, um die Etablierung zu
+  fördern.
+\end{itemize}
+
+\subsection{Auswirkungen auf die
+Statistikproduktion}\label{auswirkungen-auf-die-statistikproduktion}
+
+\begin{itemize}
+\tightlist
+\item
+  Steigerung der Effizienz und Reaktionsgeschwindigkeit
+\item
+  (Vorsichtig!? Annette, lieber weg oder rein?) Vereinfachung der
+  Statistikproduktion, durch leicht nachvollziehbaren Code und Fokus auf
+  Wissensaufbau in R
+\item
+  Aufbau eines Datenbestands in Parquet
+\item
+  Anwendung auf weitere Produkte
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Überarbeitung des BTP
+  \item
+    Mindeststeuer (oder?)
+  \item
+    DRG
+  \item
+    TPP 2
+  \end{itemize}
+\end{itemize}
+
+\subsection{Auswirkungen auf die FDZ}\label{auswirkungen-auf-die-fdz}
+
+\begin{itemize}
+\tightlist
+\item
+  Berücksichtigung in Mustersyntaxen und Nutzendenberatung im FDZ Bund.
+  Teilen von Code-Snippets und Templates fördern.
+\item
+  mögliche Vereinfachung der Betreuung (Fokus auf R, Reduktion von
+  Performanz- und Programmierproblemen)
+\item
+  Bereitstellung von Parquet in geeigneter Aufteilung empfohlen
+\item
+  Erprobung im FDZ Bund Vorbild für andere FDZ
+\item
+  Optimierung von Hardware und Software Angebot
+\end{itemize}
+
+\subsection{Auswirkung auf die
+Wissenschaft}\label{auswirkung-auf-die-wissenschaft}
+
+\begin{itemize}
+\tightlist
+\item
+  Verwendung von R bietet am FDZ Bund einen deutlichen
+  \textbf{Wettbewerbsvorteil in der emp. Forschung}. Lediglich R ist (am
+  GWAP und via KDFV) am FDZ Bund in der Lage große Datenmengen innerhalb
+  von Sekunden zu analysieren und Datenmengen überhalb des verfügbaren
+  Arbeitspeicher, wie das BTP, ohne vorherige Variablenselektion
+  auszuwerten.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Vollmaterial kann statt Stichproben angeboten werden. Erleichtert
+    die FDZ Betreuung und GWAP/KDFV-Verfügbarkeit
+  \item
+    mehr explorative oder komplexe Analysen sind in kürzerer Zeit
+    möglich.
+  \end{itemize}
+\item
+  Dazu ist R als frei verfügbare Open-Source Software leicht zu lernen
+  und \{arrow\} bietet hoch-performante Analysen selbst für
+  R-Basiskenntnisse. Empfehlung an die emp. Wissenschaft, sich verstärkt
+  mit R zu befassen.
+\item
+  Für analoge über-RAM-Verarbeitungen bietet Stata aktuell keine Lösung.
+  SAS bietet bei weitem nicht hier gemessene Performanz von R. R
+  hervorragende Möglichkeiten bietet Performanz und
+  Anwenderfreundlichkeit zu übertreffen.
+\item
+  Weiteres Vorgehen: \textbf{NeSt-Pilotprojekt}. Aus dem realen Use Case
+  Optimierung der Systemkonfiguration und Beratungsbedarfe
+  identifizieren.
+\end{itemize}
+
+\subsection{Schlussbemerkung}\label{schlussbemerkung}
+
+Die Analyse großer Datensätze in der amtlichen Statstik und den
+Forschungsdatenzen können von einem signifikanten Performanz-Boost
+profitieren, wenn die vorgestellten Werkzeuge adaptiert werden.
+\textbf{Arrow, DuckDB, Polars und Parquet} -- bieten das Potenzial, die
+Effizienz erheblich zu steigern und neue Analysemöglichkeiten zu
+eröffnen.
+
+Der Übergang erfordert jedoch eine \textbf{koordinierte Anstrengung} von
+Infrastrukturbetreibern, amtlicher Statistik, Forschungsdatenzentren und
+Forschenden. Die systematische Wissensaufbau, Dokumentation und
+Verbreitung von Best Practices wird entscheidend für den Erfolg sein.
+
+Die amtliche Statistik kann von diesen Entwicklungen in mehrfacher
+Hinsicht profitieren: \textbf{schnellere Erkenntnisgewinnung},
+\textbf{umfassendere Analysen} und \textbf{effizientere
+Ressourcennutzung}. Dies trägt letztlich zur Stärkung der
+evidenzbasierten Politik- und Gesellschaftsberatung bei.
+
+\section*{Anhang}\label{anhang}
+\addcontentsline{toc}{section}{Anhang}
+
+Inhalte für die Veröffentlichung in Open Code.
+
+\subsection*{Weitere Performancemessungen für kleinere
+Datenmengen.}\label{weitere-performancemessungen-fuxfcr-kleinere-datenmengen.}
+\addcontentsline{toc}{subsection}{Weitere Performancemessungen für
+kleinere Datenmengen.}
+
+\begin{table*}
+
+\caption{\label{tbl-bm-cnt-small}Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP)}
+
+\centering{
+
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+
+\begin{tabular}{|>{}r||>{}l||>{}l||>{}l||>{}r||>{}r||>{}r|}
+\toprule
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Beob.}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Package}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Dateiformat}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Optimierung}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Arbeitsspeicher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Laufzeit}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Festplattenspeicher}}}\\
+\midrule
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{polars\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,3 MB} & \cellcolor[HTML]{f0f8ff}{0,4 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{4,4 MB} & \cellcolor[HTML]{f0f8ff}{0,7 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{230,7 MB} & \cellcolor[HTML]{f0f8ff}{1,1 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{readr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{9,3 MB} & \cellcolor[HTML]{f0f8ff}{1,2 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{229,8 MB} & \cellcolor[HTML]{f0f8ff}{1,6 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{duckdb\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{4,7 MB} & \cellcolor[HTML]{f0f8ff}{2,9 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,4 GB} & \cellcolor[HTML]{f0f8ff}{3,6 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{229,9 MB} & \cellcolor[HTML]{f0f8ff}{4,2 Sek} & \cellcolor[HTML]{f0f8ff}{486,9 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{230,4 MB} & \cellcolor[HTML]{f0f8ff}{4,6 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{5,1 GB} & \cellcolor[HTML]{f0f8ff}{4,8 Sek} & \cellcolor[HTML]{f0f8ff}{1,0 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (gleichmäßig)} & \cellcolor[HTML]{f0f8ff}{229,9 MB} & \cellcolor[HTML]{f0f8ff}{7,1 Sek} & \cellcolor[HTML]{f0f8ff}{483,5 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{readr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{1,7 GB} & \cellcolor[HTML]{f0f8ff}{8,6 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{27,4 MB} & \cellcolor[HTML]{f0f8ff}{15,7 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV.GZ} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{4,7 GB} & \cellcolor[HTML]{f0f8ff}{21,2 Sek} & \cellcolor[HTML]{f0f8ff}{421,9 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{base\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{9,7 GB} & \cellcolor[HTML]{f0f8ff}{4,9 Min} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{0,6 MB} & \cellcolor[HTML]{f0f8ff}{0,1 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{readr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{2,7 MB} & \cellcolor[HTML]{f0f8ff}{0,2 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{polars\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,3 MB} & \cellcolor[HTML]{f0f8ff}{0,4 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{341,8 MB} & \cellcolor[HTML]{f0f8ff}{0,9 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{duckdb\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{4,7 MB} & \cellcolor[HTML]{f0f8ff}{1,1 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{226,2 MB} & \cellcolor[HTML]{f0f8ff}{1,2 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{225,3 MB} & \cellcolor[HTML]{f0f8ff}{1,4 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,5 MB} & \cellcolor[HTML]{f0f8ff}{1,5 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV.GZ} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{491,7 MB} & \cellcolor[HTML]{f0f8ff}{2,7 Sek} & \cellcolor[HTML]{f0f8ff}{42,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{510,9 MB} & \cellcolor[HTML]{f0f8ff}{2,8 Sek} & \cellcolor[HTML]{f0f8ff}{104,5 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{229,9 MB} & \cellcolor[HTML]{f0f8ff}{2,9 Sek} & \cellcolor[HTML]{f0f8ff}{53,5 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{230,4 MB} & \cellcolor[HTML]{f0f8ff}{3,7 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (gleichmäßig)} & \cellcolor[HTML]{f0f8ff}{229,7 MB} & \cellcolor[HTML]{f0f8ff}{4,0 Sek} & \cellcolor[HTML]{f0f8ff}{50,5 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{readr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{197,4 MB} & \cellcolor[HTML]{f0f8ff}{4,9 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{base\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{713,4 MB} & \cellcolor[HTML]{f0f8ff}{23,3 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+\begin{table*}
+
+\caption{\label{tbl-bm-reg-small}Benchmarkergebnisse für Regression (kleine Stichproben des BTP)}
+
+\centering{
+
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+
+\begin{tabular}{|>{}r||>{}l||>{}l||>{}l||>{}r||>{}r||>{}r|}
+\toprule
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Beob.}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Package}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Dateiformat}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Optimierung}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Arbeitsspeicher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Laufzeit}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Festplattenspeicher}}}\\
+\midrule
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{dplyr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{17,6 MB} & \cellcolor[HTML]{f0f8ff}{1,3 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{459,3 MB} & \cellcolor[HTML]{f0f8ff}{5,0 Sek} & \cellcolor[HTML]{f0f8ff}{486,9 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{dplyr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{1,8 GB} & \cellcolor[HTML]{f0f8ff}{10,8 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{dplyr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{4,2 MB} & \cellcolor[HTML]{f0f8ff}{0,3 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{dplyr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{206,9 MB} & \cellcolor[HTML]{f0f8ff}{6,4 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{452,5 MB} & \cellcolor[HTML]{f0f8ff}{6,8 Sek} & \cellcolor[HTML]{f0f8ff}{53,5 MB}\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+
+\printbibliography
+
+
+
+\end{document}
