@@ -1,0 +1,105 @@
+---
+title: "Wordcount Example"
+subtitle: "Example with {{wordcount}} words"
+filters:
+  - wordcount
+wordcount:
+  count-code-blocks: false
+  count-inline-code: false
+format: 
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{etoolbox}
+        \usepackage{xcolor}
+        \usepackage{fancyhdr}
+        
+        % Add metadata page before title
+        \makeatletter
+        \pretocmd{\@maketitle}{%
+          \clearpage
+          \thispagestyle{empty}
+          \begin{center}
+            \vspace*{3cm}
+            {\LARGE\bfseries Document Metadata}
+            \vspace{1.5cm}
+            
+            \begin{tabular}{ll}
+              \textbf{Word count:} & {{wordcount}} words \\[0.5em]
+              \textbf{Word count (with references):} & {{wordcountref}} words \\[0.5em]
+              \textbf{Number of tables:} & \thetable \\[0.5em]
+              \textbf{Number of figures:} & \thefigure \\[0.5em]
+              \textbf{Last build:} & \today \\[0.5em]
+            \end{tabular}
+          \end{center}
+          \clearpage
+        }{}{}
+        \makeatother
+        
+        % Add DRAFT indicator to section headings
+        \let\oldsection\section
+        \renewcommand{\section}[1]{\oldsection{#1 \textcolor{red}{[DRAFT]}}}
+        \let\oldsubsection\subsection
+        \renewcommand{\subsection}[1]{\oldsubsection{#1 \textcolor{red}{[DRAFT]}}}
+        \let\oldsubsubsection\subsubsection
+        \renewcommand{\subsubsection}[1]{\oldsubsubsection{#1 \textcolor{red}{[DRAFT]}}}
+references:
+  - id: knuth1984
+    author:
+      - Donald Ervin Knuth
+      - Duane Bibby
+    title: The TeXBook
+    year: 1984
+---
+
+## Heading
+
+Words can be inserted by using the `{{wordcount}}` doohickey.
+It's not a shortcode, since those have inner arrows.
+It is something, maybe a placeholder.
+
+There are {{wordcount}} words.^[Works with general footnotes too: total of {{wordcount}} words.]
+
+We can add cites too, such as @knuth1984.
+Then we can count the total words, including references, as {{wordcountref}} using `{{wordcountref}}`.
+
+## Words by section
+
+The number of words by section will be logged to the Quarto terminal.
+
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| Data 1   | Data 2   | Data 3   |
+| Data 4   | Data 5   | Data 6   |
+
+: Example table demonstrating table counting {#tbl-example}
+
+See @tbl-example for an example of a table.
+
+### Lower-level headings
+
+Of course, low level headings can be used too.
+
+```{r}
+#| label: fig-example
+#| fig-cap: "Example plot demonstrating figure counting"
+#| echo: false
+
+plot(1:10, 1:10, main="Simple Plot", xlab="X", ylab="Y", pch=19, col="blue")
+```
+
+See @fig-example for an example of a figure.
+
+### Behavior of Inline Code
+
+There are two YAML parameters that control how code is counted:
+
+- **`count-code-blocks`** – includes or excludes fenced/indented code blocks (`CodeBlock` elements).
+- **`count-inline-code`** – includes or excludes inline code spans (`` `like this` ``).
+
+Both default to `true` for backward compatibility.  
+When `count-inline-code` is enabled, inline code counts each non-space token inside backticks.  
+For example, `` `r 2+2` `` adds **2** words, while `` `r 2 + 2` `` adds **4**.  
+Setting `count-inline-code: false` prevents inline code from affecting the total word count.
+
+## References
