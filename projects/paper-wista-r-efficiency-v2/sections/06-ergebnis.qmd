@@ -2,7 +2,7 @@
 \setcounter{subsection}{4}
 ```
 
-## Anwendung auf das BTP {#sec-ergebnis}
+## Ergebnis für das vollständige BTP {#sec-ergebnis}
 
 Anwendung der besten Methode auf die echten Daten des vollständige BTP ergibt:
 
