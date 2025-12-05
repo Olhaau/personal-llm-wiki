@@ -4,11 +4,24 @@
 
 ## Anwendung auf das BTP {#sec-ergebnis}
 
-Anwendung der besten Methoden auf das vollständige BTP
+Anwendung der besten Methode auf die echten Daten des vollständige BTP ergibt:
 
--   Repräsentant high perf: Arrow -\>
--   (optional) Datatable ohne sekeltives Einlesen führt zu RAM Crash (RAM-Fehler?)
--   (optional) Datatable Sel.
+- Performanz von {arrow} Fallzahlen (ein paar Sekunden) und Regression (Sekunden)
+- leicht lesbar in {arrow}
+
+### Ergebnis
+
+[Ergebnistabelle Fallzahl, ggf. als Heatmap]
+
+-> Zukünftige Nutzung für MDR wird umgesetzt.
+
+[Model Summary?]
+
+### Vergleich zu SAS, (Stata), Datatable
+
+- Ergebnis in SAS
+- (optional) Datatable ohne sekeltives Einlesen führt zu RAM Crash (RAM-Fehler?)
+- (optional) Datatable Sel.
 
 Real world application unserer Ergebnisse auf das Echte BTP
 

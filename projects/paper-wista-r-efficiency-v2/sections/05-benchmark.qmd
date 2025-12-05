@@ -2,9 +2,9 @@
 
 ### Versuchsaufbau
 
-Um zwischen den in Abschnitt @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Vergleich der Performance auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des FDZ gemessen. Weiterführende Performanzmessung sowie der vollständig reproduzierbare Code sind auf Opencode verfügbar[^1].
+Um zwischen den in Abschnitt @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Vergleich der Performance auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des FDZ gemessen. Weiterführende Performanzmessung sowie der vollständig reproduzierbare Code sind auf Opencode verfügbar[^opencode].
 
-[^1]: www.opencode.de/URL-To-Be-Announced.
+[^opencode]: www.opencode.de/URL-To-Be-Announced.
 
 Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen Größen (0,1%/1%/10% von den insgesamt 80 Mio. Beobachtungen des BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen generiert, um die wesentlichen Strukturen des BTP für unsere Analyse künstlich nachzubilden. Abgrenzend zu den im FDZ bereitgestellten *Datenstrukturfiles* wurden die Testdaten nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
 
@@ -66,8 +66,10 @@ Die Ergebnisse in @tbl-baseline zeigen, dass der umfangreiche Arbeitsspeicher de
 Für 1% der simulierten BTP Daten, reduzieren die R-Datenverarbeitungsmethode alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. {polars}, {duckdb} und {arrow} lösen die betrachteten Auswertungen sogar
 
 -   in **unter 2 Sekunden** (27-fach schneller),
--   mit unter **300 MB Arbeitsspeicher** -- {duckdb} und {polars} sogar mit unter **5 MB** (10-fach weniger)[^2][^3] --
+-   mit unter **300 MB Arbeitsspeicher** -- {duckdb} und {polars}[^polars-ram] sogar mit unter **5 MB** (10-fach weniger)[^2][^3] --
 -   und nur mit **5 GB Festplattenspeicher** (6-fach weniger gegenüber SAS und Stata).
+
+[polars-ram]: `bench::mark` kann für Rust-basierte Applikationen RAM nicht zuverlässig messen. S. https://tidypolars.etiennebacher.com/.
 
 [^2]: Lediglich in der Arbeitsspeicherbeanspruchung, ist SAS deutlich besser als klassische R-Methoden. Gegenüber hoch-performanten R-Methoden benötigt SAS jedoch den 10-fachen Arbeitsspeicher.
 
@@ -218,30 +220,25 @@ Auch für 10 % der simulierten BTP-Daten, kann R die beiden betrachteten Auswert
 1.  {arrow} benötigt nur **4,7 Sekunden** und 230 MB Arbeitsspeicher,
 2.  {duckdb} benötigt nur 5,1 Sekunden und **4,7 MB Arbeitsspeicher**.
 
+
+[tba: Plot der Performanz unterschiede]
+
 Unerwarteterweise ist die Laufzeit von {polars} für diese Datenmenge mit 1,2 Minuten weit abgeschlagen, obwohl das gleiche Auswertungsskript für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da {polars} das jüngste der betrachteten R-Packages ist, vermuten wir Performanzprobleme in der vorliegenden Version 1.0.1[^4]. Zudem hat es noch größere Entwicklungsaufwände beansprucht, da der an Python angelehnte Syntaxstil deutlich von üblicher Programmierung in R abweicht. Öffentliche Hilfestellung bezieht sich hauptsächlich auf Python (oder Rust), was sich in den Antworten der KI-Chatassistenten wiederspiegelt.
 
 [^4]: Das R-Package {polars} Version 1.0.1 war nur der erste Minor Release nach einer kompletten Überarbeitung. Inzwischen sind 5 neuere Major Releases mit diversen Performanz-Verbesserungen verfügbar.
 
-Klassische Methoden kommen bei der betrachteten Datenmenge bereits an ihre Grenzen. Falls in {data.table} unbedacht der vollständige Datensatz eingelesen wird, werden in unserem Anwemdungsfall die verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Wir klassische Methoden ist somit deutlich mehr Erfahrung der Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
+Klassische Methoden kommen bei der betrachteten Datenmenge bereits an ihre Grenzen. Falls in {data.table} unbedacht der vollständige Datensatz eingelesen wird, werden in unserem Anwemdungsfall die verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn klassische Methoden auf Datenmengen von ca. 25-33% des verfügbaren Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
 
-Insgesamt kommen wir zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} im Gesamtpaket die beste Datenverarbeitungsmethode für die Bewältigung unserer Aufgaben aus den folgenden Gründen ist:
+Somit kommen wir insgesamt zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} für die Bewältigung unserer Aufgaben die beste Datenverarbeitungsmethode ist, da die Methodik hervorragende Performanz und zugleich hohe Nutzerfreundlichkeit bietet. Im Detail haben uns der folgenden Mehrwerte überzeugt:
 
-1.  Für die relevanteste Datenmenge zeigte {arrow} die geringsten Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle denkenswerten explorativen Analysen.
-2.  auch die Nutzererfahrung war mit {arrow} am besten und die damit einhergehenden Entwicklungaufwände waren dadurch am geringsten.
-3.  die anschauliche {tidyverse} Syntax lässt sich zum Großteil änderungsfrei und ohne Performanzverluste auf {arrow} übertragen. {duckdb} kann bei Kenntnissen in SQL zu bevorzugen sein und {polars} mit Erfahrungen in Python.
-4.  Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in {arrow} programmieren.
-5.  Obwohl nicht alle Features aus {tidyverse} für {arrow} verfügbar sind, haben wir bisher immer eine Lösung gefunden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit {duckdb}.
-6.  {arrow} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann
-7.  Dadurch das {arrow} die Nutzung auch von mehreren {parquet} Dateien unterstützt spart gegenüber CSV mind. 50% der Festplatte (für das reale BTP sogar 80%+) und ermöglicht schnelle Nutzung auch von Datenmengen überhalb des verfügbaren Arbeitsspeichers.
+1.  Für die relevanteste Datenmenge von 8 Mio. Beobachtungen zeigte {arrow} die geringsten Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle denkenswerten explorativen Analysen auszuweiten.
+2.  auch die Nutzererfahrung gefiel uns mit {arrow} am besten und somit waren die einhergehenden Entwicklungaufwände gegenüber den Anderen Methoden am geringsten.
+  1.  ,{arrow} verwendet die anschauliche {tidyverse} Syntax nativ. Vorhandener Code lässt sich zum Großteil änderungsfrei und ohne Performanzverluste auf {arrow} übertragen. {duckdb} kann bei Kenntnissen in SQL zu bevorzugen sein und {polars} mit Erfahrungen in Python.
+  2.  Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in {arrow} programmieren.[^opencode]
+  3.  Obwohl nicht alle Features aus {tidyverse} für {arrow} verfügbar sind, ließ sich bisher immer eine Lösung finden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit {duckdb} oder andere Funktionsaufrufe.
+3.  {arrow} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann
+4.  Dadurch das {arrow} die Nutzung auch von mehreren {parquet} Dateien unterstützt spart gegenüber CSV mind. 50% der Festplatte (für das reale BTP sogar 80%+) und ermöglicht schnelle Nutzung auch von Datenmengen überhalb des verfügbaren Arbeitsspeichers.
 
--   {arrow} zeigte im Experiment die beste Nutzendenerfahrung.
-    -   Beide Anwendungen lassen sich in unter 20 Z. mit Arrow programmieren (verständlich lesbar) s. Opencode Repo.
-    -   Leicht und verständlich - adaptiert nativ schöne {tidyverse} Syntax. Dagegen sind {duckdb} und {polars} auf Zusatzpakete angewiesen, die tlw. die Performanz reduzieren können.
-    -   Flexibel, selektives Einlesen ist zwingend erforderlich
-    -   hohe Stabilität, fehlende Features können durch leicht in duckdb oder in den Arbeitsspeicher überführt und dennoch ausgeführt werden
--   kleiner Nachteile: Erfahrung notwendig, da...
-    -   erst Datenaufteilung/selektives Einlesen die maximale Performanz erreicht
-    -   aktuell nicht der volle Funktionsumfang von {tidyverse} in {arrow} abgebildet wird, sodass auf fehlende Features mit {duckdb} etc. reagiert werden muss.
 
 ```{r}
 #| echo: false
@@ -278,8 +275,9 @@ tbl_out <- format_benchmark_table(dat_bm_filtered,
 output_table(tbl_out)
 ```
 
+[tba: Plot RAM-Bedarf abhängig von der Datenmenge]
 
-[tba: Plot RAM-Bedarf in Datenmenge]
+<!--
 
 ### (Weitere Erkenntnisse des Experiments)
 
@@ -299,3 +297,5 @@ output_table(tbl_out)
 -   {arrow} verzeiht Fehler leicht(er als DT). Denn schlecht programmiert, ist es immernoch ganz gut). Alleine durch die Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet durch das FDZ), erreichen wir die Fallzahl-Berechung in 11.73s, nur 5s über dem absoluten Optimum.
 -   R-base oder readr sind immer weit abgeschlagen und zu vermeiden.
 -   Wenn der RAM extrem begrenzt ist, können {poars} oder {duckdb} dennoch eingesetzt werden.
+
+-->

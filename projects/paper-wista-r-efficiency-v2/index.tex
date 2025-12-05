@@ -369,7 +369,7 @@
 
 \title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
 \author{Oliver Hauke \and Annette Kristiansen}
-\date{2025-12-04}
+\date{2025-12-05}
 \begin{document}
 \maketitle
 
@@ -502,15 +502,12 @@ Netzwerk empririscher Steuerforschung, hier kurz NeSt
 \subsubsection{Steigende Datenmenge in der amtlichen
 Statistik}\label{steigende-datenmenge-in-der-amtlichen-statistik}
 
-StBA
-
 \begin{itemize}
-\tightlist
 \item
   Qualitätsbericht. Wachsende Datenmenge in der amtl. Statistik, Verweis
   auf \autocite{destatis2023}
 \item
-  Datenverarbeitung im StBA erklären
+  Datenverarbeitung im StBA \ldots{}
 \item
   neues NeSt Produkt BTP zeigt Umfang, hoch interessant für Wissenschaft
 \item
@@ -518,11 +515,6 @@ StBA
 \item
   Nicht mehr durch vorhandene Systemkapazitäten (insb. Arbeitsspeicher)
   gedeckt
-\end{itemize}
-
--\textgreater{} wir müssen RAM sparen! Idealerweise auch Laufzeit.
-
-\begin{itemize}
 \item
   Herausforderungen (größere Datenmengen, komplexere Analysen,
   schnellere Antworten notwendig)
@@ -792,7 +784,7 @@ Transformieren und Auswerten von Daten.
 \end{itemize}
 
 \subsubsection{Hoch-performante
-R-Pakete}\label{hoch-performante-r-pakete}
+Datenverarbeitungsmethoden}\label{hoch-performante-datenverarbeitungsmethoden}
 
 Als Desktopanwendung konzipiert ist R nicht für hoch-performante
 Auswertungen von Big Data bekannt. Wie unsere Untersuchung zeigen wird,
@@ -815,8 +807,7 @@ hoch-performante Auswertung großer Datenmengen ermöglichen.
   Abhängkeiten (organisatorische Einschränkungen)
 \end{itemize}
 
-\subsection{Umsetzungsideen/-vorschläge im
-StBA/FDZ}\label{umsetzungsideen-vorschluxe4ge-im-stbafdz}
+\subsection{Umsetzung im StBA und FDZ}\label{umsetzung-im-stba-und-fdz}
 
 \begin{itemize}
 \item
@@ -875,28 +866,16 @@ StBA/FDZ}\label{umsetzungsideen-vorschluxe4ge-im-stbafdz}
   e.g.~Verweis auf Changelog von Arrow, Polars
 \end{itemize}
 
-\subsection{Fokus der Artikels}\label{fokus-der-artikels}
+Ausbreitung von R - gleich die richtige Technologie auswählen und
+einsetzen. Aber welche ist die ``richtige''? Was für Unterschiede
+(Vorteile / Nachteile) haben die Technologien. Dies will dieser Artikel
+im Falle des BTP untersuchen. Kontrollierte Benchmark und weitere
+(qualitative) Aspekte, wie Userexperience.
 
 Zielgruppe: alle Datenanalytiker mit rudimentären R-Kenntnisse, aber
 breit, FDZ, amtl. Stat,
 
-Scope, Abgrenzung
-
-\begin{itemize}
-\tightlist
-\item
-  Identifizierte Kernaufgabe: 90\% irrelevante Informationen aus großen
-  Datenmengen rausfiltern, Untersuchung wie dies am effizientesten geht.
-\end{itemize}
-
-Leitet in den weiteren Artikel über zu der Kernfrage
-
-enchmark Experiment
-
--\textgreater{} Empfehlung Systemressourcen für IT-Betrieb
--\textgreater{} Software- und Methodenempfehlung für Wissenschaft
-
-Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
+Wir fokussieren uns auf folgende zentrale Forschungsfragen:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -912,75 +891,49 @@ Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
   stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
 \end{enumerate}
 
-\begin{itemize}
-\tightlist
-\item
-  Bei der Integration von R und umfangreichen Auswahl, welche
-  Technologie sollte Datenaufbereitung, -analyse und -auswertung genutzt
-  werden?
-\item
-  Wir nutzen eine Kontrollierte Benchmark
-\end{itemize}
-
-Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in
-\textbf{?@sec-btp} der Anwendungsfall Business-Tax-Panel vorgestellt,
-der als empirisches Beispiel für die Analysen dient.
-Kapitel~\ref{sec-infrastruktur} beschreibt die Infrastruktur des
-Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen
-durchgeführt werden.
-
-In Kapitel~\ref{sec-methoden} werden verschiedene effiziente
-Auswertungsmethoden vorgestellt und deren theoretische Grundlagen
-erläutert. Kapitel~\ref{sec-performance} präsentiert die empirischen
-Performanzergebnisse der verschiedenen Ansätze. Die Arbeit schließt mit
-einem Ausblick auf zukünftige Entwicklungen in
-Kapitel~\ref{sec-ausblick}.
-
-Die Analyse basiert auf einer umfangreichen empirischen Studie, die
-verschiedene statistische Verfahren anhand realer Datensätze aus der
-amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch
-neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren
-Optionen zu zeichnen.
-
 \section{Anwendungsfall
 Business-Tax-Panel}\label{anwendungsfall-business-tax-panel}
 
 \subsection{Datengrundlage}\label{datengrundlage}
 
-\begin{itemize}
-\tightlist
-\item
-  Umfang über verfügbaren Arbeitsspeicher
-\item
-  Besonders breit mit 3000 Merkmalen, 80 Mio. Obs.
-\end{itemize}
+\emph{Bei den verwendeten Statistiken handelt es sich um Vollerhebungen,
+teilweise mit Erfassungsgrenze. Insgesamt liegen 77,8 Mio. Beobachtungen
+vor, die auf 16,7 Mio. Einheiten zurückzuführen sind. Der Merkmalsumfang
+variiert je nach Statistik zwischen 120 und 1.300 Merkmalen was
+insgesamt zu einem Merkmalsumfang von über 2.700 Merkmalen führt.
+Hierdurch sind Analyse von Anpassungsreaktionen sowie
+Verteilungsanalysen für verschiedene Beobachtungszeiträume möglich.
+Insgesamt deckt der Forschungsdatensatz eine Vielzahl an
+Analysemöglichkeiten, die für die evidenzbasierte steuerpolitische
+Entscheidungen nötig sind, ab.}
 
-\subsection{Kennzahlen}\label{kennzahlen}
+\emph{Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen
+Ertrags- sowie Umsatzsteuerstatistiken im Quer- und Längsschnitt.
+Verfügbar sind Informationen aus den folgenden Statistiken :
+Gewerbesteuer, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und
+-Veranlagung, Statistik über die Personengesellschaften und
+Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem
+Statistischen Unternehmensregister. Alle verwendeten Steuerarte sind ab
+dem Berichtsjahr 2013 jährlich verfügbar, dies bildet den Beginn des
+Beobachtungszeitraums. Aufgrund der Festsetzungsfrist von vier Jahren
+bei den Veranlagungsstatistiken endet der Beobachtungszeitraum aktuell
+mit dem Berichtsjahr 2020.}
 
 \subsection{Auswertungsbedarfe}\label{auswertungsbedarfe}
 
 Breites Spektrum: Datenaufbereitung/-bereitstellung und Auswertung von
 Mikrodaten durch die Wissenschaft.
 
+\subsubsection{Deskriptive Eckdaten}\label{deskriptive-eckdaten}
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   deskriptive Eckdaten, für BTP als Panel im Quer- und Längsschnitt:
   Fallzahl pro Statistik und Jahr (s.MDR Produkt S. 9f
   https://www.forschungsdatenzentrum.de/sites/default/files/btp\_2013-2019\_on-site\_mdr-prod.pdf)
-\item
-  Verlustvorträge (s. Vortrag NeSt) als Indikator für \ldots{} und
-  Einflussgrößen auf Verlustvorträge, für Vermutung von Einfluss der
-  Unternehmensgröße (großes Gesamtvolumen, Löhne, Spenden, tätige
-  Personen; Auslandskontrolle oder WZ) auf positive Verlustvorträge.
 \end{enumerate}
-
-Aus technischer Sicht, ist die Kernaufgabe den Großteil (von 2991
-Variablen) effizient zu entfernen, sodass lediglich der relevante
-Ausschnitt von kleinem Umfang ausgewertet werden kann.
-
-Beide Anwendungsfälle können bereits im mit den folgenden X von 3000
-Variablen untersucht werden:
 
 Kennzahlen um inhaltlose Testdaten zu generieren werden folgende
 Eckdaten benötigt und im nächsten BTP berücksichtigt:
@@ -990,64 +943,78 @@ Eckdaten benötigt und im nächsten BTP berücksichtigt:
 \item
   Befüllung
 \item
-  Statistische Eckdaten univariate (Quantile), multivariate (gemeinsame
-  Verteilung)
+  Statistische Eckdaten univariate (Quantile),
+\item
+  ggf. multivariate (gemeinsame Verteilung)
 \end{itemize}
 
-Update BTP, flexibel reagieren, neue MDR, DSB, \ldots{}
+Exemplarisch, neues BTP beinhaltet dies. Regelmäßige Updates
+beschleunigen.
 
-\begin{itemize}
+\subsubsection{Regressionen}\label{regressionen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
 \tightlist
 \item
-  Datenbereitstellung: MDR
-\item
-  Forschungsprojekt
+  Verlustvorträge\footnote{Vortrag Annette 2024 JK} (s. Vortrag NeSt)
+  als Indikator für \ldots{} und Einflussgrößen auf Verlustvorträge, für
+  Vermutung von Einfluss der Unternehmensgröße (großes Gesamtvolumen,
+  Löhne, Spenden, tätige Personen; Auslandskontrolle oder WZ) auf
+  positive Verlustvorträge.
+\end{enumerate}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Lorenzkurve -\textgreater{} Verteilung der Verlustvorträge
-  \item
-    Logistische Regression -\textgreater{} Einflussfaktoren auf
-    Verlustvorträge
-  \end{itemize}
-\end{itemize}
+\subsection{Technische
+Spezifikationen}\label{technische-spezifikationen}
 
-\subsection{\ldots{}}\label{section}
+\emph{Für die vielfältigen Analysewünsche der Forschenden, den
+Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der
+Erstellung des Metadatenreports des Forschungsdatenzentrums ist der
+Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen
+ist der Datensatz möglichst wenig beschränkt worden und dadurch
+ressourcenintensive. Der damit einhergehende hohe Bedarf an
+Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl
+im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung
+dar.}
+
+\emph{Bei den verwendeten Statistiken handelt es sich um Vollerhebungen,
+teilweise mit Erfassungsgrenze. Insgesamt liegen 77,8 Mio. Beobachtungen
+vor, die auf 16,7 Mio. Einheiten zurückzuführen sind. Der Merkmalsumfang
+variiert je nach Statistik zwischen 120 und 1.300 Merkmalen was
+insgesamt zu einem Merkmalsumfang von über 2.700 Merkmalen führt.
+Hierdurch sind Analyse von Anpassungsreaktionen sowie
+Verteilungsanalysen für verschiedene Beobachtungszeiträume möglich.
+Insgesamt deckt der Forschungsdatensatz eine Vielzahl an
+Analysemöglichkeiten, die für die evidenzbasierte steuerpolitische
+Entscheidungen nötig sind, ab.}
+
+\emph{Für die vielfältigen Analysewünsche der Forschenden, den
+Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der
+Erstellung des Metadatenreports des Forschungsdatenzentrums ist der
+Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen
+ist der Datensatz möglichst wenig beschränkt worden und dadurch
+ressourcenintensive. Der damit einhergehende hohe Bedarf an
+Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl
+im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung
+dar.}
 
 \begin{itemize}
-\tightlist
 \item
-  TODO: Zufügen von öffentlich verfügbaren Informationen zu Struktur und
-  Verteilung des BTP. Verteilung über Statistik und Jahr, \ldots{}
+  Technische Herausforderung:
 
   \begin{itemize}
   \tightlist
   \item
-    was ist wichtig? Randverteilung, missings, vollständigkeit der
-    variablen
+    effiziente und verständliche Speicherung
   \item
-    erstmal eine Tabelle mit Variablenanzahl, Entfernung durch Hinweis
-    feld. Tabelle: Variablenzahl komplett, Variablenanzahl ohne
-    Hinweisfeld, Variablenanzahl Befüllt?
-  \item
-    Hinweis Befüllungsgrad tlw. gering\ldots{} x Variablen fehlen zu
-    90\%, 80\%, 70\%, 60\%, 50\% ?
-  \item
-    Verteilung der Zeilen auf Statistik und Jahr, inkl. Trend
-  \item
-    Verteilung auf Kombinationen genauer
+    Herausfiltern großer Datenmengen irrelevanter Merkmale
   \end{itemize}
 \item
-  Anwendungsfälle volles Spektrum
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Datenbereitstellung, interne Analysen, Schätzungen
-  \item
-    Auswertung durch Wissenschaft im FDZ
-  \end{itemize}
+  Umfang über verfügbaren Arbeitsspeicher
+\item
+  Besonders breit mit 3000 Merkmalen, 69 Mio. Beobachtung, sodass
+  zeilenbasierte Formate problematisch sind.
 \item
   Technische Herausforderung:
 
@@ -1062,37 +1029,59 @@ Update BTP, flexibel reagieren, neue MDR, DSB, \ldots{}
 
 \section{Infrastruktur des FDZ-Bund}\label{sec-infrastruktur}
 
-Erwähnen: Klassisch ebenso SAS- und Stata-Server
+Womit wir arbeiten können.
 
-Womit wir arbeiten können\ldots{}
-
-TODO: Vorbereitung der Daten auf neue Methoden, Werkzeuge
-
-\subsection{StBA}\label{stba}
-
-StBA R-Server mit noch größeren Kapazitäten und grafischen
-Rechenbeschleunigern.
-
-\subsection{FDZ OnSite Server}\label{fdz-onsite-server}
-
-Neu seit November 2025 sind im FDZ OnSite-Server Bund verfügbar.
-
-Zugriff zu Analyseservern in umfangreichen Kapazitäten.
-
-IM FDZ Bund Für Stata oder R in KDFV oder GWAP stehen jeder Nutzung zur
-Verfügung:
-
-\textbf{Systemspezifikationen:}
+\subsection{Allgemeinn}\label{allgemeinn}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Arbeitsspeicher:} bis zu 512 GB
-\item
-  \textbf{Kernanzahl:} 16\\
-\item
-  \textbf{CPU-Geschwindigkeit:} 3.1 GHz
+  abgeschottete, innerhalb der eigenen Infrastruktur
 \end{itemize}
+
+\subsection{SAS Server}\label{sas-server}
+
+\subsection{StBA R-Server}\label{stba-r-server}
+
+Intern ist R in größeren Kapazitäten nutzbar und Stata nur lokal.
+
+\begin{itemize}
+\tightlist
+\item
+  10 Server á
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1 TB RAM
+  \item
+    96 Kerne
+  \item
+    2 GPUs mit insg. 96 GB VRAM
+  \end{itemize}
+\end{itemize}
+
+Bereitstellung von Paketen und organisatorische einordnung. Veränderung
+der Infrastruktur langwierig, Beschaffung via Beschaffungsamt etc.
+-\textgreater{} wir müssen für die Zukunft planen und umsetzen.
+
+\subsection{FDZ OnSite-Server}\label{fdz-onsite-server}
+
+StBA R-Server mit noch größeren Kapazitäten und grafischen
+Rechenbeschleunigern.
+
+Neu seit November 2025 steht der sog. OnSite-Server im FDZ Bund allen
+OnSite Nutzungen bereit -- jeweisl in Stata un R via KDFV und an den
+GWAP. Zugriff zu Analyseservern in umfangreichen Kapazitäten.
+
+In FDZ Bund Für Stata (3 Server) oder R (6 Server) in KDFV oder GWAP
+stehen jeder Nutzung zur Verfügung:
+
+::: \textbar{} Komponente \textbar{} Umfang \textbar{}
+\textbar---------------------\textbar---------------\textbar{}
+\textbar{} Arbeitsspeicher \textbar{} bis zu 512 GB \textbar{}
+\textbar{} Kernanzahl \textbar{} 16 \textbar{} \textbar{}
+CPU-Geschwindigkeit \textbar{} 3.1 GHz \textbar{} :::
 
 \begin{itemize}
 \tightlist
@@ -1102,374 +1091,17 @@ Verfügung:
   Fußnote RAM in R 128 GB kann erweitert werden.
 \end{itemize}
 
-Intern ist R in größeren Kapazitäten nutzbar und Stata nur lokal.
-
-Nonetheless, the idea carries over to intermediate datasets stored in
-your project directory and highlights the fact that small changes in
-your code can result in large performance gains. This also shows that
-common tasks can usually be accomplished much faster using R than using
-Stata. However, we also pointed out that you should not only focus on
-computing time alone as shorter computing times might be offset by
-longer programming time
-
-Bereitstellung von Paketen und organisatorische einordnung. Veränderung
-der Infrastruktur langwierig, Beschaffung via Beschaffungsamt etc.
--\textgreater{} wir müssen für die Zukunft planen und umsetzen.
-
-\subsection{Ausgangslage}\label{ausgangslage-1}
-
-SAS
-
-\begin{itemize}
-\tightlist
-\item
-  verbreitet
-\item
-  geeignet für größere Datenmengen (langsam)
-\end{itemize}
-
-Stata
-
-\begin{itemize}
-\tightlist
-\item
-  beliebt in Wiss.
-\item
-  hat entsprechend zugeschnittene Features
-\item
-  Bei RAM-Grenze ist Schluss
-\end{itemize}
-
-\subsection{KI Anhang}\label{ki-anhang}
-
-\subsubsection{Die Forschungsdatenzentren der amtlichen
-Statistik}\label{die-forschungsdatenzentren-der-amtlichen-statistik}
-
-Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus
-zwei organisatorisch voneinander getrennten Einrichtungen: dem
-\textbf{Forschungsdatenzentrum des Statistischen Bundesamts} und dem
-\textbf{Forschungsdatenzentrum der Statistischen Ämter der Länder}.
-Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und
-Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten
-der amtlichen Statistiken.
-
-\textbf{Entstehung und Entwicklung.}
-
-Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur
-Verbesserung der informationellen Infrastruktur zwischen Wissenschaft
-und Statistik'' (KVI) von 1999 zurück. Mit finanzieller Förderung des
-Bundesministeriums für Bildung und Forschung (BMBF) wurde im Herbst 2001
-zunächst das FDZ des Statistischen Bundesamts gegründet. Das FDZ der
-Statistischen Ämter der Länder folgte im April 2002.
-
-\textbf{Aufgaben und Ziele.}
-
-Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen
-Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern
-fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Datenzugang:} Bereitstellung hochwertiger Mikrodaten für die
-  wissenschaftliche Forschung
-\item
-  \textbf{Datenschutz:} Gewährleistung des Schutzes personenbezogener
-  und unternehmensbezogener Daten nach § 16 BStatG
-\item
-  \textbf{Beratung:} Unterstützung der Forschenden bei der Datennutzung
-  und methodischen Fragen
-\item
-  \textbf{Infrastruktur:} Bereitstellung einer sicheren und
-  leistungsfähigen Auswertungsumgebung
-\item
-  \textbf{Regionalisierung:} Flächendeckende Standorte in ganz
-  Deutschland für kurze Anfahrtswege
-\end{itemize}
-
-\subsubsection{Technische Infrastruktur}\label{technische-infrastruktur}
-
-\textbf{Hardware-Ausstattung.}
-
-Die technische Infrastruktur des FDZ-Bund umfasst verschiedene
-Systemkomponenten:
-
-\begin{table*}[htbp]
-\caption{Technische Ausstattung des FDZ-Bund (beispielhafte Konfiguration)}
-\label{tbl-fdz-infrastructure}
-\centering
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llc@{}}
-\toprule
-Komponente & Spezifikation & Anzahl\\
-\midrule
-Rechenknoten (Standard) & 2x Intel Xeon Gold 6248R (48 Kerne), 384 GB RAM & 12\\
-Rechenknoten (High-Memory) & 2x Intel Xeon Platinum 8280 (56 Kerne), 1,5 TB RAM & 4\\
-Speichersystem & NAS-System mit 500 TB nutzbarem Speicher & 1\\
-Netzwerk & 10 Gbit/s Ethernet, InfiniBand für parallele Operationen & -\\
-Backup-System & Tägliches Backup, räumlich getrennte Archivierung & -\\
-\bottomrule
-\end{tabular*}
-\end{table*}
-
-\textbf{Software-Umgebung.}
-
-Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Statistische Software:} R, Python, Stata, SAS, SPSS
-\item
-  \textbf{Datenbanksysteme:} PostgreSQL, DuckDB
-\item
-  \textbf{Entwicklungsumgebungen:} RStudio Server, JupyterLab
-\item
-  \textbf{Versionskontrolle:} Git (lokal, ohne externe Verbindung)
-\end{itemize}
-
-\subsubsection{Infrastrukturkonzept}\label{infrastrukturkonzept}
-
-\textbf{Fachlich zentralisierte Datenhaltung.}
-
-In Deutschland wird der überwiegende Teil der amtlichen
-Statistikproduktion dezentral in den Statistischen Ämtern der Länder
-durchgeführt (über 90\% aller amtlichen Statistiken). Da sich
-wissenschaftliche Analysen in der Regel jedoch auf mehrere Bundesländer
-oder das gesamte Bundesgebiet beziehen, haben die FDZ eine
-\textbf{fachlich zentralisierte Datenhaltung} eingerichtet. Diese
-ermöglicht es, die Daten des gesamten Bundesgebiets länderübergreifend
-an jedem Standort bereitzustellen.
-
-\textbf{Regionalisierte Infrastruktur.}
-
-Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein.
-Dies wird durch über ganz Deutschland verteilte Standorte erreicht.
-Standorte befinden sich u.a. in:
-
-\begin{itemize}
-\tightlist
-\item
-  Berlin, Bonn, Wiesbaden (Bund)
-\item
-  Bad Ems, Bremen, Dresden, Düsseldorf, Erfurt, Frankfurt, Hamburg,
-  Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
-\end{itemize}
-
-\subsubsection{Zugangsformen und
-Nutzungsmodelle}\label{zugangsformen-und-nutzungsmodelle}
-
-Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich
-anonymisierte Datenprodukte bereitgestellt werden:
-
-\textbf{Off-Site-Zugang.}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Public Use Files (PUF):} Stark anonymisierte Daten für freie
-  Nutzung
-\item
-  \textbf{Scientific Use Files (SUF):} Faktisch anonymisierte Daten für
-  wissenschaftliche Zwecke
-\item
-  \textbf{Remote Scientific Use Files (Remote-SUF):} Neuer Zugangsweg
-  mit höherer Detailtiefe
-\end{itemize}
-
-\textbf{On-Site-Zugang.}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Gastwissenschaftsarbeitsplatz (GWAP):} Zugang zu formal
-  anonymisierten Daten vor Ort
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Vorteile: Höchste Datendetailtiefe, direkte Beratung
-  \item
-    Anforderungen: Terminvereinbarung, Zutrittskontrolle,
-    Output-Kontrolle
-  \end{itemize}
-\item
-  \textbf{Kontrollierte Datenfernverarbeitung (KDFV):} Remote-Ausführung
-  von Analyseskripten
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Vorteile: Keine Anreise, zeitlich flexibel
-  \item
-    Einschränkungen: Keine interaktive Arbeit, Ergebnisfreigabe
-    erforderlich
-  \end{itemize}
-\end{itemize}
-
-\subsubsection{Datenschutz und
-Sicherheit}\label{datenschutz-und-sicherheit}
-
-\textbf{Mehrstufiges Sicherheitskonzept.}
-
-Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Physische Sicherheit:} Zutrittskontrolle, gesicherte
-  Räumlichkeiten
-\item
-  \textbf{Netzwerksicherheit:} Isolierte Netzwerke, Firewalls, Intrusion
-  Detection
-\item
-  \textbf{Zugriffsrechte:} Rollenbasierte Zugriffskontrolle,
-  Authentifizierung
-\item
-  \textbf{Output-Kontrolle:} Prüfung aller Ergebnisse vor Freigabe
-\item
-  \textbf{Audit-Logging:} Protokollierung aller Zugriffe und Operationen
-\end{enumerate}
-
-\textbf{Output-Kontrolle.}
-
-Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie
-eine mehrstufige Kontrolle:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Automatische Prüfung:} Screening auf kritische Werte (z.B.
-  Fallzahlen \textless{} 5)
-\item
-  \textbf{Manuelle Prüfung:} Sichtung durch geschulte Mitarbeiter
-\item
-  \textbf{Dokumentation:} Nachvollziehbare Begründung der
-  Freigabeentscheidung
-\end{itemize}
-
-\subsubsection{Performanz-Optimierung in der
-FDZ-Umgebung}\label{performanz-optimierung-in-der-fdz-umgebung}
-
-\textbf{Herausforderungen.}
-
-Die Arbeit in der geschützten FDZ-Umgebung stellt besondere
-Anforderungen:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Begrenzte Ressourcen:} Mehrere Nutzer teilen sich die
-  verfügbare Hardware
-\item
-  \textbf{Keine Cloud-Dienste:} Externe Rechenressourcen können nicht
-  genutzt werden
-\item
-  \textbf{Datengröße:} Große Datensätze müssen effizient verarbeitet
-  werden
-\item
-  \textbf{Reproduzierbarkeit:} Analysen müssen dokumentiert und
-  nachvollziehbar sein
-\end{itemize}
-
-\textbf{Optimierungsstrategien.}
-
-Verschiedene Strategien helfen, die Performanz zu optimieren:
-
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-optimization-strategies-1.pdf}}
-
-}
-
-\caption{\label{fig-optimization-strategies}Strategien zur
-Performanz-Optimierung im FDZ-Bund}
-
-\end{figure}%
-
-\subsubsection{Akkreditierung und
-Qualitätssicherung}\label{akkreditierung-und-qualituxe4tssicherung}
-
-Die Forschungsdatenzentren der Statistischen Ämter des Bundes und der
-Länder sind durch den \textbf{Rat für Sozial- und WirtschaftsDaten
-(RatSWD) akkreditiert}. Der RatSWD akkreditiert seit 2008
-Forschungsdatenzentren, die den Zugang zu qualitativ hochwertigen
-sensiblen Daten für die Wissenschaft ermöglichen und dabei die
-erforderlichen Kriterien erfüllen.
-
-\subsubsection{Best Practices für
-FDZ-Nutzende}\label{best-practices-fuxfcr-fdz-nutzende}
-
-Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für
-effizientes Arbeiten ableiten:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Datenreduktion:} Frühzeitige Filterung auf relevante
-  Beobachtungen und Variablen
-\item
-  \textbf{Inkrementelle Entwicklung:} Erst mit Stichproben arbeiten,
-  dann auf Vollsatz skalieren
-\item
-  \textbf{Effiziente Datenformate:} Nutzung moderner Formate
-  (Arrow/Parquet) statt CSV
-\item
-  \textbf{Dokumentation:} Sorgfältige Dokumentation des Analyseprozesses
-  für Output-Kontrolle
-\item
-  \textbf{Ressourcenplanung:} Bewusste Planung rechenintensiver
-  Operationen bei geteilter Infrastruktur
-\item
-  \textbf{Beratung nutzen:} Frühzeitige Kontaktaufnahme mit
-  FDZ-Mitarbeitern bei methodischen Fragen
-\end{enumerate}
-
 \section{Datenverarbeitungsmethoden}\label{sec-methoden}
 
-\subsection{Ausgangslage}\label{ausgangslage-2}
-
-Wir betrachten in dieser Arbeit die Performanz sog.
-Datenverarbeitungsmethoden, d.h. Softwarelösungen, die Daten
-einlesen,modifzierern, aggregieren, auswerten oder analysieren. Das
+Wir betrachten in diesem Artikel die Performanz sog.
+\emph{Datenverarbeitungsmethoden}, d.h. Softwarelösungen, die Daten
+einlesen, modifzierern, aggregieren, auswerten oder analysieren. Das
 Schreiben von Daten wird in unserer Untersuchung ausgeklammert, da es
 sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den
-Outputs der Wissenschaft im FDZ um kleine Tabellen handelt, die keine
-große Performanz erfordern. Dennoch bieten die hier vorstellten Lösungen
-auch hohe Performanz im Schreiben von Daten.\footnote{www.opencode.de/URL-To-Be-Announced.}
-
-\begin{itemize}
-\tightlist
-\item
-  Hauptanalysewerkzeuge sind bisher:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    im StBA SAS 9.4 M8, EG
-  \item
-    im FDZ zsl. Stata
-  \end{itemize}
-\item
-  bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP).
-\item
-  neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen
-  Systemkapazitäten.
-\end{itemize}
-
-Daneben wächst der Einsatz von R stetig mit aktuell 200 aktiven
-Nutzenden im StBA und FDZ stetig.
-
-Empfehlung des FDSZ der deutschen Bundesbank.
-(\textcite{gomolka2021largedata}) hat den spezialfall der in-memory
-Auswertung betrachtet mit den folgenden Ergebnissen:
-
--R zeigt große Performancevorteile gegenüber Stata für FDZ Aufgaben - Zu
-Beachten: Optimierung der Gesamtzeit (d.h. Rechenzeit +
-\textbf{Entwicklungszeit}) - benutzt \{parquet\} bereits Standardmäßig
+Outputs der Wissenschaft im FDZ um kleine Tabellen handelt, die i.d.R.
+keine große Performanz erfordern.{[}\^{}writedata Wir vernachlässigen
+Spark, Datenbanken und weitere Technologien, die zusätzliche Einrichtung
+erfordern und nicht direkt als R-Package genutzt werden können.
 
 \subsection{Anforderungen an
 Datenverarbeitungsmethoden}\label{anforderungen-an-datenverarbeitungsmethoden}
@@ -1488,7 +1120,84 @@ Datenverarbeitungsmethoden}\label{anforderungen-an-datenverarbeitungsmethoden}
   leicht nutzbar, gut dokumentiert, gutes Schulungsangebot
 \end{itemize}
 
-\subsection{Möglichkeiten in R}\label{muxf6glichkeiten-in-r}
+Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt
+besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle
+Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre
+Grenzen. Moderne spaltenorientierte Technologien lösen dieses Problem
+indem sie erlauben, nur relevante Variablen bei Bedarf zu einzulesen.
+
+\subsection{Sachstand}\label{sachstand}
+
+\subsubsection{SAS und Stata}\label{sas-und-stata}
+
+\begin{itemize}
+\tightlist
+\item
+  Hauptanalysewerkzeuge sind bisher:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    im StBA SAS 9.4 M8, EG
+  \item
+    im FDZ zsl. Stata
+  \end{itemize}
+\item
+  Stata
+
+  \begin{itemize}
+  \tightlist
+  \item
+    bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP).
+  \item
+    neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen
+    Systemkapazitäten.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Empfehlung des FDSZ der deutschen
+Bundesbank}\label{empfehlung-des-fdsz-der-deutschen-bundesbank}
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  hat den Spezialfall von in-memory Auswertung betrachtet mit den
+  folgenden Ergebnissen:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  R zeigt große Performanzevorteile gegenüber Stata für FDZ Aufgaben:
+  ``Note that using parquet and R reduces the computing time compared to
+  the optimised Stata approach by 65.1\% from 77.6 to 27.1 seconds''
+\item
+  zu betrachten ist die Gesamtzeit (d.h. Rechenzeit +
+  \textbf{Entwicklungszeit})
+
+  \begin{itemize}
+  \tightlist
+  \item
+    vorhandene Erfahrung und Knowhow (bspw. in Stata) relativiert die
+    Performanzgewinne in R. Zu beachten sind hohe Debugging Aufwände an
+    den GWAPs der FDZ (kein Internetzugriff)
+  \item
+    I.d.R. muss in der Entwicklung Code mehrfach ausgeführt werden,
+    sodass sich die Laufzeit multipliziert (Wickham\&Grolemund 2016).
+  \end{itemize}
+\item
+  Die u.g. Parquet-Dateien werden bereits standardmäßig im FDSZ
+  angeboten.
+\item
+  Variablenselektion hervorgehoben. Bot Beschleuniging von 39.9\% in R
+  und 33.9\% in Stata
+\end{itemize}
+
+\subsection{Analysewerkzeug R}\label{analysewerkzeug-r}
+
+Der Einsatz von R wächst stetig mit aktuell über 200 aktiven Nutzenden
+im StBA und FDZ.
 
 \begin{itemize}
 \tightlist
@@ -1510,7 +1219,7 @@ Datenverarbeitungsmethoden}\label{anforderungen-an-datenverarbeitungsmethoden}
 
 \subsection{Klassische Methoden in R}\label{klassische-methoden-in-r}
 
-\subsubsection{Base-R}\label{base-r}
+\subsubsection{Base R}\label{base-r}
 
 \begin{itemize}
 \tightlist
@@ -1552,99 +1261,121 @@ Datenverarbeitungsmethoden}\label{anforderungen-an-datenverarbeitungsmethoden}
 
 \subsubsection{Tidyverse}\label{tidyverse}
 
-\begin{itemize}
-\tightlist
-\item
-  Ökosystem von Packages zur Datenverarbeitung. bekannt für besonders
-  hohe Nutzerfreundlichkeit und einer eigenen Programmiersyntax sog.
-  \{tidy\}-Syntax, die den Anspruch hat menschlicher Sprache abzubilden:
-\end{itemize}
+Tidyverse ist ein Ökosystem von Packages zur Datenverarbeitung, das für
+besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen
+Programmiersyntax, sog. \emph{\{dplyr\}-Syntax}, die den Anspruch hat
+menschlicher Sprache abzubilden. Das R-Package \{dplyr\} ist die
+Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines
+Beispiels in der folgenden Tabelle veranschaulicht wird
 
 {[} Tabelle Beispiel Dplyr {]}
 
-\textbf{dplyr + dbplyr.}
+Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie
+vielen anderen Packages ergänzt wurde. Bspw. für \{data.table\} setzen
+dies die Packages \{dtplyr\} oder \{tidytable\} um Wie im Falle von
+\{dtplyr\} kann die Übersetzung zu \{dplyr\} jedoch die Performanz
+verschlechtern.\footnote{S.
+  https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/}
 
-\textbf{Vorteile:} Vertraute dplyr-Syntax, gut mit Datenbanken
-integriert \textbf{Nachteile:} Langsamer als Arrow/DuckDB, benötigt
-Backend-Datenbank, SQL-Translation manchmal limitiert
+\subsection{Best Practices in R}\label{best-practices-in-r}
 
-\textbf{Empfehlung:} Wenn bereits PostgreSQL- oder ähnliche
-Datenbank-Infrastruktur vorhanden ist
-
-So beliebt, dass die Community sie vielen anderen Packages ergänzt hat.
-Bspw. für \{data.table\} die Packages \{dtplyr\} oder \{tidytable\}. Wie
-im Falle von \{dtplyr\} kann es dabei aber zu Einschränkung der
-Performamz kommen.\footnote{Lediglich in der
-  Arbeitsspeicherbeanspruchung, ist SAS deutlich besser als klassische
-  R-Methoden. Gegenüber hoch-performanten R-Methoden benötigt SAS jedoch
-  den 10-fachen Arbeitsspeicher.}
-
-beachte/erwähne:
-https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
-
-\subsection{Ausgewählte Best Practices in
-R}\label{ausgewuxe4hlte-best-practices-in-r}
-
-Ab mittleren Datenmengen (abhängig von CPU und RAM) sind Best Practices:
+Ab mittleren Datenmengen (relativ zu CPU und RAM) sind ausgewählte
+\textbf{Best Practices} in R:
 
 \begin{itemize}
 \tightlist
 \item
-  \emph{Variablenselektion}: Auswahl der benötigten Variablen in der
-  Einlesefunkktion ist wesentliche Best-Practices (ab mittleren
-  Datenmengen, besonders für klassiche Methoden). Eine
-  Variablenselektion erst nach dem Einlesen verursacht unnötige
-  Wartezeiten, Ressourcenbeanspruchung und Abbrüche
+  \emph{Variablenselektion}: Beim Einlesen von DatenAuswahl der
+  benötigten Variablen in der Einlesefunktion ist wesentliche
+  Best-Practices (besonders für klassiche Methoden, da dies das Risiko
+  für RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen
+  zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren
+  Zeitpunkt) verursacht unnötige Wartezeiten, Ressourcenbelegung und
+  kann zu Abbrüchen führen.
 \item
   \emph{Datenaufteilung}: Wenn der Arbeitsspeicher nicht ausreicht, um
   die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere
   RAM-Gerechte Datenpakete helfen. Für klassische Methoden kombiniert
-  mit der mehrfachen Variablenselektion. Die folgenden Hoch-performante
-  Technologien, kommen auch flexibel aus ohne manuelle Selektion
+  mit der mehrfachen Variablenselektion. Die folgenden hoch-performanten
+  Techniken, kommen auch direkt mehreren Dateien nutzen, ohne manuell
+  die Datensätze zusammenzuführen.
 \end{itemize}
 
-\subsection{Hoch-performante Technologien in
-R}\label{hoch-performante-technologien-in-r}
+\subsection{Hoch-performante Methoden in R}\label{sec-highperf}
 
-Definition einfach: können nativ Daten über RAM verarbeiten.
+Wir sprechen in diesem Artikel vereinfacht von einer
+\emph{hoch-performanten Methode}, sobald die betrachtete
+Datenverarbeitungsmethode in der Lage ist, Datenmengen überhalb des
+verfügbaren Arbeitsspeichers flexibel und effizient zu nutzen. SAS
+erfüllt den Großteil dieser Definition -- lediglich die Effizienz lässt
+sich deutlich steigern.
 
-von Desktopanwendung unterm Tisch zu Performamten Analyseserver
-paradigmenwechsel notwendig: in RAM vs nicht im RAM!
-
-Die auf den Servern des StBA und FDZ verfügbaren Packageversionen lassen
-sich aus organisatorischen Gründen nicht flexibel anpassen (kein
-Internet, kuration intern, s. A. Inf) können Tabelle X entnommen werden.
+Um Datenauswertung auf höhere Datenmengen skalieren zu können ist ein
+Paradigmenwechsel von der ``\emph{vollständigen Verarbeitung im RAM''}
+zu der \emph{Auslagerung aus dem RAM} notwendig. Vollständig im RAM sind
+Daten zwar sehr schnell und einfach zu nutzen, jedoch beansprucht der
+Transport in den RAM (Einlesen) einen Hauptteil der Laufzeit und der
+verfügbare RAM reicht i.d.R. nicht für größere Datenmengen. Die
+nachfolgenden Technologien sind auch in der Lage Daten überhalb des RAMs
+zu verarbeiten. Durch moderne Hardware und Software kann dies sogar sehr
+schnell erfolgen.
 
 \subsubsection{Apache Parquet}\label{apache-parquet}
-
-tba
-
-\subsubsection{Apache Arrow}\label{apache-arrow}
-
-tba
-
-\subsubsection{DuckDB}\label{duckdb}
-
-tba
-
-\subsubsection{Polars}\label{polars}
-
-tba
-
-\subsection{Disclaimer}\label{disclaimer}
 
 \begin{itemize}
 \tightlist
 \item
-  Einrichtbarkeit neuer Package etc. organisatorisch eingeschränkt und
-  verzögert (S. Abschnitt Kapitel~\ref{sec-infrastruktur}).
+  Datenformat, spaltenbasiert, komprimiert, \ldots{}
 \item
-  Betrachtete Versionen:
+  tba - s. Vortrag
 \end{itemize}
+
+\subsubsection{Apache Arrow}\label{apache-arrow}
+
+\begin{itemize}
+\tightlist
+\item
+  R-package, C++ basiert, erlaubt Parallelisierung, Datenaufteilung,
+  Lazy-Computations, Datenformat im RAM passend zu Parquet
+\item
+  tba - s. Vortrag
+\end{itemize}
+
+\subsubsection{DuckDB}\label{duckdb}
+
+\begin{itemize}
+\tightlist
+\item
+  R-Package, in-memory DB, \ldots{}
+\item
+  tba - s. Vortrag
+\end{itemize}
+
+\subsubsection{Polars}\label{polars}
+
+\begin{itemize}
+\tightlist
+\item
+  an Python-angelehnte Syntax
+\item
+  tba
+\item
+  Benchmark des Polars Entwicklerteams \footnote{https://ddotta.github.io/cookbook-rpolars/benchmarking.html}
+\end{itemize}
+
+\subsection{Package-Versionen}\label{package-versionen}
+
+Die auf den Servern des StBA und FDZ verfügbaren Packageversionen lassen
+sich aus organisatorischen Gründen nicht flexibel ändern, da die
+Genehmigung und Einrichtung neuer Packages nur auf Antrag durch unser
+R-Betriebsteam erfolgt (i.d.R. innerhalb von 1-2 Tagen ). Die
+Package-Versionen, die zum Zeitpunkt des in \textbf{?@sec-benchmark}
+dargestellten Performanz-Vergleiches verfügab waren, können Tabelle
+Tabelle~\ref{tbl-pkg-versions} entnommen werden.
 
 \begin{table*}
 
-\caption{\label{tbl-pkg-packages}Versionen betrachteter R-Pakete}
+\caption{\label{tbl-pkg-versions}Versionen verfügbarer R-Packages}
 
 \centering{
 
@@ -1789,14 +1520,15 @@ betrachteten Auswertungen sogar
 \item
   in \textbf{unter 2 Sekunden} (27-fach schneller),
 \item
-  mit unter \textbf{300 MB Arbeitsspeicher} -- \{duckdb\} und \{polars\}
-  sogar mit unter \textbf{5 MB} (10-fach weniger)\footnote{Lediglich in
-    der Arbeitsspeicherbeanspruchung, ist SAS deutlich besser als
-    klassische R-Methoden. Gegenüber hoch-performanten R-Methoden
-    benötigt SAS jedoch den 10-fachen Arbeitsspeicher.}\footnote{\{arrow\}
-    benötigt mit 274 MB deutlich mehr Arbeitsspeicher als \{polars\} und
-    \{duckdb\}, aber kommt dennoch mit minimalen Entwicklungsumgebungen
-    aus, bspw. einem standardmäßigen Laptop.} --
+  mit unter \textbf{300 MB Arbeitsspeicher} -- \{duckdb\} und
+  \{polars\}{[}\^{}polars-ram{]} sogar mit unter \textbf{5 MB} (10-fach
+  weniger)\footnote{Lediglich in der Arbeitsspeicherbeanspruchung, ist
+    SAS deutlich besser als klassische R-Methoden. Gegenüber
+    hoch-performanten R-Methoden benötigt SAS jedoch den 10-fachen
+    Arbeitsspeicher.}\footnote{\{arrow\} benötigt mit 274 MB deutlich
+    mehr Arbeitsspeicher als \{polars\} und \{duckdb\}, aber kommt
+    dennoch mit minimalen Entwicklungsumgebungen aus, bspw. einem
+    standardmäßigen Laptop.} --
 \item
   und nur mit \textbf{5 GB Festplattenspeicher} (6-fach weniger
   gegenüber SAS und Stata).
@@ -1889,6 +1621,8 @@ höchsten Performanz nutzen alle das \{parquet\} und erreichen:
   Arbeitsspeicher}.
 \end{enumerate}
 
+{[}tba: Plot der Performanz unterschiede{]}
+
 Unerwarteterweise ist die Laufzeit von \{polars\} für diese Datenmenge
 mit 1,2 Minuten weit abgeschlagen, obwohl das gleiche Auswertungsskript
 für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da
@@ -1906,38 +1640,44 @@ wiederspiegelt.
 Klassische Methoden kommen bei der betrachteten Datenmenge bereits an
 ihre Grenzen. Falls in \{data.table\} unbedacht der vollständige
 Datensatz eingelesen wird, werden in unserem Anwemdungsfall die
-verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Wir
-klassische Methoden ist somit deutlich mehr Erfahrung der Nutzenden
-notwendig, um die relevanten Variablen manuell geschickt zu selektieren
-unter Beobachtung des Arbeitsspeicherverbrauchs.
+verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn
+klassische Methoden auf Datenmengen von ca. 25-33\% des verfügbaren
+Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der
+Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu
+selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
 
-Insgesamt kommen wir zu dem Ergebnis, dass \{arrow\} kombiniert mit
-\{parquet\} im Gesamtpaket die beste Datenverarbeitungsmethode für die
-Bewältigung unserer Aufgaben aus den folgenden Gründen ist:
+Somit kommen wir insgesamt zu dem Ergebnis, dass \{arrow\} kombiniert
+mit \{parquet\} für die Bewältigung unserer Aufgaben die beste
+Datenverarbeitungsmethode ist, da die Methodik hervorragende Performanz
+und zugleich hohe Nutzerfreundlichkeit bietet. Im Detail haben uns der
+folgenden Mehrwerte überzeugt:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Für die relevanteste Datenmenge zeigte \{arrow\} die geringsten
-  Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf
-  Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle
-  denkenswerten explorativen Analysen.
+  Für die relevanteste Datenmenge von 8 Mio. Beobachtungen zeigte
+  \{arrow\} die geringsten Laufzeiten unter 5 Sekunden, was der
+  Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und
+  der Wissenschaft alle denkenswerten explorativen Analysen auszuweiten.
 \item
-  auch die Nutzererfahrung war mit \{arrow\} am besten und die damit
-  einhergehenden Entwicklungaufwände waren dadurch am geringsten.
+  auch die Nutzererfahrung gefiel uns mit \{arrow\} am besten und somit
+  waren die einhergehenden Entwicklungaufwände gegenüber den Anderen
+  Methoden am geringsten.
 \item
-  die anschauliche \{tidyverse\} Syntax lässt sich zum Großteil
-  änderungsfrei und ohne Performanzverluste auf \{arrow\} übertragen.
-  \{duckdb\} kann bei Kenntnissen in SQL zu bevorzugen sein und
-  \{polars\} mit Erfahrungen in Python.
+  ,\{arrow\} verwendet die anschauliche \{tidyverse\} Syntax nativ.
+  Vorhandener Code lässt sich zum Großteil änderungsfrei und ohne
+  Performanzverluste auf \{arrow\} übertragen. \{duckdb\} kann bei
+  Kenntnissen in SQL zu bevorzugen sein und \{polars\} mit Erfahrungen
+  in Python.
 \item
   Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in
-  \{arrow\} programmieren.
+  \{arrow\} programmieren.\footnote{www.opencode.de/URL-To-Be-Announced.}
 \item
   Obwohl nicht alle Features aus \{tidyverse\} für \{arrow\} verfügbar
-  sind, haben wir bisher immer eine Lösung gefunden, um die gewünschte
-  Auswertung umzusetzen, bspw. durch Kombination mit \{duckdb\}.
+  sind, ließ sich bisher immer eine Lösung finden, um die gewünschte
+  Auswertung umzusetzen, bspw. durch Kombination mit \{duckdb\} oder
+  andere Funktionsaufrufe.
 \item
   \{arrow\} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB)
   (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von
@@ -1950,41 +1690,6 @@ Bewältigung unserer Aufgaben aus den folgenden Gründen ist:
   das reale BTP sogar 80\%+) und ermöglicht schnelle Nutzung auch von
   Datenmengen überhalb des verfügbaren Arbeitsspeichers.
 \end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  \{arrow\} zeigte im Experiment die beste Nutzendenerfahrung.
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Beide Anwendungen lassen sich in unter 20 Z. mit Arrow programmieren
-    (verständlich lesbar) s. Opencode Repo.
-  \item
-    Leicht und verständlich - adaptiert nativ schöne \{tidyverse\}
-    Syntax. Dagegen sind \{duckdb\} und \{polars\} auf Zusatzpakete
-    angewiesen, die tlw. die Performanz reduzieren können.
-  \item
-    Flexibel, selektives Einlesen ist zwingend erforderlich
-  \item
-    hohe Stabilität, fehlende Features können durch leicht in duckdb
-    oder in den Arbeitsspeicher überführt und dennoch ausgeführt werden
-  \end{itemize}
-\item
-  kleiner Nachteile: Erfahrung notwendig, da\ldots{}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    erst Datenaufteilung/selektives Einlesen die maximale Performanz
-    erreicht
-  \item
-    aktuell nicht der volle Funktionsumfang von \{tidyverse\} in
-    \{arrow\} abgebildet wird, sodass auf fehlende Features mit
-    \{duckdb\} etc. reagiert werden muss.
-  \end{itemize}
-\end{itemize}
 
 \begin{table*}
 
@@ -2040,104 +1745,39 @@ Bewältigung unserer Aufgaben aus den folgenden Gründen ist:
 
 \end{table*}%
 
-{[}tba: Plot RAM-Bedarf in Datenmenge{]}
-
-\subsection{(Weitere Erkenntnisse des
-Experiments)}\label{weitere-erkenntnisse-des-experiments}
-
-\begin{itemize}
-\tightlist
-\item
-  Auswahl der optimalen hoch-performanten Methode erfordert eine
-  Untersuchung in der eigenen Infrastruktur anhand eigener Daten. Jedoch
-  bieten alle HP-Methoden für die meisten Anwendungsfälle starke
-  Performanzgewinne und sollten eingesetzt werden (nach den vorhandenen
-  Erfahrungen und Strukturen: tidy vs Python vs SQL). Falls die Daten in
-  CSV unter 25\% des Arbeitsspeichers sind, sind auch klassische
-  Methoden sehr gut nutzbar (bevorzugt \{data.table\}).
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Package für optimale Laufzeit ist nicht eindeutig.} Je nach
-    Datenmenge hat sich die Top 3 stark unterschieden.
-
-    \begin{itemize}
-    \tightlist
-    \item
-      1e6: arrow \textgreater{} duckdb \textgreater{} DT+SEL
-      \textgreater{} polars
-    \item
-      1e5: polars \textgreater{} duckdb \textgreater{} arrow
-      \textgreater{} DT+SEL
-    \item
-      1e4: polars \textgreater{} data.table \textgreater{} arrow
-      \textgreater{} readr
-    \end{itemize}
-  \item
-    Unerwarteterweise ist \{polars\} bis 1\% BTP am schnellsten aber für
-    das 10\% BTP abgeschlagen (unter den schlechtesten Methoden).
-  \end{itemize}
-\item
-  Dagegen ist \textbf{das effizienteste betrachtete Datenformat über
-  1000 Beobachtungen eindeutig Parquet} -- sowohl in Speicherbedarf als
-  auch in Lese- und Schreibzeiten.
-\item
-  HP-Methoden und Optimierungen können erst ab einer Mindestdatenmenge
-  vorteilhaft sein. Insb. Datenaufteilung bietet nur HP Methoden ab
-  einer gewissen Datenmenge Vorteile. Für kleine Mengen überwiegt der
-  Overhead durch das Lesen mehrer kleiner Dateien. Klassische Methoden
-  werden durch eine Datenaufteilung nur negativ beeinflusst.
-\item
-  \textbf{Variablenauswahl beim Einlesen ist immer vorteilhaft.}
-  High-Performance Methoden können aber bei einer
-  \textbf{Datenaufteilung} darauf verzichten.
-\item
-  (tba: mit obigem zusammenführen) Unter den klassischen Methoden ist
-  \{data.table\} mit Variablenauswahl am effizientesten und schneller
-  als eine schlechte Anwendung von \{arrow\}. D.h. ein \{data.table\}
-  Profi, ist besser als ein schlechter Arrow Programmierer, der aber
-  größeres Potenzial für Verbesserungen hat. Anfängern ist eher
-  \{arrow\} zu empfehlen, da in \{data.table\} die Variablenauswahl
-  abhängig von dem verfügbaren Arbeitsspeicher manuell gesteuert werden
-  muss und daher nicht so flexibel ist.
-
-  \begin{itemize}
-  \tightlist
-  \item
-    5x langsamer als \{arrow\}
-  \item
-    Variablenauswahl ab einer gewissen Datenmenge erforderlich, da ohne
-    3x größer als die Eingangsdaten, dauert 2.2 min anstatt 23 Sec.
-    -\textgreater{} schwierige Anwendung (Entscheidung relevanter
-    Variablen muss vorab getroffen werden unter Beachtung der
-    Arbeitsspeicher Restriktionen)
-  \item
-    Datenaufteilung verschlechtert DT im Gegensatz zu arrow
-  \end{itemize}
-\item
-  \{arrow\} verzeiht Fehler leicht(er als DT). Denn schlecht
-  programmiert, ist es immernoch ganz gut). Alleine durch die
-  Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet
-  durch das FDZ), erreichen wir die Fallzahl-Berechung in 11.73s, nur 5s
-  über dem absoluten Optimum.
-\item
-  R-base oder readr sind immer weit abgeschlagen und zu vermeiden.
-\item
-  Wenn der RAM extrem begrenzt ist, können \{poars\} oder \{duckdb\}
-  dennoch eingesetzt werden.
-\end{itemize}
+{[}tba: Plot RAM-Bedarf abhängig von der Datenmenge{]}
 
 \setcounter{subsection}{4}
 
 \section{Anwendung auf das BTP}\label{sec-ergebnis}
 
-Anwendung der besten Methoden auf das vollständige BTP
+Anwendung der besten Methode auf die echten Daten des vollständige BTP
+ergibt:
 
 \begin{itemize}
 \tightlist
 \item
-  Repräsentant high perf: Arrow -\textgreater{}
+  Performanz von \{arrow\} Fallzahlen (ein paar Sekunden) und Regression
+  (Sekunden)
+\item
+  leicht lesbar in \{arrow\}
+\end{itemize}
+
+\subsection{Ergebnis}\label{ergebnis}
+
+{[}Ergebnistabelle Fallzahl, ggf. als Heatmap{]}
+
+-\textgreater{} Zukünftige Nutzung für MDR wird umgesetzt.
+
+{[}Model Summary?{]}
+
+\subsection{Vergleich zu SAS, (Stata),
+Datatable}\label{vergleich-zu-sas-stata-datatable}
+
+\begin{itemize}
+\tightlist
+\item
+  Ergebnis in SAS
 \item
   (optional) Datatable ohne sekeltives Einlesen führt zu RAM Crash
   (RAM-Fehler?)

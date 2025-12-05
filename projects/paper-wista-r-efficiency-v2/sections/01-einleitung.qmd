@@ -1,24 +1,19 @@
 ## Einleitung {#sec-einleitung}
 
-...
+Spannungsfeld, Weiterentwicklung zur Lösung und Technologie-Empfehlung
 
-Spannungsfeld, Weiterentwicklung und Technologie-Empfehlung...
-
-Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz FDZ Netzwerk empririscher Steuerforschung, hier kurz NeSt
+Einbauen: Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz FDZ Netzwerk empririscher Steuerforschung, hier kurz NeSt.
 
 ### Handlungsbedarf
 
 #### Steigende Datenmenge in der amtlichen Statistik
 
-StBA
-
 -   Qualitätsbericht. Wachsende Datenmenge in der amtl. Statistik, Verweis auf [@destatis2023]
--   Datenverarbeitung im StBA erklären
+-   Datenverarbeitung im StBA ...
 -   neues NeSt Produkt BTP zeigt Umfang, hoch interessant für Wissenschaft
 -   Datenverarbeitungsaufgaben des StBA erklären
 -   Nicht mehr durch vorhandene Systemkapazitäten (insb. Arbeitsspeicher) gedeckt
 
--\> wir müssen RAM sparen! Idealerweise auch Laufzeit.
 
 -   Herausforderungen (größere Datenmengen, komplexere Analysen, schnellere Antworten notwendig)
 
@@ -45,7 +40,7 @@ In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion a
 
 Diese Entwicklungen erfordern eine kontinuierliche Evaluation und Optimierung der eingesetzten Verfahren. Ziel der vorliegenden Studie ist es daher, die Effizienz verschiedener statistischer Verfahren systematisch zu bewerten und Handlungsempfehlungen für die Praxis abzuleiten.
 
-#### Steigende Anforderungen der Öffentlichkeit insb. Wissenschaft
+#### Steigende Anforderungen der Wissenschaft und Öffentlichkeit
 
 FDZ, NeSt
 
@@ -55,9 +50,6 @@ FDZ, NeSt
 -   Gutachten BMF ansprechen
 -   NeSt erklären, Bedarfe durch Produkt BTP beantwortet.. aber wie kann es in angme
 
-The Need for Speed
-
-As we start working with larger and larger datasets, the basic tools of the tidyverse start to look a little slow. In the last few years several packages more suited to large datasets have emerged. Some of these are column, rather than row, oriented. Some use parallel processing. Some are vector optimized. Speedy databases that have made their way into the R ecosystem are data.table, arrow, polars and duckdb. All of these are available for Python as well. Each of these carries with it its own interface and learning curve. duckdb, for example is a dialect of SQL, an entirely different language so our dplyr code above has to look like this in SQL: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
 ### Vorschreitende Innovation der Datenverarbeitungstechnologien
 
@@ -118,7 +110,9 @@ Open Source -\> breite Auswahl an Parketen zum Einlesen, Transformieren und Ausw
     -   datenformate in R: qs, rds
     -   dtplyr?
 
-#### Hoch-performante R-Pakete
+As we start working with larger and larger datasets, the basic tools of the tidyverse start to look a little slow. In the last few years several packages more suited to large datasets have emerged. Some of these are column, rather than row, oriented. Some use parallel processing. Some are vector optimized. Speedy databases that have made their way into the R ecosystem are data.table, arrow, polars and duckdb. All of these are available for Python as well. Each of these carries with it its own interface and learning curve. duckdb, for example is a dialect of SQL, an entirely different language so our dplyr code above has to look like this in SQL: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
+
+#### Hoch-performante Datenverarbeitungsmethoden
 
 Als Desktopanwendung konzipiert ist R nicht für hoch-performante Auswertungen von Big Data bekannt. Wie unsere Untersuchung zeigen wird, beansprucht R nativ übermäßige Systemressourcen, um die Nutzerfreundlichkeit zu erhöhen. Dadurch dass R Open Source ist ändern dies jedoch diverse Entwicklerteams weltweit und stellen R Zusatzfunktionen in Form von R-Paketen zur Verfügung die in R hoch-performante Auswertung großer Datenmengen ermöglichen.
 
@@ -126,7 +120,9 @@ Als Desktopanwendung konzipiert ist R nicht für hoch-performante Auswertungen v
 -   ermöglichen sehr schnelle Verarbeitung von Daten, mit einem sehr hohen Gesamtvolumen, das sogar den verfügbaren RAM übersteigt.
 -   sollte möglichst leicht nutzbar sein, nativ in R ohne viele Abhängkeiten (organisatorische Einschränkungen)
 
-### Umsetzungsideen/-vorschläge im StBA/FDZ
+### Umsetzung im StBA und FDZ
+
+
 
 -   möglichst leicht nutzbar und gewohnt/verbreitet -\> R+dpylr
 
@@ -159,27 +155,32 @@ Als Desktopanwendung konzipiert ist R nicht für hoch-performante Auswertungen v
 -   Technische Weiterentwicklung, stärkere Hardware, leichtere Bereitstellung, virtualisierung
 -   Schnelle Weiterentwicklung von Open-Source Software, R, div. Packages, e.g. Verweis auf Changelog von Arrow, Polars
 
-### Fokus der Artikels
+### Diese Arbeit
+
+Ausbreitung von R - gleich die richtige Technologie auswählen und einsetzen. Aber welche ist die "richtige"? Was für Unterschiede (Vorteile / Nachteile) haben die Technologien. Dies will dieser Artikel im Falle des BTP untersuchen. Kontrollierte Benchmark und weitere (qualitative) Aspekte, wie Userexperience.
 
 Zielgruppe: alle Datenanalytiker mit rudimentären R-Kenntnisse, aber breit, FDZ, amtl. Stat,
 
-Scope, Abgrenzung
-
--   Identifizierte Kernaufgabe: 90% irrelevante Informationen aus großen Datenmengen rausfiltern, Untersuchung wie dies am effizientesten geht.
-
-Leitet in den weiteren Artikel über zu der Kernfrage
-
-enchmark Experiment
-
--\> Empfehlung Systemressourcen für IT-Betrieb -\> Software- und Methodenempfehlung für Wissenschaft
-
-Die Untersuchung fokussiert sich auf folgende zentrale Forschungsfragen:
+Wir fokussieren uns auf folgende zentrale Forschungsfragen:
 
 1.  **Methodische Effizienz:** Wie unterscheiden sich verschiedene statistische Verfahren hinsichtlich ihrer Rechenzeit und Speicheranforderungen bei gleichbleibender Ergebnisqualität?
 
 2.  **Skalierbarkeit:** Welche Verfahren zeigen die beste Performance bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
 
 3.  **Praktische Anwendbarkeit:** Welche Infrastrukturanforderungen stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
+
+
+<!--
+
+-   Identifizierte Kernaufgabe: 90% irrelevante Informationen aus großen Datenmengen rausfiltern, Untersuchung wie dies am effizientesten geht.
+
+Leitet in den weiteren Artikel über zu der Kernfrage
+
+Benchmark Experiment
+
+-\> Empfehlung Systemressourcen für IT-Betrieb -\> Software- und Methodenempfehlung für Wissenschaft
+
+
 
 -   Bei der Integration von R und umfangreichen Auswahl, welche Technologie sollte Datenaufbereitung, -analyse und -auswertung genutzt werden?
 -   Wir nutzen eine Kontrollierte Benchmark
@@ -190,16 +191,6 @@ In @sec-methoden werden verschiedene effiziente Auswertungsmethoden vorgestellt 
 
 Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.
 
-<!--
 
-*Bei den verwendeten Statistiken handelt es sich um Vollerhebungen, teilweise mit Erfassungsgrenze. Insgesamt liegen 77,8 Mio. Beobachtungen vor, die auf 16,7 Mio. Einheiten zurückzuführen sind. Der Merkmalsumfang variiert je nach Statistik zwischen 120 und 1.300 Merkmalen was insgesamt zu einem Merkmalsumfang von über 2.700 Merkmalen führt. Hierdurch sind Analyse von Anpassungsreaktionen sowie Verteilungsanalysen für verschiedene Beobachtungszeiträume möglich. Insgesamt deckt der Forschungsdatensatz eine Vielzahl an Analysemöglichkeiten, die für die evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.*
-
-*Für die vielfältigen Analysewünsche der Forschenden, den Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der Erstellung des Metadatenreports des Forschungsdatenzentrums ist der Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen ist der Datensatz möglichst wenig beschränkt worden und dadurch ressourcenintensive. Der damit einhergehende hohe Bedarf an Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung dar.*
-
-==Wodurch ...==*Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags- sowie Umsatzsteuerstatistiken im Quer- und Längsschnitt. Verfügbar sind Informationen aus den folgenden Statistiken : Gewerbesteuer, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung, Statistik über die Personengesellschaften und Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen Unternehmensregister. Alle verwendeten Steuerarte sind ab dem Berichtsjahr 2013 jährlich verfügbar, dies bildet den Beginn des Beobachtungszeitraums. Aufgrund der Festsetzungsfrist von vier Jahren bei den Veranlagungsstatistiken endet der Beobachtungszeitraum aktuell mit dem Berichtsjahr 2020.*
-
-*Bei den verwendeten Statistiken handelt es sich um Vollerhebungen, teilweise mit Erfassungsgrenze. Insgesamt liegen 77,8 Mio. Beobachtungen vor, die auf 16,7 Mio. Einheiten zurückzuführen sind. Der Merkmalsumfang variiert je nach Statistik zwischen 120 und 1.300 Merkmalen was insgesamt zu einem Merkmalsumfang von über 2.700 Merkmalen führt. Hierdurch sind Analyse von Anpassungsreaktionen sowie Verteilungsanalysen für verschiedene Beobachtungszeiträume möglich. Insgesamt deckt der Forschungsdatensatz eine Vielzahl an Analysemöglichkeiten, die für die evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.*
-
-*Für die vielfältigen Analysewünsche der Forschenden, den Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der Erstellung des Metadatenreports des Forschungsdatenzentrums ist der Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen ist der Datensatz möglichst wenig beschränkt worden und dadurch ressourcenintensive. Der damit einhergehende hohe Bedarf an Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung dar.*
 
 -->

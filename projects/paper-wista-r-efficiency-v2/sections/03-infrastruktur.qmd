@@ -1,24 +1,35 @@
-## Infrastruktur des FDZ-Bund {#sec-infrastruktur}
+## Techniche Infrastruktur {#sec-infrastruktur}
 
-Erwähnen: Klassisch ebenso SAS- und Stata-Server
 
-Womit wir arbeiten können...
+Womit wir arbeiten können.
 
-TODO: Vorbereitung der Daten auf neue Methoden, Werkzeuge
 
-### StBA
+### Allgemeinn
+
+- abgeschottete, innerhalb der eigenen Infrastruktur
+
+### SAS Server
+
+### StBA R-Server
+
+Intern ist R in größeren Kapazitäten nutzbar und Stata nur lokal.
+
+- 10 Server á
+  - 1 TB RAM
+  - 96 Kerne
+  - 2 GPUs mit insg. 96 GB VRAM 
+
+Bereitstellung von Paketen und organisatorische einordnung. Veränderung der Infrastruktur langwierig, Beschaffung via Beschaffungsamt etc. -\> wir müssen für die Zukunft planen und umsetzen.
+
+### FDZ OnSite-Server
 
 StBA R-Server mit noch größeren Kapazitäten und grafischen Rechenbeschleunigern.
 
-### FDZ OnSite Server
+Neu seit November 2025 steht der sog. OnSite-Server im FDZ Bund allen OnSite Nutzungen bereit -- jeweisl in Stata un R via KDFV und an den GWAP. Zugriff zu Analyseservern in umfangreichen Kapazitäten.
 
-Neu seit November 2025 sind im FDZ OnSite-Server Bund verfügbar.
+In FDZ Bund Für Stata (3 Server) oder R (6 Server) in KDFV oder GWAP stehen jeder Nutzung zur Verfügung:
 
-Zugriff zu Analyseservern in umfangreichen Kapazitäten.
-
-IM FDZ Bund Für Stata oder R in KDFV oder GWAP stehen jeder Nutzung zur Verfügung:
-
-::: {.content-visible unless-format="pdf"}
+::: 
 | Komponente          | Umfang        |
 |---------------------|---------------|
 | Arbeitsspeicher     | bis zu 512 GB |
@@ -26,35 +37,11 @@ IM FDZ Bund Für Stata oder R in KDFV oder GWAP stehen jeder Nutzung zur Verfüg
 | CPU-Geschwindigkeit | 3.1 GHz       |
 :::
 
-::: {.content-visible when-format="pdf"}
-**Systemspezifikationen:**
-
--   **Arbeitsspeicher:** bis zu 512 GB
--   **Kernanzahl:** 16\
--   **CPU-Geschwindigkeit:** 3.1 GHz
-:::
-
 -   schnelle Direktverbindung zu Netzwerkspeicher
 -   Fußnote RAM in R 128 GB kann erweitert werden.
 
-Intern ist R in größeren Kapazitäten nutzbar und Stata nur lokal.
 
-Nonetheless, the idea carries over to intermediate datasets stored in your project directory and highlights the fact that small changes in your code can result in large performance gains. This also shows that common tasks can usually be accomplished much faster using R than using Stata. However, we also pointed out that you should not only focus on computing time alone as shorter computing times might be offset by longer programming time
-
-Bereitstellung von Paketen und organisatorische einordnung. Veränderung der Infrastruktur langwierig, Beschaffung via Beschaffungsamt etc. -\> wir müssen für die Zukunft planen und umsetzen.
-
-### Ausgangslage
-
-SAS
-
--   verbreitet
--   geeignet für größere Datenmengen (langsam)
-
-Stata
-
--   beliebt in Wiss.
--   hat entsprechend zugeschnittene Features
--   Bei RAM-Grenze ist Schluss
+<!--
 
 ### KI Anhang
 
@@ -234,3 +221,5 @@ Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für effizientes
 4.  **Dokumentation:** Sorgfältige Dokumentation des Analyseprozesses für Output-Kontrolle
 5.  **Ressourcenplanung:** Bewusste Planung rechenintensiver Operationen bei geteilter Infrastruktur
 6.  **Beratung nutzen:** Frühzeitige Kontaktaufnahme mit FDZ-Mitarbeitern bei methodischen Fragen
+
+-->
