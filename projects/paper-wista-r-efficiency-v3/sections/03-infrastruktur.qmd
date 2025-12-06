@@ -3,7 +3,16 @@
 
 Womit wir arbeiten können.
 
+<!--
+  -   Rückstände/Altlasten: weiterentwickelnde Infrastruktur, nicht state of the art (ausgelegt auf konsistenz und zuverlässigkeit, nicht schnelligkeit), gesetzlicher Auftrag
+      -   hauptsächlich SAS für große Datenmenge verwendet, funktioniert, aber langsam
+      -   FDZ Bund integriert in Standardarbeitsplätze des StBA
+      -   Bereitstellungsaufwände und Abhängigkeiten moderner Software
 
+- Nicht überall schnell in der Infrastruktur Weiterentwicklung. Organisatorische Abstimmung R-Pakete etc.
+
+SAS ermöglicht besonders beliebig große Datenmengen zu verarbeiten auch mit geringen Systemkapazitäten, da der Arbeitsspeicher nur minimal belastet wird. Moderne ... die den Arbeitspeicher besser nutzen, reduzieren die Laufzeit signifikant. 
+-->
 ### Allgemeinn
 
 - abgeschottete, innerhalb der eigenen Infrastruktur

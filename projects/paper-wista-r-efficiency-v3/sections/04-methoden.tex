@@ -195,6 +195,8 @@
 \providecommand{\citationcountnum}{0}
 \providecommand{\schlusselwortercount}{0}
 \providecommand{\keywordscount}{0}
+\providecommand{\authoronechars}{0}
+\providecommand{\authortwochars}{0}
 
 % Define metadata commands from Pandoc variables
 \newcommand{\doctitle}{$title$}
@@ -239,6 +241,8 @@
     Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. \\
     Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. \\
     Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. \\
+    Autor 1 (O. Hauke) & --- & \textcolor{wistaBlue}{\textbf{\authoronechars}} & --- & --- & 350 Z. \\
+    Autor 2 (A. Kristiansen) & --- & \textcolor{wistaBlue}{\textbf{\authortwochars}} & --- & --- & 350 Z. \\
     \midrule
     \sectionrows
     \bottomrule
@@ -514,7 +518,7 @@
 
 \title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
 \author{Oliver Hauke \and Annette Kristiansen}
-\date{2025-12-05}
+\date{2025-12-06}
 \begin{document}
 \maketitle
 
@@ -547,10 +551,10 @@
 \fontsize{7}{8.5}\selectfont
 \vspace{0pt}%
 {\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
-ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums und berät das Netzwerk empirische Steuerforschung in der effizienten Nutzung der Systeme.\\[0.5cm]
+ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums des Statistischen Bundeamts und berät das Netzwerk empirische Steuerforschung in effizienter Datenanalyse.\\[0.5cm]
 
 {\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
-ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut das Netzwerk empirische Steuerforschung. Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen.
+ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut Arbeiten für das Netzwerk empirische Steuerforschung. 
 
 \end{minipage}%
 \hspace{0.4cm}% Gap to vertical line (left side)
@@ -628,14 +632,14 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{8 452}
-\renewcommand{\totalwords}{1 079}
+\renewcommand{\totalchars}{8 589}
+\renewcommand{\totalwords}{1 092}
 \renewcommand{\abstractchars}{0}
 \renewcommand{\abstractwords}{0}
 \renewcommand{\zusammenfassungchars}{0}
 \renewcommand{\zusammenfassungwords}{0}
 \renewcommand{\footnotecountnum}{2}
-\renewcommand{\citationcountnum}{2}
+\renewcommand{\citationcountnum}{10}
 \renewcommand{\schlusselwortercount}{0}
 \renewcommand{\keywordscount}{0}
 \renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
@@ -643,13 +647,15 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \renewcommand{\docpublication}{WISTA}
 \renewcommand{\docpublicationissue}{01/2026}
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{2 737}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
-            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{277}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{322}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{1 801}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{2 221}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
-            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{186}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{905}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+\renewcommand{\authoronechars}{0}
+\renewcommand{\authortwochars}{0}
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{2 781}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
+            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{282}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{327}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{1 830}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
+            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{2 257}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
+            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{189}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{919}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
 }
 \newcommand{\tablerows}{            \hyperref[tbl-pkg-versions]{Tabelle~1} & Versionen verfügbarer R-Packages \\
             \hyperref[tbl-baseline]{Tabelle~2} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
@@ -822,9 +828,9 @@ im StBA und FDZ.
 \begin{itemize}
 \tightlist
 \item
-  \{data.table\} in den meisten Fällen die performanteste klassische
-  DVM. An die Syntax an base-r angesiedelt und nur hier verwendet,
-  spezielles Wissen notwendig.
+  \{data.table\} \autocite{R-data.table} in den meisten Fällen die
+  performanteste klassische DVM. An die Syntax an base-r angesiedelt und
+  nur hier verwendet, spezielles Wissen notwendig.
 \item
   \textbf{Vorteile:} Sehr schnell für In-Memory-Operationen, ausgereift,
   kompakte Syntax In teilen der Community sehr beliebt
@@ -838,9 +844,10 @@ im StBA und FDZ.
 
 \subsubsection{Tidyverse}\label{tidyverse}
 
-Tidyverse ist ein Ökosystem von Packages zur Datenverarbeitung, das für
-besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen
-Programmiersyntax, sog. \emph{\{dplyr\}-Syntax}, die den Anspruch hat
+Tidyverse \autocite{R-tidyverse} ist ein Ökosystem von Packages zur
+Datenverarbeitung, das für besonders hohe Lesbarkeit des Codes bekannt
+ist. Dazu dient eine eigenen Programmiersyntax, sog.
+\emph{\{dplyr\}-Syntax} \autocite{R-dplyr}, die den Anspruch hat
 menschlicher Sprache abzubilden. Das R-Package \{dplyr\} ist die
 Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines
 Beispiels in der folgenden Tabelle veranschaulicht wird
@@ -849,8 +856,9 @@ Beispiels in der folgenden Tabelle veranschaulicht wird
 
 Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie
 vielen anderen Packages ergänzt wurde. Bspw. für \{data.table\} setzen
-dies die Packages \{dtplyr\} oder \{tidytable\} um Wie im Falle von
-\{dtplyr\} kann die Übersetzung zu \{dplyr\} jedoch die Performanz
+dies die Packages \{dtplyr\} \autocite{R-dtplyr} oder \{tidytable\}
+\autocite{R-tidytable} um Wie im Falle von \{dtplyr\} kann die
+Übersetzung zu \{dplyr\} jedoch die Performanz
 verschlechtern.\footnote{S.
   https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/}
 
@@ -912,8 +920,9 @@ schnell erfolgen.
 \begin{itemize}
 \tightlist
 \item
-  R-package, C++ basiert, erlaubt Parallelisierung, Datenaufteilung,
-  Lazy-Computations, Datenformat im RAM passend zu Parquet
+  R-package \autocite{R-arrow}, C++ basiert, erlaubt Parallelisierung,
+  Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu
+  Parquet
 \item
   tba - s. Vortrag
 \end{itemize}
@@ -923,7 +932,7 @@ schnell erfolgen.
 \begin{itemize}
 \tightlist
 \item
-  R-Package, in-memory DB, \ldots{}
+  R-Package \autocite{R-duckdb}, in-memory DB, \ldots{}
 \item
   tba - s. Vortrag
 \end{itemize}
@@ -933,7 +942,7 @@ schnell erfolgen.
 \begin{itemize}
 \tightlist
 \item
-  an Python-angelehnte Syntax
+  an Python-angelehnte Syntax \autocite{R-polars}
 \item
   tba
 \item
@@ -950,12 +959,15 @@ Package-Versionen, die zum Zeitpunkt des in \textbf{?@sec-benchmark}
 dargestellten Performanz-Vergleiches verfügab waren, können Tabelle
 Tabelle~\ref{tbl-pkg-versions} entnommen werden.
 
-\begin{table*}
+\begin{table}
 
 \caption{\label{tbl-pkg-versions}Versionen verfügbarer R-Packages}
 
 \centering{
 
+\begin{verbatim}
+\begin{table*}
+\caption{Versionen verfügbarer R-Packages}\label{tbl-pkg-versions}
 \centering\begingroup\fontsize{10}{12}\selectfont
 
 
@@ -972,10 +984,12 @@ Tabelle~\ref{tbl-pkg-versions} entnommen werden.
 \hline
 \end{tabular}
 \endgroup{}
+\end{table*}
+\end{verbatim}
 
 }
 
-\end{table*}%
+\end{table}%
 
 
 \printbibliography

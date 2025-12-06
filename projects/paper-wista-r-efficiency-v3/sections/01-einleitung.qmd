@@ -5,11 +5,36 @@
 
 <!-- #### Steigende Anforderungen an StBA und FDZ -->
 
-In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion amtlicher Statistiken erheblich verändert. Die Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren Datenmengen geführt, sondern auch neue Möglichkeiten für die statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der Öffentlichkeit an Aktualität und Detailliertheit der Statistiken gestiegen. Um diese Herausforderungen zu bewälten, evaluiert der vorliegende Artikel die Effizienz verschiedener Datenverabeitungsmethoden mit dem Ziel Handlungsempfehlungen für die Praxis abzuleiten.
+In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion amtlicher Statistiken erheblich verändert. Die Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren Datenmengen geführt, sondern auch neue Möglichkeiten für die statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der Öffentlichkeit an Aktualität und Detailliertheit der Statistiken gestiegen. Um diese Herausforderungen zu bewälten, evaluiert der vorliegende Artikel die Effizienz moderner Datenverabeitungsmethoden mit dem Ziel Handlungsempfehlungen für die Praxis abzuleiten.
 
-<!-- #### Bedarfe der Wissenschaft  -->
+In der Wissenschaft wurde deutlich der Bedarf nach mehr Daten und technischen Möglichkeiten zu Auswertung geforder Quelle A und Quelle B. Beantworten wir durch das BTP und OSS...
 
-Insbesondere die Wissenschaft erwartet, das die *Forschungsdatenzentrum des statistischen Bundesamts (hier kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder* zeitnah auch umfangreiche Datensätze für ausgiebigere wissenschaftliche Auswertungen zur Verfügung stellt. Um diesen Herausforderungen zu bewältigen, hat das *Statstische Bundesamt* in 2025 wesentliche Meilensteine in der Modernisierung der technischen Analyseinfrastruktur erreicht (dargestellt in @sec-infrastruktur). Anfang 2025 wurden die R-Server für Auswertungen und Datenverabeitungen in der Statistikproduktion modernisiert und stark erweitert. Seit November 2025 stehen auch dem FDZ neue R- und Stata-Analyseserver (sog. FDZ OnSite-Server) für wissenschaftliche Auswertungen zu Verfügung. 
+<!--
+Zielgruppe: alle Datenanalytiker mit rudimentären R-Kenntnisse, aber breit, FDZ, amtl. Stat,
+
+1.  **Methodische Effizienz:** Wie unterscheiden sich verschiedene statistische Verfahren hinsichtlich ihrer Rechenzeit und Speicheranforderungen bei gleichbleibender Ergebnisqualität?
+
+2.  **Skalierbarkeit:** Welche Verfahren zeigen die beste Performance bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
+
+3.  **Praktische Anwendbarkeit:** Welche Infrastrukturanforderungen stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
+
+- durch die größeren Datenmengen, fühlt sich die Verarbeitung (wie in tidyverse) immer langsamer an. In den letzten Jahren haben sich mehrere Pakete entwickelt, die besser für große Datenmengen geeignet sind. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
+-->
+
+<!-- #### Bedarfe der Wissenschaft und neue Analyseserver -->
+
+Insbesondere die Wissenschaft erwartet, das die *Forschungsdatenzentrum des statistischen Bundesamts (hier kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder* zeitnah auch umfangreiche Datensätze für ausgiebigere wissenschaftliche Auswertungen zur Verfügung stellt. In dem FDZ haben Forschende die Möglichkeit, eigene Analysen mit amtlicher Mikrodaten durchführen. Der Zugangsweg "Onsite-Nutzung" ermöglicht den Zugriff zu formal anonymisierten Einzeldaten ermöglichen. Forschende können selbst ein *Gastwissenschaftsarbeitsplatz* (GWAP) in den Liegenschaften des FDZ nutzen oder via *kontrollierter Datenfernverarbeitung* (KDFV) können entwickelte Auswertungsprogramme durch das FDZ ausgeführt werden. Jedoch hatte die Wissenschaft in @bmf2020dateninfrastruktur Kritik am Datenbestand für empirische Steuerforschung und dessen Aktualität geäußert.In @svr2023jahresgutachten wurde darüber hinaus die technisch veraltete Infrastruktur des FDZ bemängelt. 
+
+<!-- #### BTP repräsentiert steigende Bedarfe an steigende Datenmenge  -->
+
+Um diese Situation zu verbessern, hat das Bundesfinanzministerium im Jahre 2022 das *"Netzwerk empirischer Steuerforschung"* (NeSt) gegründet. [^nest-web] Vorangetrieben durch das NeSt konnte das Statistische Bundesamt bereits erfolgreich den Datenbestand erweitern. Insbesondere steht seit 2023 das *Business-Tax-Panel* (BTP) zur Verfügung und wird bereits erneuert (in @sec-btp beschrieben). Es veknüpft verschiedene Unternehmensstatistiken und birgt mit fast 3 000 Merkmalen einerseits ein großes Analysepotenzial, andererseits hohe technische Anforderungen an die Analysewerkzeuge.[^btp-web] 
+
+### Voranschreitende Innovation
+
+Anforderungen: Performanz auf neuem Stand der Technik, schnelle Ergebnisse, idealenfalls in Echtzeit (d.h. wenigen Sekunden). Leichte Nutzung / geringe Entwickleraufwände (im FDZ für viele Fachrichtungen zugänglich), moderne Interfaces, möglichst leiche Nutzung, wenig Schulungsbedarf. leicht einrichtbar, wenig Abhängigkeiten zu vielen Tools, die sich ständig weiterentwicklen, sodass hohe Wartungsaufwände entstehen. stabil, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum.ressourcensparend (RAM Problematik)
+
+Um diesen Herausforderungen zu bewältigen, hat das *Statstische Bundesamt* in 2025 wesentliche Meilensteine in der Modernisierung der technischen Analyseinfrastruktur erreicht (dargestellt in @sec-infrastruktur). Anfang 2025 wurden die R-Server für Auswertungen und Datenverabeitungen in der Statistikproduktion modernisiert und stark erweitert. Seit November 2025 stehen auch dem FDZ neue R- und Stata-Analyseserver (sog. FDZ OnSite-Server) für wissenschaftliche Auswertungen zu Verfügung. 
+
 
 <!-- 
 
@@ -19,31 +44,39 @@ Annette
 -   Schnelle Bereitstellung von am besten vollständigen, wenig Anonymisierten Datensätzen an Wissenschaft via FDZ, die zeitnah genutzt werden können. Erste Analysen seitens StBA und hohe Expertise erwartet (Exploration der Daten nötig)
 - Komplexere Analysen
 -   Bereitstellung von Zusatzdokumentation durch StBA. Metadatenreport.
--->
-
-<!-- #### R bietet eher zu viel, geeignete Auswahl nötig -->
-
-Als Open Source Software bietet R bietet Zugang zu sehr vielen Datenverarbeitungsmethoden (in Form von sog. *R-Paketen*), die ein breites Spektrum an Nutzerfreundlichkeit und Performanz bieten. Die gleiche Datenvearbeitung kann abhängig von der Software-Nutzung, einige Stunden dauern oder in wenigen Sekunden fertigs ein. Nur die richtige Nutzung geeigneter R-Pakete ermöglicht es, Datenverarbeitungsbedarfe anhand großer Datenmengen in Sekunden nachvollziehbar auszuführen (beschrieben in @sec-methoden). Dadurch stellt sich die Frage welche Programmiermethoden geeignet sind, die neuen Datenverarbeitungsbedarfe mit derspezifischen neuen Infrastruktur zu bedienen (diskutiert in @sec-benchmark). Durch die Beantwortung können für den Statistikerstellungsprozesses Werkzeuge abgeleitet werden, die Informationsbedarfe der Öffentlichkeit schnell anhand wachsender Datenmengen zu bedienen. 
-
-<!-- #### Steigende Anforderungen der Wissenschaft -->
-
-In dem FDZ haben Forschende die Möglichkeit, eigene Analysen mit amtlicher Mikrodaten durchführen. Der Zugangsweg "Onsite-Nutzung" ermöglicht den Zugriff zu formal anonymisierten Einzeldaten ermöglichen. Forschende können selbst ein *Gastwissenschaftsarbeitsplatz* (GWAP) in den Liegenschaften des FDZ nutzen oder via *kontrollierter Datenfernverarbeitung* (KDFV) können entwickelte Auswertungsprogramme durch das FDZ ausgeführt werden. Jedoch hatte die Wissenschaft in @bmf2020dateninfrastruktur Kritik am Datenbestand für empirische Steuerforschung und dessen Aktualität geäußert.In @svr2023jahresgutachten wurde darüber hinaus die technisch veraltete Infrastruktur des FDZ bemängelt. 
-
-<!-- 
 
 - Der Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung (2023) hat in seinem Gutachten 2023/24 auf eine technisch veraltete Infrastruktur und auf die fehlende Nutzerfreundlichkeit hingewiesen. 
 
 - Seit Januar 2025 besteht ein Remote Access System als neuer Zugangsweg für die Wissenschaft. Im Bereich der Steuerstatistiken wird derzeit geprüft, inwiefern auch Einzeldaten aus diesem Bereich über Remote Access genutzt werden können.
 -->
 
-<!-- #### BTP repräsentiert steigende Bedarfe an steigende Datenmenge  -->
 
-Um diese Situation zu verbessern, hat das Bundesfinanzministerium im Jahre 2022 das *"Netzwerk empirischer Steuerforschung"* (NeSt) gegründet. [^nest-web] Vorangetrieben durch das NeSt konnte das Statistische Bundesamt bereits erfolgreich den Datenbestand erweitern. Insbesondere steht seit 2023 das *Business-Tax-Panel* (BTP) zur Verfügung und wird bereits erneuert (in @sec-btp beschrieben). Es veknüpft verschiedene Unternehmensstatistiken und birgt mit fast 3 000 Merkmalen einerseits ein großes Analysepotenzial, andererseits hohe technische Anforderungen an die Analysewerkzeuge.[^btp-web] 
 
 <!-- #### OSS unterstützt die Beantwortung technisch -->
 
 Um die technischen Mittel bereitzustellen, hat eine weitere Initiative des NeSt die Moderniserung IT-Infrastruktur des FDZ vorangetrieben. **Dadurch bietet das FDZ seit November 2025 neue Server mit großen Systemkapazitäten für R und Stata für wissenschaftliche Auswertungen an**. Erstmalig können die vollen Kapazitäten neben der KDFV auch an den GWAPs genutzt werden, um große Datensätze im Vollmaterial auszuwerten. Wir werden in den FDZ OnSite-Servern demonstrieren, dass viele Auswertungsbedarfe das BTP im Vollmaterial innerhalb von Sekunden beantwortet werden können. Da die Datenmenge des BTP den verfügbaren Arbeitsspeicher weiterhin übertrifft, sind geeigneten Programmiermethoden notwendig (untersucht in @sec-ergebnis).
 
+
+<!-- #### R bietet eher zu viel, geeignete Auswahl nötig -->
+
+Neben den bisherigen Hauptwerkzeuge für Datenverarbeitung sind für die Statistikproduktion aktuell SAS und Stata in dem FDZ, findet R als Lingua Franca in der Statistik, Methodologie und Datenwissenschaft und somit auf natürlich weise Einzug in die amtliche Statistik.[^uros] 
+
+[^uros]: Wachstum der uRos s. https://r-project.ro/conference2025.html#Presentations
+
+Als Open Source Software mit einer weltweit aktiven Community, bietet R bietet Zugang zu sehr vielen Funktionen der Datenverarbeitung (in Form von sog. *R-Paketen*), die ein breites Spektrum an Nutzerfreundlichkeit und Performanz bieten. Die gleiche Datenvearbeitung kann abhängig von der Software-Nutzung, einige Stunden dauern oder in wenigen Sekunden fertigs ein. Nur die richtige Nutzung geeigneter R-Pakete ermöglicht es, Datenverarbeitungsbedarfe anhand großer Datenmengen in Sekunden nachvollziehbar auszuführen (beschrieben in @sec-methoden).   Dadurch stellt sich die Frage welche Programmiermethoden geeignet sind, die neuen Datenverarbeitungsbedarfe mit der spezifischen neuen Infrastruktur zu bedienen (diskutiert in @sec-benchmark). 
+Durch die Beantwortung können für den Statistikerstellungsprozesses Werkzeuge abgeleitet werden, die Informationsbedarfe der Öffentlichkeit schnell anhand wachsender Datenmengen zu bedienen. 
+Die Bewertung muss sorgfältig durchgeführt werden, da sich die betrachteten R-Pakete schnell weiterentwicklung, meist mit mehreren großen Releases innerhalb eines Jahres, aber die organisatorischen Strukturen nicht erlauben, jede neue Version einzurichten. 
+
+
+    -   wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit unterschiedlichen Analytischen und technischen Kenntnissen
+
+<!-- Arrow bspw. hatte in 2024 und 2025 jeweils 4 Major Releases mit diversen neuen Funktionalitäten und Performanz-Verbesserung 
+
+Als Desktopanwendung konzipiert ist R nicht für hoch-performante Auswertungen von Big Data bekannt. Wie unsere Untersuchung zeigen wird, beansprucht R nativ übermäßige Systemressourcen, um die Nutzerfreundlichkeit zu erhöhen. Dadurch dass R Open Source ist ändern dies jedoch diverse Entwicklerteams weltweit und stellen R Zusatzfunktionen in Form von R-Paketen zur Verfügung die in R hoch-performante Auswertung großer Datenmengen ermöglichen.
+
+
+Ausbreitung von R - gleich die richtige Technologie auswählen und einsetzen. Aber welche ist die "richtige"? Was für Unterschiede (Vorteile / Nachteile) haben die Technologien. Dies will dieser Artikel im Falle des BTP untersuchen. Kontrollierte Benchmark und weitere (qualitative) Aspekte, wie Userexperience.
+-->
 <!--
 ggf.: Technischen Erleichterungen der Nutzerverwaltung durch die FDZ, reduziert Betreuungsaufwände und damit Wartezeiten der Nutzenden in der KDFV oder an den GWAPs.
 -->
@@ -53,156 +86,7 @@ ggf.: Technischen Erleichterungen der Nutzerverwaltung durch die FDZ, reduziert 
 [^oss]: 
 
 
-### Vorschreitende Innovation der Datenverarbeitungstechnologien
 
-#### Ausgangslage
 
-Nicht überall schnell in der Infrastruktur weiterentwicklung. Organisatorische Abstimmung R-Pakete etc.
 
-Die Hauptwerkzeuge für Datenverarbeitung sind für die Statistikproduktion aktuell SAS und Stata in dem FDZ.
-
-SAS ermöglicht besonders beliebig große Datenmengen zu verarbeiten auch mit geringen Systemkapazitäten, da der Arbeitsspeicher nur minimal belastet wird. Moderne ... die den Arbeitspeicher besser nutzen, reduzieren die Laufzeit signifikant. 
-
-Stata ist in viele Fachgebieten der Wissenschaft sehr beliebt und erfreut sich hoher Nachfrage im FDZ, wird anhand der User Experience gerne genutzt. Ist auf Arbeitsspeicher angewiesen, und kommt leicht an die kapazitären Grenzen.
-
-Tendenz kommerzieller Analysesoftware zu befristeten Lizenzen und Cloudnutzung bietet der langfristig ausgelegten und stabilen amtl. Statistik große Risiken, sodass sich ein Trend zu Open-Source Technologien entwickelt. In der internationalen amtlichen Statistik seit Jahren auf dem Vormarsch. Langsam steigt auch Verbreitung von insb. R in den dt. Statistikämtern.
-
-Anforderungen: Geschwindigkeit auf neuem Stand der Technik, 
-
-<!--
-
-
-Anforderungen an Modernisierung
-
--   hohe Performanz, schnelle Ergebnisse, idealenfalls in Echtzeit (d.h. wenigen Sekunden)
--   moderne Interfaces, möglichst leichte Nutzung, wenig Schulungsbedarf, Allgemeinwissen von Statistiker u.Ä. Fachrichtungen (Werkzeug, nicht Gegenstand der Untersuchung)
--   leicht einrichtbar, wenig Abhängigkeiten zu vielen Tools, die sich ständig weiterentwicklen, sodass hohe Wartungsaufwände entstehen.
-
-#### Vormarsch von Open Source
-
--   
-
-#### Fokus auf R
-
-R verbreitung steigt, bei uns in Kinderschuhen. Wie fängt man denn am besten an? Was ist von anfang an der richtige Weg daten in R zu verarbeiten?
-
-R ist weltweit bekannt und verbreitet als die Lingua Franca für Statistik, Methodologie und Data Science. Dies macht R zu der natürlichen Wahl für die amtlichen Statistik mit viele attraktive Vorteile.
-
--   aktive globale Community sorgt für schnelle Innovation und Verbesserung
-
--   CRAN bietet offiziell aktuell Zusatzfunktionalitäten in Form von X R-Paketen. Darunter sind viele klassische Pakete für Datenverarbeitung und -anayse.
-
--   R
-
-    -   The reasons why the official statistics community is rapidly embracing R are clear. S. erfolg / Wachstum der Conference uRos https://r-project.ro/conference2025.html#Presentations
-    -   R lingua franca for statisticians, methodologists and data scientists worldwide -\> nativ geeignet für amtl. Statistik
-    -   R Open Source bietet vorteile
-        -   aktive globale Community
-        -   support from the industry
-        -   it combines a vast amount of functionalities for data preparation, methodology, visualisation and application building
-        -   free = ideal environment for sharing, collaboration and industrialising official statistics
-        -   Packages CRAN, github...
-
-Arrow bspw. hatte in 2024 und 2025 jeweils 4 Major Releases mit diversen neuen Funktionalitäten und Performanz-Verbesserung
-
-Neue Entwicklung zu R in der dt. OSS, bei Integration in Statistikproduktion und Datenbereitstellung direkt mit den richtigen Features und Methoden beginnen. Wie die folgenden...
-
-Open Source -\> breite Auswahl an Parketen zum Einlesen, Transformieren und Auswerten von Daten.
-
--   Unterscheidung klassischer/r-nativer Methoden (base-r, readr / vroom und data.table), effiziente/moderne Methoden (arrow, duckdb, polars)
--   Klassische Methoden
-    -   base-r zu vermeiden
-    -   readr
-        -   in tidyverse
-        -   nutzerfreundlich, einfach zu lernen / nutzen
-    -   data.table
-        -   benchmarking: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
-    -   datenformate in R: qs, rds
-    -   dtplyr?
-
-As we start working with larger and larger datasets, the basic tools of the tidyverse start to look a little slow. In the last few years several packages more suited to large datasets have emerged. Some of these are column, rather than row, oriented. Some use parallel processing. Some are vector optimized. Speedy databases that have made their way into the R ecosystem are data.table, arrow, polars and duckdb. All of these are available for Python as well. Each of these carries with it its own interface and learning curve. duckdb, for example is a dialect of SQL, an entirely different language so our dplyr code above has to look like this in SQL: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
-
-#### Hoch-performante Datenverarbeitungsmethoden
-
-Als Desktopanwendung konzipiert ist R nicht für hoch-performante Auswertungen von Big Data bekannt. Wie unsere Untersuchung zeigen wird, beansprucht R nativ übermäßige Systemressourcen, um die Nutzerfreundlichkeit zu erhöhen. Dadurch dass R Open Source ist ändern dies jedoch diverse Entwicklerteams weltweit und stellen R Zusatzfunktionen in Form von R-Paketen zur Verfügung die in R hoch-performante Auswertung großer Datenmengen ermöglichen.
-
--   R darüber hinaus vermehrt hoch-performante Analysetools, die sich ständig verbessern
--   ermöglichen sehr schnelle Verarbeitung von Daten, mit einem sehr hohen Gesamtvolumen, das sogar den verfügbaren RAM übersteigt.
--   sollte möglichst leicht nutzbar sein, nativ in R ohne viele Abhängkeiten (organisatorische Einschränkungen)
-
-### Umsetzung im StBA und FDZ
-
-
-
--   möglichst leicht nutzbar und gewohnt/verbreitet -\> R+dpylr
-
-    -   wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit unterschiedlichen Analytischen und technischen Kenntnissen
-
--   stabil
-
--   schnell, optimale Nutzung vorhandener GWAP Zeit und KDFV Zeitraum
-
--   ressourcensparend (RAM Problematik)
-
--   möglichst leicht nutzbar mit den vorhandenen Systemen und organisatorischen Strukturen ergibt Anforderungen
-
-    -   hohe-performanz bereits mit R Grundlagenwissen
-    -   minimale Anforderungen an zsl. Software
-
--   NeSt Förderung, Datenprodukterstellung, Bereitstellung der FDZ auch technischen Infrastruktur und Knowhow der effizienten Nutzung
-
--   Bereitstellung des OSS seit Nov. 2025
-
--   Vorbereitend Exploration und Beratung in geeigneten Aüßerst effizienten Methoden -\> Ergebnisse in Echtzeit
-
--   Szenario FDZ GWAP Besuch, statt KDFV, sofort Ergebnisse
-
--   Diese Arbeit
-
-**Technische Lösungsansätze.**
-
--   Modernisierung der amtl. Stat, FDZs -\> Zugangswege, Kapazitäten, ...
--   Technische Weiterentwicklung, stärkere Hardware, leichtere Bereitstellung, virtualisierung
--   Schnelle Weiterentwicklung von Open-Source Software, R, div. Packages, e.g. Verweis auf Changelog von Arrow, Polars
-
-### Diese Arbeit
-
-Ausbreitung von R - gleich die richtige Technologie auswählen und einsetzen. Aber welche ist die "richtige"? Was für Unterschiede (Vorteile / Nachteile) haben die Technologien. Dies will dieser Artikel im Falle des BTP untersuchen. Kontrollierte Benchmark und weitere (qualitative) Aspekte, wie Userexperience.
-
-Zielgruppe: alle Datenanalytiker mit rudimentären R-Kenntnisse, aber breit, FDZ, amtl. Stat,
-
-Wir fokussieren uns auf folgende zentrale Forschungsfragen:
-
-1.  **Methodische Effizienz:** Wie unterscheiden sich verschiedene statistische Verfahren hinsichtlich ihrer Rechenzeit und Speicheranforderungen bei gleichbleibender Ergebnisqualität?
-
-2.  **Skalierbarkeit:** Welche Verfahren zeigen die beste Performance bei wachsenden Datenmengen, und wo liegen die kritischen Grenzen?
-
-3.  **Praktische Anwendbarkeit:** Welche Infrastrukturanforderungen stellen moderne Auswertungsmethoden an Forschungsdatenzentren?
-
-
-<!--
-
--   Identifizierte Kernaufgabe: 90% irrelevante Informationen aus großen Datenmengen rausfiltern, Untersuchung wie dies am effizientesten geht.
-
-Leitet in den weiteren Artikel über zu der Kernfrage
-
-Benchmark Experiment
-
--\> Empfehlung Systemressourcen für IT-Betrieb -\> Software- und Methodenempfehlung für Wissenschaft
-
-
-
--   Bei der Integration von R und umfangreichen Auswahl, welche Technologie sollte Datenaufbereitung, -analyse und -auswertung genutzt werden?
--   Wir nutzen eine Kontrollierte Benchmark
-
-Die Arbeit gliedert sich wie folgt: Nach dieser Einleitung wird in @sec-btp der Anwendungsfall Business-Tax-Panel vorgestellt, der als empirisches Beispiel für die Analysen dient. @sec-infrastruktur beschreibt die Infrastruktur des Forschungsdatenzentrums des Bundes (FDZ-Bund), in der die Auswertungen durchgeführt werden.
-
-In @sec-methoden werden verschiedene effiziente Auswertungsmethoden vorgestellt und deren theoretische Grundlagen erläutert. @sec-performance präsentiert die empirischen Performanzergebnisse der verschiedenen Ansätze. Die Arbeit schließt mit einem Ausblick auf zukünftige Entwicklungen in @sec-ausblick.
-
-Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen.
-
-
-
--->
-
--->
+ 

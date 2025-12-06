@@ -1,9 +1,16 @@
 ## Anwendungsfall Business-Tax-Panel 
 
+
+<!--
+
 tba (Wunsch Oli an FB):
 
 - beschreiben, welche Datenverarbeitungen in der Statistikproduktion häufig durchgeführt werden und, das unsere Use Cases dazu passen.
 - Was muss in der Datenbereitstellung erfolgen: Erstellung von MDR usw... Test auf Nutzbarkeit für wiss. Zwecke (?)
+
+Identifizierte Kernaufgabe: 90% irrelevante Informationen aus großen Datenmengen rausfiltern, Untersuchung wie dies am effizientesten geht. 
+
+-->
 
 ### Datengrundlage
 

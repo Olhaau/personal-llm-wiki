@@ -1,5 +1,14 @@
 ## Performanzvergleich {#sec-performance}
 
+<!-- 
+
+Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen. 
+
+ Empfehlung Systemressourcen für IT-Betrieb -\> Software- und Methodenempfehlung für Wissenschaft
+-   Wir nutzen eine Kontrollierte Benchmark
+-->
+
+
 ### Versuchsaufbau
 
 Um zwischen den in Abschnitt @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Vergleich der Performance auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des FDZ gemessen. Weiterführende Performanzmessung sowie der vollständig reproduzierbare Code sind auf Opencode verfügbar[^opencode].

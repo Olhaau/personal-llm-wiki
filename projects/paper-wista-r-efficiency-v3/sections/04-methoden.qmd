@@ -1,5 +1,20 @@
 ## Datenverarbeitungsmethoden {#sec-methoden}
 
+<!--
+
+-   Unterscheidung klassischer/r-nativer Methoden (base-r, readr / vroom und data.table), effiziente/moderne Methoden (arrow, duckdb, polars)
+-   Klassische Methoden
+    -   base-r zu vermeiden
+    -   readr
+        -   in tidyverse
+        -   nutzerfreundlich, einfach zu lernen / nutzen
+    -   data.table
+        -   benchmarking: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
+    -   datenformate in R: qs, rds
+    -   dtplyr?
+
+-->
+
 Wir betrachten in diesem Artikel die Performanz sog. *Datenverarbeitungsmethoden*, d.h. Softwarelösungen, die Daten einlesen, modifzierern, aggregieren, auswerten oder analysieren. Das Schreiben von Daten wird in unserer Untersuchung ausgeklammert, da es sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den Outputs der Wissenschaft im FDZ um kleine Tabellen handelt, die i.d.R. keine große Performanz erfordern.[^writedata Wir vernachlässigen Spark, Datenbanken und weitere Technologien, die zusätzliche Einrichtung erfordern und nicht direkt als R-Package genutzt werden können. <!-- kein dbplyr -->
 
 [^writedata]: Dennoch bieten die in in @sec-highperf vorstellten Lösungen auch hohe Performanz im Schreiben von Daten.
@@ -69,18 +84,18 @@ Der Einsatz von R wächst stetig mit aktuell über 200 aktiven Nutzenden im StBA
 
 #### Data.table
 
-- {data.table} in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
+- {data.table} [@R-data.table] in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
 - **Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax In teilen der Community sehr beliebt
 - **Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung. 
 - **Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird
 
 #### Tidyverse
 
-Tidyverse ist ein Ökosystem von Packages zur Datenverarbeitung, das für besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen Programmiersyntax, sog. *{dplyr}-Syntax*, die den Anspruch hat menschlicher Sprache abzubilden. Das R-Package {dplyr} ist die Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines Beispiels in der folgenden Tabelle veranschaulicht wird
+Tidyverse [@R-tidyverse] ist ein Ökosystem von Packages zur Datenverarbeitung, das für besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen Programmiersyntax, sog. *{dplyr}-Syntax* [@R-dplyr], die den Anspruch hat menschlicher Sprache abzubilden. Das R-Package {dplyr} ist die Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines Beispiels in der folgenden Tabelle veranschaulicht wird
 
 \[ Tabelle Beispiel Dplyr \]
 
-Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie vielen anderen Packages ergänzt wurde. Bspw. für {data.table} setzen dies die Packages {dtplyr} oder {tidytable} um Wie im Falle von {dtplyr} kann die Übersetzung zu {dplyr} jedoch die Performanz verschlechtern.[^tidy-wrappers]
+Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie vielen anderen Packages ergänzt wurde. Bspw. für {data.table} setzen dies die Packages {dtplyr} [@R-dtplyr] oder {tidytable} [@R-tidytable] um Wie im Falle von {dtplyr} kann die Übersetzung zu {dplyr} jedoch die Performanz verschlechtern.[^tidy-wrappers]
 
 [^tidy-wrappers]: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
@@ -104,17 +119,17 @@ Um Datenauswertung auf höhere Datenmengen skalieren zu können ist ein Paradigm
 
 #### Apache Arrow
 
-- R-package, C++ basiert, erlaubt Parallelisierung, Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu Parquet
+- R-package [@R-arrow], C++ basiert, erlaubt Parallelisierung, Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu Parquet
 - tba - s. Vortrag
 
 #### DuckDB
 
-- R-Package, in-memory DB, ...
+- R-Package [@R-duckdb], in-memory DB, ...
 - tba - s. Vortrag
 
 #### Polars
 
-- an Python-angelehnte Syntax
+- an Python-angelehnte Syntax [@R-polars]
 - tba
 - Benchmark des Polars Entwicklerteams [^benchmark-polars]
 
