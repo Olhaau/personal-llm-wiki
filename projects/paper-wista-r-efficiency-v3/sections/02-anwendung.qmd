@@ -1,5 +1,10 @@
 ## Anwendungsfall Business-Tax-Panel 
 
+tba (Wunsch Oli an FB):
+
+- beschreiben, welche Datenverarbeitungen in der Statistikproduktion häufig durchgeführt werden und, das unsere Use Cases dazu passen.
+- Was muss in der Datenbereitstellung erfolgen: Erstellung von MDR usw... Test auf Nutzbarkeit für wiss. Zwecke (?)
+
 ### Datengrundlage
 
 *Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags- sowie Umsatzsteuerstatistiken im Quer- und Längsschnitt. Verfügbar sind Informationen aus den folgenden Statistiken: Gewerbe-, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung, Statistik über die Personengesellschaften und Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen Unternehmensregister. Insgesamt deckt der Forschungsdatensatz eine Vielzahl an Analysemöglichkeiten, wie zum Beispiel Analyse von Anpassungsreaktionen oder Verteilungsanalysen, die für die evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.*
@@ -10,7 +15,7 @@
 
 ### Auswertungsbedarfe
 
-*Um den Auswetungsbedarf des Fachbereichs und des FDZ abzubilden wird die Tabelle zur Häufigkeitsverteilung der Beobachtungen je Jahr und Steuerstatistik (FDZ, 2024 --> IN QULLEN aufnehmen!) verwendet. Im Fachbereich ergibt sich zusätzlich der Bedarf die Daten je nach Statistik und Tabelle zu bearbeiten. Auch die Forschenden bearbeiten die Daten um sie für die jeweilige Analyse aufzubereiten. Daher wird die Datenbearbeitung und anschließende Analyse als zweiter Anwendungsbedarf getestet.* 
+*Um den Auswertungsbedarf des Fachbereichs und des FDZ abzubilden wird die Tabelle zur Häufigkeitsverteilung der Beobachtungen je Jahr und Steuerstatistik (FDZ, 2024 --> IN QULLEN aufnehmen!) verwendet. Im Fachbereich ergibt sich zusätzlich der Bedarf die Daten je nach Statistik und Tabelle zu bearbeiten. Auch die Forschenden bearbeiten die Daten um sie für die jeweilige Analyse aufzubereiten. Daher wird die Datenbearbeitung und anschließende Analyse als zweiter Anwendungsbedarf getestet.* 
 
 *Die Körperschaftsteuerstatistik zeigt über die Jahre eine Zunahme der Steuerpflichtigen mit Verlustvortrag im jeweiligen Berichtsjahr (GENESIS Code 73211-0002). Für den zweiten Anwendungsfall wird das Vorliegen eines Verlustvortrages im jeweiligen Berichtsjahr als versucht anhand verschiedener Einflussfaktoren zu erklären. Anzunehmen ist, dass Personalkosten den Verlustvortrag erhöhen können, daher wird die Zahl der Sozialversicherungspflichtig Beschäftigen sowie die Summe der Löhne und Gehälter als erklärende Variable verwendet. Der jeweilige Gesamtbetrag der Einkünfte und die abgezogenen Spenden können ebenfalls den Verlustvortrag beeinflussen. Um den Internationalisierungsgrad des Unternehmens zu erfassen wird ein Dummy für aufgenommen der Anzeigt, ob das Unternehmen auslandskontrolliert ist.*
 

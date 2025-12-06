@@ -518,7 +518,7 @@
 
 \title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
 \author{Oliver Hauke \and Annette Kristiansen}
-\date{2025-12-05}
+\date{2025-12-06}
 \begin{document}
 \maketitle
 
@@ -632,14 +632,14 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{38 394}
-\renewcommand{\totalwords}{4 785}
+\renewcommand{\totalchars}{40 911}
+\renewcommand{\totalwords}{5 069}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
 \renewcommand{\zusammenfassungwords}{81}
-\renewcommand{\footnotecountnum}{8}
-\renewcommand{\citationcountnum}{9}
+\renewcommand{\footnotecountnum}{11}
+\renewcommand{\citationcountnum}{11}
 \renewcommand{\schlusselwortercount}{6}
 \renewcommand{\keywordscount}{6}
 \renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
@@ -649,13 +649,13 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
 \renewcommand{\authoronechars}{327}
 \renewcommand{\authortwochars}{256}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{12 434}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
-            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{1 262}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{1 464}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{8 181}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
-            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{10 090}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
-            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{848}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 111}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{13 249}} & \textcolor{wistaBlue}{\textbf{4}} & \textcolor{wistaBlue}{\textbf{4}} & --- \\
+            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{1 345}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{1 560}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{8 718}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
+            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{10 752}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
+            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{904}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 380}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
 }
 \newcommand{\tablerows}{            \hyperref[tbl-pkg-versions]{Tabelle~1} & Versionen verfügbarer R-Packages \\
             \hyperref[tbl-baseline]{Tabelle~2} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
@@ -693,24 +693,62 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 
 \section{Einleitung}\label{sec-einleitung}
 
-Spannungsfeld, Weiterentwicklung zur Lösung und Technologie-Empfehlung
+Die amtliche Statistik steht vor der Herausforderung, bei stetig
+wachsenden Datenmengen die steigenden Nutzerbedarfe mit qualitativ
+hochwertige und zeitnahe statistische Informationen zu bedienen. Um
+diese Herausforderung zu bewältigen, hat das StBA in 2025 wesentliche
+Ziele in der Modernisierung seiner technischen Analyseinfrastruktur
+erreicht (dargestellt in Kapitel~\ref{sec-infrastruktur}). Anfang 2025
+StBA wurden die Server des StBA für die auswertung in R stark erweitert.
+Seit Nov.~2025 steht dem Forschungsdatenzentrum des statistischen
+Bundesamts neue Server für wissenschaftliche Auswertungen zu Verfügung.
+R bietet Zugang zu modernen Datenverarbeitungsmethoden, die simpel
+bedienbar sind und gleichzeitig Datenverarbeitungsbedarfe anhand großer
+Datenmengen in Sekunden beantworten können (beschrieben in
+Kapitel~\ref{sec-methoden}). Dadurch kann für den
+Statistikerstellungsprozesses Werkzeuge abgeleitet werden, die
+Informationsbedarfe der Öffentlichkeit schnell anhand wachsender
+Datenmengen zu bedienen. Es stellt sich die Frage welchen
+Programmiermethoden geeignet sind, die neuen Datenverarbeitungsbedarfe
+mit spezifischen neuen Infrastruktur bedient werden können (diskutiert
+in \textbf{?@sec-benchmark}).
 
-Einbauen: Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz
-FDZ Netzwerk empririscher Steuerforschung, hier kurz NeSt.
+In dem \emph{Forschungsdatenzentrum des statistischen Bundesamts (hier
+kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der
+Länder} haben Forschende die Möglichkeit, eigene Analysen mit amtlicher
+Mikrodaten durchführen. Der Zugangsweg ``Onsite-Nutzung'' ermöglicht den
+Zugriff zu formal anonymisierten Einzeldaten ermöglichen. Forschende
+können selbst ein \emph{Gastwissenschaftsarbeitsplatz} (GWAP) in den
+Liegenschaften des FDZ nutzen oder via \emph{kontrollierter
+Datenfernverarbeitung} (KDFV) können entwickelte Auswertungsprogramme
+durch das FDZ ausgeführt werden.Jedoch hatte die Wissenschaft in
+\textcite{bmf2020dateninfrastruktur} Kritik am Datenbestand für
+empirische Steuerforschung und dessen Aktualität geäußert. Darüber
+hinaus wird seit Jahren die technische Datenverarbeitungsinfrastruktur
+des FDZ bemängelt.
 
-\subsection{Handlungsbedarf}\label{handlungsbedarf}
+Um diese Situation zu verbessern, hat das Bundesfinanzministerium das
+\emph{``Netzwerk empirischer Steuerforschung''} (NeSt) gegründet.
+\footnote{https://www.bundesfinanzministerium.de/Web/DE/Themen/Steuern/Steuerliche\_Themengebiete/NeSt/netzwerk-fuer-empirische-steuerforschung.html}
+Vorangetrieben durch das NeSt konnte das Statistische Bundesamt bereits
+erfolgreich den Datenbestand erweitern. Seit 2023 steht das
+\emph{Business-Tax-Panel} (BTP) zur Verfügung und wird bereits wieder
+überarbeitet. Es veknüpft verschiedene Unternehmensstatistiken und birgt
+dadurch mit fast 3 000 Merkmalen ein großes Analysepotenzial (genauer in
+\textbf{?@sec-btp} beschrieben).\footnote{https://www.forschungsdatenzentrum.de/de/steuern/btp}.
 
-\subsubsection{Steigende Datenmenge in der amtlichen
-Statistik}\label{steigende-datenmenge-in-der-amtlichen-statistik}
+Eine weitere Initiative des NeSt hat zu der Moderniserung
+IT-Infrastruktur des FDZ geführt (dem sog. OnSite-Server\footnote{}).
+\textbf{Dadurch bietet das FDZ seit November 2025 bietet neue Server mit
+großen Systemkapazitäten für R und Stata für wissenschaftliche
+Auswertungen an}. Erstmalig können die vollen Kapazitäten neben der KDFV
+auch an den GWAPs genutzt werden, um große Datensätze im Vollmaterial
+auszuwerten. Wir werden in den FDZ OnSite-Servern demonstrieren, dass
+viele Auswertungsbedarfe das BTP im Vollmaterial mit geeigneten
+Programmiermethoden innerhalb von Sekunden beantwortet werden können.
 
 \begin{itemize}
-\item
-  Qualitätsbericht. Wachsende Datenmenge in der amtl. Statistik, Verweis
-  auf \autocite{destatis2023}
-\item
-  Datenverarbeitung im StBA \ldots{}
-\item
-  neues NeSt Produkt BTP zeigt Umfang, hoch interessant für Wissenschaft
+\tightlist
 \item
   Datenverarbeitungsaufgaben des StBA erklären
 \item
@@ -778,14 +816,7 @@ ein Remote Access System als neuer Zugangsweg für die Wissenschaft. Im
 Bereich der Steuerstatistiken wird derzeit geprüft, inwiefern auch
 Einzeldaten aus diesem Bereich über Remote Access genutzt werden können.
 Als Übergang und Erleichterung für bestehende Forschungsprojekte wird in
-diesem Kapitel 2
-
-Die amtliche Statistik steht vor der Herausforderung, bei stetig
-wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ
-hochwertige und zeitnahe statistische Informationen bereitzustellen
-\autocite{destatis2023}. Dabei spielt die Effizienz der verwendeten
-statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit
-des gesamten statistischen Systems.
+diesem Absatz 2
 
 In den vergangenen Jahren haben sich die Rahmenbedingungen für die
 Produktion amtlicher Statistiken erheblich verändert. Die
@@ -1728,6 +1759,8 @@ der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa
 
 \subsection{Kleiner Vergleich zwischen R, SAS und
 Stata}\label{kleiner-vergleich-zwischen-r-sas-und-stata}
+
+RAM Messung: http://adv-r.had.co.nz/memory.html
 
 Für 1\% der simulierten BTP Daten, reduzieren die
 R-Datenverarbeitungsmethode alle Zielgrößen gegenüber SAS und Stata
