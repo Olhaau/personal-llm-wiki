@@ -3,11 +3,11 @@
 ## Offen
 
 - [ ] Version Tidyverse
-- [ ] cite the packages correctly 
+- [ ] cite the packages correctly
 - [ ] Benchmarks und Tabellen updaten
 - [ ] Kürzen
 - [ ] Zusammenfassungen überarbeiten
-
+- [ ] Benchmarks checken, überarbeiten
 
 Quellen:
 

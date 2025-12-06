@@ -1,22 +1,31 @@
 ## Einleitung {#sec-einleitung}
 
-Spannungsfeld, Weiterentwicklung zur Lösung und Technologie-Empfehlung
 
-Einbauen: Forschungsdatenzentrum des Statistischen Bundesamts, hier kurz FDZ Netzwerk empririscher Steuerforschung, hier kurz NeSt.
+<!--### Steigende Datenmenge in der amtlichen Statistik-->
 
-### Handlungsbedarf
+Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen steigende Nutzerbedarfe mit qualitativ hochwertige und zeitnahe statistische Informationen zu bedienen. Moderne Datenverarbeitungsmethoden in R sind simpel bedienbar in der Lage eine hohe Performanz erreichen, sodass im gesamten Statistikerstellungsprozesses technische Hilfsmittel bereitstellen, diese Herausforderung zu bewältigen.
 
-#### Steigende Datenmenge in der amtlichen Statistik
+<!-- Steigende Anforderungen der Wissenschaft -->
 
--   Qualitätsbericht. Wachsende Datenmenge in der amtl. Statistik, Verweis auf [@destatis2023]
+In dem *Forschungsdatenzentrum des statistischen Bundesamts (hier kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder* haben Forschende die Möglichkeit, eigene Analysen mit amtlicher Mikrodaten durchführen. Jedoch hatte die Wissenschaft in @bmf2020dateninfrastruktur Kritik am Datenbestand für empirische Steuerforschung und dessen Aktualität geäußert. Darüber hinaus wird seit Jahren die technische Datenverarbeitungsinfrastruktur des FDZ
+bemängelt. 
+
+<!-- BTP als neues Produkt -->
+
+Um diese Situation zu verbessern, hat das Bundesfinanzministerium das *"Netzwerk empirischer Steuerforschung"* (NeSt) gegründet. [^nest-web] Vorangetrieben durch das NeSt konnte das Statistische Bundesamt bereits erfolgreich den Datenbestand erweitern und die technische Datenbereitstellungsinfrastrukur entscheidend ausbauen. Seit 2023 steht das  *Business-Tax-Panel* (BTP) zur Verfügung und wird bereits wieder überarbeitet. Es veknüpft verschiedene Unternehmensstatistiken und birgt dadurch mit fast 3 000 Merkmalen ein großes Analysepotenzial (genauer in @sec-btp beschrieben).[^btp-web] 
+
+Seit November 2025 verfügt das FDZ über eine neue IT-Infrastruktur (der sog. OnSite-Server[^oss])
+
+[^nest-web]: https://www.bundesfinanzministerium.de/Web/DE/Themen/Steuern/Steuerliche_Themengebiete/NeSt/netzwerk-fuer-empirische-steuerforschung.html
+[^btp-web]: https://www.forschungsdatenzentrum.de/de/steuern/btp
+[^oss]: Onsite-Nutzung sind Zugangswege im FDZ, die den Zugriff zu formal anonymisierten Einzeldaten ermöglichen. Es kann entweder selbst ein *Gastwissenschaftsarbeitsplatz* in den Liegenschaften des FDZ genutzt werden oder via *kontrollierter Datenfernverarbeitung*, entwickelte Auswertungsprogramme durch das FDZ durchgeführt werden.
+
+
 -   Datenverarbeitung im StBA ...
 -   neues NeSt Produkt BTP zeigt Umfang, hoch interessant für Wissenschaft
 -   Datenverarbeitungsaufgaben des StBA erklären
 -   Nicht mehr durch vorhandene Systemkapazitäten (insb. Arbeitsspeicher) gedeckt
-
-
 -   Herausforderungen (größere Datenmengen, komplexere Analysen, schnellere Antworten notwendig)
-
     -   hohe Anforderungen der Öffentlichkeit und besonders Wissenschaft. Verweis auf Gutachten des Stat. Beirats und Gründung "Netzwerk emp. Steuerforschung"
         -   Schnelle Bereitstellung von am besten vollständigen, wenig Anonymisierten Datensätzen an Wissenschaft via FDZ. Erste Analysen seitens StBA und hohe Expertise erwartet (Exploration der Daten nötig)
         -   Bereitstellung von Zusatzdokumentation durch StBA. Metadatenreport
@@ -34,7 +43,7 @@ Annette: -\> Impuls aus der Wissenschaft, dann Fachbereich - Fachbereich/Verbund
 
 Der Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung (2023) hat in seinem Gutachten 2023/24 auf eine technisch veraltete Infrastruktur und auf die fehlende Nutzerfreundlichkeit hingewiesen. Seitdem hat sich die die Infrastruktur in dem Forschungsdatenzentrum des Bundes verbessert. Seit Januar 2025 besteht ein Remote Access System als neuer Zugangsweg für die Wissenschaft. Im Bereich der Steuerstatistiken wird derzeit geprüft, inwiefern auch Einzeldaten aus diesem Bereich über Remote Access genutzt werden können. Als Übergang und Erleichterung für bestehende Forschungsprojekte wird in diesem Kapitel 2
 
-Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen und sich ändernden Nutzeranforderungen qualitativ hochwertige und zeitnahe statistische Informationen bereitzustellen [@destatis2023]. Dabei spielt die Effizienz der verwendeten statistischen Verfahren eine zentrale Rolle für die Leistungsfähigkeit des gesamten statistischen Systems.
+
 
 In den vergangenen Jahren haben sich die Rahmenbedingungen für die Produktion amtlicher Statistiken erheblich verändert. Die Digitalisierung hat nicht nur zu einer Vervielfachung der verfügbaren Datenquellen geführt, sondern auch neue Möglichkeiten für die statistische Analyse eröffnet. Gleichzeitig sind die Erwartungen der Nutzer an Aktualität und Detailliertheit der Statistiken gestiegen.
 
