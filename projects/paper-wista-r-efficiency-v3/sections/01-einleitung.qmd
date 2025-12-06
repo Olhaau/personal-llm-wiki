@@ -3,7 +3,7 @@
 
 <!--### Steigende Datenmenge in der amtlichen Statistik-->
 
-Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen steigende Nutzerbedarfe mit qualitativ hochwertige und zeitnahe statistische Informationen zu bedienen. Um diese Herausforderung zu bedienen, hat das StBA wesentliche Ziele erreicht in 2025 modernisiert das Statistische Bundesamt seine Analyseifrastruktur
+Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen die steigenden Nutzerbedarfe mit qualitativ hochwertige und zeitnahe statistische Informationen zu bedienen. Um diese Herausforderung zu bedienen, hat das StBA in 2025 wesentliche Ziele in der Modernisierung seiner technischen Analyseinfrastruktur erreicht. Seit  Anfang 2025 R-Server, seit Nov. 2025 FDZ Server. Jedoch stellt sich die Frage mit welchen Methoden sich die neuen technischen Mittel voll ausgeschöpft werden kann.
 
 
 
