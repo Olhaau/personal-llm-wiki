@@ -3,22 +3,25 @@
 
 <!--### Steigende Datenmenge in der amtlichen Statistik-->
 
-Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen steigende Nutzerbedarfe mit qualitativ hochwertige und zeitnahe statistische Informationen zu bedienen. Moderne Datenverarbeitungsmethoden in R sind simpel bedienbar in der Lage eine hohe Performanz erreichen, sodass im gesamten Statistikerstellungsprozesses technische Hilfsmittel bereitstellen, diese Herausforderung zu bewältigen.
+Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen steigende Nutzerbedarfe mit qualitativ hochwertige und zeitnahe statistische Informationen zu bedienen. Moderne Datenverarbeitungsmethoden in R sind simpel bedienbar in der Lage eine hohe Performanz erreichen, sodass im gesamten Statistikerstellungsprozesses technische Hilfsmittel bereitstellen, diese Herausforderung zu bewältigen. Anfang 2025 wurden die Server des StBA für die auswertung in R ausgebaut.
 
 <!-- Steigende Anforderungen der Wissenschaft -->
 
-In dem *Forschungsdatenzentrum des statistischen Bundesamts (hier kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder* haben Forschende die Möglichkeit, eigene Analysen mit amtlicher Mikrodaten durchführen. Jedoch hatte die Wissenschaft in @bmf2020dateninfrastruktur Kritik am Datenbestand für empirische Steuerforschung und dessen Aktualität geäußert. Darüber hinaus wird seit Jahren die technische Datenverarbeitungsinfrastruktur des FDZ
-bemängelt. 
+In dem *Forschungsdatenzentrum des statistischen Bundesamts (hier kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder* haben Forschende die Möglichkeit, eigene Analysen mit amtlicher Mikrodaten durchführen. Der Zugangsweg "Onsite-Nutzung" ermöglicht den Zugriff zu formal anonymisierten Einzeldaten ermöglichen. Forschende können selbst ein *Gastwissenschaftsarbeitsplatz* (GWAP) in den Liegenschaften des FDZ nutzen oder via *kontrollierter Datenfernverarbeitung* (KDFV) können entwickelte Auswertungsprogramme durch das FDZ ausgeführt werden.Jedoch hatte die Wissenschaft in @bmf2020dateninfrastruktur Kritik am Datenbestand für empirische Steuerforschung und dessen Aktualität geäußert. Darüber hinaus wird seit Jahren die technische Datenverarbeitungsinfrastruktur des FDZ bemängelt. 
 
 <!-- BTP als neues Produkt -->
 
-Um diese Situation zu verbessern, hat das Bundesfinanzministerium das *"Netzwerk empirischer Steuerforschung"* (NeSt) gegründet. [^nest-web] Vorangetrieben durch das NeSt konnte das Statistische Bundesamt bereits erfolgreich den Datenbestand erweitern und die technische Datenbereitstellungsinfrastrukur entscheidend ausbauen. Seit 2023 steht das  *Business-Tax-Panel* (BTP) zur Verfügung und wird bereits wieder überarbeitet. Es veknüpft verschiedene Unternehmensstatistiken und birgt dadurch mit fast 3 000 Merkmalen ein großes Analysepotenzial (genauer in @sec-btp beschrieben).[^btp-web] 
+Um diese Situation zu verbessern, hat das Bundesfinanzministerium das *"Netzwerk empirischer Steuerforschung"* (NeSt) gegründet. [^nest-web] Vorangetrieben durch das NeSt konnte das Statistische Bundesamt bereits erfolgreich den Datenbestand erweitern und die technische Datenbereitstellungsinfrastrukur entscheidend ausbauen. Seit 2023 steht das  *Business-Tax-Panel* (BTP) zur Verfügung und wird bereits wieder überarbeitet. Es veknüpft verschiedene Unternehmensstatistiken und birgt dadurch mit fast 3 000 Merkmalen ein großes Analysepotenzial (genauer in @sec-btp beschrieben).[^btp-web]. 
 
-Seit November 2025 verfügt das FDZ über eine neue IT-Infrastruktur (der sog. OnSite-Server[^oss])
+<!-- OSS -->
+
+Eine weitere Initiative des NeSt auch zur Bereitstellung einer neuen IT-Infrastruktur geführt (dem sog. OnSite-Server[^oss]). **Seit November 2025 bietet das FDZ neue Server mit großen Systemkapazitäten für R und Stata an**. Erstmalig können die vollen Kapazitäten neben der KDFV auch an den GWAPs genutzt werden, sodass bisherige Zuschnitte / Stichproben / (Reduzierung der Datenmenge aus technischen Gründen) reduziert / vermieden werden können. Auch das BTP kann in der neuen Infrastruktur mit geeigneten Programmiermethoden im Vollmaterial ausgewertet werden. Entsprechende Methoden präsentieren wir in @sec-methoden.
+
+<!--Technischen Erleichterungen der Nutzerverwaltung durch die FDZ, reduziert Betreuungsaufwände und damit Wartezeiten der Nutzenden in der KDFV oder an den GWAPs.-->
 
 [^nest-web]: https://www.bundesfinanzministerium.de/Web/DE/Themen/Steuern/Steuerliche_Themengebiete/NeSt/netzwerk-fuer-empirische-steuerforschung.html
 [^btp-web]: https://www.forschungsdatenzentrum.de/de/steuern/btp
-[^oss]: Onsite-Nutzung sind Zugangswege im FDZ, die den Zugriff zu formal anonymisierten Einzeldaten ermöglichen. Es kann entweder selbst ein *Gastwissenschaftsarbeitsplatz* in den Liegenschaften des FDZ genutzt werden oder via *kontrollierter Datenfernverarbeitung*, entwickelte Auswertungsprogramme durch das FDZ durchgeführt werden.
+[^oss]: 
 
 
 -   Datenverarbeitung im StBA ...
