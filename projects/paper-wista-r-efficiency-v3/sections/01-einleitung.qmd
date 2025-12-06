@@ -3,7 +3,11 @@
 
 <!--### Steigende Datenmenge in der amtlichen Statistik-->
 
-Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen steigende Nutzerbedarfe mit qualitativ hochwertige und zeitnahe statistische Informationen zu bedienen. Moderne Datenverarbeitungsmethoden in R sind simpel bedienbar in der Lage eine hohe Performanz erreichen, sodass im gesamten Statistikerstellungsprozesses technische Hilfsmittel bereitstellen, diese Herausforderung zu bewältigen. Anfang 2025 wurden die Server des StBA für die auswertung in R ausgebaut.
+Die amtliche Statistik steht vor der Herausforderung, bei stetig wachsenden Datenmengen steigende Nutzerbedarfe mit qualitativ hochwertige und zeitnahe statistische Informationen zu bedienen. Um diese Herausforderung zu bedienen, hat das StBA wesentliche Ziele erreicht in 2025 modernisiert das Statistische Bundesamt seine Analyseifrastruktur
+
+
+
+Moderne Datenverarbeitungsmethoden in R sind simpel bedienbar in der Lage eine hohe Performanz erreichen, sodass im gesamten Statistikerstellungsprozesses technische Hilfsmittel bereitstellen, diese Herausforderung zu bewältigen. Anfang 2025 wurden die Server des StBA für die auswertung in R ausgebaut.
 
 <!-- Steigende Anforderungen der Wissenschaft -->
 
