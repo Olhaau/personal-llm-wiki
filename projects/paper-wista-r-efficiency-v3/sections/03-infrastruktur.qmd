@@ -40,6 +40,16 @@ Seit Anfang 2025 konnte der R- und Python-Server signifikant erweitert werden. V
 
 Die neue Oberfläche und IDE erhöhen die Nutzerfreundlichkeit, die neuesten R-Versionen stehen bereit, und Pakete können schnell installiert werden. So können moderne Analyse- und Visualisierungsmethoden effizient genutzt werden – sodass aktuell über 200 aktive Nutzende das System nutzen.
 
+
+<!-- 
+
+-   R ist die native Programmiersprache von Statistiker/-innen und Daten-affinen Programmierer/-innen. Frei verfügbar und leicht einzurichten. Somit weit verbreitet, insb. an Universitäten.
+-   R ist Open Source und wird ständig weiterentwickelt (aktuell in Version 4.5 verwendet, jährliche Major Releases).
+-   Eine weltweit aktive Community löst Probleme zeitnah und ergänzt stetig Funktionalitäten in Form von sog. *R-Packages*.
+-   Bietet nativ bereits viele Datenverarbeitungsmethoden, die jedoch durch diese R-Packages ganz neue Level an Nutzerfreundlichkeit, Funktionsumfang und Performanz erreichen.
+
+-->
+
 ### OnSite-Server des FDZ
 
 Seit November 2025 steht der sogenannte OnSite-Server exklusiv im FDZ für alle OnSite-Nutzungen bereit. Er bietet jeweils dedizierte Stata- und R-Server an den GWAP-Arbeitsplätzen sowie via KDFV mit gleichermaßen umfangreichen Analysekapazitäten, wie in @tbl-fdz-server aufgeführt. Alle Analyseserver sind über schnelle Direktverbindungen an den Netzwerkspeicher angebunden, sodass R und Stata nahtlos kombiniert werden können.
