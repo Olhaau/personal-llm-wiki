@@ -2,7 +2,11 @@
 
 Wir betrachten in diesem Artikel die Performanz von sog. *Datenverarbeitungsmethoden*, d.h. Softwarelösungen, die Daten einlesen, modifzierern, aggregieren, auswerten oder analysieren.[^datawrite] 
 
-[^datawrite]: Das Schreiben von Daten wird in unserer Untersuchung vernachlässigt, da es sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den Ergebnissen der Wissenschaft im FDZ um kleine Tabellen handelt, die meist keine große Performanz erfordern. Dennoch bieten die in in @sec-highperf vorstellten Lösungen auch hohe Performanz im Schreiben von Daten. Aufgrund der externen Abhängigkeiten verzichten wir auf die betrachtung von Datenbanken und Spark.
+Wir sprechen in diesem Artikel vereinfacht von einer *hoch-performanten Methode*, sobald die betrachtete Datenverarbeitungsmethode in der Lage ist, Datenmengen überhalb des verfügbaren Arbeitsspeichers flexibel und effizient zu nutzen. SAS erfüllt den Großteil dieser Definition -- lediglich die Effizienz lässt sich deutlich steigern.
+
+Um Datenauswertung auf höhere Datenmengen skalieren zu können ist ein Paradigmenwechsel von der "*vollständigen Verarbeitung im RAM"* zu der *Auslagerung aus dem RAM* notwendig. Vollständig im RAM sind Daten zwar sehr schnell und einfach zu nutzen, jedoch beansprucht der Transport in den RAM (Einlesen) einen Hauptteil der Laufzeit und der verfügbare RAM reicht i.d.R. nicht für größere Datenmengen. Die nachfolgenden Technologien sind auch in der Lage Daten überhalb des RAMs zu verarbeiten. Durch moderne Hardware und Software kann dies sogar sehr schnell erfolgen.
+
+[^datawrite]: Das Schreiben von Daten wird in unserer Untersuchung vernachlässigt, da es sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den Ergebnissen der Wissenschaft im FDZ um kleine Tabellen handelt, die meist keine große Performanz erfordern. Dennoch bieten die in in @sec-highperf vorstellten Lösungen auch hohe Performanz im Schreiben von Daten. Aufgrund der externen Abhängigkeiten verzichten wir auf die betrachtung von Datenbanken und Spark. Die Werkzeuge sind auch in Programmiersprachen wie Python verfügbar. Dort kann gibt es weitere Möglichkeiten für hohe Perfomanz. Wir fokussieren uns auf den standard R-Nutzenden.
 
 ### Anforderungen an Datenverarbeitungsmethoden
 
@@ -64,66 +68,43 @@ Hervorragende Ergänzungen zu R-Base:
 
 ### Hoch-performante Methoden in R {#sec-highperf}
 
-Direkte Performanzgewinne
+Ab mittleren Datenmengen (relativ zu CPU und RAM) ist die nachfolgend beschriebene Variablenselektion eine oft notwendige **Best Practice**, die direkt spürbare Performanzgewinne birgt. Darüberhinaus kann die Datenaufteilung kombiniert mit sog. Lazy-Computation gewinnbringend sein:
 
-- Variablenselektion, e.g in BBK: Bot Beschleuniging von 39.9% in R und 33.9% in Stata
+- **Variablenselektion**: Beim Einlesen von DatenAuswahl der benötigten Variablen in der Einlesefunktion ist wesentliche Best-Practices (besonders für klassiche Methoden, da dies das Risiko für RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren Zeitpunkt) verursacht unnötige Wartezeiten, Ressourcenbelegung und kann zu Abbrüchen führen. Auch Stata profitiert Beschleuniging von 39.9% in R und 33.9% in @gomolka2021largedata.
+- **Datenaufteilung**: Wenn der Arbeitsspeicher nicht ausreicht, um die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere RAM-Gerechte Datenpakete helfen. Für klassische Methoden kombiniert mit der mehrfachen Variablenselektion. Die folgenden hoch-performanten Techniken, kommen auch direkt mehreren Dateien nutzen, ohne manuell die Datensätze zusammenzuführen.
+- **Lazy-Computation**: Ohne das Nutzende ihren Code verändern müssen, speichert die Lazy-Computation geplante Datenverarbeitungsschritte im Hintergrund, ohne sie sofort auszufüren. Erst wenn ein konkretes Ergebnis abgefragt wird, führt das System die Berechnung durch. Dadurch werden nur die tatsächlich benötigten Daten verarbeitet und unnötige Schritte vermieden – ohne dass der Nutzende seinen Code ändern muss. z. B. durch Lazy-Computation[^lazy] – ohne dass eine manuelle Variablenauswahl erforderlich ist (siehe @sec-methoden).
 
-Ab mittleren Datenmengen (relativ zu CPU und RAM) sind ausgewählte **Best Practices** in R:
-
-- *Variablenselektion*: Beim Einlesen von DatenAuswahl der benötigten Variablen in der Einlesefunktion ist wesentliche Best-Practices (besonders für klassiche Methoden, da dies das Risiko für RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren Zeitpunkt) verursacht unnötige Wartezeiten, Ressourcenbelegung und kann zu Abbrüchen führen.
-- *Datenaufteilung*: Wenn der Arbeitsspeicher nicht ausreicht, um die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere RAM-Gerechte Datenpakete helfen. Für klassische Methoden kombiniert mit der mehrfachen Variablenselektion. Die folgenden hoch-performanten Techniken, kommen auch direkt mehreren Dateien nutzen, ohne manuell die Datensätze zusammenzuführen.
-
-
-z. B. durch Lazy-Computation[^lazy] – ohne dass eine manuelle Variablenauswahl erforderlich ist (siehe @sec-methoden).
-
-- Parquet
+Datenformat Apache **[Parquet](https://parquet.apache.org/)**
   - R zeigt große Performanzvorteile gegenüber Stata für FDZ Aufgaben: "Note that using parquet and R reduces the computing time compared to the optimised Stata approach by 65.1% from 77.6 to 27.1 seconds" (@gomolka2021largedata)
   - Die u.g. Parquet-Dateien werden bereits standardmäßig im FDSZ angeboten.
-- arrow
+  - Datenformat, spaltenbasiert, komprimiert, ...
+  - tba - s. Vortrag
+
+Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen verfügbar sind:
+
+- [arrow](https://arrow.apache.org/docs/r/) [@R-arrow] (Erstveröffentlichung: 2019)
   - c++ basiert
-- duckdb
-  - ...
-- polars
-  - rust-basiert
+  - erlaubt Parallelisierung, Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu Parquet
+  - tba - s. Vortrag
+- [duckdb](https://duckdb.org/docs/stable/clients/r) [@R-duckdb] (Erstveröffentlichung: 2020)
+  - R-Package , in-memory DB, ...
+  - tba - s. Vortrag
+- [polars](https://pola-rs.github.io/r-polars/) [@R-polars] (Erstveröffentlichung: 2022)
+  - Python-style Syntax oder im dplyr-stil mit tidypolars (R-Paket) mit geringfügigen Performanzverlusten, aber in BM verwendet, da hohe Nutzbarkeit durch R-Anwender/-innen wichtig ist.
+  - rust-basiert, verlagert Arbeitslast in rust (hohe Effizienz, schwierig zu tracken)
+  - an Python-angelehnte Syntax [@R-polars]
+  - Cookbook: https://ddotta.github.io/cookbook-rpolars/first_steps.html
 
-[^lazy]: Ohne das Nutzende ihren Code verändern müssen, speichert die Lazy-Computation geplante Datenverarbeitungsschritte im Hintergrund, ohne sie sofort auszufüren. Erst wenn ein konkretes Ergebnis abgefragt wird, führt das System die Berechnung durch. Dadurch werden nur die tatsächlich benötigten Daten verarbeitet und unnötige Schritte vermieden – ohne dass der Nutzende seinen Code ändern muss.
+### Gültigkeit von externen Benchmarks
 
-Diverse benchmarks kommen zu unterschiedlichen Ergebnissen, daher ist die untersuchung in eigener Infrastruktur mir relevanten Use Cases wichtig und wird im folgenden @sec-benchmark durchgeführt.[^bm-dt][^bm-ddb][^bm-polars]
+**Veröffentlichte Benchmarks** kommen zu unterschiedlichen Ergebnissen, daher ist die untersuchung in eigener Infrastruktur mir relevanten Use Cases (Datenmengen) und verfügbaren Package-Versionen wichtig und wird im folgenden @sec-benchmark durchgeführt.[^bm-dt][^bm-ddb][^bm-polars]
 
 [^bm-dt]: Benchmark von Data.table: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
 [^bm-ddb]: Benchmark von DuckDB https://duckdblabs.github.io/db-benchmark/
 [^bm-polars]: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
 
-Wir sprechen in diesem Artikel vereinfacht von einer *hoch-performanten Methode*, sobald die betrachtete Datenverarbeitungsmethode in der Lage ist, Datenmengen überhalb des verfügbaren Arbeitsspeichers flexibel und effizient zu nutzen. SAS erfüllt den Großteil dieser Definition -- lediglich die Effizienz lässt sich deutlich steigern.
 
-Um Datenauswertung auf höhere Datenmengen skalieren zu können ist ein Paradigmenwechsel von der "*vollständigen Verarbeitung im RAM"* zu der *Auslagerung aus dem RAM* notwendig. Vollständig im RAM sind Daten zwar sehr schnell und einfach zu nutzen, jedoch beansprucht der Transport in den RAM (Einlesen) einen Hauptteil der Laufzeit und der verfügbare RAM reicht i.d.R. nicht für größere Datenmengen. Die nachfolgenden Technologien sind auch in der Lage Daten überhalb des RAMs zu verarbeiten. Durch moderne Hardware und Software kann dies sogar sehr schnell erfolgen.
-
-#### Apache Parquet
-
-- Datenformat, spaltenbasiert, komprimiert, ...
-- tba - s. Vortrag
-
-#### Apache Arrow
-
-- R-package [@R-arrow], C++ basiert, erlaubt Parallelisierung, Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu Parquet
-- tba - s. Vortrag
-
-#### DuckDB
-
-- R-Package [@R-duckdb], in-memory DB, ...
-- tba - s. Vortrag
-
-#### Polars
-
-- an Python-angelehnte Syntax [@R-polars]
-- tba
-- Benchmark des Polars Entwicklerteams [^benchmark-polars]
-
-[^benchmark-polars]: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
-
-### Package-Versionen
-
-Die auf den Servern des StBA und FDZ verfügbaren Packageversionen lassen sich aus organisatorischen Gründen nicht flexibel ändern, da die Genehmigung und Einrichtung neuer Packages nur auf Antrag durch unser R-Betriebsteam erfolgt (i.d.R. innerhalb von 1-2 Tagen ). Die Package-Versionen, die zum Zeitpunkt des in @sec-benchmark dargestellten Performanz-Vergleiches verfügab waren, können Tabelle @tbl-pkg-versions entnommen werden.
+Die auf den Servern des StBA und FDZ verfügbaren **Packageversionen** lassen sich aus organisatorischen Gründen nicht flexibel ändern, da die Genehmigung und Einrichtung neuer Packages nur auf Antrag durch unser R-Betriebsteam erfolgt (i.d.R. innerhalb von 1-2 Tagen ). Die Package-Versionen, die zum Zeitpunkt des in @sec-benchmark dargestellten Performanz-Vergleiches verfügab waren, können Tabelle @tbl-pkg-versions entnommen werden. Ultimatives Optimum nicht wichtig, langzeitig stabil gute Performanz ist entscheidend.
 
 
 ```{r}
@@ -160,7 +141,6 @@ tbl_out <- format_descriptive_table(
 
 output_table(tbl_out)
 ```
-
 
 <!-- 
 
