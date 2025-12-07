@@ -1,0 +1,37 @@
+\babel@toc {german}{}\relax 
+\babel@toc {ngerman}{}\relax 
+\babel@toc {german}{}\relax 
+\contentsline {section}{\numberline {1}Einleitung}{5}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Voranschreitende Innovation}{5}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Anwendungsfall Business-Tax-Panel}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Datengrundlage}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Auswertungsbedarfe}{6}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Deskriptive Eckdaten}{7}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Regressionen}{7}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Technische Spezifikationen}{7}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Ausbau der Analyseinfrastruktur}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Ausgangslage}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}R-Server des Statistischen Bundesamts}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}OnSite-Server des FDZ}{8}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Datenverarbeitungsmethoden}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Anforderungen}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Klassische Methoden in R}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Hoch-performante Methoden in R}{10}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Gültigkeit von externen Benchmarks}{10}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Performanzvergleich}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Versuchsaufbau}{11}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Vergleichswert in SAS und Stata}{11}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Kleiner Vergleich zwischen R, SAS und Stata}{11}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Größere Datenmengen in R}{15}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Ergebnis für das vollständige BTP}{15}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Ergebnis}{15}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Vergleich zu SAS, (Stata), Datatable}{16}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Fazit}{16}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Kernaussage des Artikels}{16}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Auswirkung auf IT-Infrastruktur und Beratung}{16}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Auswirkungen auf die Statistikproduktion}{16}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Auswirkungen auf die FDZ}{17}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Auswirkung auf die Wissenschaft}{17}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Schlussbemerkung}{17}{subsection.7.6}%
+\contentsline {section}{Anhang}{17}{subsection.7.6}%
+\contentsline {subsection}{Weitere Performancemessungen für kleinere Datenmengen.}{17}{subsection.7.6}%
