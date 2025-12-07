@@ -64,7 +64,19 @@ Hervorragende Ergänzungen zu R-Base:
 
 [^tidy-wrappers]: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
-[TABELLE DPLYR BEISPIEL]
+```{=latex}
+\onecolumn
+```
+
+| **Befehl** | **Beschreibung** |
+|------------|------------------|
+| `read_csv("data/btp/data.csv")` | Liest CSV-Datei ein |
+| `group_by(jahr)` | Gruppiert Daten nach Jahr |
+| `summarize(u = sum(str_detect(verk, "u")))` | Zählt Beobachtungen mit "u" in Variable verk |
+
+```{=latex}
+\twocolumn
+```
 
 ### Hoch-performante Methoden in R {#sec-highperf}
 
