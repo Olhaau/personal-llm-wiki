@@ -7,6 +7,7 @@
 3. Gründung NeSt, neue umfangreiche Datenquelle für emp. Steuerforschung BTP mit hohem Analysepotenzial (S. @sec-btp)
 4. Große Schritte in 2025, erweiterung der R-Server. NeSt auch modernisierung der FDZ Infrastruktur geführt. Technisches Fundament (S. @sec-infrastruktur)
 5. Vorteile von R Open Source, Vielfalt R-Packages, aktive weltweite Community, wachsende Verbreitung in OS, natürliche Wahl R. bieten Effizienz, hohe Nutzerfreundlichkeit (s @sec-methoden). Frage nach besten möglichkeiten, die Anforderungen XYZ bedient (s. @sec-benchmark)
+   1. Wachsende Community auch in Official Statistics, s. uRos
 6. zeigen, dass die Methoden sogar das ganze BTP sehr effizient auswerten können, in Sek, obwohl es den verfügbaren Arbeitsspeicher übersteigt (s. @sec-ergebnis). Ableitung praktischer Implikationen.
 
 
