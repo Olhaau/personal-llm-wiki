@@ -60,11 +60,9 @@ Hervorragende Ergänzungen zu R-Base:
 
 [^tidy-wrappers]: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
-
 [TABELLE DPLYR BEISPIEL]
 
 ### Hoch-performante Methoden in R {#sec-highperf}
-
 
 Direkte Performanzgewinne
 
@@ -90,11 +88,11 @@ z. B. durch Lazy-Computation[^lazy] – ohne dass eine manuelle Variablenauswa
 
 [^lazy]: Ohne das Nutzende ihren Code verändern müssen, speichert die Lazy-Computation geplante Datenverarbeitungsschritte im Hintergrund, ohne sie sofort auszufüren. Erst wenn ein konkretes Ergebnis abgefragt wird, führt das System die Berechnung durch. Dadurch werden nur die tatsächlich benötigten Daten verarbeitet und unnötige Schritte vermieden – ohne dass der Nutzende seinen Code ändern muss.
 
-Diverse benchmarks kommen zu unterschiedlichen Ergebnissen, daher ist die untersuchung in eigener Infrastruktur mir relevanten Use Cases wichtig und wird im folgenden @sec-benchmark durchgeführt.[^bm-dt][^bm-ddb]
+Diverse benchmarks kommen zu unterschiedlichen Ergebnissen, daher ist die untersuchung in eigener Infrastruktur mir relevanten Use Cases wichtig und wird im folgenden @sec-benchmark durchgeführt.[^bm-dt][^bm-ddb][^bm-polars]
 
 [^bm-dt]: Benchmark von Data.table: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
-
-[^bm-ddb]: ...
+[^bm-ddb]: Benchmark von DuckDB https://duckdblabs.github.io/db-benchmark/
+[^bm-polars]: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
 
 Wir sprechen in diesem Artikel vereinfacht von einer *hoch-performanten Methode*, sobald die betrachtete Datenverarbeitungsmethode in der Lage ist, Datenmengen überhalb des verfügbaren Arbeitsspeichers flexibel und effizient zu nutzen. SAS erfüllt den Großteil dieser Definition -- lediglich die Effizienz lässt sich deutlich steigern.
 
