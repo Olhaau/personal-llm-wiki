@@ -82,14 +82,14 @@ Datenformat Apache **[Parquet](https://parquet.apache.org/)**
 
 Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen verfügbar sind:
 
-- [arrow](https://arrow.apache.org/docs/r/) [@R-arrow] (Erstveröffentlichung: 2019)
+- [arrow](https://arrow.apache.org/docs/r/) [@R-arrow]
   - c++ basiert
   - erlaubt Parallelisierung, Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu Parquet
   - tba - s. Vortrag
-- [duckdb](https://duckdb.org/docs/stable/clients/r) [@R-duckdb] (Erstveröffentlichung: 2020)
+- [duckdb](https://duckdb.org/docs/stable/clients/r) [@R-duckdb]
   - R-Package , in-memory DB, ...
   - tba - s. Vortrag
-- [polars](https://pola-rs.github.io/r-polars/) [@R-polars] (Erstveröffentlichung: 2022)
+- [polars](https://pola-rs.github.io/r-polars/) [@R-polars]
   - Python-style Syntax oder im dplyr-stil mit tidypolars (R-Paket) mit geringfügigen Performanzverlusten, aber in BM verwendet, da hohe Nutzbarkeit durch R-Anwender/-innen wichtig ist.
   - rust-basiert, verlagert Arbeitslast in rust (hohe Effizienz, schwierig zu tracken)
   - an Python-angelehnte Syntax [@R-polars]
