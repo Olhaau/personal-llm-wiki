@@ -8,7 +8,7 @@ Um Datenauswertung auf höhere Datenmengen skalieren zu können ist ein Paradigm
 
 [^datawrite]: Das Schreiben von Daten wird in unserer Untersuchung vernachlässigt, da es sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den Ergebnissen der Wissenschaft im FDZ um kleine Tabellen handelt, die meist keine große Performanz erfordern. Dennoch bieten die in in @sec-highperf vorstellten Lösungen auch hohe Performanz im Schreiben von Daten. Aufgrund der externen Abhängigkeiten verzichten wir auf die betrachtung von Datenbanken und Spark. Die Werkzeuge sind auch in Programmiersprachen wie Python verfügbar. Dort kann gibt es weitere Möglichkeiten für hohe Perfomanz. Wir fokussieren uns auf den standard R-Nutzenden.
 
-### Anforderungen an Datenverarbeitungsmethoden
+### Anforderungen
 
 Die wichtigsten Anforderungen bedient R anhand der folgenden Funktionen.
 - hohe Usablity
@@ -43,7 +43,7 @@ Verfügbare Ressourcen
 -   recommend: start small (5.1)
 -->
 
-### Klassische Methoden
+### Klassische Methoden in R
 
 R-Base ist zweckdienlich für Einsteiger, abhängigkeitsfreie Infrastrukturen, jedoch weder in Usablity, noch Performanz empfehlenswert. Basieren auf CSV-Format. R Objekte können auch effizient binär abgespeichert werden rds, qs.
 
@@ -54,7 +54,7 @@ Hervorragende Ergänzungen zu R-Base:
   - **Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax In teilen der Community sehr beliebt
   - **Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung. 
   - **Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird -->
-- **tidyverse** [@R-tidyverse]: Ein Ökosystem von R-Paketen, das besonders auf einfache Bedienung und Lesbarkeit des Codes ausgelegt ist. Die Programmiersyntax (*dplyr-Syntax*) orientiert sich an menschlicher Sprache und macht den Code auch für Einsteiger gut verständlich. Diese nutzerfreundliche Syntax ist so beliebt, dass sie von vielen anderen R-Paketen übernommen wurde. Für mittlere Datenmengen, die in den Arbeitsspeicher passen, ist tidyverse eine ausgewogene Wahl zwischen Nutzerfreundlichkeit und Performanz.
+- **tidyverse** [@R-tidyverse]: Ein Ökosystem von R-Paketen, das besonders auf einfache Bedienung und Lesbarkeit des Codes ausgelegt ist. Eine eigene Programmiersyntax (*dplyr-Syntax*) orientiert sich an menschlicher Sprache und macht den Code auch für Einsteiger gut verständlich. Diese nutzerfreundliche Syntax ist so beliebt, dass sie von vielen anderen R-Paketen übernommen wurde. Für mittlere Datenmengen, die in den Arbeitsspeicher passen, ist tidyverse eine ausgewogene Wahl zwischen Nutzerfreundlichkeit und Performanz.
   <!-- - Tidyverse [@R-tidyverse] ist ein Ökosystem von Packages zur Datenverarbeitung, das für besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen Programmiersyntax, sog. *{dplyr}-Syntax* [@R-dplyr], die den Anspruch hat menschlicher Sprache abzubilden. Das R-Package {dplyr} ist die Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines Beispiels in der folgenden Tabelle veranschaulicht wird
   - Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie vielen anderen Packages ergänzt wurde. Bspw. für {data.table} setzen dies die Packages {dtplyr} [@R-dtplyr] oder {tidytable} [@R-tidytable] um Wie im Falle von {dtplyr} kann die Übersetzung zu {dplyr} jedoch die Performanz verschlechtern.[^tidy-wrappers]
   - nutzerfreundlich, einfach zu lernen / nutzen
@@ -80,16 +80,20 @@ Datenformat Apache **[Parquet](https://parquet.apache.org/)**
   - Datenformat, spaltenbasiert, komprimiert, ...
   - tba - s. Vortrag
 
-Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen verfügbar sind:
+Das Datenformat Apache **[Parquet](https://parquet.apache.org/)** bildet die technische Grundlage für effiziente Datenverarbeitung:
 
-- **arrow** [@R-arrow]: Ein C++-basiertes R-Paket, das speziell für die Arbeit mit großen Datensätzen entwickelt wurde. Es ermöglicht die Verarbeitung von Daten, die größer als der verfügbare Arbeitsspeicher sind, durch intelligente Datenaufteilung und Parallelisierung. Arrow ist optimal auf das Parquet-Dateiformat abgestimmt und kann Berechnungen automatisch optimieren (Lazy-Computation). Damit ist Arrow besonders geeignet für Datensätze, die mehrere Gigabyte oder sogar Terabyte umfassen.
-  <!-- - c++ basiert
-  - erlaubt Parallelisierung, Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu Parquet
-  - tba - s. Vortrag -->
-- **duckdb** [@R-duckdb]: Ein eingebettetes Datenbanksystem, das ohne separaten Datenbankserver direkt in R genutzt werden kann. Es verarbeitet Daten spaltenweise, was besonders bei analytischen Abfragen auf großen Datensätzen sehr schnell ist. DuckDB nutzt die bekannte SQL-Syntax für Datenabfragen und kann nahtlos mit Arrow-Daten zusammenarbeiten. Das System verwaltet den Arbeitsspeicher intelligent und kann auch Daten verarbeiten, die größer als der verfügbare RAM sind.
+- **Speicherformat**: Spaltenbasiertes Format, das effizient lesbar und schreibbar ist
+- **Komprimierung**: Standardmäßig komprimiert, was Speicherplatz spart
+- **Partitionierung**: Ermöglicht aufgeteilte Speicherung für selektiven Datenzugriff
+- **Kompatibilität**: Wird bereits standardmäßig im FDSZ angeboten
+
+Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten wir die folgenden Werkzeuge, die in Form von **R-Paketen** verfügbar sind:
+
+- **[arrow](https://arrow.apache.org/docs/r/index.html)** [@R-arrow]: Ein C++-basiertes R-Paket, das speziell für die Arbeit mit großen Datensätzen entwickelt wurde. Es ermöglicht die Verarbeitung von Daten, die größer als der verfügbare Arbeitsspeicher sind, durch intelligente Datenaufteilung und Parallelisierung. Arrow ist optimal auf das Parquet-Dateiformat abgestimmt und kann Berechnungen automatisch optimieren (Lazy-Computation). Damit ist Arrow besonders geeignet für Datensätze, die mehrere Gigabyte oder sogar Terabyte umfassen. Die gewohnte R-Syntax (dplyr) bleibt dabei erhalten, was die Nutzung für R-Anwender/-innen besonders einfach macht. Das Paket ergänzt die Features von {data.table} und kann in bestimmten Szenarien in-memory effizienter sein.
+- **[duckdb](https://duckdb.org/docs/stable/clients/r)** [@R-duckdb]: Ein eingebettetes Datenbanksystem, das ohne separaten Datenbankserver direkt in R genutzt werden kann. Es verarbeitet Daten spaltenweise, was besonders bei analytischen Abfragen auf großen Datensätzen sehr schnell ist. DuckDB nutzt die bekannte SQL-Syntax für Datenabfragen und kann nahtlos mit Arrow-Daten zusammenarbeiten. Das System verwaltet den Arbeitsspeicher intelligent und kann auch Daten verarbeiten, die größer als der verfügbare RAM sind.
   <!-- - R-Package , in-memory DB, ...
   - tba - s. Vortrag -->
-- **polars** [@R-polars]: Ein Rust-basiertes R-Paket, das durch die Programmiersprache Rust besonders effizient arbeitet. Es bietet sowohl eine Python-orientierte Syntax als auch eine dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter ist. Polars nutzt moderne Optimierungstechniken und ist für sehr große Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe Geschwindigkeit bei gleichzeitig sparsamer Nutzung der Systemressourcen.
+- **[polars](https://pola-rs.github.io/r-polars/)** [@R-polars]: Ein Rust-basiertes R-Paket, das durch die Programmiersprache Rust besonders effizient arbeitet. Es bietet sowohl eine Python-orientierte Syntax als auch eine dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter ist. Polars nutzt moderne Optimierungstechniken und ist für sehr große Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe Geschwindigkeit bei gleichzeitig sparsamer Nutzung der Systemressourcen.
   <!-- - Python-style Syntax oder im dplyr-stil mit tidypolars (R-Paket) mit geringfügigen Performanzverlusten, aber in BM verwendet, da hohe Nutzbarkeit durch R-Anwender/-innen wichtig ist.
   - rust-basiert, verlagert Arbeitslast in rust (hohe Effizienz, schwierig zu tracken)
   - an Python-angelehnte Syntax [@R-polars]
@@ -102,7 +106,6 @@ Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten
 [^bm-dt]: Benchmark von Data.table: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
 [^bm-ddb]: Benchmark von DuckDB https://duckdblabs.github.io/db-benchmark/
 [^bm-polars]: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
-
 
 Die auf den Servern des StBA und FDZ verfügbaren **Packageversionen** lassen sich aus organisatorischen Gründen nicht flexibel ändern, da die Genehmigung und Einrichtung neuer Packages nur auf Antrag durch unser R-Betriebsteam erfolgt (i.d.R. innerhalb von 1-2 Tagen ). Die Package-Versionen, die zum Zeitpunkt des in @sec-benchmark dargestellten Performanz-Vergleiches verfügab waren, können Tabelle @tbl-pkg-versions entnommen werden. Ultimatives Optimum nicht wichtig, langzeitig stabil gute Performanz ist entscheidend.
 
