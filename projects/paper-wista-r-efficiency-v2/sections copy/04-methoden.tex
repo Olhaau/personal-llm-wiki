@@ -152,7 +152,6 @@
 \usepackage{longtable}
 \usepackage{totcount}
 \usepackage{xstring}
-\usepackage{pgfmath}  % For calculations
 
 % Time display with Berlin timezone (+1 hour offset)
 \newcount\berlinhr
@@ -207,46 +206,6 @@
 \newcommand{\docshorttitle}{$short-title$}
 
 \ifdraftmode
-% Helper function - show tick or cross based on requirements
-\usepackage{amssymb}  % for \checkmark
-\usepackage{pifont}   % for \ding{55} (cross mark)
-
-% Check if requirement is met (tick) or not (cross)
-% Only checks maximum (no minimum) - requirement is an upper limit
-\newcommand{\checkreq}[2]{%
-  % #1 = actual value (formatted with spaces like "8 452")
-  % #2 = required value (maximum allowed)
-  % Remove spaces and compare
-  \StrDel{#1}{ }[\cleanvalue]%
-  \IfStrEq{\cleanvalue}{0}{%
-    % If zero, show cross
-    \textcolor{red}{\ding{55}}%
-  }{%
-    % Check if value exceeds maximum (with 20% tolerance)
-    \newcount\actualval%
-    \newcount\maxval%
-    \actualval=\cleanvalue\relax%
-    \maxval=#2\relax%
-    \multiply\maxval by 6\relax%
-    \divide\maxval by 5\relax%  % 120% = 6/5
-    \ifnum\actualval>\maxval\relax
-      \textcolor{red}{\ding{55}}%
-    \else
-      \textcolor{green!60!black}{\checkmark}%
-    \fi
-  }%
-}
-
-% Helper for keyword count check
-\newcommand{\checkkeywords}[1]{%
-  % #1 = count
-  \ifnum#1>5\relax
-    \textcolor{red}{\ding{55}}%
-  \else%
-    \textcolor{green!60!black}{\checkmark}%
-  \fi%
-}
-
 % Define metadata page command
 \newcommand{\metadatapage}{%
   \clearpage
@@ -275,15 +234,15 @@
   {\large\bfseries\color{wistaDarkGray} Dokumentstatistik}\\[0.5cm]
   
   \small
-  \begin{tabular}{@{}lrrrrrl@{}}
+  \begin{tabular}{@{}lrrrrrr@{}}
     \toprule
-    \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} & \textbf{Status} \\
+    \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} \\
     \midrule
-    Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. & \checkreq{\totalchars}{30000} \\
-    Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. & \checkreq{\zusammenfassungchars}{800} \\
-    Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. & \checkreq{\abstractchars}{700} \\
-    Autor 1 (O. Hauke) & --- & \textcolor{wistaBlue}{\textbf{\authoronechars}} & --- & --- & 350 Z. & \checkreq{\authoronechars}{350} \\
-    Autor 2 (A. Kristiansen) & --- & \textcolor{wistaBlue}{\textbf{\authortwochars}} & --- & --- & 350 Z. & \checkreq{\authortwochars}{350} \\
+    Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. \\
+    Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. \\
+    Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. \\
+    Autor 1 (O. Hauke) & --- & \textcolor{wistaBlue}{\textbf{\authoronechars}} & --- & --- & 350 Z. \\
+    Autor 2 (A. Kristiansen) & --- & \textcolor{wistaBlue}{\textbf{\authortwochars}} & --- & --- & 350 Z. \\
     \midrule
     \sectionrows
     \bottomrule
@@ -292,15 +251,15 @@
   
   \vspace{0.5cm}
   
-  % Keywords list with count validation
-  {\large\bfseries\color{wistaDarkGray} Schlüsselwörter ($\leq$ 5) \checkkeywords{\schlusselwortercount}}\\[0.3cm]
+  % Keywords list
+  {\large\bfseries\color{wistaDarkGray} Schlüsselwörter}\\[0.3cm]
   \small
   \schlusselworterlist
   \normalsize
   
   \vspace{0.5cm}
   
-  {\large\bfseries\color{wistaDarkGray} Keywords ($\leq$ 5) \checkkeywords{\keywordscount}}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Keywords}\\[0.3cm]
   \small
   \keywordslist
   \normalsize
@@ -308,10 +267,10 @@
   \vspace{1cm}
   
   % Tables list
-  {\large\bfseries\color{wistaDarkGray} Tabellen (\total{table})}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Tabellen}\\[0.3cm]
   
   \small
-  \begin{tabular}{@{}p{3cm}p{11cm}@{}}
+  \begin{tabular}{@{}lp{12cm}@{}}
     \toprule
     \textbf{Nr.} & \textbf{Beschreibung} \\
     \midrule
@@ -323,10 +282,10 @@
   \vspace{1cm}
   
   % Figures list
-  {\large\bfseries\color{wistaDarkGray} Abbildungen (\total{figure})}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Abbildungen}\\[0.3cm]
   
   \small
-  \begin{tabular}{@{}p{3cm}p{11cm}@{}}
+  \begin{tabular}{@{}lp{12cm}@{}}
     \toprule
     \textbf{Nr.} & \textbf{Beschreibung} \\
     \midrule
@@ -345,18 +304,13 @@
 \definecolor{wistaDarkGray}{RGB}{96,94,92}
 \definecolor{wistaLightGray}{RGB}{128,128,128}
 
-% Redefine bold text to use WISTA blue color
-% Only redefine \textbf (inline bold), not \bfseries (used in formatting)
-\let\oldtextbf\textbf
-\renewcommand{\textbf}[1]{{\color{wistaBlue}\oldtextbf{#1}}}
-
 % Section formatting (##) - number 20% bigger, lines closer, text closer to bottom line
 % e.g., "2" with lines around "Einleitung"
 \titleformat{\section}[display]
-  {\normalfont\Large\bfseries}
-  {\color{wistaBlue}\LARGE\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
+  {\normalfont\large\bfseries}
+  {\color{wistaBlue}\Large\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
   {0pt}
-  {\vspace{0pt}\color{wistaDarkGray}\Large\bfseries}
+  {\vspace{0pt}\color{wistaDarkGray}\large\bfseries}
   [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{1.5pt}}\vspace{0.05cm}]
 \titlespacing*{\section}{0pt}{1.5ex plus 0.3ex minus .1ex}{0.2ex plus .1ex}
 
@@ -364,10 +318,10 @@
 % e.g., "2.1 Handlungsbedarf"
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \titleformat{\subsection}
-  {\color{wistaDarkGray}\large\bfseries}
-  {\color{wistaDarkGray}\large\bfseries\thesubsection}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaDarkGray}\normalsize\bfseries\thesubsection}
   {0.5em}
-  {\color{wistaDarkGray}\large\bfseries}
+  {\color{wistaDarkGray}\normalsize\bfseries}
   [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.8pt}}\vspace{0.05cm}]
 \titlespacing*{\subsection}{0pt}{1ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
   
@@ -564,7 +518,7 @@
 
 \title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
 \author{Oliver Hauke \and Annette Kristiansen}
-\date{2025-12-07}
+\date{2025-12-06}
 \begin{document}
 \maketitle
 
@@ -678,14 +632,14 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{8 567}
-\renewcommand{\totalwords}{1 086}
+\renewcommand{\totalchars}{8 589}
+\renewcommand{\totalwords}{1 092}
 \renewcommand{\abstractchars}{0}
 \renewcommand{\abstractwords}{0}
 \renewcommand{\zusammenfassungchars}{0}
 \renewcommand{\zusammenfassungwords}{0}
-\renewcommand{\footnotecountnum}{3}
-\renewcommand{\citationcountnum}{11}
+\renewcommand{\footnotecountnum}{2}
+\renewcommand{\citationcountnum}{10}
 \renewcommand{\schlusselwortercount}{0}
 \renewcommand{\keywordscount}{0}
 \renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
@@ -695,24 +649,22 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
 \renewcommand{\authoronechars}{0}
 \renewcommand{\authortwochars}{0}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{2 774}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{4}} & --- \\
-            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{281}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{326}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{1 825}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
-            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{2 251}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{2 781}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
+            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{282}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{327}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{1 830}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
+            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{2 257}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
             Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{189}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{917}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{919}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
 }
-\newcommand{\tablerows}{            \hyperref[tbl-stba-rserver]{Tabelle~1} & StBA R-Server Ausbau (Anfang 2025) \\
-            \hyperref[tbl-fdz-server]{Tabelle~2} & FDZ OnSite-Server Spezifikationen \\
-            \hyperref[tbl-pkg-versions]{Tabelle~3} & Versionen verfügbarer R-Packages \\
-            \hyperref[tbl-baseline]{Tabelle~4} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
-            \hyperref[tbl-benchmark-small]{Tabelle~5} & Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP \\
-            \hyperref[tbl-benchmark-regr-small]{Tabelle~6} & Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP \\
-            \hyperref[tbl-benchmark]{Tabelle~7} & Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP \\
-            \hyperref[tbl-benchmark-regr]{Tabelle~8} & Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP \\
-            \hyperref[tbl-bm-cnt-small]{Tabelle~9} & Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP) \\
-            \hyperref[tbl-bm-reg-small]{Tabelle~10} & Benchmarkergebnisse für Regression (kleine Stichproben des BTP) \\
+\newcommand{\tablerows}{            \hyperref[tbl-pkg-versions]{Tabelle~1} & Versionen verfügbarer R-Packages \\
+            \hyperref[tbl-baseline]{Tabelle~2} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
+            \hyperref[tbl-benchmark-small]{Tabelle~3} & Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark-regr-small]{Tabelle~4} & Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark]{Tabelle~5} & Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-benchmark-regr]{Tabelle~6} & Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-bm-cnt-small]{Tabelle~7} & Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP) \\
+            \hyperref[tbl-bm-reg-small]{Tabelle~8} & Benchmarkergebnisse für Regression (kleine Stichproben des BTP) \\
 }
 \newcommand{\figurerows}{            \hyperref[fig-optimization-strategies]{Abbildung~1} & Strategien zur Performanz-Optimierung im FDZ-Bund \\
 }
@@ -724,33 +676,15 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 
 \section{Datenverarbeitungsmethoden}\label{sec-methoden}
 
-Wir betrachten in diesem Artikel die Performanz von sog.
+Wir betrachten in diesem Artikel die Performanz sog.
 \emph{Datenverarbeitungsmethoden}, d.h. Softwarelösungen, die Daten
-einlesen, modifzierern, aggregieren, auswerten oder
-analysieren.\footnote{Das Schreiben von Daten wird in unserer
-  Untersuchung ausgeklammert, da es sich bei den Veröffentlichungen des
-  Statistischen Bundesamtes oder den Outputs der Wissenschaft im FDZ um
-  kleine Tabellen handelt, die i.d.R. keine große Performanz erfordern.
-  Dennoch bieten die in in Kapitel~\ref{sec-highperf} vorstellten
-  Lösungen auch hohe Performanz im Schreiben von Daten.}
-
-Anforderungen \ldots{} -\textgreater{} bedient R. Empfehlungen:
-
-\subsection{Klassische Methoden}\label{klassische-methoden}
-
-Beschreibung
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{data.table}. greift die R-Basissyntax auf, aber ist das
-  optimal schnelle Package Basisfunktionen in R in Userexperience und
-  Performanz nicht empfehlenswert
-\item
-  \textbf{tidyverse} (readr, dplyr und weitere): \ldots{}
-\end{itemize}
-
-\subsection{Hoch-performante Methoden}\label{hoch-performante-methoden}
+einlesen, modifzierern, aggregieren, auswerten oder analysieren. Das
+Schreiben von Daten wird in unserer Untersuchung ausgeklammert, da es
+sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den
+Outputs der Wissenschaft im FDZ um kleine Tabellen handelt, die i.d.R.
+keine große Performanz erfordern.{[}\^{}writedata Wir vernachlässigen
+Spark, Datenbanken und weitere Technologien, die zusätzliche Einrichtung
+erfordern und nicht direkt als R-Package genutzt werden können.
 
 \subsection{Anforderungen an
 Datenverarbeitungsmethoden}\label{anforderungen-an-datenverarbeitungsmethoden}
@@ -777,6 +711,33 @@ indem sie erlauben, nur relevante Variablen bei Bedarf zu einzulesen.
 
 \subsection{Sachstand}\label{sachstand}
 
+\subsubsection{SAS und Stata}\label{sas-und-stata}
+
+\begin{itemize}
+\tightlist
+\item
+  Hauptanalysewerkzeuge sind bisher:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    im StBA SAS 9.4 M8, EG
+  \item
+    im FDZ zsl. Stata
+  \end{itemize}
+\item
+  Stata
+
+  \begin{itemize}
+  \tightlist
+  \item
+    bisher: V.15 MP-12 (KDFV) und Stata 19 SE lokal (GWAP).
+  \item
+    neu im OSS in KDFV/GWAP V. 19 gleichermaßen in großen
+    Systemkapazitäten.
+  \end{itemize}
+\end{itemize}
+
 \subsubsection{Empfehlung des FDSZ der deutschen
 Bundesbank}\label{empfehlung-des-fdsz-der-deutschen-bundesbank}
 
@@ -791,7 +752,7 @@ Bundesbank}\label{empfehlung-des-fdsz-der-deutschen-bundesbank}
 \begin{itemize}
 \tightlist
 \item
-  R zeigt große Performanzvorteile gegenüber Stata für FDZ Aufgaben:
+  R zeigt große Performanzevorteile gegenüber Stata für FDZ Aufgaben:
   ``Note that using parquet and R reduces the computing time compared to
   the optimised Stata approach by 65.1\% from 77.6 to 27.1 seconds''
 \item
@@ -998,25 +959,24 @@ Package-Versionen, die zum Zeitpunkt des in \textbf{?@sec-benchmark}
 dargestellten Performanz-Vergleiches verfügab waren, können Tabelle
 Tabelle~\ref{tbl-pkg-versions} entnommen werden.
 
-\begin{table*}
+\begin{table}
 
 \caption{\label{tbl-pkg-versions}Versionen verfügbarer R-Packages}
 
 \centering{
 
+\begin{verbatim}
+\begin{table*}
+\caption{Versionen verfügbarer R-Packages}\label{tbl-pkg-versions}
 \centering\begingroup\fontsize{10}{12}\selectfont
 
 
 \begin{tabular}{|>{}l|||>{}l|}
 \hline
-\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Software}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Version}}}\\
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Paket}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Version}}}\\
 \hline
-\cellcolor{white}{\textcolor{black}{SAS}} & \cellcolor[HTML]{f0f8ff}{9.4 (M8)}\\
-\cellcolor{white}{\textcolor{black}{Stata}} & \cellcolor[HTML]{f0f8ff}{19 MP}\\
-\cellcolor{white}{\textcolor{black}{R}} & \cellcolor[HTML]{f0f8ff}{4.5}\\
 \cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{1.17.8}\\
-\cellcolor{white}{\textcolor{black}{\{readr\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
-\cellcolor{white}{\textcolor{black}{\{dplyr\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
+\cellcolor{white}{\textcolor{black}{\{tidyverse\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
 \cellcolor{white}{\textcolor{black}{\{vroom\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
 \cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{20.0.0.2}\\
 \cellcolor{white}{\textcolor{black}{\{duckdb\}}} & \cellcolor[HTML]{f0f8ff}{1.3.2}\\
@@ -1024,10 +984,12 @@ Tabelle~\ref{tbl-pkg-versions} entnommen werden.
 \hline
 \end{tabular}
 \endgroup{}
+\end{table*}
+\end{verbatim}
 
 }
 
-\end{table*}%
+\end{table}%
 
 
 \printbibliography

@@ -5,19 +5,11 @@
 
 tba (Wunsch Oli an FB):
 
-- beschreiben, welche Datenverarbeitungen in der Statistikproduktion häufig durchgeführt werden und, das unsere Use Cases dazu passen. (s.u. entsprechend dem FDZ)
+- beschreiben, welche Datenverarbeitungen in der Statistikproduktion häufig durchgeführt werden und, das unsere Use Cases dazu passen.
 - Was muss in der Datenbereitstellung erfolgen: Erstellung von MDR usw... Test auf Nutzbarkeit für wiss. Zwecke (?)
 
 Identifizierte Kernaufgabe: 90% irrelevante Informationen aus großen Datenmengen rausfiltern, Untersuchung wie dies am effizientesten geht. 
 
-Häufig fokussieren sich Forschungsprojekte im FDZ auf die folgenden Operationen:
-
-1. Lesen Daten ein
-2. Transformieren die Statistikprodukte des FDZ, verknüpfen ggf. mit eigene Daten
-3. Aggregieren ausgewählte Variablen zu betrachteten desktiptiven Übersichtsstatistiken
-4. Erstellen ein Modell oder testen eine Hypothese. Entweder geringe Komplexität (einfache Regressionen) oder sehr fachrichtungsspezifisch (Banching? wie hieß das). (Komplexere ML-Verfahren noch wenig genutzt)
-
-Ein Hauptteil der Laufzeit und RAM-Beanspruchung ist auf das "1. Einlesen von Daten" zurückzuführen. Sodass wir 2.-4. im Falle des BTP repräsentativ abdecken, aber nutzt real anhand des Datensatzes wenige Variablen der mehreren tausend Variablen und ist bequem im RAM verarbeitbar.
 -->
 
 ### Datengrundlage

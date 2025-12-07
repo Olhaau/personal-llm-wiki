@@ -1,72 +1,53 @@
-## Ausbau der Analyseinfrastruktur {#sec-infrastruktur}
-
-Im Jahr 2025 konnten mit der Bereitstellung neuer Analyseserver wesentliche Fortschritte beim Ausbau der analytischen Infrastruktur des Statistischen Bundesamts und des FDZ erzielt werden.
-
-Die Einführung der neuen Systeme stellt einen bedeutenden Schritt dar, da der Ausbau der Infrastruktur in den formalen Strukturen der Bundesverwaltung ein mehrjähriges Unterfangen ist. Auch Änderungen von Softwareversionen in der abgeschotteten Infrastruktur können organisatorisch aufwändig sein, sodass für die folgenden Darstellungen nicht immer die neuesten Versionen der betrachteten Software zur Verfügung stehen –- ein Umstand, der die realistischen Rahmenbedingungen der laufenden Statistikproduktion widerspiegelt. Um dennoch langfristig leistungsstark zu bleiben, wurde die neue Infrastruktur von Beginn an zukunftsorientiert konzipiert und bietet moderne Software auf einer deutlich erweiterten Hardwarebasis.
+## Techniche Infrastruktur {#sec-infrastruktur}
 
 
-### Ausgangslage
+Womit wir arbeiten können.
 
-Das Hauptwerkzeug für die Statistikproduktion ist die kommerzielle Analysesoftware **SAS 9.4**, für das dedizierte Server bereitgestellt werden.[^sas-version] SAS 9.4 verarbeitet Daten überwiegend zeilenorientiert und belastet den Arbeitsspeicher daher nur gering –- ein entscheidender Vorteil in der amtlichen Statistik, da auch große Datenmengen auf mit geringeren Hardwareanforderungen verarbeitet werden können. Für viele Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung effizienter. In R sind neuere Verfahren verfügbar, die moderne Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten gegenüber SAS erheblich verkürzen (siehe @sec-methoden und @sec-benchmark).
+<!--
+  -   Rückstände/Altlasten: weiterentwickelnde Infrastruktur, nicht state of the art (ausgelegt auf konsistenz und zuverlässigkeit, nicht schnelligkeit), gesetzlicher Auftrag
+      -   hauptsächlich SAS für große Datenmenge verwendet, funktioniert, aber langsam
+      -   FDZ Bund integriert in Standardarbeitsplätze des StBA
+      -   Bereitstellungsaufwände und Abhängigkeiten moderner Software
 
-[^sas-version]: Da SAS bereits langjährig eingesetzt wird, ist für die kommenden Performanzvergleiche zu beachten, dass die SAS-Server nicht über die neuste Hardware verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert. Die neuste Version ist SAS 9.4M9. S. https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/whatsdiff/upgradeswhatsnew94.html
+- Nicht überall schnell in der Infrastruktur Weiterentwicklung. Organisatorische Abstimmung R-Pakete etc.
 
-Im FDZ ist – neben SAS – die kommerzielle Software **Stata** das am stärksten nachgefragte Auswertungswerkzeug. **Stata** wird in vielen wissenschaftlichen Fachrichtungen genutzt, da sie ohne tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen, bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden müssen, und nur ausgewählte Operationen erlauben die parallelisierte Datenverarbeitung. Durch die manuelle *Variablenauswahl* lassen sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber begrenzend. Bisher waren die GWAP-Arbeitsplätze auf die Single-Core-Version mit begrenztem RAM beschränkt und damit für viele Produkte des FDZ unzureichend, während leistungsfähigere Server vor der Bereitstellung des OnSite-Server nur in der KDFV verfügbar waren. 
+SAS ermöglicht besonders beliebig große Datenmengen zu verarbeiten auch mit geringen Systemkapazitäten, da der Arbeitsspeicher nur minimal belastet wird. Moderne ... die den Arbeitspeicher besser nutzen, reduzieren die Laufzeit signifikant. 
+-->
+### Allgemeinn
 
-### R-Server des Statistischen Bundesamts
+- abgeschottete, innerhalb der eigenen Infrastruktur
 
-Seit Jahren steht im Statistischen Bundesamt ein Server für die Open-Source **Statistiksoftware R** und **Python** zur Verfügung, der für die Datenverarbeitung in der Statistikproduktion sowie im KDFV des FDZ genutzt wird. R wird aufgrund seiner großen internationalen Community, der Vielzahl spezialisierter Pakete für Datenanalyse, spaltenbasierte Verarbeitung und Visualisierung sowie der schnellen Weiterentwicklung zunehmend in der amtlichen Statistik eingesetzt.
+### SAS Server
 
-Seit Anfang 2025 konnte der R- und Python-Server signifikant erweitert werden. Verwendet wird die kommerziell unterstützte **Posit Workbench**, um die Funktionen Projekt-Sharing, Git-Integration, Positron-Features bereitstellen zu können. Zusätzlich wurden die Systemressourcen deutlich ausgebaut, wie die @tbl-stba-rserver zeigt.
+### StBA R-Server
 
-```{=latex}
-\begin{table*}[!htb]
-\caption{\label{tbl-stba-rserver}StBA R-Server Ausbau (Anfang 2025)}
-\centering\begingroup\fontsize{10}{12}\selectfont
-\begin{tabular}{|>{}l|||>{}l|||>{}l|}
-\hline
-\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Komponente}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Vorher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Nachher}}}\\
-\hline
-\cellcolor{white}{\textcolor{black}{Anzahl Server}} & \cellcolor[HTML]{f0f8ff}{1} & \cellcolor[HTML]{f0f8ff}{10}\\
-\cellcolor{white}{\textcolor{black}{Arbeitsspeicher (jeweils)}} & \cellcolor[HTML]{f0f8ff}{700 GB} & \cellcolor[HTML]{f0f8ff}{1 TB}\\
-\cellcolor{white}{\textcolor{black}{Kernanzahl (jeweils)}} & \cellcolor[HTML]{f0f8ff}{72} & \cellcolor[HTML]{f0f8ff}{96}\\
-\cellcolor{white}{\textcolor{black}{Core Speed (jeweils)}} & \cellcolor[HTML]{f0f8ff}{TBA} & \cellcolor[HTML]{f0f8ff}{TBA}\\
-\cellcolor{white}{\textcolor{black}{GPUs (jeweils)}} & \cellcolor[HTML]{f0f8ff}{keine} & \cellcolor[HTML]{f0f8ff}{\makecell[l]{2× A6000\\(je 48 GB)}}\\
-\hline
-\end{tabular}
-\endgroup{}
-\end{table*}
-```
+Intern ist R in größeren Kapazitäten nutzbar und Stata nur lokal.
 
-Die neue Oberfläche und IDE erhöhen die Nutzerfreundlichkeit, die neuesten R-Versionen stehen bereit, und Pakete können schnell installiert werden. So können moderne Analyse- und Visualisierungsmethoden effizient genutzt werden – sodass aktuell über 200 aktive Nutzende das System nutzen.
+- 10 Server á
+  - 1 TB RAM
+  - 96 Kerne
+  - 2 GPUs mit insg. 96 GB VRAM 
 
-### OnSite-Server des FDZ
+Bereitstellung von Paketen und organisatorische einordnung. Veränderung der Infrastruktur langwierig, Beschaffung via Beschaffungsamt etc. -\> wir müssen für die Zukunft planen und umsetzen.
 
-Seit November 2025 steht der sogenannte OnSite-Server exklusiv im FDZ für alle OnSite-Nutzungen bereit. Er bietet jeweils dedizierte Stata- und R-Server an den GWAP-Arbeitsplätzen sowie via KDFV mit gleichermaßen umfangreichen Analysekapazitäten, wie in @tbl-fdz-server aufgeführt. Alle Analyseserver sind über schnelle Direktverbindungen an den Netzwerkspeicher angebunden, sodass R und Stata nahtlos kombiniert werden können.
+### FDZ OnSite-Server
 
-```{=latex}
-\begin{table*}[!htb]
-\caption{\label{tbl-fdz-server}FDZ OnSite-Server Spezifikationen}
-\centering\begingroup\fontsize{10}{12}\selectfont
-\begin{tabular}{|>{}l|||>{}l|}
-\hline
-\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Komponente}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Umfang}}}\\
-\hline
-\cellcolor{white}{\textcolor{black}{Stata-Server}} & \cellcolor[HTML]{f0f8ff}{3}\\
-\cellcolor{white}{\textcolor{black}{R-Server}} & \cellcolor[HTML]{f0f8ff}{6}\\
-\cellcolor{white}{\textcolor{black}{Arbeitsspeicher (jeweils)}} & \cellcolor[HTML]{f0f8ff}{512 GB}\\
-\cellcolor{white}{\textcolor{black}{Kernanzahl (jeweils)}} & \cellcolor[HTML]{f0f8ff}{16}\\
-\cellcolor{white}{\textcolor{black}{CPU-Geschwindigkeit (jeweils)}} & \cellcolor[HTML]{f0f8ff}{3.1 GHz}\\
-\hline
-\end{tabular}
-\endgroup{}
-\end{table*}
-```
+StBA R-Server mit noch größeren Kapazitäten und grafischen Rechenbeschleunigern.
 
+Neu seit November 2025 steht der sog. OnSite-Server im FDZ Bund allen OnSite Nutzungen bereit -- jeweisl in Stata un R via KDFV und an den GWAP. Zugriff zu Analyseservern in umfangreichen Kapazitäten.
 
-Stata/MP ist nun einheitlich auf leistungsstarken Multi-Core-Servern verfügbar. Zudem steht erstmals R für OnSite-Nutzungen bereit: Aufbau und Softwarebasis orientieren sich am zentralen R-Server des Statistischen Bundesamts, sind jedoch dediziert für FDZ-Anwendungen.
+In FDZ Bund Für Stata (3 Server) oder R (6 Server) in KDFV oder GWAP stehen jeder Nutzung zur Verfügung:
 
-Die R-Server unterstützen moderne, speichereffiziente Verfahren, mit denen auch Datenmengen oberhalb des Arbeitsspeichers flexibel, stabil und schneller verarbeitet werden können – Details dazu siehe @sec-methoden.
+::: 
+| Komponente          | Umfang        |
+|---------------------|---------------|
+| Arbeitsspeicher     | bis zu 512 GB |
+| Kernanzahl          | 16            |
+| CPU-Geschwindigkeit | 3.1 GHz       |
+:::
+
+-   schnelle Direktverbindung zu Netzwerkspeicher
+-   Fußnote RAM in R 128 GB kann erweitert werden.
 
 
 <!--
@@ -93,7 +74,28 @@ Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik fü
 
 #### Technische Infrastruktur
 
+**Hardware-Ausstattung.**
 
+Die technische Infrastruktur des FDZ-Bund umfasst verschiedene Systemkomponenten:
+
+```{=latex}
+\begin{table*}[htbp]
+\caption{Technische Ausstattung des FDZ-Bund (beispielhafte Konfiguration)}
+\label{tbl-fdz-infrastructure}
+\centering
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llc@{}}
+\toprule
+Komponente & Spezifikation & Anzahl\\
+\midrule
+Rechenknoten (Standard) & 2x Intel Xeon Gold 6248R (48 Kerne), 384 GB RAM & 12\\
+Rechenknoten (High-Memory) & 2x Intel Xeon Platinum 8280 (56 Kerne), 1,5 TB RAM & 4\\
+Speichersystem & NAS-System mit 500 TB nutzbarem Speicher & 1\\
+Netzwerk & 10 Gbit/s Ethernet, InfiniBand für parallele Operationen & -\\
+Backup-System & Tägliches Backup, räumlich getrennte Archivierung & -\\
+\bottomrule
+\end{tabular*}
+\end{table*}
+```
 
 **Software-Umgebung.**
 

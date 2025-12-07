@@ -181,25 +181,33 @@ format_wista_table <- function(data,
   # For two-column spanning tables, we need special handling
   if (two_column) {
     # First, remove the table environment completely and extract content
+    # This regex captures everything including positioning like [H], [t], etc.
     tbl_out <- gsub("\\\\begin\\{table\\}[^\\n]*\\n", "", tbl_out)
     tbl_out <- gsub("\\\\end\\{table\\}", "", tbl_out)
     
-    # Remove \centering{ opening and the [t] that follows
-    # Structure: \centering{\n\n[t]\n\n\centering\begingroup... (lots of stuff) ...\endgroup{}\n}\n
-    # Strategy: Remove just the "\centering{\n\n[t]\n\n" part, leave everything else
-    tbl_out <- gsub("\\\\centering\\{[^\\\\]*\\[t\\][^\\\\]*(?=\\\\centering)", "", tbl_out, perl = TRUE)
+    # Remove simple single-char positioning directives like [t], [h], [b]
+    # but NOT multi-char ones like [!htb]
+    tbl_out <- gsub("\\[t\\]\\s*\\n", "", tbl_out)
+    tbl_out <- gsub("\\[h\\]\\s*\\n", "", tbl_out)
+    tbl_out <- gsub("\\[b\\]\\s*\\n", "", tbl_out)
     
-    # Also remove the stray closing } that was part of the \centering{...} group
-    # It appears after \endgroup{} near the end
-    tbl_out <- gsub("\\\\endgroup\\{\\}\\s*\\n\\s*\\}", "\\\\endgroup{}", tbl_out)
+    # Remove outer \centering{ wrapper and its closing }
+    # Pattern: \centering{ at start (possibly with whitespace)
+    # followed by content, then } on its own line near the end
+    if (grepl("^\\s*\\\\centering\\{", tbl_out)) {
+      tbl_out <- sub("^\\s*\\\\centering\\{\\s*\\n", "", tbl_out)
+      # Remove the matching } that's on its own line, followed by possible whitespace
+      tbl_out <- sub("\\n\\s*\\}\\s*\\n\\s*$", "\n", tbl_out)
+    }
     
-    # Remove any remaining standalone [t] lines just in case
+    # Remove any remaining standalone [t], [h], [b] lines (but not [!htb])
     lines <- strsplit(tbl_out, "\\n")[[1]]
-    lines <- lines[!grepl("^\\s*\\[t\\]\\s*$", lines)]
+    lines <- lines[!grepl("^\\s*\\[[thb]\\]\\s*$", lines)]
     tbl_out <- paste(lines, collapse = "\n")
     
-    # Build table* environment (without [t] positioning)
-    table_start <- "\\begin{table*}\n"
+    # Build table* environment with positioning to keep it in place
+    # Note: table* doesn't support [H], but [!htb] encourages placement here
+    table_start <- "\\begin{table*}[!htb]\n"
     if (!is.null(caption)) {
       table_start <- paste0(table_start, "\\caption{", caption, "}")
     }
@@ -220,10 +228,12 @@ format_wista_table <- function(data,
   }
   
   # FINAL cleanup: ALWAYS remove [t], [h], [b] positioning on their own lines
+  # BUT keep [!htb] and similar multi-character positioning
   # Split into lines
   all_lines <- unlist(strsplit(tbl_out, "\n", fixed = TRUE))
   
-  # Filter out lines that are ONLY [t], [h], or [b] (with optional whitespace)
+  # Filter out lines that are ONLY single positioning characters like [t], [h], or [b]
+  # but NOT [!htb] or other multi-char positioning
   clean_lines <- all_lines[!grepl("^\\s*\\[[thb]\\]\\s*$", all_lines)]
   
   # Also remove the closing } that pairs with \centering{ if it's on its own line
@@ -233,10 +243,11 @@ format_wista_table <- function(data,
   tbl_out <- paste(clean_lines, collapse = "\n")
   
   # Additional cleanup: remove [t] that appears after \begin{table*} or \begin{table}
+  # BUT don't remove [!htb] or other multi-char positioning
   tbl_out <- gsub("\\\\begin\\{table\\*\\}\\[t\\]", "\\\\begin{table*}", tbl_out)
   tbl_out <- gsub("\\\\begin\\{table\\}\\[t\\]", "\\\\begin{table}", tbl_out)
   
-  # Remove standalone [t] anywhere in the output
+  # Remove standalone [t] anywhere in the output (but not [!htb])
   tbl_out <- gsub("\\n\\s*\\[t\\]\\s*\\n", "\n", tbl_out)
   tbl_out <- gsub("^\\s*\\[t\\]\\s*\\n", "", tbl_out)
   
@@ -329,16 +340,17 @@ format_small_benchmark_table <- function(data, label, caption = NULL) {
 #' @param caption Table caption
 #' @param col_names Column names (optional)
 #' @param font_size Font size (default: 9)
+#' @param escape Escape special LaTeX characters (default: TRUE)
 #' 
 #' @return Formatted table output
-format_descriptive_table <- function(data, label, caption = NULL, col_names = NULL, font_size = 9) {
+format_descriptive_table <- function(data, label, caption = NULL, col_names = NULL, font_size = 9, escape = TRUE) {
   format_wista_table(
     data = data,
     col_names = col_names,
     label = label,
     caption = caption,
     booktabs = FALSE,
-    escape = TRUE,  # Changed to TRUE to escape special LaTeX characters like underscores
+    escape = escape,
     font_size = font_size,
     full_width = FALSE,
     two_column = TRUE,

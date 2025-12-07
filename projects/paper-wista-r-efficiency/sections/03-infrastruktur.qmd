@@ -1,8 +1,6 @@
 ## Infrastruktur des FDZ-Bund {#sec-infrastruktur}
 
 
-
-
 Erwähnen: Klassisch ebenso SAS- und Stata-Server
 
 Womit wir arbeiten können...

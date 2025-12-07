@@ -1,6 +1,4 @@
-## Performanzvergleich {#sec-benchmark}
-
-RAM nicht aussagekräftig!!!
+## Performanzvergleich {#sec-performance}
 
 <!-- 
 
@@ -17,17 +15,20 @@ Um zwischen den in Abschnitt @sec-methoden vorgestellten Datenverarbeitungsmetho
 
 [^opencode]: www.opencode.de/URL-To-Be-Announced.
 
-Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen Größen (0,1%/1%/10% von den insgesamt 67 Millionen Beobachtungen des BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen generiert, um die wesentlichen Strukturen des BTP für unsere Analyse künstlich nachzubilden. Abgrenzend zu den im FDZ bereitgestellten *Datenstrukturfiles* wurden die Testdaten nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
+Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen Größen (0,1%/1%/10% von den insgesamt 80 Mio. Beobachtungen des BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen generiert, um die wesentlichen Strukturen des BTP für unsere Analyse künstlich nachzubilden. Abgrenzend zu den im FDZ bereitgestellten *Datenstrukturfiles* wurden die Testdaten nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
 
 1.  **Fallzahlen** (pro Statistik und Jahr),
 2.  **Regression** (Einflussfaktoren auf Verlustvorträge).
 
-Um eine zuverlässige Performanz-Messung zu erhalten, wurde jede Datenverarbeitungsmethode dreifach angewandt. Der Vergleich erfolgt anhand der mittleren Messung der **Laufzeit** der Auswertung (real verstrichene Zeit).
+Um eine zuverlässige Performanz-Messung zu erhalten, wurde jede Datenverarbeitungsmethode dreifach angewandt. Der Vergleich erfolgt anhand der mittleren Messung der folgenden Zielgrößen:
 
-Daneben ist die Erfassung des **Arbeitsspeicher** der Auswertung entscheidend, da ein übermäßiger Arbeitsspeicherverbrauch zu schwerwiegenden Abbrüchen führen kann. Dennoch 
+1.  **Arbeitsspeicher** der Auswertung,
+2.  **Laufzeit** der Auswertung (real verstrichene Zeit),
+3.  **Festplattenspeicher** der verwendeten Daten.
 
+Die Zielgrößen sind in dieser Reihenfolge zu priorisieren, da ein übermäßiger Arbeitsspeicherverbrauch zu schwerwiegenden Abbrüchen führen kann, während hohe Laufzeiten dennoch zu einem erfolgreichen Ergebnis führen können. Festplattenspeicher ist ausreichend vorhanden, aber unnötige Belegung sollte vermieden werden.
 
-**Festplattenspeicher** ist ausreichend vorhanden, aber unnötige Belegung sollte vermieden werden. Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 4 GB Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für unerfahrene Nutzende -- ausschlaggebend.
+Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 4 GB Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für unerfahrene Nutzende -- ausschlaggebend.
 
 ### Vergleichswert in SAS und Stata
 

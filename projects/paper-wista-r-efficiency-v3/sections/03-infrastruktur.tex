@@ -138,6 +138,7 @@
 \usepackage{longtable}
 \usepackage{totcount}
 \usepackage{xstring}
+\usepackage{pgfmath}  % For calculations
 
 % Time display with Berlin timezone (+1 hour offset)
 \newcount\berlinhr
@@ -181,6 +182,8 @@
 \providecommand{\citationcountnum}{0}
 \providecommand{\schlusselwortercount}{0}
 \providecommand{\keywordscount}{0}
+\providecommand{\authoronechars}{0}
+\providecommand{\authortwochars}{0}
 
 % Define metadata commands from Pandoc variables
 \newcommand{\doctitle}{$title$}
@@ -190,6 +193,46 @@
 \newcommand{\docshorttitle}{$short-title$}
 
 \ifdraftmode
+% Helper function - show tick or cross based on requirements
+\usepackage{amssymb}  % for \checkmark
+\usepackage{pifont}   % for \ding{55} (cross mark)
+
+% Check if requirement is met (tick) or not (cross)
+% Only checks maximum (no minimum) - requirement is an upper limit
+\newcommand{\checkreq}[2]{%
+  % #1 = actual value (formatted with spaces like "8 452")
+  % #2 = required value (maximum allowed)
+  % Remove spaces and compare
+  \StrDel{#1}{ }[\cleanvalue]%
+  \IfStrEq{\cleanvalue}{0}{%
+    % If zero, show cross
+    \textcolor{red}{\ding{55}}%
+  }{%
+    % Check if value exceeds maximum (with 20% tolerance)
+    \newcount\actualval%
+    \newcount\maxval%
+    \actualval=\cleanvalue\relax%
+    \maxval=#2\relax%
+    \multiply\maxval by 6\relax%
+    \divide\maxval by 5\relax%  % 120% = 6/5
+    \ifnum\actualval>\maxval\relax
+      \textcolor{red}{\ding{55}}%
+    \else
+      \textcolor{green!60!black}{\checkmark}%
+    \fi
+  }%
+}
+
+% Helper for keyword count check
+\newcommand{\checkkeywords}[1]{%
+  % #1 = count
+  \ifnum#1>5\relax
+    \textcolor{red}{\ding{55}}%
+  \else%
+    \textcolor{green!60!black}{\checkmark}%
+  \fi%
+}
+
 % Define metadata page command
 \newcommand{\metadatapage}{%
   \clearpage
@@ -218,13 +261,15 @@
   {\large\bfseries\color{wistaDarkGray} Dokumentstatistik}\\[0.5cm]
   
   \small
-  \begin{tabular}{@{}lrrrrrr@{}}
+  \begin{tabular}{@{}lrrrrrl@{}}
     \toprule
-    \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} \\
+    \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} & \textbf{Status} \\
     \midrule
-    Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. \\
-    Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. \\
-    Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. \\
+    Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. & \checkreq{\totalchars}{30000} \\
+    Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. & \checkreq{\zusammenfassungchars}{800} \\
+    Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. & \checkreq{\abstractchars}{700} \\
+    Autor 1 (O. Hauke) & --- & \textcolor{wistaBlue}{\textbf{\authoronechars}} & --- & --- & 350 Z. & \checkreq{\authoronechars}{350} \\
+    Autor 2 (A. Kristiansen) & --- & \textcolor{wistaBlue}{\textbf{\authortwochars}} & --- & --- & 350 Z. & \checkreq{\authortwochars}{350} \\
     \midrule
     \sectionrows
     \bottomrule
@@ -233,15 +278,15 @@
   
   \vspace{0.5cm}
   
-  % Keywords list
-  {\large\bfseries\color{wistaDarkGray} Schlüsselwörter}\\[0.3cm]
+  % Keywords list with count validation
+  {\large\bfseries\color{wistaDarkGray} Schlüsselwörter ($\leq$ 5) \checkkeywords{\schlusselwortercount}}\\[0.3cm]
   \small
   \schlusselworterlist
   \normalsize
   
   \vspace{0.5cm}
   
-  {\large\bfseries\color{wistaDarkGray} Keywords}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Keywords ($\leq$ 5) \checkkeywords{\keywordscount}}\\[0.3cm]
   \small
   \keywordslist
   \normalsize
@@ -249,10 +294,10 @@
   \vspace{1cm}
   
   % Tables list
-  {\large\bfseries\color{wistaDarkGray} Tabellen}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Tabellen (\total{table})}\\[0.3cm]
   
   \small
-  \begin{tabular}{@{}lp{12cm}@{}}
+  \begin{tabular}{@{}p{3cm}p{11cm}@{}}
     \toprule
     \textbf{Nr.} & \textbf{Beschreibung} \\
     \midrule
@@ -264,10 +309,10 @@
   \vspace{1cm}
   
   % Figures list
-  {\large\bfseries\color{wistaDarkGray} Abbildungen}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Abbildungen (\total{figure})}\\[0.3cm]
   
   \small
-  \begin{tabular}{@{}lp{12cm}@{}}
+  \begin{tabular}{@{}p{3cm}p{11cm}@{}}
     \toprule
     \textbf{Nr.} & \textbf{Beschreibung} \\
     \midrule
@@ -286,13 +331,18 @@
 \definecolor{wistaDarkGray}{RGB}{96,94,92}
 \definecolor{wistaLightGray}{RGB}{128,128,128}
 
+% Redefine bold text to use WISTA blue color
+% Only redefine \textbf (inline bold), not \bfseries (used in formatting)
+\let\oldtextbf\textbf
+\renewcommand{\textbf}[1]{{\color{wistaBlue}\oldtextbf{#1}}}
+
 % Section formatting (##) - number 20% bigger, lines closer, text closer to bottom line
 % e.g., "2" with lines around "Einleitung"
 \titleformat{\section}[display]
-  {\normalfont\large\bfseries}
-  {\color{wistaBlue}\Large\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
+  {\normalfont\Large\bfseries}
+  {\color{wistaBlue}\LARGE\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
   {0pt}
-  {\vspace{0pt}\color{wistaDarkGray}\large\bfseries}
+  {\vspace{0pt}\color{wistaDarkGray}\Large\bfseries}
   [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{1.5pt}}\vspace{0.05cm}]
 \titlespacing*{\section}{0pt}{1.5ex plus 0.3ex minus .1ex}{0.2ex plus .1ex}
 
@@ -300,10 +350,10 @@
 % e.g., "2.1 Handlungsbedarf"
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \titleformat{\subsection}
-  {\color{wistaDarkGray}\normalsize\bfseries}
-  {\color{wistaDarkGray}\normalsize\bfseries\thesubsection}
+  {\color{wistaDarkGray}\large\bfseries}
+  {\color{wistaDarkGray}\large\bfseries\thesubsection}
   {0.5em}
-  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaDarkGray}\large\bfseries}
   [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.8pt}}\vspace{0.05cm}]
 \titlespacing*{\subsection}{0pt}{1ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
   
@@ -500,7 +550,7 @@
 
 \title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
 \author{Oliver Hauke \and Annette Kristiansen}
-\date{2025-12-05}
+\date{2025-12-07}
 \begin{document}
 \maketitle
 
@@ -533,10 +583,10 @@
 \fontsize{7}{8.5}\selectfont
 \vspace{0pt}%
 {\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
-ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums und berät das Netzwerk empirische Steuerforschung in der effizienten Nutzung der Systeme.\\[0.5cm]
+ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums des Statistischen Bundeamts und berät das Netzwerk empirische Steuerforschung in effizienter Datenanalyse.\\[0.5cm]
 
 {\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
-ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut das Netzwerk empirische Steuerforschung. Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen.
+ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut Arbeiten für das Netzwerk empirische Steuerforschung. 
 
 \end{minipage}%
 \hspace{0.4cm}% Gap to vertical line (left side)
@@ -614,14 +664,14 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{1 921}
-\renewcommand{\totalwords}{263}
+\renewcommand{\totalchars}{5 828}
+\renewcommand{\totalwords}{697}
 \renewcommand{\abstractchars}{0}
 \renewcommand{\abstractwords}{0}
 \renewcommand{\zusammenfassungchars}{0}
 \renewcommand{\zusammenfassungwords}{0}
-\renewcommand{\footnotecountnum}{0}
-\renewcommand{\citationcountnum}{0}
+\renewcommand{\footnotecountnum}{1}
+\renewcommand{\citationcountnum}{3}
 \renewcommand{\schlusselwortercount}{0}
 \renewcommand{\keywordscount}{0}
 \renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
@@ -629,22 +679,26 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \renewcommand{\docpublication}{WISTA}
 \renewcommand{\docpublicationissue}{01/2026}
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{622}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{63}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{73}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{409}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{504}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{42}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{205}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+\renewcommand{\authoronechars}{0}
+\renewcommand{\authortwochars}{0}
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{1 887}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{191}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{222}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{1 241}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{1 531}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{128}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{624}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
 }
-\newcommand{\tablerows}{            \hyperref[tbl-pkg-versions]{Tabelle~1} & Versionen verfügbarer R-Packages \\
-            \hyperref[tbl-baseline]{Tabelle~2} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
-            \hyperref[tbl-benchmark-small]{Tabelle~3} & Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP \\
-            \hyperref[tbl-benchmark-regr-small]{Tabelle~4} & Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP \\
-            \hyperref[tbl-benchmark]{Tabelle~5} & Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP \\
-            \hyperref[tbl-benchmark-regr]{Tabelle~6} & Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP \\
-            \hyperref[tbl-bm-cnt-small]{Tabelle~7} & Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP) \\
-            \hyperref[tbl-bm-reg-small]{Tabelle~8} & Benchmarkergebnisse für Regression (kleine Stichproben des BTP) \\
+\newcommand{\tablerows}{            \hyperref[tbl-stba-rserver]{Tabelle~1} & StBA R-Server Ausbau (Anfang 2025) \\
+            \hyperref[tbl-fdz-server]{Tabelle~2} & FDZ OnSite-Server Spezifikationen \\
+            \hyperref[tbl-pkg-versions]{Tabelle~3} & Versionen verfügbarer R-Packages \\
+            \hyperref[tbl-baseline]{Tabelle~4} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
+            \hyperref[tbl-benchmark-small]{Tabelle~5} & Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark-regr-small]{Tabelle~6} & Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark]{Tabelle~7} & Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-benchmark-regr]{Tabelle~8} & Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-bm-cnt-small]{Tabelle~9} & Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP) \\
+            \hyperref[tbl-bm-reg-small]{Tabelle~10} & Benchmarkergebnisse für Regression (kleine Stichproben des BTP) \\
 }
 \newcommand{\figurerows}{            \hyperref[fig-optimization-strategies]{Abbildung~1} & Strategien zur Performanz-Optimierung im FDZ-Bund \\
 }
@@ -654,69 +708,153 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \metadatapage
 \fi
 
-\section{Techniche Infrastruktur}\label{sec-infrastruktur}
+\section{Ausbau der Analyseinfrastruktur}\label{sec-infrastruktur}
 
-Womit wir arbeiten können.
+Im Jahr 2025 konnten mit der Bereitstellung neuer Analyseserver
+wesentliche Fortschritte beim Ausbau der analytischen Infrastruktur des
+Statistischen Bundesamts und des FDZ erzielt werden.
 
-\subsection{Allgemeinn}\label{allgemeinn}
+Die Einführung der neuen Systeme stellt einen bedeutenden Schritt dar,
+da der Ausbau der Infrastruktur in den formalen Strukturen der
+Bundesverwaltung ein mehrjähriges Unterfangen ist. Auch Änderungen von
+Softwareversionen in der abgeschotteten Infrastruktur können
+organisatorisch aufwändig sein, sodass für die folgenden Darstellungen
+nicht immer die neuesten Versionen der betrachteten Software zur
+Verfügung stehen --- ein Umstand, der die realistischen
+Rahmenbedingungen der laufenden Statistikproduktion widerspiegelt. Um
+dennoch langfristig leistungsstark zu bleiben, wurde die neue
+Infrastruktur von Beginn an zukunftsorientiert konzipiert und bietet
+moderne Software auf einer deutlich erweiterten Hardwarebasis.
 
-\begin{itemize}
-\tightlist
-\item
-  abgeschottete, innerhalb der eigenen Infrastruktur
-\end{itemize}
+\subsection{Ausgangslage}\label{ausgangslage}
 
-\subsection{SAS Server}\label{sas-server}
+Das Hauptwerkzeug für die Statistikproduktion ist die kommerzielle
+Analysesoftware \textbf{SAS 9.4}, für das dedizierte Server
+bereitgestellt werden.\footnote{Da SAS bereits langjährig eingesetzt
+  wird, ist für die kommenden Performanzvergleiche zu beachten, dass die
+  SAS-Server nicht über die neuste Hardware verfügen. SAS wurde in 2025
+  auf Version 9.4M8 aktualisiert. Die neuste Version ist SAS 9.4M9. S.
+  https://documentation.sas.com/doc/en/pgmsascdc/9.4\_3.5/whatsdiff/upgradeswhatsnew94.html}
+SAS 9.4 verarbeitet Daten überwiegend zeilenorientiert und belastet den
+Arbeitsspeicher daher nur gering --- ein entscheidender Vorteil in der
+amtlichen Statistik, da auch große Datenmengen auf mit geringeren
+Hardwareanforderungen verarbeitet werden können. Für viele
+Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung
+effizienter. In R sind neuere Verfahren verfügbar, die moderne
+Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten
+gegenüber SAS erheblich verkürzen (siehe \textbf{?@sec-methoden} und
+\textbf{?@sec-benchmark}).
 
-\subsection{StBA R-Server}\label{stba-r-server}
+Im FDZ ist -- neben SAS -- die kommerzielle Software \textbf{Stata} das
+am stärksten nachgefragte Auswertungswerkzeug. \textbf{Stata} wird in
+vielen wissenschaftlichen Fachrichtungen genutzt, da sie ohne
+tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig
+aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen,
+bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine
+Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden
+müssen, und nur ausgewählte Operationen erlauben die parallelisierte
+Datenverarbeitung. Durch die manuelle \emph{Variablenauswahl} lassen
+sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber
+begrenzend. Bisher waren die GWAP-Arbeitsplätze auf die
+Single-Core-Version mit begrenztem RAM beschränkt und damit für viele
+Produkte des FDZ unzureichend, während leistungsfähigere Server vor der
+Bereitstellung des OnSite-Server nur in der KDFV verfügbar waren.
 
-Intern ist R in größeren Kapazitäten nutzbar und Stata nur lokal.
+\subsection{R-Server des Statistischen
+Bundesamts}\label{r-server-des-statistischen-bundesamts}
 
-\begin{itemize}
-\tightlist
-\item
-  10 Server á
+Seit Jahren steht im Statistischen Bundesamt ein Server für die
+Open-Source \textbf{Statistiksoftware R} und \textbf{Python} zur
+Verfügung, der für die Datenverarbeitung in der Statistikproduktion
+sowie im KDFV des FDZ genutzt wird. R wird aufgrund seiner großen
+internationalen Community, der Vielzahl spezialisierter Pakete für
+Datenanalyse, spaltenbasierte Verarbeitung und Visualisierung sowie der
+schnellen Weiterentwicklung zunehmend in der amtlichen Statistik
+eingesetzt.
 
-  \begin{itemize}
-  \tightlist
-  \item
-    1 TB RAM
-  \item
-    96 Kerne
-  \item
-    2 GPUs mit insg. 96 GB VRAM
-  \end{itemize}
-\end{itemize}
+Seit Anfang 2025 konnte der R- und Python-Server signifikant erweitert
+werden. Verwendet wird die kommerziell unterstützte \textbf{Posit
+Workbench}, um die Funktionen Projekt-Sharing, Git-Integration,
+Positron-Features bereitstellen zu können. Zusätzlich wurden die
+Systemressourcen deutlich ausgebaut, wie die folgende Tabelle zeigt:
 
-Bereitstellung von Paketen und organisatorische einordnung. Veränderung
-der Infrastruktur langwierig, Beschaffung via Beschaffungsamt etc.
--\textgreater{} wir müssen für die Zukunft planen und umsetzen.
+\begin{table*}
 
-\subsection{FDZ OnSite-Server}\label{fdz-onsite-server}
+\caption{\label{tbl-stba-rserver}StBA R-Server Ausbau (Anfang 2025)}
 
-StBA R-Server mit noch größeren Kapazitäten und grafischen
-Rechenbeschleunigern.
+\centering{
 
-Neu seit November 2025 steht der sog. OnSite-Server im FDZ Bund allen
-OnSite Nutzungen bereit -- jeweisl in Stata un R via KDFV und an den
-GWAP. Zugriff zu Analyseservern in umfangreichen Kapazitäten.
+[!htb]
 
-In FDZ Bund Für Stata (3 Server) oder R (6 Server) in KDFV oder GWAP
-stehen jeder Nutzung zur Verfügung:
+\centering\begingroup\fontsize{10}{12}\selectfont
+\begin{tabular}{|>{}l|||>{}l|||>{}l|}
+\hline
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Komponente}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Vorher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Nachher}}}\\
+\hline
+\cellcolor{white}{\textcolor{black}{Anzahl Server}} & \cellcolor[HTML]{f0f8ff}{1} & \cellcolor[HTML]{f0f8ff}{10}\\
+\cellcolor{white}{\textcolor{black}{Arbeitsspeicher (jeweils)}} & \cellcolor[HTML]{f0f8ff}{700 GB} & \cellcolor[HTML]{f0f8ff}{1 TB}\\
+\cellcolor{white}{\textcolor{black}{Kernanzahl (jeweils)}} & \cellcolor[HTML]{f0f8ff}{72} & \cellcolor[HTML]{f0f8ff}{96}\\
+\cellcolor{white}{\textcolor{black}{Core Speed (jeweils)}} & \cellcolor[HTML]{f0f8ff}{TBA} & \cellcolor[HTML]{f0f8ff}{TBA}\\
+\cellcolor{white}{\textcolor{black}{GPUs (jeweils)}} & \cellcolor[HTML]{f0f8ff}{keine} & \cellcolor[HTML]{f0f8ff}{\makecell[l]{2× A6000\\(je 48 GB)}}\\
+\hline
+\end{tabular}
+\endgroup{}
 
-::: \textbar{} Komponente \textbar{} Umfang \textbar{}
-\textbar---------------------\textbar---------------\textbar{}
-\textbar{} Arbeitsspeicher \textbar{} bis zu 512 GB \textbar{}
-\textbar{} Kernanzahl \textbar{} 16 \textbar{} \textbar{}
-CPU-Geschwindigkeit \textbar{} 3.1 GHz \textbar{} :::
+}
 
-\begin{itemize}
-\tightlist
-\item
-  schnelle Direktverbindung zu Netzwerkspeicher
-\item
-  Fußnote RAM in R 128 GB kann erweitert werden.
-\end{itemize}
+\end{table*}%
+
+Die neue Oberfläche und IDE erhöhen die Nutzerfreundlichkeit, die
+neuesten R-Versionen stehen bereit, und Pakete können schnell
+installiert werden. So können moderne Analyse- und
+Visualisierungsmethoden effizient genutzt werden -- sodass aktuell über
+200 aktive Nutzende das System nutzen.
+
+\subsection{OnSite-Server des FDZ}\label{onsite-server-des-fdz}
+
+Seit November 2025 steht der sogenannte OnSite-Server exklusiv im FDZ
+für alle OnSite-Nutzungen bereit. Er bietet jeweils dedizierte Stata-
+und R-Server an den GWAP-Arbeitsplätzen sowie via KDFV mit gleichermaßen
+umfangreichen Analysekapazitäten, wie in Tabelle~\ref{tbl-fdz-server}
+aufgeführt. Alle Analyseserver sind über schnelle Direktverbindungen an
+den Netzwerkspeicher angebunden, sodass R und Stata nahtlos kombiniert
+werden können.
+
+\begin{table*}
+
+\caption{\label{tbl-fdz-server}FDZ OnSite-Server Spezifikationen}
+
+\centering{
+
+[!htb]
+
+\centering\begingroup\fontsize{10}{12}\selectfont
+\begin{tabular}{|>{}l|||>{}l|}
+\hline
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Komponente}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Umfang}}}\\
+\hline
+\cellcolor{white}{\textcolor{black}{Stata-Server}} & \cellcolor[HTML]{f0f8ff}{3}\\
+\cellcolor{white}{\textcolor{black}{R-Server}} & \cellcolor[HTML]{f0f8ff}{6}\\
+\cellcolor{white}{\textcolor{black}{Arbeitsspeicher (jeweils)}} & \cellcolor[HTML]{f0f8ff}{512 GB}\\
+\cellcolor{white}{\textcolor{black}{Kernanzahl (jeweils)}} & \cellcolor[HTML]{f0f8ff}{16}\\
+\cellcolor{white}{\textcolor{black}{CPU-Geschwindigkeit (jeweils)}} & \cellcolor[HTML]{f0f8ff}{3.1 GHz}\\
+\hline
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+Stata/MP ist nun einheitlich auf leistungsstarken Multi-Core-Servern
+verfügbar. Zudem steht erstmals R für OnSite-Nutzungen bereit: Aufbau
+und Softwarebasis orientieren sich am zentralen R-Server des
+Statistischen Bundesamts, sind jedoch dediziert für FDZ-Anwendungen.
+
+Die R-Server unterstützen moderne, speichereffiziente Verfahren, mit
+denen auch Datenmengen oberhalb des Arbeitsspeichers flexibel, stabil
+und schneller verarbeitet werden können -- Details dazu siehe
+\textbf{?@sec-methoden}.
 
 
 \printbibliography

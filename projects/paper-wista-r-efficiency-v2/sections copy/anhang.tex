@@ -152,7 +152,6 @@
 \usepackage{longtable}
 \usepackage{totcount}
 \usepackage{xstring}
-\usepackage{pgfmath}  % For calculations
 
 % Time display with Berlin timezone (+1 hour offset)
 \newcount\berlinhr
@@ -196,8 +195,6 @@
 \providecommand{\citationcountnum}{0}
 \providecommand{\schlusselwortercount}{0}
 \providecommand{\keywordscount}{0}
-\providecommand{\authoronechars}{0}
-\providecommand{\authortwochars}{0}
 
 % Define metadata commands from Pandoc variables
 \newcommand{\doctitle}{$title$}
@@ -207,46 +204,6 @@
 \newcommand{\docshorttitle}{$short-title$}
 
 \ifdraftmode
-% Helper function - show tick or cross based on requirements
-\usepackage{amssymb}  % for \checkmark
-\usepackage{pifont}   % for \ding{55} (cross mark)
-
-% Check if requirement is met (tick) or not (cross)
-% Only checks maximum (no minimum) - requirement is an upper limit
-\newcommand{\checkreq}[2]{%
-  % #1 = actual value (formatted with spaces like "8 452")
-  % #2 = required value (maximum allowed)
-  % Remove spaces and compare
-  \StrDel{#1}{ }[\cleanvalue]%
-  \IfStrEq{\cleanvalue}{0}{%
-    % If zero, show cross
-    \textcolor{red}{\ding{55}}%
-  }{%
-    % Check if value exceeds maximum (with 20% tolerance)
-    \newcount\actualval%
-    \newcount\maxval%
-    \actualval=\cleanvalue\relax%
-    \maxval=#2\relax%
-    \multiply\maxval by 6\relax%
-    \divide\maxval by 5\relax%  % 120% = 6/5
-    \ifnum\actualval>\maxval\relax
-      \textcolor{red}{\ding{55}}%
-    \else
-      \textcolor{green!60!black}{\checkmark}%
-    \fi
-  }%
-}
-
-% Helper for keyword count check
-\newcommand{\checkkeywords}[1]{%
-  % #1 = count
-  \ifnum#1>5\relax
-    \textcolor{red}{\ding{55}}%
-  \else%
-    \textcolor{green!60!black}{\checkmark}%
-  \fi%
-}
-
 % Define metadata page command
 \newcommand{\metadatapage}{%
   \clearpage
@@ -275,15 +232,13 @@
   {\large\bfseries\color{wistaDarkGray} Dokumentstatistik}\\[0.5cm]
   
   \small
-  \begin{tabular}{@{}lrrrrrl@{}}
+  \begin{tabular}{@{}lrrrrrr@{}}
     \toprule
-    \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} & \textbf{Status} \\
+    \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} \\
     \midrule
-    Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. & \checkreq{\totalchars}{30000} \\
-    Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. & \checkreq{\zusammenfassungchars}{800} \\
-    Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. & \checkreq{\abstractchars}{700} \\
-    Autor 1 (O. Hauke) & --- & \textcolor{wistaBlue}{\textbf{\authoronechars}} & --- & --- & 350 Z. & \checkreq{\authoronechars}{350} \\
-    Autor 2 (A. Kristiansen) & --- & \textcolor{wistaBlue}{\textbf{\authortwochars}} & --- & --- & 350 Z. & \checkreq{\authortwochars}{350} \\
+    Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. \\
+    Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. \\
+    Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. \\
     \midrule
     \sectionrows
     \bottomrule
@@ -292,15 +247,15 @@
   
   \vspace{0.5cm}
   
-  % Keywords list with count validation
-  {\large\bfseries\color{wistaDarkGray} Schlüsselwörter ($\leq$ 5) \checkkeywords{\schlusselwortercount}}\\[0.3cm]
+  % Keywords list
+  {\large\bfseries\color{wistaDarkGray} Schlüsselwörter}\\[0.3cm]
   \small
   \schlusselworterlist
   \normalsize
   
   \vspace{0.5cm}
   
-  {\large\bfseries\color{wistaDarkGray} Keywords ($\leq$ 5) \checkkeywords{\keywordscount}}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Keywords}\\[0.3cm]
   \small
   \keywordslist
   \normalsize
@@ -308,10 +263,10 @@
   \vspace{1cm}
   
   % Tables list
-  {\large\bfseries\color{wistaDarkGray} Tabellen (\total{table})}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Tabellen}\\[0.3cm]
   
   \small
-  \begin{tabular}{@{}p{3cm}p{11cm}@{}}
+  \begin{tabular}{@{}lp{12cm}@{}}
     \toprule
     \textbf{Nr.} & \textbf{Beschreibung} \\
     \midrule
@@ -323,10 +278,10 @@
   \vspace{1cm}
   
   % Figures list
-  {\large\bfseries\color{wistaDarkGray} Abbildungen (\total{figure})}\\[0.3cm]
+  {\large\bfseries\color{wistaDarkGray} Abbildungen}\\[0.3cm]
   
   \small
-  \begin{tabular}{@{}p{3cm}p{11cm}@{}}
+  \begin{tabular}{@{}lp{12cm}@{}}
     \toprule
     \textbf{Nr.} & \textbf{Beschreibung} \\
     \midrule
@@ -345,18 +300,13 @@
 \definecolor{wistaDarkGray}{RGB}{96,94,92}
 \definecolor{wistaLightGray}{RGB}{128,128,128}
 
-% Redefine bold text to use WISTA blue color
-% Only redefine \textbf (inline bold), not \bfseries (used in formatting)
-\let\oldtextbf\textbf
-\renewcommand{\textbf}[1]{{\color{wistaBlue}\oldtextbf{#1}}}
-
 % Section formatting (##) - number 20% bigger, lines closer, text closer to bottom line
 % e.g., "2" with lines around "Einleitung"
 \titleformat{\section}[display]
-  {\normalfont\Large\bfseries}
-  {\color{wistaBlue}\LARGE\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
+  {\normalfont\large\bfseries}
+  {\color{wistaBlue}\Large\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
   {0pt}
-  {\vspace{0pt}\color{wistaDarkGray}\Large\bfseries}
+  {\vspace{0pt}\color{wistaDarkGray}\large\bfseries}
   [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{1.5pt}}\vspace{0.05cm}]
 \titlespacing*{\section}{0pt}{1.5ex plus 0.3ex minus .1ex}{0.2ex plus .1ex}
 
@@ -364,10 +314,10 @@
 % e.g., "2.1 Handlungsbedarf"
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \titleformat{\subsection}
-  {\color{wistaDarkGray}\large\bfseries}
-  {\color{wistaDarkGray}\large\bfseries\thesubsection}
+  {\color{wistaDarkGray}\normalsize\bfseries}
+  {\color{wistaDarkGray}\normalsize\bfseries\thesubsection}
   {0.5em}
-  {\color{wistaDarkGray}\large\bfseries}
+  {\color{wistaDarkGray}\normalsize\bfseries}
   [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.8pt}}\vspace{0.05cm}]
 \titlespacing*{\subsection}{0pt}{1ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
   
@@ -564,7 +514,7 @@
 
 \title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
 \author{Oliver Hauke \and Annette Kristiansen}
-\date{2025-12-07}
+\date{2025-12-05}
 \begin{document}
 \maketitle
 
@@ -597,10 +547,10 @@
 \fontsize{7}{8.5}\selectfont
 \vspace{0pt}%
 {\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Oliver Hauke}}\\[0.15cm]
-ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums des Statistischen Bundeamts und berät das Netzwerk empirische Steuerforschung in effizienter Datenanalyse.\\[0.5cm]
+ist Mathematiker und IT-Referent im Kompetenzzentrum „Analyse und Auswertung" des Statistischen Bundesamtes. Er verantwortet die Weiterentwicklung der technischen Infrastruktur des Forschungsdatenzentrums und berät das Netzwerk empirische Steuerforschung in der effizienten Nutzung der Systeme.\\[0.5cm]
 
 {\fontsize{8}{9.5}\selectfont\color{wistaBlue}\textbf{Annette Kristiansen}}\\[0.15cm]
-ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut Arbeiten für das Netzwerk empirische Steuerforschung. 
+ist Ökonomin und Referentin im Referat „Unternehmenssteuern" des Statistischen Bundesamtes. Sie beschäftigt sich mit der Zusammenführung der Unternehmenssteuerstatistiken und betreut das Netzwerk empirische Steuerforschung. Für ihre externe Promotion an der Universität Bremen untersucht sie die technologische Vielfalt multinationaler Unternehmen.
 
 \end{minipage}%
 \hspace{0.4cm}% Gap to vertical line (left side)
@@ -678,14 +628,14 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{8 567}
-\renewcommand{\totalwords}{1 086}
+\renewcommand{\totalchars}{927}
+\renewcommand{\totalwords}{107}
 \renewcommand{\abstractchars}{0}
 \renewcommand{\abstractwords}{0}
 \renewcommand{\zusammenfassungchars}{0}
 \renewcommand{\zusammenfassungwords}{0}
-\renewcommand{\footnotecountnum}{3}
-\renewcommand{\citationcountnum}{11}
+\renewcommand{\footnotecountnum}{0}
+\renewcommand{\citationcountnum}{0}
 \renewcommand{\schlusselwortercount}{0}
 \renewcommand{\keywordscount}{0}
 \renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
@@ -693,26 +643,22 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \renewcommand{\docpublication}{WISTA}
 \renewcommand{\docpublicationissue}{01/2026}
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
-\renewcommand{\authoronechars}{0}
-\renewcommand{\authortwochars}{0}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{2 774}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{4}} & --- \\
-            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{281}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{326}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{1 825}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
-            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{2 251}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
-            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{189}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{917}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{300}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{30}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{35}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{197}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{243}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{20}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{99}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
 }
-\newcommand{\tablerows}{            \hyperref[tbl-stba-rserver]{Tabelle~1} & StBA R-Server Ausbau (Anfang 2025) \\
-            \hyperref[tbl-fdz-server]{Tabelle~2} & FDZ OnSite-Server Spezifikationen \\
-            \hyperref[tbl-pkg-versions]{Tabelle~3} & Versionen verfügbarer R-Packages \\
-            \hyperref[tbl-baseline]{Tabelle~4} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
-            \hyperref[tbl-benchmark-small]{Tabelle~5} & Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP \\
-            \hyperref[tbl-benchmark-regr-small]{Tabelle~6} & Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP \\
-            \hyperref[tbl-benchmark]{Tabelle~7} & Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP \\
-            \hyperref[tbl-benchmark-regr]{Tabelle~8} & Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP \\
-            \hyperref[tbl-bm-cnt-small]{Tabelle~9} & Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP) \\
-            \hyperref[tbl-bm-reg-small]{Tabelle~10} & Benchmarkergebnisse für Regression (kleine Stichproben des BTP) \\
+\newcommand{\tablerows}{            \hyperref[tbl-pkg-versions]{Tabelle~1} & Versionen verfügbarer R-Packages \\
+            \hyperref[tbl-baseline]{Tabelle~2} & Baselines in SAS und Stata (anhand 1\% des simuliertes BTP) \\
+            \hyperref[tbl-benchmark-small]{Tabelle~3} & Performanz Messungen für die Fallzahlberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark-regr-small]{Tabelle~4} & Performanz Messungen für die Regressionsberechnung anhand 1\% des BTP \\
+            \hyperref[tbl-benchmark]{Tabelle~5} & Performanz Messungen für die Fallzahlberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-benchmark-regr]{Tabelle~6} & Performanz Messungen für die Regressionsberechnung anhand 10\% des BTP \\
+            \hyperref[tbl-bm-cnt-small]{Tabelle~7} & Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP) \\
+            \hyperref[tbl-bm-reg-small]{Tabelle~8} & Benchmarkergebnisse für Regression (kleine Stichproben des BTP) \\
 }
 \newcommand{\figurerows}{            \hyperref[fig-optimization-strategies]{Abbildung~1} & Strategien zur Performanz-Optimierung im FDZ-Bund \\
 }
@@ -722,306 +668,87 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \metadatapage
 \fi
 
-\section{Datenverarbeitungsmethoden}\label{sec-methoden}
+\section*{Anhang}\label{anhang}
+\addcontentsline{toc}{section}{Anhang}
 
-Wir betrachten in diesem Artikel die Performanz von sog.
-\emph{Datenverarbeitungsmethoden}, d.h. Softwarelösungen, die Daten
-einlesen, modifzierern, aggregieren, auswerten oder
-analysieren.\footnote{Das Schreiben von Daten wird in unserer
-  Untersuchung ausgeklammert, da es sich bei den Veröffentlichungen des
-  Statistischen Bundesamtes oder den Outputs der Wissenschaft im FDZ um
-  kleine Tabellen handelt, die i.d.R. keine große Performanz erfordern.
-  Dennoch bieten die in in Kapitel~\ref{sec-highperf} vorstellten
-  Lösungen auch hohe Performanz im Schreiben von Daten.}
+Inhalte für die Veröffentlichung in Open Code.
 
-Anforderungen \ldots{} -\textgreater{} bedient R. Empfehlungen:
-
-\subsection{Klassische Methoden}\label{klassische-methoden}
-
-Beschreibung
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{data.table}. greift die R-Basissyntax auf, aber ist das
-  optimal schnelle Package Basisfunktionen in R in Userexperience und
-  Performanz nicht empfehlenswert
-\item
-  \textbf{tidyverse} (readr, dplyr und weitere): \ldots{}
-\end{itemize}
-
-\subsection{Hoch-performante Methoden}\label{hoch-performante-methoden}
-
-\subsection{Anforderungen an
-Datenverarbeitungsmethoden}\label{anforderungen-an-datenverarbeitungsmethoden}
-
-\begin{itemize}
-\tightlist
-\item
-  Performanz und Nutzererfahrung auf dem aktuellen Stand der Technik
-\item
-  leicht einzurichten auch in den abgeschotteten System der amtl.
-  Statistik (tlw. langwierig und schwierig), d.h. wenig Abhängigkeiten
-  und unabhängig von Internet bzw. Cloud betreibbar.
-\item
-  langfristig stabil und gut unterstützt
-\item
-  leicht nutzbar, gut dokumentiert, gutes Schulungsangebot
-\end{itemize}
-
-Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt
-besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle
-Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre
-Grenzen. Moderne spaltenorientierte Technologien lösen dieses Problem
-indem sie erlauben, nur relevante Variablen bei Bedarf zu einzulesen.
-
-\subsection{Sachstand}\label{sachstand}
-
-\subsubsection{Empfehlung des FDSZ der deutschen
-Bundesbank}\label{empfehlung-des-fdsz-der-deutschen-bundesbank}
-
-\begin{enumerate}
-\def\labelenumi{(\arabic{enumi})}
-\tightlist
-\item
-  hat den Spezialfall von in-memory Auswertung betrachtet mit den
-  folgenden Ergebnissen:
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  R zeigt große Performanzvorteile gegenüber Stata für FDZ Aufgaben:
-  ``Note that using parquet and R reduces the computing time compared to
-  the optimised Stata approach by 65.1\% from 77.6 to 27.1 seconds''
-\item
-  zu betrachten ist die Gesamtzeit (d.h. Rechenzeit +
-  \textbf{Entwicklungszeit})
-
-  \begin{itemize}
-  \tightlist
-  \item
-    vorhandene Erfahrung und Knowhow (bspw. in Stata) relativiert die
-    Performanzgewinne in R. Zu beachten sind hohe Debugging Aufwände an
-    den GWAPs der FDZ (kein Internetzugriff)
-  \item
-    I.d.R. muss in der Entwicklung Code mehrfach ausgeführt werden,
-    sodass sich die Laufzeit multipliziert (Wickham\&Grolemund 2016).
-  \end{itemize}
-\item
-  Die u.g. Parquet-Dateien werden bereits standardmäßig im FDSZ
-  angeboten.
-\item
-  Variablenselektion hervorgehoben. Bot Beschleuniging von 39.9\% in R
-  und 33.9\% in Stata
-\end{itemize}
-
-\subsection{Analysewerkzeug R}\label{analysewerkzeug-r}
-
-Der Einsatz von R wächst stetig mit aktuell über 200 aktiven Nutzenden
-im StBA und FDZ.
-
-\begin{itemize}
-\tightlist
-\item
-  R ist die native Programmiersprache von Statistiker/-innen und
-  Daten-affinen Programmierer/-innen. Frei verfügbar und leicht
-  einzurichten. Somit weit verbreitet, insb. an Universitäten.
-\item
-  R ist Open Source und wird ständig weiterentwickelt (aktuell in
-  Version 4.5 verwendet, jährliche Major Releases).
-\item
-  Eine weltweit aktive Community löst Probleme zeitnah und ergänzt
-  stetig Funktionalitäten in Form von sog. \emph{R-Packages}.
-\item
-  Bietet nativ bereits viele Datenverarbeitungsmethoden, die jedoch
-  durch diese R-Packages ganz neue Level an Nutzerfreundlichkeit,
-  Funktionsumfang und Performanz erreichen.
-\end{itemize}
-
-\subsection{Klassische Methoden in R}\label{klassische-methoden-in-r}
-
-\subsubsection{Base R}\label{base-r}
-
-\begin{itemize}
-\tightlist
-\item
-  Standardmäßige Basisfunktionen in R.
-\item
-  Grundlage/einstieg, weder sonderlich amschaulich nocb sonderlich
-  performant -\textgreater{} Packages überlassen
-\item
-  \textbf{Vorteile:} Einfach, weit verbreitet, keine zusätzlichen
-  Abhängigkeiten
-\item
-  \textbf{Nachteile:} Langsam bei großen Daten, hoher Speicherverbrauch,
-  alle Daten müssen in RAM passen
-\item
-  \textbf{Empfehlung:} Zweckdienlich für Einsteiger oder
-  gelegenheitsnutzer für ganz kleine Anwendungenoder falls gar keine
-  Abhängigkeiten in Form von Pkg erlaubt sind. Ansonsten\ldots{}
-\end{itemize}
-
-\subsubsection{Data.table}\label{data.table}
-
-\begin{itemize}
-\tightlist
-\item
-  \{data.table\} \autocite{R-data.table} in den meisten Fällen die
-  performanteste klassische DVM. An die Syntax an base-r angesiedelt und
-  nur hier verwendet, spezielles Wissen notwendig.
-\item
-  \textbf{Vorteile:} Sehr schnell für In-Memory-Operationen, ausgereift,
-  kompakte Syntax In teilen der Community sehr beliebt
-\item
-  \textbf{Nachteile:} Alle Daten müssen in RAM passen, steile Lernkurve,
-  keine Out-of-Core-Unterstützung.
-\item
-  \textbf{Empfehlung:} Gute Alternative wenn Datensatz in RAM passt und
-  keine Parquet-Integration benötigt wird
-\end{itemize}
-
-\subsubsection{Tidyverse}\label{tidyverse}
-
-Tidyverse \autocite{R-tidyverse} ist ein Ökosystem von Packages zur
-Datenverarbeitung, das für besonders hohe Lesbarkeit des Codes bekannt
-ist. Dazu dient eine eigenen Programmiersyntax, sog.
-\emph{\{dplyr\}-Syntax} \autocite{R-dplyr}, die den Anspruch hat
-menschlicher Sprache abzubilden. Das R-Package \{dplyr\} ist die
-Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines
-Beispiels in der folgenden Tabelle veranschaulicht wird
-
-{[} Tabelle Beispiel Dplyr {]}
-
-Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie
-vielen anderen Packages ergänzt wurde. Bspw. für \{data.table\} setzen
-dies die Packages \{dtplyr\} \autocite{R-dtplyr} oder \{tidytable\}
-\autocite{R-tidytable} um Wie im Falle von \{dtplyr\} kann die
-Übersetzung zu \{dplyr\} jedoch die Performanz
-verschlechtern.\footnote{S.
-  https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/}
-
-\subsection{Best Practices in R}\label{best-practices-in-r}
-
-Ab mittleren Datenmengen (relativ zu CPU und RAM) sind ausgewählte
-\textbf{Best Practices} in R:
-
-\begin{itemize}
-\tightlist
-\item
-  \emph{Variablenselektion}: Beim Einlesen von DatenAuswahl der
-  benötigten Variablen in der Einlesefunktion ist wesentliche
-  Best-Practices (besonders für klassiche Methoden, da dies das Risiko
-  für RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen
-  zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren
-  Zeitpunkt) verursacht unnötige Wartezeiten, Ressourcenbelegung und
-  kann zu Abbrüchen führen.
-\item
-  \emph{Datenaufteilung}: Wenn der Arbeitsspeicher nicht ausreicht, um
-  die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere
-  RAM-Gerechte Datenpakete helfen. Für klassische Methoden kombiniert
-  mit der mehrfachen Variablenselektion. Die folgenden hoch-performanten
-  Techniken, kommen auch direkt mehreren Dateien nutzen, ohne manuell
-  die Datensätze zusammenzuführen.
-\end{itemize}
-
-\subsection{Hoch-performante Methoden in R}\label{sec-highperf}
-
-Wir sprechen in diesem Artikel vereinfacht von einer
-\emph{hoch-performanten Methode}, sobald die betrachtete
-Datenverarbeitungsmethode in der Lage ist, Datenmengen überhalb des
-verfügbaren Arbeitsspeichers flexibel und effizient zu nutzen. SAS
-erfüllt den Großteil dieser Definition -- lediglich die Effizienz lässt
-sich deutlich steigern.
-
-Um Datenauswertung auf höhere Datenmengen skalieren zu können ist ein
-Paradigmenwechsel von der ``\emph{vollständigen Verarbeitung im RAM''}
-zu der \emph{Auslagerung aus dem RAM} notwendig. Vollständig im RAM sind
-Daten zwar sehr schnell und einfach zu nutzen, jedoch beansprucht der
-Transport in den RAM (Einlesen) einen Hauptteil der Laufzeit und der
-verfügbare RAM reicht i.d.R. nicht für größere Datenmengen. Die
-nachfolgenden Technologien sind auch in der Lage Daten überhalb des RAMs
-zu verarbeiten. Durch moderne Hardware und Software kann dies sogar sehr
-schnell erfolgen.
-
-\subsubsection{Apache Parquet}\label{apache-parquet}
-
-\begin{itemize}
-\tightlist
-\item
-  Datenformat, spaltenbasiert, komprimiert, \ldots{}
-\item
-  tba - s. Vortrag
-\end{itemize}
-
-\subsubsection{Apache Arrow}\label{apache-arrow}
-
-\begin{itemize}
-\tightlist
-\item
-  R-package \autocite{R-arrow}, C++ basiert, erlaubt Parallelisierung,
-  Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu
-  Parquet
-\item
-  tba - s. Vortrag
-\end{itemize}
-
-\subsubsection{DuckDB}\label{duckdb}
-
-\begin{itemize}
-\tightlist
-\item
-  R-Package \autocite{R-duckdb}, in-memory DB, \ldots{}
-\item
-  tba - s. Vortrag
-\end{itemize}
-
-\subsubsection{Polars}\label{polars}
-
-\begin{itemize}
-\tightlist
-\item
-  an Python-angelehnte Syntax \autocite{R-polars}
-\item
-  tba
-\item
-  Benchmark des Polars Entwicklerteams \footnote{https://ddotta.github.io/cookbook-rpolars/benchmarking.html}
-\end{itemize}
-
-\subsection{Package-Versionen}\label{package-versionen}
-
-Die auf den Servern des StBA und FDZ verfügbaren Packageversionen lassen
-sich aus organisatorischen Gründen nicht flexibel ändern, da die
-Genehmigung und Einrichtung neuer Packages nur auf Antrag durch unser
-R-Betriebsteam erfolgt (i.d.R. innerhalb von 1-2 Tagen ). Die
-Package-Versionen, die zum Zeitpunkt des in \textbf{?@sec-benchmark}
-dargestellten Performanz-Vergleiches verfügab waren, können Tabelle
-Tabelle~\ref{tbl-pkg-versions} entnommen werden.
+\subsection*{Weitere Performancemessungen für kleinere
+Datenmengen.}\label{weitere-performancemessungen-fuxfcr-kleinere-datenmengen.}
+\addcontentsline{toc}{subsection}{Weitere Performancemessungen für
+kleinere Datenmengen.}
 
 \begin{table*}
 
-\caption{\label{tbl-pkg-versions}Versionen verfügbarer R-Packages}
+\caption{\label{tbl-bm-cnt-small}Benchmarkergebnisse für Fallzahlen (kleine Stichproben des BTP)}
 
 \centering{
 
-\centering\begingroup\fontsize{10}{12}\selectfont
+\centering\begingroup\fontsize{8}{10}\selectfont
 
 
-\begin{tabular}{|>{}l|||>{}l|}
-\hline
-\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Software}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Version}}}\\
-\hline
-\cellcolor{white}{\textcolor{black}{SAS}} & \cellcolor[HTML]{f0f8ff}{9.4 (M8)}\\
-\cellcolor{white}{\textcolor{black}{Stata}} & \cellcolor[HTML]{f0f8ff}{19 MP}\\
-\cellcolor{white}{\textcolor{black}{R}} & \cellcolor[HTML]{f0f8ff}{4.5}\\
-\cellcolor{white}{\textcolor{black}{\{data.table\}}} & \cellcolor[HTML]{f0f8ff}{1.17.8}\\
-\cellcolor{white}{\textcolor{black}{\{readr\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
-\cellcolor{white}{\textcolor{black}{\{dplyr\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
-\cellcolor{white}{\textcolor{black}{\{vroom\}}} & \cellcolor[HTML]{f0f8ff}{tba}\\
-\cellcolor{white}{\textcolor{black}{\{arrow\}}} & \cellcolor[HTML]{f0f8ff}{20.0.0.2}\\
-\cellcolor{white}{\textcolor{black}{\{duckdb\}}} & \cellcolor[HTML]{f0f8ff}{1.3.2}\\
-\cellcolor{white}{\textcolor{black}{\{polars\}}} & \cellcolor[HTML]{f0f8ff}{1.0.1}\\
-\hline
+\begin{tabular}{|>{}r||>{}l||>{}l||>{}l||>{}r||>{}r||>{}r|}
+\toprule
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Beob.}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Package}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Dateiformat}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Optimierung}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Arbeitsspeicher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Laufzeit}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Festplattenspeicher}}}\\
+\midrule
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{polars\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,3 MB} & \cellcolor[HTML]{f0f8ff}{0,4 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{4,4 MB} & \cellcolor[HTML]{f0f8ff}{0,7 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{230,7 MB} & \cellcolor[HTML]{f0f8ff}{1,1 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{readr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{9,3 MB} & \cellcolor[HTML]{f0f8ff}{1,2 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{229,8 MB} & \cellcolor[HTML]{f0f8ff}{1,6 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{duckdb\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{4,7 MB} & \cellcolor[HTML]{f0f8ff}{2,9 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,4 GB} & \cellcolor[HTML]{f0f8ff}{3,6 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{229,9 MB} & \cellcolor[HTML]{f0f8ff}{4,2 Sek} & \cellcolor[HTML]{f0f8ff}{486,9 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{230,4 MB} & \cellcolor[HTML]{f0f8ff}{4,6 Sek} & \cellcolor[HTML]{f0f8ff}{492,6 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{5,1 GB} & \cellcolor[HTML]{f0f8ff}{4,8 Sek} & \cellcolor[HTML]{f0f8ff}{1,0 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (gleichmäßig)} & \cellcolor[HTML]{f0f8ff}{229,9 MB} & \cellcolor[HTML]{f0f8ff}{7,1 Sek} & \cellcolor[HTML]{f0f8ff}{483,5 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{readr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{1,7 GB} & \cellcolor[HTML]{f0f8ff}{8,6 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{27,4 MB} & \cellcolor[HTML]{f0f8ff}{15,7 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV.GZ} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{4,7 GB} & \cellcolor[HTML]{f0f8ff}{21,2 Sek} & \cellcolor[HTML]{f0f8ff}{421,9 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{base\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{9,7 GB} & \cellcolor[HTML]{f0f8ff}{4,9 Min} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{0,6 MB} & \cellcolor[HTML]{f0f8ff}{0,1 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{readr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{2,7 MB} & \cellcolor[HTML]{f0f8ff}{0,2 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{polars\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,3 MB} & \cellcolor[HTML]{f0f8ff}{0,4 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{341,8 MB} & \cellcolor[HTML]{f0f8ff}{0,9 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{duckdb\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{4,7 MB} & \cellcolor[HTML]{f0f8ff}{1,1 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{226,2 MB} & \cellcolor[HTML]{f0f8ff}{1,2 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{225,3 MB} & \cellcolor[HTML]{f0f8ff}{1,4 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{3,5 MB} & \cellcolor[HTML]{f0f8ff}{1,5 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV.GZ} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{491,7 MB} & \cellcolor[HTML]{f0f8ff}{2,7 Sek} & \cellcolor[HTML]{f0f8ff}{42,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{data.table\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{510,9 MB} & \cellcolor[HTML]{f0f8ff}{2,8 Sek} & \cellcolor[HTML]{f0f8ff}{104,5 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{229,9 MB} & \cellcolor[HTML]{f0f8ff}{2,9 Sek} & \cellcolor[HTML]{f0f8ff}{53,5 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{230,4 MB} & \cellcolor[HTML]{f0f8ff}{3,7 Sek} & \cellcolor[HTML]{f0f8ff}{48,1 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (gleichmäßig)} & \cellcolor[HTML]{f0f8ff}{229,7 MB} & \cellcolor[HTML]{f0f8ff}{4,0 Sek} & \cellcolor[HTML]{f0f8ff}{50,5 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{readr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{197,4 MB} & \cellcolor[HTML]{f0f8ff}{4,9 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{base\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{713,4 MB} & \cellcolor[HTML]{f0f8ff}{23,3 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+
+}
+
+\end{table*}%
+
+\begin{table*}
+
+\caption{\label{tbl-bm-reg-small}Benchmarkergebnisse für Regression (kleine Stichproben des BTP)}
+
+\centering{
+
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+
+\begin{tabular}{|>{}r||>{}l||>{}l||>{}l||>{}r||>{}r||>{}r|}
+\toprule
+\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Beob.}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Package}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Dateiformat}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Optimierung}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Arbeitsspeicher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Laufzeit}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Festplattenspeicher}}}\\
+\midrule
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{dplyr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{17,6 MB} & \cellcolor[HTML]{f0f8ff}{1,3 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{459,3 MB} & \cellcolor[HTML]{f0f8ff}{5,0 Sek} & \cellcolor[HTML]{f0f8ff}{486,9 MB}\\
+\cellcolor{white}{\textcolor{black}{10.000}} & \cellcolor[HTML]{f0f8ff}{\{dplyr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{1,8 GB} & \cellcolor[HTML]{f0f8ff}{10,8 Sek} & \cellcolor[HTML]{f0f8ff}{1,3 GB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{dplyr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{Variablenauswahl} & \cellcolor[HTML]{f0f8ff}{4,2 MB} & \cellcolor[HTML]{f0f8ff}{0,3 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{dplyr\}} & \cellcolor[HTML]{f0f8ff}{CSV} & \cellcolor[HTML]{f0f8ff}{-} & \cellcolor[HTML]{f0f8ff}{206,9 MB} & \cellcolor[HTML]{f0f8ff}{6,4 Sek} & \cellcolor[HTML]{f0f8ff}{129,8 MB}\\
+\cellcolor{white}{\textcolor{black}{1.000}} & \cellcolor[HTML]{f0f8ff}{\{arrow\}} & \cellcolor[HTML]{f0f8ff}{Parquet} & \cellcolor[HTML]{f0f8ff}{Datenaufteilung (Berichtsjahr)} & \cellcolor[HTML]{f0f8ff}{452,5 MB} & \cellcolor[HTML]{f0f8ff}{6,8 Sek} & \cellcolor[HTML]{f0f8ff}{53,5 MB}\\
+\bottomrule
 \end{tabular}
 \endgroup{}
 

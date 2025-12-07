@@ -99,6 +99,7 @@ format:
         \usepackage{longtable}
         \usepackage{totcount}
         \usepackage{xstring}
+        \usepackage{pgfmath}  % For calculations
         
         % Time display with Berlin timezone (+1 hour offset)
         \newcount\berlinhr
@@ -153,6 +154,46 @@ format:
         \newcommand{\docshorttitle}{$short-title$}
         
         \ifdraftmode
+        % Helper function - show tick or cross based on requirements
+        \usepackage{amssymb}  % for \checkmark
+        \usepackage{pifont}   % for \ding{55} (cross mark)
+        
+        % Check if requirement is met (tick) or not (cross)
+        % Only checks maximum (no minimum) - requirement is an upper limit
+        \newcommand{\checkreq}[2]{%
+          % #1 = actual value (formatted with spaces like "8 452")
+          % #2 = required value (maximum allowed)
+          % Remove spaces and compare
+          \StrDel{#1}{ }[\cleanvalue]%
+          \IfStrEq{\cleanvalue}{0}{%
+            % If zero, show cross
+            \textcolor{red}{\ding{55}}%
+          }{%
+            % Check if value exceeds maximum (with 20% tolerance)
+            \newcount\actualval%
+            \newcount\maxval%
+            \actualval=\cleanvalue\relax%
+            \maxval=#2\relax%
+            \multiply\maxval by 6\relax%
+            \divide\maxval by 5\relax%  % 120% = 6/5
+            \ifnum\actualval>\maxval\relax
+              \textcolor{red}{\ding{55}}%
+            \else
+              \textcolor{green!60!black}{\checkmark}%
+            \fi
+          }%
+        }
+        
+        % Helper for keyword count check
+        \newcommand{\checkkeywords}[1]{%
+          % #1 = count
+          \ifnum#1>5\relax
+            \textcolor{red}{\ding{55}}%
+          \else%
+            \textcolor{green!60!black}{\checkmark}%
+          \fi%
+        }
+        
         % Define metadata page command
         \newcommand{\metadatapage}{%
           \clearpage
@@ -181,15 +222,15 @@ format:
           {\large\bfseries\color{wistaDarkGray} Dokumentstatistik}\\[0.5cm]
           
           \small
-          \begin{tabular}{@{}lrrrrrr@{}}
+          \begin{tabular}{@{}lrrrrrl@{}}
             \toprule
-            \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} \\
+            \textbf{Abschnitt} & \textbf{Wörter} & \textbf{Zeichen} & \textbf{Fußn.} & \textbf{Quellen} & \textbf{Vorgabe} & \textbf{Status} \\
             \midrule
-            Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. \\
-            Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. \\
-            Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. \\
-            Autor 1 (O. Hauke) & --- & \textcolor{wistaBlue}{\textbf{\authoronechars}} & --- & --- & 350 Z. \\
-            Autor 2 (A. Kristiansen) & --- & \textcolor{wistaBlue}{\textbf{\authortwochars}} & --- & --- & 350 Z. \\
+            Insgesamt & \textcolor{wistaBlue}{\textbf{\totalwords}} & \textcolor{wistaBlue}{\textbf{\totalchars}} & \textcolor{wistaBlue}{\textbf{\footnotecountnum}} & \textcolor{wistaBlue}{\textbf{\citationcountnum}} & 30\,000 Z. & \checkreq{\totalchars}{30000} \\
+            Zusammenfassung & \textcolor{wistaBlue}{\textbf{\zusammenfassungwords}} & \textcolor{wistaBlue}{\textbf{\zusammenfassungchars}} & --- & --- & 800 Z. & \checkreq{\zusammenfassungchars}{800} \\
+            Abstract & \textcolor{wistaBlue}{\textbf{\abstractwords}} & \textcolor{wistaBlue}{\textbf{\abstractchars}} & --- & --- & 700 Z. & \checkreq{\abstractchars}{700} \\
+            Autor 1 (O. Hauke) & --- & \textcolor{wistaBlue}{\textbf{\authoronechars}} & --- & --- & 350 Z. & \checkreq{\authoronechars}{350} \\
+            Autor 2 (A. Kristiansen) & --- & \textcolor{wistaBlue}{\textbf{\authortwochars}} & --- & --- & 350 Z. & \checkreq{\authortwochars}{350} \\
             \midrule
             \sectionrows
             \bottomrule
@@ -198,15 +239,15 @@ format:
           
           \vspace{0.5cm}
           
-          % Keywords list
-          {\large\bfseries\color{wistaDarkGray} Schlüsselwörter}\\[0.3cm]
+          % Keywords list with count validation
+          {\large\bfseries\color{wistaDarkGray} Schlüsselwörter ($\leq$ 5) \checkkeywords{\schlusselwortercount}}\\[0.3cm]
           \small
           \schlusselworterlist
           \normalsize
           
           \vspace{0.5cm}
           
-          {\large\bfseries\color{wistaDarkGray} Keywords}\\[0.3cm]
+          {\large\bfseries\color{wistaDarkGray} Keywords ($\leq$ 5) \checkkeywords{\keywordscount}}\\[0.3cm]
           \small
           \keywordslist
           \normalsize
@@ -214,10 +255,10 @@ format:
           \vspace{1cm}
           
           % Tables list
-          {\large\bfseries\color{wistaDarkGray} Tabellen}\\[0.3cm]
+          {\large\bfseries\color{wistaDarkGray} Tabellen (\total{table})}\\[0.3cm]
           
           \small
-          \begin{tabular}{@{}lp{12cm}@{}}
+          \begin{tabular}{@{}p{3cm}p{11cm}@{}}
             \toprule
             \textbf{Nr.} & \textbf{Beschreibung} \\
             \midrule
@@ -229,10 +270,10 @@ format:
           \vspace{1cm}
           
           % Figures list
-          {\large\bfseries\color{wistaDarkGray} Abbildungen}\\[0.3cm]
+          {\large\bfseries\color{wistaDarkGray} Abbildungen (\total{figure})}\\[0.3cm]
           
           \small
-          \begin{tabular}{@{}lp{12cm}@{}}
+          \begin{tabular}{@{}p{3cm}p{11cm}@{}}
             \toprule
             \textbf{Nr.} & \textbf{Beschreibung} \\
             \midrule
@@ -251,13 +292,18 @@ format:
         \definecolor{wistaDarkGray}{RGB}{96,94,92}
         \definecolor{wistaLightGray}{RGB}{128,128,128}
         
+        % Redefine bold text to use WISTA blue color
+        % Only redefine \textbf (inline bold), not \bfseries (used in formatting)
+        \let\oldtextbf\textbf
+        \renewcommand{\textbf}[1]{{\color{wistaBlue}\oldtextbf{#1}}}
+        
         % Section formatting (##) - number 20% bigger, lines closer, text closer to bottom line
         % e.g., "2" with lines around "Einleitung"
         \titleformat{\section}[display]
-          {\normalfont\large\bfseries}
-          {\color{wistaBlue}\Large\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
+          {\normalfont\Large\bfseries}
+          {\color{wistaBlue}\LARGE\bfseries\thesection\\\noindent\rule{\columnwidth}{1.5pt}}
           {0pt}
-          {\vspace{0pt}\color{wistaDarkGray}\large\bfseries}
+          {\vspace{0pt}\color{wistaDarkGray}\Large\bfseries}
           [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{1.5pt}}\vspace{0.05cm}]
         \titlespacing*{\section}{0pt}{1.5ex plus 0.3ex minus .1ex}{0.2ex plus .1ex}
         
@@ -265,10 +311,10 @@ format:
         % e.g., "2.1 Handlungsbedarf"
         \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
         \titleformat{\subsection}
-          {\color{wistaDarkGray}\normalsize\bfseries}
-          {\color{wistaDarkGray}\normalsize\bfseries\thesubsection}
+          {\color{wistaDarkGray}\large\bfseries}
+          {\color{wistaDarkGray}\large\bfseries\thesubsection}
           {0.5em}
-          {\color{wistaDarkGray}\normalsize\bfseries}
+          {\color{wistaDarkGray}\large\bfseries}
           [\vspace{0pt}\noindent{\color{wistaBlue}\rule{\columnwidth}{0.8pt}}\vspace{0.05cm}]
         \titlespacing*{\subsection}{0pt}{1ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
           
