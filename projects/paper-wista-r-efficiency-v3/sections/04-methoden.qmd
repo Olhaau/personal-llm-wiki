@@ -80,24 +80,15 @@ Datenformat Apache **[Parquet](https://parquet.apache.org/)**
   - Datenformat, spaltenbasiert, komprimiert, ...
   - tba - s. Vortrag
 
-Das Datenformat Apache **[Parquet](https://parquet.apache.org/)** bildet die technische Grundlage für effiziente Datenverarbeitung:
+Das Datenformat Apache **[Parquet](https://parquet.apache.org/)** ist ein spaltenbasiertes, komprimiertes Datenformat, das wenig Festplattenspeicher beansprucht und für Analyse großer Datensätze entwickelt wurde. Es reduziert Lese-/Schreibzeiten deutlich, da effizient auf einzelne Spalten zugegriffen werden kann. In einer Untersuchung des Forschungsdaten- und Servicezentrum (FDSZ) der Bundesbank verkürzte die Nutzung von Parquet in R Rechenzeiten im Vergleich zu optimiertem Code in Stata um 65 % (von 77,6 Sek. auf 27,1 Sek.) (@gomolka2021largedata). Sodass das FDSZ Parquet-Dateien bereits standardmäßig bereitstellt.
 
-- **Speicherformat**: Spaltenbasiertes Format, das effizient lesbar und schreibbar ist
-- **Komprimierung**: Standardmäßig komprimiert, was Speicherplatz spart
-- **Partitionierung**: Ermöglicht aufgeteilte Speicherung für selektiven Datenzugriff
-- **Kompatibilität**: Wird bereits standardmäßig im FDSZ angeboten
-
-Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten wir die folgenden Werkzeuge, die in Form von **R-Paketen** verfügbar sind:
+Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs bieten die folgenden **R-Paketen** entscheidene Vorteile:
 
 - **[arrow](https://arrow.apache.org/docs/r/index.html)** [@R-arrow]: Ein C++-basiertes R-Paket, das speziell für die Arbeit mit großen Datensätzen entwickelt wurde. Es ermöglicht die Verarbeitung von Daten, die größer als der verfügbare Arbeitsspeicher sind, durch intelligente Datenaufteilung und Parallelisierung. Arrow ist optimal auf das Parquet-Dateiformat abgestimmt und kann Berechnungen automatisch optimieren (Lazy-Computation). Damit ist Arrow besonders geeignet für Datensätze, die mehrere Gigabyte oder sogar Terabyte umfassen. Die gewohnte R-Syntax (dplyr) bleibt dabei erhalten, was die Nutzung für R-Anwender/-innen besonders einfach macht. Das Paket ergänzt die Features von {data.table} und kann in bestimmten Szenarien in-memory effizienter sein.
 - **[duckdb](https://duckdb.org/docs/stable/clients/r)** [@R-duckdb]: Ein eingebettetes Datenbanksystem, das ohne separaten Datenbankserver direkt in R genutzt werden kann. Es verarbeitet Daten spaltenweise, was besonders bei analytischen Abfragen auf großen Datensätzen sehr schnell ist. DuckDB nutzt die bekannte SQL-Syntax für Datenabfragen und kann nahtlos mit Arrow-Daten zusammenarbeiten. Das System verwaltet den Arbeitsspeicher intelligent und kann auch Daten verarbeiten, die größer als der verfügbare RAM sind.
-  <!-- - R-Package , in-memory DB, ...
-  - tba - s. Vortrag -->
-- **[polars](https://pola-rs.github.io/r-polars/)** [@R-polars]: Ein Rust-basiertes R-Paket, das durch die Programmiersprache Rust besonders effizient arbeitet. Es bietet sowohl eine Python-orientierte Syntax als auch eine dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter ist. Polars nutzt moderne Optimierungstechniken und ist für sehr große Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe Geschwindigkeit bei gleichzeitig sparsamer Nutzung der Systemressourcen.
-  <!-- - Python-style Syntax oder im dplyr-stil mit tidypolars (R-Paket) mit geringfügigen Performanzverlusten, aber in BM verwendet, da hohe Nutzbarkeit durch R-Anwender/-innen wichtig ist.
-  - rust-basiert, verlagert Arbeitslast in rust (hohe Effizienz, schwierig zu tracken)
-  - an Python-angelehnte Syntax [@R-polars]
-  - Cookbook: https://ddotta.github.io/cookbook-rpolars/first_steps.html -->
+- **[polars](https://pola-rs.github.io/r-polars/)** [@R-polars]: Ein Rust-basiertes R-Paket, das durch die Programmiersprache Rust besonders effizient arbeitet. Es bietet sowohl eine Python-orientierte Syntax[^polars-cookbook] als auch eine dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter ist und die Performanz nur geringfügig beeinträchtigt. Polars nutzt moderne Optimierungstechniken und ist für sehr große Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe Geschwindigkeit bei gleichzeitig sparsamer Nutzung der Systemressourcen. 
+
+[^polars-cookbook]: Cookbook für den Einstieg in Polars: https://ddotta.github.io/cookbook-rpolars/first_steps.html 
 
 ### Gültigkeit von externen Benchmarks
 
