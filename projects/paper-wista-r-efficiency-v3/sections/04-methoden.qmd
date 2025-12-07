@@ -49,17 +49,17 @@ R-Base ist zweckdienlich für Einsteiger, abhängigkeitsfreie Infrastrukturen, j
 
 Hervorragende Ergänzungen zu R-Base:
 
-- **data.table**. greift die R-Basissyntax auf, aber ist das optimal schnelle Package Basisfunktionen in R in Userexperience und Performanz nicht empfehlenswert
-  - {data.table} [@R-data.table] in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
+- **data.table** [@R-data.table]: Ein ausgereiftes R-Paket, das Datenverarbeitung deutlich schneller macht als Standard-R-Funktionen. Es nutzt den verfügbaren Arbeitsspeicher besonders effizient und ist seit vielen Jahren bewährt. Die Syntax orientiert sich an der R-Basissyntax, erfordert aber spezielle Kenntnisse. Solange die Daten in den Arbeitsspeicher passen, ist data.table in den meisten Fällen die performanteste klassische Lösung.
+  <!-- - {data.table} [@R-data.table] in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
   - **Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax In teilen der Community sehr beliebt
   - **Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung. 
-  - **Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird
-- **tidyverse** (readr, dplyr und weitere): ...
-  - Tidyverse [@R-tidyverse] ist ein Ökosystem von Packages zur Datenverarbeitung, das für besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen Programmiersyntax, sog. *{dplyr}-Syntax* [@R-dplyr], die den Anspruch hat menschlicher Sprache abzubilden. Das R-Package {dplyr} ist die Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines Beispiels in der folgenden Tabelle veranschaulicht wird
+  - **Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird -->
+- **tidyverse** [@R-tidyverse]: Ein Ökosystem von R-Paketen, das besonders auf einfache Bedienung und Lesbarkeit des Codes ausgelegt ist. Die Programmiersyntax (*dplyr-Syntax*) orientiert sich an menschlicher Sprache und macht den Code auch für Einsteiger gut verständlich. Diese nutzerfreundliche Syntax ist so beliebt, dass sie von vielen anderen R-Paketen übernommen wurde. Für mittlere Datenmengen, die in den Arbeitsspeicher passen, ist tidyverse eine ausgewogene Wahl zwischen Nutzerfreundlichkeit und Performanz.
+  <!-- - Tidyverse [@R-tidyverse] ist ein Ökosystem von Packages zur Datenverarbeitung, das für besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen Programmiersyntax, sog. *{dplyr}-Syntax* [@R-dplyr], die den Anspruch hat menschlicher Sprache abzubilden. Das R-Package {dplyr} ist die Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines Beispiels in der folgenden Tabelle veranschaulicht wird
   - Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie vielen anderen Packages ergänzt wurde. Bspw. für {data.table} setzen dies die Packages {dtplyr} [@R-dtplyr] oder {tidytable} [@R-tidytable] um Wie im Falle von {dtplyr} kann die Übersetzung zu {dplyr} jedoch die Performanz verschlechtern.[^tidy-wrappers]
   - nutzerfreundlich, einfach zu lernen / nutzen
-  - vroom
-- **collapse**
+  - vroom -->
+- **collapse** [@R-collapse]: Ein spezialisiertes R-Paket für schnelle statistische Berechnungen und Datentransformationen. Es kombiniert hohe Performanz mit einem breiten Funktionsumfang für komplexe Datenanalysen. Collapse ist besonders effizient bei Aggregationen und Gruppierungsoperationen und bietet dabei eine konsistente Syntax.
 
 
 [^tidy-wrappers]: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
@@ -82,18 +82,18 @@ Datenformat Apache **[Parquet](https://parquet.apache.org/)**
 
 Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen verfügbar sind:
 
-- [arrow](https://arrow.apache.org/docs/r/) [@R-arrow]
-  - c++ basiert
+- **arrow** [@R-arrow]: Ein C++-basiertes R-Paket, das speziell für die Arbeit mit großen Datensätzen entwickelt wurde. Es ermöglicht die Verarbeitung von Daten, die größer als der verfügbare Arbeitsspeicher sind, durch intelligente Datenaufteilung und Parallelisierung. Arrow ist optimal auf das Parquet-Dateiformat abgestimmt und kann Berechnungen automatisch optimieren (Lazy-Computation). Damit ist Arrow besonders geeignet für Datensätze, die mehrere Gigabyte oder sogar Terabyte umfassen.
+  <!-- - c++ basiert
   - erlaubt Parallelisierung, Datenaufteilung, Lazy-Computations, Datenformat im RAM passend zu Parquet
-  - tba - s. Vortrag
-- [duckdb](https://duckdb.org/docs/stable/clients/r) [@R-duckdb]
-  - R-Package , in-memory DB, ...
-  - tba - s. Vortrag
-- [polars](https://pola-rs.github.io/r-polars/) [@R-polars]
-  - Python-style Syntax oder im dplyr-stil mit tidypolars (R-Paket) mit geringfügigen Performanzverlusten, aber in BM verwendet, da hohe Nutzbarkeit durch R-Anwender/-innen wichtig ist.
+  - tba - s. Vortrag -->
+- **duckdb** [@R-duckdb]: Ein eingebettetes Datenbanksystem, das ohne separaten Datenbankserver direkt in R genutzt werden kann. Es verarbeitet Daten spaltenweise, was besonders bei analytischen Abfragen auf großen Datensätzen sehr schnell ist. DuckDB nutzt die bekannte SQL-Syntax für Datenabfragen und kann nahtlos mit Arrow-Daten zusammenarbeiten. Das System verwaltet den Arbeitsspeicher intelligent und kann auch Daten verarbeiten, die größer als der verfügbare RAM sind.
+  <!-- - R-Package , in-memory DB, ...
+  - tba - s. Vortrag -->
+- **polars** [@R-polars]: Ein Rust-basiertes R-Paket, das durch die Programmiersprache Rust besonders effizient arbeitet. Es bietet sowohl eine Python-orientierte Syntax als auch eine dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter ist. Polars nutzt moderne Optimierungstechniken und ist für sehr große Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe Geschwindigkeit bei gleichzeitig sparsamer Nutzung der Systemressourcen.
+  <!-- - Python-style Syntax oder im dplyr-stil mit tidypolars (R-Paket) mit geringfügigen Performanzverlusten, aber in BM verwendet, da hohe Nutzbarkeit durch R-Anwender/-innen wichtig ist.
   - rust-basiert, verlagert Arbeitslast in rust (hohe Effizienz, schwierig zu tracken)
   - an Python-angelehnte Syntax [@R-polars]
-  - Cookbook: https://ddotta.github.io/cookbook-rpolars/first_steps.html
+  - Cookbook: https://ddotta.github.io/cookbook-rpolars/first_steps.html -->
 
 ### Gültigkeit von externen Benchmarks
 
