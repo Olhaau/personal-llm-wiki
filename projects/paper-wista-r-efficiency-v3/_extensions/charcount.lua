@@ -339,7 +339,7 @@ function Pandoc(doc)
   local table_list = {
     {label = "tbl-stba-rserver", caption = "StBA R-Server Ausbau (Anfang 2025)"},
     {label = "tbl-fdz-server", caption = "FDZ OnSite-Server Spezifikationen"},
-    {label = "tbl-pkg-versions", caption = "Versionen verfügbarer R-Packages"},
+    {label = "tbl-dplyr-syntax", caption = "Exemplarische Auswertung in dplyr-Syntax"},
     {label = "tbl-baseline", caption = "Baselines in SAS und Stata (anhand 1\\% des simuliertes BTP)"},
     {label = "tbl-benchmark-small", caption = "Performanz Messungen für die Fallzahlberechnung anhand 1\\% des BTP"},
     {label = "tbl-benchmark-regr-small", caption = "Performanz Messungen für die Regressionsberechnung anhand 1\\% des BTP"},

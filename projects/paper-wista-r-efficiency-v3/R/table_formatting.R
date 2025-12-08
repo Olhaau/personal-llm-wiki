@@ -205,9 +205,8 @@ format_wista_table <- function(data,
     lines <- lines[!grepl("^\\s*\\[[thb]\\]\\s*$", lines)]
     tbl_out <- paste(lines, collapse = "\n")
     
-    # Build table* environment with positioning to keep it in place
-    # Note: table* doesn't support [H], but [!htb] encourages placement here
-    table_start <- "\\begin{table*}[!htb]\n"
+    # Build table* environment without positioning
+    table_start <- "\\begin{table*}\n"
     if (!is.null(caption)) {
       table_start <- paste0(table_start, "\\caption{", caption, "}")
     }

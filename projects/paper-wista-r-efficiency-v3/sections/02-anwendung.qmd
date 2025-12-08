@@ -1,5 +1,4 @@
-## Anwendungsfall Business-Tax-Panel 
-
+## Anwendungsfall Business-Tax-Panel {#sec-btp}
 
 <!--
 

@@ -225,6 +225,9 @@ output_table(tbl_out)
 
 ### Größere Datenmengen in R
 
+
+[tba: PLOT Laufzeit in Datenmenge der Tools]
+
 Auch für 10 % der simulierten BTP-Daten, kann R die beiden betrachteten Auswertungen in Echtzeit mit minimalem Arbeitsspeicher beantworten (siehe @tbl-benchmark und @tbl-benchmark-regr). Die Auswertungsmethoden mit der höchsten Performanz nutzen alle das {parquet} und erreichen:
 
 1.  {arrow} benötigt nur **4,7 Sekunden** und 230 MB Arbeitsspeicher,

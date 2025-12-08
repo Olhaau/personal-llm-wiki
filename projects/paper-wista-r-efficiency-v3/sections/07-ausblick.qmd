@@ -4,11 +4,11 @@
 
 ## Fazit {#sec-ausblick}
 
-### Kernaussage des Artikels
+Wir kommen zu dem Schluss, dass eine Datenhaltung im Parquet-Format für Datenverarbeitungen bzw. -auswertungen in der Statistikproduktion und im FDZ gewinnbringend eingesetzt werden kann. Es reduziert den notwendigen Festplattenspeicher stark und mehrere R-Pakete (arrow, duckdb und polars) sind in der Lage Daten im Parquet-Format sehr schnell zu verarbeiten. In unserer Untersuchung bot das R-Paket arrow die beste Nutzererfahrung, sodass auch die Entwickleraufwände am geringsten waren.
 
-Wir empfehlen eine Datenhaltung im Parquet-Format und **R** incl. {arrow} + {parquet} (bei Bedarf {duckdb}, {polars}) zu erproben und zu etablieren! Denn unsere Untersuchung demonstriert ganz neue Möglichkeiten, analytische Fragestellungen anhand großer Datenmengen in Echtzeit zu beantworten.
+Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine Datenverarbeitung in **R** in der amtlichen Statistik und dem FDZ zu erproben und bei positivem Ausgang zu etablieren. Denn unsere Untersuchung demonstriert, dass dadurch relevante analytische Fragestellungen anhand großer Datenmengen in Echtzeit ressourcenschonend beantwortet werden können.
 
-### Auswirkung auf IT-Infrastruktur und Beratung
+### Auswirkung auf IT-Infrastruktur und -Beratung
 
 -   Fokus auf Hardware und Software mit größtem Mehrwert (weniger RAM und R anstatt Spark, GPUs, Datenbanken, Cloud, ...)
 -   Fokus auf Maintainance und Patching von R, Parquet und hier genannte Packages {arrow}, {duckdb}, {polars}

@@ -1,45 +1,84 @@
 ## Ausbau der Analyseinfrastruktur {#sec-infrastruktur}
 
-Im Jahr 2025 konnten mit der Bereitstellung neuer Analyseserver wesentliche Fortschritte beim Ausbau der analytischen Infrastruktur des Statistischen Bundesamts und des FDZ erzielt werden.
+Mit der Bereitstellung neuer Analyseserver konnten im Jahr 2025 entscheidende Fortschritte beim Ausbau der analytischen Infrastruktur des Statistischen Bundesamts und des FDZ erzielt werden.
 
-Die Einführung der neuen Systeme stellt einen bedeutenden Schritt dar, da der Ausbau der Infrastruktur in den formalen Strukturen der Bundesverwaltung ein mehrjähriges Unterfangen ist. Auch Änderungen von Softwareversionen in der abgeschotteten Infrastruktur können organisatorisch aufwändig sein, sodass für die folgenden Darstellungen nicht immer die neuesten Versionen der betrachteten Software zur Verfügung stehen –- ein Umstand, der die realistischen Rahmenbedingungen der laufenden Statistikproduktion widerspiegelt. Um dennoch langfristig leistungsstark zu bleiben, wurde die neue Infrastruktur von Beginn an zukunftsorientiert konzipiert und bietet moderne Software auf einer deutlich erweiterten Hardwarebasis.
-
+Die Einführung der neuen Systeme ist als Ergebnis langjähriger Planung und Umsetzung ein besonders bedeutender Schritt. Denn sogar Änderungen von Softwareversionen in der abgeschotteten Infrastruktur können organisatorisch aufwändig sein, sodass für die folgenden Darstellungen nicht immer die neuesten Versionen der betrachteten Software zur Verfügung stehen –- ein Umstand, der die realistischen Rahmenbedingungen der laufenden Statistikproduktion widerspiegelt. Um dennoch langfristig leistungsstark zu bleiben, wurde die neue Infrastruktur von Beginn an zukunftsorientiert konzipiert und bietet moderne Software auf einer deutlich erweiterten Hardwarebasis.
 
 ### Ausgangslage
 
-Das Hauptwerkzeug für die Statistikproduktion ist die kommerzielle Analysesoftware **SAS 9.4**, für das dedizierte Server bereitgestellt werden.[^sas-version] SAS 9.4 verarbeitet Daten überwiegend zeilenorientiert und belastet den Arbeitsspeicher daher nur gering –- ein entscheidender Vorteil in der amtlichen Statistik, da auch große Datenmengen auf mit geringeren Hardwareanforderungen verarbeitet werden können. Für viele Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung effizienter. In R sind neuere Verfahren verfügbar, die moderne Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten gegenüber SAS erheblich verkürzen (siehe @sec-methoden und @sec-benchmark).
+Das Hauptwerkzeug in der Statistikproduktion des Statistischen Bundesamts ist die kommerzielle Analysesoftware **SAS 9.4**, das auf dedizierte Server bereitgestellt wird.[^sas-version] SAS 9.4 verarbeitet Daten überwiegend zeilenorientiert und belastet den Arbeitsspeicher daher nur gering –- ein entscheidender Vorteil in der amtlichen Statistik, da auch große Datenmengen auf mit geringeren Hardwareanforderungen verarbeitet werden können. Für viele Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung effizienter. In R sind neuere Verfahren verfügbar, die moderne Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten gegenüber SAS erheblich verkürzen (siehe @sec-methoden und @sec-benchmark).
 
-[^sas-version]: Da SAS bereits langjährig eingesetzt wird, ist für die kommenden Performanzvergleiche zu beachten, dass die SAS-Server nicht über die neuste Hardware verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert. Die neuste Version ist SAS 9.4M9. S. https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/whatsdiff/upgradeswhatsnew94.html
+[^sas-version]: Da SAS bereits langjährig eingesetzt wird, ist für die kommenden Performanzvergleiche zu beachten, dass die SAS-Server nicht über die neuste Hardware verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert.
 
-Im FDZ ist – neben SAS – die kommerzielle Software **Stata** das am stärksten nachgefragte Auswertungswerkzeug. **Stata** wird in vielen wissenschaftlichen Fachrichtungen genutzt, da sie ohne tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen, bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden müssen, und nur ausgewählte Operationen erlauben die parallelisierte Datenverarbeitung. Durch die manuelle *Variablenauswahl* lassen sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber begrenzend. Bisher waren die GWAP-Arbeitsplätze auf die Single-Core-Version mit begrenztem RAM beschränkt und damit für viele Produkte des FDZ unzureichend, während leistungsfähigere Server vor der Bereitstellung des OnSite-Server nur in der KDFV verfügbar waren. 
+Im FDZ ist –- neben SAS –- die kommerzielle Software **Stata** das am stärksten nachgefragte Auswertungswerkzeug. **Stata** wird in vielen wissenschaftlichen Fachrichtungen genutzt, da sie ohne tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen, bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden müssen, und nur ausgewählte Operationen erlauben die parallelisierte Datenverarbeitung. Durch die manuelle *Variablenauswahl* lassen sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber begrenzend. Bisher waren die GWAP auf die *Single-Core-Version von Stata mit begrenztem RAM* beschränkt, wodurch viele FDZ-Produkte ohne Datenzuschnitt am GWAP nicht bearbeitet werden konnten. Leistungsfähigere Server standen vor der Bereitstellung des OnSite-Servers lediglich in der KDFV zur Verfügung.
+
+### Anforderungen an die Analyseinfrastruktur {#sec-infra-anf}
+
+Damit eine moderne Infrastruktur die technischen Herausforderungen des Statistischen Bundesamts und FDZ adressiert, muss sie ein breites Spektrum an Datenverarbeitungsmethoden mit hoher Performanz nutzerfreundlich bereitstellen.
+
+Die eingesetzte Infrastruktur muss skalierbar sein und die Verarbeitung wachsender Datenmengen zuverlässig mit den vorhandenen Rechenkapazitäten ermöglichen, sodass die steigenden Datenverarbeitungsbedarfe gedeckt werden können. Um eine hohe Reaktionsfähigkeit und eine reibungslose GWAP- bzw. KDFV-Nutzung im FDZ sicherzustellen, sollte die Systeme kurze Rechenzeiten auf dem aktuellen Stand der Technik ermöglichen -- und idealerweise Auswertungen großer Datenmengen in Echtzeit (d.h. innerhalb weniger Sekunden) ausführen können.
+
+Ein wesentlicher Erfolgsfaktor der Systeme ist eine hohe Nutzerfreundlichkeit. Moderne Interfaces und eine nachvollziehbare Programmiersyntax müssen sicherstellen, dass die Infrastruktur für verschiedene Fachstatistiker/-innen oder Forschende diverser Fachrichtungen leicht zugänglich ist. Dabei ist zu beachten, dass Nutzerfreundlichkeit auch den Gesamtaufwand der Datenauswertung reduziert, da neben der Rechenzeit auch die Entwicklungszeit betrachtet werden muss (@gomolka2021largedata).
+
+Auch die Einrichtbarkeit und Wartungsaufwände der Analysesysteme in der abgeschotteten Systemarchitektur des Statistischen Bundesamts spielen eine entscheidende Rolle für den stabilen Einsatz in der Statistikproduktion und Verfügbarkeit für die Wissenschaft im FDZ.
 
 ### R-Server des Statistischen Bundesamts
 
-Seit Jahren steht im Statistischen Bundesamt ein Server für die Open-Source **Statistiksoftware R** und **Python** zur Verfügung, der für die Datenverarbeitung in der Statistikproduktion sowie im KDFV des FDZ genutzt wird. R wird aufgrund seiner großen internationalen Community, der Vielzahl spezialisierter Pakete für Datenanalyse, spaltenbasierte Verarbeitung und Visualisierung sowie der schnellen Weiterentwicklung zunehmend in der amtlichen Statistik eingesetzt.
+Die **Statistiksoftware R** ist bekannt als native Programmiersprache in der Statistik und in Datenwissenschaften. Dadurch weist R eine hohe anwenderorientierung und fokussiert sich auf Datenverarbeitung, -auswertung und -visualisierung. 
 
-Seit Anfang 2025 konnte der R- und Python-Server signifikant erweitert werden. Verwendet wird die kommerziell unterstützte **Posit Workbench**, um die Funktionen Projekt-Sharing, Git-Integration, Positron-Features bereitstellen zu können. Zusätzlich wurden die Systemressourcen deutlich ausgebaut, wie die @tbl-stba-rserver zeigt.
+Als Open-Source-Software erfreut sich R einer großen internationalen Gemeinschaft, die die Grundfunktionen von R udurch mehr als 20 000  **R-Pakete** erweitert.[^cran] Passend zu den Anforderungen aus @sec-infra-anf ist darunter ein breites Spektrum an Datenverabeitungsmethoden, von hochperformanten Werkzeugen bis hin zu Verbesserungen der Nutzererfahrung. Da R frei verfügbar ist, wird es an Universitäten weit verbreitet eingesetzt, und es stehen zahlreiche Schulungsmaterialien zur Verfügung. Viele Mitarbeitende des Statistischen Bundesamts und Gastwissenschaftler/-innen am FDZ verfügen daher bereits über R-Kenntnisse oder können sich diese leicht aneignen. Dadurch erfreut sich R auch an steigender Beliebtheit in der amtlichen Statistik, wie der Wachstum der Gemeinschaft "The Use of R in Official Statistics" belegt.[^uros] 
 
-```{=latex}
-\begin{table*}[!htb]
-\caption{\label{tbl-stba-rserver}StBA R-Server Ausbau (Anfang 2025)}
-\centering\begingroup\fontsize{10}{12}\selectfont
-\begin{tabular}{|>{}l|||>{}l|||>{}l|}
-\hline
-\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Komponente}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Vorher}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Nachher}}}\\
-\hline
-\cellcolor{white}{\textcolor{black}{Anzahl Server}} & \cellcolor[HTML]{f0f8ff}{1} & \cellcolor[HTML]{f0f8ff}{10}\\
-\cellcolor{white}{\textcolor{black}{Arbeitsspeicher (jeweils)}} & \cellcolor[HTML]{f0f8ff}{700 GB} & \cellcolor[HTML]{f0f8ff}{1 TB}\\
-\cellcolor{white}{\textcolor{black}{Kernanzahl (jeweils)}} & \cellcolor[HTML]{f0f8ff}{72} & \cellcolor[HTML]{f0f8ff}{96}\\
-\cellcolor{white}{\textcolor{black}{Core Speed (jeweils)}} & \cellcolor[HTML]{f0f8ff}{TBA} & \cellcolor[HTML]{f0f8ff}{TBA}\\
-\cellcolor{white}{\textcolor{black}{GPUs (jeweils)}} & \cellcolor[HTML]{f0f8ff}{keine} & \cellcolor[HTML]{f0f8ff}{\makecell[l]{2× A6000\\(je 48 GB)}}\\
-\hline
-\end{tabular}
-\endgroup{}
-\end{table*}
+[^cran]: Aktuell sind offiziell 23 035 Pakete auf CRAN verfügbar. S. https://cran.r-project.org/index.html
+[^uros]: https://r-project.ro/conference2025.html
+
+Bereits seit Jahren steht im Statistischen Bundesamt ein Server für **R** und **Python** zur Verfügung, der für die Datenverarbeitung in der Statistikproduktion sowie im KDFV des FDZ genutzt wurde. 
+
+Seit Januar 2025 konnte der R- und Python-Server signifikant erweitert werden. Verwendet wird die kommerziell unterstützte **Posit Workbench**, da sie wesentliche Funktionen für kollaborativen Arbeiten, Skalierbarkeit bietet und den Betrieb der Systeme unterstützt. Zusätzlich wurden die Systemressourcen deutlich ausgebaut (siehe @tbl-stba-rserver ) und insbesondere Grafikkarten bieten ganz neue Anwendungsfälle.
+
+```{r}
+#| label: tbl-stba-rserver
+#| tbl-cap: "Ausbau des R-Server des Statistischen Bundesamts (Januar 2025)"
+#| echo: false
+#| results: asis
+
+source(if(file.exists("R/table_formatting.R")) "R/table_formatting.R" else "../R/table_formatting.R")
+
+server_ausbau <- data.frame(
+  Komponente = c(
+    "Anzahl Server",
+    "Arbeitsspeicher",
+    "Kernanzahl",
+    "Kerntakt",
+    "Grafikkarte"
+  ),
+  Vorher = c(
+    "1",
+    "700 GB",
+    "72",
+    "tba",
+    "keine"
+  ),
+  Nachher = c(
+    "10",
+    "je 1 TB",
+    "je 96",
+    "je tba",
+    "je 2x A6000 (je 48 GB VRAM)"
+  )
+)
+
+tbl_out <- format_descriptive_table(
+  data = server_ausbau,
+  label = "stba-rserver",
+  font_size = 10,
+  escape = FALSE
+)
+
+output_table(tbl_out)
 ```
 
-Die neue Oberfläche und IDE erhöhen die Nutzerfreundlichkeit, die neuesten R-Versionen stehen bereit, und Pakete können schnell installiert werden. So können moderne Analyse- und Visualisierungsmethoden effizient genutzt werden – sodass aktuell über 200 aktive Nutzende das System nutzen.
 
+Die Bereitstellung der aktuellsten R-Version und moderner R-Pakete in einer nutzerfreundlichen Oberfläche führt dazu, dass moderne Werkzeuge für Datenverarbeitung, -auswertung und -visualisierung leicht zugänglich sind. Dadurch wird das System aktuell von über 200 aktiven Nutzende  verwendet.
 
 <!-- 
 
@@ -52,191 +91,43 @@ Die neue Oberfläche und IDE erhöhen die Nutzerfreundlichkeit, die neuesten R-V
 
 ### OnSite-Server des FDZ
 
-Seit November 2025 steht der sogenannte OnSite-Server exklusiv im FDZ für alle OnSite-Nutzungen bereit. Er bietet jeweils dedizierte Stata- und R-Server an den GWAP-Arbeitsplätzen sowie via KDFV mit gleichermaßen umfangreichen Analysekapazitäten, wie in @tbl-fdz-server aufgeführt. Alle Analyseserver sind über schnelle Direktverbindungen an den Netzwerkspeicher angebunden, sodass R und Stata nahtlos kombiniert werden können.
+Seit November 2025 steht der sogenannte **OnSite-Server** exklusiv im FDZ für alle OnSite-Nutzungen bereit. Er bietet dem FDZ dedizierte Stata- und R-Server mit umfangreichen Analysekapazitäten für jede Nutzung an den GWAP sowie der KDFV. Alle Analyseserver sind über schnelle Direktverbindungen an einen Netzwerkspeicher angebunden, sodass R und Stata nahtlos kombiniert werden können.
 
-```{=latex}
-\begin{table*}[!htb]
-\caption{\label{tbl-fdz-server}FDZ OnSite-Server Spezifikationen}
-\centering\begingroup\fontsize{10}{12}\selectfont
-\begin{tabular}{|>{}l|||>{}l|}
-\hline
-\cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Komponente}}} & \cellcolor[HTML]{dce6f0}{\textcolor[HTML]{404040}{\textbf{Umfang}}}\\
-\hline
-\cellcolor{white}{\textcolor{black}{Stata-Server}} & \cellcolor[HTML]{f0f8ff}{3}\\
-\cellcolor{white}{\textcolor{black}{R-Server}} & \cellcolor[HTML]{f0f8ff}{6}\\
-\cellcolor{white}{\textcolor{black}{Arbeitsspeicher (jeweils)}} & \cellcolor[HTML]{f0f8ff}{512 GB}\\
-\cellcolor{white}{\textcolor{black}{Kernanzahl (jeweils)}} & \cellcolor[HTML]{f0f8ff}{16}\\
-\cellcolor{white}{\textcolor{black}{CPU-Geschwindigkeit (jeweils)}} & \cellcolor[HTML]{f0f8ff}{3.1 GHz}\\
-\hline
-\end{tabular}
-\endgroup{}
-\end{table*}
+```{r tbl-fdz-server}
+#| tbl-cap: "FDZ OnSite-Server Spezifikationen (November 2025)"
+#| echo: false
+#| results: asis
+
+source(if(file.exists("R/table_formatting.R")) "R/table_formatting.R" else "../R/table_formatting.R")
+
+fdz_specs <- data.frame(
+  Komponente = c(
+    "Stata-Server",
+    "R-Server",
+    "Arbeitsspeicher",
+    "Kernanzahl",
+    "Kern­taktfrequenz"
+  ),
+  Umfang = c(
+    "3",
+    "6",
+    "je 512 GB",
+    "je 16",
+    "je 3.1 GHz"
+  )
+)
+
+tbl_out <- format_descriptive_table(
+  data = fdz_specs,
+  label = "fdz-server",
+  font_size = 10,
+  escape = FALSE
+)
+
+output_table(tbl_out)
 ```
 
-
-Stata/MP ist nun einheitlich auf leistungsstarken Multi-Core-Servern verfügbar. Zudem steht erstmals R für OnSite-Nutzungen bereit: Aufbau und Softwarebasis orientieren sich am zentralen R-Server des Statistischen Bundesamts, sind jedoch dediziert für FDZ-Anwendungen.
+Stata/MP ist nun einheitlich auf leistungsstarken Multi-Core-Servern verfügbar. Zudem steht erstmals R für OnSite-Nutzungen bereit. Der Systemaufbau orientieren sich am zentralen R-Server des Statistischen Bundesamts, aber die Systeme können nur exklusiv im FDZ genutzt werden.
 
 Die R-Server unterstützen moderne, speichereffiziente Verfahren, mit denen auch Datenmengen oberhalb des Arbeitsspeichers flexibel, stabil und schneller verarbeitet werden können – Details dazu siehe @sec-methoden.
 
-
-<!--
-
-### KI Anhang
-
-#### Die Forschungsdatenzentren der amtlichen Statistik
-
-Die Forschungsdatenzentren (FDZ) der amtlichen Statistik bestehen aus zwei organisatorisch voneinander getrennten Einrichtungen: dem **Forschungsdatenzentrum des Statistischen Bundesamts** und dem **Forschungsdatenzentrum der Statistischen Ämter der Länder**. Beide FDZ arbeiten eng zusammen und bieten ein abgestimmtes Daten- und Dienstleistungsangebot für die wissenschaftliche Nutzung von Mikrodaten der amtlichen Statistiken.
-
-**Entstehung und Entwicklung.**
-
-Die Gründung der FDZ geht auf ein Gutachten der „Kommission zur Verbesserung der informationellen Infrastruktur zwischen Wissenschaft und Statistik" (KVI) von 1999 zurück. Mit finanzieller Förderung des Bundesministeriums für Bildung und Forschung (BMBF) wurde im Herbst 2001 zunächst das FDZ des Statistischen Bundesamts gegründet. Das FDZ der Statistischen Ämter der Länder folgte im April 2002.
-
-**Aufgaben und Ziele.**
-
-Die FDZ verfolgen das Ziel, den Zugang zu Mikrodaten der amtlichen Statistik für die Wissenschaft nicht nur zu ermöglichen, sondern fortlaufend zu verbessern und an die sich ändernden Bedarfe anzupassen:
-
--   **Datenzugang:** Bereitstellung hochwertiger Mikrodaten für die wissenschaftliche Forschung
--   **Datenschutz:** Gewährleistung des Schutzes personenbezogener und unternehmensbezogener Daten nach § 16 BStatG
--   **Beratung:** Unterstützung der Forschenden bei der Datennutzung und methodischen Fragen
--   **Infrastruktur:** Bereitstellung einer sicheren und leistungsfähigen Auswertungsumgebung
--   **Regionalisierung:** Flächendeckende Standorte in ganz Deutschland für kurze Anfahrtswege
-
-#### Technische Infrastruktur
-
-
-
-**Software-Umgebung.**
-
-Den Forschenden stehen verschiedene Software-Tools zur Verfügung:
-
--   **Statistische Software:** R, Python, Stata, SAS, SPSS
--   **Datenbanksysteme:** PostgreSQL, DuckDB
--   **Entwicklungsumgebungen:** RStudio Server, JupyterLab
--   **Versionskontrolle:** Git (lokal, ohne externe Verbindung)
-
-#### Infrastrukturkonzept
-
-**Fachlich zentralisierte Datenhaltung.**
-
-In Deutschland wird der überwiegende Teil der amtlichen Statistikproduktion dezentral in den Statistischen Ämtern der Länder durchgeführt (über 90% aller amtlichen Statistiken). Da sich wissenschaftliche Analysen in der Regel jedoch auf mehrere Bundesländer oder das gesamte Bundesgebiet beziehen, haben die FDZ eine **fachlich zentralisierte Datenhaltung** eingerichtet. Diese ermöglicht es, die Daten des gesamten Bundesgebiets länderübergreifend an jedem Standort bereitzustellen.
-
-**Regionalisierte Infrastruktur.**
-
-Die FDZ verfolgen das Ziel, immer in der Nähe der Wissenschaft zu sein. Dies wird durch über ganz Deutschland verteilte Standorte erreicht. Standorte befinden sich u.a. in:
-
--   Berlin, Bonn, Wiesbaden (Bund)
--   Bad Ems, Bremen, Dresden, Düsseldorf, Erfurt, Frankfurt, Hamburg, Hannover, Kiel, München, Stuttgart u.v.m. (Länder)
-
-#### Zugangsformen und Nutzungsmodelle
-
-Die FDZ bieten verschiedene Zugangswege an, über die unterschiedlich anonymisierte Datenprodukte bereitgestellt werden:
-
-**Off-Site-Zugang.**
-
--   **Public Use Files (PUF):** Stark anonymisierte Daten für freie Nutzung
--   **Scientific Use Files (SUF):** Faktisch anonymisierte Daten für wissenschaftliche Zwecke
--   **Remote Scientific Use Files (Remote-SUF):** Neuer Zugangsweg mit höherer Detailtiefe
-
-**On-Site-Zugang.**
-
--   **Gastwissenschaftsarbeitsplatz (GWAP):** Zugang zu formal anonymisierten Daten vor Ort
-    -   Vorteile: Höchste Datendetailtiefe, direkte Beratung
-    -   Anforderungen: Terminvereinbarung, Zutrittskontrolle, Output-Kontrolle
--   **Kontrollierte Datenfernverarbeitung (KDFV):** Remote-Ausführung von Analyseskripten
-    -   Vorteile: Keine Anreise, zeitlich flexibel
-    -   Einschränkungen: Keine interaktive Arbeit, Ergebnisfreigabe erforderlich
-
-#### Datenschutz und Sicherheit
-
-**Mehrstufiges Sicherheitskonzept.**
-
-Das FDZ-Bund implementiert ein umfassendes Sicherheitskonzept:
-
-1.  **Physische Sicherheit:** Zutrittskontrolle, gesicherte Räumlichkeiten
-2.  **Netzwerksicherheit:** Isolierte Netzwerke, Firewalls, Intrusion Detection
-3.  **Zugriffsrechte:** Rollenbasierte Zugriffskontrolle, Authentifizierung
-4.  **Output-Kontrolle:** Prüfung aller Ergebnisse vor Freigabe
-5.  **Audit-Logging:** Protokollierung aller Zugriffe und Operationen
-
-**Output-Kontrolle.**
-
-Bevor Forschungsergebnisse das FDZ verlassen dürfen, durchlaufen sie eine mehrstufige Kontrolle:
-
--   **Automatische Prüfung:** Screening auf kritische Werte (z.B. Fallzahlen \< 5)
--   **Manuelle Prüfung:** Sichtung durch geschulte Mitarbeiter
--   **Dokumentation:** Nachvollziehbare Begründung der Freigabeentscheidung
-
-#### Performanz-Optimierung in der FDZ-Umgebung
-
-**Herausforderungen.**
-
-Die Arbeit in der geschützten FDZ-Umgebung stellt besondere Anforderungen:
-
--   **Begrenzte Ressourcen:** Mehrere Nutzer teilen sich die verfügbare Hardware
--   **Keine Cloud-Dienste:** Externe Rechenressourcen können nicht genutzt werden
--   **Datengröße:** Große Datensätze müssen effizient verarbeitet werden
--   **Reproduzierbarkeit:** Analysen müssen dokumentiert und nachvollziehbar sein
-
-**Optimierungsstrategien.**
-
-Verschiedene Strategien helfen, die Performanz zu optimieren:
-
-```{r}
-#| label: fig-optimization-strategies
-#| fig-cap: "Strategien zur Performanz-Optimierung im FDZ-Bund"
-#| echo: false
-#| warning: false
-#| fig-width: 10
-#| fig-height: 5
-
-library(ggplot2)
-library(dplyr)
-
-strategies <- data.frame(
-  Strategie = c("Effiziente Datenformate", "Lazy Evaluation", 
-                "Parallelisierung", "Intelligentes Caching",
-                "Optimierte Algorithmen", "Ressourcen-Monitoring"),
-  Aufwand = c(2, 3, 4, 3, 5, 2),
-  Nutzen = c(4, 4, 5, 3, 5, 2),
-  Kategorie = c("Datenhaltung", "Verarbeitung", "Verarbeitung", 
-                "Verarbeitung", "Algorithmen", "Management")
-)
-
-ggplot(strategies, aes(x = Aufwand, y = Nutzen, color = Kategorie, size = 3)) +
-  geom_point(alpha = 0.7) +
-  geom_text(aes(label = Strategie), hjust = -0.1, size = 3, show.legend = FALSE) +
-  scale_x_continuous(limits = c(1, 6), breaks = 1:5, 
-                     labels = c("Sehr gering", "Gering", "Mittel", "Hoch", "Sehr hoch")) +
-  scale_y_continuous(limits = c(1, 6), breaks = 1:5,
-                     labels = c("Sehr gering", "Gering", "Mittel", "Hoch", "Sehr hoch")) +
-  scale_color_brewer(type = "qual", palette = "Set2") +
-  labs(
-    title = "Aufwand-Nutzen-Bewertung verschiedener Optimierungsstrategien",
-    x = "Implementierungsaufwand",
-    y = "Performance-Gewinn",
-    color = "Kategorie"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(size = 12, hjust = 0.5),
-    legend.position = "bottom"
-  ) +
-  guides(size = "none")
-```
-
-#### Akkreditierung und Qualitätssicherung
-
-Die Forschungsdatenzentren der Statistischen Ämter des Bundes und der Länder sind durch den **Rat für Sozial- und WirtschaftsDaten (RatSWD) akkreditiert**. Der RatSWD akkreditiert seit 2008 Forschungsdatenzentren, die den Zugang zu qualitativ hochwertigen sensiblen Daten für die Wissenschaft ermöglichen und dabei die erforderlichen Kriterien erfüllen.
-
-#### Best Practices für FDZ-Nutzende
-
-Aus der Erfahrung mit den FDZ lassen sich folgende Empfehlungen für effizientes Arbeiten ableiten:
-
-1.  **Datenreduktion:** Frühzeitige Filterung auf relevante Beobachtungen und Variablen
-2.  **Inkrementelle Entwicklung:** Erst mit Stichproben arbeiten, dann auf Vollsatz skalieren
-3.  **Effiziente Datenformate:** Nutzung moderner Formate (Arrow/Parquet) statt CSV
-4.  **Dokumentation:** Sorgfältige Dokumentation des Analyseprozesses für Output-Kontrolle
-5.  **Ressourcenplanung:** Bewusste Planung rechenintensiver Operationen bei geteilter Infrastruktur
-6.  **Beratung nutzen:** Frühzeitige Kontaktaufnahme mit FDZ-Mitarbeitern bei methodischen Fragen
-
--->

@@ -1,60 +1,23 @@
-## Datenverarbeitungsmethoden {#sec-methoden}
+## Datenverarbeitungswerkzeuge {#sec-methoden}
 
-Wir betrachten in diesem Artikel die Performanz von sog. *Datenverarbeitungsmethoden*, d.h. Softwarelösungen, die Daten einlesen, modifzierern, aggregieren, auswerten oder analysieren.[^datawrite] 
+Wir betrachten in diesem Artikel die Performanz von **Datenverarbeitungswerkzeuge**, d.h. Softwarelösungen, die Daten einlesen, modifzierern, aggregieren, auswerten oder analysieren.[^datawrite] 
 
-Wir sprechen in diesem Artikel vereinfacht von einer *hoch-performanten Methode*, sobald die betrachtete Datenverarbeitungsmethode in der Lage ist, Datenmengen überhalb des verfügbaren Arbeitsspeichers flexibel und effizient zu nutzen. SAS erfüllt den Großteil dieser Definition -- lediglich die Effizienz lässt sich deutlich steigern.
+Wir bezeichnen im Folgenden ein Datenverarbeitungswerkzeug als **hochperformant**, wenn sie Datenmengen verarbeiten kann, die den verfügbaren Arbeitsspeicher überschreiten, und dabei eine flexible und effiziente Nutzung der Ressourcen ermöglicht. Denn für die Skalierung auf größere Datenmengen ist ein Wechsel von der *vollständigen Verarbeitung im RAM* zur *flexiblen Auslagerung von Daten* nötig. Zwar erlaubt die RAM-Verarbeitung schnellen Zugriff, doch das Einlesen beansprucht einen Großteil der Laufzeit, und der verfügbare Arbeitsspeicher ist meist begrenzt. Geeignete Software und moderner Hardware ermöglicht mit  heute eine sehr schnelle Verarbeitung von Datenmengen oberhalb des RAMs.
 
-Um Datenauswertung auf höhere Datenmengen skalieren zu können ist ein Paradigmenwechsel von der "*vollständigen Verarbeitung im RAM"* zu der *Auslagerung aus dem RAM* notwendig. Vollständig im RAM sind Daten zwar sehr schnell und einfach zu nutzen, jedoch beansprucht der Transport in den RAM (Einlesen) einen Hauptteil der Laufzeit und der verfügbare RAM reicht i.d.R. nicht für größere Datenmengen. Die nachfolgenden Technologien sind auch in der Lage Daten überhalb des RAMs zu verarbeiten. Durch moderne Hardware und Software kann dies sogar sehr schnell erfolgen.
-
-[^datawrite]: Das Schreiben von Daten wird in unserer Untersuchung vernachlässigt, da es sich bei den Veröffentlichungen des Statistischen Bundesamtes oder den Ergebnissen der Wissenschaft im FDZ um kleine Tabellen handelt, die meist keine große Performanz erfordern. Dennoch bieten die in in @sec-highperf vorstellten Lösungen auch hohe Performanz im Schreiben von Daten. Aufgrund der externen Abhängigkeiten verzichten wir auf die betrachtung von Datenbanken und Spark. Die Werkzeuge sind auch in Programmiersprachen wie Python verfügbar. Dort kann gibt es weitere Möglichkeiten für hohe Perfomanz. Wir fokussieren uns auf den standard R-Nutzenden.
-
-### Anforderungen an Datenverarbeitungsmethoden
-
-Die wichtigsten Anforderungen bedient R anhand der folgenden Funktionen.
-- hohe Usablity
-- hohe Performanz
-
-Optimierung der Gesamtaufwände (incl. Entwicklerzeit), nicht nur Laufzeit (@gomolka2021largedata).
-
-<!-- 
-
--   Performanz und Nutzererfahrung auf dem aktuellen Stand der Technik
--   leicht einzurichten auch in den abgeschotteten System der amtl. Statistik (tlw. langwierig und schwierig), d.h. wenig Abhängigkeiten und unabhängig von Internet bzw. Cloud betreibbar.
--   langfristig stabil und gut unterstützt
--   leicht nutzbar, gut dokumentiert, gutes Schulungsangebot
-
-Die Analyse großer Datensätze wie des in der FDZ-Umgebung stellt besondere Anforderungen an die verwendeten Werkzeuge. Traditionelle Ansätze (CSV-Dateien, Base R) stoßen bei dieser Datengröße an ihre Grenzen. Moderne spaltenorientierte Technologien lösen dieses Problem indem sie erlauben, nur relevante Variablen bei Bedarf zu einzulesen.
-
- -->
+[^datawrite]: Das Schreiben von Daten wird nicht diskutiert, da betrachtete Ergebnistabellen meist klein sind, aber das genannten Lösungen sind auch effizient im Schreiben. Aufgrund von externen Abhängigkeiten werden Datenbanken und Spark nicht betrachtet. Der Fokus liegt auf standard R-Nutzende, die lediglich mit standard R-Werkzeugen vertraut sind.
 
 
-<!--
-BBK
-
-Verfügbare Ressourcen
--   default: 4 CPU cores, 8 threads, 16 gb ram
--   10 Virtual Clients: 8 Cores / 16 threads, bis 128 GB RAM, faster network connection
-
--   data wrangling recommondations:
-    -   stata {gtools} package
-    -   r {data.table}, designed for large data \~100GB in RAM (really??)
-    -   As you can see, {data.table} does a terrific job and is 90.1% faster than the optimised Stata solution using {gtools} which is already 76.2% faster than the base Stata solution.
--   Type Conversion important (4.2)
--   recommend: start small (5.1)
--->
 
 ### Klassische Methoden
 
-R-Base ist zweckdienlich für Einsteiger, abhängigkeitsfreie Infrastrukturen, jedoch weder in Usablity, noch Performanz empfehlenswert. Basieren auf CSV-Format. R Objekte können auch effizient binär abgespeichert werden rds, qs.
-
-Hervorragende Ergänzungen zu R-Base:
+Die Kernfunktionen von R (sog. **Base R**) bieten grundlegende Datenverarbeitungswerkzeuge, für Einsteiger oder in stark abgeschotteten Infrastrukturen zweckdienlich sind. Base R ist heutzutage jedoch weder in Benutzerfreundlichkeit, noch in Performanz zeitgemäß. Diese Lücke wird durch eine Vielzahl von R-Paketen geschlossen, wie die folgenden hervorragenden R-Pakete zeigen.
 
 - **data.table** [@R-data.table]: Ein ausgereiftes R-Paket, das Datenverarbeitung deutlich schneller macht als Standard-R-Funktionen. Es nutzt den verfügbaren Arbeitsspeicher besonders effizient und ist seit vielen Jahren bewährt. Die Syntax orientiert sich an der R-Basissyntax, erfordert aber spezielle Kenntnisse. Solange die Daten in den Arbeitsspeicher passen, ist data.table in den meisten Fällen die performanteste klassische Lösung.
   <!-- - {data.table} [@R-data.table] in den meisten Fällen die performanteste klassische DVM. An die Syntax an base-r angesiedelt und nur hier verwendet, spezielles Wissen notwendig.
   - **Vorteile:** Sehr schnell für In-Memory-Operationen, ausgereift, kompakte Syntax In teilen der Community sehr beliebt
   - **Nachteile:** Alle Daten müssen in RAM passen, steile Lernkurve, keine Out-of-Core-Unterstützung. 
   - **Empfehlung:** Gute Alternative wenn Datensatz in RAM passt und keine Parquet-Integration benötigt wird -->
-- **tidyverse** [@R-tidyverse]: Ein Ökosystem von R-Paketen, das besonders auf einfache Bedienung und Lesbarkeit des Codes ausgelegt ist. Die Programmiersyntax (*dplyr-Syntax*) orientiert sich an menschlicher Sprache und macht den Code auch für Einsteiger gut verständlich. Auch ein eigener Datenleser readr ist inbegriffen. Diese nutzerfreundliche Syntax ist so beliebt, dass sie von vielen anderen R-Paketen übernommen wurde. Für mittlere Datenmengen, die in den Arbeitsspeicher passen, ist tidyverse eine ausgewogene Wahl zwischen Nutzerfreundlichkeit und Performanz.
+- **tidyverse** [@R-tidyverse]: Ein Ökosystem von R-Paketen, das besonders auf einfache Bedienung und Lesbarkeit des Codes ausgelegt ist. Die Programmiersyntax (*dplyr-Syntax*) (s. @tbl-dplyr-syntax) orientiert sich an menschlicher Sprache und macht den Code auch für Einsteiger gut verständlich. Auch ein eigener Datenleser readr ist inbegriffen. Diese nutzerfreundliche Syntax ist so beliebt, dass sie von vielen anderen R-Paketen übernommen wurde. Für mittlere Datenmengen, die in den Arbeitsspeicher passen, ist tidyverse eine ausgewogene Wahl zwischen Nutzerfreundlichkeit und Performanz.
   <!-- - Tidyverse [@R-tidyverse] ist ein Ökosystem von Packages zur Datenverarbeitung, das für besonders hohe Lesbarkeit des Codes bekannt ist. Dazu dient eine eigenen Programmiersyntax, sog. *{dplyr}-Syntax* [@R-dplyr], die den Anspruch hat menschlicher Sprache abzubilden. Das R-Package {dplyr} ist die Datenverarbeitungsgrammatik innerhalb Tidyverse, die anhand eines Beispiels in der folgenden Tabelle veranschaulicht wird
   - Diese Syntax ist bei einem Teil der R-Community so beliebt, dass sie vielen anderen Packages ergänzt wurde. Bspw. für {data.table} setzen dies die Packages {dtplyr} [@R-dtplyr] oder {tidytable} [@R-tidytable] um Wie im Falle von {dtplyr} kann die Übersetzung zu {dplyr} jedoch die Performanz verschlechtern.[^tidy-wrappers]
   - nutzerfreundlich, einfach zu lernen / nutzen
@@ -64,33 +27,76 @@ Hervorragende Ergänzungen zu R-Base:
 
 [^tidy-wrappers]: S. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/
 
-```{=latex}
-\onecolumn
-```
+```{r}
+#| label: tbl-dplyr-syntax
+#| tbl-cap: "Exemplarische Auswertung des BTP in dplyr-Syntax."
+#| echo: false
+#| results: asis
 
-| **Befehl** | **Beschreibung** |
-|------------|------------------|
-| `read_csv("data/btp/data.csv")` | Liest CSV-Datei ein |
-| `group_by(jahr)` | Gruppiert Daten nach Jahr |
-| `summarize(u = sum(str_detect(verk, "u")))` | Zählt Beobachtungen mit "u" in Variable verk |
+suppressPackageStartupMessages({
+  library(tibble)
+  library(kableExtra)
+  library(dplyr)
+})
 
-```{=latex}
-\twocolumn
+source(if(file.exists("R/table_formatting.R")) "R/table_formatting.R" else "../R/table_formatting.R")
+
+dplyr_syntax <- tribble(
+  ~Befehl, ~Beschreibung,
+  "\\texttt{ergebnis <-}",                          
+  "\\underline{Speichert die Fallzahl pro Jahr und Statistik des BTP}",
+  
+  "\\texttt{~~~~\\textcolor{wistaBlue}{\\textbf{read\\_csv}}('daten/btp/daten.csv') |>}", 
+  "Einlesen des BTP im CSV-Format",
+  
+  "\\texttt{~~~~\\textcolor{wistaBlue}{\\textbf{group\\_by}}(jahr) |>}",                  
+  "Gruppiert die Daten nach Jahren",
+  
+  "\\texttt{~~~~\\textcolor{wistaBlue}{\\textbf{summarize}}(}",                           
+  "Aggregiere die Daten auf eine Beobachtung pro Gruppe:",
+  
+  "\\texttt{~~~~~~~~g = \\textcolor{wistaBlue}{\\textbf{sum}}(\\textcolor{wistaBlue}{\\textbf{str\\_detect}}('g', verk)),}",   
+  "Zählt in jeder Gruppe die Fälle mit 'g' in \\texttt{verk},",
+  
+  "\\texttt{~~~~~~~~k = \\textcolor{wistaBlue}{\\textbf{sum}}(\\textcolor{wistaBlue}{\\textbf{str\\_detect}}('k', verk))}",   
+  "Zählt in jeder Gruppe die Fälle mit 'k' in \\texttt{verk}",
+  
+  "\\texttt{~~~~~~~~\\#, ...}",                             
+  "usw.",
+  
+  "\\texttt{~~~~)}",                                     
+  ""
+)
+
+dplyr_syntax <- dplyr_syntax |>
+  mutate(nr = 1:nrow(dplyr_syntax)) |>
+  relocate(nr)
+
+
+tbl_out <- format_wista_table(
+  data = dplyr_syntax,
+  label = "dplyr-syntax",
+  col_names = c("Nr.", "Befehl", "Beschreibung"),
+  align = c("l","l", "l"),
+  font_size = 8,
+  escape = FALSE,
+  two_column = TRUE,
+  header_colors = TRUE,
+  alternating_colors = FALSE
+)
+
+output_table(tbl_out)
 ```
 
 ### Hoch-performante Methoden in R {#sec-highperf}
 
-Ab mittleren Datenmengen (relativ zu CPU und RAM) ist die nachfolgend beschriebene Variablenselektion eine oft notwendige **Best Practice**, die direkt spürbare Performanzgewinne birgt. Darüberhinaus kann die Datenaufteilung kombiniert mit sog. Lazy-Computation gewinnbringend sein:
+Ab mittleren Datenmengen (relativ zu CPU und RAM) ist die nachfolgend beschriebene **Variablenselektion** eine oft notwendige **Best Practice**, die direkt spürbare Performanzgewinne birgt. Darüberhinaus kann die Datenaufteilung kombiniert mit sog. Lazy-Computation gewinnbringend sein:
 
 - **Variablenselektion**: Beim Einlesen von DatenAuswahl der benötigten Variablen in der Einlesefunktion ist wesentliche Best-Practices (besonders für klassiche Methoden, da dies das Risiko für RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren Zeitpunkt) verursacht unnötige Wartezeiten, Ressourcenbelegung und kann zu Abbrüchen führen. Auch Stata profitiert Beschleuniging von 39.9% in R und 33.9% in @gomolka2021largedata.
 - **Datenaufteilung**: Wenn der Arbeitsspeicher nicht ausreicht, um die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere RAM-Gerechte Datenpakete helfen. Für klassische Methoden kombiniert mit der mehrfachen Variablenselektion. Die folgenden hoch-performanten Techniken, kommen auch direkt mehreren Dateien nutzen, ohne manuell die Datensätze zusammenzuführen.
 - **Lazy-Computation**: Ohne das Nutzende ihren Code verändern müssen, speichert die Lazy-Computation geplante Datenverarbeitungsschritte im Hintergrund, ohne sie sofort auszufüren. Erst wenn ein konkretes Ergebnis abgefragt wird, führt das System die Berechnung durch. Dadurch werden nur die tatsächlich benötigten Daten verarbeitet und unnötige Schritte vermieden – ohne dass der Nutzende seinen Code ändern muss. z. B. durch Lazy-Computation[^lazy] – ohne dass eine manuelle Variablenauswahl erforderlich ist (siehe @sec-methoden).
 
-Datenformat Apache **[Parquet](https://parquet.apache.org/)**
-  - R zeigt große Performanzvorteile gegenüber Stata für FDZ Aufgaben: "Note that using parquet and R reduces the computing time compared to the optimised Stata approach by 65.1% from 77.6 to 27.1 seconds" (@gomolka2021largedata)
-  - Die u.g. Parquet-Dateien werden bereits standardmäßig im FDSZ angeboten.
-  - Datenformat, spaltenbasiert, komprimiert, ...
-  - tba - s. Vortrag
+Das Datenformat **[Apache Parquet](https://parquet.apache.org/)** ist ein spaltenbasiertes, komprimiertes Open-Source-Format, das speziell für effiziente Speicherung und Verarbeitung großer Datenmengen entwickelt wurde. Durch seine Struktur ermöglicht Parquet den schnellen Zugriff auf einzelne Variablen und reduziert gleichzeitig den Speicherbedarf erheblich. (@gomolka2021largedata) zeigte im FDZ-Kontext massive Geschwindigkeitsgewinne anhand Parquet, sodass im FDSZ bereits standardmäßig Parquet-Dateien angeboten werden.
 
 Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen verfügbar sind:
 
@@ -101,7 +107,7 @@ Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten
 - **duckdb** [@R-duckdb]: Ein eingebettetes Datenbanksystem, das ohne separaten Datenbankserver direkt in R genutzt werden kann. Es verarbeitet Daten spaltenweise, was besonders bei analytischen Abfragen auf großen Datensätzen sehr schnell ist. DuckDB nutzt die bekannte SQL-Syntax für Datenabfragen und kann nahtlos mit Arrow-Daten zusammenarbeiten. Das System verwaltet den Arbeitsspeicher intelligent und kann auch Daten verarbeiten, die größer als der verfügbare RAM sind.
   <!-- - R-Package , in-memory DB, ...
   - tba - s. Vortrag -->
-- **polars** [@R-polars]: Ein Rust-basiertes R-Paket, das durch die Programmiersprache Rust besonders effizient arbeitet. Es bietet sowohl eine Python-orientierte Syntax als auch eine dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter ist. Polars nutzt moderne Optimierungstechniken und ist für sehr große Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe Geschwindigkeit bei gleichzeitig sparsamer Nutzung der Systemressourcen.
+- **polars** [@R-polars]: Ein Rust-basiertes R-Paket, das durch die Programmiersprache Rust besonders effizient arbeitet. Es bietet sowohl eine Python-orientierte Syntax als auch eine dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter ist. Polars nutzt moderne Optimierungstechniken und ist für sehr große Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe Geschwind igkeit bei gleichzeitig sparsamer Nutzung der Systemressourcen.
   <!-- - Python-style Syntax oder im dplyr-stil mit tidypolars (R-Paket) mit geringfügigen Performanzverlusten, aber in BM verwendet, da hohe Nutzbarkeit durch R-Anwender/-innen wichtig ist.
   - rust-basiert, verlagert Arbeitslast in rust (hohe Effizienz, schwierig zu tracken)
   - an Python-angelehnte Syntax [@R-polars]
@@ -115,31 +121,36 @@ Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten
 [^bm-ddb]: Benchmark von DuckDB https://duckdblabs.github.io/db-benchmark/
 [^bm-polars]: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
 
-Die auf den Servern des StBA und FDZ verfügbaren **Packageversionen** lassen sich aus organisatorischen Gründen nicht flexibel ändern, da die Genehmigung und Einrichtung neuer Packages nur auf Antrag durch unser R-Betriebsteam erfolgt (i.d.R. innerhalb von 1-2 Tagen ). Die Package-Versionen, die zum Zeitpunkt des in @sec-benchmark dargestellten Performanz-Vergleiches verfügab waren, können Tabelle @tbl-pkg-versions entnommen werden. Ultimatives Optimum nicht wichtig, langzeitig stabil gute Performanz ist entscheidend.
+Die auf den Servern des Statistischen Bundesamts und des FDZ verfügbaren Package-Versionen können aus organisatorischen Gründen nicht flexibel angepasst werden, da die Installation neuer Pakete ausschließlich auf Antrag über das R-Betriebsteam erfolgt (in der Regel innerhalb von ein bis zwei Tagen). Die zum Zeitpunkt des in @sec-benchmark dargestellten Performanzvergleichs verfügbaren Versionen sind im Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl nicht das absolute Performanz-Optimum, sondern eine Version mit langfristig stabiler und verlässlich guter Performance.
 
-Version in Bib enthalten?
+<!-- Version in Bib enthalten
 
 ```{r}
+#| label: tbl-pkg-versions
+#| tbl-cap: "Versionen verfügbarer Software und R-Packages"
 #| echo: false
 #| warning: false
 #| message: false
 #| results: asis
 
-library(kableExtra)
-library(dplyr)
+suppressPackageStartupMessages({
+  library(kableExtra)
+  library(dplyr)
+  library(tibble)
+})
 
 packages_data <- tribble(
   ~Software, ~Version,
   "SAS", "9.4 (M8)",
   "Stata", "19 MP",
   "R", "4.5",
-  "{data.table}", "1.17.8",
-  "{readr}", "tba",
-  "{dplyr}", "tba",
-  "{vroom}", "tba", 
-  "{arrow}", "20.0.0.2",
-  "{duckdb}", "1.3.2",
-  "{polars}", "1.0.1"
+  "\\{data.table\\}", "1.17.8",
+  "\\{readr\\}", "tba",
+  "\\{dplyr\\}", "tba",
+  "\\{vroom\\}", "tba", 
+  "\\{arrow\\}", "20.0.0.2",
+  "\\{duckdb\\}", "1.3.2",
+  "\\{polars\\}", "1.0.1"
 )
 
 source(if(file.exists("R/table_formatting.R")) "R/table_formatting.R" else "../R/table_formatting.R")
@@ -147,303 +158,10 @@ source(if(file.exists("R/table_formatting.R")) "R/table_formatting.R" else "../R
 tbl_out <- format_descriptive_table(
   packages_data,
   label = "pkg-versions",
-  caption = "Versionen verfügbarer R-Packages",
-  font_size = 10
+  font_size = 9,
+  escape = FALSE
 )
 output_table(tbl_out)
 ```
-
-<!-- 
-Wie in A beschrieben war es uns aus organisatorischen Gründen nicht möglich, die neuste Version aller Pakete zu verwenden. Die leichter nutzbaren Variationen {duckplyr} bzw. {tidytable} zu nutzen. Die Package wurden aber wenige Tage nach dem Experiment eingerichtet. Die Syntaxtranslation kann dabei die Performanz verschlechtern, sodass bei {duckdb} bzw. {data.table} zwischen Performanz und Code-Verständlichkeit abgewägt werden muss. {arrow} ist schon länger als {polars} im Statistischen Bundesamt verfügbar, sodass wir darin bereits mehr Erfahrungen einsetzen konnten.
-
-### Einordnung
-
--   https://www.r-bloggers.com/2024/09/why-im-switching-to-polars/
--   https://www.r-bloggers.com/2024/10/comparing-data-table-reshape-to-duckdb-and-polars/
-
-#### Generelle Auswahl
-
--   R Syntax ausreichend: Data.table oder Tidy -\> leicht zu lernen, anzuwenden. Wenig mental load auf die Umsetzung, Fokus auf die eigentliche Aufgabe.
--   Keine gesonderte Hardware/Software nötig, keine GPUs oder Spark
--   Abgrenzung zu Datenbanken
-
--\> Aufhänger für unsere Benchmark
-
-Therefore, you need to decide for yourself which tool makes most sense for your research project dealing with large data. If you are a proficient R user, possibly familiar with {data.table}, you should definitely prefer R to Stata. Otherwise, there is no simple answer. You should carefully weigh the benefits and the learning curve of programming in a new language.
-
-#### Paradigmenwechsel: in RAM (Klassisch) vs not-in RAM-fähig (high-perf)
-
--   vollständinges Einladen in Arbeitsspeicher und verarbeitung von dort.
--   Für große Datensätze, wie das BTP, kann ein Teil dieser Tools nicht mehr genutzt werden. Die Effizienteren Varianten, haben Strategien implementert (selection, ...), aber benötigen mehr Erfahrung und regelmäßige und größere manuelle Anpassungen an den jeweiligen Anwendungsfall (Selection)
-
-#### Weitere Auswahlkriteren neben Performanz
-
--   Differenzierte Auswahl der Technologie
--   zu optimieren ist die Gesamtzeit (Entwicklung und Rechenzeit)
--   Wenn erst Kenntnisse und Erfahrungen aufgebaut werden müssen, kann das gegen die effizienteste Methode sprechen.
--   Style (Tidy, Base, Python, SQL) zu vorhandenen Kenntnissen. Bei den untenstehenden Beschreibungen zu beachten.
--   Nicht alle abstufungen sind relevant (1 oder 4 sec, 10 oder 20 sec, 10 oder 20 min), andere Faktoren zu berücksichtigen.
--   im StBA mehr Erfahrungen mit DT, Tidyverse, als bspw. mit Polars
-
-**Benötigte Erfahrungen / Fallstricke**
-
--   Selection kann an verschiedenen Stellen und auf verschiedene Weisen erfolgen. Bringt aber bzgl. Performanz nur etwas, wenn die Selection-Optionen direkt der Einlese Funktionen verwendet wird. Ansonsten erwarten einen vermeidbare Wartezeiten und im Schlimmsten Fall Abbrüche durch RAM Overflow. Selection ist dadurch immer Anwendungsfall spezfisch. Wenn sich die Auswertung ändert, muss der ganze Code neu ausgeführt werden und Daten neu geladen.
--   Typumwandlungen. Oft sehen wir, dass sich aus allen Paketen das beste zusammengesucht wird. Lässt sich in R auch leicht umsetzen, ohne dass der Nutzende es dann merkt, führt R Typumwanldungen zwischen Datenformaten im RAM um (die bzgl. Rechenzeit teuer sind). I.d.R muss man mit klassischen Methoden sich für eine Technologie entscheiden und diese durchziehen bis zu einem Punkt, wo die Datenmenge ausreichend reduziert ist
--   Tracking von Arbeitsspeicher, Systemressourcen nötig
-
-**High-Performance R-Pakete und Dateiformate können sich darum im Hintergrund kümmern, ohne die User Experience zu beeinflussen.**
-
-Hinweis: R-spezfische binäre Datenformate sind eine zsl. Möglichkeit. Daten nicht portabel, außerhalb R leicht nutzbar o.Ä. Können aber ebenfalls tricky sein (nicht alle Features aus dpylr vorhanden, variablentypen, tlw. tieferes Verständnis zu Parallelisierung o.Ä. nötig)
-
-**Organisatorische Aspekte.**
-
--   Einrichtbarkeit in StBA tlw. träge...
-
-#### Stellenwert der eigenen Benchmark
-
-O.g. Technologien stellen oft eigene Benchmarks (Performanz-Vergleiche) bereit und präsentieren i.d.R. die Vorteile der eigenen Technologie. Im Vergleich findet jede Technologie einen Spezielfall, wo sie am besten ist, auf die sie optimiert ist. Die Benchmarks geben tlw. Indikationen, ob die Technologie für den Anwendungsfall geeignet ist. Eigene Tests notwendig, ob die Performance für eigenen Anwendungsfall genügt.
-
--\> folgende Benchmark entwickelt
-
-EIGENE BENCHMARK NÖTIG: Schnellste Technologie/Methodik nicht eindeutig, abhängig von der Datenmenge. Daher für die zu verarbeitenden Daten und den Anwendungsfall-spezifisch. Kann variieren. Eigene Benchmark nötig oder ausgeglichene Methodik nehmen (unter wenigen Unterschiede egal) Externe Benchmarks kommen zu anderen Ergebnissen
-
-https://prof-thiagooliveira.netlify.app/post/data-read-write-performance/
-
-https://blog.hwr-berlin.de/codeandstats/aggregating-data-in-r-benchmarks/
-
-https://iyarlin.github.io/2020/05/26/dtplyr_benchmarks/
-
-### Klassische Methoden
-
-Brauchen übermäßig viel RAM. Üblich ist CSV als Dateiformat und die hier beschriebenen klassichen Datenmethoden benötigen für die gleichen Daten ca. das 3-4-fache im Arbeitsspeicher (interne Kopien usw.). Designed für kleine bis moderate Datenmengen (relativ zum Arbeitspeicher und Rechenressourcen, insb. CPU/GPU).
-
-#### Base-R / data.table
-
--   R eingebaute Auswertungsmethoden, funktioneren, aber weder sonderlich effizient, intuitiv
--   Grundlagen in Base-R können leicht in `data.table` adaptiert werden und dies ist unter den effizientesten Paketen, mit dem Daten durch das o.g. klassischen Vorgehen in R verarbeitet werden können.
--   benötigen dafür aber übermäßig viel RAM 3-4x Speicher ggü. den Eingangsdaten, sodass dies für große Datenmengen oft ungeeignet ist. Sodass dies für große Datenmengen nur eine Option ist, mit sehr viel Programmiergeschick
-
--\> Je weniger effizient die genutzte Technologie ist, umso genauer muss der/die Anwender/-in programmieren (bspw. RAM-Abbrüche manuellabfangen)
-
-#### Tidyverse, readr, vroom
-
--   Ökosystem aus R-Packages (dplyr, readr)
--   Fokus auf User Experience (einfache an menschliche Sprache orientierte Syntax). readr klassisch, vroom schneller Variante hierbei. readr ist dtl. langsamer als data.table und vroom ist vergleichbar zu data.table (Fußnote: für charactervariablen besser, für num. variablen schlechter) lt. einer Benchmark vgl. https://cran.r-project.org/web/packages/vroom/vignettes/benchmarks.html
--   ebenso hoher RAM-Bedarf wie Base-R / data.table.
-
-Exemplarische deskreptive Auswertung (Fallzahl pro Statistik und Jahr):
-
-```{=latex}
-\onecolumn
-```
-
-|  |  |  |
-|--------------------------------|--------------------|--------------------|
-| **Befehl** \| **Ergebnis** \| ==================================================================+=========================================+ `read_csv("pfad/zu/datensatz.csv") |>` \| Daten als R-Objekt verfügbar \| |  |  |
-| `mutate(u,v,... = generate_statistik(verk, stat = "u"), ....) \|\>` \| Ergänze die Daten um Statistikvariablen \| |  |  |
-| `group_by(jahr)` | groupiere nach Jahr |  |
-| `count(u, ... g)` oder `summarize()` \| Zähle Statistik |  |  |
-
-```{=latex}
-\twocolumn
-```
-
-summarize(n = sum(g = str_detect(verk, "g")), k = str_detect(verk, "k"), ...) -\> Aggregiere auf eine beobachtung pro Gruppe und zähle dort alle Beobachtungen, die das Zeichen "g" bzw. "k" in `verk` haben (Fallzahl Gewerbesteuer bzwp Körperschaftssteuer) usw.
-
-**Auswertungsbefehle in Tidyverse**
-
-Syntax echtes Herausstellungsmerkmal, sodass zsl. Pakete die Syntax für alle hier genannten Auswertungsmethoden adaptieren. Bspw. lässt sich data.table mit dtplyr in der o.g. Syntax verwenden (jedoch mit Performanzverlusten, s. bspw. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/ )
-
-Besser tidytables (noch nicht verfügbar im StBA):
-
--   https://markfairbanks.github.io/tidytable/articles/speed_comparisons.html
--   https://markfairbanks.github.io/tidytable/
-
-### Hoch-Perfomante Methoden in R
-
-genügsame Definition von high-perf = dazu fähig Daten außerhalb des RAMs und sehr RAM sparsam zu verabeiten -\> nutzen RAM sehr effizient, idealerweise schnell.
-
-#### Generelle best pratices (ermöglicht o.g. Tools ähnliches)
-
-Alle supporten die nachfolgenden Features. Exemplarische Best-Practices, um das nötige Programmiergeschick zu beschreiben.
-
-Zwei sehr leicht anwendbare Best Practices
-
--   Chunking
--   Selection (in Einlesefunktion), später rauswerfen, erzeugt dennoch übermäßig Rechenzeit und RAM Problem. Beispiel s. opencode repo
-
-#### Parquet
-
--   spaltenbasiert, leicht & schnell nutzbar für Auswertungen
--   komprimiert, wenig Festplattenspeicher
--   heranwachsender Standard Softwareübergreifend
--   Alternative diskutieren qs, rds ...
-
-https://posit.co/blog/shiny-and-arrow/
-
-https://posit.co/blog/speed-up-data-analytics-with-parquet-files/
-
-**Parquet: Persistentes spaltenorientiertes Format.**
-
-Parquet ist ein spaltenorientiertes Speicherformat, das optimal mit Arrow zusammenarbeitet:
-
--   **Kompression:** Typischerweise 5-10x kleinere Dateien als CSV
--   **Metadaten:** Enthält Schema-Informationen und Statistiken
--   **Partitionierung:** Ermöglicht selektives Lesen nach Partitionskeys
--   **Kompatibilität:** Von vielen Tools unterstützt (R, Python, Spark, DuckDB)
-
-**Vergleich zu Alternativen.**
-
-```{=latex}
-\begin{table*}[t]
-\caption{Vergleich verschiedener Datenformate für die BTP-Analyse}\label{tbl-format-comparison}
-\centering
-\small
-\begin{tabular}{llllll}
-\hline
-\textbf{Format} & \textbf{Größe} & \textbf{Ladezeit} & \textbf{Kompression} & \textbf{Partitionierung} & \textbf{Kompatibilität} \\
-\hline
-CSV & 100\% & Sehr langsam & Keine & Nein & Universal \\
-RDS (R) & 45\% & Mittel & Gzip & Nein & Nur R \\
-Feather & 95\% & Sehr schnell & LZ4/ZSTD & Nein & Arrow-Ökosystem \\
-Parquet & 15\% & Schnell & Snappy/GZIP & Möglich & Sehr hoch \\
-Parquet (partitioniert) & 15\% & Sehr schnell (selektiv) & Snappy/GZIP & Ja & Sehr hoch \\
-\hline
-\end{tabular}
-\end{table*}
-```
-
-**Empfehlung für FDZ.**
-
-**Parquet ist das empfohlene Format für große Datensätze im FDZ** wegen:
-
-1.  Drastischer Reduktion der Dateigröße (wichtig bei begrenztem Speicherplatz)
-2.  Deutlich schnelleren Ladezeiten
-3.  Möglichkeit der selektiven Filterung ohne vollständiges Laden
-4.  Kompatibilität mit verschiedenen Analysewerkzeugen
-
-#### Arrow
-
--   nutzt dplyr interface nativ, adaptiert die bekannte und einfache tidyverse-Syntax, nur effizienter
-
-Aktuell in V. 22.0.0. Major Releases:
-
--   2025: 19-22, d.h. 4 Major Releases
-
--   2024: 15-18: 4
-
--   2023: 12-14: 3
-
--   spezfische Features noch nicht vorhanden. Daher nächster...
-
-https://posit.co/blog/arrow-and-beyond/
-
-**Apache Arrow: Spaltenorientiertes In-Memory-Format.**
-
-Apache Arrow ist ein sprach- und plattformübergreifendes In-Memory-Format für spaltenorientierte Datenverarbeitung. Im Gegensatz zu zeilenorientierten Formaten werden Daten spaltenweise organisiert, was erhebliche Vorteile bietet:
-
--   **Effiziente Kompression:** Ähnliche Werte in einer Spalte lassen sich besser komprimieren
--   **Schnellere Aggregationen:** Nur benötigte Spalten müssen gelesen werden (Columnar Scanning)
--   **Zero-Copy:** Daten können ohne Kopieren zwischen Prozessen und Sprachen ausgetauscht werden
--   **SIMD-Optimierung:** Moderne CPU-Instruktionen können effizient genutzt werden
-
-**Anwendung in R.**
-
-Das `arrow`-Paket in R bietet vollständige Integration in R.
-
-**Vorteile für FDZ-Analysen.**
-
--   **Out-of-Core Processing:** Datensätze müssen nicht vollständig in den RAM passen
--   **Lazy Evaluation:** Operationen werden optimiert, bevor sie ausgeführt werden
--   **Predicate Pushdown:** Filter werden direkt beim Lesen angewendet
--   **Partitionierung:** Datensätze können nach Kriterien (z.B. Jahr) partitioniert werden
-
-**Limitationen.**
-
--   **Lernkurve:** Neue Syntax für Nutzer mit Base-R-Erfahrung
--   **Noch in Entwicklung:** Nicht alle R-Funktionen werden unterstützt
--   **Setup-Aufwand:** Daten müssen einmalig ins Parquet-Format konvertiert werden
-
-#### DuckDB
-
-Andere Technologie (in-mem Database), kann mit SQL Syntax genutzt werden, aber auch mit tidyverse
-
-Vorteil von DuckDB/Polars: https://www.r-bloggers.com/2025/03/converting-arbitrarily-large-csvs-to-parquet-with-r/
-
-Ergänzung: Tidypolars https://duckplyr.tidyverse.org/ war zur Berechnung der Benchmark im StBA nicht verfügbar, obwohl hohe Performanzgewinne denkbar, s. o.g. Quelle.
-
-**DuckDB: Analytical Database System.**
-
-DuckDB ist ein einbettbares analytisches Datenbanksystem, speziell für OLAP-Workloads (Online Analytical Processing) entwickelt:
-
--   **In-Process:** Läuft im gleichen Prozess wie R (keine separate Datenbank-Server-Installation nötig)
--   **Columnar Vectorized:** Spaltenorientierte Verarbeitung in SIMD-optimierten Batches
--   **SQL-Interface:** Bekannte SQL-Syntax für komplexe Abfragen
--   **Arrow-Integration:** Zero-Copy-Integration mit Arrow-Daten
-
-**Warum DuckDB?**
-
-DuckDB löst spezifische Probleme bei der Analyse großer Datensätze:
-
-1.  **Komplexe Aggregationen:** Window Functions, CTEs, komplexe Joins
-2.  **SQL-Komfort:** Mächtige Abfragesprache statt R-Code für Datentransformationen
-3.  **Out-of-Core:** Kann größere Daten als RAM verarbeiten
-4.  **Geschwindigkeit:** Hochoptimierte Query Engine
-
-**Anwendungsbeispiel.**
-
-``` r
-library(duckdb)
-library(arrow)
-
-## Verbindung erstellen
-con <- dbConnect(duckdb::duckdb())
-
-## Arrow-Dataset registrieren (ohne Laden)
-duckdb_register_arrow(con, "btp", arrow_dataset)
-
-## Komplexe SQL-Abfrage
-result <- dbGetQuery(con, "
-  SELECT 
-    year,
-    sector,
-    COUNT(*) as n_companies,
-    MEDIAN(revenue) as median_revenue,
-    PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY revenue) as p90_revenue,
-    LAG(MEDIAN(revenue)) OVER (
-      PARTITION BY sector 
-      ORDER BY year
-    ) as prev_year_median
-  FROM btp
-  WHERE year BETWEEN 2015 AND 2019
-    AND revenue > 0
-  GROUP BY year, sector
-  ORDER BY year, sector
-")
-
-dbDisconnect(con, shutdown = TRUE)
-```
-
-**Vorteile.**
-
--   **Kein Setup:** Keine separate Datenbank-Installation erforderlich
--   **Hohe Performance:** Oft schneller als spezialisierte Data-Frame-Bibliotheken
--   **SQL-Funktionen:** Umfangreiche Funktionen (Window Functions, Array-Operationen)
--   **Ressourceneffizient:** Intelligentes Memory Management
--   **R-Integration:** Direktes Arbeiten mit Arrow-Datasets oder R-Data-Frames
-
-**Limitationen.**
-
--   **SQL-Kenntnisse:** Erfordert SQL-Grundkenntnisse
--   **Debugging:** SQL-Fehler können schwerer zu debuggen sein als R-Code
--   **Noch jung:** Weniger etabliert als traditionelle Datenbanken (aber sehr aktiv entwickelt)
-
-#### Polars
-
--   Neuer
-
--   Syntax an Python orientiert, `tidypolars` erlaubt nutzung
-
--   Syntax nicht so nativ zu den anderen Paketen, daher `tidypolars` genutzt, jedoch Performanceverluste zu erwarten (s. https://www.r-bloggers.com/2024/04/the-truth-about-tidy-wrappers-3/)
-
 -->
+
