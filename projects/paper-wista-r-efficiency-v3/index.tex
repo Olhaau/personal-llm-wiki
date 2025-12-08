@@ -678,8 +678,8 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{36 998}
-\renewcommand{\totalwords}{4 496}
+\renewcommand{\totalchars}{36 929}
+\renewcommand{\totalwords}{4 488}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
@@ -773,33 +773,32 @@ veraltete Infrastruktur des FDZ.
 Um die Situation zu verbessern, wurde 2022 das \emph{``Netzwerk
 empirischer Steuerforschung''} (NeSt) gegründet, das die Erweiterung des
 Datenbestands vorangetrieben hat. Seit 2023 steht daher insbesondere das
-\emph{Business-Tax-Panel} (BTP) zur Verfügung (s.
-Kapitel~\ref{sec-btp}). Es verknüpft verschiedene
-Unternehmenssteuerstatistiken und bietet mit fast 3 000 Merkmalen und 67
-Millionen Beobachtungen ein erhebliches Analysepotenzial, stellt
-gleichzeitig jedoch hohe technische Anforderungen an die Analysesysteme.
+\emph{Business-Tax-Panel} (BTP) zur Verfügung (s. Absatz~\ref{sec-btp}).
+Es verknüpft verschiedene Unternehmenssteuerstatistiken und bietet mit
+fast 3 000 Merkmalen und 67 Millionen Beobachtungen ein erhebliches
+Analysepotenzial, stellt gleichzeitig jedoch hohe technische
+Anforderungen an die Analysesysteme.
 
-Zur Bewältigung der Herausforderungen in der Datenverarbeitung konnten
-im Jahr 2025 bedeutende Fortschritte beim Ausbau der analytischen
-Infrastruktur des Statistischen Bundesamts und des FDZ erreicht werden
-(s. Kapitel~\ref{sec-infrastruktur}). Für die Statistikproduktion konnte
-im Januar 2025 ein R- und Python-Server um erhebliche Rechenkapazitäten
-erweitert werden. Vorangetrieben durch das NeSt steht seit November 2025
-im FDZ der \textbf{OnSite-Server} mit ausgeweiteten Rechenkapazitäten
-mit erweiterten Rechenkapazitäten für Analysen in R und Stata exklusiv
-für GWAP- und KDFV-Nutzungen zur Verfügung.
+Zur Bewältigung der technischen Limitationen in der Datenverarbeitung
+konnten im Jahr 2025 bedeutende Fortschritte beim Ausbau der
+analytischen Infrastruktur des Statistischen Bundesamts und des FDZ
+erreicht werden (s. Absatz~\ref{sec-infrastruktur}). Für die
+Statistikproduktion konnte im Januar 2025 ein R- und Python-Server um
+erhebliche Rechenkapazitäten erweitert werden. Vorangetrieben durch das
+NeSt steht seit November 2025 im FDZ ein \textbf{OnSite-Server} mit
+ausgeweiteten Rechenkapazitäten für Analysen in R und Stata exklusiv für
+GWAP- und KDFV-Nutzungen zur Verfügung.
 
 Als etablierte Programmiersprache in der Statistik und Datenwissenschaft
 ist R eine natürliche Wahl für die Datenverarbeitung in der
 Statistikproduktion und im FDZ. Da es sich um eine Open-Source-Software
-handelt, erweitert eine große internationale Gemeinschaft daran, R in
-Form von sog. R-Paketen um diverse Funktionalität hoher-performanz oder
-Nutzerfreundlichkeit zu erweitern (s. Kapitel~\ref{sec-methoden}).
-Dieser Artikel wird potenzielle R-Pakete für den Einsatz im
-Statistischen Bundesamt und FDZ bewerten (s.
-Kapitel~\ref{sec-benchmark}) und anhand des BTP demonstrieren, wie
+handelt, erweitert eine große internationale Gemeinschaft Funktionalität
+von R für hohe Performanz oder Nutzerfreundlichkeit (s.
+Absatz~\ref{sec-methoden}). Dieser Artikel wird potenzielle R-Pakete für
+den Einsatz im Statistischen Bundesamt und FDZ bewerten (s.
+Absatz~\ref{sec-benchmark}) und anhand des BTP demonstrieren, wie
 relevante Auswertungen nachvollziehbar innerhalb von wenigen Sekunden
-durchgeführt werden können (s. Kapitel~\ref{sec-ergebnis}).
+durchgeführt werden können (s. Absatz~\ref{sec-ergebnis}).
 
 \section{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
 
@@ -914,7 +913,7 @@ Bundesamts ist die kommerzielle Analysesoftware \textbf{SAS 9.4}, das
 auf dedizierte Server bereitgestellt wird.\footnote{Da SAS bereits
   langjährig eingesetzt wird, ist für die kommenden Performanzvergleiche
   zu beachten, dass die SAS-Server nicht über die neuste Hardware
-  verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert.} SAS 9.4
+  verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert.} SAS
 verarbeitet Daten überwiegend zeilenorientiert und belastet den
 Arbeitsspeicher daher nur gering --- ein entscheidender Vorteil in der
 amtlichen Statistik, da auch große Datenmengen auf mit geringeren
@@ -922,8 +921,8 @@ Hardwareanforderungen verarbeitet werden können. Für viele
 Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung
 effizienter. In R sind neuere Verfahren verfügbar, die moderne
 Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten
-gegenüber SAS erheblich verkürzen (siehe Kapitel~\ref{sec-methoden} und
-Kapitel~\ref{sec-benchmark}).
+gegenüber SAS erheblich verkürzen (siehe Absatz~\ref{sec-methoden} und
+Absatz~\ref{sec-benchmark}).
 
 Im FDZ ist --- neben SAS --- die kommerzielle Software \textbf{Stata}
 das am stärksten nachgefragte Auswertungswerkzeug. \textbf{Stata} wird
@@ -932,8 +931,8 @@ tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig
 aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen,
 bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine
 Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden
-müssen, und nur ausgewählte Operationen erlauben die parallelisierte
-Datenverarbeitung. Durch die manuelle \emph{Variablenauswahl} lassen
+müssen, und nur ausgewählte Datenverabeitungsschritte können von Stata
+parallelisiert werden. Durch die manuelle \emph{Variablenauswahl} lassen
 sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber
 begrenzend. Bisher waren die GWAP auf die \emph{Single-Core-Version von
 Stata mit begrenztem RAM} beschränkt, wodurch viele FDZ-Produkte ohne
@@ -977,19 +976,19 @@ Bundesamts}\label{r-server-des-statistischen-bundesamts}
 
 Die \textbf{Statistiksoftware R} ist bekannt als native
 Programmiersprache in der Statistik und in Datenwissenschaften. Dadurch
-weist R eine hohe anwenderorientierung und fokussiert sich auf
+weist R eine hohe Anwenderorientierung und fokussiert sich auf
 Datenverarbeitung, -auswertung und -visualisierung.
 
 Als Open-Source-Software erfreut sich R einer großen internationalen
 Gemeinschaft, die die Grundfunktionen von R durch mehr als 20 000
 \textbf{R-Pakete} erweitert.\footnote{Aktuell sind offiziell 23 035
   Pakete auf CRAN verfügbar. S. https://cran.r-project.org/index.html}
-Passend zu den Anforderungen aus Kapitel~\ref{sec-infra-anf} ist
-darunter ein breites Spektrum an Datenverabeitungsmethoden, von
-hochperformanten Werkzeugen bis hin zu Verbesserungen der
-Nutzererfahrung. Da R frei verfügbar ist, wird es an Universitäten weit
-verbreitet eingesetzt, und es stehen zahlreiche Schulungsmaterialien zur
-Verfügung. Viele Mitarbeitende des Statistischen Bundesamts und
+Passend zu den Anforderungen aus Absatz~\ref{sec-infra-anf} ist darunter
+ein breites Spektrum an Datenverabeitungsmethoden, von hochperformanten
+Werkzeugen bis hin zu Verbesserungen der Nutzererfahrung. Da R frei
+verfügbar ist, wird es an Universitäten weit verbreitet eingesetzt, und
+es stehen zahlreiche Schulungsmaterialien zur Verfügung. Viele
+Mitarbeitende des Statistischen Bundesamts und
 Gastwissenschaftler/-innen am FDZ verfügen daher bereits über
 R-Kenntnisse oder können sich diese leicht aneignen. Dadurch erfreut
 sich R auch an steigender Beliebtheit in der amtlichen Statistik, wie
@@ -1088,7 +1087,7 @@ Bundesamts, aber die Systeme können nur exklusiv im FDZ genutzt werden.
 Die R-Server unterstützen moderne, speichereffiziente Verfahren, mit
 denen auch Datenmengen oberhalb des Arbeitsspeichers flexibel, stabil
 und schneller verarbeitet werden können -- Details dazu siehe
-Kapitel~\ref{sec-methoden}.
+Absatz~\ref{sec-methoden}.
 
 \section{Datenverarbeitungswerkzeuge}\label{sec-methoden}
 
@@ -1219,7 +1218,7 @@ Lazy-Computation gewinnbringend sein:
   verarbeitet und unnötige Schritte vermieden -- ohne dass der Nutzende
   seinen Code ändern muss. z.\,B. durch Lazy-Computation{[}\^{}lazy{]}
   -- ohne dass eine manuelle Variablenauswahl erforderlich ist (siehe
-  Kapitel~\ref{sec-methoden}).
+  Absatz~\ref{sec-methoden}).
 \end{itemize}
 
 Das Datenformat \textbf{\href{https://parquet.apache.org/}{Apache
@@ -1279,14 +1278,14 @@ Bundesamts und des FDZ verfügbaren R-Paket-Versionen können aus
 organisatorischen Gründen nicht flexibel angepasst werden, da die
 Installation neuer Pakete ausschließlich auf Antrag über das
 R-Betriebsteam erfolgt (in der Regel innerhalb von ein bis zwei
-Arbeitstagen). Die zum Zeitpunkt des in Kapitel~\ref{sec-benchmark}
+Arbeitstagen). Die zum Zeitpunkt des in Absatz~\ref{sec-benchmark}
 dargestellten Performanzvergleichs verfügbaren Versionen sind im
 Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl
 nicht das absolute Performanz-Optimum, sondern eine Version mit
 langfristig stabiler und verlässlich guter Performance. Ein
 systematisher Performanzvergleich wird im FDZ-OnSite-Server für die
-Anwendungsfälle aus Kapitel~\ref{sec-btp} im folgenden
-Kapitel~\ref{sec-benchmark} durchgeführt.
+Anwendungsfälle aus Absatz~\ref{sec-btp} im folgenden
+Absatz~\ref{sec-benchmark} durchgeführt.
 
 \section{Performanzvergleich}\label{sec-benchmark}
 
@@ -1294,7 +1293,7 @@ RAM nicht aussagekräftig!!!
 
 \subsection{Versuchsaufbau}\label{versuchsaufbau}
 
-Um zwischen den in Abschnitt Kapitel~\ref{sec-methoden} vorgestellten
+Um zwischen den in Abschnitt Absatz~\ref{sec-methoden} vorgestellten
 Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in
 einem systematischen Vergleich der Performance auf dem SAS-Server des
 Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des

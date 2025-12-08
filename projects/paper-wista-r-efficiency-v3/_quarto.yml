@@ -6,6 +6,9 @@ project:
 
 bibliography: references.bib
 
+crossref:
+  sec-prefix: Absatz
+  
 filters:
   - wordcount
   - _extensions/charcount.lua
