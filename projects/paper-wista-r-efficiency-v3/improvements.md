@@ -11,13 +11,13 @@
 ## Noch offene Verbesserungsvorschläge
 
 ### [REF-02] sections/01-einleitung.qmd, Zeile 11 ⏭️ ÜBERSPRUNGEN
-**Aktuell:** "Anhand der Analysebedarfe der Wissenschaft in den *Forschungsdatenzentrum des statistischen Bundesamts (hier kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder*"
+**Aktuell:** "Anhand der Analysebedarfe der Wissenschaft in den *Forschungsdatenzentrum des Statistischen Bundesamtes (hier kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder*"
 
-**Vorschlag:** "Anhand der Analysebedarfe der Wissenschaft in den *Forschungsdatenzentren des Statistischen Bundesamts (hier kurz FDZ) und der Statistischen Ämter der Länder*"
+**Vorschlag:** "Anhand der Analysebedarfe der Wissenschaft in den *Forschungsdatenzentren des Statistischen Bundesamtes (hier kurz FDZ) und der Statistischen Ämter der Länder*"
 
 **Begründung:** 
 - "Forschungsdatenzentrum" → Plural "Forschungsdatenzentren" (da zwei genannt werden)
-- "statistischen Bundesamts" → "Statistischen Bundesamts" (Eigenname)
+- "Statistischen Bundesamtes" → "Statistischen Bundesamtes" (Eigenname)
 - Parallelität der Struktur verbessert
 
 ---

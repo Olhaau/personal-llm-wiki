@@ -1,0 +1,47 @@
+═══════════════════════════════════════════════════════════════════════════
+  HINWEIS ZU TABELLEN / NOTE ABOUT TABLES
+═══════════════════════════════════════════════════════════════════════════
+
+DEUTSCH:
+--------
+Die Tabellen aus dem Dokument "Effiziente-Analyse-Forschungsdaten-R.docx" 
+sind in einer separaten Excel-Datei ausgelagert:
+
+📊 Datei: Tabellen-Effiziente-Analyse-Forschungsdaten-R.xlsx
+
+Diese Datei enthält alle Tabellen aus dem Dokument in separaten Arbeitsblättern:
+  1. tbl-stba-rserver: R-Server Ausbau (Statistisches Bundesamt)
+  2. tbl-fdz-server: OnSite-Server des FDZ Bund
+  3. tbl-dplyr-syntax: Exemplarische dplyr-Syntax
+  4. tbl-baseline: SAS und Stata Baselines
+  5. tbl-benchmark-small: Performanzmessungen (1% BTP) - Fallzahl
+  6. tbl-benchmark-regr-small: Performanzmessungen (1% BTP) - Regression
+  7. tbl-benchmark: Performanzmessungen (10% BTP) - Fallzahl
+  8. tbl-benchmark-regr: Performanzmessungen (10% BTP) - Regression
+
+Vorteil: Die Tabellen können in Excel einfacher bearbeitet, formatiert und 
+weiterverwendet werden.
+
+
+ENGLISH:
+--------
+The tables from the document "Effiziente-Analyse-Forschungsdaten-R.docx" 
+have been exported to a separate Excel file:
+
+📊 File: Tabellen-Effiziente-Analyse-Forschungsdaten-R.xlsx
+
+This file contains all tables from the document in separate worksheets:
+  1. tbl-stba-rserver: R-Server Expansion (Federal Statistical Office)
+  2. tbl-fdz-server: OnSite-Server of FDZ Bund
+  3. tbl-dplyr-syntax: Example dplyr-Syntax
+  4. tbl-baseline: SAS and Stata Baselines
+  5. tbl-benchmark-small: Performance Measurements (1% BTP) - Count
+  6. tbl-benchmark-regr-small: Performance Measurements (1% BTP) - Regression
+  7. tbl-benchmark: Performance Measurements (10% BTP) - Count
+  8. tbl-benchmark-regr: Performance Measurements (10% BTP) - Regression
+
+Advantage: The tables can be more easily edited, formatted, and reused in Excel.
+
+═══════════════════════════════════════════════════════════════════════════
+Erstellt / Created: 2025-12-08
+═══════════════════════════════════════════════════════════════════════════

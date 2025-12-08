@@ -1,43 +1,43 @@
 ## Ausbau der Analyseinfrastruktur {#sec-infrastruktur}
 
-Mit der Bereitstellung neuer Analyseserver konnten im Jahr 2025 entscheidende Fortschritte beim Ausbau der analytischen Infrastruktur des Statistischen Bundesamts und des FDZ erzielt werden.
+Mit der Bereitstellung neuer Analyseserver konnten im Jahr 2025 entscheidende Fortschritte beim Ausbau der analytischen Infrastruktur des Statistischen Bundesamtes und des FDZ Bund erzielt werden.
 
 Die Einführung der neuen Systeme ist als Ergebnis langjähriger Planung und Umsetzung ein besonders bedeutender Schritt. Denn sogar Änderungen von Softwareversionen in der abgeschotteten Infrastruktur können organisatorisch aufwändig sein, sodass für die folgenden Darstellungen nicht immer die neuesten Versionen der betrachteten Software zur Verfügung stehen –- ein Umstand, der die realistischen Rahmenbedingungen der laufenden Statistikproduktion widerspiegelt. Um dennoch langfristig leistungsstark zu bleiben, wurde die neue Infrastruktur von Beginn an zukunftsorientiert konzipiert und bietet moderne Software auf einer deutlich erweiterten Hardwarebasis.
 
 ### Ausgangslage
 
-Das Hauptwerkzeug in der Statistikproduktion des Statistischen Bundesamts ist die kommerzielle Analysesoftware **SAS 9.4**, die auf dedizierten Servern bereitgestellt wird.[^sas-version] SAS 9.4 verarbeitet Daten überwiegend zeilenorientiert und belastet den Arbeitsspeicher daher nur gering – ein entscheidender Vorteil in der amtlichen Statistik, da auch große Datenmengen mit geringeren Hardwareanforderungen verarbeitet werden können. Für viele Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung effizienter. In R sind neuere Verfahren verfügbar, die moderne Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten gegenüber SAS erheblich verkürzen (siehe @sec-methoden und @sec-benchmark).
+Das Hauptwerkzeug in der Statistikproduktion des Statistischen Bundesamtes ist die kommerzielle Analysesoftware **SAS 9.4**, die auf dedizierten Servern bereitgestellt wird.[^sas-version] SAS 9.4 verarbeitet Daten überwiegend zeilenorientiert und belastet den Arbeitsspeicher daher nur gering – ein entscheidender Vorteil in der amtlichen Statistik, da auch große Datenmengen mit geringeren Hardwareanforderungen verarbeitet werden können. Für viele Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung effizienter. In R sind neuere Verfahren verfügbar, die moderne Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten gegenüber SAS erheblich verkürzen (siehe @sec-methoden und @sec-benchmark).
 
 [^sas-version]: Da SAS bereits langjährig eingesetzt wird, ist für die kommenden Performanzvergleiche zu beachten, dass die SAS-Server nicht über die neuste Hardware verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert.
 
-Im FDZ ist –- neben SAS –- die kommerzielle Software **Stata** das am stärksten nachgefragte Auswertungswerkzeug. **Stata** wird in vielen wissenschaftlichen Fachrichtungen genutzt, da sie ohne tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen, bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden müssen, und nur ausgewählte Operationen erlauben die parallelisierte Datenverarbeitung. Durch die manuelle *Variablenauswahl* lassen sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber begrenzend. Bisher waren die GWAPs auf die *Single-Core-Version von Stata mit begrenztem RAM* beschränkt, wodurch viele FDZ-Produkte ohne Datenzuschnitt an den GWAPs nicht bearbeitet werden konnten. Leistungsfähigere Server standen vor der Bereitstellung des OnSite-Servers lediglich in der KDFV zur Verfügung.
+Im FDZ Bund ist –- neben SAS –- die kommerzielle Software **Stata** das am stärksten nachgefragte Auswertungswerkzeug. **Stata** wird in vielen wissenschaftlichen Fachrichtungen genutzt, da sie ohne tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen, bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden müssen, und nur ausgewählte Operationen erlauben die parallelisierte Datenverarbeitung. Durch die manuelle *Variablenauswahl* lassen sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber begrenzend. Bisher waren die GWAPs auf die *Single-Core-Version von Stata mit begrenztem RAM* beschränkt, wodurch viele Produkte des FDZ Bund ohne Datenzuschnitt an den GWAPs nicht bearbeitet werden konnten. Leistungsfähigere Server standen vor der Bereitstellung des OnSite-Servers lediglich in der KDFV zur Verfügung.
 
 ### Anforderungen an die Analyseinfrastruktur {#sec-infra-anf}
 
-Damit eine moderne Infrastruktur die technischen Herausforderungen des Statistischen Bundesamts und FDZ adressiert, muss sie ein breites Spektrum an Datenverarbeitungsmethoden mit hoher Performanz nutzerfreundlich bereitstellen.
+Damit eine moderne Infrastruktur die technischen Herausforderungen des Statistischen Bundesamtes und FDZ Bund adressiert, muss sie ein breites Spektrum an Datenverarbeitungsmethoden mit hoher Performanz nutzerfreundlich bereitstellen.
 
-Die eingesetzte Infrastruktur muss skalierbar sein und die Verarbeitung wachsender Datenmengen zuverlässig mit den vorhandenen Rechenkapazitäten ermöglichen, sodass die steigenden Datenverarbeitungsbedarfe gedeckt werden können. Um eine hohe Reaktionsfähigkeit und eine reibungslose GWAP- bzw. KDFV-Nutzung im FDZ sicherzustellen, sollten die Systeme kurze Rechenzeiten auf dem aktuellen Stand der Technik ermöglichen -- und idealerweise Auswertungen großer Datenmengen in Echtzeit (d.h. innerhalb weniger Sekunden) ausführen können.
+Die eingesetzte Infrastruktur muss skalierbar sein und die Verarbeitung wachsender Datenmengen zuverlässig mit den vorhandenen Rechenkapazitäten ermöglichen, sodass die steigenden Datenverarbeitungsbedarfe gedeckt werden können. Um eine hohe Reaktionsfähigkeit und eine reibungslose GWAP- bzw. KDFV-Nutzung im FDZ Bund sicherzustellen, sollten die Systeme kurze Rechenzeiten auf dem aktuellen Stand der Technik ermöglichen -- und idealerweise Auswertungen großer Datenmengen in Echtzeit (d.h. innerhalb weniger Sekunden) ausführen können.
 
 Ein wesentlicher Erfolgsfaktor der Systeme ist eine hohe Nutzerfreundlichkeit. Moderne Interfaces und eine nachvollziehbare Programmiersyntax müssen sicherstellen, dass die Infrastruktur für verschiedene Fachstatistiker/-innen oder Forschende diverser Fachrichtungen leicht zugänglich ist. Dabei ist zu beachten, dass Nutzerfreundlichkeit auch den Gesamtaufwand der Datenauswertung reduziert, da neben der Rechenzeit auch die Entwicklungszeit betrachtet werden muss (@gomolka2021largedata).
 
-Auch die Einrichtbarkeit und Wartungsaufwände der Analysesysteme in der abgeschotteten Systemarchitektur des Statistischen Bundesamts spielen eine entscheidende Rolle für den stabilen Einsatz in der Statistikproduktion und Verfügbarkeit für die Wissenschaft im FDZ.
+Auch die Einrichtbarkeit und Wartungsaufwände der Analysesysteme in der abgeschotteten Systemarchitektur des Statistischen Bundesamtes spielen eine entscheidende Rolle für den stabilen Einsatz in der Statistikproduktion und Verfügbarkeit für die Wissenschaft im FDZ Bund.
 
-### R-Server des Statistischen Bundesamts
+### R-Server des Statistischen Bundesamtes
 
 Die **Statistiksoftware R** ist bekannt als die native Programmiersprache in der Statistik und in den Datenwissenschaften. Dadurch weist R eine hohe anwenderorientierung und fokussiert sich auf Datenverarbeitung, -auswertung und -visualisierung. 
 
-Als Open-Source-Software erfreut sich R einer großen internationalen Gemeinschaft, die die Grundfunktionen von R durch mehr als 20 000 **R-Pakete** erweitert.[^cran] Passend zu den Anforderungen aus @sec-infra-anf ist darunter ein breites Spektrum an Datenverabeitungsmethoden, von hochperformanten Werkzeugen bis hin zu Verbesserungen der Nutzererfahrung. Da R frei verfügbar ist, wird es an Universitäten weit verbreitet eingesetzt, und zahlreiche Schulungsmaterialien stehen zur Verfügung. Viele Mitarbeitende des Statistischen Bundesamts und Gastwissenschaftler/-innen am FDZ verfügen daher bereits über R-Kenntnisse oder können sich diese leicht aneignen. Dadurch erfreut sich R auch steigender Beliebtheit in der amtlichen Statistik, wie das Wachstum der Gemeinschaft "The Use of R in Official Statistics" belegt.[^uros] 
+Als Open-Source-Software erfreut sich R einer großen internationalen Gemeinschaft, die die Grundfunktionen von R durch mehr als 20 000 **R-Pakete** erweitert.[^cran] Passend zu den Anforderungen aus @sec-infra-anf ist darunter ein breites Spektrum an Datenverabeitungsmethoden, von hochperformanten Werkzeugen bis hin zu Verbesserungen der Nutzererfahrung. Da R frei verfügbar ist, wird es an Universitäten weit verbreitet eingesetzt, und zahlreiche Schulungsmaterialien stehen zur Verfügung. Viele Mitarbeitende des Statistischen Bundesamtes und Gastwissenschaftler/-innen am FDZ Bund verfügen daher bereits über R-Kenntnisse oder können sich diese leicht aneignen. Dadurch erfreut sich R auch steigender Beliebtheit in der amtlichen Statistik, wie das Wachstum der Gemeinschaft "The Use of R in Official Statistics" belegt.[^uros] 
 
 [^cran]: Aktuell sind offiziell 23 035 Pakete auf CRAN verfügbar. S. https://cran.r-project.org/index.html
 [^uros]: https://r-project.ro/conference2025.html
 
-Bereits seit Jahren steht im Statistischen Bundesamt ein Server für **R** und **Python** zur Verfügung, der für die Datenverarbeitung in der Statistikproduktion sowie im KDFV des FDZ genutzt wurde. 
+Bereits seit Jahren steht im Statistischen Bundesamt ein Server für **R** und **Python** zur Verfügung, der für die Datenverarbeitung in der Statistikproduktion sowie im KDFV des FDZ Bund genutzt wurde. 
 
 Seit Januar 2025 konnte der R- und Python-Server signifikant erweitert werden. Verwendet wird die kommerziell unterstützte **Posit Workbench**, da sie wesentliche Funktionen für kollaboratives Arbeiten und Skalierbarkeit bietet und den Betrieb der Systeme unterstützt. Zusätzlich wurden die Systemressourcen deutlich ausgebaut (siehe @tbl-stba-rserver ) und insbesondere Grafikkarten bieten ganz neue Anwendungsfälle.
 
 ```{r}
 #| label: tbl-stba-rserver
-#| tbl-cap: "Ausbau des R-Server des Statistischen Bundesamts (Januar 2025)"
+#| tbl-cap: "Ausbau des R-Server des Statistischen Bundesamtes (Januar 2025)"
 #| echo: false
 #| results: asis
 
@@ -89,12 +89,12 @@ Die Bereitstellung der aktuellsten R-Version und moderner R-Pakete in einer nutz
 
 -->
 
-### OnSite-Server des FDZ
+### OnSite-Server des FDZ Bund
 
-Seit November 2025 steht der sogenannte **OnSite-Server** exklusiv im FDZ für alle OnSite-Nutzungen bereit. Er bietet dem FDZ dedizierte Stata- und R-Server mit umfangreichen Analysekapazitäten für jede Nutzung an den GWAP sowie der KDFV. Alle Analyseserver sind über schnelle Direktverbindungen an einen Netzwerkspeicher angebunden, sodass R und Stata nahtlos kombiniert werden können.
+Seit November 2025 steht der sogenannte **OnSite-Server** exklusiv im FDZ Bund für alle OnSite-Nutzungen bereit. Er bietet dem FDZ Bund dedizierte Stata- und R-Server mit umfangreichen Analysekapazitäten für jede Nutzung an den GWAP sowie der KDFV. Alle Analyseserver sind über schnelle Direktverbindungen an einen Netzwerkspeicher angebunden, sodass R und Stata nahtlos kombiniert werden können.
 
 ```{r tbl-fdz-server}
-#| tbl-cap: "FDZ OnSite-Server Spezifikationen (November 2025)"
+#| tbl-cap: "OnSite-Server des FDZ Bund: Spezifikationen (November 2025)"
 #| echo: false
 #| results: asis
 
@@ -127,7 +127,7 @@ tbl_out <- format_descriptive_table(
 output_table(tbl_out)
 ```
 
-Stata/MP ist nun einheitlich auf leistungsstarken Multi-Core-Servern verfügbar. Zudem steht erstmals R für OnSite-Nutzungen bereit. Der Systemaufbau orientieren sich am zentralen R-Server des Statistischen Bundesamts, aber die Systeme können nur exklusiv im FDZ genutzt werden.
+Stata/MP ist nun einheitlich auf leistungsstarken Multi-Core-Servern verfügbar. Zudem steht erstmals R für OnSite-Nutzungen bereit. Der Systemaufbau orientieren sich am zentralen R-Server des Statistischen Bundesamtes, aber die Systeme können nur exklusiv im FDZ Bund genutzt werden.
 
 Die R-Server unterstützen moderne, speichereffiziente Verfahren, mit denen auch Datenmengen oberhalb des Arbeitsspeichers flexibel, stabil und schneller verarbeitet werden können – Details dazu siehe @sec-methoden.
 

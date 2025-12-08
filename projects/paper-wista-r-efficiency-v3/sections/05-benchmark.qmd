@@ -13,11 +13,11 @@ Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene
 
 ### Versuchsaufbau
 
-Um zwischen den in @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Vergleich auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ gemessen. Weiterführende Performanzmessung sowie der vollständig reproduzierbare Code sind auf Opencode verfügbar[^opencode].
+Um zwischen den in @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Vergleich auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ Bund gemessen. Weiterführende Performanzmessung sowie der vollständig reproduzierbare Code sind auf Opencode verfügbar[^opencode].
 
 [^opencode]: www.opencode.de/URL-To-Be-Announced.
 
-Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen Größen (0,1 %/1 %/10 % der insgesamt 67 Millionen Beobachtungen des BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen generiert und bilden die wesentlichen Strukturen des BTP für unsere Analyse künstlich nach. Abgrenzend zu den im FDZ bereitgestellten *Datenstrukturfiles* wurden die Testdaten nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
+Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen Größen (0,1 %/1 %/10 % der insgesamt 67 Millionen Beobachtungen des BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen generiert und bilden die wesentlichen Strukturen des BTP für unsere Analyse künstlich nach. Abgrenzend zu den im FDZ Bund bereitgestellten *Datenstrukturfiles* wurden die Testdaten nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
 
 1.  **Fallzahlen** (pro Statistik und Jahr),
 2.  **Regression** (Einflussfaktoren auf Verlustvorträge).
@@ -67,7 +67,7 @@ tbl_out <- format_baseline_table(baseline_data,
 output_table(tbl_out)
 ```
 
-Die Ergebnisse in @tbl-baseline zeigen, dass der umfangreiche Arbeitsspeicher des FDZ-OnSite-Servers nicht ausreicht, um das BTP vollständig in Stata einzulesen, sodass zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
+Die Ergebnisse in @tbl-baseline zeigen, dass der umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht ausreicht, um das BTP vollständig in Stata einzulesen, sodass zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
 
 ### Kleiner Vergleich von R zu SAS und Stata
 
@@ -307,7 +307,7 @@ output_table(tbl_out)
     -   5x langsamer als {arrow}
     -   Variablenauswahl ab einer gewissen Datenmenge erforderlich, da ohne 3x größer als die Eingangsdaten, dauert 2.2 min anstatt 23 Sec. -\> schwierige Anwendung (Entscheidung relevanter Variablen muss vorab getroffen werden unter Beachtung der Arbeitsspeicher Restriktionen)
     -   Datenaufteilung verschlechtert DT im Gegensatz zu arrow
--   {arrow} verzeiht Fehler leicht(er als DT). Denn schlecht programmiert, ist es immernoch ganz gut). Alleine durch die Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet durch das FDZ), erreichen wir die Fallzahl-Berechung in 11.73s, nur 5s über dem absoluten Optimum.
+-   {arrow} verzeiht Fehler leicht(er als DT). Denn schlecht programmiert, ist es immernoch ganz gut). Alleine durch die Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet durch das FDZ Bund), erreichen wir die Fallzahl-Berechung in 11.73s, nur 5s über dem absoluten Optimum.
 -   R-base oder readr sind immer weit abgeschlagen und zu vermeiden.
 -   Wenn der RAM extrem begrenzt ist, können {poars} oder {duckdb} dennoch eingesetzt werden.
 

@@ -14,7 +14,7 @@ Nutzerfreundlichkeit entsprechender Werkzeuge in der Statistiksoftware R
 mit dem Ziel Handlungsempfehlungen für die Praxis abzuleiten.
 
 Anhand der Analysebedarfe der Wissenschaft in den Forschungsdatenzentrum
-des statistischen Bundesamts (hier kurz FDZ) und dem
+des Statistischen Bundesamtes (hier kurz FDZ) und dem
 Forschungsdatenzentrum der Statistischen Ämter der Länder zeichnen sich
 die Herausforderungen besonders deutlich ab. Die OnSite-Zugangswege des
 FDZ bietet formal anonymisierte Mikrodaten der amtlichen Statistik in
@@ -44,7 +44,7 @@ Anforderungen an die Analysesysteme.
 
 Zur Bewältigung der Herausforderungen in der Datenverarbeitung konnten
 im Jahr 2025 bedeutende Fortschritte beim Ausbau der analytischen
-Infrastruktur des Statistischen Bundesamts und des FDZ erreicht werden
+Infrastruktur des Statistischen Bundesamtes und des FDZ erreicht werden
 (s. ?@sec-infrastruktur). Für die Statistikproduktion konnte im Januar
 2025 ein R- und Python-Server um erhebliche Rechenkapazitäten erweitert
 werden. Vorangetrieben durch das NeSt steht seit November 2025 im FDZ

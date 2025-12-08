@@ -1,8 +1,9 @@
 project:
   type: default
   output-dir: _book
-  # post-render:
-  #   - bash -c "git add _book/*.pdf _book/*.docx && git commit -m 'Update PDF and DOCX' && git push || true"
+  post-render:
+    - Rscript R/export_tables_to_excel.R
+  # - bash -c "git add _book/*.pdf _book/*.docx && git commit -m 'Update PDF and DOCX' && git push || true"
 
 bibliography: references.bib
 
@@ -25,9 +26,10 @@ format:
     number-sections: true
     toc: true
     toc-depth: 3
+    toc-title: "Inhaltsverzeichnis"
     highlight-style: github
     filters:
-      - _extensions/docx-metadata.lua
+      - _extensions/remove-tables-docx.lua
   pdf:
     title: "EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R"
     author: 

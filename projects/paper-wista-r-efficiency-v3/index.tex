@@ -678,8 +678,8 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{37 003}
-\renewcommand{\totalwords}{4 499}
+\renewcommand{\totalchars}{37 255}
+\renewcommand{\totalwords}{4 546}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
@@ -752,23 +752,23 @@ Nutzerfreundlichkeit entsprechender Werkzeuge in der
 Praxis abzuleiten.
 
 Anhand der Analysebedarfe der Wissenschaft in den
-\emph{Forschungsdatenzentrum des statistischen Bundesamts (hier kurz
-FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder}
-zeichnen sich die Herausforderungen besonders deutlich ab. Die
-OnSite-Zugangswege des FDZ bietet formal anonymisierte Mikrodaten der
-amtlichen Statistik in großem Umfang für wissenschaftliche Auswertungen
-an. Dies umfasst \emph{Gastwissenschaftsarbeitsplätze} (GWAP), die
-Forschende direkt in den Liegenschaften des FDZ nutzen können, oder
-\emph{kontrollierte Datenfernverarbeitung} (KDFV), bei der entwickelte
-Auswertungsprogramme durch das FDZ ausgeführt werden.
+\emph{Forschungsdatenzentrum des Statistischen Bundesamtes (hier kurz
+FDZ Bund) und dem Forschungsdatenzentrum der Statistischen Ämter der
+Länder} zeichnen sich die Herausforderungen besonders deutlich ab. Die
+OnSite-Zugangswege des FDZ Bund bietet formal anonymisierte Mikrodaten
+der amtlichen Statistik in großem Umfang für wissenschaftliche
+Auswertungen an. Dies umfasst \emph{Gastwissenschaftsarbeitsplätze}
+(GWAP), die Forschende direkt in den Liegenschaften des FDZ Bund nutzen
+können, oder \emph{kontrollierte Datenfernverarbeitung} (KDFV), bei der
+entwickelte Auswertungsprogramme durch das FDZ Bund ausgeführt werden.
 
-Die FDZ-Infrastruktur muss daher in der Lage sein, umfangreiche
+Die Infrastruktur des FDZ Bund muss daher in der Lage sein, umfangreiche
 Forschungsprojekte auf Basis großer Datenmengen effizient durchzuführen.
 Der \textcite{bmf2020dateninfrastruktur} forderte eine Ausweitung des
 Datenbestands für die empirische Steuerforschung sowie eine Erhöhung der
 Aktualität der bereitgestellten Daten. Der
 \textcite{svr2023jahresgutachten} kritisiert zudem die technisch
-veraltete Infrastruktur des FDZ.
+veraltete Infrastruktur des FDZ Bund.
 
 Um die Situation zu verbessern, wurde 2022 das \emph{``Netzwerk
 empirischer Steuerforschung''} (NeSt) gegründet, das die Erweiterung des
@@ -781,22 +781,23 @@ Anforderungen an die Analysesysteme.
 
 Zur Bewältigung der Herausforderungen in der Datenverarbeitung konnten
 im Jahr 2025 bedeutende Fortschritte beim Ausbau der analytischen
-Infrastruktur des Statistischen Bundesamts und des FDZ erreicht werden
-(s. Absatz~\ref{sec-infrastruktur}). Für die Statistikproduktion konnte
-im Januar 2025 ein R- und Python-Server um erhebliche Rechenkapazitäten
-erweitert werden. Vorangetrieben durch das NeSt steht seit November 2025
-im FDZ der \textbf{OnSite-Server} mit ausgeweiteten Rechenkapazitäten
-mit erweiterten Rechenkapazitäten für Analysen in R und Stata exklusiv
-für GWAP- und KDFV-Nutzungen zur Verfügung.
+Infrastruktur des Statistischen Bundesamtes und des FDZ Bund erreicht
+werden (s. Absatz~\ref{sec-infrastruktur}). Für die Statistikproduktion
+konnte im Januar 2025 ein R- und Python-Server um erhebliche
+Rechenkapazitäten erweitert werden. Vorangetrieben durch das NeSt steht
+seit November 2025 im FDZ Bund der \textbf{OnSite-Server} mit
+ausgeweiteten Rechenkapazitäten mit erweiterten Rechenkapazitäten für
+Analysen in R und Stata exklusiv für GWAP- und KDFV-Nutzungen zur
+Verfügung.
 
 Als etablierte Programmiersprache in der Statistik und Datenwissenschaft
 ist R eine natürliche Wahl für die Datenverarbeitung in der
-Statistikproduktion und im FDZ. Da es sich um eine Open-Source-Software
-handelt, erweitert eine große internationale Gemeinschaft die
-Funktionalitäten von R hinsichtlich hoher Performanz und
-Nutzerfreundlichkeit (s. Absatz~\ref{sec-methoden}). Dieser Artikel wird
-potenzielle R-Pakete für den Einsatz im Statistischen Bundesamt und FDZ
-bewerten (s. Absatz~\ref{sec-benchmark}) und anhand des BTP
+Statistikproduktion und im FDZ Bund. Da es sich um eine
+Open-Source-Software handelt, erweitert eine große internationale
+Gemeinschaft die Funktionalitäten von R hinsichtlich hoher Performanz
+und Nutzerfreundlichkeit (s. Absatz~\ref{sec-methoden}). Dieser Artikel
+wird potenzielle R-Pakete für den Einsatz im Statistischen Bundesamt und
+FDZ Bund bewerten (s. Absatz~\ref{sec-benchmark}) und anhand des BTP
 demonstrieren, wie relevante Auswertungen nachvollziehbar innerhalb von
 wenigen Sekunden durchgeführt werden können (s.
 Absatz~\ref{sec-ergebnis}).
@@ -819,16 +820,16 @@ steuerpolitische Entscheidungen nötig sind
 
 Für die vielfältigen Analysewünsche der Forschenden, die damit
 einhergehende Dokumentation des Datensatzes in den Metadatenreports
-\autocite{fdz2024btp} des FDZ und den Auswertungsbedarf des Fachbereichs
-ist der Datensatz möglichst wenig beschränkt worden und dadurch
-ressourcenintensiv. Anstelle einer Stichprobe wurden die
+\autocite{fdz2024btp} des FDZ Bund und den Auswertungsbedarf des
+Fachbereichs ist der Datensatz möglichst wenig beschränkt worden und
+dadurch ressourcenintensiv. Anstelle einer Stichprobe wurden die
 zugrundeliegenden Vollerhebungen verwendet. Die erste Version des BTP
 (2013 - 2019) besteht aus knapp 67 Millionen Beobachtungen. Mit der
 Aktualisierung um das Berichtsjahr 2020 wird sich die Zahl der
 Beobachtungen auf etwa 78 Millionen erhöhen. Auch der Merkmalsumfang von
 zurzeit über 2.700 Merkmalen wird durch Erweiterung von Berichtsjahren
 steigen. Bereits aktuell und insbesondere durch die anstehende
-Aktualisierung steht der Fachbereich sowie das FDZ vor der
+Aktualisierung steht der Fachbereich sowie das FDZ Bund vor der
 Herausforderung den hohe Bedarf an Speicherkapazität, Arbeitsspeicher
 und Prozessorleistung zu decken.
 
@@ -841,10 +842,10 @@ werden meist spezifische Anforderungen angegeben. Dafür sind
 verschiedene Bearbeitungsschritte in Form von Filterungen der
 Beobachtungen (z.B. Angaben nur für Organträger) und Auswahl von
 Merkmalen sowie anschließende Berechnungen nötig. Abschließend wird die
-Tabelle in die vorgegebene Veröffentlichungsform gebracht. Das FDZ hat
-für die Erstellung des Metadatenreports einen ähnlichen Bedarf. Um den
-Bedarf nach deskriptiven Auswertungen abzubilden wird die Tabelle zur
-Häufigkeitsverteilung der Beobachtungen je Jahr und Steuerstatistik
+Tabelle in die vorgegebene Veröffentlichungsform gebracht. Das FDZ Bund
+hat für die Erstellung des Metadatenreports einen ähnlichen Bedarf. Um
+den Bedarf nach deskriptiven Auswertungen abzubilden wird die Tabelle
+zur Häufigkeitsverteilung der Beobachtungen je Jahr und Steuerstatistik
 \autocite{fdz2024btp} verwendet.
 
 Für den zweiten Anwendungsfall wird insb. auch die Datenaufbereitung
@@ -894,7 +895,7 @@ beschleunigen.
 
 Mit der Bereitstellung neuer Analyseserver konnten im Jahr 2025
 entscheidende Fortschritte beim Ausbau der analytischen Infrastruktur
-des Statistischen Bundesamts und des FDZ erzielt werden.
+des Statistischen Bundesamtes und des FDZ Bund erzielt werden.
 
 Die Einführung der neuen Systeme ist als Ergebnis langjähriger Planung
 und Umsetzung ein besonders bedeutender Schritt. Denn sogar Änderungen
@@ -910,7 +911,7 @@ moderne Software auf einer deutlich erweiterten Hardwarebasis.
 \subsection{Ausgangslage}\label{ausgangslage}
 
 Das Hauptwerkzeug in der Statistikproduktion des Statistischen
-Bundesamts ist die kommerzielle Analysesoftware \textbf{SAS 9.4}, die
+Bundesamtes ist die kommerzielle Analysesoftware \textbf{SAS 9.4}, die
 auf dedizierten Servern bereitgestellt wird.\footnote{Da SAS bereits
   langjährig eingesetzt wird, ist für die kommenden Performanzvergleiche
   zu beachten, dass die SAS-Server nicht über die neuste Hardware
@@ -925,27 +926,28 @@ Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten
 gegenüber SAS erheblich verkürzen (siehe Absatz~\ref{sec-methoden} und
 Absatz~\ref{sec-benchmark}).
 
-Im FDZ ist --- neben SAS --- die kommerzielle Software \textbf{Stata}
-das am stärksten nachgefragte Auswertungswerkzeug. \textbf{Stata} wird
-in vielen wissenschaftlichen Fachrichtungen genutzt, da sie ohne
-tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig
-aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen,
-bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine
-Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden
-müssen, und nur ausgewählte Operationen erlauben die parallelisierte
-Datenverarbeitung. Durch die manuelle \emph{Variablenauswahl} lassen
-sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber
-begrenzend. Bisher waren die GWAPs auf die \emph{Single-Core-Version von
-Stata mit begrenztem RAM} beschränkt, wodurch viele FDZ-Produkte ohne
-Datenzuschnitt an den GWAPs nicht bearbeitet werden konnten.
-Leistungsfähigere Server standen vor der Bereitstellung des
-OnSite-Servers lediglich in der KDFV zur Verfügung.
+Im FDZ Bund ist --- neben SAS --- die kommerzielle Software
+\textbf{Stata} das am stärksten nachgefragte Auswertungswerkzeug.
+\textbf{Stata} wird in vielen wissenschaftlichen Fachrichtungen genutzt,
+da sie ohne tiefgreifende Programmierkenntnisse eingesetzt werden kann,
+gleichzeitig aber spezialisierte Verfahren, insbesondere für
+ökonometrische Analysen, bereitstellt. Bei großen Datenmengen stößt
+Stata jedoch an seine Grenzen, da Daten vollständig in den
+Arbeitsspeicher geladen werden müssen, und nur ausgewählte Operationen
+erlauben die parallelisierte Datenverarbeitung. Durch die manuelle
+\emph{Variablenauswahl} lassen sich größere Datensätze bearbeiten, der
+Speicherbedarf bleibt aber begrenzend. Bisher waren die GWAPs auf die
+\emph{Single-Core-Version von Stata mit begrenztem RAM} beschränkt,
+wodurch viele Produkte des FDZ Bund ohne Datenzuschnitt an den GWAPs
+nicht bearbeitet werden konnten. Leistungsfähigere Server standen vor
+der Bereitstellung des OnSite-Servers lediglich in der KDFV zur
+Verfügung.
 
 \subsection{Anforderungen an die
 Analyseinfrastruktur}\label{sec-infra-anf}
 
 Damit eine moderne Infrastruktur die technischen Herausforderungen des
-Statistischen Bundesamts und FDZ adressiert, muss sie ein breites
+Statistischen Bundesamtes und FDZ Bund adressiert, muss sie ein breites
 Spektrum an Datenverarbeitungsmethoden mit hoher Performanz
 nutzerfreundlich bereitstellen.
 
@@ -953,7 +955,7 @@ Die eingesetzte Infrastruktur muss skalierbar sein und die Verarbeitung
 wachsender Datenmengen zuverlässig mit den vorhandenen Rechenkapazitäten
 ermöglichen, sodass die steigenden Datenverarbeitungsbedarfe gedeckt
 werden können. Um eine hohe Reaktionsfähigkeit und eine reibungslose
-GWAP- bzw. KDFV-Nutzung im FDZ sicherzustellen, sollten die Systeme
+GWAP- bzw. KDFV-Nutzung im FDZ Bund sicherzustellen, sollten die Systeme
 kurze Rechenzeiten auf dem aktuellen Stand der Technik ermöglichen --
 und idealerweise Auswertungen großer Datenmengen in Echtzeit (d.h.
 innerhalb weniger Sekunden) ausführen können.
@@ -968,12 +970,12 @@ reduziert, da neben der Rechenzeit auch die Entwicklungszeit betrachtet
 werden muss (\textcite{gomolka2021largedata}).
 
 Auch die Einrichtbarkeit und Wartungsaufwände der Analysesysteme in der
-abgeschotteten Systemarchitektur des Statistischen Bundesamts spielen
+abgeschotteten Systemarchitektur des Statistischen Bundesamtes spielen
 eine entscheidende Rolle für den stabilen Einsatz in der
-Statistikproduktion und Verfügbarkeit für die Wissenschaft im FDZ.
+Statistikproduktion und Verfügbarkeit für die Wissenschaft im FDZ Bund.
 
 \subsection{R-Server des Statistischen
-Bundesamts}\label{r-server-des-statistischen-bundesamts}
+Bundesamtes}\label{r-server-des-statistischen-bundesamtes}
 
 Die \textbf{Statistiksoftware R} ist bekannt als die native
 Programmiersprache in der Statistik und in den Datenwissenschaften.
@@ -989,8 +991,8 @@ ein breites Spektrum an Datenverabeitungsmethoden, von hochperformanten
 Werkzeugen bis hin zu Verbesserungen der Nutzererfahrung. Da R frei
 verfügbar ist, wird es an Universitäten weit verbreitet eingesetzt, und
 zahlreiche Schulungsmaterialien stehen zur Verfügung. Viele
-Mitarbeitende des Statistischen Bundesamts und
-Gastwissenschaftler/-innen am FDZ verfügen daher bereits über
+Mitarbeitende des Statistischen Bundesamtes und
+Gastwissenschaftler/-innen am FDZ Bund verfügen daher bereits über
 R-Kenntnisse oder können sich diese leicht aneignen. Dadurch erfreut
 sich R auch steigender Beliebtheit in der amtlichen Statistik, wie das
 Wachstum der Gemeinschaft ``The Use of R in Official Statistics''
@@ -998,7 +1000,7 @@ belegt.\footnote{https://r-project.ro/conference2025.html}
 
 Bereits seit Jahren steht im Statistischen Bundesamt ein Server für
 \textbf{R} und \textbf{Python} zur Verfügung, der für die
-Datenverarbeitung in der Statistikproduktion sowie im KDFV des FDZ
+Datenverarbeitung in der Statistikproduktion sowie im KDFV des FDZ Bund
 genutzt wurde.
 
 Seit Januar 2025 konnte der R- und Python-Server signifikant erweitert
@@ -1012,7 +1014,7 @@ ganz neue Anwendungsfälle.
 \begin{table*}
 
 \caption{\label{tbl-stba-rserver}Ausbau des R-Server des Statistischen
-Bundesamts (Januar 2025)}
+Bundesamtes (Januar 2025)}
 
 \centering{
 
@@ -1043,19 +1045,20 @@ für Datenverarbeitung, -auswertung und -visualisierung leicht zugänglich
 sind. Dadurch wird das System aktuell von über 200 aktiven Nutzende
 verwendet.
 
-\subsection{OnSite-Server des FDZ}\label{onsite-server-des-fdz}
+\subsection{OnSite-Server des FDZ
+Bund}\label{onsite-server-des-fdz-bund}
 
 Seit November 2025 steht der sogenannte \textbf{OnSite-Server} exklusiv
-im FDZ für alle OnSite-Nutzungen bereit. Er bietet dem FDZ dedizierte
-Stata- und R-Server mit umfangreichen Analysekapazitäten für jede
-Nutzung an den GWAP sowie der KDFV. Alle Analyseserver sind über
+im FDZ Bund für alle OnSite-Nutzungen bereit. Er bietet dem FDZ Bund
+dedizierte Stata- und R-Server mit umfangreichen Analysekapazitäten für
+jede Nutzung an den GWAP sowie der KDFV. Alle Analyseserver sind über
 schnelle Direktverbindungen an einen Netzwerkspeicher angebunden, sodass
 R und Stata nahtlos kombiniert werden können.
 
 \begin{table*}
 
-\caption{\label{tbl-fdz-server}FDZ OnSite-Server Spezifikationen
-(November 2025)}
+\caption{\label{tbl-fdz-server}OnSite-Server des FDZ Bund:
+Spezifikationen (November 2025)}
 
 \centering{
 
@@ -1083,7 +1086,8 @@ R und Stata nahtlos kombiniert werden können.
 Stata/MP ist nun einheitlich auf leistungsstarken Multi-Core-Servern
 verfügbar. Zudem steht erstmals R für OnSite-Nutzungen bereit. Der
 Systemaufbau orientieren sich am zentralen R-Server des Statistischen
-Bundesamts, aber die Systeme können nur exklusiv im FDZ genutzt werden.
+Bundesamtes, aber die Systeme können nur exklusiv im FDZ Bund genutzt
+werden.
 
 Die R-Server unterstützen moderne, speichereffiziente Verfahren, mit
 denen auch Datenmengen oberhalb des Arbeitsspeichers flexibel, stabil
@@ -1229,8 +1233,9 @@ das speziell für effiziente Speicherung und Verarbeitung großer
 Datenmengen entwickelt wurde. Durch seine Struktur ermöglicht Parquet
 den schnellen Zugriff auf einzelne Variablen und reduziert gleichzeitig
 den Speicherbedarf erheblich. \textcite{gomolka2021largedata} zeigten im
-FDZ-Kontext massive Geschwindigkeitsgewinne mit Parquet, sodass im FDSZ
-bereits standardmäßig Parquet-Dateien angeboten werden.
+Kontext der Forschungsdatenzentren massive Geschwindigkeitsgewinne mit
+Parquet, sodass im FDSZ bereits standardmäßig Parquet-Dateien angeboten
+werden.
 
 Für die hochperformante Verarbeitung von Datenmengen oberhalb des RAMs
 betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen
@@ -1276,7 +1281,7 @@ erzeugen.\footnote{Benchmark von Data.table:
 Daher ist die Untersuchung in der eigener Infrastruktur mit relevanten
 Anwendungsfällen (insbesondere Datenmengen) und den verfügbaren
 Software-Versionen gewinnbringend. Die auf den Servern des Statistischen
-Bundesamts und des FDZ verfügbaren R-Paket-Versionen können aus
+Bundesamtes und des FDZ Bund verfügbaren R-Paket-Versionen können aus
 organisatorischen Gründen nicht flexibel angepasst werden, da die
 Installation neuer Pakete ausschließlich auf Antrag über das
 R-Betriebsteam erfolgt (in der Regel innerhalb von ein bis zwei
@@ -1285,8 +1290,8 @@ dargestellten Performanzvergleichs verfügbaren Versionen sind im
 Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl
 nicht das absolute Performanz-Optimum, sondern eine Version mit
 langfristig stabiler und verlässlich guter Performance. Ein
-systematischer Performanzvergleich wird auf dem FDZ-OnSite-Server für
-die Anwendungsfälle aus Absatz~\ref{sec-btp} in
+systematischer Performanzvergleich wird auf dem OnSite-Server des FDZ
+Bund für die Anwendungsfälle aus Absatz~\ref{sec-btp} in
 Absatz~\ref{sec-benchmark} durchgeführt.
 
 \section{Performanzvergleich}\label{sec-benchmark}
@@ -1298,15 +1303,15 @@ RAM nicht aussagekräftig!!!
 Um zwischen den in Absatz~\ref{sec-methoden} vorgestellten
 Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in
 einem systematischen Vergleich auf dem SAS-Server des Statistischen
-Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ gemessen.
-Weiterführende Performanzmessung sowie der vollständig reproduzierbare
-Code sind auf Opencode verfügbar\footnote{www.opencode.de/URL-To-Be-Announced.}.
+Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ Bund
+gemessen. Weiterführende Performanzmessung sowie der vollständig
+reproduzierbare Code sind auf Opencode verfügbar\footnote{www.opencode.de/URL-To-Be-Announced.}.
 
 Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen
 Größen (0,1 \%/1 \%/10 \% der insgesamt 67 Millionen Beobachtungen des
 BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen
 generiert und bilden die wesentlichen Strukturen des BTP für unsere
-Analyse künstlich nach. Abgrenzend zu den im FDZ bereitgestellten
+Analyse künstlich nach. Abgrenzend zu den im FDZ Bund bereitgestellten
 \emph{Datenstrukturfiles} wurden die Testdaten nicht aus echten
 Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für
 technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
@@ -1379,11 +1384,12 @@ Software & Anwendung & Arbeitsspeicher & Laufzeit & Festplattenspeicher\\
 \end{table*}%
 
 Die Ergebnisse in Tabelle~\ref{tbl-baseline} zeigen, dass der
-umfangreiche Arbeitsspeicher des FDZ-OnSite-Servers nicht ausreicht, um
-das BTP vollständig in Stata einzulesen, sodass zwingend mit
-Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand
-der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa
-2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
+umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht
+ausreicht, um das BTP vollständig in Stata einzulesen, sodass zwingend
+mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke
+anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber
+mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber
+Stata.
 
 \subsection{Kleiner Vergleich von R zu SAS und
 Stata}\label{kleiner-vergleich-von-r-zu-sas-und-stata}
@@ -1673,15 +1679,15 @@ fehlende Werte enthält, als anhand der externen Daten angenommen.
 
 Wir kommen zu dem Schluss, dass eine Datenhaltung im Parquet-Format für
 Datenverarbeitungen bzw. -auswertungen in der Statistikproduktion und im
-FDZ gewinnbringend eingesetzt werden kann. Es reduziert den notwendigen
-Festplattenspeicher stark und mehrere R-Pakete (arrow, duckdb und
-polars) sind in der Lage Daten im Parquet-Format sehr schnell zu
-verarbeiten. In unserer Untersuchung bot das R-Paket arrow die beste
+FDZ Bund gewinnbringend eingesetzt werden kann. Es reduziert den
+notwendigen Festplattenspeicher stark und mehrere R-Pakete (arrow,
+duckdb und polars) sind in der Lage Daten im Parquet-Format sehr schnell
+zu verarbeiten. In unserer Untersuchung bot das R-Paket arrow die beste
 Nutzererfahrung, sodass auch die Entwickleraufwände am geringsten waren.
 
 Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine
 Datenverarbeitung in \textbf{R} in der amtlichen Statistik und dem FDZ
-zu erproben und bei positivem Ausgang zu etablieren. Denn unsere
+Bund zu erproben und bei positivem Ausgang zu etablieren. Denn unsere
 Untersuchung demonstriert, dass dadurch relevante analytische
 Fragestellungen anhand großer Datenmengen in Echtzeit ressourcenschonend
 beantwortet werden können.
@@ -1745,7 +1751,8 @@ Statistikproduktion}\label{auswirkungen-auf-die-statistikproduktion}
   \end{itemize}
 \end{itemize}
 
-\subsection{Auswirkungen auf die FDZ}\label{auswirkungen-auf-die-fdz}
+\subsection{Auswirkungen auf das FDZ
+Bund}\label{auswirkungen-auf-das-fdz-bund}
 
 \begin{itemize}
 \tightlist
@@ -1758,7 +1765,7 @@ Statistikproduktion}\label{auswirkungen-auf-die-statistikproduktion}
 \item
   Bereitstellung von Parquet in geeigneter Aufteilung empfohlen
 \item
-  Erprobung im FDZ Bund Vorbild für andere FDZ
+  Erprobung im FDZ Bund Vorbild für andere Forschungsdatenzentren
 \item
   Optimierung von Hardware und Software Angebot
 \end{itemize}
@@ -1780,7 +1787,7 @@ Wissenschaft}\label{auswirkung-auf-die-wissenschaft}
   \tightlist
   \item
     Vollmaterial kann statt Stichproben angeboten werden. Erleichtert
-    die FDZ Betreuung und GWAP/KDFV-Verfügbarkeit
+    die Betreuung im FDZ Bund und GWAP/KDFV-Verfügbarkeit
   \item
     mehr explorative oder komplexe Analysen sind in kürzerer Zeit
     möglich.

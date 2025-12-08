@@ -1,6 +1,42 @@
 ---
+title: "Effiziente Auswertung des Business-Tax-Panels mithilfe von R"
+author:
+  - Oliver Hauke
+  - Annette Kristiansen
+date: today
+abstract: |
+  Das Statistische Bundesamt steht in den letzten Jahren vor der Herausforderung, ein deutlich größeres Datenvolumen zu verarbeiten, während zugleich die Erwartungen der Öffentlichkeit an die Aktualität und Detailliertheit der Statistiken gestiegen sind. Aktuelle technologische Weiterentwicklungen bieten das Potenzial diese Herausforderungen zu bewältigen. Geeignete Werkzeuge können Auswertungen, die bisher mehrere Stunden gedauert haben, in wenigen Sekunden ausführen. Der vorliegende Artikel evaluiert die Performanz und Nutzerfreundlichkeit entsprechender Werkzeuge in der Statistiksoftware R mit dem Ziel Handlungsempfehlungen für die Praxis abzuleiten.
+keywords: 
+  - R
+  - Datenverarbeitung
+  - Performanz
+  - Business-Tax-Panel
+  - Forschungsdatenzentrum
 format: pdf
 ---
+
+::: {.content-visible when-format="docx"}
+
+# Zusammenfassung
+
+Das Statistische Bundesamt steht in den letzten Jahren vor der Herausforderung, ein deutlich größeres Datenvolumen zu verarbeiten, während zugleich die Erwartungen der Öffentlichkeit an die Aktualität und Detailliertheit der Statistiken gestiegen sind. Aktuelle technologische Weiterentwicklungen bieten das Potenzial diese Herausforderungen zu bewältigen. Geeignete Werkzeuge können Auswertungen, die bisher mehrere Stunden gedauert haben, in wenigen Sekunden ausführen. Der vorliegende Artikel evaluiert die Performanz und Nutzerfreundlichkeit entsprechender Werkzeuge in der Statistiksoftware R mit dem Ziel Handlungsempfehlungen für die Praxis abzuleiten.
+
+**Schlüsselwörter:** R, Datenverarbeitung, Performanz, Business-Tax-Panel, Forschungsdatenzentrum
+
+# Abstract
+
+The Federal Statistical Office of Germany faces the challenge of processing significantly larger data volumes while public expectations for timeliness and detail in statistics have increased. Recent technological developments offer the potential to meet these challenges. Suitable tools can execute analyses that previously took hours in just seconds. This article evaluates the performance and user-friendliness of corresponding tools in the statistical software R with the aim of deriving practical recommendations.
+
+**Keywords:** R, data processing, performance, Business-Tax-Panel, research data center
+
+---
+
+**Hinweis:** Alle Tabellen wurden in eine separate Excel-Datei ausgelagert: **Tabellen-Effiziente-Analyse-Forschungsdaten-R.xlsx**
+
+---
+
+:::
+
 
 ```{=latex}
 % Table of Contents will be inserted here by Quarto

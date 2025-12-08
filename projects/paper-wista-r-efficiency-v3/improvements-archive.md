@@ -115,9 +115,9 @@ Dieses Archiv enthält alle Verbesserungsvorschläge, die bereits im Dokument um
 ---
 
 ### [REF-15] ✅ ANGEWENDET - sections/03-infrastruktur.qmd, Zeile 29
-**Vorher:** "Viele Mitarbeitende des Statistischen Bundesamts und Gastwissenschaftler/-innen verfügen daher bereits über R-Kenntnisse oder können sich diese leicht aneignen."
+**Vorher:** "Viele Mitarbeitende des Statistischen Bundesamtes und Gastwissenschaftler/-innen verfügen daher bereits über R-Kenntnisse oder können sich diese leicht aneignen."
 
-**Nachher:** "Viele Mitarbeitende des Statistischen Bundesamts und Gastwissenschaftler/-innen am FDZ verfügen daher bereits über R-Kenntnisse oder können sich diese leicht aneignen."
+**Nachher:** "Viele Mitarbeitende des Statistischen Bundesamtes und Gastwissenschaftler/-innen am FDZ verfügen daher bereits über R-Kenntnisse oder können sich diese leicht aneignen."
 
 **Begründung:** Präzisierung "am FDZ".
 

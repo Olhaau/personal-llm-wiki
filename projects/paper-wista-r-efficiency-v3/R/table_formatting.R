@@ -373,7 +373,9 @@ output_table <- function(tbl_out) {
     cat(tbl_out)
     return(invisible(NULL))
   } else {
-    # DOCX/other - return the flextable or kable object so it renders
-    return(tbl_out)
+    # DOCX/other - skip tables, return placeholder text
+    # Tables are exported to Excel file instead
+    cat("\n**→ Tabelle siehe Excel-Datei:** Tabellen-Effiziente-Analyse-Forschungsdaten-R.xlsx\n\n")
+    return(invisible(NULL))
   }
 }

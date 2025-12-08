@@ -4,9 +4,9 @@
 
 ## Fazit {#sec-ausblick}
 
-Wir kommen zu dem Schluss, dass eine Datenhaltung im Parquet-Format für Datenverarbeitungen bzw. -auswertungen in der Statistikproduktion und im FDZ gewinnbringend eingesetzt werden kann. Es reduziert den notwendigen Festplattenspeicher stark und mehrere R-Pakete (arrow, duckdb und polars) sind in der Lage Daten im Parquet-Format sehr schnell zu verarbeiten. In unserer Untersuchung bot das R-Paket arrow die beste Nutzererfahrung, sodass auch die Entwickleraufwände am geringsten waren.
+Wir kommen zu dem Schluss, dass eine Datenhaltung im Parquet-Format für Datenverarbeitungen bzw. -auswertungen in der Statistikproduktion und im FDZ Bund gewinnbringend eingesetzt werden kann. Es reduziert den notwendigen Festplattenspeicher stark und mehrere R-Pakete (arrow, duckdb und polars) sind in der Lage Daten im Parquet-Format sehr schnell zu verarbeiten. In unserer Untersuchung bot das R-Paket arrow die beste Nutzererfahrung, sodass auch die Entwickleraufwände am geringsten waren.
 
-Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine Datenverarbeitung in **R** in der amtlichen Statistik und dem FDZ zu erproben und bei positivem Ausgang zu etablieren. Denn unsere Untersuchung demonstriert, dass dadurch relevante analytische Fragestellungen anhand großer Datenmengen in Echtzeit ressourcenschonend beantwortet werden können.
+Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine Datenverarbeitung in **R** in der amtlichen Statistik und dem FDZ Bund zu erproben und bei positivem Ausgang zu etablieren. Denn unsere Untersuchung demonstriert, dass dadurch relevante analytische Fragestellungen anhand großer Datenmengen in Echtzeit ressourcenschonend beantwortet werden können.
 
 ### Auswirkung auf IT-Infrastruktur und -Beratung
 
@@ -29,18 +29,18 @@ Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine Datenverarbeit
     -   DRG
     -   TPP 2
 
-### Auswirkungen auf die FDZ
+### Auswirkungen auf das FDZ Bund
 
 -   Berücksichtigung in Mustersyntaxen und Nutzendenberatung im FDZ Bund. Teilen von Code-Snippets und Templates fördern.
 -   mögliche Vereinfachung der Betreuung (Fokus auf R, Reduktion von Performanz- und Programmierproblemen)
 -   Bereitstellung von Parquet in geeigneter Aufteilung empfohlen
--   Erprobung im FDZ Bund Vorbild für andere FDZ
+-   Erprobung im FDZ Bund Vorbild für andere Forschungsdatenzentren
 -   Optimierung von Hardware und Software Angebot
 
 ### Auswirkung auf die Wissenschaft
 
 -   Verwendung von R bietet am FDZ Bund einen deutlichen **Wettbewerbsvorteil in der emp. Forschung**. Lediglich R ist (am GWAP und via KDFV) am FDZ Bund in der Lage große Datenmengen innerhalb von Sekunden zu analysieren und Datenmengen überhalb des verfügbaren Arbeitspeicher, wie das BTP, ohne vorherige Variablenselektion auszuwerten.
-    -   Vollmaterial kann statt Stichproben angeboten werden. Erleichtert die FDZ Betreuung und GWAP/KDFV-Verfügbarkeit
+    -   Vollmaterial kann statt Stichproben angeboten werden. Erleichtert die Betreuung im FDZ Bund und GWAP/KDFV-Verfügbarkeit
     -   mehr explorative oder komplexe Analysen sind in kürzerer Zeit möglich.
 -   Dazu ist R als frei verfügbare Open-Source Software leicht zu lernen und {arrow} bietet hoch-performante Analysen selbst für R-Basiskenntnisse. Empfehlung an die emp. Wissenschaft, sich verstärkt mit R zu befassen.
 -   Für analoge über-RAM-Verarbeitungen bietet Stata aktuell keine Lösung. SAS bietet bei weitem nicht hier gemessene Performanz von R. R hervorragende Möglichkeiten bietet Performanz und Anwenderfreundlichkeit zu übertreffen.
