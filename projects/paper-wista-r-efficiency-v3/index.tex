@@ -678,8 +678,8 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{36 929}
-\renewcommand{\totalwords}{4 488}
+\renewcommand{\totalchars}{37 035}
+\renewcommand{\totalwords}{4 506}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
@@ -779,26 +779,27 @@ fast 3 000 Merkmalen und 67 Millionen Beobachtungen ein erhebliches
 Analysepotenzial, stellt gleichzeitig jedoch hohe technische
 Anforderungen an die Analysesysteme.
 
-Zur Bewältigung der technischen Limitationen in der Datenverarbeitung
-konnten im Jahr 2025 bedeutende Fortschritte beim Ausbau der
-analytischen Infrastruktur des Statistischen Bundesamts und des FDZ
-erreicht werden (s. Absatz~\ref{sec-infrastruktur}). Für die
-Statistikproduktion konnte im Januar 2025 ein R- und Python-Server um
-erhebliche Rechenkapazitäten erweitert werden. Vorangetrieben durch das
-NeSt steht seit November 2025 im FDZ ein \textbf{OnSite-Server} mit
-ausgeweiteten Rechenkapazitäten für Analysen in R und Stata exklusiv für
-GWAP- und KDFV-Nutzungen zur Verfügung.
+Zur Bewältigung der Herausforderungen in der Datenverarbeitung konnten
+im Jahr 2025 bedeutende Fortschritte beim Ausbau der analytischen
+Infrastruktur des Statistischen Bundesamts und des FDZ erreicht werden
+(s. Absatz~\ref{sec-infrastruktur}). Für die Statistikproduktion konnte
+im Januar 2025 ein R- und Python-Server um erhebliche Rechenkapazitäten
+erweitert werden. Vorangetrieben durch das NeSt steht seit November 2025
+im FDZ der \textbf{OnSite-Server} mit ausgeweiteten Rechenkapazitäten
+mit erweiterten Rechenkapazitäten für Analysen in R und Stata exklusiv
+für GWAP- und KDFV-Nutzungen zur Verfügung.
 
 Als etablierte Programmiersprache in der Statistik und Datenwissenschaft
 ist R eine natürliche Wahl für die Datenverarbeitung in der
 Statistikproduktion und im FDZ. Da es sich um eine Open-Source-Software
-handelt, erweitert eine große internationale Gemeinschaft Funktionalität
-von R für hohe Performanz oder Nutzerfreundlichkeit (s.
-Absatz~\ref{sec-methoden}). Dieser Artikel wird potenzielle R-Pakete für
-den Einsatz im Statistischen Bundesamt und FDZ bewerten (s.
-Absatz~\ref{sec-benchmark}) und anhand des BTP demonstrieren, wie
-relevante Auswertungen nachvollziehbar innerhalb von wenigen Sekunden
-durchgeführt werden können (s. Absatz~\ref{sec-ergebnis}).
+handelt, erweitert eine große internationale Gemeinschaft daran, R in
+Form von sog. R-Paketen um diverse Funktionalität hoher-performanz oder
+Nutzerfreundlichkeit zu erweitern (s. Absatz~\ref{sec-methoden}). Dieser
+Artikel wird potenzielle R-Pakete für den Einsatz im Statistischen
+Bundesamt und FDZ bewerten (s. Absatz~\ref{sec-benchmark}) und anhand
+des BTP demonstrieren, wie relevante Auswertungen nachvollziehbar
+innerhalb von wenigen Sekunden durchgeführt werden können (s.
+Absatz~\ref{sec-ergebnis}).
 
 \section{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
 
@@ -824,7 +825,7 @@ dadurch ressourcenintensive. Anstelle einer Stichprobe wurden die
 zugrundeliegenden Vollerhebungen verwendet. Die erste Version des BTP
 (2013 - 2019) besteht aus knapp 67 Millionen Beobachtungen. Mit der
 Aktualisierung um das Berichtsjahr 2020 wird sich die Zahl der
-Beobachtungen auf uca. 78 Millionen erhöhen. Auch der Merkmalsumfang von
+Beobachtungen auf ca. 78 Millionen erhöhen. Auch der Merkmalsumfang von
 zurzeit über 2.700 Merkmalen wird durch Erweiterung von Berichtsjahren
 steigen. Bereits aktuell und insbesondere durch die anstehende
 Aktualisierung steht der Fachbereich sowie das FDZ vor der
@@ -835,7 +836,7 @@ und Prozessorleistung zu decken.
 
 Neben den standardisierten Veröffentlichungsprodukten (wie z.B.
 Genesis-Tabellen, Statistische Berichte) werden Sonderauswertungen
-erstellt. Sowohl bei den Standard- also auch Sonderauswertungen werden
+erstellt. Sowohl bei den Standard- als auch Sonderauswertungen werden
 meist spezifische Anforderungen angegeben. Dafür sind verschiedene
 Bearbeitungsschritte in Form von Filterungen der Beobachtungen (z.B.
 Angaben nur für Organträger) und Auswahl von Merkmalen sowie
@@ -854,7 +855,7 @@ Einflussfaktoren erklärt. Die Körperschaftsteuerstatistik zeigt über die
 Jahre eine Zunahme der Steuerpflichtigen mit Verlustvortrag im
 jeweiligen Berichtsjahr (GENESIS Code 73211-0002). Anzunehmen ist, dass
 Personalkosten den Verlustvortrag erhöhen können, daher wird die Zahl
-der Sozialversicherungspflichtig Beschäftigen sowie die Summe der Löhne
+der Sozialversicherungspflichtig Beschäftigten sowie die Summe der Löhne
 und Gehälter als erklärende Variable verwendet. Der jeweilige
 Gesamtbetrag der Einkünfte und die abgezogenen Spenden können ebenfalls
 den Verlustvortrag beeinflussen. Um den Internationalisierungsgrad des
@@ -909,14 +910,14 @@ moderne Software auf einer deutlich erweiterten Hardwarebasis.
 \subsection{Ausgangslage}\label{ausgangslage}
 
 Das Hauptwerkzeug in der Statistikproduktion des Statistischen
-Bundesamts ist die kommerzielle Analysesoftware \textbf{SAS 9.4}, das
-auf dedizierte Server bereitgestellt wird.\footnote{Da SAS bereits
+Bundesamts ist die kommerzielle Analysesoftware \textbf{SAS 9.4}, die
+auf dedizierten Servern bereitgestellt wird.\footnote{Da SAS bereits
   langjährig eingesetzt wird, ist für die kommenden Performanzvergleiche
   zu beachten, dass die SAS-Server nicht über die neuste Hardware
-  verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert.} SAS
+  verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert.} SAS 9.4
 verarbeitet Daten überwiegend zeilenorientiert und belastet den
 Arbeitsspeicher daher nur gering --- ein entscheidender Vorteil in der
-amtlichen Statistik, da auch große Datenmengen auf mit geringeren
+amtlichen Statistik, da auch große Datenmengen mit geringeren
 Hardwareanforderungen verarbeitet werden können. Für viele
 Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung
 effizienter. In R sind neuere Verfahren verfügbar, die moderne
@@ -931,8 +932,8 @@ tiefgreifende Programmierkenntnisse eingesetzt werden kann, gleichzeitig
 aber spezialisierte Verfahren, insbesondere für ökonometrische Analysen,
 bereitstellt. Bei großen Datenmengen stößt Stata jedoch an seine
 Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden
-müssen, und nur ausgewählte Datenverabeitungsschritte können von Stata
-parallelisiert werden. Durch die manuelle \emph{Variablenauswahl} lassen
+müssen, und nur ausgewählte Operationen erlauben die parallelisierte
+Datenverarbeitung. Durch die manuelle \emph{Variablenauswahl} lassen
 sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber
 begrenzend. Bisher waren die GWAP auf die \emph{Single-Core-Version von
 Stata mit begrenztem RAM} beschränkt, wodurch viele FDZ-Produkte ohne
@@ -974,9 +975,9 @@ Statistikproduktion und Verfügbarkeit für die Wissenschaft im FDZ.
 \subsection{R-Server des Statistischen
 Bundesamts}\label{r-server-des-statistischen-bundesamts}
 
-Die \textbf{Statistiksoftware R} ist bekannt als native
-Programmiersprache in der Statistik und in Datenwissenschaften. Dadurch
-weist R eine hohe Anwenderorientierung und fokussiert sich auf
+Die \textbf{Statistiksoftware R} ist bekannt als die native
+Programmiersprache in der Statistik und in den Datenwissenschaften.
+Dadurch weist R eine hohe anwenderorientierung und fokussiert sich auf
 Datenverarbeitung, -auswertung und -visualisierung.
 
 Als Open-Source-Software erfreut sich R einer großen internationalen
@@ -1093,10 +1094,10 @@ Absatz~\ref{sec-methoden}.
 
 Wir betrachten in diesem Artikel die Performanz von
 \textbf{Datenverarbeitungswerkzeugen}, d.h. Softwarelösungen, die Daten
-einlesen, modifzierern, aggregieren, auswerten oder
+einlesen, modifizieren, aggregieren, auswerten oder
 analysieren.\footnote{Das Schreiben von Daten wird nicht vertieft
   behandelt, da die betrachteten Ergebnistabellen in der Regel klein
-  sind. Die genannten Lösungen sind jdennoch beim Schreiben effizient.
+  sind. Die genannten Lösungen sind dennoch beim Schreiben effizient.
   Aufgrund externer Abhängigkeiten werden Datenbanksysteme und Spark
   nicht berücksichtigt. Der Fokus liegt auf Standard-R-Nutzende, die mit
   den üblichen R-Werkzeugen vertraut sind.}
@@ -1194,14 +1195,15 @@ Lazy-Computation gewinnbringend sein:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Variablenselektion}: Beim Einlesen von DatenAuswahl der
-  benötigten Variablen in der Einlesefunktion ist wesentliche
-  Best-Practices (besonders für klassiche Methoden, da dies das Risiko
-  für RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen
+  \textbf{Variablenselektion}: Beim Einlesen von Daten ist die Auswahl
+  der benötigten Variablen in der Einlesefunktion eine wesentliche Best
+  Practice (besonders für klassische Methoden, da dies das Risiko für
+  RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen
   zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren
   Zeitpunkt) verursacht unnötige Wartezeiten, Ressourcenbelegung und
-  kann zu Abbrüchen führen. Auch Stata profitiert Beschleuniging von
-  39.9\% in R und 33.9\% in \textcite{gomolka2021largedata}.
+  kann zu Abbrüchen führen. Auch Stata profitiert von einer
+  Beschleunigung um 39,9 \% in R und 33,9 \% laut
+  \textcite{gomolka2021largedata}.
 \item
   \textbf{Datenaufteilung}: Wenn der Arbeitsspeicher nicht ausreicht, um
   die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere
@@ -1261,7 +1263,7 @@ verfügbar sind:
   dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter
   ist. Polars nutzt moderne Optimierungstechniken und ist für sehr große
   Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe
-  Geschwind igkeit bei gleichzeitig sparsamer Nutzung der
+  Geschwindigkeit bei gleichzeitig sparsamer Nutzung der
   Systemressourcen.
 \end{itemize}
 
@@ -1283,8 +1285,8 @@ dargestellten Performanzvergleichs verfügbaren Versionen sind im
 Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl
 nicht das absolute Performanz-Optimum, sondern eine Version mit
 langfristig stabiler und verlässlich guter Performance. Ein
-systematisher Performanzvergleich wird im FDZ-OnSite-Server für die
-Anwendungsfälle aus Absatz~\ref{sec-btp} im folgenden
+systematischer Performanzvergleich wird auf dem FDZ-OnSite-Server für
+die Anwendungsfälle aus Absatz~\ref{sec-btp} im folgenden
 Absatz~\ref{sec-benchmark} durchgeführt.
 
 \section{Performanzvergleich}\label{sec-benchmark}
@@ -1345,7 +1347,7 @@ unerfahrene Nutzende -- ausschlaggebend.
 Stata}\label{vergleichswert-in-sas-und-stata}
 
 Um die nachfolgenden Ergebnisse einzuordnen, haben wir die
-Performanzmessungen auch in für 1\% des simulierten BTP-Daten (etwa.
+Performanzmessungen auch für 1 \% der simulierten BTP-Daten (etwa
 800.000 Beobachtungen) in SAS und Stata durchgeführt.
 
 \begin{table*}
@@ -1409,7 +1411,7 @@ Unter den klassischen R-Methoden bietet \{data.table\} die beste
 Performanz. Dabei ist wesentlich zu beachten, dass die Einlesefunktion
 \texttt{fread} direkt die relevanten Variablen auswählt. Dadurch lassen
 sich unsere Auswertungen um einen Faktor 3 beschleunigen und vor allem
-der Arbeitsspeicher um ein tausensfaches reduzieren.
+der Arbeitsspeicher um ein Tausendfaches reduzieren.
 
 Alle hoch-performanten Methoden sind dermaßen effizient, dass die
 Datenmenge von 800.000 Beobachtungen nicht mehr ausreicht, um zwischen
@@ -1512,7 +1514,7 @@ wiederspiegelt.
 
 Klassische Methoden kommen bei der betrachteten Datenmenge bereits an
 ihre Grenzen. Falls in \{data.table\} unbedacht der vollständige
-Datensatz eingelesen wird, werden in unserem Anwemdungsfall die
+Datensatz eingelesen wird, werden in unserem Anwendungsfall die
 verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn
 klassische Methoden auf Datenmengen von ca. 25-33\% des verfügbaren
 Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der
@@ -1801,8 +1803,8 @@ Wissenschaft}\label{auswirkung-auf-die-wissenschaft}
 
 \subsection{Schlussbemerkung}\label{schlussbemerkung}
 
-Die Analyse großer Datensätze in der amtlichen Statstik und den
-Forschungsdatenzen können von einem signifikanten Performanz-Boost
+Die Analyse großer Datensätze in der amtlichen Statistik und den
+Forschungsdatenzentren kann von einem signifikanten Performanz-Boost
 profitieren, wenn die vorgestellten Werkzeuge adaptiert werden.
 \textbf{Arrow, DuckDB, Polars und Parquet} -- bieten das Potenzial, die
 Effizienz erheblich zu steigern und neue Analysemöglichkeiten zu

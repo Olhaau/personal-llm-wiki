@@ -6,7 +6,7 @@ Die Einführung der neuen Systeme ist als Ergebnis langjähriger Planung und Ums
 
 ### Ausgangslage
 
-Das Hauptwerkzeug in der Statistikproduktion des Statistischen Bundesamts ist die kommerzielle Analysesoftware **SAS 9.4**, das auf dedizierte Server bereitgestellt wird.[^sas-version] SAS 9.4 verarbeitet Daten überwiegend zeilenorientiert und belastet den Arbeitsspeicher daher nur gering –- ein entscheidender Vorteil in der amtlichen Statistik, da auch große Datenmengen auf mit geringeren Hardwareanforderungen verarbeitet werden können. Für viele Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung effizienter. In R sind neuere Verfahren verfügbar, die moderne Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten gegenüber SAS erheblich verkürzen (siehe @sec-methoden und @sec-benchmark).
+Das Hauptwerkzeug in der Statistikproduktion des Statistischen Bundesamts ist die kommerzielle Analysesoftware **SAS 9.4**, die auf dedizierten Servern bereitgestellt wird.[^sas-version] SAS 9.4 verarbeitet Daten überwiegend zeilenorientiert und belastet den Arbeitsspeicher daher nur gering –- ein entscheidender Vorteil in der amtlichen Statistik, da auch große Datenmengen mit geringeren Hardwareanforderungen verarbeitet werden können. Für viele Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung effizienter. In R sind neuere Verfahren verfügbar, die moderne Prozessor- und Arbeitsspeicher gezielt ausnutzen, können die Laufzeiten gegenüber SAS erheblich verkürzen (siehe @sec-methoden und @sec-benchmark).
 
 [^sas-version]: Da SAS bereits langjährig eingesetzt wird, ist für die kommenden Performanzvergleiche zu beachten, dass die SAS-Server nicht über die neuste Hardware verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert.
 
@@ -24,7 +24,7 @@ Auch die Einrichtbarkeit und Wartungsaufwände der Analysesysteme in der abgesch
 
 ### R-Server des Statistischen Bundesamts
 
-Die **Statistiksoftware R** ist bekannt als native Programmiersprache in der Statistik und in Datenwissenschaften. Dadurch weist R eine hohe anwenderorientierung und fokussiert sich auf Datenverarbeitung, -auswertung und -visualisierung. 
+Die **Statistiksoftware R** ist bekannt als die native Programmiersprache in der Statistik und in den Datenwissenschaften. Dadurch weist R eine hohe anwenderorientierung und fokussiert sich auf Datenverarbeitung, -auswertung und -visualisierung. 
 
 Als Open-Source-Software erfreut sich R einer großen internationalen Gemeinschaft, die die Grundfunktionen von R durch mehr als 20 000 **R-Pakete** erweitert.[^cran] Passend zu den Anforderungen aus @sec-infra-anf ist darunter ein breites Spektrum an Datenverabeitungsmethoden, von hochperformanten Werkzeugen bis hin zu Verbesserungen der Nutzererfahrung. Da R frei verfügbar ist, wird es an Universitäten weit verbreitet eingesetzt, und es stehen zahlreiche Schulungsmaterialien zur Verfügung. Viele Mitarbeitende des Statistischen Bundesamts und Gastwissenschaftler/-innen am FDZ verfügen daher bereits über R-Kenntnisse oder können sich diese leicht aneignen. Dadurch erfreut sich R auch an steigender Beliebtheit in der amtlichen Statistik, wie der Wachstum der Gemeinschaft "The Use of R in Official Statistics" belegt.[^uros] 
 

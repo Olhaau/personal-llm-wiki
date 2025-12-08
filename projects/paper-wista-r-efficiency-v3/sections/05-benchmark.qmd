@@ -31,7 +31,7 @@ Daneben ist beanspruchte **Arbeitsspeicher** der Auswertung entscheidend, da ein
 
 ### Vergleichswert in SAS und Stata
 
-Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen auch in für 1% des simulierten BTP-Daten (etwa. 800.000 Beobachtungen) in SAS und Stata durchgeführt.
+Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen auch für 1 % der simulierten BTP-Daten (etwa 800.000 Beobachtungen) in SAS und Stata durchgeführt.
 
 ```{r}
 #| echo: false
@@ -85,7 +85,7 @@ Für 1% der simulierten BTP Daten, reduzieren die R-Datenverarbeitungsmethode al
 
 <!--[^3]: {arrow} benötigt mit 274 MB deutlich mehr Arbeitsspeicher als {polars} und {duckdb}, aber kommt dennoch mit minimalen Entwicklungsumgebungen aus, bspw. einem standardmäßigen Laptop.-->
 
-Unter den klassischen R-Methoden bietet {data.table} die beste Performanz. Dabei ist wesentlich zu beachten, dass die Einlesefunktion `fread` direkt die relevanten Variablen auswählt. Dadurch lassen sich unsere Auswertungen um einen Faktor 3 beschleunigen und vor allem der Arbeitsspeicher um ein tausensfaches reduzieren.
+Unter den klassischen R-Methoden bietet {data.table} die beste Performanz. Dabei ist wesentlich zu beachten, dass die Einlesefunktion `fread` direkt die relevanten Variablen auswählt. Dadurch lassen sich unsere Auswertungen um einen Faktor 3 beschleunigen und vor allem der Arbeitsspeicher um ein Tausendfaches reduzieren.
 
 Alle hoch-performanten Methoden sind dermaßen effizient, dass die Datenmenge von 800.000 Beobachtungen nicht mehr ausreicht, um zwischen den besten Methoden zu differenzieren. Daher erhöhen wir im nächsten Experiment die Datenmenge auf 8.000.000 Beobachtungen (10% BTP).
 
@@ -240,7 +240,7 @@ Unerwarteterweise ist die Laufzeit von {polars} für diese Datenmenge mit 1,2 Mi
 
 [^4]: Das R-Package {polars} Version 1.0.1 war nur der erste Minor Release nach einer kompletten Überarbeitung. Inzwischen sind 5 neuere Major Releases mit diversen Performanz-Verbesserungen verfügbar.
 
-Klassische Methoden kommen bei der betrachteten Datenmenge bereits an ihre Grenzen. Falls in {data.table} unbedacht der vollständige Datensatz eingelesen wird, werden in unserem Anwemdungsfall die verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn klassische Methoden auf Datenmengen von ca. 25-33% des verfügbaren Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
+Klassische Methoden kommen bei der betrachteten Datenmenge bereits an ihre Grenzen. Falls in {data.table} unbedacht der vollständige Datensatz eingelesen wird, werden in unserem Anwendungsfall die verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn klassische Methoden auf Datenmengen von ca. 25-33% des verfügbaren Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
 
 Somit kommen wir insgesamt zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} für die Bewältigung unserer Aufgaben die beste Datenverarbeitungsmethode ist, da die Methodik hervorragende Performanz und zugleich hohe Nutzerfreundlichkeit bietet. Im Detail haben uns der folgenden Mehrwerte überzeugt:
 

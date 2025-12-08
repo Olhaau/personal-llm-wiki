@@ -48,7 +48,7 @@ Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine Datenverarbeit
 
 ### Schlussbemerkung
 
-Die Analyse großer Datensätze in der amtlichen Statstik und den Forschungsdatenzen können von einem signifikanten Performanz-Boost profitieren, wenn die vorgestellten Werkzeuge adaptiert werden. **Arrow, DuckDB, Polars und Parquet** – bieten das Potenzial, die Effizienz erheblich zu steigern und neue Analysemöglichkeiten zu eröffnen.
+Die Analyse großer Datensätze in der amtlichen Statistik und den Forschungsdatenzentren kann von einem signifikanten Performanz-Boost profitieren, wenn die vorgestellten Werkzeuge adaptiert werden. **Arrow, DuckDB, Polars und Parquet** – bieten das Potenzial, die Effizienz erheblich zu steigern und neue Analysemöglichkeiten zu eröffnen.
 
 Der Übergang erfordert jedoch eine **koordinierte Anstrengung** von Infrastrukturbetreibern, amtlicher Statistik, Forschungsdatenzentren und Forschenden. Die systematische Wissensaufbau, Dokumentation und Verbreitung von Best Practices wird entscheidend für den Erfolg sein.
 
