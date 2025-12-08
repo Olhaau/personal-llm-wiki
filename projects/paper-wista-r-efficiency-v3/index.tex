@@ -678,8 +678,8 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{37 027}
-\renewcommand{\totalwords}{4 505}
+\renewcommand{\totalchars}{37 003}
+\renewcommand{\totalwords}{4 499}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
@@ -1232,7 +1232,7 @@ den Speicherbedarf erheblich. \textcite{gomolka2021largedata} zeigten im
 FDZ-Kontext massive Geschwindigkeitsgewinne mit Parquet, sodass im FDSZ
 bereits standardmäßig Parquet-Dateien angeboten werden.
 
-Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs
+Für die hochperformante Verarbeitung von Datenmengen oberhalb des RAMs
 betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen
 verfügbar sind:
 
@@ -1286,7 +1286,7 @@ Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl
 nicht das absolute Performanz-Optimum, sondern eine Version mit
 langfristig stabiler und verlässlich guter Performance. Ein
 systematischer Performanzvergleich wird auf dem FDZ-OnSite-Server für
-die Anwendungsfälle aus Absatz~\ref{sec-btp} im folgenden
+die Anwendungsfälle aus Absatz~\ref{sec-btp} in
 Absatz~\ref{sec-benchmark} durchgeführt.
 
 \section{Performanzvergleich}\label{sec-benchmark}
@@ -1295,16 +1295,16 @@ RAM nicht aussagekräftig!!!
 
 \subsection{Versuchsaufbau}\label{versuchsaufbau}
 
-Um zwischen den in Abschnitt Absatz~\ref{sec-methoden} vorgestellten
+Um zwischen den in Absatz~\ref{sec-methoden} vorgestellten
 Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in
-einem systematischen Vergleich der Performance auf dem SAS-Server des
-Statistischen Bundesamtes und den neuen OnSite R- und Stata-Servern des
-FDZ gemessen. Weiterführende Performanzmessung sowie der vollständig
-reproduzierbare Code sind auf Opencode verfügbar\footnote{www.opencode.de/URL-To-Be-Announced.}.
+einem systematischen Vergleich auf dem SAS-Server des Statistischen
+Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ gemessen.
+Weiterführende Performanzmessung sowie der vollständig reproduzierbare
+Code sind auf Opencode verfügbar\footnote{www.opencode.de/URL-To-Be-Announced.}.
 
 Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen
-Größen (0,1\%/1\%/10\% der insgesamt 67 Millionen Beobachtungen des BTP)
-betrachtet. Sie wurden aus öffentlich verfügbaren Informationen
+Größen (0,1 \%/1 \%/10 \% der insgesamt 67 Millionen Beobachtungen des
+BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen
 generiert und bilden die wesentlichen Strukturen des BTP für unsere
 Analyse künstlich nach. Abgrenzend zu den im FDZ bereitgestellten
 \emph{Datenstrukturfiles} wurden die Testdaten nicht aus echten
@@ -1325,12 +1325,12 @@ Datenverarbeitungsmethode dreifach angewandt. Der Vergleich erfolgt
 anhand der mittleren Messung der \textbf{Laufzeit} der Auswertung (real
 verstrichene Zeit).
 
-Daneben ist beanspruchte \textbf{Arbeitsspeicher} der Auswertung
+Daneben ist der beanspruchte \textbf{Arbeitsspeicher} der Auswertung
 entscheidend, da ein übermäßiger Arbeitsspeicherverbrauch zu Abbrüchen
 führen kann. Dennoch verzichten wir auf den Bericht systematischer
-RAM-Messungen, da der RAM verbrauch nicht realistisch von R gemessen
-werden kann. due high perf Package lagern RAM auf Rust und C++ aus, was
-in R nicht realistisch gemessen werden kann.
+RAM-Messungen, da der RAM-Verbrauch nicht realistisch von R gemessen
+werden kann. Hochperformante Pakete lagern RAM-Operationen auf Rust und
+C++ aus, was in R nicht realistisch gemessen werden kann.
 
 \textbf{Festplattenspeicher} ist ausreichend vorhanden, aber unnötige
 Belegung sollte vermieden werden. Feine Abstufungen der Zielgrößen sind
@@ -1379,7 +1379,7 @@ Software & Anwendung & Arbeitsspeicher & Laufzeit & Festplattenspeicher\\
 \end{table*}%
 
 Die Ergebnisse in Tabelle~\ref{tbl-baseline} zeigen, dass der
-umfangreiche Arbeitsspeicher des FDZ OnSite-Servers nicht ausreicht, um
+umfangreiche Arbeitsspeicher des FDZ-OnSite-Servers nicht ausreicht, um
 das BTP vollständig in Stata einzulesen, sodass zwingend mit
 Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand
 der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa
@@ -1390,8 +1390,8 @@ Stata}\label{kleiner-vergleich-von-r-zu-sas-und-stata}
 
 RAM Messung: http://adv-r.had.co.nz/memory.html
 
-Für 1\% der simulierten BTP Daten, reduzieren die
-R-Datenverarbeitungsmethode alle Zielgrößen gegenüber SAS und Stata
+Für 1 \% der simulierten BTP-Daten reduzieren die
+R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata
 erheblich (siehe Tabelle~\ref{tbl-benchmark-small} und
 Tabelle~\ref{tbl-benchmark-regr-small}). Selbst klassische R-Methoden
 sind um den Faktor 7 schneller und benötigen nur 33 \% des
@@ -1407,13 +1407,13 @@ betrachteten Auswertungen sogar
   gegenüber SAS und Stata).
 \end{itemize}
 
-Unter den klassischen R-Methoden bietet \{data.table\} die beste
-Performanz. Dabei ist wesentlich zu beachten, dass die Einlesefunktion
+Unter den klassischen R-Methoden bietet data.table die beste Performanz.
+Dabei ist wesentlich zu beachten, dass die Einlesefunktion
 \texttt{fread} direkt die relevanten Variablen auswählt. Dadurch lassen
 sich unsere Auswertungen um einen Faktor 3 beschleunigen und vor allem
 der Arbeitsspeicher um ein Tausendfaches reduzieren.
 
-Alle hoch-performanten Methoden sind dermaßen effizient, dass die
+Alle hochperformanten Methoden sind dermaßen effizient, dass die
 Datenmenge von 800.000 Beobachtungen nicht mehr ausreicht, um zwischen
 den besten Methoden zu differenzieren. Daher erhöhen wir im nächsten
 Experiment die Datenmenge auf 8.000.000 Beobachtungen (10\% BTP).
@@ -1479,7 +1479,7 @@ R}\label{gruxf6uxdfere-datenmengen-in-r}
 
 {[}tba: PLOT Laufzeit in Datenmenge der Tools{]}
 
-Auch für 10 \% der simulierten BTP-Daten, kann R die beiden betrachteten
+Auch für 10 \% der simulierten BTP-Daten kann R die beiden betrachteten
 Auswertungen in Echtzeit mit minimalem Arbeitsspeicher beantworten
 (siehe Tabelle~\ref{tbl-benchmark} und
 Tabelle~\ref{tbl-benchmark-regr}). Die Auswertungsmethoden mit der
@@ -1498,10 +1498,10 @@ höchsten Performanz nutzen alle das \{parquet\} und erreichen:
 
 {[}tba: Plot der Performanz unterschiede{]}
 
-Unerwarteterweise ist die Laufzeit von \{polars\} für diese Datenmenge
-mit 1,2 Minuten weit abgeschlagen, obwohl das gleiche Auswertungsskript
-für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da
-\{polars\} das jüngste der betrachteten R-Packages ist, vermuten wir
+Unerwarteterweise ist die Laufzeit von polars für diese Datenmenge mit
+1,2 Minuten weit abgeschlagen, obwohl dasselbe Auswertungsskript für
+kleinere Datenmengen immer die geringste Laufzeit aufwies. Da \{polars\}
+das jüngste der betrachteten R-Packages ist, vermuten wir
 Performanzprobleme in der vorliegenden Version 1.0.1\footnote{Das
   R-Package \{polars\} Version 1.0.1 war nur der erste Minor Release
   nach einer kompletten Überarbeitung. Inzwischen sind 5 neuere Major
@@ -1513,13 +1513,13 @@ Python (oder Rust), was sich in den Antworten der KI-Chatassistenten
 wiederspiegelt.
 
 Klassische Methoden kommen bei der betrachteten Datenmenge bereits an
-ihre Grenzen. Falls in \{data.table\} unbedacht der vollständige
-Datensatz eingelesen wird, werden in unserem Anwendungsfall die
-verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn
-klassische Methoden auf Datenmengen von ca. 25-33\% des verfügbaren
-Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der
-Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu
-selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
+ihre Grenzen. Falls in data.table unbedacht der vollständige Datensatz
+eingelesen wird, werden in unserem Anwendungsfall die verfügbaren 512 GB
+Arbeitsspeicher vollständig beansprucht. Schon wenn klassische Methoden
+auf Datenmengen von ca. 25-33\% des verfügbaren Arbeitsspeichers
+angewandt werden, ist somit deutlich mehr Erfahrung der Nutzenden
+notwendig, um die relevanten Variablen manuell geschickt zu selektieren
+unter Beobachtung des Arbeitsspeicherverbrauchs.
 
 Somit kommen wir insgesamt zu dem Ergebnis, dass \{arrow\} kombiniert
 mit \{parquet\} für die Bewältigung unserer Aufgaben die beste

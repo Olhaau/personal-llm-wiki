@@ -762,6 +762,72 @@ Soll die Schreibweise "FDZ-OnSite-Server" oder "FDZ OnSite-Server" verwendet wer
 
 ---
 
+## TBA-Liste (To Be Announced/Added)
+
+Alle "tba"-Platzhalter im Dokument, die ergänzt oder entfernt werden müssen:
+
+### [TBA-01] sections/02-anwendung.qmd, Zeile 5 (Kommentar)
+**Position:** In HTML-Kommentar
+**Text:** "tba (Wunsch Oli an FB):"
+**Aktion:** Kommentar - kann bleiben oder erweitert werden
+
+### [TBA-02] sections/03-infrastruktur.qmd, Zeile 58
+**Position:** In R-Code, Tabelle tbl-stba-rserver
+**Text:** "tba" (Kerntakt Vorher)
+**Aktion:** Sollte durch tatsächliche Taktfrequenz ersetzt werden
+
+### [TBA-03] sections/03-infrastruktur.qmd, Zeile 65
+**Position:** In R-Code, Tabelle tbl-stba-rserver
+**Text:** "je tba" (Kerntakt Nachher)
+**Aktion:** Sollte durch tatsächliche Taktfrequenz ersetzt werden
+
+### [TBA-04] sections/04-methoden.qmd, Zeile 104 (Kommentar)
+**Position:** In HTML-Kommentar bei arrow
+**Text:** "tba - s. Vortrag"
+**Aktion:** Kommentar - kann bleiben oder gelöscht werden
+
+### [TBA-05] sections/04-methoden.qmd, Zeile 107 (Kommentar)
+**Position:** In HTML-Kommentar bei duckdb
+**Text:** "tba - s. Vortrag"
+**Aktion:** Kommentar - kann bleiben oder gelöscht werden
+
+### [TBA-06] sections/04-methoden.qmd, Zeile 145-147 (Kommentar)
+**Position:** In auskommentierter Versions-Tabelle
+**Text:** "tba" bei readr, dplyr, vroom Versionen
+**Aktion:** Ganze Tabelle ist auskommentiert - kann bleiben
+
+### [TBA-07] sections/05-benchmark.qmd, Zeile 229
+**Position:** Im Text als Platzhalter
+**Text:** "[tba: PLOT Laufzeit in Datenmenge der Tools]"
+**Aktion:** **WICHTIG** - Sollte durch tatsächliche Grafik ersetzt oder entfernt werden
+
+### [TBA-08] sections/05-benchmark.qmd, Zeile 237
+**Position:** Im Text als Platzhalter
+**Text:** "[tba: Plot der Performanz unterschiede]"
+**Aktion:** **WICHTIG** - Sollte durch tatsächliche Grafik ersetzt oder entfernt werden
+
+### [TBA-09] sections/05-benchmark.qmd, Zeile 252
+**Position:** Im Text in Klammern
+**Text:** "(tba: Fußnote zu duckdb/polars)"
+**Aktion:** **WICHTIG** - Sollte durch Fußnote ersetzt oder entfernt werden
+
+### [TBA-10] sections/05-benchmark.qmd, Zeile 291
+**Position:** Im Text als Platzhalter
+**Text:** "[tba: Plot RAM-Bedarf abhängig von der Datenmenge]"
+**Aktion:** **WICHTIG** - Sollte durch tatsächliche Grafik ersetzt oder entfernt werden
+
+### [TBA-11] sections/05-benchmark.qmd, Zeile 306 (Kommentar)
+**Position:** In HTML-Kommentar
+**Text:** "(tba: mit obigem zusammenführen)"
+**Aktion:** Kommentar - kann bleiben oder bearbeitet werden
+
+### Zusammenfassung TBA-Liste:
+- **4 kritische TBAs** im publizierten Text (Zeile 229, 237, 252, 291) - sollten vor Veröffentlichung ersetzt werden
+- **2 TBAs** in Tabellendaten (Kerntakt) - sollten ergänzt werden
+- **5 TBAs** in Kommentaren - unkritisch
+
+---
+
 ## Zusammenfassung
 
 **Anzahl behobener Tippfehler:** 15
