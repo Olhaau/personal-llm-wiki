@@ -1,5 +1,11 @@
 # Verbesserungsvorschläge für das Manuskript
 
+## Status der Verbesserungen
+
+- ✅ **Angewendet:** REF-01, REF-03, REF-04, REF-05, REF-06, REF-07, REF-09, REF-10, REF-11, REF-12, REF-13, REF-14, REF-15, REF-16, REF-17, REF-19, REF-20, REF-21, REF-22, REF-23, REF-24, REF-25, REF-26, REF-27 (teilweise - FDSZ beibehalten)
+- ⏭️ **Übersprungen (auf Wunsch):** REF-02, REF-08, REF-18
+- 📋 **Noch offen:** REF-28 bis REF-61
+
 ## Behobene Tippfehler (bereits korrigiert)
 
 Die folgenden Tippfehler wurden direkt im Dokument korrigiert:
@@ -317,16 +323,18 @@ Die folgenden Tippfehler wurden direkt im Dokument korrigiert:
 
 ---
 
-### [REF-27] sections/04-methoden.qmd, Zeile 97
+### [REF-27] sections/04-methoden.qmd, Zeile 97 ✅ TEILWEISE ANGEWENDET
 **Aktuell:** "(@gomolka2021largedata) zeigte im FDZ-Kontext massive Geschwindigkeitsgewinne anhand Parquet, sodass im FDSZ bereits standardmäßig Parquet-Dateien angeboten werden."
 
-**Vorschlag:** "@gomolka2021largedata zeigten im FDZ-Kontext massive Geschwindigkeitsgewinne mit Parquet, sodass im FDZ bereits standardmäßig Parquet-Dateien angeboten werden."
+**Angewendet:** "@gomolka2021largedata zeigten im FDZ-Kontext massive Geschwindigkeitsgewinne mit Parquet, sodass im FDSZ bereits standardmäßig Parquet-Dateien angeboten werden."
+
+**Hinweis:** FDSZ wurde auf Benutzerwunsch beibehalten (nicht zu FDZ geändert).
 
 **Begründung:**
-- Klammer um Citation nicht nötig
-- "anhand Parquet" → "mit Parquet" (präziser)
-- "FDSZ" → "FDZ" (Tippfehler/Konsistenz?)
-- "zeigte" → "zeigten" (falls mehrere Autoren)
+- Klammer um Citation nicht nötig ✅
+- "anhand Parquet" → "mit Parquet" (präziser) ✅
+- "FDSZ" → beibehalten (auf Wunsch)
+- "zeigte" → "zeigten" (falls mehrere Autoren) ✅
 
 ---
 

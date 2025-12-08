@@ -4,13 +4,13 @@
 
 <!-- ### Herausforderungen StBA -->
 
-Das Statistische Bundesamt steht in den letzten Jahren vor der Herausforderung, ein deutlich größeres Datenvolumen zu verarbeiten, während zugleich die Erwartungen der Öffentlichkeit an die Aktualität und Detailliertheit der Statistiken gestiegen sind. Aktuelle technologische Weiterentwicklungen bieten das Potenzial diese Herausforderungen zu bewältigen. Geeignete Werkzeuge können leicht Auswertungen, die bisher mehrere Stunden gedauert haben, in wenigen Sekunden ausführen. Der vorliegende Artikel evaluiert die Performanz und Nutzerfreundlichkeit entsprechender Werkzeuge in der **Statistiksoftware R** mit dem Ziel Handlungsempfehlungen für die Praxis abzuleiten.
+Das Statistische Bundesamt steht in den letzten Jahren vor der Herausforderung, ein deutlich größeres Datenvolumen zu verarbeiten, während zugleich die Erwartungen der Öffentlichkeit an die Aktualität und Detailliertheit der Statistiken gestiegen sind. Aktuelle technologische Weiterentwicklungen bieten das Potenzial diese Herausforderungen zu bewältigen. Geeignete Werkzeuge können Auswertungen, die bisher mehrere Stunden gedauert haben, in wenigen Sekunden ausführen. Der vorliegende Artikel evaluiert die Performanz und Nutzerfreundlichkeit entsprechender Werkzeuge in der **Statistiksoftware R** mit dem Ziel Handlungsempfehlungen für die Praxis abzuleiten.
 
 <!-- ### Zugespitzt im FDZ -->
 
 Anhand der Analysebedarfe der Wissenschaft in den *Forschungsdatenzentrum des statistischen Bundesamts (hier kurz FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder* zeichnen sich die Herausforderungen besonders deutlich ab. Die OnSite-Zugangswege des FDZ bietet formal anonymisierte Mikrodaten der amtlichen Statistik in großem Umfang für wissenschaftliche Auswertungen an. Dies umfasst *Gastwissenschaftsarbeitsplätze* (GWAP), die Forschende direkt in den Liegenschaften des FDZ nutzen können, oder *kontrollierte Datenfernverarbeitung* (KDFV), bei der entwickelte Auswertungsprogramme durch das FDZ ausgeführt werden. 
 
-Die FDZ-Infrastruktur muss daher in der Lage sein, um umfangreiche Forschungsprojekte auf Basis großer Datenmengen effizient durchzuführen. Der @bmf2020dateninfrastruktur forderte eine Ausweitung des Datenbestands für die empirische Steuerforschung sowie eine Erhöhung der Aktualität der bereitgestellten Daten. Der @svr2023jahresgutachten kritisiert zudem die technisch veraltete Infrastruktur des FDZ.
+Die FDZ-Infrastruktur muss daher in der Lage sein, umfangreiche Forschungsprojekte auf Basis großer Datenmengen effizient durchzuführen. Der @bmf2020dateninfrastruktur forderte eine Ausweitung des Datenbestands für die empirische Steuerforschung sowie eine Erhöhung der Aktualität der bereitgestellten Daten. Der @svr2023jahresgutachten kritisiert zudem die technisch veraltete Infrastruktur des FDZ.
 
 <!-- ### NeSt fördert neue Produkte, größere Systeme nötig -->
 
@@ -22,4 +22,4 @@ Zur Bewältigung der Herausforderungen in der Datenverarbeitung konnten im Jahr 
 
 <!-- R -->
 
-Als etablierte Programmiersprache in der Statistik und Datenwissenschaft ist R eine natürliche Wahl für die Datenverarbeitung in der Statistikproduktion und im FDZ. Da es sich um eine Open-Source-Software handelt, erweitert eine große internationale Gemeinschaft daran, R in Form von sog. R-Paketen um diverse Funktionalität hoher-performanz oder Nutzerfreundlichkeit zu erweitern (s. @sec-methoden). Dieser Artikel wird potenzielle R-Pakete für den Einsatz im Statistischen Bundesamt und FDZ bewerten (s. @sec-benchmark) und anhand des BTP demonstrieren, wie relevante Auswertungen nachvollziehbar innerhalb von wenigen Sekunden durchgeführt werden können (s. @sec-ergebnis).
+Als etablierte Programmiersprache in der Statistik und Datenwissenschaft ist R eine natürliche Wahl für die Datenverarbeitung in der Statistikproduktion und im FDZ. Da es sich um eine Open-Source-Software handelt, erweitert eine große internationale Gemeinschaft die Funktionalitäten von R hinsichtlich hoher Performanz und Nutzerfreundlichkeit (s. @sec-methoden). Dieser Artikel wird potenzielle R-Pakete für den Einsatz im Statistischen Bundesamt und FDZ bewerten (s. @sec-benchmark) und anhand des BTP demonstrieren, wie relevante Auswertungen nachvollziehbar innerhalb von wenigen Sekunden durchgeführt werden können (s. @sec-ergebnis).

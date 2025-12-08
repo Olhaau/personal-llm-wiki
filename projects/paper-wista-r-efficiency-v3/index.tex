@@ -678,8 +678,8 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{37 035}
-\renewcommand{\totalwords}{4 506}
+\renewcommand{\totalchars}{37 027}
+\renewcommand{\totalwords}{4 505}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
@@ -744,7 +744,7 @@ Herausforderung, ein deutlich größeres Datenvolumen zu verarbeiten,
 während zugleich die Erwartungen der Öffentlichkeit an die Aktualität
 und Detailliertheit der Statistiken gestiegen sind. Aktuelle
 technologische Weiterentwicklungen bieten das Potenzial diese
-Herausforderungen zu bewältigen. Geeignete Werkzeuge können leicht
+Herausforderungen zu bewältigen. Geeignete Werkzeuge können
 Auswertungen, die bisher mehrere Stunden gedauert haben, in wenigen
 Sekunden ausführen. Der vorliegende Artikel evaluiert die Performanz und
 Nutzerfreundlichkeit entsprechender Werkzeuge in der
@@ -762,7 +762,7 @@ Forschende direkt in den Liegenschaften des FDZ nutzen können, oder
 \emph{kontrollierte Datenfernverarbeitung} (KDFV), bei der entwickelte
 Auswertungsprogramme durch das FDZ ausgeführt werden.
 
-Die FDZ-Infrastruktur muss daher in der Lage sein, um umfangreiche
+Die FDZ-Infrastruktur muss daher in der Lage sein, umfangreiche
 Forschungsprojekte auf Basis großer Datenmengen effizient durchzuführen.
 Der \textcite{bmf2020dateninfrastruktur} forderte eine Ausweitung des
 Datenbestands für die empirische Steuerforschung sowie eine Erhöhung der
@@ -792,13 +792,13 @@ für GWAP- und KDFV-Nutzungen zur Verfügung.
 Als etablierte Programmiersprache in der Statistik und Datenwissenschaft
 ist R eine natürliche Wahl für die Datenverarbeitung in der
 Statistikproduktion und im FDZ. Da es sich um eine Open-Source-Software
-handelt, erweitert eine große internationale Gemeinschaft daran, R in
-Form von sog. R-Paketen um diverse Funktionalität hoher-performanz oder
-Nutzerfreundlichkeit zu erweitern (s. Absatz~\ref{sec-methoden}). Dieser
-Artikel wird potenzielle R-Pakete für den Einsatz im Statistischen
-Bundesamt und FDZ bewerten (s. Absatz~\ref{sec-benchmark}) und anhand
-des BTP demonstrieren, wie relevante Auswertungen nachvollziehbar
-innerhalb von wenigen Sekunden durchgeführt werden können (s.
+handelt, erweitert eine große internationale Gemeinschaft die
+Funktionalitäten von R hinsichtlich hoher Performanz und
+Nutzerfreundlichkeit (s. Absatz~\ref{sec-methoden}). Dieser Artikel wird
+potenzielle R-Pakete für den Einsatz im Statistischen Bundesamt und FDZ
+bewerten (s. Absatz~\ref{sec-benchmark}) und anhand des BTP
+demonstrieren, wie relevante Auswertungen nachvollziehbar innerhalb von
+wenigen Sekunden durchgeführt werden können (s.
 Absatz~\ref{sec-ergebnis}).
 
 \section{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
@@ -812,20 +812,20 @@ Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung,
 Statistik über die Personengesellschaften und Gemeinschaften,
 Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen
 Unternehmensregister. Insgesamt deckt der Forschungsdatensatz eine
-Vielzahl an Analysemöglichkeiten, wie zum Beispiel Analyse von
-Anpassungsreaktionen oder Verteilungsanalysen, die für die
-evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab
+Vielzahl an Analysemöglichkeiten ab, wie zum Beispiel die Analyse von
+Anpassungsreaktionen oder Verteilungsanalysen, die für evidenzbasierte
+steuerpolitische Entscheidungen nötig sind
 \autocite{kristiansen2023btp}.
 
-Für die vielfältigen Analysewünsche der Forschenden, der damit
-einhergenden Dokumentation des Datensatzes in den Metadatenreports
-\autocite{fdz2024btp} des FDZ, und den Auswertungsbedarf des
-Fachbereiches ist der Datensatz möglichst wenig beschränkt worden und
-dadurch ressourcenintensive. Anstelle einer Stichprobe wurden die
+Für die vielfältigen Analysewünsche der Forschenden, die damit
+einhergehende Dokumentation des Datensatzes in den Metadatenreports
+\autocite{fdz2024btp} des FDZ und den Auswertungsbedarf des Fachbereichs
+ist der Datensatz möglichst wenig beschränkt worden und dadurch
+ressourcenintensiv. Anstelle einer Stichprobe wurden die
 zugrundeliegenden Vollerhebungen verwendet. Die erste Version des BTP
 (2013 - 2019) besteht aus knapp 67 Millionen Beobachtungen. Mit der
 Aktualisierung um das Berichtsjahr 2020 wird sich die Zahl der
-Beobachtungen auf ca. 78 Millionen erhöhen. Auch der Merkmalsumfang von
+Beobachtungen auf etwa 78 Millionen erhöhen. Auch der Merkmalsumfang von
 zurzeit über 2.700 Merkmalen wird durch Erweiterung von Berichtsjahren
 steigen. Bereits aktuell und insbesondere durch die anstehende
 Aktualisierung steht der Fachbereich sowie das FDZ vor der
@@ -836,14 +836,14 @@ und Prozessorleistung zu decken.
 
 Neben den standardisierten Veröffentlichungsprodukten (wie z.B.
 Genesis-Tabellen, Statistische Berichte) werden Sonderauswertungen
-erstellt. Sowohl bei den Standard- als auch Sonderauswertungen werden
-meist spezifische Anforderungen angegeben. Dafür sind verschiedene
-Bearbeitungsschritte in Form von Filterungen der Beobachtungen (z.B.
-Angaben nur für Organträger) und Auswahl von Merkmalen sowie
-anschließende Berechnungen nötig. Abschließend wird die Tabelle in die
-vorgegebene Veröffentlichungsform gebracht. Das FDZ hat für die
-Erstellung des Metadatenreports einen ähnlichen Bedarf. Um den Bedarf
-nach deskriptiven Auswertungen abzubilden wird die Tabelle zur
+erstellt. Sowohl bei den Standard- als auch bei den Sonderauswertungen
+werden meist spezifische Anforderungen angegeben. Dafür sind
+verschiedene Bearbeitungsschritte in Form von Filterungen der
+Beobachtungen (z.B. Angaben nur für Organträger) und Auswahl von
+Merkmalen sowie anschließende Berechnungen nötig. Abschließend wird die
+Tabelle in die vorgegebene Veröffentlichungsform gebracht. Das FDZ hat
+für die Erstellung des Metadatenreports einen ähnlichen Bedarf. Um den
+Bedarf nach deskriptiven Auswertungen abzubilden wird die Tabelle zur
 Häufigkeitsverteilung der Beobachtungen je Jahr und Steuerstatistik
 \autocite{fdz2024btp} verwendet.
 
@@ -916,7 +916,7 @@ auf dedizierten Servern bereitgestellt wird.\footnote{Da SAS bereits
   zu beachten, dass die SAS-Server nicht über die neuste Hardware
   verfügen. SAS wurde in 2025 auf Version 9.4M8 aktualisiert.} SAS 9.4
 verarbeitet Daten überwiegend zeilenorientiert und belastet den
-Arbeitsspeicher daher nur gering --- ein entscheidender Vorteil in der
+Arbeitsspeicher daher nur gering -- ein entscheidender Vorteil in der
 amtlichen Statistik, da auch große Datenmengen mit geringeren
 Hardwareanforderungen verarbeitet werden können. Für viele
 Anwendungsfälle ist jedoch die spaltenbasierte Datenverarbeitung
@@ -935,9 +935,9 @@ Grenzen, da Daten vollständig in den Arbeitsspeicher geladen werden
 müssen, und nur ausgewählte Operationen erlauben die parallelisierte
 Datenverarbeitung. Durch die manuelle \emph{Variablenauswahl} lassen
 sich größere Datensätze bearbeiten, der Speicherbedarf bleibt aber
-begrenzend. Bisher waren die GWAP auf die \emph{Single-Core-Version von
+begrenzend. Bisher waren die GWAPs auf die \emph{Single-Core-Version von
 Stata mit begrenztem RAM} beschränkt, wodurch viele FDZ-Produkte ohne
-Datenzuschnitt am GWAP nicht bearbeitet werden konnten.
+Datenzuschnitt an den GWAPs nicht bearbeitet werden konnten.
 Leistungsfähigere Server standen vor der Bereitstellung des
 OnSite-Servers lediglich in der KDFV zur Verfügung.
 
@@ -953,10 +953,10 @@ Die eingesetzte Infrastruktur muss skalierbar sein und die Verarbeitung
 wachsender Datenmengen zuverlässig mit den vorhandenen Rechenkapazitäten
 ermöglichen, sodass die steigenden Datenverarbeitungsbedarfe gedeckt
 werden können. Um eine hohe Reaktionsfähigkeit und eine reibungslose
-GWAP- bzw. KDFV-Nutzung im FDZ sicherzustellen, sollte die Systeme kurze
-Rechenzeiten auf dem aktuellen Stand der Technik ermöglichen -- und
-idealerweise Auswertungen großer Datenmengen in Echtzeit (d.h. innerhalb
-weniger Sekunden) ausführen können.
+GWAP- bzw. KDFV-Nutzung im FDZ sicherzustellen, sollten die Systeme
+kurze Rechenzeiten auf dem aktuellen Stand der Technik ermöglichen --
+und idealerweise Auswertungen großer Datenmengen in Echtzeit (d.h.
+innerhalb weniger Sekunden) ausführen können.
 
 Ein wesentlicher Erfolgsfaktor der Systeme ist eine hohe
 Nutzerfreundlichkeit. Moderne Interfaces und eine nachvollziehbare
@@ -988,12 +988,12 @@ Passend zu den Anforderungen aus Absatz~\ref{sec-infra-anf} ist darunter
 ein breites Spektrum an Datenverabeitungsmethoden, von hochperformanten
 Werkzeugen bis hin zu Verbesserungen der Nutzererfahrung. Da R frei
 verfügbar ist, wird es an Universitäten weit verbreitet eingesetzt, und
-es stehen zahlreiche Schulungsmaterialien zur Verfügung. Viele
+zahlreiche Schulungsmaterialien stehen zur Verfügung. Viele
 Mitarbeitende des Statistischen Bundesamts und
 Gastwissenschaftler/-innen am FDZ verfügen daher bereits über
 R-Kenntnisse oder können sich diese leicht aneignen. Dadurch erfreut
-sich R auch an steigender Beliebtheit in der amtlichen Statistik, wie
-der Wachstum der Gemeinschaft ``The Use of R in Official Statistics''
+sich R auch steigender Beliebtheit in der amtlichen Statistik, wie das
+Wachstum der Gemeinschaft ``The Use of R in Official Statistics''
 belegt.\footnote{https://r-project.ro/conference2025.html}
 
 Bereits seit Jahren steht im Statistischen Bundesamt ein Server für
@@ -1003,8 +1003,8 @@ genutzt wurde.
 
 Seit Januar 2025 konnte der R- und Python-Server signifikant erweitert
 werden. Verwendet wird die kommerziell unterstützte \textbf{Posit
-Workbench}, da sie wesentliche Funktionen für kollaborativen Arbeiten,
-Skalierbarkeit bietet und den Betrieb der Systeme unterstützt.
+Workbench}, da sie wesentliche Funktionen für kollaboratives Arbeiten
+und Skalierbarkeit bietet und den Betrieb der Systeme unterstützt.
 Zusätzlich wurden die Systemressourcen deutlich ausgebaut (siehe
 Tabelle~\ref{tbl-stba-rserver} ) und insbesondere Grafikkarten bieten
 ganz neue Anwendungsfälle.
@@ -1117,17 +1117,17 @@ Datenmengen oberhalb des RAMs.
 \subsection{Klassische Methoden in R}\label{klassische-methoden-in-r}
 
 Die Kernfunktionen von R (sog. \textbf{Base R}) bieten grundlegende
-Datenverarbeitungswerkzeuge, für Einsteiger oder in stark abgeschotteten
-Infrastrukturen zweckdienlich sind. Base R ist heutzutage jedoch weder
-in Benutzerfreundlichkeit, noch in Performanz zeitgemäß. Diese Lücke
-wird durch eine Vielzahl von R-Paketen geschlossen, wie die folgenden
-hervorragenden R-Pakete zeigen.
+Datenverarbeitungswerkzeuge, die für Einsteiger oder in stark
+abgeschotteten Infrastrukturen zweckdienlich sind. Base R ist heutzutage
+jedoch weder in Benutzerfreundlichkeit noch in Performanz zeitgemäß.
+Diese Lücke wird durch eine Vielzahl von R-Paketen geschlossen, wie die
+folgenden hervorragenden R-Pakete zeigen.
 
 \begin{itemize}
 \tightlist
 \item
   \textbf{data.table} \autocite{R-data.table}: Ein ausgereiftes R-Paket,
-  das Datenverarbeitung deutlich schneller macht als
+  das die Datenverarbeitung deutlich schneller macht als
   Standard-R-Funktionen. Es nutzt den verfügbaren Arbeitsspeicher
   besonders effizient und ist seit vielen Jahren bewährt. Die Syntax
   orientiert sich an der R-Basissyntax, erfordert aber spezielle
@@ -1200,27 +1200,27 @@ Lazy-Computation gewinnbringend sein:
   Practice (besonders für klassische Methoden, da dies das Risiko für
   RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen
   zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren
-  Zeitpunkt) verursacht unnötige Wartezeiten, Ressourcenbelegung und
+  Zeitpunkt) verursacht unnötige Wartezeiten und Ressourcenbelegung und
   kann zu Abbrüchen führen. Auch Stata profitiert von einer
   Beschleunigung um 39,9 \% in R und 33,9 \% laut
   \textcite{gomolka2021largedata}.
 \item
   \textbf{Datenaufteilung}: Wenn der Arbeitsspeicher nicht ausreicht, um
-  die benötigten Daten einzulesen, bietet eine Aufteilung auf mehrere
-  RAM-Gerechte Datenpakete helfen. Für klassische Methoden kombiniert
-  mit der mehrfachen Variablenselektion. Die folgenden hoch-performanten
-  Techniken, kommen auch direkt mehreren Dateien nutzen, ohne manuell
-  die Datensätze zusammenzuführen.
+  die benötigten Daten einzulesen, kann eine Aufteilung auf mehrere
+  RAM-gerechte Datenpakete helfen. Für klassische Methoden wird dies mit
+  mehrfacher Variablenselektion kombiniert. Die folgenden
+  hochperformanten Techniken können auch direkt mehrere Dateien nutzen,
+  ohne dass die Datensätze manuell zusammengeführt werden müssen.
 \item
-  \textbf{Lazy-Computation}: Ohne das Nutzende ihren Code verändern
+  \textbf{Lazy-Computation}: Ohne dass Nutzende ihren Code verändern
   müssen, speichert die Lazy-Computation geplante
-  Datenverarbeitungsschritte im Hintergrund, ohne sie sofort auszufüren.
-  Erst wenn ein konkretes Ergebnis abgefragt wird, führt das System die
-  Berechnung durch. Dadurch werden nur die tatsächlich benötigten Daten
-  verarbeitet und unnötige Schritte vermieden -- ohne dass der Nutzende
-  seinen Code ändern muss. z.\,B. durch Lazy-Computation{[}\^{}lazy{]}
-  -- ohne dass eine manuelle Variablenauswahl erforderlich ist (siehe
-  Absatz~\ref{sec-methoden}).
+  Datenverarbeitungsschritte im Hintergrund, ohne sie sofort
+  auszuführen. Erst wenn ein konkretes Ergebnis abgefragt wird, führt
+  das System die Berechnung durch. Dadurch werden nur die tatsächlich
+  benötigten Daten verarbeitet und unnötige Schritte vermieden -- ohne
+  dass der Nutzende seinen Code ändern muss. z.\,B. durch
+  Lazy-Computation{[}\^{}lazy{]} -- ohne dass eine manuelle
+  Variablenauswahl erforderlich ist (siehe Absatz~\ref{sec-methoden}).
 \end{itemize}
 
 Das Datenformat \textbf{\href{https://parquet.apache.org/}{Apache
@@ -1228,9 +1228,9 @@ Parquet}} ist ein spaltenbasiertes, komprimiertes Open-Source-Format,
 das speziell für effiziente Speicherung und Verarbeitung großer
 Datenmengen entwickelt wurde. Durch seine Struktur ermöglicht Parquet
 den schnellen Zugriff auf einzelne Variablen und reduziert gleichzeitig
-den Speicherbedarf erheblich. (\textcite{gomolka2021largedata}) zeigte
-im FDZ-Kontext massive Geschwindigkeitsgewinne anhand Parquet, sodass im
-FDSZ bereits standardmäßig Parquet-Dateien angeboten werden.
+den Speicherbedarf erheblich. \textcite{gomolka2021largedata} zeigten im
+FDZ-Kontext massive Geschwindigkeitsgewinne mit Parquet, sodass im FDSZ
+bereits standardmäßig Parquet-Dateien angeboten werden.
 
 Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs
 betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen
