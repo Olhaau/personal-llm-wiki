@@ -678,14 +678,14 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{37 179}
-\renewcommand{\totalwords}{4 512}
+\renewcommand{\totalchars}{36 998}
+\renewcommand{\totalwords}{4 496}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
 \renewcommand{\zusammenfassungwords}{81}
 \renewcommand{\footnotecountnum}{10}
-\renewcommand{\citationcountnum}{22}
+\renewcommand{\citationcountnum}{24}
 \renewcommand{\schlusselwortercount}{5}
 \renewcommand{\keywordscount}{5}
 \renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
@@ -695,13 +695,13 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
 \renewcommand{\authoronechars}{327}
 \renewcommand{\authortwochars}{256}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{3 448}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{7}} & --- \\
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{3 448}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{8}} & --- \\
             Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{4 043}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
             Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{8 412}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
             Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{9 887}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{5}} & --- \\
             Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{13 680}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{6}} & --- \\
-            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{676}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 279}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
+            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{676}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 279}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
 }
 \newcommand{\tablerows}{            \hyperref[tbl-stba-rserver]{Tabelle~1} & StBA R-Server Ausbau (Anfang 2025) \\
             \hyperref[tbl-fdz-server]{Tabelle~2} & FDZ OnSite-Server Spezifikationen \\
@@ -799,7 +799,7 @@ Dieser Artikel wird potenzielle R-Pakete für den Einsatz im
 Statistischen Bundesamt und FDZ bewerten (s.
 Kapitel~\ref{sec-benchmark}) und anhand des BTP demonstrieren, wie
 relevante Auswertungen nachvollziehbar innerhalb von wenigen Sekunden
-durchgeführt werden können (s. \textbf{?@sec-ergebns}).
+durchgeführt werden können (s. Kapitel~\ref{sec-ergebnis}).
 
 \section{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
 
@@ -815,21 +815,20 @@ Unternehmensregister. Insgesamt deckt der Forschungsdatensatz eine
 Vielzahl an Analysemöglichkeiten, wie zum Beispiel Analyse von
 Anpassungsreaktionen oder Verteilungsanalysen, die für die
 evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab
-(Kristiansen, 2023 - Link:
-https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/2023/04/business-tax-panel-042023.html).
+\autocite{kristiansen2023btp}.
 
 Für die vielfältigen Analysewünsche der Forschenden, der damit
 einhergenden Dokumentation des Datensatzes in den Metadatenreports
-(!!hier Fußnote für MDR - siehe Deskriptive Ecktaten 1.) des FDZ, und
-den Auswertungsbedarf des Fachbereiches ist der Datensatz möglichst
-wenig beschränkt worden und dadurch ressourcenintensive. Anstelle einer
-Stichprobe wurden die zugrundeliegenden Vollerhebungen verwendet. Die
-erste Version des BTP (2013 - 2019) besteht aus knapp 67 Millionen
-Beobachtungen. Mit der Aktualisierung um das Berichtsjahr 2020 wird sich
-die Zahl der Beobachtungen auf uca. 78 Millionen erhöhen. Auch der
-Merkmalsumfang von zurzeit über 2.700 Merkmalen wird durch Erweiterung
-von Berichtsjahren steigen. Bereits aktuell und insbesondere durch die
-anstehende Aktualisierung steht der Fachbereich sowie das FDZ vor der
+\autocite{fdz2024btp} des FDZ, und den Auswertungsbedarf des
+Fachbereiches ist der Datensatz möglichst wenig beschränkt worden und
+dadurch ressourcenintensive. Anstelle einer Stichprobe wurden die
+zugrundeliegenden Vollerhebungen verwendet. Die erste Version des BTP
+(2013 - 2019) besteht aus knapp 67 Millionen Beobachtungen. Mit der
+Aktualisierung um das Berichtsjahr 2020 wird sich die Zahl der
+Beobachtungen auf uca. 78 Millionen erhöhen. Auch der Merkmalsumfang von
+zurzeit über 2.700 Merkmalen wird durch Erweiterung von Berichtsjahren
+steigen. Bereits aktuell und insbesondere durch die anstehende
+Aktualisierung steht der Fachbereich sowie das FDZ vor der
 Herausforderung den hohe Bedarf an Speicherkapazität, Arbeitsspeicher
 und Prozessorleistung zu decken.
 
@@ -846,7 +845,7 @@ vorgegebene Veröffentlichungsform gebracht. Das FDZ hat für die
 Erstellung des Metadatenreports einen ähnlichen Bedarf. Um den Bedarf
 nach deskriptiven Auswertungen abzubilden wird die Tabelle zur
 Häufigkeitsverteilung der Beobachtungen je Jahr und Steuerstatistik
-(FDZ, 2024 --\textgreater{} IN QUELLEN aufnehmen!) verwendet.
+\autocite{fdz2024btp} verwendet.
 
 Für den zweiten Anwendungsfall wird insb. auch die Datenaufbereitung
 abgebildet und im Anschluss eine Regressionsanalyse durchgeführt um den
