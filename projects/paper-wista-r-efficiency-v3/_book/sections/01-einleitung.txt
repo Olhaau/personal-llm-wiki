@@ -1,0 +1,79 @@
+
+
+Einleitung
+
+Das Statistische Bundesamt steht in den letzten Jahren vor der
+Herausforderung, ein deutlich größeres Datenvolumen zu verarbeiten,
+während zugleich die Erwartungen der Öffentlichkeit an die Aktualität
+und Detailliertheit der Statistiken gestiegen sind. Aktuelle
+technologische Weiterentwicklungen bieten das Potenzial diese
+Herausforderungen zu bewältigen. Geeignete Werkzeuge können leicht
+Auswertungen, die bisher mehrere Stunden gedauert haben, in wenigen
+Sekunden ausführen. Der vorliegende Artikel evaluiert die Performanz und
+Nutzerfreundlichkeit entsprechender Werkzeuge in der Statistiksoftware R
+mit dem Ziel Handlungsempfehlungen für die Praxis abzuleiten.
+
+Anhand der Analysebedarfe der Wissenschaft in den Forschungsdatenzentrum
+des statistischen Bundesamts (hier kurz FDZ) und dem
+Forschungsdatenzentrum der Statistischen Ämter der Länder zeichnen sich
+die Herausforderungen besonders deutlich ab. Die OnSite-Zugangswege des
+FDZ bietet formal anonymisierte Mikrodaten der amtlichen Statistik in
+großem Umfang für wissenschaftliche Auswertungen an. Dies umfasst
+Gastwissenschaftsarbeitsplätze (GWAP), die Forschende direkt in den
+Liegenschaften des FDZ nutzen können, oder kontrollierte
+Datenfernverarbeitung (KDFV), bei der entwickelte Auswertungsprogramme
+durch das FDZ ausgeführt werden.
+
+Die FDZ-Infrastruktur muss daher in der Lage sein, um umfangreiche
+Forschungsprojekte auf Basis großer Datenmengen effizient durchzuführen.
+Der Wissenschaftlicher Beirat beim Bundesministerium der Finanzen (2020)
+forderte eine Ausweitung des Datenbestands für die empirische
+Steuerforschung sowie eine Erhöhung der Aktualität der bereitgestellten
+Daten. Der Sachverständigenrat zur Begutachtung der
+gesamtwirtschaftlichen Entwicklung (2023) kritisiert zudem die technisch
+veraltete Infrastruktur des FDZ.
+
+Um die Situation zu verbessern, wurde 2022 das “Netzwerk empirischer
+Steuerforschung” (NeSt) gegründet, das die Erweiterung des Datenbestands
+vorangetrieben hat. Seit 2023 steht daher insbesondere das
+Business-Tax-Panel (BTP) zur Verfügung (s. ?@sec-btp). Es verknüpft
+verschiedene Unternehmenssteuerstatistiken und bietet mit fast 3 000
+Merkmalen und 67 Millionen Beobachtungen ein erhebliches
+Analysepotenzial, stellt gleichzeitig jedoch hohe technische
+Anforderungen an die Analysesysteme.
+
+Zur Bewältigung der Herausforderungen in der Datenverarbeitung konnten
+im Jahr 2025 bedeutende Fortschritte beim Ausbau der analytischen
+Infrastruktur des Statistischen Bundesamts und des FDZ erreicht werden
+(s. ?@sec-infrastruktur). Für die Statistikproduktion konnte im Januar
+2025 ein R- und Python-Server um erhebliche Rechenkapazitäten erweitert
+werden. Vorangetrieben durch das NeSt steht seit November 2025 im FDZ
+der OnSite-Server mit ausgeweiteten Rechenkapazitäten mit erweiterten
+Rechenkapazitäten für Analysen in R und Stata exklusiv für GWAP- und
+KDFV-Nutzungen zur Verfügung.
+
+Als etablierte Programmiersprache in der Statistik und Datenwissenschaft
+ist R eine natürliche Wahl für die Datenverarbeitung in der
+Statistikproduktion und im FDZ. Da es sich um eine Open-Source-Software
+handelt, erweitert eine große internationale Gemeinschaft daran, R in
+Form von sog. R-Paketen um diverse Funktionalität hoher-performanz oder
+Nutzerfreundlichkeit zu erweitern (s. ?@sec-methoden). Dieser Artikel
+wird potenzielle R-Pakete für den Einsatz im Statistischen Bundesamt und
+FDZ bewerten (s. ?@sec-benchmark) und anhand des BTP demonstrieren, wie
+relevante Auswertungen nachvollziehbar innerhalb von wenigen Sekunden
+durchgeführt werden können (s. ?@sec-ergebns).
+
+–>
+
+Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen
+Entwicklung. 2023. „Jahresgutachten 2023/24: Wachstumsschwäche
+überwinden – In die Zukunft investieren“. Jahresgutachten. Wiesbaden:
+Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen
+Entwicklung.
+https://www.sachverstaendigenrat-wirtschaft.de/jahresgutachten-2023.html.
+
+Wissenschaftlicher Beirat beim Bundesministerium der Finanzen. 2020.
+„Notwendigkeit, Potenzial und Ansatzpunkte einer Verbesserung der
+Dateninfrastruktur für die Steuerpolitik“. Gutachten. Berlin:
+Bundesministerium der Finanzen.
+https://www.bundesfinanzministerium.de/Content/DE/Downloads/Ministerium/Wissenschaftlicher-Beirat/Gutachten/2020-10-30-gutachten-dateninfrastruktur-steuerpolitik.html.

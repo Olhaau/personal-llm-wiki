@@ -2,6 +2,8 @@
 
 ## Offen
 
+- [ ] Richtwerte RAM für Benchmark
+- [ ] Fix Citations, match year / version, but also report first releases -> origdate need to be added.
 - [ ] Version Tidyverse
 - [ ] cite the packages correctly
 - [ ] Benchmarks und Tabellen updaten

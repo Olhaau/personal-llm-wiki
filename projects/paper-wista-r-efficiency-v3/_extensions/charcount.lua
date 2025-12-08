@@ -278,13 +278,13 @@ function Pandoc(doc)
   -- This is more reliable than trying to track during filter execution
   -- Exclude "Anhang" from the metadata page statistics
   local known_sections = {
-    {title = "Einleitung", words = 1231},
-    {title = "Anwendungsfall Business-Tax-Panel", words = 125},
-    {title = "Techniche Infrastruktur", words = 145},
-    {title = "Datenverarbeitungsmethoden", words = 810},
-    {title = "Performanzvergleich", words = 999},
-    {title = "Ergebnis für das vollständige BTP", words = 84},
-    {title = "Fazit", words = 407}
+    {title = "Einleitung", words = 1231, chars = 3448},
+    {title = "Anwendungsfall Business-Tax-Panel", words = 125, chars = 4043},
+    {title = "Techniche Infrastruktur", words = 145, chars = 8412},
+    {title = "Datenverarbeitungsmethoden", words = 810, chars = 9887},
+    {title = "Performanzvergleich", words = 999, chars = 13680},
+    {title = "Ergebnis für das vollständige BTP", words = 84, chars = 676},
+    {title = "Fazit", words = 407, chars = 4279}
     -- Note: "Anhang" (7 words) is excluded from metadata page
   }
   
@@ -315,8 +315,13 @@ function Pandoc(doc)
     local word_ratio = (total_section_words > 0) and (sec.words / total_section_words) or 0
     
     -- Distribute metrics proportionally
-    -- For characters: use actual character count proportion
-    local chars_to_show = math.floor(doc_total_chars * word_ratio)
+    -- For characters: use actual character count if provided, otherwise calculate proportionally
+    local chars_to_show
+    if sec.chars then
+      chars_to_show = sec.chars
+    else
+      chars_to_show = math.floor(doc_total_chars * word_ratio)
+    end
     
     -- For footnotes and citations: distribute proportionally, but round to integers
     local footnotes_to_show = math.floor(doc_total_footnotes * word_ratio + 0.5)

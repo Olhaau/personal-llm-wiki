@@ -678,13 +678,13 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{40 513}
-\renewcommand{\totalwords}{4 917}
+\renewcommand{\totalchars}{37 179}
+\renewcommand{\totalwords}{4 512}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
 \renewcommand{\zusammenfassungwords}{81}
-\renewcommand{\footnotecountnum}{14}
+\renewcommand{\footnotecountnum}{10}
 \renewcommand{\citationcountnum}{22}
 \renewcommand{\schlusselwortercount}{5}
 \renewcommand{\keywordscount}{5}
@@ -695,13 +695,13 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
 \renewcommand{\authoronechars}{327}
 \renewcommand{\authortwochars}{256}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{13 120}} & \textcolor{wistaBlue}{\textbf{5}} & \textcolor{wistaBlue}{\textbf{7}} & --- \\
-            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{1 332}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
-            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{1 545}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
-            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{8 633}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{5}} & --- \\
-            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{10 647}} & \textcolor{wistaBlue}{\textbf{4}} & \textcolor{wistaBlue}{\textbf{6}} & --- \\
-            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{895}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
-            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 338}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{3 448}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{7}} & --- \\
+            Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{4 043}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+            Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{8 412}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
+            Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{9 887}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{5}} & --- \\
+            Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{13 680}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{6}} & --- \\
+            Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{676}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{0}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 279}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
 }
 \newcommand{\tablerows}{            \hyperref[tbl-stba-rserver]{Tabelle~1} & StBA R-Server Ausbau (Anfang 2025) \\
             \hyperref[tbl-fdz-server]{Tabelle~2} & FDZ OnSite-Server Spezifikationen \\
@@ -739,202 +739,130 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 
 \section{Einleitung}\label{sec-einleitung}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Steigende Datenmengen, höhere Bedarfe der Öffentlichkeit an Aktualität
-  und Detailliertheit -\textgreater{} Modernisierung der
-  Datenverarbeitungsinfastruktur nötig um mithalten zu können
-\item
-  Zugespitz in FDZ. Forschende fordern mehr umfangreiche Daten (BMF
-  Gutachten) und die technischen Möglichkeiten sie auszuwerten (SVR
-  Gutachten).
+Das Statistische Bundesamt steht in den letzten Jahren vor der
+Herausforderung, ein deutlich größeres Datenvolumen zu verarbeiten,
+während zugleich die Erwartungen der Öffentlichkeit an die Aktualität
+und Detailliertheit der Statistiken gestiegen sind. Aktuelle
+technologische Weiterentwicklungen bieten das Potenzial diese
+Herausforderungen zu bewältigen. Geeignete Werkzeuge können leicht
+Auswertungen, die bisher mehrere Stunden gedauert haben, in wenigen
+Sekunden ausführen. Der vorliegende Artikel evaluiert die Performanz und
+Nutzerfreundlichkeit entsprechender Werkzeuge in der
+\textbf{Statistiksoftware R} mit dem Ziel Handlungsempfehlungen für die
+Praxis abzuleiten.
 
-  \begin{enumerate}
-  \def\labelenumii{\arabic{enumii}.}
-  \tightlist
-  \item
-    Insbesondere die Wissenschaft erwartet, das die
-    \emph{Forschungsdatenzentrum des statistischen Bundesamts (hier kurz
-    FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der
-    Länder} zeitnah auch umfangreiche Datensätze für ausgiebigere
-    wissenschaftliche Auswertungen zur Verfügung stellt. In dem FDZ
-    haben Forschende die Möglichkeit, eigene Analysen mit amtlicher
-    Mikrodaten durchführen. Der Zugangsweg ``Onsite-Nutzung'' ermöglicht
-    den Zugriff zu formal anonymisierten Einzeldaten ermöglichen.
-    Forschende können selbst ein \emph{Gastwissenschaftsarbeitsplatz}
-    (GWAP) in den Liegenschaften des FDZ nutzen oder via
-    \emph{kontrollierter Datenfernverarbeitung} (KDFV) können
-    entwickelte Auswertungsprogramme durch das FDZ ausgeführt werden.
-    Jedoch hatte die Wissenschaft in
-    \textcite{bmf2020dateninfrastruktur} Kritik am Datenbestand für
-    empirische Steuerforschung und dessen Aktualität geäußert.In
-    \textcite{svr2023jahresgutachten} wurde darüber hinaus die technisch
-    veraltete Infrastruktur des FDZ bemängelt.
-  \end{enumerate}
-\item
-  Gründung NeSt, neue umfangreiche Datenquelle für emp. Steuerforschung
-  BTP mit hohem Analysepotenzial (S. Kapitel~\ref{sec-btp})
+Anhand der Analysebedarfe der Wissenschaft in den
+\emph{Forschungsdatenzentrum des statistischen Bundesamts (hier kurz
+FDZ) und dem Forschungsdatenzentrum der Statistischen Ämter der Länder}
+zeichnen sich die Herausforderungen besonders deutlich ab. Die
+OnSite-Zugangswege des FDZ bietet formal anonymisierte Mikrodaten der
+amtlichen Statistik in großem Umfang für wissenschaftliche Auswertungen
+an. Dies umfasst \emph{Gastwissenschaftsarbeitsplätze} (GWAP), die
+Forschende direkt in den Liegenschaften des FDZ nutzen können, oder
+\emph{kontrollierte Datenfernverarbeitung} (KDFV), bei der entwickelte
+Auswertungsprogramme durch das FDZ ausgeführt werden.
 
-  \begin{enumerate}
-  \def\labelenumii{\arabic{enumii}.}
-  \tightlist
-  \item
-    Um diese Situation zu verbessern, hat das Bundesfinanzministerium im
-    Jahre 2022 das \emph{``Netzwerk empirischer Steuerforschung''}
-    (NeSt) gegründet. \footnote{https://www.bundesfinanzministerium.de/Web/DE/Themen/Steuern/Steuerliche\_Themengebiete/NeSt/netzwerk-fuer-empirische-steuerforschung.html}
-    Vorangetrieben durch das NeSt konnte das Statistische Bundesamt
-    bereits erfolgreich den Datenbestand erweitern. Insbesondere steht
-    seit 2023 das \emph{Business-Tax-Panel} (BTP) zur Verfügung und wird
-    bereits erneuert (in Kapitel~\ref{sec-btp} beschrieben). Es veknüpft
-    verschiedene Unternehmensstatistiken und birgt mit fast 3 000
-    Merkmalen einerseits ein großes Analysepotenzial, andererseits hohe
-    technische Anforderungen an die Analysewerkzeuge.\footnote{https://www.forschungsdatenzentrum.de/de/steuern/btp}
-  \end{enumerate}
-\item
-  Große Schritte in 2025, erweiterung der R-Server. NeSt auch
-  modernisierung der FDZ Infrastruktur geführt. Technisches Fundament
-  (S. Kapitel~\ref{sec-infrastruktur})
+Die FDZ-Infrastruktur muss daher in der Lage sein, um umfangreiche
+Forschungsprojekte auf Basis großer Datenmengen effizient durchzuführen.
+Der \textcite{bmf2020dateninfrastruktur} forderte eine Ausweitung des
+Datenbestands für die empirische Steuerforschung sowie eine Erhöhung der
+Aktualität der bereitgestellten Daten. Der
+\textcite{svr2023jahresgutachten} kritisiert zudem die technisch
+veraltete Infrastruktur des FDZ.
 
-  \begin{enumerate}
-  \def\labelenumii{\arabic{enumii}.}
-  \tightlist
-  \item
-    Um diesen Herausforderungen zu bewältigen, hat das \emph{Statstische
-    Bundesamt} in 2025 wesentliche Meilensteine in der Modernisierung
-    der technischen Analyseinfrastruktur erreicht (dargestellt in
-    Kapitel~\ref{sec-infrastruktur}). Anfang 2025 wurden die R-Server
-    für Auswertungen und Datenverabeitungen in der Statistikproduktion
-    modernisiert und stark erweitert. Seit November 2025 stehen auch dem
-    FDZ neue R- und Stata-Analyseserver (sog. FDZ OnSite-Server) für
-    wissenschaftliche Auswertungen zu Verfügung.
-  \item
-    Um die technischen Mittel bereitzustellen, hat eine weitere
-    Initiative des NeSt die Moderniserung IT-Infrastruktur des FDZ
-    vorangetrieben. \textbf{Dadurch bietet das FDZ seit November 2025
-    neue Server mit großen Systemkapazitäten für R und Stata für
-    wissenschaftliche Auswertungen an}. Erstmalig können die vollen
-    Kapazitäten neben der KDFV auch an den GWAPs genutzt werden, um
-    große Datensätze im Vollmaterial auszuwerten. Wir werden in den FDZ
-    OnSite-Servern demonstrieren, dass viele Auswertungsbedarfe das BTP
-    im Vollmaterial innerhalb von Sekunden beantwortet werden können. Da
-    die Datenmenge des BTP den verfügbaren Arbeitsspeicher weiterhin
-    übertrifft, sind geeigneten Programmiermethoden notwendig
-    (untersucht in Kapitel~\ref{sec-ergebnis}).
-  \item
-    Neben den bisherigen Hauptwerkzeuge für Datenverarbeitung sind für
-    die Statistikproduktion aktuell SAS und Stata in dem FDZ, findet R
-    als Lingua Franca in der Statistik, Methodologie und
-    Datenwissenschaft und somit auf natürlich weise Einzug in die
-    amtliche Statistik.\footnote{https://r-project.ro/conference2025.html}
-  \item
-  \item
-    Statistikerstellungsprozesses Werkzeuge abgeleitet werden, die
-    Informationsbedarfe der Öffentlichkeit schnell anhand wachsender
-    Datenmengen zu bedienen.
-  \item
-    Die Bewertung muss sorgfältig durchgeführt werden, da sich die
-    betrachteten R-Pakete schnell weiterentwicklung, meist mit mehreren
-    großen Releases innerhalb eines Jahres, aber die organisatorischen
-    Strukturen nicht erlauben, jede neue Version einzurichten.
-  \item
-    wechselnde Nutzende (Forscher) unterschiedlicher Fachbereiche mit
-    unterschiedlichen Analytischen und technischen Kenntnissen
-  \end{enumerate}
-\item
-  Vorteile von R Open Source, Vielfalt R-Packages, aktive weltweite
-  Community, wachsende Verbreitung in OS, natürliche Wahl R. bieten
-  Effizienz, hohe Nutzerfreundlichkeit (s Kapitel~\ref{sec-methoden}).
-  Frage nach besten möglichkeiten, die Anforderungen XYZ bedient (s.
-  Kapitel~\ref{sec-benchmark})
+Um die Situation zu verbessern, wurde 2022 das \emph{``Netzwerk
+empirischer Steuerforschung''} (NeSt) gegründet, das die Erweiterung des
+Datenbestands vorangetrieben hat. Seit 2023 steht daher insbesondere das
+\emph{Business-Tax-Panel} (BTP) zur Verfügung (s.
+Kapitel~\ref{sec-btp}). Es verknüpft verschiedene
+Unternehmenssteuerstatistiken und bietet mit fast 3 000 Merkmalen und 67
+Millionen Beobachtungen ein erhebliches Analysepotenzial, stellt
+gleichzeitig jedoch hohe technische Anforderungen an die Analysesysteme.
 
-  \begin{enumerate}
-  \def\labelenumii{\arabic{enumii}.}
-  \tightlist
-  \item
-    Wachsende Community auch in Official Statistics, s. uRos
-  \item
-    Zusatzfunktionalitäten werden durch die Community in sog. R-Paketen
-    bereitgestellt
-  \item
-    Als Open Source Software mit einer weltweit aktiven Community,
-    bietet R bietet Zugang zu sehr vielen Funktionen der
-    Datenverarbeitung (in Form von sog. \emph{R-Paketen}), die ein
-    breites Spektrum an Nutzerfreundlichkeit und Performanz bieten. Die
-    gleiche Datenvearbeitung kann abhängig von der Software-Nutzung,
-    einige Stunden dauern oder in wenigen Sekunden fertigs ein. Nur die
-    richtige Nutzung geeigneter R-Pakete ermöglicht es,
-    Datenverarbeitungsbedarfe anhand großer Datenmengen in Sekunden
-    nachvollziehbar auszuführen (beschrieben in
-    Kapitel~\ref{sec-methoden}). Dadurch stellt sich die Frage welche
-    Programmiermethoden geeignet sind, die neuen
-    Datenverarbeitungsbedarfe mit der spezifischen neuen Infrastruktur
-    zu bedienen (diskutiert in Kapitel~\ref{sec-benchmark}). Durch die
-    Beantwortung können für den
-  \end{enumerate}
-\item
-  zeigen, dass die Methoden sogar das ganze BTP sehr effizient auswerten
-  können, in Sek, obwohl es den verfügbaren Arbeitsspeicher übersteigt
-  (s. Kapitel~\ref{sec-ergebnis}). Ableitung praktischer Implikationen.
-\end{enumerate}
+Zur Bewältigung der Herausforderungen in der Datenverarbeitung konnten
+im Jahr 2025 bedeutende Fortschritte beim Ausbau der analytischen
+Infrastruktur des Statistischen Bundesamts und des FDZ erreicht werden
+(s. Kapitel~\ref{sec-infrastruktur}). Für die Statistikproduktion konnte
+im Januar 2025 ein R- und Python-Server um erhebliche Rechenkapazitäten
+erweitert werden. Vorangetrieben durch das NeSt steht seit November 2025
+im FDZ der \textbf{OnSite-Server} mit ausgeweiteten Rechenkapazitäten
+mit erweiterten Rechenkapazitäten für Analysen in R und Stata exklusiv
+für GWAP- und KDFV-Nutzungen zur Verfügung.
+
+Als etablierte Programmiersprache in der Statistik und Datenwissenschaft
+ist R eine natürliche Wahl für die Datenverarbeitung in der
+Statistikproduktion und im FDZ. Da es sich um eine Open-Source-Software
+handelt, erweitert eine große internationale Gemeinschaft daran, R in
+Form von sog. R-Paketen um diverse Funktionalität hoher-performanz oder
+Nutzerfreundlichkeit zu erweitern (s. Kapitel~\ref{sec-methoden}).
+Dieser Artikel wird potenzielle R-Pakete für den Einsatz im
+Statistischen Bundesamt und FDZ bewerten (s.
+Kapitel~\ref{sec-benchmark}) und anhand des BTP demonstrieren, wie
+relevante Auswertungen nachvollziehbar innerhalb von wenigen Sekunden
+durchgeführt werden können (s. \textbf{?@sec-ergebns}).
 
 \section{Anwendungsfall Business-Tax-Panel}\label{sec-btp}
 
 \subsection{Datengrundlage}\label{datengrundlage}
 
-\emph{Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen
-Ertrags- sowie Umsatzsteuerstatistiken im Quer- und Längsschnitt.
-Verfügbar sind Informationen aus den folgenden Statistiken: Gewerbe-,
+Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags-
+sowie Umsatzsteuerstatistiken im Quer- und Längsschnitt. Verfügbar sind
+Informationen aus den folgenden Statistiken: Gewerbe-,
 Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung,
 Statistik über die Personengesellschaften und Gemeinschaften,
 Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen
 Unternehmensregister. Insgesamt deckt der Forschungsdatensatz eine
 Vielzahl an Analysemöglichkeiten, wie zum Beispiel Analyse von
 Anpassungsreaktionen oder Verteilungsanalysen, die für die
-evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab.}
+evidenzbasierte steuerpolitische Entscheidungen nötig sind, ab
+(Kristiansen, 2023 - Link:
+https://www.destatis.de/DE/Methoden/WISTA-Wirtschaft-und-Statistik/2023/04/business-tax-panel-042023.html).
 
-\emph{Für die vielfältigen Analysewünsche der Forschenden, der damit
+Für die vielfältigen Analysewünsche der Forschenden, der damit
 einhergenden Dokumentation des Datensatzes in den Metadatenreports
 (!!hier Fußnote für MDR - siehe Deskriptive Ecktaten 1.) des FDZ, und
 den Auswertungsbedarf des Fachbereiches ist der Datensatz möglichst
 wenig beschränkt worden und dadurch ressourcenintensive. Anstelle einer
 Stichprobe wurden die zugrundeliegenden Vollerhebungen verwendet. Die
-erste Version des BTP (2013 bis 2019) besteht aus ca. 67 Millionen
-Beobachtungen. Mit der Aktualisierung um das Berichtsjahr 2020 wird die
-Zahl der Beobachtungen sich auf ca. 78 Millionen erhöhen. Auch der
+erste Version des BTP (2013 - 2019) besteht aus knapp 67 Millionen
+Beobachtungen. Mit der Aktualisierung um das Berichtsjahr 2020 wird sich
+die Zahl der Beobachtungen auf uca. 78 Millionen erhöhen. Auch der
 Merkmalsumfang von zurzeit über 2.700 Merkmalen wird durch Erweiterung
-von Berichtsjahren steigen.}
-
-\emph{Bereits aktuell und insbesondere durch die regelmäßige Erweiterung
-um Bereichtsjahre steht der Fachbereich sowie das FDZ vor der
+von Berichtsjahren steigen. Bereits aktuell und insbesondere durch die
+anstehende Aktualisierung steht der Fachbereich sowie das FDZ vor der
 Herausforderung den hohe Bedarf an Speicherkapazität, Arbeitsspeicher
-und Prozessorleistung zu decken. Daher wird das BTP als Anwendungsfall
-herangezogen}
+und Prozessorleistung zu decken.
 
 \subsection{Auswertungsbedarfe}\label{auswertungsbedarfe}
 
-\emph{Um den Auswertungsbedarf des Fachbereichs und des FDZ abzubilden
-wird die Tabelle zur Häufigkeitsverteilung der Beobachtungen je Jahr und
-Steuerstatistik (FDZ, 2024 --\textgreater{} IN QULLEN aufnehmen!)
-verwendet. Im Fachbereich ergibt sich zusätzlich der Bedarf die Daten je
-nach Statistik und Tabelle zu bearbeiten. Auch die Forschenden
-bearbeiten die Daten um sie für die jeweilige Analyse aufzubereiten.
-Daher wird die Datenbearbeitung und anschließende Analyse als zweiter
-Anwendungsbedarf getestet.}
+Neben den standardisierten Veröffentlichungsprodukten (wie z.B.
+Genesis-Tabellen, Statistische Berichte) werden Sonderauswertungen
+erstellt. Sowohl bei den Standard- also auch Sonderauswertungen werden
+meist spezifische Anforderungen angegeben. Dafür sind verschiedene
+Bearbeitungsschritte in Form von Filterungen der Beobachtungen (z.B.
+Angaben nur für Organträger) und Auswahl von Merkmalen sowie
+anschließende Berechnungen nötig. Abschließend wird die Tabelle in die
+vorgegebene Veröffentlichungsform gebracht. Das FDZ hat für die
+Erstellung des Metadatenreports einen ähnlichen Bedarf. Um den Bedarf
+nach deskriptiven Auswertungen abzubilden wird die Tabelle zur
+Häufigkeitsverteilung der Beobachtungen je Jahr und Steuerstatistik
+(FDZ, 2024 --\textgreater{} IN QUELLEN aufnehmen!) verwendet.
 
-\emph{Die Körperschaftsteuerstatistik zeigt über die Jahre eine Zunahme
-der Steuerpflichtigen mit Verlustvortrag im jeweiligen Berichtsjahr
-(GENESIS Code 73211-0002). Für den zweiten Anwendungsfall wird das
-Vorliegen eines Verlustvortrages im jeweiligen Berichtsjahr als versucht
-anhand verschiedener Einflussfaktoren zu erklären. Anzunehmen ist, dass
+Für den zweiten Anwendungsfall wird insb. auch die Datenaufbereitung
+abgebildet und im Anschluss eine Regressionsanalyse durchgeführt um den
+zusätzlichen Bedarf der Wissenschaft abzudecken: Es wird das Vorliegen
+eines Verlustvortrages im jeweiligen Berichtsjahr anhand verschiedener
+Einflussfaktoren erklärt. Die Körperschaftsteuerstatistik zeigt über die
+Jahre eine Zunahme der Steuerpflichtigen mit Verlustvortrag im
+jeweiligen Berichtsjahr (GENESIS Code 73211-0002). Anzunehmen ist, dass
 Personalkosten den Verlustvortrag erhöhen können, daher wird die Zahl
 der Sozialversicherungspflichtig Beschäftigen sowie die Summe der Löhne
 und Gehälter als erklärende Variable verwendet. Der jeweilige
 Gesamtbetrag der Einkünfte und die abgezogenen Spenden können ebenfalls
 den Verlustvortrag beeinflussen. Um den Internationalisierungsgrad des
-Unternehmens zu erfassen wird ein Dummy für aufgenommen der Anzeigt, ob
-das Unternehmen auslandskontrolliert ist.}
+Unternehmens zu erfassen wird ein Dummy aufgenommen. Die verschiedenen
+Datenbearbeitungsschritte und Analyse zeigen ein potenzielles
+Forschungsprojekt und sind entsprechend vereinfacht.
 
 \subsubsection{Deskriptive Eckdaten}\label{deskriptive-eckdaten}
 
@@ -962,73 +890,6 @@ Eckdaten benötigt und im nächsten BTP berücksichtigt:
 
 Exemplarisch, neues BTP beinhaltet dies. Regelmäßige Updates
 beschleunigen.
-
-\subsubsection{Regressionen}\label{regressionen}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Verlustvorträge\footnote{Vortrag Annette 2024 JK} (s. Vortrag NeSt)
-  als Indikator für \ldots{} und Einflussgrößen auf Verlustvorträge, für
-  Vermutung von Einfluss der Unternehmensgröße (großes Gesamtvolumen,
-  Löhne, Spenden, tätige Personen; Auslandskontrolle oder WZ) auf
-  positive Verlustvorträge.
-\end{enumerate}
-
-\subsection{Technische
-Spezifikationen}\label{technische-spezifikationen}
-
-\emph{AK: Habe ich im Bereich Datengrundlage integriert. }
-
-\emph{Für die vielfältigen Analysewünsche der Forschenden, den
-Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der
-Erstellung des Metadatenreports des Forschungsdatenzentrums ist der
-Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen
-ist der Datensatz möglichst wenig beschränkt worden und dadurch
-ressourcenintensive. Der damit einhergehende hohe Bedarf an
-Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl
-im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung
-dar.}
-
-\emph{Für die vielfältigen Analysewünsche der Forschenden, den
-Auswertungsbedarf des Fachbereiches bspw. für Sonderauswertungen und der
-Erstellung des Metadatenreports des Forschungsdatenzentrums ist der
-Forschungsdatensatz konzipiert. Für die Abdeckung aller Anforderungen
-ist der Datensatz möglichst wenig beschränkt worden und dadurch
-ressourcenintensive. Der damit einhergehende hohe Bedarf an
-Speicherkapazität, Arbeitsspeicher und Prozessorleistung stellt sowohl
-im Fachbereich als auch im Forschungsdatenzentrum eine Herausforderung
-dar.}
-
-\begin{itemize}
-\item
-  Technische Herausforderung:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    effiziente und verständliche Speicherung
-  \item
-    Herausfiltern großer Datenmengen irrelevanter Merkmale
-  \end{itemize}
-\item
-  Umfang über verfügbaren Arbeitsspeicher
-\item
-  Besonders breit mit 3000 Merkmalen, 69 Mio. Beobachtung, sodass
-  zeilenbasierte Formate problematisch sind.
-\item
-  Technische Herausforderung:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    effiziente und verständliche Speicherung
-  \item
-    Herausfiltern großer Datenmengen irrelevanter Merkmale
-  \end{itemize}
-\end{itemize}
 
 \section{Ausbau der Analyseinfrastruktur}\label{sec-infrastruktur}
 
@@ -1121,7 +982,7 @@ weist R eine hohe anwenderorientierung und fokussiert sich auf
 Datenverarbeitung, -auswertung und -visualisierung.
 
 Als Open-Source-Software erfreut sich R einer großen internationalen
-Gemeinschaft, die die Grundfunktionen von R udurch mehr als 20 000
+Gemeinschaft, die die Grundfunktionen von R durch mehr als 20 000
 \textbf{R-Pakete} erweitert.\footnote{Aktuell sind offiziell 23 035
   Pakete auf CRAN verfügbar. S. https://cran.r-project.org/index.html}
 Passend zu den Anforderungen aus Kapitel~\ref{sec-infra-anf} ist
@@ -1233,14 +1094,14 @@ Kapitel~\ref{sec-methoden}.
 \section{Datenverarbeitungswerkzeuge}\label{sec-methoden}
 
 Wir betrachten in diesem Artikel die Performanz von
-\textbf{Datenverarbeitungswerkzeuge}, d.h. Softwarelösungen, die Daten
+\textbf{Datenverarbeitungswerkzeugen}, d.h. Softwarelösungen, die Daten
 einlesen, modifzierern, aggregieren, auswerten oder
-analysieren.\footnote{Das Schreiben von Daten wird nicht diskutiert, da
-  betrachtete Ergebnistabellen meist klein sind, aber das genannten
-  Lösungen sind auch effizient im Schreiben. Aufgrund von externen
-  Abhängigkeiten werden Datenbanken und Spark nicht betrachtet. Der
-  Fokus liegt auf standard R-Nutzende, die lediglich mit standard
-  R-Werkzeugen vertraut sind.}
+analysieren.\footnote{Das Schreiben von Daten wird nicht vertieft
+  behandelt, da die betrachteten Ergebnistabellen in der Regel klein
+  sind. Die genannten Lösungen sind jdennoch beim Schreiben effizient.
+  Aufgrund externer Abhängigkeiten werden Datenbanksysteme und Spark
+  nicht berücksichtigt. Der Fokus liegt auf Standard-R-Nutzende, die mit
+  den üblichen R-Werkzeugen vertraut sind.}
 
 Wir bezeichnen im Folgenden ein Datenverarbeitungswerkzeug als
 \textbf{hochperformant}, wenn sie Datenmengen verarbeiten kann, die den
@@ -1250,11 +1111,11 @@ auf größere Datenmengen ist ein Wechsel von der \emph{vollständigen
 Verarbeitung im RAM} zur \emph{flexiblen Auslagerung von Daten} nötig.
 Zwar erlaubt die RAM-Verarbeitung schnellen Zugriff, doch das Einlesen
 beansprucht einen Großteil der Laufzeit, und der verfügbare
-Arbeitsspeicher ist meist begrenzt. Geeignete Software und moderner
-Hardware ermöglicht mit heute eine sehr schnelle Verarbeitung von
+Arbeitsspeicher ist meist begrenzt. Geeignete Software und moderne
+Hardware ermöglicht heute eine sehr schnelle Verarbeitung von
 Datenmengen oberhalb des RAMs.
 
-\subsection{Klassische Methoden}\label{klassische-methoden}
+\subsection{Klassische Methoden in R}\label{klassische-methoden-in-r}
 
 Die Kernfunktionen von R (sog. \textbf{Base R}) bieten grundlegende
 Datenverarbeitungswerkzeuge, für Einsteiger oder in stark abgeschotteten
@@ -1362,13 +1223,14 @@ Lazy-Computation gewinnbringend sein:
   Kapitel~\ref{sec-methoden}).
 \end{itemize}
 
-Datenformat Apache \textbf{\href{https://parquet.apache.org/}{Parquet}}
-- R zeigt große Performanzvorteile gegenüber Stata für FDZ Aufgaben:
-``Note that using parquet and R reduces the computing time compared to
-the optimised Stata approach by 65.1\% from 77.6 to 27.1 seconds''
-(\textcite{gomolka2021largedata}) - Die u.g. Parquet-Dateien werden
-bereits standardmäßig im FDSZ angeboten. - Datenformat, spaltenbasiert,
-komprimiert, \ldots{} - tba - s. Vortrag
+Das Datenformat \textbf{\href{https://parquet.apache.org/}{Apache
+Parquet}} ist ein spaltenbasiertes, komprimiertes Open-Source-Format,
+das speziell für effiziente Speicherung und Verarbeitung großer
+Datenmengen entwickelt wurde. Durch seine Struktur ermöglicht Parquet
+den schnellen Zugriff auf einzelne Variablen und reduziert gleichzeitig
+den Speicherbedarf erheblich. (\textcite{gomolka2021largedata}) zeigte
+im FDZ-Kontext massive Geschwindigkeitsgewinne anhand Parquet, sodass im
+FDSZ bereits standardmäßig Parquet-Dateien angeboten werden.
 
 Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs
 betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen
@@ -1407,23 +1269,25 @@ verfügbar sind:
 
 \subsection{Externe Benchmarks}\label{externe-benchmarks}
 
-\textbf{Veröffentlichte Benchmarks} kommen zu unterschiedlichen
-Ergebnissen, daher ist die untersuchung in eigener Infrastruktur mir
-relevanten Use Cases (Datenmengen) und verfügbaren Package-Versionen
-wichtig und wird im folgenden Kapitel~\ref{sec-benchmark}
-durchgeführt.\footnote{Benchmark von Data.table:
+\textbf{Veröffentlichte Benchmarks} können abweichenden Ergebnisse
+erzeugen.\footnote{Benchmark von Data.table:
   https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html}\footnote{Benchmark
   von DuckDB https://duckdblabs.github.io/db-benchmark/}\footnote{https://ddotta.github.io/cookbook-rpolars/benchmarking.html}
-
-Die auf den Servern des Statistischen Bundesamts und des FDZ verfügbaren
-Package-Versionen können aus organisatorischen Gründen nicht flexibel
-angepasst werden, da die Installation neuer Pakete ausschließlich auf
-Antrag über das R-Betriebsteam erfolgt (in der Regel innerhalb von ein
-bis zwei Tagen). Die zum Zeitpunkt des in Kapitel~\ref{sec-benchmark}
+Daher ist die Untersuchung in der eigener Infrastruktur mit relevanten
+Anwendungsfällen (insbesondere Datenmengen) und den verfügbaren
+Software-Versionen gewinnbringend. Die auf den Servern des Statistischen
+Bundesamts und des FDZ verfügbaren R-Paket-Versionen können aus
+organisatorischen Gründen nicht flexibel angepasst werden, da die
+Installation neuer Pakete ausschließlich auf Antrag über das
+R-Betriebsteam erfolgt (in der Regel innerhalb von ein bis zwei
+Arbeitstagen). Die zum Zeitpunkt des in Kapitel~\ref{sec-benchmark}
 dargestellten Performanzvergleichs verfügbaren Versionen sind im
 Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl
 nicht das absolute Performanz-Optimum, sondern eine Version mit
-langfristig stabiler und verlässlich guter Performance.
+langfristig stabiler und verlässlich guter Performance. Ein
+systematisher Performanzvergleich wird im FDZ-OnSite-Server für die
+Anwendungsfälle aus Kapitel~\ref{sec-btp} im folgenden
+Kapitel~\ref{sec-benchmark} durchgeführt.
 
 \section{Performanzvergleich}\label{sec-benchmark}
 

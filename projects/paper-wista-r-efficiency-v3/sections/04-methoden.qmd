@@ -1,14 +1,12 @@
 ## Datenverarbeitungswerkzeuge {#sec-methoden}
 
-Wir betrachten in diesem Artikel die Performanz von **Datenverarbeitungswerkzeuge**, d.h. Softwarelösungen, die Daten einlesen, modifzierern, aggregieren, auswerten oder analysieren.[^datawrite] 
+Wir betrachten in diesem Artikel die Performanz von **Datenverarbeitungswerkzeugen**, d.h. Softwarelösungen, die Daten einlesen, modifzierern, aggregieren, auswerten oder analysieren.[^datawrite] 
 
-Wir bezeichnen im Folgenden ein Datenverarbeitungswerkzeug als **hochperformant**, wenn sie Datenmengen verarbeiten kann, die den verfügbaren Arbeitsspeicher überschreiten, und dabei eine flexible und effiziente Nutzung der Ressourcen ermöglicht. Denn für die Skalierung auf größere Datenmengen ist ein Wechsel von der *vollständigen Verarbeitung im RAM* zur *flexiblen Auslagerung von Daten* nötig. Zwar erlaubt die RAM-Verarbeitung schnellen Zugriff, doch das Einlesen beansprucht einen Großteil der Laufzeit, und der verfügbare Arbeitsspeicher ist meist begrenzt. Geeignete Software und moderner Hardware ermöglicht mit  heute eine sehr schnelle Verarbeitung von Datenmengen oberhalb des RAMs.
+Wir bezeichnen im Folgenden ein Datenverarbeitungswerkzeug als **hochperformant**, wenn sie Datenmengen verarbeiten kann, die den verfügbaren Arbeitsspeicher überschreiten, und dabei eine flexible und effiziente Nutzung der Ressourcen ermöglicht. Denn für die Skalierung auf größere Datenmengen ist ein Wechsel von der *vollständigen Verarbeitung im RAM* zur *flexiblen Auslagerung von Daten* nötig. Zwar erlaubt die RAM-Verarbeitung schnellen Zugriff, doch das Einlesen beansprucht einen Großteil der Laufzeit, und der verfügbare Arbeitsspeicher ist meist begrenzt. Geeignete Software und moderne Hardware ermöglicht heute eine sehr schnelle Verarbeitung von Datenmengen oberhalb des RAMs.
 
-[^datawrite]: Das Schreiben von Daten wird nicht diskutiert, da betrachtete Ergebnistabellen meist klein sind, aber das genannten Lösungen sind auch effizient im Schreiben. Aufgrund von externen Abhängigkeiten werden Datenbanken und Spark nicht betrachtet. Der Fokus liegt auf standard R-Nutzende, die lediglich mit standard R-Werkzeugen vertraut sind.
+[^datawrite]: Das Schreiben von Daten wird nicht vertieft behandelt, da die betrachteten Ergebnistabellen in der Regel klein sind. Die genannten Lösungen sind jdennoch beim Schreiben effizient. Aufgrund externer Abhängigkeiten werden Datenbanksysteme und Spark nicht berücksichtigt. Der Fokus liegt auf Standard-R-Nutzende, die mit den üblichen R-Werkzeugen vertraut sind.
 
-
-
-### Klassische Methoden
+### Klassische Methoden in R
 
 Die Kernfunktionen von R (sog. **Base R**) bieten grundlegende Datenverarbeitungswerkzeuge, für Einsteiger oder in stark abgeschotteten Infrastrukturen zweckdienlich sind. Base R ist heutzutage jedoch weder in Benutzerfreundlichkeit, noch in Performanz zeitgemäß. Diese Lücke wird durch eine Vielzahl von R-Paketen geschlossen, wie die folgenden hervorragenden R-Pakete zeigen.
 
@@ -115,15 +113,14 @@ Für hohe performante Verarbeitung von Datenmengen überhalb des RAMs betrachten
 
 ### Externe Benchmarks
 
-**Veröffentlichte Benchmarks** kommen zu unterschiedlichen Ergebnissen, daher ist die untersuchung in eigener Infrastruktur mir relevanten Use Cases (Datenmengen) und verfügbaren Package-Versionen wichtig und wird im folgenden @sec-benchmark durchgeführt.[^bm-dt][^bm-ddb][^bm-polars]
+**Veröffentlichte Benchmarks** können abweichenden Ergebnisse erzeugen.[^bm-dt][^bm-ddb][^bm-polars]  Daher ist die Untersuchung in der eigener Infrastruktur mit relevanten Anwendungsfällen (insbesondere Datenmengen) und den verfügbaren Software-Versionen gewinnbringend. Die auf den Servern des Statistischen Bundesamts und des FDZ verfügbaren R-Paket-Versionen können aus organisatorischen Gründen nicht flexibel angepasst werden, da die Installation neuer Pakete ausschließlich auf Antrag über das R-Betriebsteam erfolgt (in der Regel innerhalb von ein bis zwei Arbeitstagen). Die zum Zeitpunkt des in @sec-benchmark dargestellten Performanzvergleichs verfügbaren Versionen sind im Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl nicht das absolute Performanz-Optimum, sondern eine Version mit langfristig stabiler und verlässlich guter Performance. Ein systematisher Performanzvergleich wird im FDZ-OnSite-Server für die Anwendungsfälle aus @sec-btp im folgenden @sec-benchmark durchgeführt.
 
 [^bm-dt]: Benchmark von Data.table: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-benchmarking.html
 [^bm-ddb]: Benchmark von DuckDB https://duckdblabs.github.io/db-benchmark/
 [^bm-polars]: https://ddotta.github.io/cookbook-rpolars/benchmarking.html
 
-Die auf den Servern des Statistischen Bundesamts und des FDZ verfügbaren Package-Versionen können aus organisatorischen Gründen nicht flexibel angepasst werden, da die Installation neuer Pakete ausschließlich auf Antrag über das R-Betriebsteam erfolgt (in der Regel innerhalb von ein bis zwei Tagen). Die zum Zeitpunkt des in @sec-benchmark dargestellten Performanzvergleichs verfügbaren Versionen sind im Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl nicht das absolute Performanz-Optimum, sondern eine Version mit langfristig stabiler und verlässlich guter Performance.
 
-<!-- Version in Bib enthalten
+<!-- Versionen in Bib enthalten
 
 ```{r}
 #| label: tbl-pkg-versions
