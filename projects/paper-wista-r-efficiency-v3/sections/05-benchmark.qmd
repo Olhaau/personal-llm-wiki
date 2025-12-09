@@ -1,7 +1,5 @@
 ## Performanzvergleich {#sec-benchmark}
 
-RAM nicht aussagekräftig!!!
-
 <!-- 
 
 Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene statistische Verfahren anhand realer Datensätze aus der amtlichen Statistik vergleicht. Dabei werden sowohl etablierte als auch neuere Ansätze berücksichtigt, um ein vollständiges Bild der verfügbaren Optionen zu zeichnen. 
@@ -24,14 +22,15 @@ Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen Größen (0
 
 Um eine zuverlässige Performanz-Messung zu erhalten, wurde jede Datenverarbeitungsmethode dreifach angewandt. Der Vergleich erfolgt anhand der mittleren Messung der **Laufzeit** der Auswertung (real verstrichene Zeit).
 
-Daneben ist der beanspruchte **Arbeitsspeicher** der Auswertung entscheidend, da ein übermäßiger Arbeitsspeicherverbrauch zu Abbrüchen führen kann. Dennoch verzichten wir auf den Bericht systematischer RAM-Messungen, da der RAM-Verbrauch nicht realistisch von R gemessen werden kann. Hochperformante Pakete lagern RAM-Operationen auf Rust und C++ aus, was in R nicht realistisch gemessen werden kann.
+Daneben ist der beanspruchte **Arbeitsspeicher** der Auswertung entscheidend, da ein übermäßiger Arbeitsspeicherverbrauch zu Abbrüchen führen kann. Dennoch verzichten wir auf den Bericht einiger RAM-Messungen, da der RAM-Verbrauch nicht realistisch von R gemessen werden kann. Hochperformante Pakete lagern RAM-Operationen auf Rust und C++ aus, sodass die Auslastung nur realistisch auf Ebene des Betriebsystems gemessen werden kann.[^polars-ram]
 
+[^polars-ram]: `bench::mark` kann für Rust-basierte Applikationen RAM nicht zuverlässig messen. S. https://tidypolars.etiennebacher.com/.
 
-**Festplattenspeicher** ist ausreichend vorhanden, aber unnötige Belegung sollte vermieden werden. Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 4 GB Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für unerfahrene Nutzende -- ausschlaggebend.
+Der neue OnSite-Server bietet ausreichend**Festplattenspeicher**, aber unnötige Belegung sollte vermieden werden. Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 10 GB Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für unerfahrene Nutzende -- ausschlaggebend.
 
-### Vergleichswert in SAS und Stata
+### Kleiner Vergleich von R zu SAS und Stata
 
-Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen auch für 1 % der simulierten BTP-Daten (etwa 800.000 Beobachtungen) in SAS und Stata durchgeführt.
+Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen auch für 1 % der simulierten BTP-Daten (etwa 700 000 Beobachtungen) in SAS und Stata durchgeführt.
 
 ```{r}
 #| echo: false
@@ -69,17 +68,13 @@ output_table(tbl_out)
 
 Die Ergebnisse in @tbl-baseline zeigen, dass der umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht ausreicht, um das BTP vollständig in Stata einzulesen, sodass zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
 
-### Kleiner Vergleich von R zu SAS und Stata
-
-RAM Messung: http://adv-r.had.co.nz/memory.html 
-
 Für 1 % der simulierten BTP-Daten reduzieren die R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. {polars}, {duckdb} und {arrow} lösen die betrachteten Auswertungen sogar
 
 -   in **unter 2 Sekunden** (27-fach schneller),
 <!--   mit unter **300 MB Arbeitsspeicher** -- {duckdb} und {polars}[^polars-ram] sogar mit unter **5 MB** (10-fach weniger)[^2][^3] -->
--   und nur mit **5 GB Festplattenspeicher** (6-fach weniger gegenüber SAS und Stata).
+-   und nur mit **5 GB Festplattenspeicher** (nur ein Sechstel gegenüber SAS und Stata).
 
-[polars-ram]: `bench::mark` kann für Rust-basierte Applikationen RAM nicht zuverlässig messen. S. https://tidypolars.etiennebacher.com/.
+
 
 [^2]: Lediglich in der Arbeitsspeicherbeanspruchung, ist SAS deutlich besser als klassische R-Methoden. Gegenüber hoch-performanten R-Methoden benötigt SAS jedoch den 10-fachen Arbeitsspeicher.
 

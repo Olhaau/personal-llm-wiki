@@ -39,16 +39,15 @@ server_ausbau <- data.frame(
   )
 )
 
-addWorksheet(wb, "tbl-stba-rserver")
-writeData(wb, "tbl-stba-rserver", server_ausbau, startRow = 1)
-writeData(wb, "tbl-stba-rserver", "Ausbau des R-Server des Statistischen Bundesamtes (Januar 2025)", 
+addWorksheet(wb, "Tabelle 1")
+writeData(wb, "Tabelle 1", "Ausbau des R-Server des Statistischen Bundesamtes (Januar 2025)", 
           startRow = 1, startCol = 1)
-mergeCells(wb, "tbl-stba-rserver", cols = 1:3, rows = 1)
-addStyle(wb, "tbl-stba-rserver", 
+mergeCells(wb, "Tabelle 1", cols = 1:3, rows = 1)
+addStyle(wb, "Tabelle 1", 
          style = createStyle(textDecoration = "bold", fontSize = 12), 
          rows = 1, cols = 1:3)
-writeData(wb, "tbl-stba-rserver", server_ausbau, startRow = 3)
-addStyle(wb, "tbl-stba-rserver", 
+writeData(wb, "Tabelle 1", server_ausbau, startRow = 3)
+addStyle(wb, "Tabelle 1", 
          style = createStyle(textDecoration = "bold"), 
          rows = 3, cols = 1:3)
 
@@ -70,15 +69,15 @@ fdz_specs <- data.frame(
   )
 )
 
-addWorksheet(wb, "tbl-fdz-server")
-writeData(wb, "tbl-fdz-server", "OnSite-Server des FDZ Bund: Spezifikationen (November 2025)", 
+addWorksheet(wb, "Tabelle 2")
+writeData(wb, "Tabelle 2", "OnSite-Server des FDZ Bund: Spezifikationen (November 2025)", 
           startRow = 1, startCol = 1)
-mergeCells(wb, "tbl-fdz-server", cols = 1:2, rows = 1)
-addStyle(wb, "tbl-fdz-server", 
+mergeCells(wb, "Tabelle 2", cols = 1:2, rows = 1)
+addStyle(wb, "Tabelle 2", 
          style = createStyle(textDecoration = "bold", fontSize = 12), 
          rows = 1, cols = 1:2)
-writeData(wb, "tbl-fdz-server", fdz_specs, startRow = 3)
-addStyle(wb, "tbl-fdz-server", 
+writeData(wb, "Tabelle 2", fdz_specs, startRow = 3)
+addStyle(wb, "Tabelle 2", 
          style = createStyle(textDecoration = "bold"), 
          rows = 3, cols = 1:2)
 
@@ -95,18 +94,18 @@ dplyr_syntax <- tribble(
   8, "    )", ""
 )
 
-addWorksheet(wb, "tbl-dplyr-syntax")
-writeData(wb, "tbl-dplyr-syntax", "Exemplarische Auswertung des BTP in dplyr-Syntax", 
+addWorksheet(wb, "Tabelle 3")
+writeData(wb, "Tabelle 3", "Exemplarische Auswertung des BTP in dplyr-Syntax", 
           startRow = 1, startCol = 1)
-mergeCells(wb, "tbl-dplyr-syntax", cols = 1:3, rows = 1)
-addStyle(wb, "tbl-dplyr-syntax", 
+mergeCells(wb, "Tabelle 3", cols = 1:3, rows = 1)
+addStyle(wb, "Tabelle 3", 
          style = createStyle(textDecoration = "bold", fontSize = 12), 
          rows = 1, cols = 1:3)
-writeData(wb, "tbl-dplyr-syntax", dplyr_syntax, startRow = 3)
-addStyle(wb, "tbl-dplyr-syntax", 
+writeData(wb, "Tabelle 3", dplyr_syntax, startRow = 3)
+addStyle(wb, "Tabelle 3", 
          style = createStyle(textDecoration = "bold"), 
          rows = 3, cols = 1:3)
-setColWidths(wb, "tbl-dplyr-syntax", cols = 1:3, widths = c(5, 40, 50))
+setColWidths(wb, "Tabelle 3", cols = 1:3, widths = c(5, 40, 50))
 
 # ---- Table 4: Baseline SAS and Stata ----
 realtimes_sas_cnt <- c(2.25, 2.43, 2.32, 2.5, 2.59, 2.43, 2.51)
@@ -126,15 +125,15 @@ baseline_data <- tribble(
   "Stata", "Regression", "33 GB",        "55,8 Sek.",      "32 GB"
 )
 
-addWorksheet(wb, "tbl-baseline")
-writeData(wb, "tbl-baseline", "Baselines in SAS und Stata (anhand 1% des simuliertes BTP)", 
+addWorksheet(wb, "Tabelle 4")
+writeData(wb, "Tabelle 4", "Baselines in SAS und Stata (anhand 1% des simuliertes BTP)", 
           startRow = 1, startCol = 1)
-mergeCells(wb, "tbl-baseline", cols = 1:5, rows = 1)
-addStyle(wb, "tbl-baseline", 
+mergeCells(wb, "Tabelle 4", cols = 1:5, rows = 1)
+addStyle(wb, "Tabelle 4", 
          style = createStyle(textDecoration = "bold", fontSize = 12), 
          rows = 1, cols = 1:5)
-writeData(wb, "tbl-baseline", baseline_data, startRow = 3)
-addStyle(wb, "tbl-baseline", 
+writeData(wb, "Tabelle 4", baseline_data, startRow = 3)
+addStyle(wb, "Tabelle 4", 
          style = createStyle(textDecoration = "bold"), 
          rows = 3, cols = 1:5)
 
@@ -203,16 +202,16 @@ dat_bm_small_cnt <- dat_bm |>
   filter(Beobachtungen == "100.000", Anwendung == "Fallzahl") |>
   select(-Beobachtungen, -Anwendung)
 
-addWorksheet(wb, "tbl-benchmark-small")
-writeData(wb, "tbl-benchmark-small", 
+addWorksheet(wb, "Tabelle 5")
+writeData(wb, "Tabelle 5", 
           "Performanz Messungen für die Fallzahlberechnung anhand 1% des BTP", 
           startRow = 1, startCol = 1)
-mergeCells(wb, "tbl-benchmark-small", cols = 1:6, rows = 1)
-addStyle(wb, "tbl-benchmark-small", 
+mergeCells(wb, "Tabelle 5", cols = 1:6, rows = 1)
+addStyle(wb, "Tabelle 5", 
          style = createStyle(textDecoration = "bold", fontSize = 12), 
          rows = 1, cols = 1:6)
-writeData(wb, "tbl-benchmark-small", dat_bm_small_cnt, startRow = 3)
-addStyle(wb, "tbl-benchmark-small", 
+writeData(wb, "Tabelle 5", dat_bm_small_cnt, startRow = 3)
+addStyle(wb, "Tabelle 5", 
          style = createStyle(textDecoration = "bold"), 
          rows = 3, cols = 1:6)
 
@@ -221,16 +220,16 @@ dat_bm_small_reg <- dat_bm |>
   filter(Beobachtungen == "100.000", Anwendung == "Regression") |>
   select(-Beobachtungen, -Anwendung)
 
-addWorksheet(wb, "tbl-benchmark-regr-small")
-writeData(wb, "tbl-benchmark-regr-small", 
+addWorksheet(wb, "Tabelle 6")
+writeData(wb, "Tabelle 6", 
           "Performanz Messungen für die Regressionsberechnung anhand 1% des BTP", 
           startRow = 1, startCol = 1)
-mergeCells(wb, "tbl-benchmark-regr-small", cols = 1:6, rows = 1)
-addStyle(wb, "tbl-benchmark-regr-small", 
+mergeCells(wb, "Tabelle 6", cols = 1:6, rows = 1)
+addStyle(wb, "Tabelle 6", 
          style = createStyle(textDecoration = "bold", fontSize = 12), 
          rows = 1, cols = 1:6)
-writeData(wb, "tbl-benchmark-regr-small", dat_bm_small_reg, startRow = 3)
-addStyle(wb, "tbl-benchmark-regr-small", 
+writeData(wb, "Tabelle 6", dat_bm_small_reg, startRow = 3)
+addStyle(wb, "Tabelle 6", 
          style = createStyle(textDecoration = "bold"), 
          rows = 3, cols = 1:6)
 
@@ -239,16 +238,16 @@ dat_bm_large_cnt <- dat_bm |>
   filter(Beobachtungen == "1.000.000", Anwendung == "Fallzahl") |>
   select(-Beobachtungen, -Anwendung)
 
-addWorksheet(wb, "tbl-benchmark")
-writeData(wb, "tbl-benchmark", 
+addWorksheet(wb, "Tabelle 7")
+writeData(wb, "Tabelle 7", 
           "Performanz Messungen für die Fallzahlberechnung anhand 10% des BTP", 
           startRow = 1, startCol = 1)
-mergeCells(wb, "tbl-benchmark", cols = 1:6, rows = 1)
-addStyle(wb, "tbl-benchmark", 
+mergeCells(wb, "Tabelle 7", cols = 1:6, rows = 1)
+addStyle(wb, "Tabelle 7", 
          style = createStyle(textDecoration = "bold", fontSize = 12), 
          rows = 1, cols = 1:6)
-writeData(wb, "tbl-benchmark", dat_bm_large_cnt, startRow = 3)
-addStyle(wb, "tbl-benchmark", 
+writeData(wb, "Tabelle 7", dat_bm_large_cnt, startRow = 3)
+addStyle(wb, "Tabelle 7", 
          style = createStyle(textDecoration = "bold"), 
          rows = 3, cols = 1:6)
 
@@ -257,16 +256,16 @@ dat_bm_large_reg <- dat_bm |>
   filter(Beobachtungen == "1.000.000", Anwendung == "Regression") |>
   select(-Beobachtungen, -Anwendung)
 
-addWorksheet(wb, "tbl-benchmark-regr")
-writeData(wb, "tbl-benchmark-regr", 
+addWorksheet(wb, "Tabelle 8")
+writeData(wb, "Tabelle 8", 
           "Performanz Messungen für die Regressionsberechnung anhand 10% des BTP", 
           startRow = 1, startCol = 1)
-mergeCells(wb, "tbl-benchmark-regr", cols = 1:6, rows = 1)
-addStyle(wb, "tbl-benchmark-regr", 
+mergeCells(wb, "Tabelle 8", cols = 1:6, rows = 1)
+addStyle(wb, "Tabelle 8", 
          style = createStyle(textDecoration = "bold", fontSize = 12), 
          rows = 1, cols = 1:6)
-writeData(wb, "tbl-benchmark-regr", dat_bm_large_reg, startRow = 3)
-addStyle(wb, "tbl-benchmark-regr", 
+writeData(wb, "Tabelle 8", dat_bm_large_reg, startRow = 3)
+addStyle(wb, "Tabelle 8", 
          style = createStyle(textDecoration = "bold"), 
          rows = 3, cols = 1:6)
 
@@ -276,11 +275,11 @@ saveWorkbook(wb, output_file, overwrite = TRUE)
 
 cat("\n✓ Excel file created successfully:", output_file, "\n")
 cat("\nWorksheets created:\n")
-cat("  1. tbl-stba-rserver: R-Server Ausbau (StBA)\n")
-cat("  2. tbl-fdz-server: OnSite-Server des FDZ Bund\n")
-cat("  3. tbl-dplyr-syntax: dplyr-Syntax Example\n")
-cat("  4. tbl-baseline: SAS and Stata Baselines\n")
-cat("  5. tbl-benchmark-small: Benchmark 1% - Fallzahl\n")
-cat("  6. tbl-benchmark-regr-small: Benchmark 1% - Regression\n")
-cat("  7. tbl-benchmark: Benchmark 10% - Fallzahl\n")
-cat("  8. tbl-benchmark-regr: Benchmark 10% - Regression\n")
+cat("  Tabelle 1: R-Server Ausbau (StBA)\n")
+cat("  Tabelle 2: OnSite-Server des FDZ Bund\n")
+cat("  Tabelle 3: dplyr-Syntax Example\n")
+cat("  Tabelle 4: SAS and Stata Baselines\n")
+cat("  Tabelle 5: Benchmark 1% - Fallzahl\n")
+cat("  Tabelle 6: Benchmark 1% - Regression\n")
+cat("  Tabelle 7: Benchmark 10% - Fallzahl\n")
+cat("  Tabelle 8: Benchmark 10% - Regression\n")

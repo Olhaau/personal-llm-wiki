@@ -24,12 +24,13 @@ format:
     output-file: "Effiziente-Analyse-Forschungsdaten-R.docx"
     reference-doc: templates/Kristiansen_Red_kri.docx
     number-sections: true
-    toc: true
-    toc-depth: 3
-    toc-title: "Inhaltsverzeichnis"
+    toc: false
+    shift-heading-level-by: -1
     highlight-style: github
     filters:
+      - _extensions/fix-table-refs-docx.lua
       - _extensions/remove-tables-docx.lua
+    reference-location: document
   pdf:
     title: "EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R"
     author: 

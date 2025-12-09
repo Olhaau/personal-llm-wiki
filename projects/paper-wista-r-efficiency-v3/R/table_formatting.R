@@ -107,6 +107,9 @@ format_wista_table <- function(data,
     # Auto-fit to content
     ft <- autofit(ft)
     
+    # Attach label as attribute for DOCX output
+    attr(ft, "label") <- label
+    
     # Return the flextable object
     return(ft)
   }
@@ -267,7 +270,7 @@ format_benchmark_table <- function(data, label, caption = NULL, align = NULL) {
     align <- c("l", "l", "l", "r", "r", "r")
   }
   
-  format_wista_table(
+  tbl <- format_wista_table(
     data = data,
     align = align,
     label = label,
@@ -280,6 +283,10 @@ format_benchmark_table <- function(data, label, caption = NULL, align = NULL) {
     header_colors = TRUE,
     alternating_colors = TRUE
   )
+  
+  # Attach label as attribute for DOCX output
+  attr(tbl, "label") <- label
+  return(tbl)
 }
 
 #' Simplified wrapper for baseline comparison tables
@@ -293,7 +300,7 @@ format_benchmark_table <- function(data, label, caption = NULL, align = NULL) {
 format_baseline_table <- function(data, label, caption = NULL, collapse_first_col = TRUE) {
   collapse_cols <- if (collapse_first_col) 1 else NULL
   
-  format_wista_table(
+  tbl <- format_wista_table(
     data = data,
     align = c("l", "l", "r", "r", "r"),
     label = label,
@@ -307,6 +314,10 @@ format_baseline_table <- function(data, label, caption = NULL, collapse_first_co
     header_colors = FALSE,
     alternating_colors = TRUE
   )
+  
+  # Attach label as attribute for DOCX output
+  attr(tbl, "label") <- label
+  return(tbl)
 }
 
 #' Simplified wrapper for small benchmark tables (appendix)
@@ -317,7 +328,7 @@ format_baseline_table <- function(data, label, caption = NULL, collapse_first_co
 #' 
 #' @return Formatted table output
 format_small_benchmark_table <- function(data, label, caption = NULL) {
-  format_wista_table(
+  tbl <- format_wista_table(
     data = data,
     align = c("r", "l", "l", "l", "r", "r", "r"),
     label = label,
@@ -330,6 +341,10 @@ format_small_benchmark_table <- function(data, label, caption = NULL) {
     header_colors = TRUE,
     alternating_colors = TRUE
   )
+  
+  # Attach label as attribute for DOCX output
+  attr(tbl, "label") <- label
+  return(tbl)
 }
 
 #' Format descriptive/overview tables
@@ -343,7 +358,7 @@ format_small_benchmark_table <- function(data, label, caption = NULL) {
 #' 
 #' @return Formatted table output
 format_descriptive_table <- function(data, label, caption = NULL, col_names = NULL, font_size = 9, escape = TRUE) {
-  format_wista_table(
+  tbl <- format_wista_table(
     data = data,
     col_names = col_names,
     label = label,
@@ -356,6 +371,10 @@ format_descriptive_table <- function(data, label, caption = NULL, col_names = NU
     header_colors = TRUE,
     alternating_colors = TRUE
   )
+  
+  # Attach label as attribute for DOCX output
+  attr(tbl, "label") <- label
+  return(tbl)
 }
 
 #' Output table with format-aware handling
@@ -367,15 +386,50 @@ format_descriptive_table <- function(data, label, caption = NULL, col_names = NU
 #' @param tbl_out Table output from format_*_table functions
 #' 
 #' @return For DOCX: flextable object; For LaTeX: NULL (after cat)
-output_table <- function(tbl_out) {
+# Table numbering for DOCX output
+.table_counter <- 0
+
+# Helper to get table number from label
+get_table_number <- function(label) {
+  # Map labels to table numbers
+  table_map <- c(
+    "stba-rserver" = 1,
+    "fdz-server" = 2,
+    "dplyr-syntax" = 3,
+    "baseline" = 4,
+    "benchmark-small" = 5,
+    "benchmark-regr-small" = 6,
+    "benchmark" = 7,
+    "benchmark-regr" = 8
+  )
+  
+  if (label %in% names(table_map)) {
+    return(table_map[[label]])
+  } else {
+    # Fallback to counter if label not found
+    .table_counter <<- .table_counter + 1
+    return(.table_counter)
+  }
+}
+
+output_table <- function(tbl_out, label = NULL) {
   if (is.character(tbl_out)) {
     # LaTeX output - use cat() and return invisible
     cat(tbl_out)
     return(invisible(NULL))
   } else {
-    # DOCX/other - skip tables, return placeholder text
-    # Tables are exported to Excel file instead
-    cat("\n**→ Tabelle siehe Excel-Datei:** Tabellen-Effiziente-Analyse-Forschungsdaten-R.xlsx\n\n")
+    # DOCX/other - skip tables, return placeholder with table number
+    # Extract label from tbl_out attributes if not provided
+    if (is.null(label)) {
+      label <- attr(tbl_out, "label")
+    }
+    
+    if (!is.null(label)) {
+      table_num <- get_table_number(label)
+      cat(sprintf("\n**→ Tabelle %d** (siehe Excel-Datei)\n\n", table_num))
+    } else {
+      cat("\n**→ Tabelle siehe Excel-Datei**\n\n")
+    }
     return(invisible(NULL))
   }
 }
