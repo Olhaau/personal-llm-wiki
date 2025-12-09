@@ -31,6 +31,7 @@ format:
       - _extensions/fix-table-refs-docx.lua
       - _extensions/remove-tables-docx.lua
     reference-location: document
+    preserve-tabs: true
   pdf:
     title: "EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R"
     author: 

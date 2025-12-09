@@ -6,7 +6,7 @@ tba (Wunsch Oli an FB):
 
 - beschreiben, welche Datenverarbeitungen in der Statistikproduktion häufig durchgeführt werden und, das unsere Use Cases dazu passen. (s.u. entsprechend dem FDZ Bund)
 
-Identifizierte Kernaufgabe: 90% irrelevante Informationen aus großen Datenmengen rausfiltern, Untersuchung wie dies am effizientesten geht. 
+Identifizierte Kernaufgabe: 90 % irrelevante Informationen aus großen Datenmengen rausfiltern, Untersuchung wie dies am effizientesten geht. 
 
 Häufig fokussieren sich Forschungsprojekte im FDZ Bund auf die folgenden Operationen:
 
@@ -22,7 +22,7 @@ Ein Hauptteil der Laufzeit und RAM-Beanspruchung ist auf das "1. Einlesen von Da
 
 Das Business-Tax-Panel kombiniert die Angaben aus verschiedenen Ertrags- sowie Umsatzsteuerstatistiken im Quer- und Längsschnitt. Verfügbar sind Informationen aus den folgenden Statistiken: Gewerbe-, Körperschaftsteuer, Umsatzsteuer-Voranmeldung und -Veranlagung, Statistik über die Personengesellschaften und Gemeinschaften, Einnahmenüberschussrechnung und einige Merkmale aus dem Statistischen Unternehmensregister. Insgesamt deckt der Forschungsdatensatz eine Vielzahl an Analysemöglichkeiten ab, wie zum Beispiel die Analyse von Anpassungsreaktionen oder Verteilungsanalysen, die für evidenzbasierte steuerpolitische Entscheidungen nötig sind [@kristiansen2023btp].
 
-Für die vielfältigen Analysewünsche der Forschenden, die damit einhergehende Dokumentation des Datensatzes in den Metadatenreports [@fdz2024btp] des FDZ Bund und den Auswertungsbedarf des Fachbereichs ist der Datensatz möglichst wenig beschränkt worden und dadurch ressourcenintensiv. Anstelle einer Stichprobe wurden die zugrundeliegenden Vollerhebungen verwendet. Die erste Version des BTP (2013 - 2019) besteht aus knapp 67 Millionen Beobachtungen. Mit der Aktualisierung um das Berichtsjahr 2020 wird sich die Zahl der Beobachtungen auf etwa 78 Millionen erhöhen. Auch der Merkmalsumfang von zurzeit über 2.700 Merkmalen wird durch Erweiterung von Berichtsjahren steigen. Bereits aktuell und insbesondere durch die anstehende Aktualisierung steht der Fachbereich sowie das FDZ Bund vor der Herausforderung den hohe Bedarf an Speicherkapazität, Arbeitsspeicher und Prozessorleistung zu decken.
+Für die vielfältigen Analysewünsche der Forschenden, die damit einhergehende Dokumentation des Datensatzes in den Metadatenreports [@fdz2024btp] des FDZ Bund und den Auswertungsbedarf des Fachbereichs ist der Datensatz möglichst wenig beschränkt worden und dadurch ressourcenintensiv. Anstelle einer Stichprobe wurden die zugrundeliegenden Vollerhebungen verwendet. Die erste Version des BTP (2013 - 2019) besteht aus knapp 67 Millionen Beobachtungen. Mit der Aktualisierung um das Berichtsjahr 2020 wird sich die Zahl der Beobachtungen auf etwa 78 Millionen erhöhen. Auch der Merkmalsumfang von zurzeit über 2.700 Merkmalen wird durch Erweiterung von Berichtsjahren steigen. Bereits aktuell und insbesondere durch die anstehende Aktualisierung steht der Fachbereich sowie das FDZ Bund vor der Herausforderung den hohe Bedarf an Speicherkapazität, Arbeitsspeicher (sog. Random-Access-Memory, kurz RAM) und Prozessorleistung zu decken.
 
 ### Auswertungsbedarfe
 
@@ -66,7 +66,7 @@ Exemplarisch, neues BTP beinhaltet dies. Regelmäßige Updates beschleunigen.
     -   Herausfiltern großer Datenmengen irrelevanter Merkmale
 
 -   Umfang über verfügbaren Arbeitsspeicher
--   Besonders breit mit 3000 Merkmalen, 69 Mio. Beobachtung, sodass zeilenbasierte Formate problematisch sind. 
+-   Besonders breit mit 3 000 Merkmalen, 69 Mio. Beobachtung, sodass zeilenbasierte Formate problematisch sind. 
 
 -   Technische Herausforderung:
     -   effiziente und verständliche Speicherung
@@ -79,7 +79,7 @@ Exemplarisch, neues BTP beinhaltet dies. Regelmäßige Updates beschleunigen.
 -   TODO: Zufügen von öffentlich verfügbaren Informationen zu Struktur und Verteilung des BTP. Verteilung über Statistik und Jahr, ...
     -   was ist wichtig? Randverteilung, missings, vollständigkeit der variablen
     -   erstmal eine Tabelle mit Variablenanzahl, Entfernung durch Hinweis feld. Tabelle: Variablenzahl komplett, Variablenanzahl ohne Hinweisfeld, Variablenanzahl Befüllt?
-    -   Hinweis Befüllungsgrad tlw. gering... x Variablen fehlen zu 90%, 80%, 70%, 60%, 50% ?
+    -   Hinweis Befüllungsgrad tlw. gering... x Variablen fehlen zu 90 %, 80 %, 70 %, 60 %, 50 % ?
     -   Verteilung der Zeilen auf Statistik und Jahr, inkl. Trend
     -   Verteilung auf Kombinationen genauer
 -   Anwendungsfälle volles Spektrum

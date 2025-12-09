@@ -1,5 +1,5 @@
 ---
-title: "Effiziente Auswertung des Business-Tax-Panels mithilfe von R"
+title: "Effiziente Auswertung des Business Tax Panels mithilfe von R"
 author: "Oliver Hauke, Annette Kristiansen"
 date: today
 format: pdf
@@ -49,7 +49,7 @@ The Federal Statistical Office of Germany faces the challenge of processing sign
 
 {{< include sections/07-ausblick.qmd >}}
 
-{{< include sections/anhang.qmd >}}
+<!-- {{< include sections/anhang.qmd >}} -->
 
 ::: {.content-visible when-format="docx"}
 \newpage

@@ -4,30 +4,49 @@
 
 ## Ergebnis für das vollständige BTP {#sec-ergebnis}
 
+Wir kommen insgesamt zu dem Ergebnis, das hochperformante Werkzeuge in R in der Lage sind die betrachteten Anwendungsfälle in Echtzeit zu beantworten. Wir empfehlen in R die Verarbeitung von Parquet-Dateien mit Arrow und DuckDB für die Auswertung großer Datenmengen im Statistischen Bundesamt und FDZ. Parquet-Dateien haben in allen Untersuchungen deutliche schnellere Auswertungen ermöglicht und gleichzeitig den Speicherbedarf reduziert. Arrow und Duckdb können ohne Verzögerungen kombiniert werden und bieten beide die besonders nutzerfreundliche und nachvollziehbare Dplyr-Syntax. Für besonders große Datenmengen, kann Arrow aufgeteilte Parquet-Dateien besonders gut nutzen. Das neuere R-Paket Polars bietet eine sehr gute Alternative, die in für kleinere Datenmengen am schnellsten war. Jedoch hatte die vorliegende Version nicht stabil für größere Datenmengen ebenfalls hohe Performanz gezeigt und die Handhabung in R ist uns schwerer gefallen, als für Arrow und DuckDB.
+
+Der vollständige Datensatz hat einen Umfang von ... (Stata) und ... (SAS). Für die Verarbeitung des vollständigen Datensatz kommt Stata an die Kapazitätsgrenzen des OnSite-Servers. Es kann aber mit der Variablenauswahl verwendet werden. SAS kann auch für diese großen Datenmengen weiterhin genutzt werden und absolviert die betrachteten und liefert die betrachteten Ergebnisse mit der in Tabelle ... dargestellten Performanz.
+
+ Arrow anhand einer Aufteilung pro Berichtsjahres auf Parquet-Dateien zeigen für die gesamte Datenmenge den großen Mehrwert und liefern die Ergebnisse mit der folgenden Performanz:
+
+ - Fallzahlen: 2,3 Sekunden,
+ - Regression: 12 Sekunden.
+
+<!--
+1.  Für die relevanteste Datenmenge von 8 Mio. Beobachtungen zeigte Arrow die geringsten Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle denkenswerten explorativen Analysen auszuweiten.
+2.  Auch die Nutzererfahrung gefiel uns mit Arrow am besten, und somit waren die einhergehenden Entwicklungsaufwände gegenüber den anderen Methoden am geringsten.
+  1.  Arrow verwendet die anschauliche Tidyverse-Syntax nativ. Vorhandener Code lässt sich zum Großteil änderungsfrei und ohne Performanzverluste auf Arrow übertragen. Duckdb kann bei Kenntnissen in SQL zu bevorzugen sein und Polars mit Erfahrungen in Python.
+  2.  Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in Arrow programmieren.[^opencode]
+  3.  Obwohl nicht alle Features aus Tidyverse für Arrow verfügbar sind, ließ sich bisher immer eine Lösung finden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit Duckdb oder andere Funktionsaufrufe.
+3.  Arrow spart ausreichend Arbeitsspeicher (mit einem Verbrauch unter 1 GB). Der Arbeitsspeicherverbrauch von Arrow ist in unserer Auswertung nahezu konstant und unabhängig von der Datenmenge, sodass Arrow leicht auf noch größere Datenmengen skalieren kann
+4.  Dadurch dass Arrow die Nutzung auch von mehreren Parquet-Dateien unterstützt, spart es gegenüber CSV mind. 50 % der Festplatte (für das reale BTP sogar 80 %+) und ermöglicht schnelle Nutzung auch von Datenmengen oberhalb des verfügbaren Arbeitsspeichers.
+
 Anwendung der besten Methode auf die echten Daten des vollständige BTP ergibt:
 
-- Performanz von {arrow} Fallzahlen (ein paar Sekunden) und Regression (Sekunden)
-- leicht lesbar in {arrow}
+- Performanz von Arrow Fallzahlen (ein paar Sekunden) und Regression (Sekunden)
+- leicht lesbar in Arrow
+-->
 
-### Ergebnis
 
-[Ergebnistabelle Fallzahl, ggf. als Heatmap]
 
--> Zukünftige Nutzung für MDR wird umgesetzt.
+<!-- [Ergebnistabelle Fallzahl, ggf. als Heatmap] -->
 
-[Model Summary?]
+<!-- -> Zukünftige Nutzung für MDR wird umgesetzt. -->
 
-### Vergleich zu SAS, (Stata), Datatable
+<!-- [Model Summary?] -->
 
-- Ergebnis in SAS
-- (optional) Datatable ohne sekeltives Einlesen führt zu RAM Crash (RAM-Fehler?)
-- (optional) Datatable Sel.
+<!-- ### Vergleich zu SAS, (Stata), Datatable -->
 
-Real world application unserer Ergebnisse auf das Echte BTP
+<!-- - Ergebnis in SAS -->
+<!-- - (optional) Datatable ohne sekeltives Einlesen führt zu RAM Crash (RAM-Fehler?) -->
+<!-- - (optional) Datatable Sel. -->
 
-Ergebnis für gesamten Datensatz
+<!-- Real world application unserer Ergebnisse auf das Echte BTP -->
 
--\> Größere Speicherreduktion, da das echte BTP mehr fehlende Werte enthält, als anhand der externen Daten angenommen.
+<!-- Ergebnis für gesamten Datensatz -->
+
+<!-- -\> Größere Speicherreduktion, da das echte BTP mehr fehlende Werte enthält, als anhand der externen Daten angenommen. -->
 
 <!-- ### Kernaussagen -->
 

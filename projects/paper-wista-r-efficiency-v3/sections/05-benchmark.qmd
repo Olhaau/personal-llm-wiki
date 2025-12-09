@@ -8,29 +8,32 @@ Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene
 -   Wir nutzen eine Kontrollierte Benchmark
 -->
 
+Um zwischen den in @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, explorieren wir deren Performanz in einem umfangreichen Vergleich auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ Bund. Wir erhöhen schrittweise die Datenmenge und betrachten nur Kandidaten weiter, die hohe Performanz zeigen konnten. Für R-Pakete mit hohem Potenzial und hoher Nutzerfreundlichkeit wurden mehr Optionen erprobt, um die besten Optionen zu bestimmen.
 
 ### Versuchsaufbau
 
-Um zwischen den in @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in einem systematischen Vergleich auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ Bund gemessen. Weiterführende Performanzmessung sowie der vollständig reproduzierbare Code sind auf Opencode verfügbar[^opencode].
-
 [^opencode]: www.opencode.de/URL-To-Be-Announced.
 
-Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen Größen (0,1 %/1 %/10 % der insgesamt 67 Millionen Beobachtungen des BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen generiert und bilden die wesentlichen Strukturen des BTP für unsere Analyse künstlich nach. Abgrenzend zu den im FDZ Bund bereitgestellten *Datenstrukturfiles* wurden die Testdaten nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
+Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen Größen (0,1 % / 1 % / 10 % der insgesamt 67 Millionen Beobachtungen des BTP) betrachtet. Sie wurden aus öffentlich verfügbaren Informationen generiert und bilden die wesentlichen Strukturen des BTP für unsere Analyse künstlich nach. Abgrenzend zu den im FDZ Bund bereitgestellten *Datenstrukturfiles* wurden die Testdaten nicht aus echten Mikrodaten abgeleitet. Der simulierte Datensatz ist ausschließlich für technische Testzwecke der nachfolgenden Anwendungsfälle bestimmt:
 
 1.  **Fallzahlen** (pro Statistik und Jahr),
 2.  **Regression** (Einflussfaktoren auf Verlustvorträge).
 
 Um eine zuverlässige Performanz-Messung zu erhalten, wurde jede Datenverarbeitungsmethode dreifach angewandt. Der Vergleich erfolgt anhand der mittleren Messung der **Laufzeit** der Auswertung (real verstrichene Zeit).
 
-Daneben ist der beanspruchte **Arbeitsspeicher** der Auswertung entscheidend, da ein übermäßiger Arbeitsspeicherverbrauch zu Abbrüchen führen kann. Dennoch verzichten wir auf den Bericht einiger RAM-Messungen, da der RAM-Verbrauch nicht realistisch von R gemessen werden kann. Hochperformante Pakete lagern RAM-Operationen auf Rust und C++ aus, sodass die Auslastung nur realistisch auf Ebene des Betriebsystems gemessen werden kann.[^polars-ram]
+Daneben ist der beanspruchte **Arbeitsspeicher** der Auswertung entscheidend, da ein übermäßiger Arbeitsspeicherverbrauch zu Abbrüchen führen kann. Im Rahmen unseres Experments konnte der RAM-Verbrauch nicht systematisch korrekt gemessen werden, da der Verbrauch von C++ oder Rust anhand von R-Paketen schlecht beobachtbar ist.[^polars-ram] Für ausgewählte Tests haben wir den RAM-Verbrauch anhand eines Systemmonitors beobachtet.
+
+Der neue OnSite-Server bietet ausreichend**Festplattenspeicher**, aber unnötige Belegung ist zu vermeiden.
 
 [^polars-ram]: `bench::mark` kann für Rust-basierte Applikationen RAM nicht zuverlässig messen. S. https://tidypolars.etiennebacher.com/.
 
-Der neue OnSite-Server bietet ausreichend**Festplattenspeicher**, aber unnötige Belegung sollte vermieden werden. Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 10 GB Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für unerfahrene Nutzende -- ausschlaggebend.
+Unser Ziel ist, Werkzeuge mit einer Mindestperformanz in verschiedenen Szenarien zu finden und nicht in jedem Anwendungsfall ein Werkzeug für die schnellste Verarbeitung zu bestimmen. Denn es sollten möglichst wenig verschiedene Werkzeuge eingesetzt werden, um Entwicklungs- und Wartungsaufwände gering zu halten.
+
+Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit weniger als 10 GB Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und Nachvollziehbarkeit -- auch für unerfahrene Nutzende -- ausschlaggebend.
 
 ### Kleiner Vergleich von R zu SAS und Stata
 
-Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen auch für 1 % der simulierten BTP-Daten (etwa 700 000 Beobachtungen) in SAS und Stata durchgeführt.
+Wir betrachten zunächst 1 % 1 % der simulierten BTP-Daten (etwa 700 000 Beobachtungen). Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen auch in SAS und Stata durchgeführt.
 
 ```{r}
 #| echo: false
@@ -66,23 +69,21 @@ tbl_out <- format_baseline_table(baseline_data,
 output_table(tbl_out)
 ```
 
-Die Ergebnisse in @tbl-baseline zeigen, dass der umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht ausreicht, um das BTP vollständig in Stata einzulesen, sodass zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
+Die Ergebnisse in @tbl-baseline deuten an, dass der umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht ausreichen wird, um das BTP vollständig in Stata einzulesen, sodass in Stata zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung etwa doppelt so lang wie Stata.
 
-Für 1 % der simulierten BTP-Daten reduzieren die R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. Die Pakete polars, duckdb und arrow lösen die betrachteten Auswertungen sogar
+Für 1 % der simulierten BTP-Daten reduzieren die R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. Die Pakete Polars, Duckdb und Arrow lösen die betrachteten Auswertungen sogar
 
 -   in **unter 2 Sekunden** (27-fach schneller),
 <!--   mit unter **300 MB Arbeitsspeicher** -- {duckdb} und {polars}[^polars-ram] sogar mit unter **5 MB** (10-fach weniger)[^2][^3] -->
--   und nur mit **5 GB Festplattenspeicher** (nur ein Sechstel gegenüber SAS und Stata).
-
-
+-   und mit nur **5 GB Festplattenspeicher** (nur ein Sechstel gegenüber SAS und Stata).
 
 [^2]: Lediglich in der Arbeitsspeicherbeanspruchung, ist SAS deutlich besser als klassische R-Methoden. Gegenüber hoch-performanten R-Methoden benötigt SAS jedoch den 10-fachen Arbeitsspeicher.
 
 <!--[^3]: {arrow} benötigt mit 274 MB deutlich mehr Arbeitsspeicher als {polars} und {duckdb}, aber kommt dennoch mit minimalen Entwicklungsumgebungen aus, bspw. einem standardmäßigen Laptop.-->
 
-Unter den klassischen R-Methoden bietet data.table die beste Performanz. Dabei ist wesentlich zu beachten, dass die Einlesefunktion `fread` direkt die relevanten Variablen auswählt. Dadurch lassen sich unsere Auswertungen um einen Faktor 3 beschleunigen und vor allem der Arbeitsspeicher um ein Tausendfaches reduzieren.
+Unter den klassischen R-Methoden bietet Data.table die beste Performanz -- besonders wenn die Einlesefunktion `fread` direkt die relevanten Variablen auswählt. Dadurch lassen sich unsere Auswertungen um das dreifache beschleunigen und vor allem der Arbeitsspeicher um ein Tausendfaches reduzieren.
 
-Alle hochperformanten Methoden sind dermaßen effizient, dass die Datenmenge von 800.000 Beobachtungen nicht mehr ausreicht, um zwischen den besten Methoden zu differenzieren. Daher erhöhen wir im nächsten Experiment die Datenmenge auf 8.000.000 Beobachtungen (10% BTP).
+Alle hochperformanten Methoden sind dermaßen schnell, dass die Datenmenge von 800 000 Beobachtungen nicht mehr ausreicht, um zwischen den besten Methoden zu differenzieren. Daher erhöhen wir für ausgewählte Werkzeuge im nächsten Experiment die Datenmenge auf 8 000 000 Beobachtungen (10 % BTP).
 
 ```{r read-leaderboard}
 #| echo: false
@@ -225,27 +226,27 @@ output_table(tbl_out)
 
 Auch für 10 % der simulierten BTP-Daten kann R die beiden betrachteten Auswertungen in Echtzeit mit minimalem Arbeitsspeicher beantworten (siehe @tbl-benchmark und @tbl-benchmark-regr). Die Auswertungsmethoden mit der höchsten Performanz nutzen alle das {parquet} und erreichen:
 
-1.  {arrow} benötigt nur **4,7 Sekunden** und 230 MB Arbeitsspeicher,
-2.  {duckdb} benötigt nur 5,1 Sekunden und **4,7 MB Arbeitsspeicher**.
+1.  Arrow benötigt nur **4,7 Sekunden** und 230 MB Arbeitsspeicher,
+2.  Duckdb benötigt nur 5,1 Sekunden und **4,7 MB Arbeitsspeicher**.
 
 
 [tba: Plot der Performanz unterschiede]
 
-Unerwarteterweise ist die Laufzeit von polars für diese Datenmenge mit 1,2 Minuten weit abgeschlagen, obwohl dasselbe Auswertungsskript für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da {polars} das jüngste der betrachteten R-Packages ist, vermuten wir Performanzprobleme in der vorliegenden Version 1.0.1[^4]. Zudem hat es noch größere Entwicklungsaufwände beansprucht, da der an Python angelehnte Syntaxstil deutlich von üblicher Programmierung in R abweicht. Öffentliche Hilfestellung bezieht sich hauptsächlich auf Python (oder Rust), was sich in den Antworten der KI-Chatassistenten wiederspiegelt.
+Unerwarteterweise ist die Laufzeit von Polars für diese Datenmenge mit 1,2 Minuten weit abgeschlagen, obwohl dasselbe Auswertungsskript für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da Polars das jüngste der betrachteten R-Packages ist, vermuten wir Performanzprobleme in der vorliegenden Version 1.0.1[^4]. Zudem hat es noch größere Entwicklungsaufwände beansprucht, da der an Python angelehnte Syntaxstil deutlich von üblicher Programmierung in R abweicht. Öffentliche Hilfestellung bezieht sich hauptsächlich auf Python (oder Rust), was sich in den Antworten der KI-Chatassistenten wiederspiegelt.
 
-[^4]: Das R-Package {polars} Version 1.0.1 war nur der erste Minor Release nach einer kompletten Überarbeitung. Inzwischen sind 5 neuere Major Releases mit diversen Performanz-Verbesserungen verfügbar.
+[^4]: Das R-Package Polars Version 1.0.1 war nur der erste Minor Release nach einer kompletten Überarbeitung. Inzwischen sind 5 neuere Major Releases mit diversen Performanz-Verbesserungen verfügbar.
 
-Klassische Methoden kommen bei der betrachteten Datenmenge bereits an ihre Grenzen. Falls in data.table unbedacht der vollständige Datensatz eingelesen wird, werden in unserem Anwendungsfall die verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn klassische Methoden auf Datenmengen von ca. 25-33% des verfügbaren Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
+Klassische Methoden kommen bei der betrachteten Datenmenge bereits an ihre Grenzen. Falls in Data.table unbedacht der vollständige Datensatz eingelesen wird, werden in unserem Anwendungsfall die verfügbaren 512 GB Arbeitsspeicher vollständig beansprucht. Schon wenn klassische Methoden auf Datenmengen von ca. 25–33 % des verfügbaren Arbeitsspeichers angewandt werden, ist somit deutlich mehr Erfahrung der Nutzenden notwendig, um die relevanten Variablen manuell geschickt zu selektieren unter Beobachtung des Arbeitsspeicherverbrauchs.
 
-Somit kommen wir insgesamt zu dem Ergebnis, dass {arrow} kombiniert mit {parquet} für die Bewältigung unserer Aufgaben die beste Datenverarbeitungsmethode ist, da die Methodik hervorragende Performanz und zugleich hohe Nutzerfreundlichkeit bietet. Im Detail haben uns der folgenden Mehrwerte überzeugt:
+Somit kommen wir insgesamt zu dem Ergebnis, dass Arrow kombiniert mit Parquet für die Bewältigung unserer Aufgaben die beste Datenverarbeitungsmethode ist, da die Methodik hervorragende Performanz und zugleich hohe Nutzerfreundlichkeit bietet. Im Detail haben uns der folgenden Mehrwerte überzeugt:
 
-1.  Für die relevanteste Datenmenge von 8 Mio. Beobachtungen zeigte {arrow} die geringsten Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle denkenswerten explorativen Analysen auszuweiten.
-2.  auch die Nutzererfahrung gefiel uns mit {arrow} am besten und somit waren die einhergehenden Entwicklungaufwände gegenüber den Anderen Methoden am geringsten.
-  1.  ,{arrow} verwendet die anschauliche {tidyverse} Syntax nativ. Vorhandener Code lässt sich zum Großteil änderungsfrei und ohne Performanzverluste auf {arrow} übertragen. {duckdb} kann bei Kenntnissen in SQL zu bevorzugen sein und {polars} mit Erfahrungen in Python.
-  2.  Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in {arrow} programmieren.[^opencode]
-  3.  Obwohl nicht alle Features aus {tidyverse} für {arrow} verfügbar sind, ließ sich bisher immer eine Lösung finden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit {duckdb} oder andere Funktionsaufrufe.
-3.  {arrow} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann
-4.  Dadurch dass {arrow} die Nutzung auch von mehreren {parquet} Dateien unterstützt, spart es gegenüber CSV mind. 50 % der Festplatte (für das reale BTP sogar 80 %+) und ermöglicht schnelle Nutzung auch von Datenmengen oberhalb des verfügbaren Arbeitsspeichers.
+1.  Für die relevanteste Datenmenge von 8 Mio. Beobachtungen zeigte Arrow die geringsten Laufzeiten unter 5 Sekunden, was der Fachstatistik Antworten auf Sonderanfragen in Echtzeit ermöglicht und der Wissenschaft alle denkenswerten explorativen Analysen auszuweiten.
+2.  Auch die Nutzererfahrung gefiel uns mit Arrow am besten, und somit waren die einhergehenden Entwicklungsaufwände gegenüber den anderen Methoden am geringsten.
+  1.  Arrow verwendet die anschauliche Tidyverse-Syntax nativ. Vorhandener Code lässt sich zum Großteil änderungsfrei und ohne Performanzverluste auf Arrow übertragen. Duckdb kann bei Kenntnissen in SQL zu bevorzugen sein und Polars mit Erfahrungen in Python.
+  2.  Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in Arrow programmieren.[^opencode]
+  3.  Obwohl nicht alle Features aus Tidyverse für Arrow verfügbar sind, ließ sich bisher immer eine Lösung finden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit Duckdb oder andere Funktionsaufrufe.
+3.  Arrow spart ausreichend Arbeitsspeicher (mit einem Verbrauch unter 1 GB). Der Arbeitsspeicherverbrauch von Arrow ist in unserer Auswertung nahezu konstant und unabhängig von der Datenmenge, sodass Arrow leicht auf noch größere Datenmengen skalieren kann
+4.  Dadurch dass Arrow die Nutzung auch von mehreren Parquet-Dateien unterstützt, spart es gegenüber CSV mind. 50 % der Festplatte (für das reale BTP sogar 80 %+) und ermöglicht schnelle Nutzung auch von Datenmengen oberhalb des verfügbaren Arbeitsspeichers.
 
 
 ```{r}
@@ -289,21 +290,21 @@ output_table(tbl_out)
 
 ### (Weitere Erkenntnisse des Experiments)
 
--   Auswahl der optimalen hoch-performanten Methode erfordert eine Untersuchung in der eigenen Infrastruktur anhand eigener Daten. Jedoch bieten alle HP-Methoden für die meisten Anwendungsfälle starke Performanzgewinne und sollten eingesetzt werden (nach den vorhandenen Erfahrungen und Strukturen: tidy vs Python vs SQL). Falls die Daten in CSV unter 25% des Arbeitsspeichers sind, sind auch klassische Methoden sehr gut nutzbar (bevorzugt {data.table}).
+-   Auswahl der optimalen hoch-performanten Methode erfordert eine Untersuchung in der eigenen Infrastruktur anhand eigener Daten. Jedoch bieten alle HP-Methoden für die meisten Anwendungsfälle starke Performanzgewinne und sollten eingesetzt werden (nach den vorhandenen Erfahrungen und Strukturen: tidy vs Python vs SQL). Falls die Daten in CSV unter 25% des Arbeitsspeichers sind, sind auch klassische Methoden sehr gut nutzbar (bevorzugt Data.table).
     -   **Package für optimale Laufzeit ist nicht eindeutig.** Je nach Datenmenge hat sich die Top 3 stark unterschieden.
-        -   1e6: arrow \> duckdb \> DT+SEL \> polars
-        -   1e5: polars \> duckdb \> arrow \> DT+SEL
-        -   1e4: polars \> data.table \> arrow \> readr
-    -   Unerwarteterweise ist {polars} bis 1% BTP am schnellsten aber für das 10% BTP abgeschlagen (unter den schlechtesten Methoden).
+        -   1e6: Arrow \> Duckdb \> DT+SEL \> Polars
+        -   1e5: Polars \> Duckdb \> Arrow \> DT+SEL
+        -   1e4: Polars \> Data.table \> Arrow \> readr
+    -   Unerwarteterweise ist Polars bis 1 % BTP am schnellsten aber für das 10 % BTP abgeschlagen (unter den schlechtesten Methoden).
 -   Dagegen ist **das effizienteste betrachtete Datenformat über 1000 Beobachtungen eindeutig Parquet** – sowohl in Speicherbedarf als auch in Lese- und Schreibzeiten.
 -   HP-Methoden und Optimierungen können erst ab einer Mindestdatenmenge vorteilhaft sein. Insb. Datenaufteilung bietet nur HP Methoden ab einer gewissen Datenmenge Vorteile. Für kleine Mengen überwiegt der Overhead durch das Lesen mehrer kleiner Dateien. Klassische Methoden werden durch eine Datenaufteilung nur negativ beeinflusst.
 -   **Variablenauswahl beim Einlesen ist immer vorteilhaft.** High-Performance Methoden können aber bei einer **Datenaufteilung** darauf verzichten.
--   (tba: mit obigem zusammenführen) Unter den klassischen Methoden ist {data.table} mit Variablenauswahl am effizientesten und schneller als eine schlechte Anwendung von {arrow}. D.h. ein {data.table} Profi, ist besser als ein schlechter Arrow Programmierer, der aber größeres Potenzial für Verbesserungen hat. Anfängern ist eher {arrow} zu empfehlen, da in {data.table} die Variablenauswahl abhängig von dem verfügbaren Arbeitsspeicher manuell gesteuert werden muss und daher nicht so flexibel ist.
-    -   5x langsamer als {arrow}
+-   Unter den klassischen Methoden ist Data.table mit Variablenauswahl am effizientesten und schneller als eine schlechte Anwendung von Arrow. D.h. ein Data.table-Profi ist besser als ein schlechter Arrow-Programmierer, der aber größeres Potenzial für Verbesserungen hat. Anfängern ist eher Arrow zu empfehlen, da in Data.table die Variablenauswahl abhängig von dem verfügbaren Arbeitsspeicher manuell gesteuert werden muss und daher nicht so flexibel ist.
+    -   5x langsamer als Arrow
     -   Variablenauswahl ab einer gewissen Datenmenge erforderlich, da ohne 3x größer als die Eingangsdaten, dauert 2.2 min anstatt 23 Sec. -\> schwierige Anwendung (Entscheidung relevanter Variablen muss vorab getroffen werden unter Beachtung der Arbeitsspeicher Restriktionen)
-    -   Datenaufteilung verschlechtert DT im Gegensatz zu arrow
--   {arrow} verzeiht Fehler leicht(er als DT). Denn schlecht programmiert, ist es immernoch ganz gut). Alleine durch die Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet durch das FDZ Bund), erreichen wir die Fallzahl-Berechung in 11.73s, nur 5s über dem absoluten Optimum.
+    -   Datenaufteilung verschlechtert DT im Gegensatz zu Arrow
+-   Arrow verzeiht Fehler leicht(er als DT). Denn schlecht programmiert, ist es immernoch ganz gut). Alleine durch die Datenaufteilung (vorgegeben durch die Datenbereitstellung, vorbereitet durch das FDZ Bund), erreichen wir die Fallzahl-Berechung in 11.73s, nur 5s über dem absoluten Optimum.
 -   R-base oder readr sind immer weit abgeschlagen und zu vermeiden.
--   Wenn der RAM extrem begrenzt ist, können {poars} oder {duckdb} dennoch eingesetzt werden.
+-   Wenn der RAM extrem begrenzt ist, können Polars oder Duckdb dennoch eingesetzt werden.
 
 -->

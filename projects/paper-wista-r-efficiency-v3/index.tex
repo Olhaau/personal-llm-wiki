@@ -678,14 +678,14 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{37 128}
-\renewcommand{\totalwords}{4 530}
+\renewcommand{\totalchars}{38 334}
+\renewcommand{\totalwords}{4 720}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
 \renewcommand{\zusammenfassungwords}{81}
-\renewcommand{\footnotecountnum}{11}
-\renewcommand{\citationcountnum}{24}
+\renewcommand{\footnotecountnum}{10}
+\renewcommand{\citationcountnum}{23}
 \renewcommand{\schlusselwortercount}{5}
 \renewcommand{\keywordscount}{5}
 \renewcommand{\doctitle}{Effiziente Auswertung des Business-Tax-Panels mithilfe von R}
@@ -695,13 +695,13 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
 \renewcommand{\authoronechars}{327}
 \renewcommand{\authortwochars}{256}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{3 448}} & \textcolor{wistaBlue}{\textbf{4}} & \textcolor{wistaBlue}{\textbf{8}} & --- \\
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{3 448}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{7}} & --- \\
             Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{4 043}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
             Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{8 412}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
             Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{9 887}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{5}} & --- \\
             Performanzvergleich & \textcolor{wistaBlue}{\textbf{999}} & \textcolor{wistaBlue}{\textbf{13 680}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{6}} & --- \\
             Ergebnis für das vollständige BTP & \textcolor{wistaBlue}{\textbf{84}} & \textcolor{wistaBlue}{\textbf{676}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
-            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 279}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{3}} & --- \\
+            Fazit & \textcolor{wistaBlue}{\textbf{407}} & \textcolor{wistaBlue}{\textbf{4 279}} & \textcolor{wistaBlue}{\textbf{1}} & \textcolor{wistaBlue}{\textbf{2}} & --- \\
 }
 \newcommand{\tablerows}{            \hyperref[tbl-stba-rserver]{Tabelle~1} & StBA R-Server Ausbau (Anfang 2025) \\
             \hyperref[tbl-fdz-server]{Tabelle~2} & FDZ OnSite-Server Spezifikationen \\
@@ -1130,31 +1130,25 @@ folgenden hervorragenden R-Pakete zeigen.
 \begin{itemize}
 \tightlist
 \item
-  \textbf{data.table} \autocite{R-data.table}: Ein ausgereiftes R-Paket,
-  das die Datenverarbeitung deutlich schneller macht als
-  Standard-R-Funktionen. Es nutzt den verfügbaren Arbeitsspeicher
-  besonders effizient und ist seit vielen Jahren bewährt. Die Syntax
-  orientiert sich an der R-Basissyntax, erfordert aber spezielle
-  Kenntnisse. Solange die Daten in den Arbeitsspeicher passen, ist
-  data.table in den meisten Fällen die performanteste klassische Lösung.
+  \textbf{data.table} \autocite{R-data.table} gilt als Goldstandard für
+  die schnelle Datenverarbeitung im Arbeitsspeicher sowie das effiziente
+  Einlesen von CSV-Dateien. Dank seiner an die Base-R-Syntax angelehnten
+  Struktur ist es sehr beliebt. Solange die Daten vollständig in den
+  Arbeitsspeicher passen, ist data.table in den meisten Fällen die
+  schnellste klassische Lösung. Dabei ist einschränkend zu beachten,
+  dass zum Arbeiten im RAM ein Vielfaches (typischerweise etwa das Drei-
+  bis Vierfache) der Größe der CSV-Datei an Arbeitsspeicher benötigt
+  wird.
 \item
   \textbf{tidyverse} \autocite{R-tidyverse}: Ein Ökosystem von
   R-Paketen, das besonders auf einfache Bedienung und Lesbarkeit des
   Codes ausgelegt ist. Die Programmiersyntax (\emph{dplyr-Syntax}) (s.
   Tabelle~\ref{tbl-dplyr-syntax}) orientiert sich an menschlicher
-  Sprache und macht den Code auch für Einsteiger gut verständlich. Auch
-  ein eigener Datenleser readr ist inbegriffen. Diese nutzerfreundliche
-  Syntax ist so beliebt, dass sie von vielen anderen R-Paketen
-  übernommen wurde. Für mittlere Datenmengen, die in den Arbeitsspeicher
-  passen, ist tidyverse eine ausgewogene Wahl zwischen
+  Sprache und macht den Code auch für Einsteiger gut verständlich. Diese
+  nutzerfreundliche Syntax ist so beliebt, dass sie von vielen anderen
+  R-Paketen übernommen wurde. Für mittlere Datenmengen, die in den
+  Arbeitsspeicher passen, ist tidyverse eine ausgewogene Wahl zwischen
   Nutzerfreundlichkeit und Performanz.
-\item
-  \textbf{collapse} \autocite{R-collapse}: Ein spezialisiertes R-Paket
-  für schnelle statistische Berechnungen und Datentransformationen. Es
-  kombiniert hohe Performanz mit einem breiten Funktionsumfang für
-  komplexe Datenanalysen. Collapse ist besonders effizient bei
-  Aggregationen und Gruppierungsoperationen und bietet dabei eine
-  konsistente Syntax.
 \end{itemize}
 
 \begin{table*}
@@ -1190,24 +1184,25 @@ dplyr-Syntax.}
 
 \subsection{Hoch-performante Methoden in R}\label{sec-highperf}
 
-Ab mittleren Datenmengen (relativ zu CPU und RAM) ist die nachfolgend
-beschriebene \textbf{Variablenselektion} eine oft notwendige
-\textbf{Best Practice}, die direkt spürbare Performanzgewinne birgt.
-Darüberhinaus kann die Datenaufteilung kombiniert mit sog.
-Lazy-Computation gewinnbringend sein:
+Ab Datenmengen, die einen Großteil des Arbeitsspeichers belegen, ist die
+nachfolgend beschriebene \textbf{Variablenselektion} eine oft notwendige
+\textbf{Best Practice}, die direkt spürbare Performanzgewinne bringt.
+Dies gilt besonders für klassische Methoden, da dies das Risiko für
+RAM-Abbrüche und Wartezeiten deutlich reduziert. Darüberhinaus kann die
+Datenaufteilung kombiniert mit sog. Lazy-Computation für große
+Datenmengen oder komplexe Analysen gewinnbringend sein:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Variablenselektion}: Beim Einlesen von Daten ist die Auswahl
-  der benötigten Variablen in der Einlesefunktion eine wesentliche Best
-  Practice (besonders für klassische Methoden, da dies das Risiko für
-  RAM-Abbrüche und Wartezeiten deutlich reduziert). Das Einlesen
+  \textbf{Variablenselektion}: Wenn die Einlesefunktion die Auswahl von
+  Variablen zulässt, sollte dies für klassische Methoden stehts genutzt
+  werden, um Ladezeit und RAM-Bedarf massiv zu reduzieren. Das Einlesen
   zunächst aller Daten (ggf. mit Variablenselektion zu einem späteren
   Zeitpunkt) verursacht unnötige Wartezeiten und Ressourcenbelegung und
   kann zu Abbrüchen führen. Auch Stata profitiert von einer
-  Beschleunigung um 39,9 \% in R und 33,9 \% laut
-  \textcite{gomolka2021largedata}.
+  Variablenselektion mit einer Beschleunigung um 33,9 \% in
+  Anwendungsfällen aus \textcite{gomolka2021largedata}.
 \item
   \textbf{Datenaufteilung}: Wenn der Arbeitsspeicher nicht ausreicht, um
   die benötigten Daten einzulesen, kann eine Aufteilung auf mehrere
@@ -1233,9 +1228,9 @@ das speziell für effiziente Speicherung und Verarbeitung großer
 Datenmengen entwickelt wurde. Durch seine Struktur ermöglicht Parquet
 den schnellen Zugriff auf einzelne Variablen und reduziert gleichzeitig
 den Speicherbedarf erheblich. \textcite{gomolka2021largedata} zeigten im
-Kontext der Forschungsdatenzentren massive Geschwindigkeitsgewinne mit
-Parquet, sodass im FDSZ bereits standardmäßig Parquet-Dateien angeboten
-werden.
+Kontext der Forschungsdatenzentren massive Geschwindigkeitsgewinne
+anhand Parquet, sodass im FDSZ bereits standardmäßig Parquet-Dateien
+angeboten werden.
 
 Für die hochperformante Verarbeitung von Datenmengen oberhalb des RAMs
 betrachten wir die folgenden Werkzeuge, die in Form von R-Paketen
@@ -1244,32 +1239,32 @@ verfügbar sind:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{arrow} \autocite{R-arrow}: Ein C++-basiertes R-Paket, das
+  \textbf{arrow} \autocite{R-arrow} ist ein C++-basiertes R-Paket, das
   speziell für die Arbeit mit großen Datensätzen entwickelt wurde. Es
   ermöglicht die Verarbeitung von Daten, die größer als der verfügbare
   Arbeitsspeicher sind, durch intelligente Datenaufteilung und
-  Parallelisierung. Arrow ist optimal auf das Parquet-Dateiformat
-  abgestimmt und kann Berechnungen automatisch optimieren
-  (Lazy-Computation). Damit ist Arrow besonders geeignet für Datensätze,
-  die mehrere Gigabyte oder sogar Terabyte umfassen.
+  Parallelisierung. Arrow ist anhand Lazy-Computation oft die beste Wahl
+  in R um mehrerer Parquet-Dateien zu nutzen. So können Datenmengen
+  verarbeitet werden, die insgesamt ein Vielfaches größer sind als der
+  vorhandene Arbeitsspeicher, solange die einzelnen Dateien deutlich in
+  den RAM passen sind.
 \item
   \textbf{duckdb} \autocite{R-duckdb}: Ein eingebettetes
   Datenbanksystem, das ohne separaten Datenbankserver direkt in R
   genutzt werden kann. Es verarbeitet Daten spaltenweise, was besonders
   bei analytischen Abfragen auf großen Datensätzen sehr schnell ist.
-  DuckDB nutzt die bekannte SQL-Syntax für Datenabfragen und kann
-  nahtlos mit Arrow-Daten zusammenarbeiten. Das System verwaltet den
-  Arbeitsspeicher intelligent und kann auch Daten verarbeiten, die
-  größer als der verfügbare RAM sind.
+  DuckDB nutzt nativ SQL-Syntax für Datenabfragen. DuckDB zeichnet sich
+  durch einen besonders geringen Arbeitsspeicherverbrauch aus. Um mit
+  Dplyr-Syntax arbeiten zu können, gibt es ergänzende R-Pakete sowie
+  eine direkte Schnittstelle Arrow.
 \item
-  \textbf{polars} \autocite{R-polars}: Ein Rust-basiertes R-Paket, das
-  durch die Programmiersprache Rust besonders effizient arbeitet. Es
-  bietet sowohl eine Python-orientierte Syntax als auch eine
-  dplyr-kompatible Variante (tidypolars), die für R-Nutzende vertrauter
-  ist. Polars nutzt moderne Optimierungstechniken und ist für sehr große
-  Datensätze ausgelegt. Die Rust-Implementierung sorgt für hohe
-  Geschwindigkeit bei gleichzeitig sparsamer Nutzung der
-  Systemressourcen.
+  \textbf{polars} \autocite{R-polars}: Ein neueres R-Paket, das anhand
+  der Programmiersprache Rust für hohe Geschwindigkeit und sparsame
+  Ressourcennnutzung sorgt. Nativ nutzt es Python-orientierte Syntax und
+  kann auch durch das Paket tidypolars mit vertrauter Dplyr-Syntax
+  genutzt werden. Dies führt zu minimalen Verzögerungen. Polars nutzt
+  moderne Optimierungstechniken und ist für sehr große Datensätze
+  ausgelegt.
 \end{itemize}
 
 \subsection{Externe Benchmarks}\label{externe-benchmarks}
@@ -1290,20 +1285,22 @@ dargestellten Performanzvergleichs verfügbaren Versionen sind im
 Literaturverzeichnis aufgeführt. Entscheidend ist bei der Versionswahl
 nicht das absolute Performanz-Optimum, sondern eine Version mit
 langfristig stabiler und verlässlich guter Performance. Ein
-systematischer Performanzvergleich wird auf dem OnSite-Server des FDZ
-Bund für die Anwendungsfälle aus Absatz~\ref{sec-btp} in
-Absatz~\ref{sec-benchmark} durchgeführt.
+Performanzvergleich wird auf dem OnSite-Server des FDZ Bund für die
+Anwendungsfälle aus Absatz~\ref{sec-btp} in Absatz~\ref{sec-benchmark}
+durchgeführt.
 
 \section{Performanzvergleich}\label{sec-benchmark}
 
-\subsection{Versuchsaufbau}\label{versuchsaufbau}
-
 Um zwischen den in Absatz~\ref{sec-methoden} vorgestellten
-Datenverarbeitungsmethoden abzuwägen, haben wir deren Performanz in
-einem systematischen Vergleich auf dem SAS-Server des Statistischen
-Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ Bund
-gemessen. Weiterführende Performanzmessung sowie der vollständig
-reproduzierbare Code sind auf Opencode verfügbar\footnote{www.opencode.de/URL-To-Be-Announced.}.
+Datenverarbeitungsmethoden abzuwägen, explorieren wir deren Performanz
+in einem umfangreichen Vergleich auf dem SAS-Server des Statistischen
+Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ Bund. Wir
+erhöhen schrittweise die Datenmenge und betrachten nur Kandidaten
+weiter, die hohe Performanz zeigen konnten. Für R-Pakete mit hohem
+Potenzial und hoher Nutzerfreundlichkeit wurden mehr Optionen erprobt,
+um die besten Optionen zu bestimmen.
+
+\subsection{Versuchsaufbau}\label{versuchsaufbau}
 
 Für die Untersuchung wurden simulierte Einzeldaten in verschiedenen
 Größen (0,1 \%/1 \%/10 \% der insgesamt 67 Millionen Beobachtungen des
@@ -1330,32 +1327,37 @@ verstrichene Zeit).
 
 Daneben ist der beanspruchte \textbf{Arbeitsspeicher} der Auswertung
 entscheidend, da ein übermäßiger Arbeitsspeicherverbrauch zu Abbrüchen
-führen kann. Dennoch verzichten wir auf den Bericht einiger
-RAM-Messungen, da der RAM-Verbrauch nicht realistisch von R gemessen
-werden kann. Hochperformante Pakete lagern RAM-Operationen auf Rust und
-C++ aus, sodass die Auslastung nur realistisch auf Ebene des
-Betriebsystems gemessen werden kann.\footnote{\texttt{bench::mark} kann
-  für Rust-basierte Applikationen RAM nicht zuverlässig messen. S.
-  https://tidypolars.etiennebacher.com/.}
+führen kann. Im Rahmen unseres Experments konnte der RAM-Verbrauch nicht
+systematisch korrekt gemessen werden, da der Verbrauch von C++ oder Rust
+anhand von R-Paketen schlecht beobachtbar ist.\footnote{\texttt{bench::mark}
+  kann für Rust-basierte Applikationen RAM nicht zuverlässig messen. S.
+  https://tidypolars.etiennebacher.com/.} Für ausgewählte Tests haben
+wir den RAM-Verbrauch anhand eines Systemmonitors beobachtet.
 
 Der neue OnSite-Server bietet ausreichend\textbf{Festplattenspeicher},
-aber unnötige Belegung sollte vermieden werden. Feine Abstufungen der
-Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine
-Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit
-weniger als 10 GB Arbeitsspeicher durchführen kann, wird bereits als
-optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht
-erforderlich. Falls bereits die gewünschte Performanz erreicht wurde,
-rückt die Reduktion des Entwicklungsaufwand in den Vordergrund.
-Entsprechend sind Aspekte wie einfache Anwendbarkeit und
-Nachvollziehbarkeit -- selbst für unerfahrene Nutzende --
-ausschlaggebend.
+aber unnötige Belegung ist zu vermeiden.
+
+Unser Ziel ist, Werkzeuge mit einer Mindestperformanz in verschiedenen
+Szenarien zu finden und nicht in jedem Anwendungsfall ein Werkzeug für
+die schnellste Verarbeitung zu bestimmen. Denn es sollten möglichst
+wenig verschiedene Werkzeuge eingesetzt werden, um Entwicklungs- und
+Wartungsaufwände gering zu halten.
+
+Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht
+gleichermaßen relevant. Eine Methode, die die betrachteten Auswertungen
+in unter 10 Sekunden mit weniger als 10 GB Arbeitsspeicher durchführen
+kann, wird bereits als optimal bewertet. Weitere Optimierungen sind in
+diesem Fall nicht erforderlich. Falls bereits die gewünschte Performanz
+erreicht wurde, rückt die Reduktion des Entwicklungsaufwand in den
+Vordergrund. Entsprechend sind Aspekte wie einfache Anwendbarkeit und
+Nachvollziehbarkeit -- auch für unerfahrene Nutzende -- ausschlaggebend.
 
 \subsection{Kleiner Vergleich von R zu SAS und
 Stata}\label{kleiner-vergleich-von-r-zu-sas-und-stata}
 
-Um die nachfolgenden Ergebnisse einzuordnen, haben wir die
-Performanzmessungen auch für 1 \% der simulierten BTP-Daten (etwa 700
-000 Beobachtungen) in SAS und Stata durchgeführt.
+Wir betrachten zunächst 1 \% 1 \% der simulierten BTP-Daten (etwa 700
+000 Beobachtungen). Um die nachfolgenden Ergebnisse einzuordnen, haben
+wir die Performanzmessungen auch in SAS und Stata durchgeführt.
 
 \begin{table*}
 
@@ -1385,20 +1387,20 @@ Software & Anwendung & Arbeitsspeicher & Laufzeit & Festplattenspeicher\\
 
 \end{table*}%
 
-Die Ergebnisse in Tabelle~\ref{tbl-baseline} zeigen, dass der
+Die Ergebnisse in Tabelle~\ref{tbl-baseline} deuten an, dass der
 umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht
-ausreicht, um das BTP vollständig in Stata einzulesen, sodass zwingend
-mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke
-anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber
-mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber
-Stata.
+ausreichen wird, um das BTP vollständig in Stata einzulesen, sodass in
+Stata zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt
+seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers,
+benötigt aber mit etwa 2,3 Minuten pro Auswertung etwa doppelt so lang
+wie Stata.
 
 Für 1 \% der simulierten BTP-Daten reduzieren die
 R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata
 erheblich (siehe Tabelle~\ref{tbl-benchmark-small} und
 Tabelle~\ref{tbl-benchmark-regr-small}). Selbst klassische R-Methoden
 sind um den Faktor 7 schneller und benötigen nur 33 \% des
-Festplattenspeichers. \{polars\}, \{duckdb\} und \{arrow\} lösen die
+Festplattenspeichers. Die Pakete polars, duckdb und arrow lösen die
 betrachteten Auswertungen sogar
 
 \begin{itemize}
@@ -1406,20 +1408,21 @@ betrachteten Auswertungen sogar
 \item
   in \textbf{unter 2 Sekunden} (27-fach schneller),
 \item
-  und nur mit \textbf{5 GB Festplattenspeicher} (nur ein Sechstel
+  und mit nur \textbf{5 GB Festplattenspeicher} (nur ein Sechstel
   gegenüber SAS und Stata).
 \end{itemize}
 
-Unter den klassischen R-Methoden bietet data.table die beste Performanz.
-Dabei ist wesentlich zu beachten, dass die Einlesefunktion
-\texttt{fread} direkt die relevanten Variablen auswählt. Dadurch lassen
-sich unsere Auswertungen um einen Faktor 3 beschleunigen und vor allem
-der Arbeitsspeicher um ein Tausendfaches reduzieren.
+Unter den klassischen R-Methoden bietet data.table die beste Performanz
+-- besonders wenn die Einlesefunktion \texttt{fread} direkt die
+relevanten Variablen auswählt. Dadurch lassen sich unsere Auswertungen
+um das dreifache beschleunigen und vor allem der Arbeitsspeicher um ein
+Tausendfaches reduzieren.
 
-Alle hochperformanten Methoden sind dermaßen effizient, dass die
+Alle hochperformanten Methoden sind dermaßen schnell, dass die
 Datenmenge von 800.000 Beobachtungen nicht mehr ausreicht, um zwischen
-den besten Methoden zu differenzieren. Daher erhöhen wir im nächsten
-Experiment die Datenmenge auf 8.000.000 Beobachtungen (10\% BTP).
+den besten Methoden zu differenzieren. Daher erhöhen wir für ausgewählte
+Werkzeuge im nächsten Experiment die Datenmenge auf 8 000 000
+Beobachtungen (10\% BTP).
 
 \begin{table*}
 
@@ -1563,10 +1566,10 @@ folgenden Mehrwerte überzeugt:
   Datenmenge, sodass \{arrow\} leicht auf noch größere Datenmengen
   skalieren kann
 \item
-  Dadurch das \{arrow\} die Nutzung auch von mehreren \{parquet\}
-  Dateien unterstützt spart gegenüber CSV mind. 50\% der Festplatte (für
-  das reale BTP sogar 80\%+) und ermöglicht schnelle Nutzung auch von
-  Datenmengen überhalb des verfügbaren Arbeitsspeichers.
+  Dadurch dass \{arrow\} die Nutzung auch von mehreren \{parquet\}
+  Dateien unterstützt, spart es gegenüber CSV mind. 50 \% der Festplatte
+  (für das reale BTP sogar 80 \%+) und ermöglicht schnelle Nutzung auch
+  von Datenmengen oberhalb des verfügbaren Arbeitsspeichers.
 \end{enumerate}
 
 \begin{table*}
@@ -1629,46 +1632,41 @@ folgenden Mehrwerte überzeugt:
 
 \section{Ergebnis für das vollständige BTP}\label{sec-ergebnis}
 
-Anwendung der besten Methode auf die echten Daten des vollständige BTP
-ergibt:
+Wir kommen insgesamt zu dem Ergebnis, das hochperformante Werkzeuge in R
+in der Lage sind die betrachteten Anwendungsfälle in Echtzeit zu
+beantworten. Wir empfehlen in R die Verarbeitung von Parquet-Dateien mit
+Arrow und DuckDB für die Auswertung großer Datenmengen im Statistischen
+Bundesamt und FDZ. Parquet-Dateien haben in allen Untersuchungen
+deutliche schnellere Auswertungen ermöglicht und gleichzeitig den
+Speicherbedarf reduziert. Arrow und Duckdb können ohne Verzögerungen
+kombiniert werden und bieten beide die besonders nutzerfreundliche und
+nachvollziehbare Dplyr-Syntax. Für besonders große Datenmengen, kann
+Arrow aufgeteilte Parquet-Dateien besonders gut nutzen. Das neuere
+R-Paket Polars bietet eine sehr gute Alternative, die in für kleinere
+Datenmengen am schnellsten war. Jedoch hatte die vorliegende Version
+nicht stabil für größere Datenmengen ebenfalls hohe Performanz gezeigt
+und die Handhabung in R ist uns schwerer gefallen, als für Arrow und
+DuckDB.
+
+Der vollständige Datensatz hat einen Umfang von \ldots{} (Stata) und
+\ldots{} (SAS). Für die Verarbeitung des vollständigen Datensatz kommt
+Stata an die Kapazitätsgrenzen des OnSite-Servers. Es kann aber mit der
+Variablenauswahl verwendet werden. SAS kann auch für diese großen
+Datenmengen weiterhin genutzt werden und absolviert die betrachteten und
+liefert die betrachteten Ergebnisse mit der in Tabelle \ldots{}
+dargestellten Performanz.
+
+Arrow anhand einer Aufteilung pro Berichtsjahres auf Parquet-Dateien
+zeigen für die gesamte Datenmenge den großen Mehrwert und liefern die
+Ergebnisse mit der folgenden Performanz:
 
 \begin{itemize}
 \tightlist
 \item
-  Performanz von \{arrow\} Fallzahlen (ein paar Sekunden) und Regression
-  (Sekunden)
+  Fallzahlen: 2,3 Sekunden,
 \item
-  leicht lesbar in \{arrow\}
+  Regression: 12 Sekunden.
 \end{itemize}
-
-\subsection{Ergebnis}\label{ergebnis}
-
-{[}Ergebnistabelle Fallzahl, ggf. als Heatmap{]}
-
--\textgreater{} Zukünftige Nutzung für MDR wird umgesetzt.
-
-{[}Model Summary?{]}
-
-\subsection{Vergleich zu SAS, (Stata),
-Datatable}\label{vergleich-zu-sas-stata-datatable}
-
-\begin{itemize}
-\tightlist
-\item
-  Ergebnis in SAS
-\item
-  (optional) Datatable ohne sekeltives Einlesen führt zu RAM Crash
-  (RAM-Fehler?)
-\item
-  (optional) Datatable Sel.
-\end{itemize}
-
-Real world application unserer Ergebnisse auf das Echte BTP
-
-Ergebnis für gesamten Datensatz
-
--\textgreater{} Größere Speicherreduktion, da das echte BTP mehr
-fehlende Werte enthält, als anhand der externen Daten angenommen.
 
 \setcounter{subsection}{5}
 
@@ -1704,19 +1702,19 @@ beantwortet werden können.
   Etablierung dieser Softwarelösungen kann langfristig\ldots{}
 
   \begin{itemize}
-  \tightlist
   \item
     die Hardwareanforderungen reduzieren
   \item
-    die Analysesoftwarevielfalt verschlanken, somit Beschaffungen
-    einsparen (besserer Ausdruck?)
+\begin{verbatim}
+  die Analysesoftwarevielfalt verschlanken und somit Beschaffungskosten einsparen
+\end{verbatim}
   \end{itemize}
 \item
-  Schulungsangebot benötigt für \emph{``hoch-performante Auswertungen in
-  R''}
+  Ein Schulungsangebot für \emph{hochperformante Auswertungen in R} wird
+  benötigt
 \item
-  eigener Beitrag zu Open Source entscheidend, um die Etablierung zu
-  fördern.
+  Ein eigener Beitrag zu Open Source ist entscheidend, um die
+  Etablierung zu fördern.
 \end{itemize}
 
 \subsection{Auswirkungen auf die
@@ -1727,9 +1725,8 @@ Statistikproduktion}\label{auswirkungen-auf-die-statistikproduktion}
 \item
   Steigerung der Effizienz und Reaktionsgeschwindigkeit
 \item
-  (Vorsichtig!? Annette, lieber weg oder rein?) Vereinfachung der
-  Statistikproduktion, durch leicht nachvollziehbaren Code und Fokus auf
-  Wissensaufbau in R
+  Vereinfachung der Statistikproduktion durch leicht nachvollziehbaren
+  Code und Fokus auf Wissensaufbau in R
 \item
   Aufbau eines Datenbestands in Parquet
 \item
@@ -1773,12 +1770,12 @@ Wissenschaft}\label{auswirkung-auf-die-wissenschaft}
 \begin{itemize}
 \tightlist
 \item
-  Verwendung von R bietet am FDZ Bund einen deutlichen
-  \textbf{Wettbewerbsvorteil in der emp. Forschung}. Lediglich R ist (am
-  GWAP und via KDFV) am FDZ Bund in der Lage große Datenmengen innerhalb
-  von Sekunden zu analysieren und Datenmengen überhalb des verfügbaren
-  Arbeitspeicher, wie das BTP, ohne vorherige Variablenselektion
-  auszuwerten.
+  Die Verwendung von R bietet am FDZ Bund einen deutlichen
+  \textbf{Wettbewerbsvorteil in der empirischen Forschung}. Lediglich R
+  ist (am GWAP und via KDFV) am FDZ Bund in der Lage, große Datenmengen
+  innerhalb von Sekunden zu analysieren und Datenmengen oberhalb des
+  verfügbaren Arbeitsspeichers, wie das BTP, ohne vorherige
+  Variablenselektion auszuwerten.
 
   \begin{itemize}
   \tightlist
@@ -1790,14 +1787,14 @@ Wissenschaft}\label{auswirkung-auf-die-wissenschaft}
     möglich.
   \end{itemize}
 \item
-  Dazu ist R als frei verfügbare Open-Source Software leicht zu lernen
-  und \{arrow\} bietet hoch-performante Analysen selbst für
+  Dazu ist R als frei verfügbare Open-Source-Software leicht zu lernen,
+  und arrow bietet hochperformante Analysen selbst für
   R-Basiskenntnisse. Empfehlung an die emp. Wissenschaft, sich verstärkt
   mit R zu befassen.
 \item
-  Für analoge über-RAM-Verarbeitungen bietet Stata aktuell keine Lösung.
-  SAS bietet bei weitem nicht hier gemessene Performanz von R. R
-  hervorragende Möglichkeiten bietet Performanz und
+  Für analoge Verarbeitungen über den RAM hinaus bietet Stata aktuell
+  keine Lösung. SAS bietet bei weitem nicht hier gemessene Performanz
+  von R. R bietet hervorragende Möglichkeiten, Performanz und
   Anwenderfreundlichkeit zu übertreffen.
 \item
   Weiteres Vorgehen: \textbf{NeSt-Pilotprojekt}. Aus dem realen Use Case
@@ -1816,8 +1813,8 @@ eröffnen.
 
 Der Übergang erfordert jedoch eine \textbf{koordinierte Anstrengung} von
 Infrastrukturbetreibern, amtlicher Statistik, Forschungsdatenzentren und
-Forschenden. Die systematische Wissensaufbau, Dokumentation und
-Verbreitung von Best Practices wird entscheidend für den Erfolg sein.
+Forschenden. Der systematische Wissensaufbau, die Dokumentation und
+Verbreitung von Best Practices werden entscheidend für den Erfolg sein.
 
 Die amtliche Statistik kann von diesen Entwicklungen in mehrfacher
 Hinsicht profitieren: \textbf{schnellere Erkenntnisgewinnung},

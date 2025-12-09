@@ -11,10 +11,10 @@ Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine Datenverarbeit
 ### Auswirkung auf IT-Infrastruktur und -Beratung
 
 -   Fokus auf Hardware und Software mit größtem Mehrwert (weniger RAM und R anstatt Spark, GPUs, Datenbanken, Cloud, ...)
--   Fokus auf Maintainance und Patching von R, Parquet und hier genannte Packages {arrow}, {duckdb}, {polars}
+-   Fokus auf Maintainance und Patching von R, Parquet und hier genannte Packages Arrow, Duckdb, Polars
 -   Etablierung dieser Softwarelösungen kann langfristig...
     -   die Hardwareanforderungen reduzieren
-    -       die Analysesoftwarevielfalt verschlanken und somit Beschaffungskosten einsparen
+    -   die Analysesoftwarevielfalt verschlanken und somit Beschaffungskosten einsparen
 -   Ein Schulungsangebot für *hochperformante Auswertungen in R* wird benötigt
 -   Ein eigener Beitrag zu Open Source ist entscheidend, um die Etablierung zu fördern.
 
