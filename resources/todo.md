@@ -4,6 +4,11 @@
 
 (All items completed)
 
+
+- [ ] Nice to have
+  - [ ] Plot Benchmarks -> auf jeden Fall
+  - [ ] Einzelfälle checken
+    - [ ] Arrow Varianten für 10%
 - [ ] curate https://r-project.ro/conference2024-presentations.html only list the presentation titles with a link. Download each presentation to resources/raw. Search for the use of parquet and curate slides using parquet.
 - [ ] https://r-project.ro/conference2025.html <- curate. List all accepted abstracts
 - [ ] https://www.forschungsdatenzentrum.de/de/ueber-die-fdz

@@ -551,8 +551,8 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R},
-  pdfauthor={Oliver Hauke; Annette Kristiansen},
+  pdftitle={Effiziente Auswertung des Business-Tax-Panels mithilfe von R},
+  pdfauthor={Oliver Hauke, Annette Kristiansen},
   pdflang={de},
   colorlinks=true,
   linkcolor={blue},
@@ -562,9 +562,9 @@
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
-\author{Oliver Hauke \and Annette Kristiansen}
-\date{2025-12-08}
+\title{Effiziente Auswertung des Business-Tax-Panels mithilfe von R}
+\author{Oliver Hauke, Annette Kristiansen}
+\date{2025-12-09}
 \begin{document}
 \maketitle
 
@@ -678,24 +678,24 @@ The Research Data Centre at the Federal Statistical Office is strategically expa
 }
 
 \setstretch{1}
-\renewcommand{\totalchars}{37 255}
-\renewcommand{\totalwords}{4 546}
+\renewcommand{\totalchars}{37 128}
+\renewcommand{\totalwords}{4 530}
 \renewcommand{\abstractchars}{623}
 \renewcommand{\abstractwords}{85}
 \renewcommand{\zusammenfassungchars}{707}
 \renewcommand{\zusammenfassungwords}{81}
-\renewcommand{\footnotecountnum}{10}
+\renewcommand{\footnotecountnum}{11}
 \renewcommand{\citationcountnum}{24}
 \renewcommand{\schlusselwortercount}{5}
 \renewcommand{\keywordscount}{5}
-\renewcommand{\doctitle}{EFFIZIENTE AUSWERTUNG DES BUSINESS-TAX-PANELS MITHILFE VON R}
+\renewcommand{\doctitle}{Effiziente Auswertung des Business-Tax-Panels mithilfe von R}
 \renewcommand{\docauthors}{Oliver Hauke, Annette Kristiansen}
 \renewcommand{\docpublication}{WISTA}
 \renewcommand{\docpublicationissue}{01/2026}
 \renewcommand{\docshorttitle}{Effiziente Analyse großer Forschungsdaten}
 \renewcommand{\authoronechars}{327}
 \renewcommand{\authortwochars}{256}
-\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{3 448}} & \textcolor{wistaBlue}{\textbf{3}} & \textcolor{wistaBlue}{\textbf{8}} & --- \\
+\newcommand{\sectionrows}{            Einleitung & \textcolor{wistaBlue}{\textbf{1 231}} & \textcolor{wistaBlue}{\textbf{3 448}} & \textcolor{wistaBlue}{\textbf{4}} & \textcolor{wistaBlue}{\textbf{8}} & --- \\
             Anwendungsfall Business-Tax-Panel & \textcolor{wistaBlue}{\textbf{125}} & \textcolor{wistaBlue}{\textbf{4 043}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
             Techniche Infrastruktur & \textcolor{wistaBlue}{\textbf{145}} & \textcolor{wistaBlue}{\textbf{8 412}} & \textcolor{wistaBlue}{\textbf{0}} & \textcolor{wistaBlue}{\textbf{1}} & --- \\
             Datenverarbeitungsmethoden & \textcolor{wistaBlue}{\textbf{810}} & \textcolor{wistaBlue}{\textbf{9 887}} & \textcolor{wistaBlue}{\textbf{2}} & \textcolor{wistaBlue}{\textbf{5}} & --- \\
@@ -1296,8 +1296,6 @@ Absatz~\ref{sec-benchmark} durchgeführt.
 
 \section{Performanzvergleich}\label{sec-benchmark}
 
-RAM nicht aussagekräftig!!!
-
 \subsection{Versuchsaufbau}\label{versuchsaufbau}
 
 Um zwischen den in Absatz~\ref{sec-methoden} vorgestellten
@@ -1332,28 +1330,32 @@ verstrichene Zeit).
 
 Daneben ist der beanspruchte \textbf{Arbeitsspeicher} der Auswertung
 entscheidend, da ein übermäßiger Arbeitsspeicherverbrauch zu Abbrüchen
-führen kann. Dennoch verzichten wir auf den Bericht systematischer
+führen kann. Dennoch verzichten wir auf den Bericht einiger
 RAM-Messungen, da der RAM-Verbrauch nicht realistisch von R gemessen
 werden kann. Hochperformante Pakete lagern RAM-Operationen auf Rust und
-C++ aus, was in R nicht realistisch gemessen werden kann.
+C++ aus, sodass die Auslastung nur realistisch auf Ebene des
+Betriebsystems gemessen werden kann.\footnote{\texttt{bench::mark} kann
+  für Rust-basierte Applikationen RAM nicht zuverlässig messen. S.
+  https://tidypolars.etiennebacher.com/.}
 
-\textbf{Festplattenspeicher} ist ausreichend vorhanden, aber unnötige
-Belegung sollte vermieden werden. Feine Abstufungen der Zielgrößen sind
-für unsere Aufgaben nicht gleichermaßen relevant. Eine Methode, die die
-betrachteten Auswertungen in unter 10 Sekunden mit weniger als 4 GB
-Arbeitsspeicher durchführen kann, wird bereits als optimal bewertet.
-Weitere Optimierungen sind in diesem Fall nicht erforderlich. Falls
-bereits die gewünschte Performanz erreicht wurde, rückt die Reduktion
-des Entwicklungsaufwand in den Vordergrund. Entsprechend sind Aspekte
-wie einfache Anwendbarkeit und Nachvollziehbarkeit -- selbst für
-unerfahrene Nutzende -- ausschlaggebend.
+Der neue OnSite-Server bietet ausreichend\textbf{Festplattenspeicher},
+aber unnötige Belegung sollte vermieden werden. Feine Abstufungen der
+Zielgrößen sind für unsere Aufgaben nicht gleichermaßen relevant. Eine
+Methode, die die betrachteten Auswertungen in unter 10 Sekunden mit
+weniger als 10 GB Arbeitsspeicher durchführen kann, wird bereits als
+optimal bewertet. Weitere Optimierungen sind in diesem Fall nicht
+erforderlich. Falls bereits die gewünschte Performanz erreicht wurde,
+rückt die Reduktion des Entwicklungsaufwand in den Vordergrund.
+Entsprechend sind Aspekte wie einfache Anwendbarkeit und
+Nachvollziehbarkeit -- selbst für unerfahrene Nutzende --
+ausschlaggebend.
 
-\subsection{Vergleichswert in SAS und
-Stata}\label{vergleichswert-in-sas-und-stata}
+\subsection{Kleiner Vergleich von R zu SAS und
+Stata}\label{kleiner-vergleich-von-r-zu-sas-und-stata}
 
 Um die nachfolgenden Ergebnisse einzuordnen, haben wir die
-Performanzmessungen auch für 1 \% der simulierten BTP-Daten (etwa
-800.000 Beobachtungen) in SAS und Stata durchgeführt.
+Performanzmessungen auch für 1 \% der simulierten BTP-Daten (etwa 700
+000 Beobachtungen) in SAS und Stata durchgeführt.
 
 \begin{table*}
 
@@ -1391,11 +1393,6 @@ anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber
 mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber
 Stata.
 
-\subsection{Kleiner Vergleich von R zu SAS und
-Stata}\label{kleiner-vergleich-von-r-zu-sas-und-stata}
-
-RAM Messung: http://adv-r.had.co.nz/memory.html
-
 Für 1 \% der simulierten BTP-Daten reduzieren die
 R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata
 erheblich (siehe Tabelle~\ref{tbl-benchmark-small} und
@@ -1409,7 +1406,7 @@ betrachteten Auswertungen sogar
 \item
   in \textbf{unter 2 Sekunden} (27-fach schneller),
 \item
-  und nur mit \textbf{5 GB Festplattenspeicher} (6-fach weniger
+  und nur mit \textbf{5 GB Festplattenspeicher} (nur ein Sechstel
   gegenüber SAS und Stata).
 \end{itemize}
 

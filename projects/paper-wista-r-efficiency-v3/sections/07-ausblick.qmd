@@ -14,14 +14,14 @@ Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine Datenverarbeit
 -   Fokus auf Maintainance und Patching von R, Parquet und hier genannte Packages {arrow}, {duckdb}, {polars}
 -   Etablierung dieser Softwarelösungen kann langfristig...
     -   die Hardwareanforderungen reduzieren
-    -   die Analysesoftwarevielfalt verschlanken, somit Beschaffungen einsparen (besserer Ausdruck?)
--   Schulungsangebot benötigt für *"hoch-performante Auswertungen in R"*
--   eigener Beitrag zu Open Source entscheidend, um die Etablierung zu fördern.
+    -       die Analysesoftwarevielfalt verschlanken und somit Beschaffungskosten einsparen
+-   Ein Schulungsangebot für *hochperformante Auswertungen in R* wird benötigt
+-   Ein eigener Beitrag zu Open Source ist entscheidend, um die Etablierung zu fördern.
 
 ### Auswirkungen auf die Statistikproduktion
 
 -   Steigerung der Effizienz und Reaktionsgeschwindigkeit
--   (Vorsichtig!? Annette, lieber weg oder rein?) Vereinfachung der Statistikproduktion, durch leicht nachvollziehbaren Code und Fokus auf Wissensaufbau in R
+-   Vereinfachung der Statistikproduktion durch leicht nachvollziehbaren Code und Fokus auf Wissensaufbau in R
 -   Aufbau eines Datenbestands in Parquet
 -   Anwendung auf weitere Produkte
     -   Überarbeitung des BTP
@@ -39,17 +39,17 @@ Daher empfehlen wir, eine Datenhaltung im Parquet-Format und eine Datenverarbeit
 
 ### Auswirkung auf die Wissenschaft
 
--   Verwendung von R bietet am FDZ Bund einen deutlichen **Wettbewerbsvorteil in der emp. Forschung**. Lediglich R ist (am GWAP und via KDFV) am FDZ Bund in der Lage große Datenmengen innerhalb von Sekunden zu analysieren und Datenmengen überhalb des verfügbaren Arbeitspeicher, wie das BTP, ohne vorherige Variablenselektion auszuwerten.
+-   Die Verwendung von R bietet am FDZ Bund einen deutlichen **Wettbewerbsvorteil in der empirischen Forschung**. Lediglich R ist (am GWAP und via KDFV) am FDZ Bund in der Lage, große Datenmengen innerhalb von Sekunden zu analysieren und Datenmengen oberhalb des verfügbaren Arbeitsspeichers, wie das BTP, ohne vorherige Variablenselektion auszuwerten.
     -   Vollmaterial kann statt Stichproben angeboten werden. Erleichtert die Betreuung im FDZ Bund und GWAP/KDFV-Verfügbarkeit
     -   mehr explorative oder komplexe Analysen sind in kürzerer Zeit möglich.
--   Dazu ist R als frei verfügbare Open-Source Software leicht zu lernen und {arrow} bietet hoch-performante Analysen selbst für R-Basiskenntnisse. Empfehlung an die emp. Wissenschaft, sich verstärkt mit R zu befassen.
--   Für analoge über-RAM-Verarbeitungen bietet Stata aktuell keine Lösung. SAS bietet bei weitem nicht hier gemessene Performanz von R. R hervorragende Möglichkeiten bietet Performanz und Anwenderfreundlichkeit zu übertreffen.
+-   Dazu ist R als frei verfügbare Open-Source-Software leicht zu lernen, und arrow bietet hochperformante Analysen selbst für R-Basiskenntnisse. Empfehlung an die emp. Wissenschaft, sich verstärkt mit R zu befassen.
+-   Für analoge Verarbeitungen über den RAM hinaus bietet Stata aktuell keine Lösung. SAS bietet bei weitem nicht hier gemessene Performanz von R. R bietet hervorragende Möglichkeiten, Performanz und Anwenderfreundlichkeit zu übertreffen.
 -   Weiteres Vorgehen: **NeSt-Pilotprojekt**. Aus dem realen Use Case Optimierung der Systemkonfiguration und Beratungsbedarfe identifizieren.
 
 ### Schlussbemerkung
 
 Die Analyse großer Datensätze in der amtlichen Statistik und den Forschungsdatenzentren kann von einem signifikanten Performanz-Boost profitieren, wenn die vorgestellten Werkzeuge adaptiert werden. **Arrow, DuckDB, Polars und Parquet** – bieten das Potenzial, die Effizienz erheblich zu steigern und neue Analysemöglichkeiten zu eröffnen.
 
-Der Übergang erfordert jedoch eine **koordinierte Anstrengung** von Infrastrukturbetreibern, amtlicher Statistik, Forschungsdatenzentren und Forschenden. Die systematische Wissensaufbau, Dokumentation und Verbreitung von Best Practices wird entscheidend für den Erfolg sein.
+Der Übergang erfordert jedoch eine **koordinierte Anstrengung** von Infrastrukturbetreibern, amtlicher Statistik, Forschungsdatenzentren und Forschenden. Der systematische Wissensaufbau, die Dokumentation und Verbreitung von Best Practices werden entscheidend für den Erfolg sein.
 
 Die amtliche Statistik kann von diesen Entwicklungen in mehrfacher Hinsicht profitieren: **schnellere Erkenntnisgewinnung**, **umfassendere Analysen** und **effizientere Ressourcennutzung**. Dies trägt letztlich zur Stärkung der evidenzbasierten Politik- und Gesellschaftsberatung bei.

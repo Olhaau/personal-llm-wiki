@@ -68,7 +68,7 @@ output_table(tbl_out)
 
 Die Ergebnisse in @tbl-baseline zeigen, dass der umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht ausreicht, um das BTP vollständig in Stata einzulesen, sodass zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung die doppelte Laufzeit gegenüber Stata.
 
-Für 1 % der simulierten BTP-Daten reduzieren die R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. {polars}, {duckdb} und {arrow} lösen die betrachteten Auswertungen sogar
+Für 1 % der simulierten BTP-Daten reduzieren die R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. Die Pakete polars, duckdb und arrow lösen die betrachteten Auswertungen sogar
 
 -   in **unter 2 Sekunden** (27-fach schneller),
 <!--   mit unter **300 MB Arbeitsspeicher** -- {duckdb} und {polars}[^polars-ram] sogar mit unter **5 MB** (10-fach weniger)[^2][^3] -->
