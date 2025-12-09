@@ -2,9 +2,9 @@
 
 ## Status der Verbesserungen
 
-- ✅ **Angewendet (siehe improvements-archive.md):** REF-01, REF-03, REF-04, REF-05, REF-06, REF-07, REF-09, REF-10, REF-11, REF-12, REF-13, REF-14, REF-15, REF-16, REF-17, REF-19, REF-20, REF-21, REF-22, REF-23, REF-24, REF-25, REF-26, REF-27, REF-28, REF-29, REF-30, REF-31, REF-32, REF-33, REF-34, REF-35, REF-36, REF-38, REF-39, REF-40, REF-41, REF-42
+- ✅ **Angewendet (siehe improvements-archive.md):** REF-01, REF-03, REF-04, REF-05, REF-06, REF-07, REF-09, REF-10, REF-11, REF-12, REF-13, REF-14, REF-15, REF-16, REF-17, REF-19, REF-20, REF-21, REF-22, REF-23, REF-24, REF-25, REF-26, REF-27, REF-28, REF-29, REF-30, REF-31, REF-32, REF-33, REF-34, REF-35, REF-36, REF-38, REF-39, REF-40, REF-41, REF-42, REF-43, REF-45, REF-47, REF-48, REF-49, REF-51, REF-52, REF-53, REF-54, REF-55, REF-56, REF-57, REF-58, REF-59, REF-60, REF-61
 - ⏭️ **Übersprungen (auf Wunsch, siehe improvements-archive.md):** REF-02, REF-08, REF-18
-- 📋 **Noch offen:** REF-37, REF-43 bis REF-61
+- 📋 **Noch offen:** REF-37, REF-44, REF-46, REF-50
 
 ---
 
@@ -387,12 +387,40 @@ Soll die Schreibweise "FDZ-OnSite-Server" oder "FDZ OnSite-Server" verwendet wer
 
 ## Zusammenfassung
 
-**Anzahl behobener Tippfehler:** 17
-**Anzahl angewendeter Verbesserungen:** 38 (aus 61) → siehe improvements-archive.md
-**Noch offene Verbesserungen:** 20 (REF-37, REF-43-61) + 3 übersprungene (REF-02, REF-08, REF-18)
+**Anzahl behobener Tippfehler:** 25+
+**Anzahl angewendeter Verbesserungen:** 55 (aus 61) → siehe improvements-archive.md
+**Noch offene Verbesserungen:** 4 (REF-37, REF-44, REF-46, REF-50) + 3 übersprungene (REF-02, REF-08, REF-18)
 **TBA-Platzhalter:** 11 (davon 4 kritisch)
 **Konsistenz-Fragen:** 4
 **Stilistische Hinweise:** 3
-**Offene Fragen:** 6
+**Offene Fragen:** 2 (reduziert von 6)
 
-Die meisten kritischen Fehler wurden behoben. Die verbleibenden Vorschläge betreffen hauptsächlich Konsistenz (Paket-Namen in geschweiften Klammern) und stilistische Feinheiten.
+## Neu behobene Fehler (Dezember 2024):
+
+### Tippfehler behoben:
+- ✅ "überhalb" → "oberhalb" (sections/05-benchmark.qmd, sections/07-ausblick.qmd)
+- ✅ "Arbeitspeicher" → "Arbeitsspeichers" (Genitiv, sections/07-ausblick.qmd)
+- ✅ "emp." → "empirischen" (ausgeschrieben, sections/07-ausblick.qmd)
+- ✅ "Dadurch das" → "Dadurch dass" (sections/05-benchmark.qmd)
+- ✅ "Die systematische" → "Der systematische" (sections/07-ausblick.qmd)
+- ✅ "wird" → "werden" (Plural, sections/07-ausblick.qmd)
+
+### Grammatikalische Verbesserungen:
+- ✅ REF-43: {arrow} → arrow (Schreibweise)
+- ✅ REF-45: "Entwicklungaufwände" → "Entwicklungsaufwände", "Anderen" → "anderen"
+- ✅ REF-47: "(tba: ...)" entfernt, "mit Verbrauch" → "mit einem Verbrauch"
+- ✅ REF-48: "konstant abhängig" → "konstant und unabhängig"
+- ✅ REF-49: Komma ergänzt, 50% → 50 % (mit Leerzeichen)
+- ✅ REF-51: Editorial-Kommentar entfernt, "Beschaffungen" → "Beschaffungskosten"
+- ✅ REF-52: Satz grammatikalisch vervollständigt
+- ✅ REF-53: Verb "ist" ergänzt
+- ✅ REF-54: Editorial-Kommentar entfernt
+- ✅ REF-55: "Die Verwendung" statt "Verwendung"
+- ✅ REF-56: Komma nach "Lage" ergänzt
+- ✅ REF-57: "Open-Source-Software" mit Bindestrichen, {arrow} → arrow
+- ✅ REF-58: "über-RAM-Verarbeitungen" ausformuliert
+- ✅ REF-59: Wortstellung korrigiert, Komma ergänzt
+- ✅ REF-60: "können" → "kann" (Singular)
+- ✅ REF-61: Artikel korrigiert, Plural angepasst
+
+Die kritischsten Fehler wurden behoben. Die verbleibenden 4 Vorschläge betreffen Konsistenz bei Paket-Namen in geschweiften Klammern.

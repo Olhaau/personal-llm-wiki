@@ -245,7 +245,7 @@ Somit kommen wir insgesamt zu dem Ergebnis, dass {arrow} kombiniert mit {parquet
   2.  Beide Anwendungen ließen sich in unter 20 nachvollziehbaren Zeilen in {arrow} programmieren.[^opencode]
   3.  Obwohl nicht alle Features aus {tidyverse} für {arrow} verfügbar sind, ließ sich bisher immer eine Lösung finden, um die gewünschte Auswertung umzusetzen, bspw. durch Kombination mit {duckdb} oder andere Funktionsaufrufe.
 3.  {arrow} spart ausreichend Arbeitsspeicher (mit Verbrauch unter 1 GB) (tba: Fußnote zu duckdb/polars). Der Arbeitsspeicherverbrauch von {arrow} ist in unserer Auswertung nahezu konstant abhängig von der Datenmenge, sodass {arrow} leicht auf noch größere Datenmengen skalieren kann
-4.  Dadurch das {arrow} die Nutzung auch von mehreren {parquet} Dateien unterstützt spart gegenüber CSV mind. 50% der Festplatte (für das reale BTP sogar 80%+) und ermöglicht schnelle Nutzung auch von Datenmengen überhalb des verfügbaren Arbeitsspeichers.
+4.  Dadurch dass {arrow} die Nutzung auch von mehreren {parquet} Dateien unterstützt, spart es gegenüber CSV mind. 50 % der Festplatte (für das reale BTP sogar 80 %+) und ermöglicht schnelle Nutzung auch von Datenmengen oberhalb des verfügbaren Arbeitsspeichers.
 
 
 ```{r}
