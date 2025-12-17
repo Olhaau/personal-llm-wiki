@@ -63,7 +63,7 @@ create_styles <- function(style_config) {
     wrap_text = style_config$data_cell$wrap_text,
     border = "TopBottomLeftRight",
     border_color = wb_color(hex = style_config$data_cell$border_color),
-    num_fmt = "# ##0,00"  # German format: space for thousands, comma for decimal
+    num_fmt = "# ### ##0,00"  # German format: space for hundreds and thousands, comma for decimal
   )
   
   # Alternating row style (even rows) with German number formatting
@@ -78,7 +78,7 @@ create_styles <- function(style_config) {
       wrap_text = style_config$data_cell$wrap_text,
       border = "TopBottomLeftRight",
       border_color = wb_color(hex = style_config$data_cell$border_color),
-      num_fmt = "# ##0,00"  # German format: space for thousands, comma for decimal
+      num_fmt = "# ### ##0,00"  # German format: space for hundreds and thousands, comma for decimal
     )
   }
   
