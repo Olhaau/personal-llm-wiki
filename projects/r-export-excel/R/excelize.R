@@ -648,3 +648,139 @@ add_sheet <- function(wb,
   
   invisible(wb)
 }
+
+#' Create Index Sheet with Links to All Data Sheets
+#' 
+#' Creates a table of contents sheet with clickable links to all other sheets
+#' in the workbook. Should be called after all data sheets have been added.
+#' The index sheet will be placed as the first sheet in the workbook.
+#' 
+#' @param wb Workbook object
+#' @param index_title Title for the index sheet (default: "Inhaltsverzeichnis")
+#' @param index_sheet_name Name for the index sheet (default: "Index")
+#' @param config_path Path to style configuration YAML
+#' @param position Position for index sheet: "first" (default) or "last"
+#' 
+#' @return Invisibly returns the workbook object
+#' @export
+#' 
+#' @examples
+#' wb <- wb_workbook()
+#' wb <- add_sheet(wb, mtcars, "Cars", heading = "Motor Trend Cars")
+#' wb <- add_sheet(wb, iris, "Flowers", heading = "Iris Dataset")
+#' wb <- create_index_sheet(wb)
+#' wb$save("output/multi_sheet.xlsx")
+create_index_sheet <- function(wb,
+                               index_title = "Inhaltsverzeichnis",
+                               index_sheet_name = "Index",
+                               config_path = "config/destatis_style.yaml",
+                               position = "first") {
+  
+  # Validate inputs ----
+  if (!inherits(wb, "wbWorkbook")) {
+    stop("wb must be a workbook object")
+  }
+  
+  # Load style configuration ----
+  style_config <- load_style_config(config_path)
+  
+  # Get all sheet names except the index itself
+  all_sheets <- wb$get_sheet_names()
+  data_sheets <- setdiff(all_sheets, index_sheet_name)
+  
+  if (length(data_sheets) == 0) {
+    warning("No data sheets found to create index for")
+    return(invisible(wb))
+  }
+  
+  # Remove existing index if present and add fresh one
+  if (index_sheet_name %in% all_sheets) {
+    wb$remove_worksheet(index_sheet_name)
+  }
+  
+  # Add index sheet
+  # If position is first, add at beginning (position 1)
+  # Otherwise it will be added at the end
+  if (position == "first") {
+    # Try to add at position 1
+    tryCatch({
+      wb$add_worksheet(index_sheet_name, pos = "1")
+    }, error = function(e) {
+      # Fallback: just add it normally
+      wb$add_worksheet(index_sheet_name)
+    })
+  } else {
+    wb$add_worksheet(index_sheet_name)
+  }
+  
+  # Add title
+  wb$add_data(
+    sheet = index_sheet_name,
+    x = index_title,
+    start_col = 1,
+    start_row = 1
+  )
+  
+  # Style title
+  title_style <- openxlsx2::create_cell_style(
+    font_name = style_config$font$family,
+    font_size = 16,
+    text_bold = TRUE,
+    font_color = wb_color(hex = style_config$colors$primary)
+  )
+  wb$add_cell_style(
+    sheet = index_sheet_name,
+    dims = "A1",
+    style = title_style
+  )
+  
+  # Set row height for title
+  wb$set_row_heights(
+    sheet = index_sheet_name,
+    rows = 1,
+    heights = 30
+  )
+  
+  # Add links to each sheet
+  for (i in seq_along(data_sheets)) {
+    sheet_name <- data_sheets[i]
+    row <- i + 2  # Start after title and blank row
+    
+    # Create internal link
+    link_formula <- sprintf('HYPERLINK("#%s!A1", "%s")', sheet_name, sheet_name)
+    wb$add_formula(
+      sheet = index_sheet_name,
+      x = link_formula,
+      start_col = 1,
+      start_row = row
+    )
+    
+    # Style as hyperlink
+    link_style <- openxlsx2::create_cell_style(
+      font_name = style_config$font$family,
+      font_size = style_config$font$size,
+      font_color = wb_color(hex = style_config$index_sheet$link_color),
+      text_decoration = "underline"
+    )
+    wb$add_cell_style(
+      sheet = index_sheet_name,
+      dims = sprintf("A%d", row),
+      style = link_style
+    )
+  }
+  
+  # Adjust column width
+  wb$set_col_widths(
+    sheet = index_sheet_name,
+    cols = 1,
+    widths = 40
+  )
+  
+  message(sprintf("✓ Index sheet created: %s", index_sheet_name))
+  message(sprintf("  Links to %d data sheets", length(data_sheets)))
+  if (position == "first") {
+    message("  Note: To have index as first sheet, call create_index_sheet() before adding data sheets")
+  }
+  
+  invisible(wb)
+}

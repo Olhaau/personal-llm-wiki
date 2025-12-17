@@ -70,17 +70,18 @@ bildung_header <- list(
   list(label = "Personen", cols = 5:6)
 )
 
-# Create workbook with multiple sheets ----
+# Create workbook ----
 wb <- wb_workbook()
 
-# Add sheets with multi-level headers
+# Add data sheets with multi-level headers
 wb <- add_sheet(
   wb, 
   bevoelkerung, 
   sheet_name = "Bevölkerung",
   heading = "Bevölkerungsstatistik nach Bundesländern",
   multi_header = bevoelkerung_header,
-  freeze_rows = 1
+  freeze_rows = 1,
+  add_index_link = TRUE
 )
 
 wb <- add_sheet(
@@ -89,7 +90,8 @@ wb <- add_sheet(
   sheet_name = "Wirtschaft",
   heading = "Wirtschaftsindikatoren Deutschland",
   multi_header = wirtschaft_header,
-  freeze_rows = 1
+  freeze_rows = 1,
+  add_index_link = TRUE
 )
 
 wb <- add_sheet(
@@ -98,67 +100,15 @@ wb <- add_sheet(
   sheet_name = "Bildung",
   heading = "Bildungsausgaben nach Bereichen",
   multi_header = bildung_header,
-  freeze_rows = 1
+  freeze_rows = 1,
+  add_index_link = TRUE
 )
 
-# Create index sheet
-style_config <- yaml::read_yaml("config/destatis_style.yaml")
-sheet_names <- wb$get_sheet_names()
-
-# Manually create index as first sheet
-wb$add_worksheet(style_config$index_sheet$name, position = 1)
-
-# Add title
-wb$add_data(
-  sheet = style_config$index_sheet$name,
-  x = "Inhaltsverzeichnis",
-  start_col = 1,
-  start_row = 1
-)
-
-# Style title
-title_style <- openxlsx2::create_cell_style(
-  font_name = style_config$font$family,
-  font_size = 14,
-  text_bold = TRUE,
-  font_color = wb_color(hex = style_config$colors$primary)
-)
-wb$add_cell_style(
-  sheet = style_config$index_sheet$name,
-  dims = "A1",
-  style = title_style
-)
-
-# Add links to each sheet
-for (i in seq_along(sheet_names)) {
-  sheet_name <- sheet_names[i]
-  row <- i + 2
-  
-  formula <- sprintf('HYPERLINK("#%s!A1", "%s")', sheet_name, sheet_name)
-  wb$add_formula(
-    sheet = style_config$index_sheet$name,
-    x = formula,
-    start_col = 1,
-    start_row = row
-  )
-  
-  link_style <- openxlsx2::create_cell_style(
-    font_name = style_config$font$family,
-    font_size = style_config$font$size,
-    font_color = wb_color(hex = style_config$index_sheet$link_color),
-    text_decoration = "underline"
-  )
-  wb$add_cell_style(
-    sheet = style_config$index_sheet$name,
-    dims = sprintf("A%d", row),
-    style = link_style
-  )
-}
-
-wb$set_col_widths(
-  sheet = style_config$index_sheet$name,
-  cols = 1,
-  widths = 30
+# Now populate the index sheet with links to all data sheets
+wb <- create_index_sheet(
+  wb,
+  index_title = "Inhaltsverzeichnis",
+  index_sheet_name = "Index"
 )
 
 # Save workbook
@@ -166,13 +116,17 @@ wb$save("output/demo_statistik_mehrere_sheets.xlsx")
 
 cat('\n✓ Multi-sheet Excel file created successfully!\n')
 cat('  File: output/demo_statistik_mehrere_sheets.xlsx\n')
-cat('  Sheets:', length(sheet_names) + 1, '(Index +', length(sheet_names), 'data sheets)\n')
-cat('  - Inhaltsverzeichnis (Index)\n')
-for (name in sheet_names) {
-  cat('  -', name, '\n')
+
+# Get sheet info
+all_sheets <- wb$get_sheet_names()
+cat('  Sheets:', length(all_sheets), '\n')
+for (i in seq_along(all_sheets)) {
+  cat('  ', i, '.', all_sheets[i], '\n')
 }
+
 cat('\n  Features:\n')
+cat('  - Index sheet as first sheet with clickable links\n')
 cat('  - Multi-level headers with merged cells\n')
-cat('  - German number formatting (space for thousands, comma for decimals)\n')
+cat('  - German number formatting (space for hundreds separator, comma for decimals)\n')
 cat('  - Borders only around tables\n')
-cat('  - Back to Index links on each sheet\n')
+cat('  - Back to Index links on each data sheet\n')
