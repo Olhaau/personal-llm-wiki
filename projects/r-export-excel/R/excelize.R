@@ -27,13 +27,12 @@ load_style_config <- function(config_path = "config/destatis_style.yaml") {
 create_styles <- function(style_config) {
   styles <- list()
   
-  # Heading style
+  # Heading style (no borders, plain white background)
   styles$heading <- openxlsx2::create_cell_style(
     font_name = style_config$heading$font_family,
     font_size = style_config$heading$font_size,
     text_bold = style_config$heading$font_bold,
     font_color = wb_color(hex = style_config$heading$font_color),
-    fill_color = wb_color(hex = style_config$heading$fill_color),
     horizontal = style_config$heading$horizontal_align,
     vertical = style_config$heading$vertical_align,
     wrap_text = style_config$heading$wrap_text
@@ -53,7 +52,7 @@ create_styles <- function(style_config) {
     border_color = wb_color(hex = style_config$column_header$border_color)
   )
   
-  # Data cell style
+  # Data cell style with German number formatting
   styles$data_cell <- openxlsx2::create_cell_style(
     font_name = style_config$data_cell$font_family,
     font_size = style_config$data_cell$font_size,
@@ -63,10 +62,11 @@ create_styles <- function(style_config) {
     vertical = style_config$data_cell$vertical_align,
     wrap_text = style_config$data_cell$wrap_text,
     border = "TopBottomLeftRight",
-    border_color = wb_color(hex = style_config$data_cell$border_color)
+    border_color = wb_color(hex = style_config$data_cell$border_color),
+    num_fmt = "# ##0,00"  # German format: space for thousands, comma for decimal
   )
   
-  # Alternating row style (even rows)
+  # Alternating row style (even rows) with German number formatting
   if (style_config$alternating_rows$enabled) {
     styles$data_cell_alt <- openxlsx2::create_cell_style(
       font_name = style_config$data_cell$font_family,
@@ -77,7 +77,8 @@ create_styles <- function(style_config) {
       vertical = style_config$data_cell$vertical_align,
       wrap_text = style_config$data_cell$wrap_text,
       border = "TopBottomLeftRight",
-      border_color = wb_color(hex = style_config$data_cell$border_color)
+      border_color = wb_color(hex = style_config$data_cell$border_color),
+      num_fmt = "# ##0,00"  # German format: space for thousands, comma for decimal
     )
   }
   
@@ -375,6 +376,274 @@ excelize <- function(gt_object,
   if (!is.null(heading)) {
     message(sprintf("  Heading: %s", heading))
   }
+  message(sprintf("  Dimensions: %d rows × %d columns", n_rows, n_cols))
+  
+  invisible(wb)
+}
+
+#' Add Sheet to Existing Excel Workbook
+#' 
+#' Add a new sheet with formatted data to an existing Excel workbook.
+#' This function allows building multi-sheet workbooks incrementally.
+#' Supports multi-level headers with merged cells.
+#' 
+#' @param wb Workbook object (from excelize or wb_workbook)
+#' @param data Data frame to add
+#' @param sheet_name Name for the new worksheet
+#' @param heading Optional heading text to display above the table
+#' @param multi_header Optional list defining multi-level headers. Each element is a list with:
+#'   - label: Text to display
+#'   - cols: Vector of column indices to span (e.g., 1:3)
+#' @param freeze_rows Number of rows to freeze (default: 2 for heading + header)
+#' @param freeze_cols Number of columns to freeze (default: 1)
+#' @param add_index_link Add "Back to Index" link at top (default: TRUE)
+#' @param config_path Path to style configuration YAML
+#' 
+#' @return Invisibly returns the workbook object
+#' @export
+#' 
+#' @examples
+#' wb <- wb_workbook()
+#' # Simple example
+#' wb <- add_sheet(wb, mtcars, "Cars", heading = "Motor Trend Cars")
+#' 
+#' # With multi-level headers
+#' multi_header <- list(
+#'   list(label = "Gruppe A", cols = 1:2),
+#'   list(label = "Gruppe B", cols = 3:4)
+#' )
+#' wb <- add_sheet(wb, data, "Sheet1", multi_header = multi_header)
+#' wb$save("output/multi_sheet.xlsx")
+add_sheet <- function(wb,
+                      data,
+                      sheet_name,
+                      heading = NULL,
+                      multi_header = NULL,
+                      freeze_rows = 2,
+                      freeze_cols = 1,
+                      add_index_link = TRUE,
+                      config_path = "config/destatis_style.yaml") {
+  
+  # Validate inputs ----
+  if (!inherits(wb, "wbWorkbook")) {
+    stop("wb must be a workbook object")
+  }
+  
+  if (!is.data.frame(data)) {
+    stop("data must be a data frame")
+  }
+  
+  # Load style configuration ----
+  style_config <- load_style_config(config_path)
+  styles <- create_styles(style_config)
+  
+  # Add worksheet ----
+  if (sheet_name %in% wb$get_sheet_names()) {
+    wb$remove_worksheet(sheet_name)
+  }
+  wb$add_worksheet(sheet_name)
+  
+  # Set up row counter ----
+  current_row <- 1
+  
+  # Add "Back to Index" link if requested ----
+  if (add_index_link) {
+    link_formula <- sprintf('HYPERLINK("#%s!A1", "← Zurück zum Inhaltsverzeichnis")', 
+                           style_config$index_sheet$name)
+    wb$add_formula(
+      sheet = sheet_name,
+      x = link_formula,
+      start_col = 1,
+      start_row = current_row
+    )
+    
+    # Style the link
+    link_style <- openxlsx2::create_cell_style(
+      font_name = style_config$font$family,
+      font_size = style_config$font$size,
+      font_color = wb_color(hex = style_config$index_sheet$link_color),
+      text_decoration = "underline"
+    )
+    wb$add_cell_style(
+      sheet = sheet_name,
+      dims = sprintf("A%d", current_row),
+      style = link_style
+    )
+    
+    current_row <- current_row + 1
+  }
+  
+  # Add heading if provided ----
+  if (!is.null(heading)) {
+    wb$add_data(
+      sheet = sheet_name,
+      x = heading,
+      start_col = 1,
+      start_row = current_row
+    )
+    
+    # Merge cells for heading across all columns
+    n_cols <- ncol(data)
+    if (n_cols <= 26) {
+      end_col <- LETTERS[n_cols]
+    } else {
+      end_col <- paste0(LETTERS[floor((n_cols - 1) / 26)], LETTERS[((n_cols - 1) %% 26) + 1])
+    }
+    merge_range <- sprintf("A%d:%s%d", current_row, end_col, current_row)
+    wb$merge_cells(sheet = sheet_name, dims = merge_range)
+    
+    # Apply heading style (no background, no borders)
+    wb$add_cell_style(
+      sheet = sheet_name,
+      dims = merge_range,
+      style = styles$heading
+    )
+    
+    # Set row height
+    wb$set_row_heights(
+      sheet = sheet_name,
+      rows = current_row,
+      heights = style_config$heading$row_height
+    )
+    
+    current_row <- current_row + 1
+  }
+  
+  # Add multi-level header if provided ----
+  if (!is.null(multi_header)) {
+    # Add first level of headers (merged cells)
+    for (header_group in multi_header) {
+      start_col <- header_group$cols[1]
+      end_col <- header_group$cols[length(header_group$cols)]
+      
+      # Get column letters
+      if (start_col <= 26) {
+        start_col_letter <- LETTERS[start_col]
+      } else {
+        start_col_letter <- paste0(LETTERS[floor((start_col - 1) / 26)], LETTERS[((start_col - 1) %% 26) + 1])
+      }
+      
+      if (end_col <= 26) {
+        end_col_letter <- LETTERS[end_col]
+      } else {
+        end_col_letter <- paste0(LETTERS[floor((end_col - 1) / 26)], LETTERS[((end_col - 1) %% 26) + 1])
+      }
+      
+      # Add header text
+      wb$add_data(
+        sheet = sheet_name,
+        x = header_group$label,
+        start_col = start_col,
+        start_row = current_row
+      )
+      
+      # Merge cells if spanning multiple columns
+      if (start_col != end_col) {
+        merge_range <- sprintf("%s%d:%s%d", start_col_letter, current_row, end_col_letter, current_row)
+        wb$merge_cells(sheet = sheet_name, dims = merge_range)
+        
+        # Apply style to merged range
+        wb$add_cell_style(
+          sheet = sheet_name,
+          dims = merge_range,
+          style = styles$col_header
+        )
+      } else {
+        # Apply style to single cell
+        cell <- sprintf("%s%d", start_col_letter, current_row)
+        wb$add_cell_style(
+          sheet = sheet_name,
+          dims = cell,
+          style = styles$col_header
+        )
+      }
+    }
+    
+    current_row <- current_row + 1
+  }
+  
+  # Add data with headers ----
+  wb$add_data_table(
+    sheet = sheet_name,
+    x = data,
+    start_col = 1,
+    start_row = current_row,
+    table_style = "none",
+    with_filter = FALSE
+  )
+  
+  # Style column headers (second level) ----
+  header_row <- current_row
+  n_cols <- ncol(data)
+  for (col in 1:n_cols) {
+    if (col <= 26) {
+      col_letter <- LETTERS[col]
+    } else {
+      col_letter <- paste0(LETTERS[floor((col - 1) / 26)], LETTERS[((col - 1) %% 26) + 1])
+    }
+    cell <- sprintf("%s%d", col_letter, header_row)
+    wb$add_cell_style(
+      sheet = sheet_name,
+      dims = cell,
+      style = styles$col_header
+    )
+  }
+  
+  # Style data cells with alternating rows ----
+  n_rows <- nrow(data)
+  data_start_row <- current_row + 1
+  
+  for (row in 1:n_rows) {
+    actual_row <- data_start_row + row - 1
+    
+    # Choose style based on even/odd row
+    if (style_config$alternating_rows$enabled && row %% 2 == 0) {
+      cell_style <- styles$data_cell_alt
+    } else {
+      cell_style <- styles$data_cell
+    }
+    
+    # Apply style to all cells in row
+    for (col in 1:n_cols) {
+      if (col <= 26) {
+        col_letter <- LETTERS[col]
+      } else {
+        col_letter <- paste0(LETTERS[floor((col - 1) / 26)], LETTERS[((col - 1) %% 26) + 1])
+      }
+      cell <- sprintf("%s%d", col_letter, actual_row)
+      wb$add_cell_style(
+        sheet = sheet_name,
+        dims = cell,
+        style = cell_style
+      )
+    }
+  }
+  
+  # Auto-size columns ----
+  if (style_config$column_width$auto_size) {
+    for (col in 1:n_cols) {
+      wb$set_col_widths(
+        sheet = sheet_name,
+        cols = col,
+        widths = "auto"
+      )
+    }
+  }
+  
+  # Freeze panes ----
+  if (freeze_rows > 0 || freeze_cols > 0) {
+    # Adjust freeze row to account for multi-header
+    extra_rows <- if (!is.null(multi_header)) 1 else 0
+    freeze_cell_row <- current_row + freeze_rows + extra_rows
+    
+    wb$freeze_pane(
+      sheet = sheet_name,
+      first_active_row = freeze_cell_row,
+      first_active_col = freeze_cols + 1
+    )
+  }
+  
+  message(sprintf("✓ Sheet added: %s", sheet_name))
   message(sprintf("  Dimensions: %d rows × %d columns", n_rows, n_cols))
   
   invisible(wb)
