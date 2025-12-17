@@ -343,13 +343,14 @@ excelize <- function(gt_object,
   
   # Freeze panes ----
   if (freeze_rows > 0 || freeze_cols > 0) {
-    freeze_row <- current_row + freeze_rows
-    freeze_col <- freeze_cols + 1
+    freeze_cell_row <- current_row + freeze_rows
+    freeze_cell_col <- LETTERS[freeze_cols + 1]
+    freeze_cell <- sprintf("%s%d", freeze_cell_col, freeze_cell_row)
     
     wb$freeze_pane(
       sheet = sheet_name,
-      first_row = freeze_row,
-      first_col = freeze_col
+      first_active_row = freeze_cell_row,
+      first_active_col = freeze_cols + 1
     )
   }
   
