@@ -73,7 +73,10 @@ bildung_header <- list(
 # Create workbook ----
 wb <- wb_workbook()
 
-# Add data sheets with multi-level headers
+# STEP 1: Create empty index sheet first (so it appears as first sheet)
+wb <- init_index_sheet(wb, index_sheet_name = "Index")
+
+# STEP 2: Add data sheets with multi-level headers
 wb <- add_sheet(
   wb, 
   bevoelkerung, 
@@ -104,8 +107,8 @@ wb <- add_sheet(
   add_index_link = TRUE
 )
 
-# Now populate the index sheet with links to all data sheets
-wb <- create_index_sheet(
+# STEP 3: Update index sheet with links to all data sheets
+wb <- update_index_sheet(
   wb,
   index_title = "Inhaltsverzeichnis",
   index_sheet_name = "Index"
@@ -125,8 +128,9 @@ for (i in seq_along(all_sheets)) {
 }
 
 cat('\n  Features:\n')
-cat('  - Index sheet as first sheet with clickable links\n')
+cat('  - Index sheet as FIRST sheet with clickable links\n')
 cat('  - Multi-level headers with merged cells\n')
 cat('  - German number formatting (space for hundreds separator, comma for decimals)\n')
+cat('  - Light grey column headers with blue hyperlinks\n')
 cat('  - Borders only around tables\n')
 cat('  - Back to Index links on each data sheet\n')

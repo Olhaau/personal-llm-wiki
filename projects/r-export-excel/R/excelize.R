@@ -649,32 +649,66 @@ add_sheet <- function(wb,
   invisible(wb)
 }
 
-#' Create Index Sheet with Links to All Data Sheets
+#' Initialize Index Sheet Placeholder
 #' 
-#' Creates a table of contents sheet with clickable links to all other sheets
-#' in the workbook. Should be called after all data sheets have been added.
-#' The index sheet will be placed as the first sheet in the workbook.
+#' Creates an empty index sheet that will be populated later.
+#' Call this FIRST when creating a workbook to ensure index appears as first sheet.
+#' Then add your data sheets, and finally call update_index_sheet() to populate it.
 #' 
 #' @param wb Workbook object
-#' @param index_title Title for the index sheet (default: "Inhaltsverzeichnis")
 #' @param index_sheet_name Name for the index sheet (default: "Index")
-#' @param config_path Path to style configuration YAML
-#' @param position Position for index sheet: "first" (default) or "last"
 #' 
 #' @return Invisibly returns the workbook object
 #' @export
 #' 
 #' @examples
 #' wb <- wb_workbook()
+#' wb <- init_index_sheet(wb)  # Creates empty index as first sheet
+#' wb <- add_sheet(wb, mtcars, "Cars", heading = "Motor Trend Cars")
+#' wb <- update_index_sheet(wb)  # Populates index with links
+#' wb$save("output/multi_sheet.xlsx")
+init_index_sheet <- function(wb,
+                             index_sheet_name = "Index") {
+  
+  # Validate inputs ----
+  if (!inherits(wb, "wbWorkbook")) {
+    stop("wb must be a workbook object")
+  }
+  
+  # Add empty index sheet
+  # It will be the first sheet if called first
+  wb$add_worksheet(index_sheet_name)
+  
+  message(sprintf("✓ Index sheet placeholder created: %s", index_sheet_name))
+  message("  Call update_index_sheet() after adding all data sheets to populate it")
+  
+  invisible(wb)
+}
+
+#' Update Index Sheet with Links to All Data Sheets
+#' 
+#' Populates an existing index sheet with clickable links to all other sheets
+#' in the workbook. The index sheet should already exist (created with init_index_sheet).
+#' 
+#' @param wb Workbook object
+#' @param index_title Title for the index sheet (default: "Inhaltsverzeichnis")
+#' @param index_sheet_name Name for the index sheet (default: "Index")
+#' @param config_path Path to style configuration YAML
+#' 
+#' @return Invisibly returns the workbook object
+#' @export
+#' 
+#' @examples
+#' wb <- wb_workbook()
+#' wb <- init_index_sheet(wb)
 #' wb <- add_sheet(wb, mtcars, "Cars", heading = "Motor Trend Cars")
 #' wb <- add_sheet(wb, iris, "Flowers", heading = "Iris Dataset")
-#' wb <- create_index_sheet(wb)
+#' wb <- update_index_sheet(wb)
 #' wb$save("output/multi_sheet.xlsx")
-create_index_sheet <- function(wb,
+update_index_sheet <- function(wb,
                                index_title = "Inhaltsverzeichnis",
                                index_sheet_name = "Index",
-                               config_path = "config/destatis_style.yaml",
-                               position = "first") {
+                               config_path = "config/destatis_style.yaml") {
   
   # Validate inputs ----
   if (!inherits(wb, "wbWorkbook")) {
@@ -686,31 +720,16 @@ create_index_sheet <- function(wb,
   
   # Get all sheet names except the index itself
   all_sheets <- wb$get_sheet_names()
+  
+  if (!index_sheet_name %in% all_sheets) {
+    stop("Index sheet '", index_sheet_name, "' does not exist. Call init_index_sheet() first.")
+  }
+  
   data_sheets <- setdiff(all_sheets, index_sheet_name)
   
   if (length(data_sheets) == 0) {
     warning("No data sheets found to create index for")
     return(invisible(wb))
-  }
-  
-  # Remove existing index if present and add fresh one
-  if (index_sheet_name %in% all_sheets) {
-    wb$remove_worksheet(index_sheet_name)
-  }
-  
-  # Add index sheet
-  # If position is first, add at beginning (position 1)
-  # Otherwise it will be added at the end
-  if (position == "first") {
-    # Try to add at position 1
-    tryCatch({
-      wb$add_worksheet(index_sheet_name, pos = "1")
-    }, error = function(e) {
-      # Fallback: just add it normally
-      wb$add_worksheet(index_sheet_name)
-    })
-  } else {
-    wb$add_worksheet(index_sheet_name)
   }
   
   # Add title
@@ -776,11 +795,41 @@ create_index_sheet <- function(wb,
     widths = 40
   )
   
-  message(sprintf("✓ Index sheet created: %s", index_sheet_name))
+  message(sprintf("✓ Index sheet updated: %s", index_sheet_name))
   message(sprintf("  Links to %d data sheets", length(data_sheets)))
-  if (position == "first") {
-    message("  Note: To have index as first sheet, call create_index_sheet() before adding data sheets")
+  
+  invisible(wb)
+}
+
+#' Create Index Sheet with Links to All Data Sheets (Legacy)
+#' 
+#' Creates a table of contents sheet with clickable links to all other sheets.
+#' For better control over sheet order, use init_index_sheet() and update_index_sheet().
+#' 
+#' @param wb Workbook object
+#' @param index_title Title for the index sheet (default: "Inhaltsverzeichnis")
+#' @param index_sheet_name Name for the index sheet (default: "Index")
+#' @param config_path Path to style configuration YAML
+#' 
+#' @return Invisibly returns the workbook object
+#' @export
+create_index_sheet <- function(wb,
+                               index_title = "Inhaltsverzeichnis",
+                               index_sheet_name = "Index",
+                               config_path = "config/destatis_style.yaml") {
+  
+  # This is a convenience wrapper that creates and updates in one call
+  # The index will appear at the end unless init_index_sheet was called first
+  
+  all_sheets <- wb$get_sheet_names()
+  
+  # If index doesn't exist, create it
+  if (!index_sheet_name %in% all_sheets) {
+    wb <- init_index_sheet(wb, index_sheet_name)
   }
+  
+  # Update with links
+  wb <- update_index_sheet(wb, index_title, index_sheet_name, config_path)
   
   invisible(wb)
 }
