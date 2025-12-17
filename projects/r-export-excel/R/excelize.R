@@ -457,17 +457,13 @@ add_sheet <- function(wb,
       start_row = current_row
     )
     
-    # Style the link
-    link_style <- openxlsx2::create_cell_style(
-      font_name = style_config$font$family,
-      font_size = style_config$font$size,
-      font_color = wb_color(hex = style_config$index_sheet$link_color),
-      text_decoration = "underline"
-    )
-    wb$add_cell_style(
+    # Style the link with blue color and underline
+    link_cell <- sprintf("A%d", current_row)
+    wb$add_font(
       sheet = sheet_name,
-      dims = sprintf("A%d", current_row),
-      style = link_style
+      dims = link_cell,
+      color = wb_color(hex = style_config$index_sheet$link_color),
+      underline = "single"
     )
     
     current_row <- current_row + 1
@@ -548,6 +544,12 @@ add_sheet <- function(wb,
           dims = merge_range,
           style = styles$col_header
         )
+        # Apply fill color explicitly
+        wb$add_fill(
+          sheet = sheet_name,
+          dims = merge_range,
+          color = wb_color(hex = style_config$column_header$fill_color)
+        )
       } else {
         # Apply style to single cell
         cell <- sprintf("%s%d", start_col_letter, current_row)
@@ -555,6 +557,12 @@ add_sheet <- function(wb,
           sheet = sheet_name,
           dims = cell,
           style = styles$col_header
+        )
+        # Apply fill color explicitly
+        wb$add_fill(
+          sheet = sheet_name,
+          dims = cell,
+          color = wb_color(hex = style_config$column_header$fill_color)
         )
       }
     }
@@ -618,6 +626,28 @@ add_sheet <- function(wb,
       )
     }
   }
+  
+  # Apply German number formatting to all data cells ----
+  # Create range for all data cells
+  if (n_cols <= 26) {
+    end_col_letter <- LETTERS[n_cols]
+  } else {
+    end_col_letter <- paste0(LETTERS[floor((n_cols - 1) / 26)], LETTERS[((n_cols - 1) %% 26) + 1])
+  }
+  data_range <- sprintf("A%d:%s%d", data_start_row, end_col_letter, data_start_row + n_rows - 1)
+  wb$add_numfmt(
+    sheet = sheet_name,
+    dims = data_range,
+    numfmt = "# ### ##0,00"
+  )
+  
+  # Apply light grey background to column headers ----
+  header_range <- sprintf("A%d:%s%d", header_row, end_col_letter, header_row)
+  wb$add_fill(
+    sheet = sheet_name,
+    dims = header_range,
+    color = wb_color(hex = style_config$column_header$fill_color)
+  )
   
   # Auto-size columns ----
   if (style_config$column_width$auto_size) {
@@ -774,17 +804,13 @@ update_index_sheet <- function(wb,
       start_row = row
     )
     
-    # Style as hyperlink
-    link_style <- openxlsx2::create_cell_style(
-      font_name = style_config$font$family,
-      font_size = style_config$font$size,
-      font_color = wb_color(hex = style_config$index_sheet$link_color),
-      text_decoration = "underline"
-    )
-    wb$add_cell_style(
+    # Style as hyperlink with blue color and underline
+    link_cell <- sprintf("A%d", row)
+    wb$add_font(
       sheet = index_sheet_name,
-      dims = sprintf("A%d", row),
-      style = link_style
+      dims = link_cell,
+      color = wb_color(hex = style_config$index_sheet$link_color),
+      underline = "single"
     )
   }
   
