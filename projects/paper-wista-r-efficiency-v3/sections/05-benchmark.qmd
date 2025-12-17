@@ -8,7 +8,7 @@ Die Analyse basiert auf einer umfangreichen empirischen Studie, die verschiedene
 -   Wir nutzen eine Kontrollierte Benchmark
 -->
 
-Um zwischen den in @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, explorieren wir deren Performanz in einem umfangreichen Vergleich auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ Bund. Wir erhöhen schrittweise die Datenmenge und betrachten nur Kandidaten weiter, die hohe Performanz zeigen konnten. Für R-Pakete mit hohem Potenzial und hoher Nutzerfreundlichkeit wurden mehr Optionen erprobt, um die besten Optionen zu bestimmen.
+Um zwischen den in @sec-methoden vorgestellten Datenverarbeitungsmethoden abzuwägen, explorieren wir deren Performanz in einem umfangreichen Vergleich auf dem SAS-Server des Statistischen Bundesamtes und den neuen OnSite-R- und Stata-Servern des FDZ Bund. Wir erhöhen schrittweise die Datenmenge und betrachten nur Werkzeuge weiter, die ausreichende Performanz zeigen konnten. Für R-Pakete mit hohem Potenzial und hoher Nutzerfreundlichkeit wurden mehr Optionen erprobt, um die besten Optionen zu bestimmen.
 
 ### Versuchsaufbau
 
@@ -33,7 +33,7 @@ Feine Abstufungen der Zielgrößen sind für unsere Aufgaben nicht gleichermaße
 
 ### Kleiner Vergleich von R zu SAS und Stata
 
-Wir betrachten zunächst 1 % 1 % der simulierten BTP-Daten (etwa 700 000 Beobachtungen). Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen auch in SAS und Stata durchgeführt.
+Wir betrachten zunächst 1 % der simulierten BTP-Daten (etwa 700 000 Beobachtungen). Um die nachfolgenden Ergebnisse einzuordnen, haben wir die Performanzmessungen auch in SAS und Stata durchgeführt.
 
 ```{r}
 #| echo: false
@@ -69,17 +69,14 @@ tbl_out <- format_baseline_table(baseline_data,
 output_table(tbl_out)
 ```
 
-Die Ergebnisse in @tbl-baseline deuten an, dass der umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht ausreichen wird, um das BTP vollständig in Stata einzulesen, sodass in Stata zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung etwa doppelt so lang wie Stata.
+Die Ergebnisse in @tbl-baseline deuten an, dass selbst der umfangreiche Arbeitsspeicher des OnSite-Servers des FDZ Bund nicht ausreichen wird, um das BTP vollständig in Stata einzulesen, sodass in Stata zwingend mit Variablenselektion gearbeitet werden muss. SAS zeigt seine Stärke anhand der geringen Beanspruchung des Arbeitsspeichers, benötigt aber mit etwa 2,3 Minuten pro Auswertung etwa doppelt so lang wie Stata.
 
-Für 1 % der simulierten BTP-Daten reduzieren die R-Datenverarbeitungsmethoden alle Zielgrößen gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. Die Pakete Polars, Duckdb und Arrow lösen die betrachteten Auswertungen sogar
+Für 1 % der simulierten BTP-Daten reduzieren die R-Datenverarbeitungsmethoden die Laufzeit gegenüber SAS und Stata erheblich (siehe @tbl-benchmark-small und @tbl-benchmark-regr-small). Selbst klassische R-Methoden sind um den Faktor 7 schneller und benötigen nur 33 % des Festplattenspeichers. Die Pakete Polars, Duckdb und Arrow lösen die betrachteten Auswertungen sogar
 
 -   in **unter 2 Sekunden** (27-fach schneller),
-<!--   mit unter **300 MB Arbeitsspeicher** -- {duckdb} und {polars}[^polars-ram] sogar mit unter **5 MB** (10-fach weniger)[^2][^3] -->
 -   und mit nur **5 GB Festplattenspeicher** (nur ein Sechstel gegenüber SAS und Stata).
 
-[^2]: Lediglich in der Arbeitsspeicherbeanspruchung, ist SAS deutlich besser als klassische R-Methoden. Gegenüber hoch-performanten R-Methoden benötigt SAS jedoch den 10-fachen Arbeitsspeicher.
 
-<!--[^3]: {arrow} benötigt mit 274 MB deutlich mehr Arbeitsspeicher als {polars} und {duckdb}, aber kommt dennoch mit minimalen Entwicklungsumgebungen aus, bspw. einem standardmäßigen Laptop.-->
 
 Unter den klassischen R-Methoden bietet Data.table die beste Performanz -- besonders wenn die Einlesefunktion `fread` direkt die relevanten Variablen auswählt. Dadurch lassen sich unsere Auswertungen um das dreifache beschleunigen und vor allem der Arbeitsspeicher um ein Tausendfaches reduzieren.
 
@@ -221,8 +218,7 @@ output_table(tbl_out)
 
 ### Größere Datenmengen in R
 
-
-[tba: PLOT Laufzeit in Datenmenge der Tools]
+<!-- [tba: PLOT Laufzeit in Datenmenge der Tools] -->
 
 Auch für 10 % der simulierten BTP-Daten kann R die beiden betrachteten Auswertungen in Echtzeit mit minimalem Arbeitsspeicher beantworten (siehe @tbl-benchmark und @tbl-benchmark-regr). Die Auswertungsmethoden mit der höchsten Performanz nutzen alle das {parquet} und erreichen:
 
@@ -230,7 +226,7 @@ Auch für 10 % der simulierten BTP-Daten kann R die beiden betrachteten Auswertu
 2.  Duckdb benötigt nur 5,1 Sekunden und **4,7 MB Arbeitsspeicher**.
 
 
-[tba: Plot der Performanz unterschiede]
+<!-- [tba: Plot der Performanz unterschiede] -->
 
 Unerwarteterweise ist die Laufzeit von Polars für diese Datenmenge mit 1,2 Minuten weit abgeschlagen, obwohl dasselbe Auswertungsskript für kleinere Datenmengen immer die geringste Laufzeit aufwies. Da Polars das jüngste der betrachteten R-Packages ist, vermuten wir Performanzprobleme in der vorliegenden Version 1.0.1[^4]. Zudem hat es noch größere Entwicklungsaufwände beansprucht, da der an Python angelehnte Syntaxstil deutlich von üblicher Programmierung in R abweicht. Öffentliche Hilfestellung bezieht sich hauptsächlich auf Python (oder Rust), was sich in den Antworten der KI-Chatassistenten wiederspiegelt.
 
