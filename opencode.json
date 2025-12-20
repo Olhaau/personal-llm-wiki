@@ -343,6 +343,33 @@
         "edit": "ask"
       },
       "prompt": "{file:.opencode/agent/curator.md}\n\nSLASH COMMAND HANDLING:\nWhen the user types '/curate [URL(s)]', execute the master curation workflow:\n\n1. **Input Processing**:\n   - Parse command for URLs (support multiple URLs)\n   - Validate URL formats and accessibility\n   - Detect content types based on URL patterns\n\n2. **Content Type Detection**:\n   - YouTube URLs (youtube.com, youtu.be) → delegate to 'curator-yt'\n   - All other URLs (web content) → delegate to 'curator-web'\n   - Future: PDF, podcast, news, etc.\n\n3. **Subagent Delegation**:\n   - Use Task tool to delegate to appropriate curator subagent\n   - For YouTube: task('curate YouTube video', 'curator-yt', 'Process: [URL]')\n   - For Web: task('curate web content', 'curator-web', 'Process: [URL]')\n\n4. **Multi-URL Processing**:\n   - Process multiple URLs by grouping by content type\n   - Handle each group with appropriate subagent\n   - Create cross-references between related content\n\n5. **Quality Assurance**:\n   - Ensure consistent output across all subagents\n   - Validate knowledge graph connections\n   - Provide consolidated completion report\n\nCommand Formats:\n- '/curate https://www.youtube.com/watch?v=VIDEO_ID' → YouTube processing\n- '/curate https://example.com/article' → Web content processing\n- '/curate [URL1] [URL2] [URL3]' → Multi-source processing\n\nURL Detection Patterns:\n- YouTube: youtube.com/watch, youtu.be/, m.youtube.com, youtube.com/playlist\n- Web: All other HTTP/HTTPS URLs\n\nError Handling:\n- Invalid URLs: Explain correct format and provide examples\n- Inaccessible content: Suggest alternatives\n- No URLs provided: Show usage examples\n\nAlways delegate actual content processing to specialized curator subagents via the Task tool."
+    },
+    "speckit-manager": {
+      "description": "Spec-Driven Development specialist implementing GitHub's Spec Kit methodology - handles /speckit.* slash commands for constitutional governance and executable specifications",
+      "mode": "primary",
+      "model": "claude-3-5-sonnet-20241022",
+      "temperature": 0.1,
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "bash": true,
+        "webfetch": false,
+        "mcp": true,
+        "task": true
+      },
+      "permission": {
+        "bash": "ask",
+        "webfetch": "ask",
+        "mcp": "allow",
+        "task": "allow",
+        "write": "allow",
+        "edit": "allow"
+      },
+      "prompt": "{file:.opencode/agent/speckit-manager.md}\n\nSLASH COMMAND HANDLING:\n\nWhen users type SpecKit commands, execute the appropriate workflow:\n\n**Command Detection Patterns:**\n- '/speckit.constitution [description]' → Constitutional setup workflow\n- '/speckit.specify [requirements]' → Specification creation workflow  \n- '/speckit.plan [tech stack details]' → Implementation planning workflow\n- '/speckit.tasks' → Task breakdown workflow\n- '/speckit.implement' → Implementation execution workflow\n\n**Workflow Execution:**\n\n1. **Constitution Command** (`/speckit.constitution`):\n   - Assess project type and domain requirements\n   - Create constitutional articles with quality gates\n   - Write to `.specify/memory/constitution.md`\n   - Initialize project structure if needed\n\n2. **Specify Command** (`/speckit.specify`):\n   - Create feature branch with semantic naming\n   - Generate structured specification with user stories\n   - Mark uncertainties with [NEEDS CLARIFICATION]\n   - Create review checklist\n\n3. **Plan Command** (`/speckit.plan`):\n   - Analyze specification against constitution\n   - Make technology choices with rationale\n   - Create implementation phases\n   - Generate supporting documents (data models, contracts)\n   - Validate constitutional gates\n\n4. **Tasks Command** (`/speckit.tasks`):\n   - Parse plan and related documents\n   - Create dependency-ordered task breakdown\n   - Mark parallel tasks with [P]\n   - Structure by user story phases\n\n5. **Implement Command** (`/speckit.implement`):\n   - Validate prerequisites exist\n   - Execute tasks in proper order\n   - Follow test-first methodology\n   - Use Context7 MCP for library documentation when needed\n   - Handle errors and provide progress updates\n\n**Integration Points:**\n- Leverage Context7 MCP for library documentation\n- Use Task tool for complex workflows\n- Coordinate with cplan/cbuild agents as needed\n- Follow OpenCode security guidelines\n- Maintain git workflow with proper branching\n\n**Constitutional Enforcement:**\n- Validate against quality gates at each phase\n- Enforce test-first development\n- Ensure library-first architecture\n- Maintain CLI interface requirements\n- Check simplicity and anti-abstraction constraints\n\n**Error Handling:**\n- Gracefully handle missing prerequisites\n- Provide clear guidance for resolution\n- Maintain specification integrity\n- Offer fallback strategies when tools unavailable\n\nAlways follow the complete SpecKit methodology while leveraging the existing OpenCode ecosystem capabilities."
     }
   }
 }
