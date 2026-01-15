@@ -36,6 +36,7 @@
 - **Primary Tool**: R's `gt` package for table creation
 - **Integration Points**:
   - Convert gt tables to Excel with exact formatting
+  - use the same combined headers
   - Preserve gt styling in Excel output
   - Maintain German statistical formatting standards
   - Bridge gt capabilities with openxlsx2 Excel formatting
@@ -73,6 +74,7 @@
    └── Apply corporate design
 
 4. QUALITY ASSURANCE
+   ├── Check identical content
    ├── Validate against original template
    ├── Check navigation functionality
    ├── Verify German formatting
@@ -99,7 +101,7 @@ spec_kit/
 └── validation/
     ├── format_checker.R       # Automated validation
     ├── visual_comparison.R    # Side-by-side testing
-    └── accessibility_audit.R  # Barrier-free compliance
+    └── comparison_cell_content.R # comparison of the content of each cell
 ```
 
 ---
