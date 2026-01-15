@@ -57,48 +57,67 @@ wb$add_font(dims = "A3", bold = FALSE, size = 12)
 ```
 
 ### 2. Inhaltsübersicht (Table of Contents)
+**CRITICAL FORMATTING REQUIREMENTS:**
+- NO cell borders or grid lines (use `wb$set_grid_lines(FALSE)`)
+- "Tabellen" header must have white text on blue background
+- All hyperlinks must use proper sheet references with `!A1`
+- Font must be Arial throughout
+
 ```r
 # Navigation sheet with hyperlinks
 wb$add_worksheet("Inhaltsübersicht")
+
+# REMOVE GRID LINES (critical!)
+wb$set_grid_lines("Inhaltsübersicht", show = FALSE)
+
+# Main navigation items (single column, no borders)
 wb$add_data(x = "Inhaltsübersicht", dims = "A1")
+wb$add_data(x = "Informationen zur Barrierefreiheit", dims = "A2") 
+wb$add_data(x = "Übersicht GENESIS-Online", dims = "A3")
+wb$add_data(x = "Impressum", dims = "A4")
+wb$add_data(x = "Informationen zur Statistik", dims = "A5")
+wb$add_data(x = "Barrierefreie Tabellen", dims = "A6")
 
-# Format main title
-wb$add_font(dims = "A1", bold = TRUE, size = 16, color = wb_color("white"))
-wb$add_fill(dims = "A1", color = wb_color("#004B76"))
-wb$add_cell_style(dims = "A1", horizontal = "center")
-wb$merge_cells(dims = "A1:B1")
+# "Tabellen" section header (Row 9 in original)
+wb$add_data(x = "Tabellen", dims = "A9")
+wb$add_font(dims = "A9", bold = TRUE, size = 10, color = wb_color("white"), name = "Arial")
+wb$add_fill(dims = "A9", color = wb_color("#004B76"))
 
-# Add navigation links (example)
-navigation_items <- c(
-  "Informationen zur Barrierefreiheit",
-  "Übersicht GENESIS-Online", 
-  "Impressum",
-  "Informationen zur Statistik"
-)
-
-for (i in seq_along(navigation_items)) {
-  row <- i + 1
-  wb$add_data(x = navigation_items[i], dims = paste0("A", row))
-  wb$add_hyperlink(dims = paste0("A", row), 
-                   target = paste0("#", gsub(" ", "_", navigation_items[i]), "!A1"))
-  wb$add_font(dims = paste0("A", row), color = wb_color("blue"))
+# Add table navigation links  
+table_rows <- c(10, 11, 12, 13, 14)  # Rows for data tables
+for (i in seq_along(names(data_list))) {
+  row <- table_rows[i]
+  table_id <- names(data_list)[i]
+  wb$add_data(x = table_id, dims = paste0("A", row))
+  
+  # PROPER hyperlink format
+  wb$add_hyperlink(dims = paste0("A", row), target = paste0(table_id, "!A1"))
+  wb$add_font(dims = paste0("A", row), color = wb_color("blue"), name = "Arial")
 }
+
+# Ensure all fonts are Arial
+wb$add_font(dims = "A1:A20", name = "Arial", size = 10)
 ```
 
 ### 3. Data Tables (61241-xx Format)
+**CRITICAL FORMATTING REQUIREMENTS:**
+- ALL fonts must be Arial, size 10
+- Navigation links must work properly
+- Numbers use German formatting (comma decimal, space thousands)
+
 ```r
 # Main statistical data tables
 create_data_table <- function(wb, sheet_name, data, table_title) {
   wb$add_worksheet(sheet_name)
   
-  # Back navigation link
+  # Back navigation link - MUST WORK!
   wb$add_data(x = "zur Inhaltsübersicht", dims = "A1")
-  wb$add_hyperlink(dims = "A1", target = "#Inhaltsübersicht!A1")
-  wb$add_font(dims = "A1", color = wb_color("blue"))
+  wb$add_hyperlink(dims = "A1", target = "Inhaltsübersicht!A1")  # NO # prefix!
+  wb$add_font(dims = "A1", color = wb_color("blue"), name = "Arial", size = 10)
   
-  # Table title
-  wb$add_data(x = table_title, dims = "A2")
-  wb$add_font(dims = "A2", bold = TRUE, size = 14, color = wb_color("#004B76"))
+  # Table title with proper formatting
+  wb$add_data(x = table_title, dims = "A3")
+  wb$add_font(dims = "A3", bold = TRUE, size = 10, name = "Arial")
   
   # Data starting from row 4
   wb$add_data(x = data, dims = "A4")
@@ -106,9 +125,14 @@ create_data_table <- function(wb, sheet_name, data, table_title) {
   # Apply German number formatting
   apply_german_statistical_formatting(wb, sheet_name, data, start_row = 5)
   
-  # Header formatting
-  wb$add_font(dims = paste0("A4:", int2col(ncol(data)), "4"), bold = TRUE)
-  wb$add_fill(dims = paste0("A4:", int2col(ncol(data)), "4"), color = wb_color("#E6E6E6"))
+  # Header formatting - ARIAL FONT REQUIRED
+  header_range <- paste0("A4:", int2col(ncol(data)), "4")
+  wb$add_font(dims = header_range, bold = TRUE, name = "Arial", size = 10)
+  wb$add_fill(dims = header_range, color = wb_color("#E6E6E6"))
+  
+  # Ensure ALL cells use Arial
+  data_range <- paste0("A1:", int2col(ncol(data)), 4 + nrow(data))
+  wb$add_font(dims = data_range, name = "Arial", size = 10)
 }
 ```
 
