@@ -1,5 +1,5 @@
 ---
-name: "modify-excel-with-r"
+name: "R-Excel-Modifier"
 description: "Excel file operations using R with openxlsx2 package"
 ---
 

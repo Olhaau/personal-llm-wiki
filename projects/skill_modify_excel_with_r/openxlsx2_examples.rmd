@@ -53,4 +53,4 @@ wb$add_data(x = "Zur Inhaltsübersicht", dims = wb_dims(2, 1))
 ```{r export-wb}
 file_xlsx <- paste0("test-", format(Sys.time(), "%Y%m%d%H%M%S"), ".xlsx")
 wb_save(wb, file_xlsx, overwrite=TRUE)
-```
+``
