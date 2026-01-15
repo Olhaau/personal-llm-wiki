@@ -67,7 +67,7 @@ create_accessibility_sheet <- function(wb) {
   
   # Back navigation
   wb$add_data(x = "zur Inhaltsübersicht", dims = "A1")
-  wb$add_hyperlink(dims = "A1", target = "Inhaltsübersicht!A1")  # FIXED: no #
+  wb$add_hyperlink(dims = "A1", target = "#'Inhaltsübersicht'!A1")
   wb$add_font(dims = "A1", color = wb_color("blue"), name = "Arial")
   
   # Content
@@ -94,10 +94,10 @@ create_table_of_contents <- function(wb, data_list) {
   wb$add_data(x = "Barrierefreie Tabellen", dims = "A6")
   
   # Add hyperlinks for navigation items
-  wb$add_hyperlink(dims = "A2", target = "Informationen_Barrierefreiheit!A1")
-  wb$add_hyperlink(dims = "A3", target = "GENESIS-Online!A1")
-  wb$add_hyperlink(dims = "A4", target = "Impressum!A1") 
-  wb$add_hyperlink(dims = "A5", target = "Informationen_zur_Statistik!A1")
+  wb$add_hyperlink(dims = "A2", target = "#'Informationen_Barrierefreiheit'!A1")
+  wb$add_hyperlink(dims = "A3", target = "#'GENESIS-Online'!A1")
+  wb$add_hyperlink(dims = "A4", target = "#'Impressum'!A1") 
+  wb$add_hyperlink(dims = "A5", target = "#'Informationen_zur_Statistik'!A1")
   
   # Format navigation links
   wb$add_font(dims = "A2:A6", color = wb_color("blue"), name = "Arial")
@@ -112,7 +112,7 @@ create_table_of_contents <- function(wb, data_list) {
   for (table_name in names(data_list)) {
     # Main table link
     wb$add_data(x = table_name, dims = paste0("A", current_row))
-    wb$add_hyperlink(dims = paste0("A", current_row), target = paste0(table_name, "!A1"))
+    wb$add_hyperlink(dims = paste0("A", current_row), target = paste0("#'", table_name, "'!A1"))
     wb$add_font(dims = paste0("A", current_row), color = wb_color("blue"), name = "Arial")
     
     current_row <- current_row + 1
@@ -128,7 +128,7 @@ create_layout_table <- function(wb, table_name, data, title) {
   
   # Back navigation link - FIXED
   wb$add_data(x = "zur Inhaltsübersicht", dims = "A1")
-  wb$add_hyperlink(dims = "A1", target = "Inhaltsübersicht!A1")  # FIXED: no #
+  wb$add_hyperlink(dims = "A1", target = "#'Inhaltsübersicht'!A1")
   wb$add_font(dims = "A1", color = wb_color("blue"), name = "Arial")
   
   # Table title
@@ -165,7 +165,7 @@ create_barrier_free_table <- function(wb, table_name, data) {
   
   # Back navigation
   wb$add_data(x = "zur Inhaltsübersicht", dims = "A2") 
-  wb$add_hyperlink(dims = "A2", target = "Inhaltsübersicht!A1")
+  wb$add_hyperlink(dims = "A2", target = "#'Inhaltsübersicht'!A1")
   wb$add_font(dims = "A2", color = wb_color("blue"), name = "Arial")
   
   # Simple data table
@@ -194,7 +194,7 @@ create_csv_table <- function(wb, table_name, data) {
   
   # Back navigation
   wb$add_data(x = "zur Inhaltsübersicht", dims = "A2")
-  wb$add_hyperlink(dims = "A2", target = "Inhaltsübersicht!A1")
+  wb$add_hyperlink(dims = "A2", target = "#'Inhaltsübersicht'!A1")
   wb$add_font(dims = "A2", color = wb_color("blue"), name = "Arial")
   
   # Raw data without formatting for CSV export
@@ -211,7 +211,7 @@ create_info_sheets <- function(wb) {
     
     # Back navigation
     wb$add_data(x = "zur Inhaltsübersicht", dims = "A1")
-    wb$add_hyperlink(dims = "A1", target = "Inhaltsübersicht!A1")
+    wb$add_hyperlink(dims = "A1", target = "#'Inhaltsübersicht'!A1")
     wb$add_font(dims = "A1", color = wb_color("blue"), name = "Arial")
     
     # Sheet title

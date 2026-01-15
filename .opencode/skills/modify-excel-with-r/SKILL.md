@@ -96,13 +96,39 @@ wb$remove_worksheet("OldSheet")
 wb$clone_worksheet("Sheet1", "Sheet1_Copy")
 ```
 
-### Navigation
+### Navigation & Hyperlinks
 ```r
-# Add hyperlinks between sheets
+# CRITICAL: Proper hyperlink syntax for sheet navigation
+# Format: "#'SheetName'!A1" (with single quotes around sheet name)
+
+# Link to another sheet
+wb$add_hyperlink(
+  dims = "A1",  # Cell with the hyperlink
+  target = "#'Data'!A1"  # Target sheet and cell
+)
+
+# Alternative syntax
 wb$add_hyperlink(
   sheet = "Index",
-  target = "#Sheet1!A1",
-  dims = wb_dims(1, 1)
+  dims = wb_dims(1, 1),
+  target = "#'Sheet1'!A1"
+)
+
+# Link with display text
+wb$add_data(x = "Go to Data Sheet", dims = "A1")
+wb$add_hyperlink(dims = "A1", target = "#'Data'!A1")
+wb$add_font(dims = "A1", color = wb_color("blue"))
+
+# External URL
+wb$add_hyperlink(
+  dims = "B1",
+  target = "https://www.example.com"
+)
+
+# Email link
+wb$add_hyperlink(
+  dims = "C1", 
+  target = "mailto:contact@example.com"
 )
 
 # Set active sheet
@@ -135,6 +161,66 @@ This creates an Excel file with:
 - Professional formatting (headers, alternating rows, borders)
 - Auto-sized columns
 
+## Professional Navigation Systems
+
+### Table of Contents with Working Links
+```r
+# Create a navigation sheet
+create_table_of_contents <- function(wb, data_list) {
+  wb$add_worksheet("Inhaltsübersicht")
+  
+  # Remove grid lines for clean look
+  wb$set_grid_lines("Inhaltsübersicht", show = FALSE)
+  
+  # Main heading
+  wb$add_data(x = "Inhaltsübersicht", dims = "A1")
+  wb$add_font(dims = "A1", bold = TRUE, size = 14)
+  
+  # Section header with professional styling
+  wb$add_data(x = "Tabellen", dims = "A3")
+  wb$add_font(dims = "A3", bold = TRUE, color = wb_color("white"), name = "Arial")
+  wb$add_fill(dims = "A3", color = wb_color("#004B76"))
+  
+  # Add navigation links
+  current_row <- 4
+  for (sheet_name in names(data_list)) {
+    wb$add_data(x = sheet_name, dims = paste0("A", current_row))
+    wb$add_hyperlink(dims = paste0("A", current_row), 
+                     target = paste0("#'", sheet_name, "'!A1"))
+    wb$add_font(dims = paste0("A", current_row), color = wb_color("blue"))
+    current_row <- current_row + 1
+  }
+}
+
+# Add back-navigation to each sheet
+add_back_navigation <- function(wb, sheet_name) {
+  wb$add_data(x = "zur Inhaltsübersicht", dims = "A1")
+  wb$add_hyperlink(dims = "A1", target = "#'Inhaltsübersicht'!A1")
+  wb$add_font(dims = "A1", color = wb_color("blue"))
+}
+```
+
+### German Statistical Report Format
+```r
+# Load German statistical formatting functions
+source("corporate-design/statistischer-bericht-generator.R")
+
+# Create professional German statistical report
+clinical_data <- list(
+  "61241-01" = demographic_summary,
+  "61241-02" = age_analysis,
+  "61241-03" = efficacy_data
+)
+
+create_statistischer_bericht(
+  data_list = clinical_data,
+  filename = "bericht.xlsx", 
+  title = "Klinische Studie Ergebnisse",
+  period = "Dezember 2025",
+  evas_number = "61241"
+)
+```
+
 ## Usage Examples
 
 ### Simple Export
@@ -160,6 +246,53 @@ add_to_excel("existing.xlsx", new_data, "NewSheet")
 
 # Update cell range
 update_range("file.xlsx", "Sheet1", data, "A5:C10")
+```
+
+## Hyperlink Troubleshooting
+
+### Common Issues & Solutions
+
+**❌ Hyperlinks Don't Work**
+```r
+# WRONG - Missing quotes around sheet name
+wb$add_hyperlink(dims = "A1", target = "#Sheet1!A1")
+
+# WRONG - Missing # prefix  
+wb$add_hyperlink(dims = "A1", target = "Sheet1!A1")
+
+# ✅ CORRECT - Proper format
+wb$add_hyperlink(dims = "A1", target = "#'Sheet1'!A1")
+```
+
+**❌ Navigation to Sheet with Spaces in Name**
+```r
+# WRONG - Spaces need to be handled properly
+wb$add_hyperlink(dims = "A1", target = "#'Data Sheet'!A1")  # May not work
+
+# ✅ CORRECT - Use underscores or avoid spaces
+wb$add_hyperlink(dims = "A1", target = "#'Data_Sheet'!A1")
+```
+
+**❌ Links in German Statistical Reports**
+```r
+# WRONG - Old format that breaks navigation
+wb$add_hyperlink(dims = "A1", target = "Inhaltsübersicht!A1")
+
+# ✅ CORRECT - German sheet names need quotes
+wb$add_hyperlink(dims = "A1", target = "#'Inhaltsübersicht'!A1")
+```
+
+### Professional Formatting Tips
+```r
+# Style hyperlinks to look professional
+wb$add_font(dims = "A1", color = wb_color("blue"), name = "Arial")
+
+# Remove grid lines for clean navigation sheets
+wb$set_grid_lines("Inhaltsübersicht", show = FALSE)
+
+# Use consistent back-navigation text
+wb$add_data(x = "zur Inhaltsübersicht", dims = "A1")  # German
+wb$add_data(x = "Back to Contents", dims = "A1")      # English
 ```
 
 ## Package Requirements
