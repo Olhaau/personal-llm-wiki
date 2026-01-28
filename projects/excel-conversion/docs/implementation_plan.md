@@ -49,3 +49,52 @@
 11. Prepare for Future Automation
     - Outline unit-test scaffolding (e.g., `testthat`) to verify schema integrity.
     - Suggest CI steps to run extractor on sample files and diff JSON outputs for regression detection.
+
+## Detailed Task List
+1. **Environment Bootstrap**
+   - Verify R >= 4.2 availability and install required packages (`openxlsx2`, `jsonlite`, `xml2`, plus supporting tidy helpers if needed).
+   - Create or confirm `output/` directory is git-ignored and writable.
+
+2. **Repository Scaffolding**
+   - Add `R/` or `scripts/` subdirectory for the extractor script if not already present.
+   - Create placeholder files for schema documentation (`docs/schema.md`) and QA checklist (`docs/qa_checklist.md`) to be populated during development.
+
+3. **CLI Interface Implementation**
+   - Implement argument parsing helper supporting `--input`, `--output`, `--compact`, and `--schema-version` flags.
+   - Add validation for file existence, extension, and output directory creation.
+
+4. **Workbook Loader Module**
+   - Encapsulate `openxlsx2::wb_load()` call with try/catch to return informative errors.
+   - Extract workbook-level metadata (properties, theme, sheet order) into dedicated list constructors.
+
+5. **Styles Catalogue Extractor**
+   - Parse `styles_mgr` components (numFmts, fonts, fills, borders, cellXfs, cellStyles, tableStyles, colours).
+   - Normalise each style element into JSON-ready lists with explicit IDs and references.
+
+6. **Shared Strings and Inline Text Handler**
+   - Convert shared strings XML into UTF-8 character vectors with metadata for rich text segments where present.
+   - Handle inline strings (`is`) and formulas, including shared formula anchors.
+
+7. **Worksheet Walker**
+   - Iterate sheets preserving order and visibility, capturing sheet properties (dimension, views, freeze panes, protection, gridlines).
+   - Collect structural features: merged cells, tables, filters, data validations, conditional formatting, defined names (local scope).
+
+8. **Cell Matrix Extraction**
+   - Traverse `sheet_data$cc` to assemble rows with address, indices, value type, raw value, formatted value, formula metadata, style references, hyperlink targets, comment references.
+   - Include row/column attributes (height, width, hidden state, outline levels) and ensure deterministic sorting.
+
+9. **Schema Assembly & Serialization**
+   - Compose workbook-level list with embedded schema versioning and reconstruction hints (e.g., default renderer priorities, layout tokens).
+   - Serialise using `jsonlite::toJSON()` respecting pretty/compact mode, ensuring deterministic ordering and UTF-8 encoding.
+
+10. **Round-Trip Validation Harness**
+    - Implement minimal `Rscript` routine that replays JSON to regenerate at least one sheet via `openxlsx2` to validate completeness.
+    - Optionally scaffold Shiny prototype (table/metadata view) to confirm web rendering viability.
+
+11. **Documentation & QA**
+    - Populate schema documentation with field definitions, data types, and usage notes for downstream consumers.
+    - Update QA checklist with manual verification steps (fonts, fills, borders, conditional formatting) and log test runs against `examples/` workbooks.
+
+12. **Future Automation Hooks**
+    - Draft `testthat` scaffolding for schema shape assertions and round-trip smoke tests (to be implemented later).
+    - Outline CI job steps (run extractor, compare JSON diff, optional rebuild) for future integration.
