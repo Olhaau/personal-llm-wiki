@@ -37,6 +37,7 @@
 9. Validate with Example Workbooks
    - Run the script against each file in `examples/` and store outputs under `output/`.
    - Inspect JSON sections (sheets, styles, validations) for completeness and deterministic ordering.
+   - Specifically verify captured styling fields: font family, font size, colour values, fill/background definitions, and border specifications for representative cells.
 
 10. Document Usage
     - Update repository README or dedicated usage guide with CLI examples, dependency installation, and troubleshooting tips.

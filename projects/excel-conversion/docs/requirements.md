@@ -14,6 +14,14 @@
 - Provide a simple CLI entry point accepting an input path and optional output destination.
 
 ## Functional Requirements
+- Formatting coverage priorities:
+  - Preserve workbook palette, theme accents, and default fonts.
+  - Capture cell style components including font family, size, weight, colour (RGB/ARGB), and decoration flags.
+  - Record fill definitions (pattern type, foreground/background colours, gradient settings) and border specifications per edge, including style, colour, and diagonal flags.
+  - Extract alignment properties (horizontal, vertical, wrap text, text rotation, indentation, reading order) and protection settings.
+  - Map number formats (built-in and custom format codes) with culture-sensitive notes where applicable.
+  - Surface conditional formatting rules, data validation settings, table styles, slicer styles, and pivot table formatting metadata.
+  - Include row height and column width customisations, outline levels, and hidden/very hidden states for rows, columns, and sheets.
 - `extract_excel_to_json.R` script callable via `Rscript extract_excel_to_json.R --input path/to/file.xlsx [--output path/to/file.json]`.
 - Validate file existence and `.xlsx` extension before processing; fail with descriptive errors otherwise.
 - Read workbook with `openxlsx2::wb_load()` and keep workbook unmutated.
