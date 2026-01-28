@@ -13,6 +13,7 @@
 - Output a deterministic JSON document preserving hierarchy and preserving ordering for reproducible comparisons.
 - Provide a simple CLI entry point accepting an input path and optional output destination.
 - Ensure the JSON schema is sufficiently rich to support reconstructing the original workbook or alternative visual renderings with intentional modifications.
+- Deliver a complementary R utility that ingests the JSON schema and regenerates an Excel workbook, applying optional modifications supplied in the JSON payload.
 
 ## Functional Requirements
 - Formatting coverage priorities:
@@ -35,6 +36,9 @@
 - Include workbook-level settings: properties, theme references, defined names, data validation rules, conditional formats, pivot caches.
 - Serialise to JSON using `jsonlite` with pretty formatting unless `--compact` flag is provided.
 - Return exit status `0` on success and non-zero on failure; print progress with `cat()`.
+- `json_to_excel.R` script callable via `Rscript json_to_excel.R --input path/to/file.json [--output path/to/file.xlsx] [--apply-mods path/to/patch.json]`.
+- Validate JSON schema version before reconstruction and surface actionable errors when required fields are missing.
+- Recreate workbook structure, ordering, cell values, and formatting, applying any optional modifications encoded in the JSON before writing the Excel file.
 
 ## Non-Functional Requirements
 - Deterministic ordering for lists (sheets, styles, cells) to support diffing.
@@ -43,10 +47,12 @@
 - Use UTF-8 encoding and ensure JSON output is portable across systems.
 - Provide informative error messages and avoid silent failures.
 - Design the schema to be forward-compatible and self-describing so downstream consumers (Excel writers, Shiny/web renderers) can safely interpret and extend it.
+- Ensure reverse conversion honours formatting fidelity thresholds (fonts, colours, number formats) and logs unsupported features.
 
 ## Inputs & Outputs
 - Inputs: Valid `.xlsx` files located in `examples/` directory or supplied via CLI argument.
 - Outputs: JSON file mirroring workbook structure and formatting with explicit schema metadata supporting rehydration into Excel or other visual clients. Default output path `output/<filename>.json` if not provided.
+- Regenerated Excel outputs: workbook faithfully rebuilt from JSON. Default output path `output/<filename>.xlsx` if not provided.
 - Logs: Console messages indicating processing stages and summary statistics.
 
 ## Dependencies
@@ -57,9 +63,11 @@
 - Provide sample invocation in documentation demonstrating extraction from each workbook in `examples/`.
 - Unit tests (future scope) to verify JSON schema for representative elements (styles, data validations, merged cells).
 - Manual QA checklist: run extractor against supplied examples and confirm JSON diff contains expected sections (sheets, styles, cells), with spot checks on font family/size, colour tokens (RGB/ARGB), fill patterns, and background values.
+- Perform JSON→Excel reconstruction for each sample to verify round-trip fidelity (sheet count/order, formatting, values) and document deviations.
 
 ## Acceptance Criteria
 - Script runs via CLI with documented flags.
 - JSON output includes sheets, cells, and style metadata for provided examples.
 - Errors are descriptive, and script exits cleanly on invalid input.
 - Documentation updated with usage instructions and dependency setup.
+- JSON-driven Excel regeneration reproduces representative workbooks without critical formatting loss.

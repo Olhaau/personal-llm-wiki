@@ -36,17 +36,21 @@
    - Add progress messages for major stages and return informative errors via `stop()`.
    - Exit with status code `0` on success and `1` (or other non-zero) on failure.
 
-9. Validate with Example Workbooks
+9. Build JSON-to-Excel Reconstruction Script
+   - Implement R script that consumes the JSON schema, validates version compatibility, and rebuilds workbooks using `openxlsx2`.
+   - Support optional modification overlays defined in the JSON before writing the Excel file.
+
+10. Validate with Example Workbooks
    - Run the script against each file in `examples/` and store outputs under `output/`.
    - Inspect JSON sections (sheets, styles, validations) for completeness and deterministic ordering.
    - Specifically verify captured styling fields: font family, font size, colour values, fill/background definitions, and border specifications for representative cells.
    - Prototype a minimal round-trip check (e.g., regenerate a sheet layout via `openxlsx2` or a Shiny table) to confirm the JSON contains enough detail for visual reconstruction.
 
-10. Document Usage
+11. Document Usage
     - Update repository README or dedicated usage guide with CLI examples, dependency installation, and troubleshooting tips.
     - Record QA checklist results and note limitations (e.g., unsupported embedded objects).
 
-11. Prepare for Future Automation
+12. Prepare for Future Automation
     - Outline unit-test scaffolding (e.g., `testthat`) to verify schema integrity.
     - Suggest CI steps to run extractor on sample files and diff JSON outputs for regression detection.
 
@@ -87,14 +91,19 @@
    - Compose workbook-level list with embedded schema versioning and reconstruction hints (e.g., default renderer priorities, layout tokens).
    - Serialise using `jsonlite::toJSON()` respecting pretty/compact mode, ensuring deterministic ordering and UTF-8 encoding.
 
-10. **Round-Trip Validation Harness**
-    - Implement minimal `Rscript` routine that replays JSON to regenerate at least one sheet via `openxlsx2` to validate completeness.
+10. **JSON-to-Excel Reconstruction Pipeline**
+    - Implement dedicated script/module that reads JSON, validates schema version, and instantiates a new workbook mirroring sheets, cells, and formatting using `openxlsx2`.
+    - Support modification overlays (e.g., adjusted values/styles) encoded in JSON before writing the output file.
+    - Provide hooks for alternative renderers (Shiny/web) by exposing reconstruction helpers.
+
+11. **Round-Trip Validation Harness**
+    - Automate extractor→JSON→Excel round-trip tests on sample files, comparing sheet count/order, key formatting attributes, and representative cell values.
     - Optionally scaffold Shiny prototype (table/metadata view) to confirm web rendering viability.
 
-11. **Documentation & QA**
+12. **Documentation & QA**
     - Populate schema documentation with field definitions, data types, and usage notes for downstream consumers.
     - Update QA checklist with manual verification steps (fonts, fills, borders, conditional formatting) and log test runs against `examples/` workbooks.
 
-12. **Future Automation Hooks**
+13. **Future Automation Hooks**
     - Draft `testthat` scaffolding for schema shape assertions and round-trip smoke tests (to be implemented later).
     - Outline CI job steps (run extractor, compare JSON diff, optional rebuild) for future integration.
