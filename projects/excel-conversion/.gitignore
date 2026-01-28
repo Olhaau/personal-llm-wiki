@@ -5,6 +5,8 @@
 
 # Generated artefacts
 output/
+!output/
+!output/*_61241-b01.json
 
 # Temporary files
 *.log

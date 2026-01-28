@@ -31,7 +31,7 @@ parse_args <- function(argv) {
     stop("No arguments supplied", call. = FALSE)
   }
 
-  args <- list(input = NULL, output = NULL, compact = FALSE)
+  args <- list(input = NULL, output = NULL, compact = FALSE, sheets = character())
   i <- 1L
   while (i <= length(argv)) {
     flag <- argv[[i]]
@@ -43,6 +43,10 @@ parse_args <- function(argv) {
       i <- i + 1L
       if (i > length(argv)) stop("Missing value for --output", call. = FALSE)
       args$output <- argv[[i]]
+    } else if (identical(flag, "--sheet")) {
+      i <- i + 1L
+      if (i > length(argv)) stop("Missing value for --sheet", call. = FALSE)
+      args$sheets <- c(args$sheets, argv[[i]])
     } else if (identical(flag, "--compact")) {
       args$compact <- TRUE
     } else if (identical(flag, "--help")) {
@@ -256,17 +260,42 @@ extract_sheet <- function(wb, sheet_id, shared_strings, visibility) {
   )
 }
 
-extract_workbook <- function(wb, source_path) {
+resolve_sheet_indices <- function(wb, requested) {
+  total <- seq_along(wb$worksheets)
+  if (length(requested) == 0) return(total)
+  sheet_names <- wb_get_sheet_names(wb)
+  idx <- integer()
+  for (item in requested) {
+    if (item %in% sheet_names) {
+      idx <- c(idx, match(item, sheet_names))
+    } else if (grepl("^[0-9]+$", item)) {
+      numeric_index <- as.integer(item)
+      if (!numeric_index %in% total) {
+        stop(sprintf("Sheet index %s out of range", item), call. = FALSE)
+      }
+      idx <- c(idx, numeric_index)
+    } else {
+      stop(sprintf("Sheet '%s' not found", item), call. = FALSE)
+    }
+  }
+  unique(idx)
+}
+
+extract_workbook <- function(wb, source_path, sheets = NULL) {
   cli_alert_info("Loading workbook")
-  sheets <- seq_along(wb$worksheets)
+  all_sheets <- seq_along(wb$worksheets)
+  if (is.null(sheets)) {
+    sheets <- all_sheets
+  }
   shared_strings <- read_shared_strings(wb)
   styles <- extract_styles(wb)
   defined_names <- extract_defined_names(wb)
   wb_props <- suppressWarnings(wb$get_properties())
   visibility <- get_sheet_visibility(wb)
   sheet_names <- wb_get_sheet_names(wb)
-  sheet_payload <- lapply(sheets, function(idx) {
-    cli_alert_info("Extracting sheet {idx}/{length(sheets)}: {sheet_names[[idx]]}")
+  sheet_payload <- lapply(seq_along(sheets), function(pos) {
+    idx <- sheets[[pos]]
+    cli_alert_info("Extracting sheet {pos}/{length(sheets)}: {sheet_names[[idx]]}")
     extract_sheet(wb = wb, sheet_id = idx, shared_strings = shared_strings, visibility = visibility)
   })
 
@@ -274,7 +303,11 @@ extract_workbook <- function(wb, source_path) {
     schema_version = "1.0.0",
     generator = list(name = "excel-conversion", version = "0.1.0"),
     generated_at = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
-    source = list(path = source_path, sheet_count = length(sheets)),
+    source = list(
+      path = source_path,
+      sheet_total = length(all_sheets),
+      sheets_processed = sheet_names[sheets]
+    ),
     workbook = list(
       properties = wb_props,
       defined_names = defined_names,
@@ -319,7 +352,8 @@ main <- function() {
     }
   )
 
-  payload <- with_muffled_translation_warnings(extract_workbook(wb, input))
+  sheet_indices <- resolve_sheet_indices(wb, args$sheets)
+  payload <- with_muffled_translation_warnings(extract_workbook(wb, input, sheets = sheet_indices))
   write_output(payload, output, args$compact)
   cli_alert_success("Extraction complete: {output}")
   quit(status = 0L, runLast = FALSE)
