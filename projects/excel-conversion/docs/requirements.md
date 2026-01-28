@@ -1,7 +1,7 @@
 # Excel Metadata to JSON Extractor Requirements
 
 ## Overview
-- Purpose: Provide a command-line R utility that captures complete workbook structure, data, and formatting details from Excel `.xlsx` files and serialises the result to JSON for downstream automation.
+- Purpose: Provide a command-line R utility that captures complete workbook structure, data, and formatting details from Excel `.xlsx` files and serialises the result to a structured JSON format that can drive visual re-creations (e.g., regenerated Excel workbooks, Shiny dashboards, or web applications).
 - Stakeholders: Data engineering team, QA analysts needing deterministic workbook diffs, automation workflows that require machine-readable Excel metadata.
 - Out of scope: Editing Excel files, support for legacy `.xls` formats, binary embedded objects, or macro extraction.
 
@@ -12,6 +12,7 @@
 - Capture workbook resources (defined names, data validations, conditional formats, tables, column widths, row heights, pivot caches) when available.
 - Output a deterministic JSON document preserving hierarchy and preserving ordering for reproducible comparisons.
 - Provide a simple CLI entry point accepting an input path and optional output destination.
+- Ensure the JSON schema is sufficiently rich to support reconstructing the original workbook or alternative visual renderings with intentional modifications.
 
 ## Functional Requirements
 - Formatting coverage priorities:
@@ -41,10 +42,11 @@
 - Complete extraction within 60 seconds for typical 5-sheet workbooks on baseline hardware.
 - Use UTF-8 encoding and ensure JSON output is portable across systems.
 - Provide informative error messages and avoid silent failures.
+- Design the schema to be forward-compatible and self-describing so downstream consumers (Excel writers, Shiny/web renderers) can safely interpret and extend it.
 
 ## Inputs & Outputs
 - Inputs: Valid `.xlsx` files located in `examples/` directory or supplied via CLI argument.
-- Outputs: JSON file mirroring workbook structure. Default output path `output/<filename>.json` if not provided.
+- Outputs: JSON file mirroring workbook structure and formatting with explicit schema metadata supporting rehydration into Excel or other visual clients. Default output path `output/<filename>.json` if not provided.
 - Logs: Console messages indicating processing stages and summary statistics.
 
 ## Dependencies
@@ -54,7 +56,7 @@
 ## Testing & Validation
 - Provide sample invocation in documentation demonstrating extraction from each workbook in `examples/`.
 - Unit tests (future scope) to verify JSON schema for representative elements (styles, data validations, merged cells).
-- Manual QA checklist: run extractor against supplied examples and confirm JSON diff contains expected sections (sheets, styles, cells).
+- Manual QA checklist: run extractor against supplied examples and confirm JSON diff contains expected sections (sheets, styles, cells), with spot checks on font family/size, colour tokens (RGB/ARGB), fill patterns, and background values.
 
 ## Acceptance Criteria
 - Script runs via CLI with documented flags.

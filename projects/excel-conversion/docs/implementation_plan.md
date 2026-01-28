@@ -7,6 +7,7 @@
 2. Define JSON Schema
    - Document the hierarchical structure for workbook, sheets, cells, styles, and ancillary metadata.
    - Specify required versus optional fields and enforce deterministic ordering rules.
+   - Include schema annotations that describe how downstream clients (Excel writer, Shiny/web renderer) can reconstruct layouts, styles, and data interactions.
 
 3. Load Workbook Safely
    - Implement CLI argument parsing for `--input`, `--output`, and formatting flags (pretty vs compact).
@@ -29,6 +30,7 @@
 7. Assemble JSON Payload
    - Combine workbook, sheet, cell, and style data into a nested list matching the schema.
    - Serialise with `jsonlite::toJSON()` ensuring ordered arrays and UTF-8 encoding; support pretty printing toggle.
+   - Embed schema versioning and reconstruction hints (e.g., render priorities, layout tokens) needed by visual clients.
 
 8. Implement Logging and Exit Codes
    - Add progress messages for major stages and return informative errors via `stop()`.
@@ -38,6 +40,7 @@
    - Run the script against each file in `examples/` and store outputs under `output/`.
    - Inspect JSON sections (sheets, styles, validations) for completeness and deterministic ordering.
    - Specifically verify captured styling fields: font family, font size, colour values, fill/background definitions, and border specifications for representative cells.
+   - Prototype a minimal round-trip check (e.g., regenerate a sheet layout via `openxlsx2` or a Shiny table) to confirm the JSON contains enough detail for visual reconstruction.
 
 10. Document Usage
     - Update repository README or dedicated usage guide with CLI examples, dependency installation, and troubleshooting tips.
