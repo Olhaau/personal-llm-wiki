@@ -1,0 +1,11 @@
+# R project ignores
+.Rhistory
+.RData
+.Rproj.user/
+
+# Generated artefacts
+output/
+
+# Temporary files
+*.log
+*.tmp
