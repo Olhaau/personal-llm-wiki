@@ -1,0 +1,23 @@
+Package: excelex
+Title: Excel Workbook Extraction and Reconstruction Utilities
+Version: 0.0.0.9000
+Authors@R: \
+    person(given = "OpenCode", family = "Agent", role = c("aut", "cre"), \
+           email = "opencode@example.com")
+Description: Provides programmatic tooling to extract Excel workbooks into
+    structured JSON and recreate Excel files from that JSON representation.
+    Built on top of openxlsx2 and cli for informative progress reporting.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends: R (>= 4.2)
+Imports:
+    cli,
+    jsonlite,
+    openxlsx2
+Suggests:
+    devtools,
+    testthat
+URL: https://github.com/Olhaau/dev
+BugReports: https://github.com/Olhaau/dev/issues

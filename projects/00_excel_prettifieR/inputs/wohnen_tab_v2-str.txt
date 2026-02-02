@@ -1,0 +1,195 @@
+List of 5
+ $ data: num [1:16, 1:7] 1.98e+04 3.75e+03 4.88e+03 6.27e+03 2.64e+03 2.26e+03 1.10e+04 6.79e+03 1.98e+03 9.92e+03 3.98e+02 5.37e+03 5.20e| __truncated__
+ $ n   : num [1:16, 1:7] 169983 29550 42267 55694 22826 19646 92924 59508 17551 83326 3723 46305 456 22118 3262 10793 6962 1041 1524 2341 | __truncated__
+ $ rows:'data.frame':	17 obs. of  7 variables:
+  ..$ name       : chr [1:17] "Haushaltstyp" "Variable" "Kreistyp" "Kreistyp" "Kreistyp" "Kreistyp" "Kreistyp" "Grad der Verstädterung" "Grad der Verstädterung" "Grad der Verstädterung" "Zentralität" "Zentralität" "Zentralität" "Zentralität" "Zentralität" "Zentralität" "Zentralität"
+  ..$ label      : chr [1:17] "Hauptmieterhaushalte" "Insgesamt" "TOP-7-Metropole" "Kreisfreie Großstädte" "Städtische Kreise" "Ländliche Kreise mit Verdichtungsansätzen" "Dünn besiedelte ländliche Kreise" "dicht besiedelt" "mittlere Besiedlungsdichte" "gering besiedelt" "Oberzentrum" "Mittelzentrum mit Teilfunktion eines Oberzentrums" "Mittelzentrum" "Unterzentrum mit Teilfunktion eines Mittelzentrums" "Unterzentrum" "Kleinzentrum" "Gemeinde ohne zentralörtliche Funktion"
+  ..$ level      : int [1:17] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  ..$ parent     : chr [1:17] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+  ..$ subset_info:List of 17
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..- attr(*, "class")= chr "AsIs"
+  ..$ code       :List of 17
+  .. ..$ : language tw0022w %in% 1
+  .. ..$ : logi TRUE
+  .. ..$ : language kreistyp_metr %in% 1
+  .. ..$ : language kreistyp_metr %in% 2
+  .. ..$ : language kreistyp_metr %in% 3
+  .. ..$ : language kreistyp_metr %in% 4
+  .. ..$ : language kreistyp_metr %in% 5
+  .. ..$ : language degurba %in% 1
+  .. ..$ : language degurba %in% 2
+  .. ..$ : language degurba %in% 3
+  .. ..$ : language verflechtungsbereich_zentrn %in% 10:11
+  .. ..$ : language verflechtungsbereich_zentrn %in% 20:21
+  .. ..$ : language verflechtungsbereich_zentrn %in% 30:31
+  .. ..$ : language verflechtungsbereich_zentrn %in% 40:41
+  .. ..$ : language verflechtungsbereich_zentrn %in% 50:51
+  .. ..$ : language verflechtungsbereich_zentrn %in% 60:71
+  .. ..$ : language verflechtungsbereich_zentrn %in% 90
+  ..$ pos        :List of 17
+  .. ..$ : int [1:16] 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+  .. ..$ : int 1
+  .. ..$ : int 2
+  .. ..$ : int 3
+  .. ..$ : int 4
+  .. ..$ : int 5
+  .. ..$ : int 6
+  .. ..$ : int(0) 
+  .. ..$ : int(0) 
+  .. ..$ : int(0) 
+  .. ..$ : int 10
+  .. ..$ : int 11
+  .. ..$ : int 12
+  .. ..$ : int 13
+  .. ..$ : int 14
+  .. ..$ : int 15
+  .. ..$ : int 16
+  .. ..- attr(*, "class")= chr "AsIs"
+  ..- attr(*, "formula")= language Haushaltstyp %_*_% (Variable %_+_% Kreistyp %_+_% `Grad der Verstädterung` %_+_% Zentralität)
+ $ cols:'data.frame':	7 obs. of  7 variables:
+  ..$ name       : chr [1:7] "Mietbelastung" "Mietbelastung" "Mietbelastung" "Mietbelastung" "Mietbelastung" "Mietbelastung" "Mietbelastung"
+  ..$ label      : chr [1:7] "Insgesamt" "unter 10" "10 - 20" "20 - 30" "30 - 40" "40 - 50" "50 und mehr"
+  ..$ level      : int [1:7] 1 2 2 2 2 2 2
+  ..$ parent     : chr [1:7] NA "Insgesamt" "Insgesamt" "Insgesamt" "Insgesamt" "Insgesamt" "Insgesamt"
+  ..$ subset_info:List of 7
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr [1:6] "unter 10" "10 - 20" "20 - 30" "30 - 40" "40 - 50" "50 und mehr"
+  .. .. ..$ type   : Named logi [1:2] FALSE TRUE
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr "Davon mit einer monatlichen Mietbelastung\nvon ... bis unter ... % des\nHaushaltsnettoeinkommens"
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..$ :List of 3
+  .. .. ..$ subsets: chr NA
+  .. .. ..$ type   : Named logi [1:2] NA NA
+  .. .. .. ..- attr(*, "names")= chr [1:2] "exhaustive" "disjoint"
+  .. .. ..$ label  : chr NA
+  .. ..- attr(*, "class")= chr "AsIs"
+  ..$ code       :List of 7
+  .. ..$ : language tw0401h >= 0 | is.na(tw0401h)
+  .. ..$ : language tw0401h %in[)% c(0, 10)
+  .. ..$ : language tw0401h %in[)% c(10, 20)
+  .. ..$ : language tw0401h %in[)% c(20, 30)
+  .. ..$ : language tw0401h %in[)% c(30, 40)
+  .. ..$ : language tw0401h %in[)% c(40, 50)
+  .. ..$ : language tw0401h >= 50
+  ..$ pos        :List of 7
+  .. ..$ : int 1
+  .. ..$ : int 2
+  .. ..$ : int 3
+  .. ..$ : int 4
+  .. ..$ : int 5
+  .. ..$ : int 6
+  .. ..$ : int 7
+  .. ..- attr(*, "class")= chr "AsIs"
+  ..- attr(*, "formula")= symbol Mietbelastung
+ $ call: language create_table_count(df = mz, formula = hhtyp_f * (total_f + kreistyp_f + degurba_f + zentralitaet_f) ~ tw0401h_f, | __truncated__
+ - attr(*, "class")= chr "procr_table"
