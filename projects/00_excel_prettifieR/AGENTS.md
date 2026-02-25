@@ -1,105 +1,109 @@
 ## Purpose
-This repository is a placeholder for an R package focused on copying, adapting, and creating styled Excel workbooks. It currently contains minimal files and no executable code.
+This repository is an R package scaffold focused on extracting and recreating
+Excel styles. Current code reads workbooks via openxlsx2 and serializes styling
+metadata to JSON for inspection and reuse.
 
 ## Project Intent
-- Build an R package for copying, adapting, and creating well-formatted Excel workbooks.
-- Focus on extracting Excel sheet styling metadata and recreating styled workbooks from content and styling inputs.
+- Build an R package that can copy styled Excel workbooks.
+- Extract sheet-level styling metadata and apply it to regenerated workbooks.
 
 ## Required Skill
-- Use the modify-excel-with-r skill for all Excel operations.
-- Use R with openxlsx / openxlsx2 APIs to read and write Excel files.
+- Use the excel-operations skill for all Excel operations.
+- Use R with openxlsx2 APIs for reading and writing .xlsx files.
 
 ## Scope
-- Provide functions to read Excel styling metadata from a sheet.
-- Provide a function that accepts content and styling metadata and writes a new Excel file.
+- Read workbook styles, sheet options, and cell formats.
+- Write reconstructed workbooks from content + styling metadata.
 
 ## Functional Goals
-- Extract styling metadata (fonts, fills, borders, alignment, number formats, column widths, row heights, merged cells, and sheet-level settings).
-- Represent styling metadata in a structured R object suitable for serialization.
-- Recreate a styled workbook from content and styling metadata with minimal drift from the source.
+- Capture fonts, fills, borders, alignment, number formats, column widths,
+  row heights, merged cells, and sheet-level settings.
+- Represent styling metadata in stable, serializable lists.
+- Recreate styled workbooks with minimal drift from source.
 
 ## Proposed R Package API
-- read_sheet_styles(path, sheet): returns a list with cell styles, column widths, row heights, merged ranges, and sheet options.
+- read_sheet_styles(path, sheet): returns styles, column widths, row heights,
+  merged ranges, and sheet options.
 - extract_workbook_styles(path): returns styling metadata for all sheets.
-- write_styled_workbook(content, styles, output_path): creates a new workbook from provided content and styling metadata.
+- write_styled_workbook(content, styles, output_path): rebuilds a styled file.
 - validate_styles(styles): checks structure and required fields.
 
 ## Data Structures
-- Use a list with components: sheets, styles, formats, merges, columns, rows, and sheet_options.
-- Ensure every cell style maps to a stable style id that can be reused in the output workbook.
-
-## Implementation Notes
-- Prefer openxlsx2 for style fidelity and modern API coverage.
-- Keep all Excel writes in a single function entrypoint to maintain reproducibility.
-- Avoid manual edits to binary Excel files.
-- Keep outputs deterministic for regression checks.
-
-## Non-Goals
-- No GUI or Shiny interface.
-- No support for external data sources beyond provided content.
+- Use lists with components: sheets, styles, formats, merges, columns, rows,
+  and sheet_options.
+- Ensure every cell style maps to a stable style id for reuse.
 
 ## Repository Layout
-- AGENTS.md: agent instructions, project intent, and high-level API goals.
-- inputs/: sample text input assets.
+- AGENTS.md: agent instructions and conventions.
+- R/: package functions (currently `read_workbook_structure.R`).
+- inputs/: sample assets (do not edit unless asked).
+- output/: generated artifacts (keep uncommitted unless requested).
 - .secret: private data (do not read or modify).
 
 ## Build / Lint / Test Commands
-There are no build, lint, or test scripts in this repository yet.
+There is no automated test or lint configuration yet. Use these conventions
+when adding package scaffolding or local checks:
 
-When the R package structure is added, prefer commands like these:
 - Build/check package: `R CMD check .`
-- Install local package: `R CMD INSTALL .`
+- Install locally: `R CMD INSTALL .`
 - Run all tests (testthat): `Rscript -e "testthat::test_dir('tests')"`
 - Run a single test file: `Rscript -e "testthat::test_file('tests/testthat/test_<topic>.R')"`
 - Lint a file (lintr): `Rscript -e "lintr::lint('R/<file>.R')"`
 - Format a file (styler): `Rscript -e "styler::style_file('R/<file>.R')"`
 
-If you add a Makefile or CI, update this section with canonical commands.
+If you add Makefile targets, update this section with canonical commands.
 
 ## Code Style Guidelines
 
 ### Imports and Dependencies
-- Use `suppressPackageStartupMessages({ ... })` when loading packages in scripts.
-- Keep package lists alphabetical and minimal.
-- Prefer CRAN packages; document any GitHub remotes in README or DESCRIPTION.
+- Keep imports minimal and alphabetized in DESCRIPTION.
+- Use openxlsx2 and jsonlite as the primary dependencies today.
+- Load packages in scripts with `suppressPackageStartupMessages({ ... })`.
+- Prefer CRAN packages; document GitHub remotes in DESCRIPTION/README.
 
 ### Formatting
 - Use 2-space indentation for R.
 - Keep line width <= 100 characters.
 - Use native pipe `|>` for new code.
-- Keep helper functions short and focused.
+- Keep helper functions short and single-purpose.
 
 ### Naming Conventions
 - Functions: `snake_case`.
 - Variables: `snake_case`.
 - Constants: `UPPER_SNAKE_CASE`.
-- Avoid abbreviations unless standard in the domain.
+- Avoid nonstandard abbreviations.
 
 ### Types and Data Structures
-- Use tibbles for tabular data.
-- Use lists for structured metadata (e.g., styles, merges, sheet options).
-- Validate inputs early; reject invalid types or missing fields.
+- Use tibbles for tabular data; lists for structured metadata.
+- Preserve workbook metadata as plain lists for JSON serialization.
+- Keep style specs keyed by stable ids (e.g., `style_12`).
+- Validate inputs early; reject missing or invalid fields.
 
 ### Error Handling
-- Use `stop()` with clear, contextual messages for invalid inputs.
-- Wrap IO operations (read/write Excel) in `tryCatch()` and surface errors.
-- Avoid silent failures; return explicit results or errors.
+- Use `stop()` with clear, contextual messages.
+- Wrap IO with `tryCatch()` and surface readable errors.
+- Avoid silent failures; return explicit values or raise errors.
 
 ### Excel-Specific Guidance
 - Never hand-edit binary Excel files.
-- Use `openxlsx` or `openxlsx2` for all reads/writes.
-- Preserve styling metadata when copying or recreating sheets.
-- Keep output deterministic to support regression checks.
+- Use openxlsx2 for reads/writes; openxlsx only if required.
+- Keep output deterministic for regression checks.
+- Reuse style ids to avoid style drift.
+
+### Roxygen and Exports
+- Place exported functions in `R/` with roxygen headers.
+- Document parameters, return values, and side effects.
+- Update NAMESPACE when new exports are added.
 
 ### File and Module Organization
-- Place exported functions in `R/` with roxygen headers.
-- Group related helpers under `# ----` section markers.
-- Keep one responsibility per file when possible.
+- Group helpers under `# ----` section markers.
+- Keep one responsibility per file.
+- Prefer smaller helpers over deeply nested functions.
 
-### Documentation
-- Use roxygen2 for exported functions.
-- Keep README updated with usage and example workflows.
-- Document any new dependencies and setup steps.
+### JSON and Serialization
+- Ensure JSON output is stable (ordered list keys, stable ids).
+- Drop environments, functions, and external pointers before serialization.
+- Use `jsonlite::write_json(..., auto_unbox = TRUE)` for consistent output.
 
 ## Cursor / Copilot Rules
 - No Cursor rules found in `.cursor/rules/` or `.cursorrules`.
@@ -107,4 +111,5 @@ If you add a Makefile or CI, update this section with canonical commands.
 
 ## Notes for Agents
 - Avoid reading or modifying `.secret`.
-- Update this file when build/test tooling or package structure is added.
+- Do not commit generated Excel files unless explicitly requested.
+- Update this file when build/test tooling is added.
