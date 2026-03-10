@@ -167,3 +167,163 @@ extract_numeric_ranges_csv <- function(csv_path,
 
   result
 }
+
+is_integer_string <- function(x) {
+  !is.na(x) && grepl("^[+-]?[0-9]+$", x)
+}
+
+int64_outside_int32 <- function(min_value, max_value) {
+  int32_max_str <- "2147483647"
+  int32_min_str <- "-2147483648"
+
+  abs_gt_int32 <- function(x) {
+    x <- trimws(x)
+    if (!is_integer_string(x)) {
+      return(FALSE)
+    }
+
+    sign <- substr(x, 1L, 1L)
+    unsigned <- if (sign %in% c("+", "-")) {
+      substring(x, 2L)
+    } else {
+      x
+    }
+    unsigned <- sub("^0+", "", unsigned)
+    if (identical(unsigned, "")) {
+      unsigned <- "0"
+    }
+
+    limit <- if (identical(sign, "-")) int32_min_str else int32_max_str
+    limit_unsigned <- gsub("-", "", limit, fixed = TRUE)
+
+    if (nchar(unsigned) != nchar(limit_unsigned)) {
+      return(nchar(unsigned) > nchar(limit_unsigned))
+    }
+    unsigned > limit_unsigned
+  }
+
+  abs_gt_int32(min_value) || abs_gt_int32(max_value)
+}
+
+build_arrow_schema_from_ranges <- function(csv_path,
+                                           ranges_dt,
+                                           probe_nrows = 100000L,
+                                           na_strings = c("", "NA", "NaN", "NULL")) {
+  if (!requireNamespace("data.table", quietly = TRUE)) {
+    stop("Package 'data.table' is required. Install it with install.packages('data.table').")
+  }
+  if (!requireNamespace("arrow", quietly = TRUE)) {
+    stop("Package 'arrow' is required. Install it with install.packages('arrow').")
+  }
+
+  header_dt <- data.table::fread(
+    csv_path,
+    nrows = 0L,
+    na.strings = na_strings,
+    showProgress = FALSE
+  )
+  col_names <- names(header_dt)
+
+  probe_dt <- data.table::fread(
+    csv_path,
+    nrows = as.integer(probe_nrows),
+    select = col_names,
+    na.strings = na_strings,
+    showProgress = FALSE
+  )
+
+  base_types <- vapply(probe_dt, function(x) class(x)[1L], character(1))
+  range_map <- split(ranges_dt, by = "variable", keep.by = FALSE)
+
+  schema_fields <- vector("list", length(col_names))
+  names(schema_fields) <- col_names
+
+  for (col_name in col_names) {
+    range_info <- range_map[[col_name]]
+
+    if (is.null(range_info)) {
+      schema_fields[[col_name]] <- arrow::utf8()
+      next
+    }
+
+    col_type <- as.character(range_info$type[[1L]])
+    min_value <- as.character(range_info$min_value[[1L]])
+    max_value <- as.character(range_info$max_value[[1L]])
+
+    if (identical(col_type, "integer64")) {
+      schema_fields[[col_name]] <- arrow::int64()
+    } else if (identical(col_type, "integer")) {
+      if (int64_outside_int32(min_value, max_value)) {
+        schema_fields[[col_name]] <- arrow::int64()
+      } else {
+        schema_fields[[col_name]] <- arrow::int32()
+      }
+    } else if (identical(col_type, "numeric")) {
+      schema_fields[[col_name]] <- arrow::float64()
+    } else {
+      inferred <- base_types[[col_name]]
+      if (inferred %in% c("integer", "integer64")) {
+        schema_fields[[col_name]] <- arrow::int64()
+      } else if (identical(inferred, "numeric")) {
+        schema_fields[[col_name]] <- arrow::float64()
+      } else {
+        schema_fields[[col_name]] <- arrow::utf8()
+      }
+    }
+  }
+
+  do.call(arrow::schema, schema_fields)
+}
+
+convert_csv_to_parquet_from_ranges <- function(csv_path,
+                                               ranges_path,
+                                               parquet_path = NULL,
+                                               compression = "snappy",
+                                               probe_nrows = 100000L,
+                                               na_strings = c("", "NA", "NaN", "NULL")) {
+  if (!requireNamespace("data.table", quietly = TRUE)) {
+    stop("Package 'data.table' is required. Install it with install.packages('data.table').")
+  }
+  if (!requireNamespace("arrow", quietly = TRUE)) {
+    stop("Package 'arrow' is required. Install it with install.packages('arrow').")
+  }
+  if (!file.exists(csv_path)) {
+    stop(sprintf("CSV file not found: %s", csv_path))
+  }
+  if (!file.exists(ranges_path)) {
+    stop(sprintf("Ranges file not found: %s", ranges_path))
+  }
+
+  if (is.null(parquet_path)) {
+    parquet_path <- sub("\\.csv$", ".parquet", csv_path, ignore.case = TRUE)
+    if (identical(parquet_path, csv_path)) {
+      parquet_path <- paste0(csv_path, ".parquet")
+    }
+  }
+
+  ranges_dt <- data.table::fread(ranges_path, showProgress = FALSE)
+  required_cols <- c("variable", "type", "min_value", "max_value")
+  if (!all(required_cols %in% names(ranges_dt))) {
+    stop("Ranges dataset must contain: variable, type, min_value, max_value")
+  }
+
+  schema <- build_arrow_schema_from_ranges(
+    csv_path = csv_path,
+    ranges_dt = ranges_dt,
+    probe_nrows = probe_nrows,
+    na_strings = na_strings
+  )
+
+  tab <- arrow::read_csv_arrow(
+    csv_path,
+    schema = schema,
+    as_data_frame = FALSE,
+    na = na_strings,
+    col_names = FALSE,
+    skip = 1L
+  )
+
+  arrow::write_parquet(tab, parquet_path, compression = compression)
+
+  invisible(list(parquet_path = parquet_path, schema = schema))
+}
