@@ -1,10 +1,40 @@
+default_parquet_path <- function(csv_path) {
+  parquet_path <- sub("\\.csv$", ".parquet", csv_path, ignore.case = TRUE)
+  if (identical(parquet_path, csv_path)) {
+    parquet_path <- paste0(csv_path, ".parquet")
+  }
+  parquet_path
+}
+
+check_big_integer <- function(values, na = c("", "NA"), int32_max = 2147483647) {
+  int_pattern <- "^[+-]?[0-9]+$"
+
+  values <- trimws(as.character(values))
+  keep <- !is.na(values) & !(values %in% na)
+  values <- values[keep]
+
+  if (length(values) == 0L) {
+    return(FALSE)
+  }
+  if (!all(grepl(int_pattern, values))) {
+    return(FALSE)
+  }
+
+  numeric_values <- suppressWarnings(as.numeric(values))
+  if (any(is.infinite(numeric_values))) {
+    return(TRUE)
+  }
+  any(!is.na(numeric_values) & abs(numeric_values) > int32_max)
+}
+
 infer_column_type_streaming <- function(csv_path, column_name, na = c("", "NA"), block_size = 1048576L) {
   read_opts <- arrow::csv_read_options(block_size = block_size, skip_rows = 0L)
+  col_schema <- do.call(arrow::schema, stats::setNames(list(arrow::utf8()), column_name))
 
   table <- arrow::read_csv_arrow(
     csv_path,
     col_select = tidyselect::all_of(column_name),
-    col_types = do.call(arrow::schema, stats::setNames(list(arrow::utf8()), column_name)),
+    col_types = col_schema,
     as_data_frame = FALSE,
     na = na,
     col_names = TRUE,
@@ -18,7 +48,6 @@ infer_column_type_streaming <- function(csv_path, column_name, na = c("", "NA"),
 
   int_pattern <- "^[+-]?[0-9]+$"
   dbl_pattern <- "^[+-]?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?$"
-  int32_max <- 2147483647
 
   saw_value <- FALSE
   all_integer_like <- TRUE
@@ -26,58 +55,48 @@ infer_column_type_streaming <- function(csv_path, column_name, na = c("", "NA"),
   has_int32_overflow <- FALSE
 
   for (i in seq_len(column$num_chunks)) {
-    chunk <- column$chunk(i - 1L)
-    values <- trimws(chunk$as_vector())
-    keep <- !is.na(values) & !(values %in% na)
-    values <- values[keep]
+    chunk_values <- trimws(column$chunk(i - 1L)$as_vector())
+    keep <- !is.na(chunk_values) & !(chunk_values %in% na)
+    chunk_values <- chunk_values[keep]
 
-    if (length(values) == 0L) {
+    if (length(chunk_values) == 0L) {
       next
     }
 
     saw_value <- TRUE
 
-    int_matches <- grepl(int_pattern, values)
-    if (!all(int_matches)) {
+    if (!all(grepl(int_pattern, chunk_values))) {
       all_integer_like <- FALSE
-    } else {
-      numeric_values <- suppressWarnings(as.numeric(values))
-      if (any(!is.na(numeric_values) & abs(numeric_values) > int32_max)) {
-        has_int32_overflow <- TRUE
-      }
-      if (any(is.infinite(numeric_values))) {
-        has_int32_overflow <- TRUE
-      }
+    } else if (check_big_integer(chunk_values, na = na)) {
+      has_int32_overflow <- TRUE
     }
 
-    if (all_double_like) {
-      if (!all(grepl(dbl_pattern, values))) {
-        all_double_like <- FALSE
-      }
+    if (all_double_like && !all(grepl(dbl_pattern, chunk_values))) {
+      all_double_like <- FALSE
     }
   }
 
   if (!saw_value) {
     return(list(type = arrow::utf8(), int32_overflow = FALSE))
   }
-
+  if (all_integer_like && has_int32_overflow) {
+    return(list(type = arrow::int64(), int32_overflow = TRUE))
+  }
   if (all_integer_like) {
-    if (has_int32_overflow) {
-      return(list(type = arrow::int64(), int32_overflow = TRUE))
-    }
     return(list(type = arrow::int32(), int32_overflow = FALSE))
   }
-
   if (all_double_like) {
     return(list(type = arrow::float64(), int32_overflow = FALSE))
   }
-
   list(type = arrow::utf8(), int32_overflow = FALSE)
 }
 
-detect_csv_arrow_types <- function(csv_path, na = c("", "NA"), block_size = 1048576L) {
+generate_csv_arrow_schema <- function(csv_path, na = c("", "NA"), block_size = 1048576L) {
   if (!requireNamespace("arrow", quietly = TRUE)) {
     stop("Package 'arrow' is required. Install it with install.packages('arrow').")
+  }
+  if (!requireNamespace("tidyselect", quietly = TRUE)) {
+    stop("Package 'tidyselect' is required. Install it with install.packages('tidyselect').")
   }
 
   if (!file.exists(csv_path)) {
@@ -114,28 +133,73 @@ detect_csv_arrow_types <- function(csv_path, na = c("", "NA"), block_size = 1048
   )
 }
 
+convert_csv_to_parquet_pipe <- function(csv_path,
+                                        parquet_path = NULL,
+                                        schema = NULL,
+                                        compression = "snappy",
+                                        na = c("", "NA")) {
+  if (!requireNamespace("arrow", quietly = TRUE)) {
+    stop("Package 'arrow' is required. Install it with install.packages('arrow').")
+  }
+  if (!file.exists(csv_path)) {
+    stop(sprintf("CSV file not found: %s", csv_path))
+  }
+
+  if (is.null(parquet_path)) {
+    parquet_path <- default_parquet_path(csv_path)
+  }
+
+  if (is.null(schema)) {
+    arrow::read_csv_arrow(csv_path, as_data_frame = FALSE, na = na) |>
+      (
+        function(tab) {
+          arrow::write_parquet(tab, parquet_path, compression = compression)
+          invisible(parquet_path)
+        }
+      )()
+  } else {
+    arrow::read_csv_arrow(
+      csv_path,
+      schema = schema,
+      as_data_frame = FALSE,
+      na = na,
+      col_names = FALSE,
+      skip = 1
+    ) |>
+      (
+        function(tab) {
+          arrow::write_parquet(tab, parquet_path, compression = compression)
+          invisible(parquet_path)
+        }
+      )()
+  }
+}
+
+detect_csv_arrow_types <- function(csv_path, na = c("", "NA"), block_size = 1048576L) {
+  generate_csv_arrow_schema(csv_path = csv_path, na = na, block_size = block_size)
+}
+
 convert_csv_to_parquet_int64_safe <- function(csv_path,
                                               parquet_path = NULL,
                                               compression = "snappy",
                                               na = c("", "NA"),
                                               block_size = 1048576L) {
   if (is.null(parquet_path)) {
-    parquet_path <- sub("\\.csv$", ".parquet", csv_path, ignore.case = TRUE)
-    if (identical(parquet_path, csv_path)) {
-      parquet_path <- paste0(csv_path, ".parquet")
-    }
+    parquet_path <- default_parquet_path(csv_path)
   }
 
-  type_info <- detect_csv_arrow_types(csv_path, na = na, block_size = block_size)
-  typed_table <- arrow::read_csv_arrow(
-    csv_path,
-    schema = type_info$schema,
-    as_data_frame = FALSE,
+  type_info <- generate_csv_arrow_schema(
+    csv_path = csv_path,
     na = na,
-    col_names = FALSE,
-    skip = 1
+    block_size = block_size
   )
-  arrow::write_parquet(typed_table, parquet_path, compression = compression)
+  convert_csv_to_parquet_pipe(
+    csv_path = csv_path,
+    parquet_path = parquet_path,
+    schema = type_info$schema,
+    compression = compression,
+    na = na
+  )
 
   invisible(list(
     parquet_path = parquet_path,

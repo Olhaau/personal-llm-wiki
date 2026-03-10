@@ -1,0 +1,67 @@
+---
+title: "CSV to Parquet Quickstart"
+format: html
+---
+
+# Goal
+
+This quickstart shows a stable approach for converting CSV to Parquet when some
+integer values may exceed Arrow int32 limits.
+
+We use three modular pieces:
+
+- `check_big_integer()`: checks whether integer-like values exceed int32.
+- `generate_csv_arrow_schema()`: infers a safe Arrow schema, one column at a time.
+- `convert_csv_to_parquet_pipe()`: simple pipe-based converter using Arrow.
+
+# Why this approach
+
+Large CSV files can be memory-heavy if all columns are loaded as strings at once.
+The schema generator scans one column at a time and uses chunked Arrow reads.
+This is generally more stable for large files.
+
+# Setup
+
+```{r}
+source("csv_to_parquet_with_int64_fix.R")
+```
+
+# 1) Check big integers
+
+```{r}
+check_big_integer(c("1", "2", "2147483648"))
+```
+
+# 2) Generate schema
+
+```{r}
+schema_info <- generate_csv_arrow_schema("data/int_overflow_example.csv")
+schema_info$overflow_columns
+schema_info$schema
+```
+
+# 3) Convert with pipe-based function
+
+```{r}
+out <- convert_csv_to_parquet_pipe(
+  csv_path = "data/int_overflow_example.csv",
+  parquet_path = "data/int_overflow_example_modular.parquet",
+  schema = schema_info$schema
+)
+
+out
+```
+
+# One-call safe conversion
+
+```{r}
+result <- convert_csv_to_parquet_int64_safe("data/int_overflow_example.csv")
+result$overflow_columns
+result$parquet_path
+```
+
+# Notes
+
+- Integer-like columns over int32 are promoted to `int64`.
+- Non-numeric columns remain `utf8`.
+- Numeric columns with decimals become `float64`.
