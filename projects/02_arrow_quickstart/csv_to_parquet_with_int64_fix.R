@@ -1,4 +1,81 @@
-detect_csv_arrow_types <- function(csv_path, na = c("", "NA")) {
+infer_column_type_streaming <- function(csv_path, column_name, na = c("", "NA"), block_size = 1048576L) {
+  read_opts <- arrow::csv_read_options(block_size = block_size, skip_rows = 0L)
+
+  table <- arrow::read_csv_arrow(
+    csv_path,
+    col_select = tidyselect::all_of(column_name),
+    col_types = do.call(arrow::schema, stats::setNames(list(arrow::utf8()), column_name)),
+    as_data_frame = FALSE,
+    na = na,
+    col_names = TRUE,
+    read_options = read_opts
+  )
+
+  column <- table$GetColumnByName(column_name)
+  if (is.null(column)) {
+    stop(sprintf("Failed to read column '%s'", column_name))
+  }
+
+  int_pattern <- "^[+-]?[0-9]+$"
+  dbl_pattern <- "^[+-]?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?$"
+  int32_max <- 2147483647
+
+  saw_value <- FALSE
+  all_integer_like <- TRUE
+  all_double_like <- TRUE
+  has_int32_overflow <- FALSE
+
+  for (i in seq_len(column$num_chunks)) {
+    chunk <- column$chunk(i - 1L)
+    values <- trimws(chunk$as_vector())
+    keep <- !is.na(values) & !(values %in% na)
+    values <- values[keep]
+
+    if (length(values) == 0L) {
+      next
+    }
+
+    saw_value <- TRUE
+
+    int_matches <- grepl(int_pattern, values)
+    if (!all(int_matches)) {
+      all_integer_like <- FALSE
+    } else {
+      numeric_values <- suppressWarnings(as.numeric(values))
+      if (any(!is.na(numeric_values) & abs(numeric_values) > int32_max)) {
+        has_int32_overflow <- TRUE
+      }
+      if (any(is.infinite(numeric_values))) {
+        has_int32_overflow <- TRUE
+      }
+    }
+
+    if (all_double_like) {
+      if (!all(grepl(dbl_pattern, values))) {
+        all_double_like <- FALSE
+      }
+    }
+  }
+
+  if (!saw_value) {
+    return(list(type = arrow::utf8(), int32_overflow = FALSE))
+  }
+
+  if (all_integer_like) {
+    if (has_int32_overflow) {
+      return(list(type = arrow::int64(), int32_overflow = TRUE))
+    }
+    return(list(type = arrow::int32(), int32_overflow = FALSE))
+  }
+
+  if (all_double_like) {
+    return(list(type = arrow::float64(), int32_overflow = FALSE))
+  }
+
+  list(type = arrow::utf8(), int32_overflow = FALSE)
+}
+
+detect_csv_arrow_types <- function(csv_path, na = c("", "NA"), block_size = 1048576L) {
   if (!requireNamespace("arrow", quietly = TRUE)) {
     stop("Package 'arrow' is required. Install it with install.packages('arrow').")
   }
@@ -14,52 +91,21 @@ detect_csv_arrow_types <- function(csv_path, na = c("", "NA")) {
     stop("CSV has no columns.")
   }
 
-  char_types <- stats::setNames(lapply(col_names, function(...) arrow::utf8()), col_names)
-  char_schema <- do.call(arrow::schema, char_types)
-  char_table <- arrow::read_csv_arrow(
-    csv_path,
-    schema = char_schema,
-    as_data_frame = FALSE,
-    na = na,
-    col_names = FALSE,
-    skip = 1
-  )
-  data <- as.data.frame(char_table, stringsAsFactors = FALSE)
-
-  int_pattern <- "^[+-]?[0-9]+$"
-  dbl_pattern <- "^[+-]?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?$"
-  int32_max <- 2147483647
-
   inferred_types <- list()
   overflow_cols <- character(0)
 
   for (name in col_names) {
-    values <- trimws(data[[name]])
-    keep <- !is.na(values) & !(values %in% na)
-    values <- values[keep]
+    type_info <- infer_column_type_streaming(
+      csv_path = csv_path,
+      column_name = name,
+      na = na,
+      block_size = block_size
+    )
 
-    if (length(values) == 0L) {
-      inferred_types[[name]] <- arrow::utf8()
-      next
+    inferred_types[[name]] <- type_info$type
+    if (isTRUE(type_info$int32_overflow)) {
+      overflow_cols <- c(overflow_cols, name)
     }
-
-    if (all(grepl(int_pattern, values))) {
-      max_abs <- max(abs(as.numeric(values)), na.rm = TRUE)
-      if (is.finite(max_abs) && max_abs > int32_max) {
-        inferred_types[[name]] <- arrow::int64()
-        overflow_cols <- c(overflow_cols, name)
-      } else {
-        inferred_types[[name]] <- arrow::int32()
-      }
-      next
-    }
-
-    if (all(grepl(dbl_pattern, values))) {
-      inferred_types[[name]] <- arrow::float64()
-      next
-    }
-
-    inferred_types[[name]] <- arrow::utf8()
   }
 
   list(
@@ -68,7 +114,11 @@ detect_csv_arrow_types <- function(csv_path, na = c("", "NA")) {
   )
 }
 
-convert_csv_to_parquet_int64_safe <- function(csv_path, parquet_path = NULL, compression = "snappy", na = c("", "NA")) {
+convert_csv_to_parquet_int64_safe <- function(csv_path,
+                                              parquet_path = NULL,
+                                              compression = "snappy",
+                                              na = c("", "NA"),
+                                              block_size = 1048576L) {
   if (is.null(parquet_path)) {
     parquet_path <- sub("\\.csv$", ".parquet", csv_path, ignore.case = TRUE)
     if (identical(parquet_path, csv_path)) {
@@ -76,7 +126,7 @@ convert_csv_to_parquet_int64_safe <- function(csv_path, parquet_path = NULL, com
     }
   }
 
-  type_info <- detect_csv_arrow_types(csv_path, na = na)
+  type_info <- detect_csv_arrow_types(csv_path, na = na, block_size = block_size)
   typed_table <- arrow::read_csv_arrow(
     csv_path,
     schema = type_info$schema,
