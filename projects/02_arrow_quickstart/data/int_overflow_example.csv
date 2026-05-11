@@ -1,4 +1,0 @@
-id,small_count,big_count,description
-1,100,2147483648,above int32 max
-2,200,922337203685477580,large 64-bit value
-3,300,42,regular integer

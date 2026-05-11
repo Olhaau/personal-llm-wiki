@@ -1,5 +1,0 @@
-## Anwendungsfall Business-Tax-Panel {#sec-btp}
-
-### Test
-
-test...

@@ -1,7 +1,0 @@
-"demographie_personen id","demographie_größe (in tsd.)","demographie_haushaltsgröße ∅","demographie_alter > 65 jahre","erwerbstätigkeit_erwerbstätige (%)","erwerbstätigkeit_arbeitslose rate","erwerbstätigkeit_einkommen ≥ 3000€","erwerbstätigkeit_netto & brutto","wohnen_wohnfläche (m²)","wohnen_miete: warm","wohnen_eigenheim ja/nein","soziales_fähigkeiten & bildung","soziales_migrationshintergrund?","soziales_sprachen (anzahl)","gesundheit_betreuungsbedürftig","gesundheit_krankenversicherung typ","gesundheit_arztbesuche/jahr","familie_familienstand: verheiratet","familie_kinder < 18 jahre","familie_kinderbetreuung €","col"
-"HH001_P1",45.2,2.1,18.5,64.8,5.8,15.2,"2850€",85.4,850,"Nein","Hoch","Ja",2,"Nein","GKV",4,"Ja",1,450,"Baden-Württemberg"
-"HH001_P2",38.1,2.8,22.3,58.2,7.2,12.8,"2345€",92.1,1200,"Ja","Mittel","Nein",1,"Ja","PKV",12,"Ja",2,890,"Bayern"
-"HH002_P1",52.7,1,31.2,71.3,4.1,18.6,"3120€",78.3,650,"Nein","Hoch","Ja",3,"Nein","GKV",2,"Nein",0,0,"Berlin"
-"HH003_P1",29.3,3.4,15.8,55.9,9.5,8.4,"1980€",105.7,950,"Ja","Niedrig","Nein",1,"Nein","GKV",8,"Ja",3,1200,"Brandenburg"
-"HH004_P1",67.8,2.5,28.7,69.1,6.3,16.7,"2975€",89.6,1100,"Ja","Hoch","Nein",2,"Ja","PKV",6,"Nein",1,380,"Bremen"
-"HH005_P1",41.5,1.7,25.1,62.4,8.1,11.9,"2190€",73.2,780,"Nein","Mittel","Ja",4,"Nein","GKV",15,"Ja",0,0,"Hamburg"
