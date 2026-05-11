@@ -6,6 +6,7 @@ In this wiki, it anchors how DUVA moves from procurement intent (new programming
 
 ## Connected Concepts
 
+- [[DUVA ASW Security Requirements]]
 - [[DUVA Procurement Context (148574-2026)]]
 - [[DUVA Output and Evaluation Capabilities]]
 - [[DUVA Documentation and Operating Materials]]

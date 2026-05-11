@@ -11,6 +11,7 @@ This connection links procurement evidence to implementation-facing system under
 ## Connected Concepts
 
 - [[DUVA Auswertungsassistent]]
+- [[DUVA ASW Security Requirements]]
 - [[DUVA Procurement Context (148574-2026)]]
 - [[DUVA Output and Evaluation Capabilities]]
 - [[DUVA Documentation and Operating Materials]]

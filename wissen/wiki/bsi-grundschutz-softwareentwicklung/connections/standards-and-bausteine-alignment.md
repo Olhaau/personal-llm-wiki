@@ -12,6 +12,7 @@ This alignment enables organizations to connect strategic security management wi
 - [[BSI Standards 200 Series for Security Governance]]
 - [[IT-Grundschutz Bausteine for Software Development]]
 - [[Secure Software Lifecycle under IT-Grundschutz]]
+- [[DUVA ASW Security Alignment with BSI Grundschutz]]
 
 ## References
 
