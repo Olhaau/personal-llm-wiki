@@ -6,4 +6,5 @@ Master index for all topic subwikis in `wiki/`.
 
 - [bsi-grundschutz-softwareentwicklung](./bsi-grundschutz-softwareentwicklung/index.md) - BSI IT-Grundschutz standards, methodik, and software-development bausteine alignment.
 - [docling](./docling/index.md) - document processing stack, capabilities, and integration patterns for gen-AI pipelines.
+- [duva-auswertungsassistent](./duva-auswertungsassistent/index.md) - DUVA evaluation assistant procurement context, output capabilities, and operating documentation.
 - [llm-wiki](./llm-wiki/index.md) - persistent wiki pattern, operations loop, tooling, and implementation ecosystem.
