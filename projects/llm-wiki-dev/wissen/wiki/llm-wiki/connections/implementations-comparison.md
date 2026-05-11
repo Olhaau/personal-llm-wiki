@@ -7,6 +7,14 @@ The sources form a progression:
 
 Common denominator across implementations: immutable raw layer + compiled wiki layer + explicit maintenance operations.
 
+## Connected Concepts
+
+- [[llm-wiki]]
+- [[Persistent Wiki Pattern]]
+- [[Operation Loop]]
+- [[Runtime and Skill Packaging]]
+- [[Local Search and Retrieval Tooling]]
+
 ## References
 
 - `raw/karpathy-llm-wiki-gist.md`

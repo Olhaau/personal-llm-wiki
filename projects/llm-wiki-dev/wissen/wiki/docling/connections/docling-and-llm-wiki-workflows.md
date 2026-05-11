@@ -6,6 +6,14 @@ Docling and the LLM wiki pattern connect at the ingestion boundary:
 
 In practice, Docling-like tools can serve as upstream normalization for `raw/`, while wiki compile/query/lint loops operate on markdown outputs and references.
 
+## Connected Concepts
+
+- [[docling]]
+- [[Docling Pipeline Capabilities]]
+- [[Docling Integrations and Usage Modes]]
+- [[llm-wiki]]
+- [[LLM Wiki and Docling Ingestion Boundary]]
+
 ## References
 
 - `raw/docling-docs.md`

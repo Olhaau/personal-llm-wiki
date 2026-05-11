@@ -4,6 +4,7 @@ Compiled topic index for `llm-wiki` sources.
 
 ## Concepts
 
+- [llm-wiki](./concepts/llm-wiki.md) - core concept for the topic and anchor page for the persistent wiki pattern.
 - [Persistent Wiki Pattern](./concepts/persistent-wiki-pattern.md) - core idea: compile and maintain knowledge instead of re-deriving via query-time RAG.
 - [Operation Loop](./concepts/operation-loop.md) - ingest/query/lint/audit-style loops that keep the knowledge base current.
 - [Runtime and Skill Packaging](./concepts/runtime-and-skill-packaging.md) - portable skill and plugin distribution across agent runtimes.

@@ -8,6 +8,14 @@ This creates a practical boundary: document-processing tools feed reliable markd
 
 See also: `wiki/docling/connections/docling-and-llm-wiki-workflows.md`.
 
+## Connected Concepts
+
+- [[llm-wiki]]
+- [[docling]]
+- [[Docling and LLM Wiki Workflows]]
+- [[Docling Pipeline Capabilities]]
+- [[Operation Loop]]
+
 ## References
 
 - `raw/docling-docs.md`

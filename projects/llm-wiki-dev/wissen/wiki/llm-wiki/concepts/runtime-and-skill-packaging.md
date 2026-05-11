@@ -7,6 +7,14 @@ The ecosystem material shows a shift from one-off prompts to reusable operationa
 
 This packaging layer makes the wiki pattern reproducible and portable, not tied to a single agent client.
 
+## Connected Concepts
+
+- [[llm-wiki]]
+- [[Persistent Wiki Pattern]]
+- [[Operation Loop]]
+- [[Implementations Comparison]]
+- [[Local Search and Retrieval Tooling]]
+
 ## References
 
 - `raw/opencode-skills-docs.md`

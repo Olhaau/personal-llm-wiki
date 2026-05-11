@@ -8,6 +8,14 @@ Key properties in the source material:
 - maintenance operations that track contradictions and updates,
 - human role focused on curation and direction rather than filing/bookkeeping.
 
+## Connected Concepts
+
+- [[llm-wiki]]
+- [[Operation Loop]]
+- [[Runtime and Skill Packaging]]
+- [[Local Search and Retrieval Tooling]]
+- [[Implementations Comparison]]
+
 ## References
 
 - `raw/karpathy-llm-wiki-gist.md`

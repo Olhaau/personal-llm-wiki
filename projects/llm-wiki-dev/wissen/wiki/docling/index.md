@@ -4,6 +4,7 @@ Compiled topic index for `docling` sources.
 
 ## Concepts
 
+- [Docling](./concepts/docling.md) - core concept for the topic and anchor page for linked sub-concepts.
 - [Docling Overview](./concepts/docling-overview.md) - scope, positioning, and primary value proposition.
 - [Docling Pipeline Capabilities](./concepts/docling-pipeline-capabilities.md) - supported formats, parsing pipeline, and output modalities.
 - [Docling Integrations and Usage Modes](./concepts/docling-integrations-and-usage-modes.md) - CLI/Python usage and ecosystem integration patterns.

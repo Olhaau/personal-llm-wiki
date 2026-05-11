@@ -11,6 +11,7 @@
 - `wiki/<topic>/index.md`: topic-local index.
 - `wiki/<topic>/concepts/`: extracted concept pages.
 - `wiki/<topic>/connections/`: extracted relationships and cross-topic links.
+- `wiki/<topic>/concepts/<topic>.md`: core concept page named exactly after the topic slug.
 
 ## Ingest Rules
 - Every intake item is logged in `inbox/index.md` first.
@@ -31,6 +32,7 @@
 ## Compile Rules
 - Extract concepts and connections from `raw/` into `wiki/<topic>/`.
 - Cross-topic links are allowed in `connections/` pages.
+- Every concept/connection page must include explicit Obsidian wiki-link connections to related concepts/pages.
 - Keep `wiki/index.md` and each topic `index.md` up to date.
 
 ## Reference Rules

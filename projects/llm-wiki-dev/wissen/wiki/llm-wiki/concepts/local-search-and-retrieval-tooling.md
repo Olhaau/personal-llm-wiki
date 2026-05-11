@@ -8,6 +8,14 @@ As wiki size grows, index-only navigation becomes insufficient. The sources high
 
 The role of these tools is supportive: retrieval quality improves, while compilation and synthesis still happen in wiki workflows.
 
+## Connected Concepts
+
+- [[llm-wiki]]
+- [[Persistent Wiki Pattern]]
+- [[Operation Loop]]
+- [[Runtime and Skill Packaging]]
+- [[docling]]
+
 ## References
 
 - `raw/karpathy-llm-wiki-raw-idea-file.md`

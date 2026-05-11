@@ -11,6 +11,14 @@ The sources also emphasize integration-level usage:
 
 This suggests a layered adoption path: start with direct conversion, then evolve into reusable ingestion and retrieval infrastructure in larger agent systems.
 
+## Connected Concepts
+
+- [[docling]]
+- [[Docling Overview]]
+- [[Docling Pipeline Capabilities]]
+- [[Docling and LLM Wiki Workflows]]
+- [[llm-wiki]]
+
 ## References
 
 - `raw/docling-github.md`

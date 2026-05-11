@@ -8,6 +8,14 @@ Across sources, the workflow converges on a repeatable loop of operations:
 
 Implementation variants differ in command names and tooling, but the operational intent is stable: keep a long-lived knowledge base coherent as evidence grows.
 
+## Connected Concepts
+
+- [[llm-wiki]]
+- [[Persistent Wiki Pattern]]
+- [[Runtime and Skill Packaging]]
+- [[Implementations Comparison]]
+- [[LLM Wiki and Docling Ingestion Boundary]]
+
 ## References
 
 - `raw/karpathy-llm-wiki-raw-idea-file.md`

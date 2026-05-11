@@ -9,6 +9,14 @@ The documentation and README both emphasize three core properties:
 
 In the source set, Docling appears both as a standalone toolkit and as infrastructure for larger assistant workflows (for example, agent-skill examples and RAG pipelines).
 
+## Connected Concepts
+
+- [[docling]]
+- [[Docling Pipeline Capabilities]]
+- [[Docling Integrations and Usage Modes]]
+- [[Docling and LLM Wiki Workflows]]
+- [[llm-wiki]]
+
 ## References
 
 - `raw/docling-docs.md`
