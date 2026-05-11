@@ -21,11 +21,12 @@
   - `tags`
   - `generated_at`
 - Raw source files should contain only YAML frontmatter and the original article content.
-- For web sources with images:
+- For web sources with images (only when explicitly requested by the user):
   - Download images into `inbox/images/`.
   - Use stable, source-specific filenames (for example, `<slug>-<n>.<ext>`).
   - Replace image references in `raw/*.md` with Obsidian wiki image links: `![[inbox/images/<file>]]`.
   - Keep non-image hyperlinks unchanged.
+- Default behavior is text-first ingest for performance: do not download or relink images unless explicitly requested.
 
 ## Compile Rules
 - Extract concepts and connections from `raw/` into `wiki/<topic>/`.
@@ -35,3 +36,6 @@
 ## Reference Rules
 - All factual outputs include a `## References` section.
 - References must point to concrete local paths and/or original URLs.
+
+## Workflow Rules
+- After updating files in `raw/` or `wiki/`, create a git commit and push to remote on the same day.
