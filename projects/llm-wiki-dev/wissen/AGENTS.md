@@ -20,6 +20,12 @@
   - `topic`
   - `tags`
   - `generated_at`
+- Raw source files should contain only YAML frontmatter and the original article content.
+- For web sources with images:
+  - Download images into `inbox/images/`.
+  - Use stable, source-specific filenames (for example, `<slug>-<n>.<ext>`).
+  - Replace image references in `raw/*.md` with Obsidian wiki image links: `![[inbox/images/<file>]]`.
+  - Keep non-image hyperlinks unchanged.
 
 ## Compile Rules
 - Extract concepts and connections from `raw/` into `wiki/<topic>/`.
