@@ -29,3 +29,9 @@ Central intake ledger for dropped URLs, emails, files, and notes.
 | intake-20260511-023 | web | IT-Grundschutz-Bausteine download page (Edition 2023) | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/bsi-it-grundschutz-bausteine-edition-2023.md |
 | intake-20260511-024 | web | BSI Baustein CON.8 Software-Entwicklung | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/bsi-con-8-software-entwicklung.md |
 | intake-20260511-025 | web | BSI Baustein APP.6 Allgemeine Software | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/bsi-app-6-allgemeine-software.md |
+| intake-20260511-026 | web | FDZ Terms of use | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-terms-of-use.md |
+| intake-20260511-027 | web | FDZ Access to microdata | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-access-to-microdata.md |
+| intake-20260511-028 | web | FDZ Request for access | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-request-for-access.md |
+| intake-20260511-029 | web | FDZ Confidentiality | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-confidentiality.md |
+| intake-20260511-030 | web | FDZ Anonymity levels | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-anonymity-levels.md |
+| intake-20260511-031 | web | FDZ Data privacy notice | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-data-privacy-notice.md |

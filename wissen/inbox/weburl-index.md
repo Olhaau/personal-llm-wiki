@@ -29,6 +29,12 @@ URLs queued for ingest and normalization into `raw/`.
 | [x] | bsi-grundschutz-softwareentwicklung | IT-Grundschutz-Bausteine download page (Edition 2023) | https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/IT-Grundschutz-Kompendium/IT-Grundschutz-Bausteine/Bausteine_Download_Edition_node.html | 2026-05-11 |
 | [x] | bsi-grundschutz-softwareentwicklung | BSI Baustein CON.8 Software-Entwicklung | https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/03_CON_Konzepte_und_Vorgehensweisen/CON_8_Software_Entwicklung_Edition_2023.html | 2026-05-11 |
 | [x] | bsi-grundschutz-softwareentwicklung | BSI Baustein APP.6 Allgemeine Software | https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/06_APP_Anwendungen/APP_6_Allgemeine_Software_Edition_2023.html | 2026-05-11 |
+| [x] | fdz-microdata-access-security | FDZ Terms of use | https://www.forschungsdatenzentrum.de/en/terms-use | 2026-05-11 |
+| [x] | fdz-microdata-access-security | FDZ Access to microdata | https://www.forschungsdatenzentrum.de/en/access | 2026-05-11 |
+| [x] | fdz-microdata-access-security | FDZ Request for access | https://www.forschungsdatenzentrum.de/en/request | 2026-05-11 |
+| [x] | fdz-microdata-access-security | FDZ Confidentiality | https://www.forschungsdatenzentrum.de/en/confidentiality | 2026-05-11 |
+| [x] | fdz-microdata-access-security | FDZ Anonymity levels | https://www.forschungsdatenzentrum.de/en/anonymity | 2026-05-11 |
+| [x] | fdz-microdata-access-security | FDZ Data privacy notice | https://www.forschungsdatenzentrum.de/en/data-privacy | 2026-05-11 |
 
 ## Notes
 
