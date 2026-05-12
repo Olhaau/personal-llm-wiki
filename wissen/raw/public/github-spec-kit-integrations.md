@@ -2,8 +2,8 @@
 title: "Spec Kit Supported AI Coding Agent Integrations"
 token: 128
 source_link: "https://github.github.io/spec-kit/reference/integrations.html"
-topic: "prompt-engeneering"
-tags: [ingest, web, prompt-engeneering, github, spec-kit, integrations, source/web, privacy/public, fetched]
+topic: "prompt-engineering"
+tags: [ingest, web, prompt-engineering, github, spec-kit, integrations, source/web, privacy/public, fetched]
 generated_at: "2026-05-12T06:22:13Z"
 ---
 

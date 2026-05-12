@@ -1,11 +1,11 @@
 ---
-title: "prompt-engeneering"
-token: 76
+title: "prompt-engineering"
+token: 59
 ---
 
-# prompt-engeneering
+# prompt-engineering
 
-`prompt-engeneering` in this wiki means operation-specific prompts that can be executed directly by an agent without additional interpretation.
+`prompt-engineering` in this wiki means operation-specific prompts that can be executed directly by an agent without additional interpretation.
 
 ## Connected Concepts
 

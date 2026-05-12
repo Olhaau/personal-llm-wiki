@@ -2,8 +2,8 @@
 title: "Anthropic Claude Code Skills"
 token: 217
 source_link: "https://docs.anthropic.com/en/docs/claude-code/skills"
-topic: "prompt-engeneering"
-tags: [ingest, web, prompt-engeneering, anthropic, skills, source/web, privacy/public, fetched]
+topic: "prompt-engineering"
+tags: [ingest, web, prompt-engineering, anthropic, skills, source/web, privacy/public, fetched]
 generated_at: "2026-05-12T06:22:13Z"
 ---
 

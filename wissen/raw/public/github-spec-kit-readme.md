@@ -2,8 +2,8 @@
 title: "GitHub Spec Kit README"
 token: 133
 source_link: "https://raw.githubusercontent.com/github/spec-kit/main/README.md"
-topic: "prompt-engeneering"
-tags: [ingest, web, prompt-engeneering, github, spec-kit, source/web, privacy/public, fetched]
+topic: "prompt-engineering"
+tags: [ingest, web, prompt-engineering, github, spec-kit, source/web, privacy/public, fetched]
 generated_at: "2026-05-12T06:22:13Z"
 ---
 

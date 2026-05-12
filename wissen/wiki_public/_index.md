@@ -15,7 +15,7 @@ Master index for all public topic subwikis in `wiki_public/`.
 - [duva-auswertungsassistent](./duva-auswertungsassistent/_index.md) - DUVA evaluation assistant procurement context, output capabilities, and operating documentation.
 - [fdz-microdata-access-security](./fdz-microdata-access-security/_index.md) - legal, technical, and confidentiality controls for RDC microdata access and processing.
 - [llm-wiki](./llm-wiki/_index.md) - persistent wiki pattern, operations loop, tooling, and implementation ecosystem.
-- [prompt-engeneering](./prompt-engeneering/_index.md) - executable prompt patterns for ingest, compile, lint, query, and chat capture.
+- [prompt-engineering](./prompt-engineering/_index.md) - executable prompt patterns for ingest, compile, lint, query, and chat capture.
 - [windows-server-ad-ds](./windows-server-ad-ds/_index.md) - AD DS overview and PowerShell module operations for directory administration.
 
 ## Boundary Rules

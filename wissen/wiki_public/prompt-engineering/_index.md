@@ -5,11 +5,11 @@ token: 157
 
 # Prompt Engeneering Topic Index
 
-Compiled topic index for `prompt-engeneering` executable prompt patterns.
+Compiled topic index for `prompt-engineering` executable prompt patterns.
 
 ## Concepts
 
-- [prompt-engeneering](./concepts/prompt-engeneering.md) - core concept for executable operation prompts.
+- [prompt-engineering](./concepts/prompt-engineering.md) - core concept for executable operation prompts.
 - [Executable Prompt for Ingest](./concepts/executable-prompt-for-ingest.md) - prompt template to ingest a new source into `raw/` and update indexes.
 - [Executable Prompt for Compile](./concepts/executable-prompt-for-compile.md) - prompt template to compile sources into topic concepts and connections.
 - [Executable Prompt for Lint](./concepts/executable-prompt-for-lint.md) - prompt template to remove duplicates and resolve orphan or contradictory pages.
