@@ -41,7 +41,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Query the wiki via section and topic indexes.")
     parser.add_argument("query", help="Question to answer.")
     parser.add_argument("--root", default=".", help="Workspace root.")
-    parser.add_argument("--wiki", default="wiki", help="Wiki root directory.")
+    parser.add_argument("--wiki", default=".", help="Wiki base directory.")
     parser.add_argument(
         "--scope",
         choices=("intern", "public", "all"),
@@ -85,22 +85,18 @@ def score(query_tokens: set[str], text: str) -> int:
 
 
 def candidate_pages(root: Path, wiki_root: Path, scope: str) -> list[Path]:
-    top = wiki_root / "_index.md"
-    if not top.exists():
-        return []
-
     section_targets: list[str]
     if scope == "intern":
-        section_targets = ["wiki/intern/_index.md", "wiki/public/_index.md"]
+        section_targets = ["wiki_intern/_index.md", "wiki_public/_index.md"]
     elif scope == "public":
-        section_targets = ["wiki/public/_index.md"]
+        section_targets = ["wiki_public/_index.md"]
     else:
-        section_targets = ["wiki/intern/_index.md", "wiki/public/_index.md"]
+        section_targets = ["wiki_intern/_index.md", "wiki_public/_index.md"]
 
     sections = []
-    for path in links_from_index(top):
-        rel = str(path.relative_to(root))
-        if rel in section_targets:
+    for rel in section_targets:
+        path = (wiki_root / rel).resolve()
+        if path.exists() and path.is_file():
             sections.append(path)
 
     pages: list[Path] = []
@@ -164,7 +160,7 @@ def main() -> None:
     pages = candidate_pages(root, wiki_root, args.scope)
     docs = select_relevant(args.query, pages, args.top_k)
     if not docs:
-        print("## Answer\n\nNo relevant wiki pages found.\n\n## References\n- wiki/_index.md")
+        print("## Answer\n\nNo relevant wiki pages found.\n\n## References\n- wiki_public/_index.md")
         return
 
     try:

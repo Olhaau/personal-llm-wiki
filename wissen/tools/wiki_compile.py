@@ -24,7 +24,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Compile raw sources into wiki pages.")
     parser.add_argument("--root", default=".", help="Workspace root.")
     parser.add_argument("--raw", default="raw/intern", help="Raw source directory.")
-    parser.add_argument("--wiki-section", default="wiki/intern", help="Target wiki section.")
+    parser.add_argument("--wiki-section", default="wiki_intern", help="Target wiki section.")
     return parser.parse_args()
 
 
@@ -100,14 +100,14 @@ def write_section_index(section_dir: Path, topics: list[str]) -> None:
     lines = [
         "# Internal Wiki Index",
         "",
-        "Master index for private topic subwikis in `wiki/intern/`.",
+        "Master index for private topic subwikis in `wiki_intern/`.",
         "",
         "## Topics",
         "",
     ]
     for topic in sorted(topics):
         lines.append(f"- [{topic}](./{topic}/_index.md)")
-    lines.extend(["", "## Policy", "", "- This section may link to `wiki/public/`."])
+    lines.extend(["", "## Policy", "", "- This section may link to `wiki_public/`."])
 
     body = "\n".join(lines) + "\n"
     write_page(section_dir / "_index.md", "Internal Wiki Index", body)

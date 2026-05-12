@@ -1,6 +1,6 @@
 ---
 title: "Raw Index"
-token: 1015
+token: 1121
 ---
 
 # Raw Index
@@ -72,3 +72,6 @@ Normalized markdown versions of inputs from `inbox/`.
 | wissen/raw/public/ai-automation-confluence-rest-api-v2-update-page.md | Confluence REST API v2 Update page | ai-automation | https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/#api-pages-id-put | 2026-05-12T00:00:00Z | ingest,web,ai-automation,confluence,rest-api,page-update,atlassian,fetched |
 | wissen/raw/public/ai-automation-confluence-basic-auth-rest-apis.md | Confluence Cloud basic auth for REST APIs | ai-automation | https://developer.atlassian.com/cloud/confluence/basic-auth-for-rest-apis/ | 2026-05-12T00:00:00Z | ingest,web,ai-automation,confluence,auth,basic-auth,api-token,atlassian,fetched |
 | wissen/raw/public/ai-automation-atlassian-python-api-confluence-page-actions.md | Atlassian Python API Confluence page actions | ai-automation | https://atlassian-python-api.readthedocs.io/confluence.html | 2026-05-12T00:00:00Z | ingest,web,ai-automation,python,confluence,atlassian-python-api,page-update,fetched |
+| wissen/raw/public/anthropic-claude-code-skills.md | Anthropic Claude Code Skills | prompt-engeneering | https://docs.anthropic.com/en/docs/claude-code/skills | 2026-05-12T06:22:13Z | ingest,web,prompt-engeneering,anthropic,skills,source/web,privacy/public,fetched |
+| wissen/raw/public/github-spec-kit-readme.md | GitHub Spec Kit README | prompt-engeneering | https://raw.githubusercontent.com/github/spec-kit/main/README.md | 2026-05-12T06:22:13Z | ingest,web,prompt-engeneering,github,spec-kit,source/web,privacy/public,fetched |
+| wissen/raw/public/github-spec-kit-integrations.md | Spec Kit Supported AI Coding Agent Integrations | prompt-engeneering | https://github.github.io/spec-kit/reference/integrations.html | 2026-05-12T06:22:13Z | ingest,web,prompt-engeneering,github,spec-kit,integrations,source/web,privacy/public,fetched |

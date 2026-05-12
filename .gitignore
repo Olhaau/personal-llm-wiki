@@ -1,0 +1,7 @@
+# Ignore private intern content everywhere
+**/intern/**
+
+# Keep intern directories and structure markers tracked
+!**/intern/
+!**/intern/.gitkeep
+!**/intern/_index.md

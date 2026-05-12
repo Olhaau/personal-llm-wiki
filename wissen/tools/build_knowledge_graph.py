@@ -35,7 +35,7 @@ class Node:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build wiki knowledge graph artifacts.")
     parser.add_argument("--root", default=".", help="Repo root (default: current dir).")
-    parser.add_argument("--wiki-dir", default="wiki/public", help="Wiki directory path.")
+    parser.add_argument("--wiki-dir", default="wiki_public", help="Wiki directory path.")
     parser.add_argument("--raw-dir", default="raw/public", help="Raw directory path.")
     parser.add_argument("--html-out", default="knowledge-graph.html", help="Interactive HTML output.")
     parser.add_argument("--png-out", default="knowledge-graph.png", help="Snapshot PNG output.")
@@ -306,7 +306,7 @@ def main() -> int:
     raw_dir = (root / args.raw_dir).resolve()
 
     if not wiki_dir.exists() or not raw_dir.exists():
-        print("wiki/ or raw/public directory not found.")
+        print("wiki_public/ or raw/public directory not found.")
         return 2
 
     nodes, edges = build_graph(root, wiki_dir, raw_dir)

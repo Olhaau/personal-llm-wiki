@@ -38,7 +38,7 @@ python tools/docling_extract.py --input "inbox/*.pdf" --outdir "raw/public" --to
 
 ## Knowledge graph builder
 
-Build a visual graph from `wiki/public/` pages and their links (including links to `raw/public/` sources):
+Build a visual graph from `wiki_public/` pages and their links (including links to `raw/public/` sources):
 
 ```bash
 make knowledge-graph
@@ -57,7 +57,7 @@ Query starts at the top-level index, walks section and topic indexes, and answer
 Direct usage:
 
 ```bash
-python3 tools/wiki_query.py --root . --wiki wiki --scope intern "your question"
+python3 tools/wiki_query.py --root . --wiki . --scope intern "your question"
 ```
 
 Make target:
@@ -67,14 +67,14 @@ make wiki-query QUERY="your question"
 ```
 
 Scopes:
-- `intern` (default): `wiki/intern/` plus `wiki/public/`
-- `public`: only `wiki/public/`
+- `intern` (default): `wiki_intern/` plus `wiki_public/`
+- `public`: only `wiki_public/`
 - `all`: all configured sections
 
 ## Intern-first LLM operations
 
 These scripts are designed for private environments with a local OpenAI-compatible server.
-They default to internal folders only (`inbox_intern/`, `raw/intern/`, `wiki/intern/`).
+They default to internal folders only (`inbox_intern/`, `raw/intern/`, `wiki_intern/`).
 
 Dependencies:
 
