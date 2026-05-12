@@ -1,0 +1,12700 @@
+# New session - 2026-05-10T08:18:13.957Z
+
+**Session ID:** ses_1ef08d6baffeH3TAIFqJEbYEvV
+**Created:** 5/10/2026, 8:18:13 AM
+**Updated:** 5/10/2026, 9:45:31 AM
+
+---
+
+## User
+
+describe the five operations in the llm-wiki info article always add references to the sources.
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 23.2s)
+
+_Thinking:_
+
+**Preparing article on operations**
+
+The user seems to want an article that outlines the five operations related to LLM-wiki, including references. I’ll craft a markdown section with citations based on the information fetched from the raw gist, README, and other sources. The operations to include are compile, ingest, query, lint, and audit. It's important to clarify that compile and audit are extensions and to ensure sources are linked properly to avoid any confusion. I’ll format this neatly for easy pasting into their article.
+
+_Thinking:_
+
+**Crafting the reference list**
+
+I need to include a reference list with source URLs, but I can't do line-level references for the web. Instead, I can cite section names or use footnotes like [1] for clarity. I’ll structure it with a paragraph for each operation followed by a "Source:" bullet with the relevant links. I’ll ensure everything is appropriate and finalize it in a concise way. It’s important to keep this organized while following all guidelines. Let's get this right!
+
+Great call. Here is a Markdown section you can drop into your `llm-wiki` info article, with source references on every operation.
+
+```markdown
+## The Five Operations in LLM Wiki
+
+The `llm-wiki` workflow can be run as five repeatable operations: `compile`, `ingest`, `query`, `lint`, and `audit`.  
+In this model, the wiki is not static documentation; it is a maintained artifact that improves over time.
+
+### 1) Compile
+
+`compile` reorganizes and improves the existing wiki structure from already-ingested material.  
+Typical actions include splitting oversized concept pages, merging duplicates, and rebuilding `wiki/index.md` so navigation remains accurate and scalable.
+
+**Source references:**  
+- Lewis Liu skill (`compile` workflow): https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md  
+- Karpathy’s architectural framing (persistent wiki layer): https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+
+### 2) Ingest
+
+`ingest` takes a new raw source (article/paper/note), reads it, creates a summary page, and propagates updates across relevant concept/entity pages.  
+The key idea is that knowledge is **compiled once** into the wiki, not rediscovered from scratch on every question.
+
+**Source references:**  
+- Karpathy’s “Ingest” operation: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f  
+- Raw gist markdown (`llm-wiki.md`): https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md  
+- Lewis Liu skill ingest details: https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md
+
+### 3) Query
+
+`query` answers questions against the compiled wiki pages (and their links), rather than directly against raw chunk retrieval alone.  
+High-value answers can then be promoted back into the wiki as new durable pages, so exploration compounds.
+
+**Source references:**  
+- Karpathy’s “Query” operation: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f  
+- Lewis Liu skill query + promote workflow: https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md
+
+### 4) Lint
+
+`lint` is the health-check pass for wiki quality.  
+It checks for dead links, orphan pages, missing index coverage, stale/contradictory claims, and structural issues in supporting folders like `log/` and `audit/`.
+
+**Source references:**  
+- Karpathy’s “Lint” concept: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f  
+- Lewis Liu lint checks (`scripts/lint_wiki.py` + SKILL docs): https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md
+
+### 5) Audit
+
+`audit` processes human feedback files (usually from `audit/`), applies accepted corrections, records resolution notes, and archives processed items to keep a traceable history.  
+This is the human-in-the-loop correction mechanism that prevents errors from silently compounding.
+
+**Source references:**  
+- Lewis Liu audit operation (`audit/` + `resolved/` flow): https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md  
+- Related audit tooling in repo README: https://github.com/lewislulu/llm-wiki-skill/blob/main/README.md
+
+---
+
+## Notes on Scope
+
+Karpathy’s original idea file explicitly defines `ingest`, `query`, and `lint` as core operations.  
+The five-operation model (`compile` and `audit` added) is an implementation extension in the `lewislulu/llm-wiki-skill` project.
+
+**Source references:**  
+- Karpathy original idea file: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f  
+- Extended five-op implementation: https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md
+```
+
+If you want, I can also produce a stricter academic version with numbered citations (`[1]`, `[2]`) and a bibliography block.
+
+---
+
+## User
+
+git commit and push
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 9.3s)
+
+_Thinking:_
+
+**Preparing for git push**
+
+I’m thinking about executing a git push. I should confirm if a network operation is allowed for this action. The user has requested a push, so it makes sense to proceed. I’ll run a parallel check with git status, diff, and log to ensure everything is in order before I push the changes. That way, I can confirm any modifications and potential issues ahead of time.
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "description": "Shows untracked and modified files"
+}
+```
+
+**Output:**
+```
+ M ../01_procr_dev/AGENTS.md
+ m ../01_procr_dev/procr
+?? ../../.opencode/package-lock.json
+?? ../00_excel_prettifieR/output/
+?? ../00_excel_prettifieR/output_goal.json
+?? ../02_arrow_quickstart/data/_sel.csv
+?? ../02_arrow_quickstart/data/_test_scan.csv
+?? ../02_arrow_quickstart/data/benchmark_100000.csv
+?? ../02_arrow_quickstart/data/benchmark_1e7.csv
+?? ../02_arrow_quickstart/data/benchmark_1gb.csv
+?? ../02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? ../02_arrow_quickstart/data/int_overflow_example.dta
+?? ../02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? ../02_arrow_quickstart/data/overflow_example.csv
+?? ../02_arrow_quickstart/data/tmp_types.csv
+?? ../agentic-skill-tests/convert_csv_to_parquet.R
+?? ../agentic-skill-tests/data/
+?? ./
+
+```
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git diff && git diff --staged",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "description": "Shows unstaged and staged changes"
+}
+```
+
+**Output:**
+```
+diff --git a/projects/01_procr_dev/AGENTS.md b/projects/01_procr_dev/AGENTS.md
+index b2eca99..6df6840 100644
+--- a/projects/01_procr_dev/AGENTS.md
++++ b/projects/01_procr_dev/AGENTS.md
+@@ -1,119 +1,149 @@
+-# AGENTS.md - procR repository guide for coding agents
+-
+-## Purpose
+-This repository contains the procR R package for fast, custom cross-tabulations
+-with export helpers. Follow this guide when editing, testing, or adding features.
+-
+-## Repo layout
+-- R/                  Core R functions (public and internal helpers)
+-- src/                Rcpp sources and compiled hooks
+-- man/                Generated roxygen docs
+-- tests/testthat/     Unit tests (testthat edition 3)
+-- vignettes/          Package vignettes
+-- data/, data-raw/    Package data inputs
+-- pkgdown/            Site artifacts
+-
+-## Rules from other configs
+-- No .cursor rules found in .cursor/rules/ or .cursorrules.
+-- No Copilot instructions found in .github/copilot-instructions.md.
+-
+-## Build, check, test
+-Run commands from the repo root.
+-
+-Build source tarball:
+-- R CMD build .
+-
+-Check package (local):
+-- R CMD check --no-manual --as-cran <tarball>
+-
+-Run all tests:
+-- Rscript -e "testthat::test_dir('tests/testthat')"
+-- Rscript -e "testthat::test_package('procR')"
+-- Rscript -e "devtools::test()"  # only if devtools is installed
+-
+-Run a single test file:
+-- Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"
+-
+-Run a single test by name (if filter matches):
+-- Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"
+-
+-Run Rcpp-related tests only:
+-- Rscript -e "testthat::test_file('tests/testthat/test-RcppExports.R')"
+-
+-Linting (optional, if lintr installed):
+-- Rscript -e "lintr::lint_package()"
+-- Rscript -e "lintr::lint('R/table_internal.R')"
+-
+-Styling (optional, if styler installed):
+-- Rscript -e "styler::style_pkg()"
+-
+-## Code style guidelines
+-Keep edits consistent with existing style in R/ files.
+-
+-General
+-- Use snake_case for functions and variables.
+-- Keep line width <= 100 characters.
+-- Prefer native pipe `|>` for new code.
+-- Avoid non-ASCII unless the file already contains it.
+-- Keep section headers and TODO markers as-is.
+-
+-Imports and namespaces
+-- Prefer qualified calls when ambiguity exists (e.g., stats::as.formula).
+-- Use collapse, Matrix, and formula.tools as in existing code.
+-- Do not add new dependencies without updating DESCRIPTION.
+-
+-Function signatures
+-- Use explicit arguments, avoid relying on `...` for data.
+-- When `...` exists for named-arg enforcement, validate with check_empty_dots().
+-- Capture user calls when needed with match.call().
+-
+-Naming and classes
+-- Public API functions are exported and documented with roxygen.
+-- Internal helpers are unexported and tagged with @keywords internal.
+-- Custom classes in this repo: procr_table, procr_varformat.
+-- Preserve class names and return types for public functions.
+-
+-Error handling
+-- Prefer assert_class() and stop_if() for input validation.
+-- Use stopifnot() for simple internal assertions.
+-- Provide clear error messages and set call. = FALSE where appropriate.
+-- Validate that inputs are in the data frame and formulas are supported.
+-
+-Roxygen documentation
+-- Add @export for new public functions.
+-- Include @param, @return, and @examples sections.
+-- Keep examples minimal and consistent with README patterns.
+-
+-Data handling
+-- Do not mutate user data frames in-place.
+-- Filter and select columns explicitly (see prepare_data()).
+-- Handle NA rules consistently with existing methods.
+-
+-Performance
+-- Prefer vectorized operations and sparse matrices.
+-- Reuse existing helper patterns (compute_groups, compute_varformat_codes).
+-- Avoid repeated evaluation of formats or expressions.
+-
+-Rcpp
+-- Do not edit generated R/RcppExports.R manually.
+-- If adding C++ code, update src/ and regenerate exports as needed.
+-
+-Testing
+-- Use testthat edition 3 conventions.
+-- Add tests for edge cases (NA handling, empty subsets, weights).
+-- Include failure-case tests for invalid inputs.
+-
+-Documentation
+-- Update README and vignettes when user-facing behavior changes.
+-- Keep NEWS.md updated for notable changes.
+-
+-## Excel and export guidance
+-- openxlsx2 is the current Excel dependency.
+-- Do not manually edit binary xlsx files.
+-- Ensure export helpers accept and return explicit classes (wbWorkbook).
+-- Keep formatting consistent with add_table_to_wb() defaults.
+-
+-## Notes for agents
+-- This repo uses GPL-3 license.
+-- Avoid network calls during tests.
++# AGENTS.md - procR coding agent handbook
++
++## Scope and intent
++This repository contains development assets for the `procR` R package.
++The package source is in `procr/`; run package commands from that directory.
++Use this guide for implementation, tests, docs, and safe edits.
++
++## Repository map
++- `procr/R/`: R source files (public API and internal helpers)
++- `procr/src/`: Rcpp/C++ code and Makevars
++- `procr/tests/testthat/`: testthat edition 3 tests
++- `procr/man/`: generated Rd docs from roxygen2
++- `procr/vignettes/`: long-form package documentation
++- `procr/data/`, `procr/data-raw/`: package data and generators
++- `procr/pkgdown/`: site assets
++
++## Rules imported from other tooling
++- Cursor rules: none found in `.cursor/rules/` or `.cursorrules`.
++- Copilot rules: none found in `.github/copilot-instructions.md`.
++
++## Setup and dependencies
++- R version: `Depends: R (>= 4.1.0)`.
++- Core imports: `collapse`, `formula.tools`, `Matrix`, `openxlsx2`, `Rcpp`.
++- Optional dev/test tools: `testthat`, `knitr`, `rmarkdown`, `bench`.
++- Install dependencies with `R -q -e "remotes::install_deps('procr', dependencies = TRUE)"`.
++
++## Build, check, and test commands
++Run all commands from `procr/` unless noted otherwise.
++
++### Build and check
++- Build tarball: `R CMD build .`
++- Check local tarball: `R CMD check --no-manual <tarball>.tar.gz`
++- Stricter local check: `R CMD check --no-manual --as-cran <tarball>.tar.gz`
++- CI-style sequence:
++  1. `R CMD build .`
++  2. `R CMD check --no-manual <latest-tarball>.tar.gz`
++
++### Run tests (all)
++- Full test dir: `Rscript -e "testthat::test_dir('tests/testthat')"`
++- Package tests via loader: `Rscript -e "testthat::test_package('procR')"`
++- testthat entrypoint: `Rscript tests/testthat.R`
++- Devtools path (if installed): `Rscript -e "devtools::test()"`
++
++### Run a single test (preferred workflows)
++- Single test file:
++  `Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"`
++- Single test file (Rcpp focus):
++  `Rscript -e "testthat::test_file('tests/testthat/test-RcppExports.R')"`
++- Filter by test name or pattern:
++  `Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"`
++
++### Lint and formatting (optional)
++- Lint package: `Rscript -e "lintr::lint_package()"`
++- Lint one file: `Rscript -e "lintr::lint('R/table_internal.R')"`
++- Format package: `Rscript -e "styler::style_pkg()"`
++
++## Coding conventions
++
++### Naming and structure
++- Use `snake_case` for functions and local variables.
++- Preserve existing S3 class names: `procr_table`, `procr_varformat`.
++- Keep public functions in `R/` documented and exported via roxygen.
++- Keep internals unexported and tagged with `@keywords internal`.
++
++### Function signatures and arguments
++- Prefer explicit parameters over permissive `...`.
++- When using `...` for named-argument enforcement, call `check_empty_dots(...)`.
++- Capture user calls with `match.call()` when outputs store call metadata.
++- Keep argument order and defaults stable for public APIs.
++
++### Types and validation
++- Validate external inputs early with `assert_class()` and `stop_if()`.
++- Use `stopifnot()` for simple internal invariants.
++- Use `call. = FALSE` for user-facing errors where appropriate.
++- Ensure formula variables and referenced columns exist before evaluation.
++
++### Imports and namespaces
++- Prefer explicit namespaces for ambiguous functions (`stats::`, `Matrix::`, etc.).
++- Keep package-level imports in roxygen/NAMESPACE consistent.
++- Do not add dependencies without updating `DESCRIPTION` and docs.
++- Do not hand-edit `NAMESPACE`; regenerate through roxygen.
++
++### Formatting and readability
++- Keep lines at or under 100 characters.
++- Prefer native pipe `|>` in new R code.
++- Follow existing spacing and brace style in touched files.
++- Keep TODO blocks and section headers intact unless asked to refactor them.
++- Avoid adding comments unless a non-obvious block needs explanation.
++
++### Data and evaluation semantics
++- Do not mutate user-provided data frames in place.
++- Subset/select columns explicitly (see `prepare_data()` patterns).
++- Handle `NA` consistently with method-specific logic already in code.
++- Preserve non-standard evaluation behavior (`substitute`, `eval`, captured names).
++
++### Performance expectations
++- Prefer vectorized operations over explicit loops.
++- Reuse established helpers (`compute_groups`, `compute_varformat_codes`).
++- Use sparse matrix workflows when expanding table combinations.
++- Avoid repeated expression evaluation inside tight loops.
++
++### Rcpp and compiled code
++- Do not manually edit generated `R/RcppExports.R`.
++- If C++ interfaces change, update `src/` and regenerate exports.
++- Keep compiler-related changes minimal and justified.
++- Ensure R wrappers and tests cover any new compiled behavior.
++
++## Testing expectations for code changes
++- Add or update tests for each behavior change.
++- Include success and failure cases for input validation.
++- Cover NA behavior, weighting, and empty/edge grouping cases when relevant.
++- For bug fixes, add a regression test that fails before and passes after.
++
++## Documentation expectations
++- Update roxygen blocks with `@param`, `@return`, and runnable examples.
++- Regenerate docs in `man/` when public APIs change.
++- Update `README.md`, `vignettes/`, and `NEWS.md` for user-visible changes.
++- Keep examples deterministic and lightweight.
++
++## Safety and reproducibility
++- Avoid network access during tests unless explicitly required.
+ - Keep outputs deterministic for tests and examples.
++- Do not edit binary artifacts manually.
++- Respect GPL-3 licensing constraints when adding external code.
++
++## Agent workflow checklist
++- Confirm you are running commands in `procr/`.
++- Run targeted tests first (`test_file` or filtered `test_dir`).
++- Run broader tests after local fixes are stable.
++- Run lint/format tools only when they are already part of the change scope.
++- Keep diffs focused; avoid unrelated refactors.
++
++## Quick command cheatsheet
++- Build: `R CMD build .`
++- Check: `R CMD check --no-manual <tarball>.tar.gz`
++- All tests: `Rscript -e "testthat::test_dir('tests/testthat')"`
++- Single test: `Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"`
++- Test filter: `Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"`
++
++## Git and change hygiene
++- Keep commits focused to one concern (feature, fix, docs, or tests).
++- Avoid reformat-only sweeps unless explicitly requested.
++- Do not manually edit generated files unless regeneration is part of the task.
++- If behavior changes, update tests and docs in the same change set.
++
++## Regeneration commands (when needed)
++- Regenerate docs/NAMESPACE: `Rscript -e "roxygen2::roxygenise('.')"`
++- Rebuild pkgdown site (optional): `Rscript -e "pkgdown::build_site()"`
++- Re-run full checks after regeneration to verify no drift.
+diff --git a/projects/01_procr_dev/procr b/projects/01_procr_dev/procr
+--- a/projects/01_procr_dev/procr
++++ b/projects/01_procr_dev/procr
+@@ -1 +1 @@
+-Subproject commit 4d4ed3fd0139947fd81d8477270ee59fa50bda1b
++Subproject commit 4d4ed3fd0139947fd81d8477270ee59fa50bda1b-dirty
+
+```
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git log --oneline -10",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "description": "Shows recent commit message style"
+}
+```
+
+**Output:**
+```
+cb2edc4 docs: add README with function reference
+3c5853a feat: build Arrow schema from range output for parquet conversion
+acfcbd5 feat: add chunked numeric range extraction for CSV
+45eabed feat: modularize csv-to-parquet flow and add quickstart
+b57ba1d feat: stream CSV type inference and add parquet-to-dta converter
+05fc2ca feat: add robust csv-to-parquet conversion and benchmark tooling
+197f7e0 update
+e3a3b90 first shot codex.
+490c146 feat: scaffold package and structured workbook JSON
+51c0409 update.
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 10.2s)
+
+_Thinking:_
+
+**Executing git commands**
+
+I'm thinking about running `git status -sb` first to check the current status of my repository. Then, I should chain the add, commit, and status commands in one bash call, following the instructions for step 3. I want to ensure everything goes smoothly with those commands, so running them sequentially makes sense. That way, I can keep track of each part of the process efficiently. Let's give it a go!
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git add \"projects/llm-wiki-dev/.opencode/skills/llm-wiki/SKILL.md\" && git commit -m \"feat: add opencode llm-wiki skill\" -m \"Create a project-local llm-wiki agent skill with OpenCode-compatible frontmatter and workflows for compile, ingest, query, lint, and audit operations.\" && git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Stages skill file, commits, then shows status"
+}
+```
+
+**Output:**
+```
+[main f86cdfc] feat: add opencode llm-wiki skill
+ 1 file changed, 145 insertions(+)
+ create mode 100644 projects/llm-wiki-dev/.opencode/skills/llm-wiki/SKILL.md
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/lewislulu-llm-wiki-skill/
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 5.0s)
+
+_Thinking:_
+
+
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git push",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Pushes latest commit to remote branch"
+}
+```
+
+**Output:**
+```
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/Olhaau/work-dev.git        
+To https://github.com/Olhaau/dev.git
+   cb2edc4..f86cdfc  main -> main
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 3.9s)
+
+_Thinking:_
+
+**Finalizing git response**
+
+I need to keep my final response concise, including the commit hash and mentioning that the push is complete. The user specifically asked about the git commit and push, so I’ll make sure to highlight that. I also want to note that there are untracked changes in the clone that remain uncommitted. I might mention this, but I’m not sure if it’s necessary to include. Let’s get this wrapped up!
+
+Committed and pushed.
+
+- Commit: `f86cdfc`
+- Message: `feat: add opencode llm-wiki skill`
+- Pushed to: `origin/main` successfully
+
+Note: Git reported the remote has moved to `https://github.com/Olhaau/work-dev.git`, but the push to the current remote still succeeded.
+
+---
+
+## User
+
+write the overview artucle if llm-wiki to a markdown file im this workspace and save again
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 11.4s)
+
+_Thinking:_
+
+**Editing markdown file**
+
+I need to edit the file after the user pointed out a typo in "overview artucle if llm-wiki" and save it again. I should make a markdown file in the cloned repo located in llm-wiki-dev. I'm deciding on the filename, possibly `overview-llm-wiki.md` or `article.md`, but I could stick with `llm-wiki-overview.md`. I’ll include five operations and a references section, as requested by the user. I’ll proceed to create the file and mention that it’s saved.
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/llm-wiki-overview.md\n+# LLM Wiki Overview\n+\n+## What Is LLM Wiki?\n+\n+LLM Wiki is a workflow pattern for building a persistent, markdown-based knowledge base that an LLM continuously maintains. Instead of re-retrieving raw document chunks for every question, the model incrementally compiles sources into structured wiki pages and keeps them updated over time.\n+\n+This pattern was introduced by Andrej Karpathy as an \"idea file\" and has since been extended by community implementations that add tooling, stricter workflows, and maintenance loops.\n+\n+## Core Architecture\n+\n+Most implementations follow three layers:\n+\n+- Raw sources (immutable input documents)\n+- Wiki pages (LLM-maintained markdown knowledge)\n+- Schema/rules file (instructions that govern structure and operations)\n+\n+This architecture makes the wiki a compounding artifact: each new source, query, or correction improves future answers.\n+\n+## The Five Operations\n+\n+### 1) Compile\n+\n+Compile restructures existing wiki content: splitting oversized pages, merging duplicates, and rebuilding `wiki/index.md` so the knowledge graph remains navigable and consistent.\n+\n+**References:**\n+- https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md\n+- https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\n+\n+### 2) Ingest\n+\n+Ingest adds a new source, creates a summary page, and propagates updates across concept and entity pages. The key principle is that knowledge is compiled into the wiki once and then maintained.\n+\n+**References:**\n+- https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\n+- https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md\n+- https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md\n+\n+### 3) Query\n+\n+Query answers questions from compiled wiki pages, then optionally promotes durable analyses back into the wiki as new pages. This makes exploration cumulative instead of ephemeral.\n+\n+**References:**\n+- https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\n+- https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md\n+\n+### 4) Lint\n+\n+Lint runs health checks for dead links, orphan pages, missing index entries, and other structural quality issues so the wiki remains reliable as it grows.\n+\n+**References:**\n+- https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\n+- https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md\n+\n+### 5) Audit\n+\n+Audit processes human feedback files, applies accepted corrections, records resolution notes, and archives processed feedback. This is the human-in-the-loop correction path.\n+\n+**References:**\n+- https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md\n+- https://github.com/lewislulu/llm-wiki-skill/blob/main/README.md\n+\n+## Why This Pattern Works\n+\n+- It shifts effort from repeated retrieval to persistent synthesis.\n+- It lowers maintenance overhead by letting the LLM handle bookkeeping.\n+- It preserves a visible, editable markdown artifact with git history.\n+- It supports continuous correction through explicit audit workflows.\n+\n+## Clarification on Definitions\n+\n+Karpathy's original document explicitly describes ingest, query, and lint as core operations. The five-operation version (compile + audit added) is a community extension represented in implementations like `lewislulu/llm-wiki-skill`.\n+\n+**References:**\n+- https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\n+- https://github.com/lewislulu/llm-wiki-skill/blob/main/llm-wiki/SKILL.md\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/llm-wiki-overview.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 2.6s)
+
+Done — I wrote and saved the overview article to:
+
+- `projects/llm-wiki-dev/llm-wiki-overview.md`
+
+It includes the five operations and source references throughout, as requested.
+
+---
+
+## User
+
+move the skill to a subdirectory. i want to twst different verions of the llm wiki and compare them
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 19.0s)
+
+_Thinking:_
+
+**Planning file operations**
+
+I’m getting ready to create a new file named SKILL.md in the .opencode/skills/llm-wiki-v1 directory, using the same content but potentially updating the description. Then, I might need to delete the old SKILL.md from the .opencode/skills/llm-wiki directory, which should be straightforward. I could also add a README in a new subdirectory for structure. But I have to be mindful of using the right tools for these file operations, rather than using bash directly. Let's give this a shot!
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki/SKILL.md\n*** Move to: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-v1/SKILL.md\n@@\n-name: llm-wiki\n-description: Build and maintain a Karpathy-style LLM wiki with persistent markdown knowledge, structured ingest/query/lint/audit workflows, and OpenCode-native project conventions.\n+name: llm-wiki-v1\n+description: Baseline LLM wiki skill for versioned comparison of compile/ingest/query/lint/audit workflows in OpenCode.\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/.opencode/skills/llm-wiki-v1/SKILL.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 4.6s)
+
+_Thinking:_
+
+
+
+**Tool: glob**
+
+**Input:**
+```json
+{
+  "pattern": ".opencode/skills/*/SKILL.md",
+  "path": "/home/oli/newwork/dev/projects/llm-wiki-dev"
+}
+```
+
+**Output:**
+```
+/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-v1/SKILL.md
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-v1/SKILL.md",
+  "offset": 1,
+  "limit": 12
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-v1/SKILL.md</path>
+<type>file</type>
+<content>
+1: ---
+2: name: llm-wiki-v1
+3: description: Baseline LLM wiki skill for versioned comparison of compile/ingest/query/lint/audit workflows in OpenCode.
+4: compatibility: opencode
+5: license: MIT
+6: ---
+7: 
+8: # LLM Wiki for OpenCode
+9: 
+10: ## Purpose
+11: 
+12: Use this skill when building a persistent markdown knowledge base where the LLM incrementally compiles source material into structured wiki pages.
+
+(Showing lines 1-12 of 145. Use offset=13 to continue.)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 3.6s)
+
+_Thinking:_
+
+
+
+Done — I moved it into a versioned subdirectory so you can compare variants cleanly.
+
+- Old: `.opencode/skills/llm-wiki/SKILL.md`
+- New: `.opencode/skills/llm-wiki-v1/SKILL.md`
+- Updated skill name in frontmatter to match directory: `name: llm-wiki-v1`
+
+This is now ready for side-by-side testing with additional versions like:
+
+1. `.opencode/skills/llm-wiki-v2/SKILL.md`
+2. `.opencode/skills/llm-wiki-v3/SKILL.md`
+
+If you want, I can scaffold `v2` and `v3` from `v1` with a small changelog block in each so comparisons are easier.
+
+---
+
+## User
+
+no create a folder llm-wiki-skill-lewislulu and move the skill to that folder
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 5.2s)
+
+_Thinking:_
+
+**Executing file move**
+
+I need to move a file from its current path at .opencode/skills/llm-wiki-v1/SKILL.md to a new folder called llm-wiki-skill-lewislulu. This folder is likely under the workspace root, but I wonder if I might need to create a subfolder. 
+
+I think I’ll go with something like .opencode/skills/llm-wiki-skill-lewislulu/SKILL.md. I'll update the frontmatter name accordingly and apply the necessary patches to complete the move. Let’s get this done!
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-v1/SKILL.md\n*** Move to: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill-lewislulu/SKILL.md\n@@\n-name: llm-wiki-v1\n-description: Baseline LLM wiki skill for versioned comparison of compile/ingest/query/lint/audit workflows in OpenCode.\n+name: llm-wiki-skill-lewislulu\n+description: Lewislulu-derived LLM wiki skill for workflow and version comparison in OpenCode.\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill-lewislulu/SKILL.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 2.7s)
+
+**Tool: glob**
+
+**Input:**
+```json
+{
+  "pattern": ".opencode/skills/*/SKILL.md",
+  "path": "/home/oli/newwork/dev/projects/llm-wiki-dev"
+}
+```
+
+**Output:**
+```
+/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill-lewislulu/SKILL.md
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill-lewislulu/SKILL.md",
+  "offset": 1,
+  "limit": 8
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill-lewislulu/SKILL.md</path>
+<type>file</type>
+<content>
+1: ---
+2: name: llm-wiki-skill-lewislulu
+3: description: Lewislulu-derived LLM wiki skill for workflow and version comparison in OpenCode.
+4: compatibility: opencode
+5: license: MIT
+6: ---
+7: 
+8: # LLM Wiki for OpenCode
+
+(Showing lines 1-8 of 145. Use offset=9 to continue.)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 3.5s)
+
+Done — moved.
+
+- New folder: `.opencode/skills/llm-wiki-skill-lewislulu/`
+- Skill file: `.opencode/skills/llm-wiki-skill-lewislulu/SKILL.md`
+- Updated frontmatter `name` to `llm-wiki-skill-lewislulu` so it stays valid for OpenCode skill discovery.
+
+---
+
+## User
+
+no move the .opencode folder to the llm-wiki... folder
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 9.9s)
+
+_Thinking:_
+
+**Parsing user intent**
+
+I need to figure out what the user wants with their request to move the .opencode folder to the llm-wiki folder. It looks like they have a workspace project named llm-wiki-dev, which includes .opencode/skills/llm-wiki-skill-lewislulu/SKILL.md. The user probably wants the entire .opencode folder moved into another folder, likely named llm-wiki-skill-lewislulu. I should check the directory tree to confirm this without asking unless I'm unsure. Inspecting with a read directory or glob function will help!
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "offset": 1,
+  "limit": 200
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev</path>
+<type>directory</type>
+<entries>
+.opencode/
+lewislulu-llm-wiki-skill/
+llm-wiki-overview.md
+
+(3 entries)
+</entries>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode",
+  "offset": 1,
+  "limit": 200
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode</path>
+<type>directory</type>
+<entries>
+skills/
+
+(1 entries)
+</entries>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 8.3s)
+
+_Thinking:_
+
+**Considering file operations**
+
+The user wants to move the entire .opencode folder, and it seems like using a bash `mv` command might be the easiest way. But I remember a developer saying to avoid bash for file operations and to use specialized tools instead. I think about using `apply_patch` to move the file and delete the original. There’s just one file, SKILL, in the .opencode/skills/llm-wiki-skill-lewislulu folder, so I’ll check if there’s an existing .opencode directory there.
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/lewislulu-llm-wiki-skill",
+  "offset": 1,
+  "limit": 200
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/lewislulu-llm-wiki-skill</path>
+<type>directory</type>
+<entries>
+.git/
+.gitignore
+audit-shared/
+llm-wiki/
+plugins/
+README.md
+web/
+
+(7 entries)
+</entries>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 24.0s)
+
+_Thinking:_
+
+**Considering directory operations**
+
+I’m pondering whether we can remove directories using a patch delete command, but it seems I might need bash for that. It feels like there’s no alternative, so maybe it’s acceptable. I’m thinking I should check the parent directory first, as the commands require verification before creating or moving directories. My plan is to do it sequentially, checking with `ls` before proceeding with the `mv` command. It feels a bit risky but might be necessary.
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "ls -a \"/home/oli/newwork/dev/projects/llm-wiki-dev\" && ls -a \"/home/oli/newwork/dev/projects/llm-wiki-dev/lewislulu-llm-wiki-skill\" && mv \"/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode\" \"/home/oli/newwork/dev/projects/llm-wiki-dev/lewislulu-llm-wiki-skill/.opencode\"",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "description": "Verify directories and move .opencode into clone"
+}
+```
+
+**Output:**
+```
+.
+..
+.opencode
+lewislulu-llm-wiki-skill
+llm-wiki-overview.md
+.
+..
+.git
+.gitignore
+README.md
+audit-shared
+llm-wiki
+plugins
+web
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 66.0s)
+
+_Thinking:_
+
+**Verifying results**
+
+I need to verify the result by checking the directories. It's possible that I might miss something if I don't double-check. I think this is a simple yet essential step, making sure everything lines up correctly with my findings. I want to be sure that the data I'm working with is accurate and complete. So, I'll go ahead and take a look at those directories to confirm the results. Let's see what I find!
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "offset": 1,
+  "limit": 200
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev</path>
+<type>directory</type>
+<entries>
+lewislulu-llm-wiki-skill/
+llm-wiki-overview.md
+
+(2 entries)
+</entries>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/lewislulu-llm-wiki-skill/.opencode",
+  "offset": 1,
+  "limit": 200
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/lewislulu-llm-wiki-skill/.opencode</path>
+<type>directory</type>
+<entries>
+skills/
+
+(1 entries)
+</entries>
+```
+
+---
+
+## User
+
+clone and create another dir for nvk/llm-wiki
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.0s)
+
+_Thinking:_
+
+**Preparing to clone repository**
+
+I need to respond to a new user's message about cloning the nvk/llm-wiki repository. My plan is to check if the path exists using the bash command `ls` before proceeding. It seems the user wants to clone the repo into a folder named nvk-llm-wiki, probably in my workspace at /home/oli/newwork/dev/projects/llm-wiki-dev. If the directory exists, I'll need to handle that too. Let's prepare to run the commands!
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "ls -a \"/home/oli/newwork/dev/projects/llm-wiki-dev\" && git clone \"https://github.com/nvk/llm-wiki.git\" \"/home/oli/newwork/dev/projects/llm-wiki-dev/nvk-llm-wiki\"",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "description": "List workspace then clone nvk llm-wiki repo"
+}
+```
+
+**Output:**
+```
+.
+..
+lewislulu-llm-wiki-skill
+llm-wiki-overview.md
+Cloning into '/home/oli/newwork/dev/projects/llm-wiki-dev/nvk-llm-wiki'...
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.6s)
+
+_Thinking:_
+
+**Considering directory management**
+
+I’m thinking I might need to create another directory, possibly by cloning an existing one. It seems logical to verify the directory afterward. I should also read the directory contents quickly to make sure everything looks right. It’s important to ensure I’m on the right track with organizing my files! So, I'll proceed step by step, double-checking along the way to prevent any mix-ups or confusion.
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "offset": 1,
+  "limit": 200
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev</path>
+<type>directory</type>
+<entries>
+lewislulu-llm-wiki-skill/
+llm-wiki-overview.md
+nvk-llm-wiki/
+
+(3 entries)
+</entries>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 185.9s)
+
+Done — I cloned `nvk/llm-wiki` into a separate directory:
+
+- `nvk-llm-wiki/`
+
+Current workspace now has:
+
+- `lewislulu-llm-wiki-skill/`
+- `nvk-llm-wiki/`
+- `llm-wiki-overview.md`
+
+
+
+---
+
+## User
+
+move the external versions to a foldwr references
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 10.9s)
+
+_Thinking:_
+
+**Moving directories in bash**
+
+I need to move directories into a "references" folder within the workspace. First, I should verify if the parent directory exists before using `mkdir`, following the instructions. I'll use bash for this, since terminal operations are allowed for moving directories. First, I’ll list the contents of the workspace with `ls`, then I’ll create the "references" directory if it's missing, using commands sequentially with `&&`. Alright, let's get started with bash!
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "ls -a \"/home/oli/newwork/dev/projects/llm-wiki-dev\" && mkdir -p \"/home/oli/newwork/dev/projects/llm-wiki-dev/references\" && mv \"/home/oli/newwork/dev/projects/llm-wiki-dev/lewislulu-llm-wiki-skill\" \"/home/oli/newwork/dev/projects/llm-wiki-dev/references/\" && mv \"/home/oli/newwork/dev/projects/llm-wiki-dev/nvk-llm-wiki\" \"/home/oli/newwork/dev/projects/llm-wiki-dev/references/\" && ls -a \"/home/oli/newwork/dev/projects/llm-wiki-dev/references\"",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "description": "Create references folder and move external repos"
+}
+```
+
+**Output:**
+```
+.
+..
+lewislulu-llm-wiki-skill
+llm-wiki-overview.md
+nvk-llm-wiki
+.
+..
+lewislulu-llm-wiki-skill
+nvk-llm-wiki
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.6s)
+
+Done — moved both external versions into `references/`.
+
+New structure:
+
+- `references/lewislulu-llm-wiki-skill/`
+- `references/nvk-llm-wiki/`
+- `llm-wiki-overview.md` (unchanged)
+
+---
+
+## User
+
+takenthe references into account and create our own llm-wiki-skill. 
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 4.9s)
+
+_Thinking:_
+
+**Implementing skill request**
+
+I need to implement the user request in the workspace, starting by inspecting the references and contents to potentially create my own skill in the .opencode/skills directory. It seems .opencode has now moved to the references/lewislulu repo. So, I might create a new skill named llm-wiki-skill under .opencode/skills. I'll need to read the reference documents and compare them, using glob/read tools instead of bash for file operations. I also need to gather reference files from both repos and perform a parallel read on key README and SKILL files if they exist.
+
+**Tool: glob**
+
+**Input:**
+```json
+{
+  "pattern": "references/**/SKILL.md",
+  "path": "/home/oli/newwork/dev/projects/llm-wiki-dev"
+}
+```
+
+**Output:**
+```
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/plugins/llm-wiki-opencode/skills/wiki-manager/SKILL.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/plugins/llm-wiki/skills/wiki/SKILL.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/claude-plugin/skills/wiki-manager/SKILL.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/lewislulu-llm-wiki-skill/.opencode/skills/llm-wiki-skill-lewislulu/SKILL.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/lewislulu-llm-wiki-skill/llm-wiki/SKILL.md
+```
+
+**Tool: glob**
+
+**Input:**
+```json
+{
+  "pattern": "references/**/README.md",
+  "path": "/home/oli/newwork/dev/projects/llm-wiki-dev"
+}
+```
+
+**Output:**
+```
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/tests/README.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/plugins/llm-wiki-opencode/README.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/README.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/references/lewislulu-llm-wiki-skill/README.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 18.7s)
+
+_Thinking:_
+
+**Reading skill files**
+
+I need to check relevant skill files, focusing on two specific ones: nvk and lewis, plus the README for an overview. It’s crucial to understand all the necessary details! I’ll make sure I review these files thoroughly to grasp the context and any important information. Let’s not skip any sections; I want to ensure I gather everything I need so I can move forward effectively.
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/references/lewislulu-llm-wiki-skill/llm-wiki/SKILL.md",
+  "offset": 1,
+  "limit": 220
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/references/lewislulu-llm-wiki-skill/llm-wiki/SKILL.md</path>
+<type>file</type>
+<content>
+1: ---
+2: name: llm-wiki
+3: description: >-
+4:   Build and maintain a Karpathy-style LLM knowledge base — a self-compiling
+5:   Obsidian markdown wiki where an Agent ingests raw sources, compiles
+6:   cross-linked concept/entity/summary pages, answers queries against the
+7:   corpus, lints the graph for health, and audits in-context human feedback
+8:   filed from Obsidian or the local web viewer. Use when (1) scaffolding a
+9:   new knowledge base for any research topic, (2) ingesting
+10:   articles/papers/PDFs/web pages into raw/, (3) compiling or restructuring
+11:   wiki articles from existing raw material, (4) answering questions
+12:   against the wiki and filing durable answers back, (5) running lint
+13:   passes for dead links / orphan pages / coverage gaps / audit shape,
+14:   (6) processing human feedback from the audit/ directory and applying
+15:   corrections. Not for general note-taking, daily journals, or non-wiki
+16:   Obsidian use.
+17: ---
+18: 
+19: # LLM Wiki — Karpathy Knowledge Base Pattern
+20: 
+21: > **Experimental skill — iterating.**
+22: > Authored by Lewis Liu (lylewis@outlook.com) · Inspired by [Karpathy's llm-wiki Gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+23: 
+24: ## Core idea
+25: 
+26: Instead of RAG (re-retrieving raw docs on every query), the LLM **compiles** raw sources into a persistent, cross-linked wiki. Every ingest, query, lint, and audit pass makes the wiki richer. Knowledge compounds — and the human stays in the loop via a structured feedback channel instead of ad-hoc corrections that get lost.
+27: 
+28: - **You** own: sourcing raw material, asking good questions, steering direction, filing feedback on anything the AI got wrong.
+29: - **LLM** owns: all writing, cross-referencing, filing, bookkeeping, and acting on your feedback.
+30: 
+31: The wiki is a living artifact with **five operations** — `compile`, `ingest`, `query`, `lint`, `audit`. Every session starts by reading `CLAUDE.md` and `wiki/index.md`.
+32: 
+33: ## Directory layout
+34: 
+35: ```
+36: <wiki-root>/
+37: ├── CLAUDE.md          ← Schema: scope, conventions, current articles, gaps
+38: ├── log/               ← Per-day operation log (one file per day)
+39: │   ├── 20260409.md
+40: │   └── 20260410.md
+41: ├── audit/             ← Human feedback inbox (one file per comment)
+42: │   ├── 20260409-143022-claude-code-size.md
+43: │   └── resolved/      ← Processed feedback, archived with resolution notes
+44: ├── raw/               ← Immutable source documents (LLM reads, never writes)
+45: │   ├── articles/
+46: │   ├── papers/
+47: │   ├── notes/
+48: │   └── refs/          ← Pointer files for large binaries kept outside raw/
+49: ├── wiki/              ← LLM-generated knowledge (LLM writes, you read)
+50: │   ├── index.md       ← Master catalog — every page, structured by category
+51: │   ├── concepts/      ← Concept/topic pages (split into subfolders when >1200 words)
+52: │   ├── entities/      ← People, tools, papers, organizations
+53: │   └── summaries/     ← Per-source summary pages
+54: └── outputs/
+55:     └── queries/       ← Query answers (promote durable ones to wiki/)
+56: ```
+57: 
+58: `CLAUDE.md` is the **schema file** — the single most important configuration. It tells the LLM the wiki's scope, naming conventions, current article list, open questions, and research gaps. Read `references/schema-guide.md` for what to put in it. Read it at the start of every session.
+59: 
+60: ## Core principles
+61: 
+62: Four rules govern everything below. If a future instruction contradicts one, flag it to the user before acting.
+63: 
+64: ### 1. Divide and conquer
+65: 
+66: A single concept page should **never** try to cover a complex topic end-to-end. Target: **400–1200 words per page**. When a topic would blow past that:
+67: 
+68: - Create a subfolder: `wiki/concepts/<topic>/`
+69: - Put a short index page at `wiki/concepts/<topic>/index.md` — definition, list of sub-pages, one-line summaries
+70: - Put each aspect in its own file: `wiki/concepts/<topic>/<aspect>.md`
+71: - In `wiki/index.md`, show the hierarchy via indented bullets
+72: 
+73: Example layout (from a real wiki):
+74: ```
+75: wiki/tech/claude-code/
+76: ├── index.md                         (overview + links to sub-pages)
+77: ├── Claude_Code_Architecture.md
+78: ├── Claude_Code_Agent_Framework.md
+79: ├── Claude_Code_Bridge_System.md
+80: ├── Claude_Code_Query_Engine.md
+81: ├── Claude_Code_Skills_Plugins.md
+82: ├── Claude_Code_State_Management.md
+83: └── Claude_Code_Tool_System.md
+84: ```
+85: 
+86: One fat file covering all seven aspects would be unreadable and unlinkable. Seven focused files + an index page give you navigation, selective reading, clean backlinks, and small audit targets.
+87: 
+88: ### 2. Mermaid for diagrams, KaTeX for formulas
+89: 
+90: - **Any flow, sequence, hierarchy, or state diagram** must be written in mermaid — never ASCII art. ASCII boxes rot fast and are impossible to annotate.
+91:   ````
+92:   ```mermaid
+93:   flowchart LR
+94:       A[raw/article.md] --> B[summary]
+95:       B --> C[concept page]
+96:       C --> D[index.md]
+97:   ```
+98:   ````
+99: - **Any formula** must be written in KaTeX: inline `$f(x) = \sum_i w_i x_i$` or block `$$...$$`.
+100: 
+101: Both render in the web viewer (server-side KaTeX, client-side mermaid) and in Obsidian with default settings.
+102: 
+103: ### 3. Raw file policy
+104: 
+105: Small text-based sources (md, txt, small pdfs, small images) → copy into `raw/<subfolder>/`.
+106: 
+107: Large binaries (videos, model weights, installers, datasets, large PDFs >10 MB) → **do not copy**. Instead:
+108: 
+109: - Create a pointer file at `raw/refs/<slug>.md` with:
+110:   ```yaml
+111:   ---
+112:   kind: ref
+113:   external_path: /Volumes/external/models/llama-3-70b/
+114:   size: ~140 GB
+115:   ---
+116:   ```
+117:   followed by a short description of what it is and why it matters to this wiki.
+118: - Wiki pages cite `[[raw/refs/<slug>]]` exactly like any other source.
+119: 
+120: This keeps the wiki repo git-friendly and portable.
+121: 
+122: ### 4. Audit is the human feedback surface
+123: 
+124: The wiki is AI-written; it will be wrong sometimes. The raw sources are human-written; they will contradict each other. The `audit/` directory is how humans correct both without losing the corrections in chat history.
+125: 
+126: - Humans file feedback via the Obsidian plugin or the web viewer. Each feedback is one file in `audit/` with YAML frontmatter (anchor, target, severity) and a markdown body.
+127: - The AI **must** periodically run the `audit` op — never silently ignore `audit/*.md` files.
+128: - When feedback is applied, the file moves to `audit/resolved/` with a `# Resolution` section appended and a log entry recorded in `log/YYYYMMDD.md`.
+129: 
+130: See `references/audit-guide.md` for the full file format and processing workflow.
+131: 
+132: ---
+133: 
+134: ## The five operations
+135: 
+136: Every action on the wiki is one of these five. Each appends an entry to the current day's log file (`log/YYYYMMDD.md`).
+137: 
+138: ### 1. `compile`
+139: 
+140: (Re)structure wiki content from existing `raw/` material — including splitting oversized pages, merging near-duplicates, and rebuilding `index.md`.
+141: 
+142: **When to run**: after a big ingest batch, when an existing page has outgrown 1200 words, when `index.md` no longer reflects reality, or when the user says "clean up the wiki".
+143: 
+144: **Steps**:
+145: 1. Read `CLAUDE.md`, `wiki/index.md`, and every file in the target subtree.
+146: 2. For each page over ~1200 words: plan a split into `concepts/<topic>/` with an index + sub-pages. Confirm the plan with the user before writing.
+147: 3. For each pair of near-duplicate pages: propose a merge. Confirm, then rewrite.
+148: 4. Regenerate `wiki/index.md` so every page is listed exactly once.
+149: 5. Log: `## [HH:MM] compile | <what you did — files touched, splits, merges>`
+150: 
+151: ### 2. `ingest`
+152: 
+153: Add a new source. **One source typically touches 5–15 wiki pages.**
+154: 
+155: **Steps**:
+156: 1. Save source to the right subfolder:
+157:    - web article → `raw/articles/<slug>.md`
+158:    - paper → `raw/papers/<slug>.md` (extracted text for big PDFs)
+159:    - note → `raw/notes/<slug>.md`
+160:    - large binary → `raw/refs/<slug>.md` pointer file (see raw file policy)
+161: 2. Read the source in full.
+162: 3. Create `wiki/summaries/<slug>.md` (200–400 words — key takeaways, not a rewrite; see `references/article-guide.md`).
+163: 4. Create or update relevant concept pages in `wiki/concepts/`. Respect divide-and-conquer: if a concept page would exceed 1200 words, split instead of cramming.
+164: 5. Create or update entity pages in `wiki/entities/` for any new people / tools / papers / organizations referenced.
+165: 6. Update `wiki/index.md` so the new pages appear under the right category.
+166: 7. Log: `## [HH:MM] ingest | <slug> — <one-line description> (touched N pages)`
+167: 
+168: ### 3. `query`
+169: 
+170: Answer a question **grounded in the wiki**, not general knowledge.
+171: 
+172: **Steps**:
+173: 1. Read `wiki/index.md`. Scan for relevant pages by category.
+174: 2. Read the identified pages in full; follow one level of wikilinks.
+175: 3. If the wiki doesn't have enough material, say so and suggest what to ingest next instead of making something up.
+176: 4. Synthesize the answer, citing pages inline with `[[Page Name]]`.
+177: 5. Save to `outputs/queries/<YYYY-MM-DD>-<question-slug>.md`.
+178: 6. If the answer is durable (a comparison, analysis, or new synthesis) → promote a cleaned-up version to `wiki/concepts/`, add to `index.md`.
+179: 7. Log: `## [HH:MM] query | <question-slug>` (and a separate `## [HH:MM] promote | ...` line if promoted).
+180: 
+181: ### 4. `lint`
+182: 
+183: Health check. Run:
+184: 
+185: ```bash
+186: python3 scripts/lint_wiki.py <wiki-root>
+187: ```
+188: 
+189: The script reports:
+190: - **Dead wikilinks** — `[[Target]]` where `Target.md` doesn't exist
+191: - **Orphan pages** — pages with no inbound wikilinks
+192: - **Missing index entries** — pages not listed in `wiki/index.md`
+193: - **Frequently-linked missing pages** — `[[X]]` referenced 3+ times but no page
+194: - **log/ shape** — stray files or wrong filenames in `log/`
+195: - **audit/ shape** — malformed YAML frontmatter in `audit/*.md`
+196: - **Audit target resolution** — every open audit's `target` file must exist
+197: 
+198: For each issue, propose a fix, confirm with the user, then apply. Log: `## [HH:MM] lint | <N> issues found, <M> fixed`.
+199: 
+200: ### 5. `audit`
+201: 
+202: Process human feedback from `audit/`.
+203: 
+204: **Steps**:
+205: 1. Run `python3 scripts/audit_review.py <wiki-root> --open` to get a grouped list.
+206: 2. For each open audit, read the file. Use the `anchor_before` / `anchor_text` / `anchor_after` window to locate the exact range in the target file (line numbers may have drifted).
+207: 3. Decide the action:
+208:    - **Accept**: apply the correction to the target file.
+209:    - **Partially accept**: apply what makes sense, note the rest in the resolution.
+210:    - **Reject**: explain why in the resolution — the feedback may be based on a misreading of scope or a contradictory source.
+211:    - **Defer**: add to `CLAUDE.md` "Open research questions" and leave the audit in place with a comment.
+212: 4. For applied audits, append a `# Resolution` section to the audit file:
+213:    ```markdown
+214:    # Resolution
+215: 
+216:    2026-04-10 · accepted.
+217:    Fixed the file count (was "~1,900", corrected to "~1,800" per commit abc123).
+218:    Updated: tech/Claude_Code.md lines 47–48.
+219:    ```
+220: 5. Move the file from `audit/` to `audit/resolved/`. Filename unchanged.
+
+(Showing lines 1-220 of 321. Use offset=221 to continue.)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/plugins/llm-wiki-opencode/skills/wiki-manager/SKILL.md",
+  "offset": 1,
+  "limit": 260
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/plugins/llm-wiki-opencode/skills/wiki-manager/SKILL.md</path>
+<type>file</type>
+<content>
+1: ---
+2: name: wiki-manager
+3: description: >
+4:   LLM-compiled knowledge base manager for OpenCode. Use it to initialize, ingest,
+5:   import source collections, track inventory, index datasets, compile, query, lint, audit, research, plan, and generate outputs from topic-scoped wikis.
+6:   Activates when the user mentions wiki workflows, knowledge-base management,
+7:   ingestion, collection ingestion, import wiki, inventory, source queue,
+8:   candidate list, watch list, backlog, dataset, large data, data registry,
+9:   dataset manifest, compilation, querying, linting, audit, research, librarian,
+10:   scan quality, article quality, content review, output drift, provenance,
+11:   lessons learned, implementation plan, or uses wiki-related shorthand in a repo
+12:   with .wiki/, ~/wiki/, or a configured hub path.
+13: ---
+14: 
+15: # LLM Wiki Manager
+16: 
+17: You manage an LLM-compiled knowledge base. Source documents are ingested into `raw/`, then incrementally compiled into a wiki of interconnected markdown articles. OpenCode is both the compiler and the query engine.
+18: 
+19: ## OpenCode Integration Notes
+20: 
+21: This skill is loaded as an instruction file. OpenCode does not have Claude-style `/wiki:*` slash commands or Codex-style `@wiki` invocations. Treat any `/wiki:*` references in this skill and its references as shorthand for the equivalent natural-language request. For example, `/wiki:compile` means the user is asking you to compile the wiki.
+22: 
+23: OpenCode's built-in tools (`read`, `write`, `edit`, `glob`, `grep`, `bash`, `webfetch`, `websearch`) map directly to the tools this skill requires. Web search requires `OPENCODE_ENABLE_EXA=1` in the environment.
+24: 
+25: **Permissions**: OpenCode sandboxes file access to the project directory. The wiki hub at `~/wiki/` is external. Add `external_directory` permissions in `opencode.json` to allow access: `{ "permission": { "external_directory": { "~/wiki/**": "allow", "~/.config/llm-wiki/**": "allow" } } }`. If your configured hub uses another absolute path (for example iCloud Drive), add that path too. Alternatively, use `--local` mode to keep everything in `.wiki/` inside the project.
+26: 
+27: ## Hub Path
+28: 
+29: **Resolution**: At the start of every operation, resolve **HUB** by reading `~/.config/llm-wiki/config.json` first. If it has `resolved_path`, use that value directly. If it has only `hub_path`, expand the leading `~` only (not tildes in `com~apple~CloudDocs`), set HUB, and write `resolved_path` back. If no config file exists, try `~/wiki/_index.md` as a fallback. See [references/hub-resolution.md](references/hub-resolution.md) for the full protocol.
+30: 
+31: The config file looks like:
+32: 
+33: ```json
+34: {
+35:   "hub_path": "~/Library/Mobile Documents/com~apple~CloudDocs/wiki",
+36:   "resolved_path": "/Users/jane/Library/Mobile Documents/com~apple~CloudDocs/wiki"
+37: }
+38: ```
+39: 
+40: If no config exists and `~/wiki/` has `_index.md`, that works too. But config is checked first — in sandboxed environments `~/wiki/` may not be accessible. All references to `~/wiki/` below mean HUB.
+41: 
+42: ## Wiki Location
+43: 
+44: **Topic sub-wikis are the default.** HUB is a hub — content lives in `HUB/topics/<name>/`. Each topic gets isolated indexes, sources, and articles. This keeps queries focused and prevents unrelated topics from polluting each other's search space.
+45: 
+46: Resolution order:
+47: 
+48: 1. `--local` flag → `.wiki/` in current project
+49: 2. `--wiki <name>` flag → named wiki from `HUB/wikis.json`
+50: 3. Current directory has `.wiki/` → use it
+51: 4. Otherwise → HUB (the hub)
+52: 
+53: When a command targets the hub and the hub has no content, suggest creating a topic sub-wiki instead.
+54: 
+55: See [references/wiki-structure.md](references/wiki-structure.md) for the complete directory layout and all file format conventions.
+56: 
+57: ## Core Principles
+58: 
+59: 1. **Indexes are a derived cache.** The `.md` files and their YAML frontmatter are the source of truth. `_index.md` files are a cached view rebuilt on read when stale. Always read indexes first for navigation — but before trusting one, stale-check it (file count vs row count). See [references/indexing.md](references/indexing.md) for the Derived Index Protocol.
+60: 
+61: 2. **Raw is immutable.** Once ingested into `raw/`, sources are never modified. They are a record of what was ingested and when. All synthesis happens in `wiki/`.
+62: 
+63: 3. **Articles are synthesized, not copied.** A wiki article draws from multiple sources, contextualizes, and connects to other concepts. Think textbook, not clipboard.
+64: 
+65: 4. **Dual-linking for Obsidian + OpenCode.** Cross-references use both `[[wikilink]]` (for Obsidian graph view) and standard markdown `[text](path)` (for OpenCode navigation) on the same line: `[[slug|Name]] ([Name](../category/slug.md))`. Bidirectional when it makes sense.
+66: 
+67: 5. **Frontmatter is structured data.** Every `.md` file has YAML frontmatter with title, summary, tags, dates. This makes the wiki searchable without full-text scans.
+68: 
+69: 6. **Incremental over wholesale.** Compilation processes only new sources by default. Full recompilation is expensive and explicit (`--full`).
+70: 
+71: 7. **Honest gaps.** When answering questions, if the wiki doesn't have the answer, say so. Never hallucinate. Suggest what to ingest to fill the gap.
+72: 
+73: 8. **Multi-wiki awareness.** When querying, answer from the primary wiki first. Then peek at sibling wiki indexes (via `HUB/wikis.json`) for relevant overlap. Flag connections but never merge content across wikis.
+74: 
+75: 9. **Chunk large writes.** Never create files longer than ~200 lines in a single Write call — the API stream idles during large generations, causing timeout errors. Write the skeleton (frontmatter + headers + first section) first, then use sequential Edit calls to append remaining sections. For plans, articles, and raw notes: write one section per tool call.
+76: 
+77: ## Ambient Behavior
+78: 
+79: When this skill activates outside of an explicit wiki-related request:
+80: 
+81: 1. Resolve the hub path (see Hub Path section above), then check if `HUB/_index.md` or `.wiki/_index.md` exists
+82: 2. Read the master `_index.md` to assess if the wiki might cover the user's question
+83: 3. If relevant content exists → read the relevant articles and answer with citations
+84: 4. If no relevant content → answer normally, optionally suggest: "This could be added to your wiki — just ask me to ingest it."
+85: 5. When peeking at sibling wikis, only read their `_index.md` — do not read full articles unless the user asks
+86: 
+87: When giving any boot, resume, or "where you left off" briefing, start with the
+88: active wiki identity: `<wiki-name> booted from <wiki-root-path>`. Prefer the
+89: `config.md` title; for local `.wiki/` projects, fall back to the parent
+90: directory name; for `HUB/topics/<slug>/`, fall back to the slug. Include this
+91: line even when there is nothing in flight to resume.
+92: 
+93: If the user asks whether they can trust a wiki artifact, requests an audit,
+94: mentions provenance or drift, or asks for content verification beyond a normal
+95: query, use the Audit workflow instead of treating it as plain Q&A.
+96: 
+97: ## Workflows
+98: 
+99: ### Ingestion
+100: See [references/ingestion.md](references/ingestion.md).
+101: Flow: Source (URL/file/text/tweet/inbox) → fetch/read → extract metadata → write to `raw/{type}/` → update indexes → suggest compile if many uncompiled.
+102: 
+103: ### Collection Ingestion
+104: See [references/ingestion.md](references/ingestion.md) § Collection Ingestion.
+105: Flow: structured upstream collection (Git repo, BIP-style proposal set, MediaWiki dump/API) → upstream item inventory → write a `raw/repos/` manifest plus immutable child sources → rebuild raw indexes → optionally compile synthesized clusters. Use `/wiki:ingest-collection` for bulk imports; never recursively crawl HTML.
+106: 
+107: ### Inventory
+108: See [references/inventory.md](references/inventory.md).
+109: Flow: Run an inventory fit check → track durable wiki-adjacent things (items, ingest candidates, entities, corpora, questions, tasks, watch items) as markdown records under `inventory/` → answer list requests from indexes/frontmatter as compact chat tables or bullets → optionally save derived views under `inventory/views/` → optionally convert legacy queue-like outputs through explicit dry-run-first migration. Inventory migration is additive and human-gated. Be explicit when something is too small for inventory, too large and should be a dataset/collection, or outside wiki scope.
+110: 
+111: ### Dataset Registry
+112: See [references/datasets.md](references/datasets.md).
+113: Flow: Keep large or external datasets out of the wiki while indexing them through `datasets/<slug>/MANIFEST.md` → store locations, schema notes, small samples, profiles, and query recipes → answer list requests from `datasets/_index.md` plus manifest frontmatter only → optionally convert legacy dataset outputs through explicit dry-run-first migration. Dataset migration is additive and never copies the underlying data into the wiki.
+114: 
+115: ### Compilation
+116: See [references/compilation.md](references/compilation.md).
+117: Flow: Survey uncompiled sources → plan articles → classify (concept/topic/reference) → write/update articles with cross-references → update all indexes.
+118: 
+119: ### Query
+120: Flow: Read `_index.md` → identify relevant articles by summary/tag → read articles → follow See Also links → Grep for additional matches → synthesize answer with citations → note gaps → peek sibling wikis. Supports `--resume` to reload context after a session break — reads session files, recent log entries, wiki stats, and last-updated articles to produce a "where you left off" briefing.
+121: 
+122: ### Linting
+123: See [references/linting.md](references/linting.md).
+124: Flow: Check structure → indexes → links → content → coverage → report → optionally auto-fix.
+125: 
+126: ### Audit
+127: See [references/audit.md](references/audit.md).
+128: Flow: Run or reuse the librarian pass → inspect artifact dependency chains across `output/`, `wiki/`, and `raw/` → escalate with fresh source checks and targeted research until trust verdicts converge → write `.audit/REPORT.md`.
+129: 
+130: ### Search
+131: Flow: Scan indexes for summary/tag matches → Grep full-text → rank results → present.
+132: 
+133: ### Cross-Workflow Inventory Awareness
+134: Inventory is first-class operational state, not a silo. Other workflows should
+135: notice it without treating it as factual evidence:
+136: 
+137: - Ingest and ingest-collection: if the user wants to track before ingesting, or
+138:   a source is too large/ambiguous, suggest an inventory record. When an
+139:   inventory candidate is ingested, link the resulting raw or collection
+140:   manifest from the record.
+141: - Dataset: link dataset manifests to inventory records when the user cares
+142:   about next actions, priority, acceptance state, or why the corpus matters.
+143: - Compile and query: use inventory to surface gaps, candidates, and next
+144:   actions, but cite raw/wiki sources for factual claims.
+145: - Research, audit, librarian, refresh, plan, and output: propose inventory
+146:   records for durable follow-ups, stale items, source queues, or watch lists,
+147:   but show a sample before creating a larger backlog.
+148: 
+149: ### Output
+150: Flow: Gather relevant articles → generate artifact (summary/report/slides/etc) → save to `output/` → update indexes.
+151: 
+152: ### Lessons Learned (ll)
+153: Flow: Scan session for error→fix patterns, corrections, discoveries → extract structured lessons → write to `raw/notes/` with `type: lessons-learned` → optionally update relevant articles → optionally suggest CLAUDE.md rules.
+154: 
+155: ## Links: File Paths and URLs
+156: 
+157: Terminal links break when they wrap to a second line. Rules for all wiki operations:
+158: 
+159: 1. **Full absolute paths** — expand `~`, HUB, and all relative segments. Relative paths are not clickable.
+160: 2. **Markdown link syntax for URLs** — use `[short text](url)`, never bare long URLs that wrap and break.
+161: 3. **No indentation before links** — indentation eats terminal width. Put links flush-left on their own line.
+162: 4. **One link per line** — don't embed a long path mid-sentence. Break it out:
+163:    ```
+164:    Saved to:
+165:    /Users/name/wiki/topics/my-topic/output/report-2026-04-08.md
+166:    ```
+167: 
+168: See `references/research-infrastructure.md` § Agent Prompt Templates for examples. Applies to ingest, compile, research, output, assess.
+169: 
+170: ## Activity Log
+171: 
+172: Every wiki operation appends to `log.md` in the wiki root. Format: `## [YYYY-MM-DD] operation | Description`. See [references/wiki-structure.md](references/wiki-structure.md) for full format. Never edit or delete existing log entries — append only.
+173: 
+174: ## Confidence Scoring
+175: 
+176: Wiki articles include a `confidence` field in frontmatter: `high`, `medium`, or `low`.
+177: 
+178: - **high**: Multiple peer-reviewed sources agree, well-established knowledge
+179: - **medium**: Single source, or sources partially agree, or recent findings not yet replicated
+180: - **low**: Anecdotal, single non-peer-reviewed source, or sources disagree
+181: 
+182: When answering queries, note confidence levels. When linting, flag `low` confidence articles for review.
+183: 
+184: ## Compilation Nudge
+185: 
+186: Track uncompiled sources by comparing `raw/_index.md` ingestion dates against the last compile date in `_index.md`. If 5+ uncompiled sources exist after an ingestion, suggest: "You have N uncompiled sources. Ask me to compile them."
+187: 
+188: ## Structural Guardian
+189: 
+190: Automatically run a quick structural check when any of these triggers occur:
+191: 
+192: ### Triggers
+193: - **After any write operation** (ingest, compile, research, output, inventory, dataset) — verify what was just written
+194: - **When the skill activates** and the wiki hasn't been linted in 7+ days (check "Last lint" in `_index.md`)
+195: - **When content is found in the wrong place** — articles in the global hub instead of a topic sub-wiki
+196: - **When a user mentions wiki problems** — "wiki is broken", "empty", "missing", "wrong"
+197: - **When no wiki exists** (first-run) — switch to guided onboarding flow instead of showing a command list. Walk the user through topic selection → init → first action suggestion. See `commands/wiki.md` § "If no wiki exists".
+198: 
+199: ### Quick Structure Check (lightweight, runs inline — not a full lint)
+200: 
+201: 1. **Hub integrity**: The hub (HUB) should ONLY contain `wikis.json`, `_index.md`, `log.md`, and `topics/`. If `raw/`, `wiki/`, `inventory/`, `datasets/`, `output/`, `inbox/`, or `config.md` exist at the hub level → **warn, do not delete**. These may hold user data from an older wiki layout. Suggest running the lint --fix workflow, which will move contents to the appropriate topic wiki or quarantine to `inbox/.unknown/` per C11/C12/C16/C17 in `references/linting.md`.
+202: 
+203: 2. **Index freshness**: For the active topic wiki, compare actual file counts in `raw/`, `wiki/`, `inventory/`, and `datasets/` subdirectories against the rows in their `_index.md`. If mismatched → auto-fix by adding missing entries or removing dead ones.
+204: 
+205: 3. **Orphan detection**: Check if any `.md` files exist in wiki directories but are not listed in any `_index.md`. If found → add them to the index.
+206: 
+207: 4. **Missing directories**: Verify all expected subdirectories exist in the topic wiki (`raw/articles/`, `wiki/concepts/`, `inventory/items/`, `inventory/candidates/`, `datasets/`, etc.). If missing → create them with empty `_index.md`.
+208: 
+209: 5. **wikis.json sync**: Check that all topic sub-wikis under `HUB/topics/` are registered in `wikis.json`. If a directory exists but isn't registered → add it. If registered but directory is missing → remove the entry.
+210: 
+211: 6. **Log existence**: Verify `log.md` exists in the active wiki and at the hub. If missing → create it.
+212: 
+213: ### Behavior
+214: 
+215: - **Silent when clean** — don't report anything if everything checks out
+216: - **Auto-fix trivial issues** — missing indexes, unregistered wikis, orphan files. Just fix and note in log.
+217: - **Warn on structural problems** — content in wrong place, missing directories, stale indexes. Tell the user what's wrong and suggest running lint with --fix.
+218: - **Never block the user's request** — run the check, fix what you can, report issues, then continue with what the user actually asked for.
+219: 
+220: ## Concurrency
+221: 
+222: Multiple OpenCode sessions can safely read and write to the same wiki simultaneously. No locks are needed.
+223: 
+224: - **Indexes** are derived from the actual files on disk. If two sessions write articles at the same time, the next read rebuilds the index from whatever files exist. Both rebuilds converge to the same correct result.
+225: - **log.md** is append-only with small atomic writes. Concurrent appends are safe.
+226: - **Article/source files** are written independently. Two sessions creating different files never conflict. Two sessions editing the same file is unlikely and handled by last-write-wins (acceptable for a wiki — the content is always rebuildable from raw sources).
+227: 
+228: See [references/indexing.md](references/indexing.md) for the Derived Index Protocol.
+229: 
+230: ## Session Management
+231: 
+232: ### Research Session Registry
+233: 
+234: When a `--min-time` research or thesis session is active, the wiki root contains a `.research-session.json` or `.thesis-session.json` file.
+235: 
+236: Durable provenance should also live in the wiki root:
+237: 
+238: - `.session-events.jsonl` — append-only event log for replayable history
+239: - `.session-checkpoint.json` — latest compact summary for resume briefings and audits
+240: 
+241: The session registry files are ephemeral crash-recovery state. The event log and
+242: checkpoint are the durable provenance trail.
+243: 
+244: **Structural Guardian behavior**:
+245: - If a session file exists with `status: "in_progress"` and `start_time` > 7 days ago → warn: "Stale research session found. Resume or rerun the research workflow, or delete it manually."
+246: - Session files are ephemeral — never included in structural health checks or index counts
+247: - Session files should NOT be committed to git
+248: - `.session-events.jsonl` and `.session-checkpoint.json` should normally be preserved after completion so `/wiki:audit` can classify provenance as `replayable` instead of `partial`
+
+(End of file - total 248 lines)
+</content>
+
+<system-reminder>
+Instructions from: /home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/AGENTS.md
+# LLM Wiki — Agent Instructions
+
+> This is an "idea file" in the spirit of [Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Paste it into any LLM agent (OpenAI Codex, Claude Code, OpenCode, Gemini Code Assist, or similar) and it will build and manage a wiki for you. The agent customizes the specifics; this file communicates the system.
+
+> **Editing the llm-wiki repo itself?** This file is the portable wiki *protocol* for end users. The dev contract for the plugin codebase (testing, sync workflow, project structure, symlink invariant) lives in [`CLAUDE.md`](CLAUDE.md) — read it in addition to this file. Both Claude Code and Codex agents working on the repo should treat `CLAUDE.md` as the source of truth for repo-level workflow.
+
+## What This Is
+
+An LLM-compiled knowledge base. You (the LLM agent) are both the compiler and the query engine. Raw source documents are ingested, then incrementally compiled into a wiki of interconnected markdown articles. The human rarely edits the wiki directly — that's your domain.
+
+**The metaphor**: raw sources are source code, you are the compiler, the wiki is the executable.
+
+## Architecture
+
+### Hub Path
+
+Defaults to `~/wiki/`. Optionally configured via `~/.config/llm-wiki/config.json`:
+
+```json
+{ "hub_path": "~/Library/Mobile Documents/com~apple~CloudDocs/wiki" }
+```
+
+If the config exists, use `hub_path` (expand `~`) instead of `~/wiki/` everywhere below. Store as **HUB**. Use `/wiki config hub-path <path>` to set it up, or create the JSON manually.
+
+### Hub (~/wiki/)
+
+The hub is lightweight — NO content, just a registry.
+
+```
+~/wiki/                         # or custom path from config.json
+├── wikis.json          # Registry of all topic wikis
+├── _index.md           # Lists topic wikis with stats
+├── log.md              # Global activity log
+└── topics/
+    ├── nutrition/      # Each topic is a full, isolated wiki
+    ├── robotics/
+    └── ...
+```
+
+### Topic Wiki (~/wiki/topics/<name>/)
+
+All content lives here. One topic per wiki. Isolated indexes, focused queries.
+
+```
+~/wiki/topics/<name>/
+├── .obsidian/                     # Obsidian vault config (optional)
+├── .librarian/                    # Optional: wiki-only maintenance reports
+├── .audit/                        # Optional: umbrella audit reports
+├── _index.md                      # Master index: stats, navigation, recent changes
+├── config.md                      # Title, scope, conventions
+├── log.md                         # Activity log for this topic
+├── inbox/                         # Drop zone — user dumps files here
+│   └── .processed/
+├── inventory/                     # Durable tracking records
+│   ├── _index.md
+│   ├── items/*.md                 # Physical/digital items, parts, tools, assets
+│   ├── candidates/*.md            # Ingest candidates, questions, tasks, watch items
+│   ├── entities/*.md              # People, orgs, projects, standards bodies
+│   ├── corpora/*.md               # Source collections, archives, datasets, forums
+│   └── views/*.md                 # Derived chat/list views over inventory
+├── datasets/                      # Manifests for large/external data
+│   ├── _index.md
+│   └── <dataset-slug>/
+│       ├── MANIFEST.md
+│       ├── samples/
+│       ├── profiles/
+│       └── queries/
+├── raw/                           # Immutable source material
+│   ├── _index.md
+│   ├── articles/*.md
+│   ├── papers/*.md
+│   ├── repos/*.md
+│   ├── notes/*.md
+│   └── data/*.md
+├── wiki/                          # Compiled articles (LLM-maintained)
+│   ├── _index.md
+│   ├── concepts/*.md              # Bounded ideas
+│   ├── topics/*.md                # Broad themes
+│   ├── references/*.md            # Curated collections
+│   └── theses/*.md                # Thesis investigations with verdicts
+└── output/                        # Generated artifacts
+    ├── _index.md
+    └── *.md
+```
+
+### Local Wiki (.wiki/)
+
+Same structure as a topic wiki but at `<project>/.wiki/`. Add `.wiki/` to `.gitignore`.
+
+## Core Principles
+
+1. **One topic, one wiki.** Never mix unrelated topics. The hub is just a registry.
+2. **Indexes are navigation.** Every directory has `_index.md` with a contents table. Read indexes first, never scan blindly. Keep them current.
+3. **Raw is immutable.** Once ingested, sources are never modified. All synthesis happens in `wiki/`.
+4. **Articles are synthesized, not copied.** Draw from multiple sources, contextualize, connect. Think textbook, not clipboard.
+5. **Dual-linking.** Every cross-reference uses both formats on the same line: `[[slug|Name]] ([Name](../category/slug.md))`. Obsidian reads the wikilink, the agent reads the markdown link, GitHub renders it. Not locked into any tool.
+6. **Incremental by default.** Only compile new sources unless explicitly asked for full recompile.
+7. **Honest gaps.** If the wiki doesn't have the answer, say so. Suggest what to ingest.
+8. **Multi-wiki peek.** When querying, answer from the target wiki, then peek at sibling wiki `_index.md` files for overlap.
+9. **Confidence scoring.** Articles get `confidence: high|medium|low` in frontmatter based on source quality.
+10. **Activity log.** Append every operation to `log.md`. Format: `## [YYYY-MM-DD] operation | Description`. Never edit existing entries.
+
+## File Formats
+
+### _index.md (every directory)
+
+```markdown
+# [Directory Name] Index
+
+> [One-line description]
+
+Last updated: YYYY-MM-DD
+
+## Contents
+
+| File | Summary | Tags | Updated |
+|------|---------|------|---------|
+| [file.md](file.md) | One-sentence summary | tag1, tag2 | YYYY-MM-DD |
+
+## Categories
+
+- **category**: file1.md, file2.md
+
+## Recent Changes
+
+- YYYY-MM-DD: Description
+```
+
+Master `_index.md` additionally has Statistics and Quick Navigation sections.
+
+### Raw Source (raw/)
+
+```yaml
+---
+title: "Title"
+source: "URL or filepath or MANUAL"
+type: articles|papers|repos|notes|data
+ingested: YYYY-MM-DD
+tags: [tag1, tag2]
+summary: "2-3 sentence summary"
+---
+```
+
+### Wiki Article (wiki/)
+
+```yaml
+---
+title: "Article Title"
+category: concept|topic|reference
+sources: [raw/type/file1.md, raw/type/file2.md]
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+tags: [tag1, tag2]
+aliases: [alternate names]
+confidence: high|medium|low
+summary: "2-3 sentence summary"
+---
+```
+
+Body includes abstract, sections, `## See Also` (dual-links, bidirectional), `## Sources` (links to raw/).
+
+### Inventory Record (inventory/)
+
+```yaml
+---
+title: "Thing To Track"
+kind: item|ingest-candidate|entity|corpus|question|task|artifact|watch
+status: proposed|active|blocked|ingested|superseded|archived
+priority: p0|p1|p2|p3|p4
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+tags: [tag1, tag2]
+summary: "Why this record exists"
+sources:
+  - output/original-output.md
+---
+```
+
+Inventory records are durable wiki-adjacent tracking objects. They can point at
+`raw/`, `wiki/`, `output/`, URLs, or external paths, but they do not move or copy
+those artifacts. Local `sources:` paths and body links in inventory records
+should resolve; lint checks them as operational provenance, not factual
+evidence.
+
+Inventory is opinionated. Use it when something should persist across sessions
+with status, priority, ownership, or a next action. Actual physical/digital
+items such as parts, tools, hosts, SKUs, subscriptions, and assets are good
+fits when their owned/wanted/selected/rejected state matters. It is too small
+for a one-off source to ingest now, a factual question, or a note with no future
+action. It is too large for hundreds/thousands of row-like data records; use one
+corpus record plus a dataset manifest or collection ingest instead. It is out of
+scope for authoritative source text (`raw/`), synthesized knowledge (`wiki/`),
+generated deliverables (`output/`), project rationale (`WHY.md`), or secrets.
+For bigger pivots, show a 1-3 row sample of proposed records before asking to
+apply.
+
+### Inventory View (inventory/views/)
+
+```yaml
+---
+title: "Active Inventory Actions"
+view: actions
+filters:
+  status: active
+updated: YYYY-MM-DD
+summary: "Derived table of active inventory records with next actions."
+---
+```
+
+Inventory views are derived list/table views, not inventory records. They should
+link to records and may be regenerated from record frontmatter. Do not require
+`kind`, `status`, or `priority` on view files.
+
+### Dataset Manifest (datasets/)
+
+```yaml
+---
+title: "Dataset Title"
+dataset_id: dataset-slug
+status: proposed|active|external|archived|unavailable
+storage: local|remote|external|hybrid
+locations: ["/path/or/url"]
+formats: [csv, jsonl, parquet]
+schema_status: unknown|inferred|declared|validated
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+tags: [tag1, tag2]
+summary: "What this dataset contains and why the wiki indexes it"
+---
+```
+
+Dataset manifests let the wiki serve as an index/interface for data that is too
+large or unsuitable to store in markdown. Store locations, schema notes, small
+samples, profiles, and query recipes; never copy the underlying dataset into the
+wiki.
+
+Be opinionated about the boundary: small stable data belongs in `raw/data/`;
+large, mutable, remote, compressed, binary, or query-oriented data belongs in
+`datasets/`; next-action tracking belongs in linked inventory records; many
+independent source pages belong in `ingest-collection`.
+
+### Source Reference Resolution
+
+Treat `sources:` entries as exact paths first, not whitespace-delimited slugs.
+Parse them as YAML list scalars; if falling back to line parsing, preserve the
+complete value after `- ` and strip only matching wrapping quotes. Resolve
+`raw/...`, `wiki/...`, and `output/...` from the wiki root; resolve `../...`
+relative to the file that owns the `sources:` field. If exact resolution fails,
+slugify both the requested value and raw-file stems (lowercase, whitespace or
+underscores to hyphens, remove other special characters, collapse hyphens; also
+try raw stems with a leading `YYYY-MM-DD-` stripped) and accept only a single
+match. Report zero matches as unresolved and multiple matches as ambiguous.
+Never rename raw files during resolution. When linking to raw filenames with
+spaces in markdown, use angle-bracket destinations:
+`[Title](<../../raw/articles/File Name.md>)`.
+
+### wikis.json
+
+```json
+{
+  "default": "~/wiki",
+  "wikis": {
+    "hub": { "path": "~/wiki", "description": "Hub" },
+    "<name>": { "path": "~/wiki/topics/<name>", "description": "..." }
+  },
+  "local_wikis": []
+}
+```
+
+### log.md
+
+```
+## [YYYY-MM-DD] operation | Description
+```
+
+Operations: `init`, `ingest`, `ingest-collection`, `compile`, `query`, `lint`, `research`, `thesis`, `output`, `assess`, `refresh`, `librarian`, `audit`, `plan`, `project`, `inventory`, `dataset`, `ll`
+
+## Operations
+
+### Init
+
+Create a topic wiki. Always require a topic name. If the hub doesn't exist, create it first (just wikis.json + _index.md + log.md + topics/). Create the full topic wiki structure, empty _index.md files, config.md, log.md, and optionally .obsidian/ vault config.
+
+### Ingest
+
+Convert external material into a raw source file.
+
+- **URLs**: Fetch content, extract title/author/date/text, write to `raw/articles/` or `raw/papers/`; download PDF URLs and run PDF extraction
+- **Files**: Read directly, preserve formatting; convert PDFs to markdown when possible
+- **Text**: User provides quoted text, write to `raw/notes/`
+- **Inbox**: Scan `inbox/` for dumped files, process each by type, move to `inbox/.processed/`
+
+Auto-detect type: arxiv/scholar/PDF papers → papers, github → repos, .csv/.json → data, everything else → articles.
+
+PDFs are single-source ingests. Try `pdftotext -layout` only if local poppler is
+working and produces non-trivial text; otherwise use a temporary Python venv
+with a PDF library such as `pypdf` or `pymupdf`. Preserve page boundaries when
+available. If the PDF is image-only and no OCR path is available, write a
+metadata stub with `extraction_status: ocr-needed` rather than inventing text.
+
+**Auto-classify** (when no `--wiki` specified): After fetching content, match against topic wiki scopes. Single items get a numbered choice (pick wiki, create new, or skip). Batch/inbox mode presents a classification table for bulk routing. Skipped when `--wiki` or `--local` is explicit.
+
+Slug: `YYYY-MM-DD-descriptive-slug.md`. Update all indexes after each ingestion. If 5+ uncompiled sources, suggest compilation.
+
+If the user wants to track or decide later about a source, use inventory instead
+of ingesting immediately. If a source is large or query-oriented, use a dataset
+manifest or collection ingest. After ingesting a tracked candidate, suggest
+linking the raw path from the inventory record.
+
+### Ingest Collection
+
+Bulk-ingest bounded upstream corpora without turning them directly into compiled
+wiki articles. Use this for Git document repositories, BIP-style proposal sets,
+MediaWiki XML dumps/API sites, CSV/JSON message archives, and Wayback CDX
+snapshot sets. Never recursively crawl HTML; use structured upstream
+interfaces.
+
+Adapters:
+- **git**: clone shallowly or read a local repo; inventory text files with blob
+  SHAs and HEAD commit. For BIP-style repos, prioritize `bip-####.mediawiki`
+  and `bip-####.md`, parse proposal headers, and store each proposal as a child
+  raw source.
+- **mediawiki-dump**: read official `.xml`, `.xml.bz2`, or `.xml.gz` dumps with
+  streaming XML parsing; default to namespace 0; skip redirects and non-content
+  namespaces unless explicitly included.
+- **mediawiki-api**: use `api.php` with `allpages` and `revisions` for targeted
+  imports or dumpless sites; follow continuation tokens and respect throttling.
+- **csv-messages**: parse `.csv`, `.tsv`, `.json`, or `.jsonl` message archives
+  with Python stdlib; infer id/date/author/subject/body fields; write one raw
+  markdown source per message, usually under `raw/notes/`.
+- **wayback-cdx**: use Internet Archive CDX as the bounded inventory; fetch
+  selected captures with `id_` replay URLs; run readability-to-markdown; write
+  one raw article per readable snapshot.
+
+Every collection import writes a manifest to `raw/repos/` tagged
+`collection-manifest`, plus one immutable child source per upstream page/spec in
+`raw/articles/` unless another type is more appropriate. Child frontmatter may
+include `collection`, `adapter`, `upstream_id`, `upstream_type`, `revision`,
+`sha`, `canonical_url`, `content_format`, `license`, `authors`, `categories`,
+`outlinks`, `fetched`, and adapter-specific provenance such as `message_id`,
+`row_number`, `wayback_timestamp`, or `wayback_digest`. Deduplicate by
+`collection + upstream_id + revision/sha` or the adapter's stable row/snapshot
+key; if upstream content changes, write a new raw source instead of overwriting
+the old one.
+
+Compile collections selectively: synthesize concepts, topics, timelines,
+glossaries, standards families, and reference indexes. Do not create one
+compiled wiki article per upstream page by default. For BIPs, publication is
+provenance for proposal text, not proof of adoption or consensus. For community
+wikis, default confidence to medium unless corroborated by stronger sources.
+
+For large imports, preview the collection manifest shape and estimated child
+count first. If the user only wants to remember the corpus for later, create one
+inventory record; if the corpus is row-like data, create a dataset manifest plus
+one linked inventory record.
+
+### Compile
+
+Transform raw sources into wiki articles. Incremental by default (only new sources).
+
+1. Survey: read indexes, identify uncompiled sources
+2. Extract: key concepts, facts, relationships from each source
+3. Map: which concepts need new articles vs updates to existing
+4. Classify: concept (bounded idea), topic (broad theme), reference (curated list)
+5. Write: synthesized articles with dual-links, frontmatter, confidence scores, aliases
+6. Bidirectional links: if A links to B, ensure B links to A
+7. Update all indexes
+
+Do not compile inventory records as articles. They may explain priorities or
+next actions, but factual article claims need raw/wiki sources.
+
+### Query
+
+Answer questions from wiki content only. Three depths:
+
+- **Quick**: Read indexes only. Fastest.
+- **Standard** (default): Read relevant articles + full-text search. Follow See Also links.
+- **Deep**: Read everything, search raw sources, peek sibling wikis.
+
+Always cite sources. Note confidence levels. Identify gaps. Never use training data — only wiki content.
+
+For meta-questions about inventory, candidates, backlogs, or next actions, read
+inventory indexes and answer as an operational listing. For factual questions,
+inventory is not evidence.
+
+For any boot, resume, or "where you left off" briefing, start with the active
+wiki identity: `<wiki-name> booted from <wiki-root-path>`. Prefer the title from
+`config.md`; for local `.wiki/` projects, fall back to the parent directory name
+(for example `bitcoin-wiki` for `.../claude-sandbox/bitcoin-wiki/.wiki`); for
+`HUB/topics/<slug>/`, fall back to the slug. Include this line even when there
+is nothing in flight to resume.
+
+### Research
+
+Automated pipeline: search → ingest → compile. Launch parallel agents. Auto-detects input type.
+
+**Input detection**: If the input is a question (starts with what/why/how, contains "?", phrased as a goal), enters Question Mode. Otherwise, Topic Mode.
+
+**Topic Mode** — explore a subject area:
+- **Standard (5 agents)**: Academic, Technical, Applied, News/Trends, Contrarian
+- **Deep (8 agents)**: Adds Historical, Adjacent fields, Data/Stats
+- **Retardmax (10 agents)**: Adds 2 Rabbit Hole agents. Skip planning, ingest aggressively.
+
+**Question Mode** — answer a specific question with a deliverable:
+1. Decompose into 3-5 sub-questions (what/why/how/who/data)
+2. One agent per sub-question (focused, not generic angles)
+3. Compile into wiki articles + a synthesis "playbook" topic article
+4. Auto-generate a playbook output artifact (the actionable deliverable)
+5. Suggest 2-3 testable theses from findings → feed into `--mode thesis`
+
+**Modifiers**: `--new-topic` (create wiki + research in one shot), `--plan` (decompose into 3-5 parallel paths, confirm, dispatch all at once — parallel ingest, sequential compile), `--mode thesis "<claim>"` (thesis-driven research with for/against framing and verdict), `--min-time <duration>` (sustained multi-round research), `--sources <N>` (per round).
+
+Each agent receives a standardized prompt template: Objective, Context, Current wiki state, Constraints, Return format, Quality scoring guide (5=peer-reviewed → 1=spam). Deduplicate across agents.
+
+**Phase 2b: Credibility Review** — after agents return, before ingestion: score each source on peer-review status (+2), recency (+1), author authority (+1), vendor primary source (-1), potential bias (-1), corroboration (+1 per agent, max +2). Tiers: High (4-6) → Medium (2-3) → Low (0-1) → Reject (<0). Bias signals do not stack.
+
+**Session Registry** (`--min-time`): Persists `.research-session.json` in wiki root — tracks round number, sources, articles, gaps, progress score. Enables crash recovery (resume from last completed round). Deleted on completion.
+
+**Progress Scoring**: Each round scored 0-100: sources×3 + articles×5 + cross-refs×2 + credibility×4. Trajectory triggers: 3 consecutive declines totaling 30+ points → warn. Score ≥80 + no gaps → early completion. Score <40 → change strategy.
+
+**Plan Reflection**: Between rounds, reflect holistically on ALL prior findings (not just latest gaps). Priority: draw cross-topic connections → update cross-references → re-evaluate gaps → score remaining gaps (Impact × Feasibility × Specificity) → adjust direction only if clearly needed.
+
+Compile all ingested sources. Report gaps and suggest follow-ups.
+
+### Thesis (mode of Research)
+
+Thesis-driven research. Activated via `--mode thesis "<claim>"` on the research command. Previously a separate `/wiki:thesis` command (merged to eliminate duplicated infrastructure).
+
+1. Decompose thesis into: core claim, key variables, testable prediction, falsification criteria, scope boundary
+2. Agents split by purpose: Supporting, Opposing, Mechanistic, Meta/Review, Adjacent (+ Historical, Quantitative, Confounders in deep mode)
+3. The thesis is the bloat filter — sources irrelevant to the claim's variables get skipped
+4. Compile evidence into wiki articles + a thesis file with evidence tables (for/against/nuance)
+5. Verdict: Supported / Partially Supported / Contradicted / Insufficient Evidence / Mixed (with confidence level)
+6. Anti-confirmation-bias: in `--min-time` mode, Round 2 focuses harder on the WEAKER side of Round 1's evidence
+7. Suggest follow-up theses derived from findings
+
+### Retract
+
+Remove a regretted source and clean up its downstream effects. Requires `--reason`.
+
+1. **Identify**: Find the source file (by path or filename search)
+2. **Map blast radius**: Grep all wiki articles for references — classify as frontmatter, body-inline, or see-also
+3. **Clean up articles**: Remove metadata references, flag inline claims with `<!--RETRACTED-SOURCE-->` markers
+4. **Delete raw source**: Remove file, update all indexes
+5. **Log**: Permanent retraction record with reason
+6. **Recompile** (optional `--recompile`): Rewrite flagged sections from remaining sources, remove markers
+7. **Report**: Summary of changes + remaining review items
+
+`--dry-run` shows blast radius without making changes. If a source is the only source for an article, warn prominently.
+
+### Refresh
+
+Freshness check for wiki articles. Re-fetches source URLs, detects changes (cosmetic, additive, contradictory), and presents a human-gated assessment. Three tiers: source check → change assessment → action decision (skip/update/flag/retract). `--due` flag shows all articles past their volatility threshold. Never auto-recompiles — human confirms every change.
+
+### Inventory
+
+Track durable things the wiki should remember but that are not raw sources,
+compiled articles, or generated outputs: ingest candidates, source queues,
+items, entities, corpora, open questions, tasks, artifacts, and watch items.
+
+Before writing or migrating records, state the fit judgment: appropriate for
+inventory, too small, too big, or out of scope. For bulk pivots, preview the
+record shape first and default to dry-run.
+
+Subcommands:
+- **list**: Show records, optionally filtered by kind/status/priority
+- **add <kind> "title"**: Create a record under the canonical inventory subdir
+- **show <slug-or-path>**: Read one record
+- **update <path>**: Edit one record
+- **save-view "name"**: Save a derived table/list under `inventory/views/`
+- **scan-outputs**: Find legacy output artifacts that look like queues/backlogs
+- **migrate-output <path>**: Dry-run by default; `--apply` additively creates
+  inventory records and never moves or deletes the source output
+
+For chat responses, inventory listing must be efficient and readable: read
+indexes/frontmatter first, present compact Markdown tables or short bullets, cap
+long lists with a visible omitted count, and open full record bodies only when
+the user asks for detail. Common views: `summary`, `actions`, `items`,
+`records`, `sources`.
+
+Other operations should be inventory-aware. Ingest links completed candidates;
+dataset manifests link to corpus records when next actions matter; compile and
+query may surface inventory gaps but must not cite inventory as factual
+evidence; research, audit, librarian, refresh, plan, assess, and output may
+propose records for durable follow-ups, but should not create large backlogs
+without a sample preview and explicit approval.
+
+Migration path: `lint --fix` may create missing empty inventory directories and
+indexes, but it must never convert output artifacts. Output-to-inventory
+migration is explicit, dry-run-first, and additive.
+
+### Dataset
+
+Manage manifests for data that is too large, mutable, sensitive, or operationally
+awkward to store directly in the wiki. The wiki becomes the index/interface; the
+actual data remains at its filesystem path, URL, database, object store, or
+archive.
+
+Subcommands:
+- **list**: Show dataset manifests
+- **add "title" --location <path-or-url>**: Create `datasets/<slug>/MANIFEST.md`
+- **show <slug-or-path>**: Read one manifest and related profile/sample indexes
+- **profile <slug>**: Record lightweight metadata such as size, format, headers,
+  and schema observations; dry-run unless `--apply`
+- **sample <slug>**: Save a tiny sample or sampling recipe; dry-run unless
+  `--apply`
+- **scan-outputs**: Find legacy output artifacts that look like dataset notes
+- **migrate-output <path>**: Dry-run by default; `--apply` additively creates
+  dataset manifests and never moves/deletes the source output or copies data
+
+For chat responses, dataset listing must read `datasets/_index.md` first and
+only manifest frontmatter when needed. Never inspect samples, profiles, queries,
+or the underlying dataset for a plain list. Use compact table/list views such as
+`summary`, `manifests`, `schema`, and `locations`.
+
+Migration path: `lint --fix` may create missing empty `datasets/` indexes and
+per-dataset sample/profile/query indexes, but it must never convert content.
+Output-to-dataset migration is explicit, dry-run-first, and additive.
+
+### Lint
+
+Health checks with auto-fix capability. Lint **is** the migration path — there is no separate `/wiki:migrate` command. A file in the wrong place from an old wiki layout and a file in the wrong place from user error are treated as the same defect. Three layers:
+
+- **Mechanical (C11/C12/C13)** — `raw/` + `wiki/` file placement and frontmatter schema. Fully auto-fixable.
+- **Project-level (C8/C9)** — `output/projects/` structure, `WHY.md` presence, staleness detection, and grouping candidates. Migration of legacy `_project.md` manifests (from pre-v0.2 wikis) is auto-fixed (C8c); everything else is surfaced as suggestions or ready-to-paste commands.
+- **Inventory-level (C16)** — `inventory/` structure, record/view schemas, and output-to-inventory migration candidates. Missing empty structure is auto-creatable; content migration is human-gated.
+- **Dataset-level (C17)** — `datasets/` structure, manifest schema, and output-to-dataset migration candidates. Missing empty structure is auto-creatable; content migration is human-gated.
+
+**Checks**: structure integrity, frontmatter validity (plus legacy key/value aliases C13), canonical placement of raw/wiki files (C11), unknown-file quarantine for raw/wiki/inventory/datasets/root (C12), index consistency, link integrity, source provenance (dangling refs, unresolved retraction markers), tag hygiene, coverage, project `WHY.md` presence (C8a), project staleness via source chain (C8b), legacy `_project.md` migration to `WHY.md` (C8c), project candidates (C9), inventory migration candidates (C16), dataset migration candidates (C17), deep fact-checking (optional).
+
+**Auto-fix** (`--fix`): rewrite legacy frontmatter keys/values to canonical (C13), move misplaced raw/wiki files to their canonical directory (C11), quarantine unknown files to `inbox/.unknown/` (C12), migrate legacy `_project.md` to `WHY.md` (C8c), create missing empty inventory directories/indexes (C16), create missing empty dataset directories/indexes (C17), missing indexes, orphan files, dead index entries, statistics mismatch, missing bidirectional links, empty frontmatter fields, dangling source references, regenerate projects-aware `output/_index.md`. Never auto-delete unknown directories. Never auto-create `WHY.md` with placeholder goals (C8a is warn-only — manufactured rationale is worse than missing). Never auto-move files into projects (C9 is human-authored via `/wiki:project`). Never auto-migrate output artifacts into inventory or dataset records (C16/C17 are explicit via `/wiki:inventory migrate-output --apply` and `/wiki:dataset migrate-output --apply`). On slug collisions during a placement move, skip and warn.
+
+**Schema evolution**: when canonical paths or frontmatter fields for `raw/`, `wiki/`, `inventory/`, or `datasets/` change, update the rules in `skills/wiki-manager/references/linting.md` (C11/C16/C17 placement maps, C12 allowlist, C13 alias table). When the project model changes, update C8/C9 and `projects.md`. Never write version-specific migration code. Lint rules are the schema.
+
+### Search
+
+Find content by keyword, tag, or category. Scan indexes first (fast), then full-text search.
+
+### Output
+
+Generate artifacts from wiki content: summary, report, study-guide, slides, timeline, glossary, comparison.
+
+**Retardmax mode**: Read ALL articles, generate immediately without planning structure. Ship rough, iterate later.
+
+Save to `output/`. Update indexes.
+
+### Assess
+
+Compare a local repo against wiki research + market.
+
+1. **Repo scan** (3 parallel agents): structure, features, docs
+2. **Wiki scan**: knowledge map from indexes and articles
+3. **Gap analysis**: alignment, research gaps (repo does it, wiki doesn't), opportunities (wiki knows it, repo doesn't), neither covers
+4. **Market scan** (3-5 parallel agents): competitors, best practices, emerging trends
+
+Output: comparison report with feature matrix, competitive landscape, and recommended actions (specific research and build suggestions).
+
+### Audit
+
+Truth-seeking umbrella inspection across the whole artifact graph. If librarian
+keeps the `wiki/` layer in check, audit answers the broader question: can the
+user trust the current knowledge and outputs right now?
+
+**Default behavior**:
+- Reuse or rerun the librarian pass for wiki articles
+- Audit output artifacts across `output/`, `wiki/`, and `raw/` dependency chains
+- Follow the evidence outward when local material is weak, stale, contradictory,
+  or missing
+- Run targeted support and attack research before settling on a verdict
+- Write `.audit/REPORT.md` and `.audit/scan-results.json`
+
+**Verdicts**:
+- `supported`
+- `weakened`
+- `contradicted`
+- `unresolved`
+
+Flags: `--artifact <path>`, `--project <slug>`, `--wiki-only`, `--outputs-only`,
+`--quick`, `--fresh`.
+
+### Librarian
+
+Content-level wiki maintenance: staleness detection, quality scoring, factual verification, semantic coherence, deduplication. Produces scored reports — never modifies content without confirmation.
+
+**Subcommands**:
+- **scan**: Score all wiki articles for staleness and quality. Two-tier: quick metadata scan first, deep content read only for articles below threshold or with `volatility: hot`. Checkpoints after each article for crash recovery. Results to `.librarian/scan-results.json` and `.librarian/REPORT.md`.
+- **report**: Display the latest scan report.
+- **fix <id>**: Apply a proposed fix from the report (Phase 3 — not yet implemented).
+
+**Staleness scoring** (0-100): four dimensions at 25 points each — source freshness, verification recency, compilation recency, source chain integrity. Decay curves scaled by article `volatility` tier (hot/warm/cold).
+
+**Quality scoring** (0-100): four dimensions at 25 points each — source diversity, content depth, cross-reference density, summary quality. Articles scoring below 40 on either dimension are flagged.
+
+Flags: `--article <path>` (single article), `--resume` (from checkpoint), `--passes <list>` (staleness, quality — future: verification, coherence, dedup).
+
+### Plan
+
+Generate implementation plans grounded in wiki research. Six-stage pipeline: context assembly → interview → gap research → synthesis → plan generation → save.
+
+1. **Context assembly**: Read wiki deeply, identify relevant articles, supporting context, and knowledge gaps
+2. **Interview** (skip with `--no-interview` or `--quick`): 3-7 clarifying questions informed by wiki content
+3. **Gap research** (skip with `--no-research` or `--quick`): Targeted web searches to fill knowledge gaps
+4. **Synthesis**: Merge wiki evidence + interview answers + gap research
+5. **Plan generation**: Output in requested format
+6. **Save**: Write to `output/plan-{slug}-{date}.md`, update indexes and log
+
+**Formats**: `--format roadmap` (default — phased plan with architecture decisions), `--format rfc` (Google/Uber style), `--format adr` (Architecture Decision Records), `--format spec` (technical specification).
+
+Use `--with <wiki>` to load supplementary wikis as craft/skill context alongside the primary domain wiki.
+
+### Project
+
+Manage projects within a topic wiki. Projects are folders under `output/projects/` that group related outputs with a goal captured in `WHY.md`.
+
+- **new <slug> "goal"**: Create project directory with `WHY.md`
+- **list**: Show all projects with status and output counts
+- **show <slug>**: Display project details, WHY.md, and outputs
+- **archive <slug>**: Mark project as archived
+
+Projects are a lightweight overlay — they don't move or copy wiki content.
+
+### Lessons Learned (ll)
+
+Extract lessons from the current session — error→fix patterns, user corrections, discoveries, gotchas — and save structured knowledge to the wiki pipeline.
+
+**7-stage pipeline**: scan conversation → extract patterns → target topic wiki → write raw note → update relevant articles → suggest rule additions → log.
+
+Flags: `--dry-run` (preview without writing), `--rules` (also propose CLAUDE.md/AGENTS.md rule additions).
+
+## Structural Guardian
+
+Auto-run lightweight checks after write operations:
+
+1. Hub should only have wikis.json, _index.md, log.md, topics/. Delete anything else.
+2. Index freshness: file counts match index rows, including inventory and dataset indexes. Auto-fix mismatches.
+3. Orphan detection: files not in any index → add them.
+4. Missing directories, including inventory and dataset dirs → create with empty _index.md.
+5. wikis.json sync: all topic dirs registered, no ghost entries.
+
+Silent when clean. Auto-fix trivial issues. Warn on structural problems. Never block the user.
+
+## File Naming
+
+- Raw sources: `YYYY-MM-DD-descriptive-slug.md`
+- Wiki articles: `descriptive-slug.md` (no date — living documents)
+- Inventory records: `descriptive-slug.md` (no date — durable tracking state)
+- Inventory views: `descriptive-view-slug.md` under `inventory/views/`
+- Dataset manifests: `datasets/descriptive-slug/MANIFEST.md`
+- Output artifacts: `{type}-{topic-slug}-{YYYY-MM-DD}.md`
+- All lowercase, hyphens, no special chars, max 60 chars
+
+## Tag Convention
+
+Lowercase, hyphenated. Specific over general (`transformer-architecture` not `ai`). Normalize — no near-duplicates.
+
+## Obsidian Compatibility
+
+Each topic wiki can be opened as an Obsidian vault. The `.obsidian/` config is created on init with sane defaults. Dual-links power the graph view. Aliases enable search by alternate names. Tags are natively read. The hub has NO `.obsidian/` to avoid nested vault confusion.
+
+## Platform-Specific Notes
+
+This AGENTS.md works with any LLM agent that can read/write files and search the web. Adapt tool names as needed:
+
+| Capability | Claude Code | OpenAI Codex | Generic |
+|-----------|------------|-------------|---------|
+| Read file | `Read` | `file_read` | read the file |
+| Write file | `Write` | `file_write` | write the file |
+| Edit file | `Edit` | `file_edit` | edit the file |
+| Search files | `Grep` | `shell(grep)` | search file contents |
+| Find files | `Glob` | `shell(find)` | find files by pattern |
+| Web search | `WebSearch` | `browser` | search the web |
+| Fetch URL | `WebFetch` | `browser` | fetch URL content |
+| Run command | `Bash` | `shell` | run shell command |
+| Subagents | `Agent` | parallel tasks | spawn parallel work |
+
+</system-reminder>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/plugins/llm-wiki/skills/wiki/SKILL.md",
+  "offset": 1,
+  "limit": 260
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/references/nvk-llm-wiki/plugins/llm-wiki/skills/wiki/SKILL.md</path>
+<type>file</type>
+<content>
+1: ---
+2: name: wiki
+3: description: >
+4:   LLM-compiled knowledge base manager for Codex. Use it to initialize, ingest,
+5:   import source collections, track inventory, index datasets, compile, query, lint, audit, research, plan, and generate outputs from topic-scoped wikis.
+6:   Activates when the user mentions wiki workflows, knowledge-base management,
+7:   ingestion, collection ingestion, import wiki, inventory, source queue,
+8:   candidate list, watch list, backlog, dataset, large data, data registry,
+9:   dataset manifest, compilation, querying, linting, audit, research, librarian,
+10:   scan quality, article quality, content review, output drift, provenance,
+11:   implementation plan, or uses /wiki-style shorthand in a repo with .wiki/,
+12:   ~/wiki/, or a configured hub path.
+13: ---
+14: 
+15: # LLM Wiki Manager
+16: 
+17: You manage an LLM-compiled knowledge base. Source documents are ingested into `raw/`, then incrementally compiled into a wiki of interconnected markdown articles. Codex is both the compiler and the query engine.
+18: 
+19: ## Codex Plugin Notes
+20: 
+21: Codex plugins package skills, MCP servers, apps, and metadata. They do not register Claude-style custom `/wiki:*` commands. Treat any `/wiki`, `/wiki:*`, or command-flag examples in this skill and its references as shorthand for the same workflow expressed in natural language, or via explicit `@wiki` invocation.
+22: 
+23: ## Hub Path
+24: 
+25: **Resolution**: At the start of every operation, resolve **HUB** by reading `~/.config/llm-wiki/config.json` first. If it has `resolved_path`, use that value directly. If it has only `hub_path`, expand the leading `~` only (not tildes in `com~apple~CloudDocs`), set HUB, and write `resolved_path` back. If no config file exists, try `~/wiki/_index.md` as a fallback. See [references/hub-resolution.md](references/hub-resolution.md) for the full protocol.
+26: 
+27: The config file looks like:
+28: 
+29: ```json
+30: {
+31:   "hub_path": "~/Library/Mobile Documents/com~apple~CloudDocs/wiki",
+32:   "resolved_path": "/Users/jane/Library/Mobile Documents/com~apple~CloudDocs/wiki"
+33: }
+34: ```
+35: 
+36: If no config exists and `~/wiki/` has `_index.md`, that works too. But config is checked first — in sandboxed environments `~/wiki/` may not be accessible. All references to `~/wiki/` below mean HUB.
+37: 
+38: ## Wiki Location
+39: 
+40: **Topic sub-wikis are the default.** HUB is a hub — content lives in `HUB/topics/<name>/`. Each topic gets isolated indexes, sources, and articles. This keeps queries focused and prevents unrelated topics from polluting each other's search space.
+41: 
+42: Resolution order:
+43: 
+44: 1. `--local` flag → `.wiki/` in current project
+45: 2. `--wiki <name>` flag → named wiki from `HUB/wikis.json`
+46: 3. Current directory has `.wiki/` → use it
+47: 4. Otherwise → HUB (the hub)
+48: 
+49: When a command targets the hub and the hub has no content, suggest creating a topic sub-wiki instead.
+50: 
+51: See [references/wiki-structure.md](references/wiki-structure.md) for the complete directory layout and all file format conventions.
+52: 
+53: ## Core Principles
+54: 
+55: 1. **Indexes are a derived cache.** The `.md` files and their YAML frontmatter are the source of truth. `_index.md` files are a cached view rebuilt on read when stale. Always read indexes first for navigation — but before trusting one, stale-check it (file count vs row count). See [references/indexing.md](references/indexing.md) for the Derived Index Protocol.
+56: 
+57: 2. **Raw is immutable.** Once ingested into `raw/`, sources are never modified. They are a record of what was ingested and when. All synthesis happens in `wiki/`.
+58: 
+59: 3. **Articles are synthesized, not copied.** A wiki article draws from multiple sources, contextualizes, and connects to other concepts. Think textbook, not clipboard.
+60: 
+61: 4. **Dual-linking for Obsidian + Codex.** Cross-references use both `[[wikilink]]` (for Obsidian graph view) and standard markdown `[text](path)` (for Codex navigation) on the same line: `[[slug|Name]] ([Name](../category/slug.md))`. Bidirectional when it makes sense.
+62: 
+63: 5. **Frontmatter is structured data.** Every `.md` file has YAML frontmatter with title, summary, tags, dates. This makes the wiki searchable without full-text scans.
+64: 
+65: 6. **Incremental over wholesale.** Compilation processes only new sources by default. Full recompilation is expensive and explicit (`--full`).
+66: 
+67: 7. **Honest gaps.** When answering questions, if the wiki doesn't have the answer, say so. Never hallucinate. Suggest what to ingest to fill the gap.
+68: 
+69: 8. **Multi-wiki awareness.** When querying, answer from the primary wiki first. Then peek at sibling wiki indexes (via `HUB/wikis.json`) for relevant overlap. Flag connections but never merge content across wikis.
+70: 
+71: 9. **Chunk large writes.** Never create files longer than ~200 lines in a single Write call — the API stream idles during large generations, causing timeout errors. Write the skeleton (frontmatter + headers + first section) first, then use sequential Edit calls to append remaining sections. For plans, articles, and raw notes: write one section per tool call.
+72: 
+73: ## Ambient Behavior
+74: 
+75: When this skill activates outside of an explicit `@wiki` invocation or `/wiki`-style shorthand:
+76: 
+77: 1. Resolve the hub path (see Hub Path section above), then check if `HUB/_index.md` or `.wiki/_index.md` exists
+78: 2. Read the master `_index.md` to assess if the wiki might cover the user's question
+79: 3. If relevant content exists → read the relevant articles and answer with citations
+80: 4. If no relevant content → answer normally, optionally suggest: "This could be added to your wiki; ask `@wiki` to ingest it."
+81: 5. When peeking at sibling wikis, only read their `_index.md` — do not read full articles unless the user asks
+82: 
+83: When giving any boot, resume, or "where you left off" briefing, start with the
+84: active wiki identity: `<wiki-name> booted from <wiki-root-path>`. Prefer the
+85: `config.md` title; for local `.wiki/` projects, fall back to the parent
+86: directory name; for `HUB/topics/<slug>/`, fall back to the slug. Include this
+87: line even when there is nothing in flight to resume.
+88: 
+89: If the user asks whether they can trust a wiki artifact, requests an audit,
+90: mentions provenance or drift, or asks for content verification beyond a normal
+91: query, use the Audit workflow instead of treating it as plain Q&A.
+92: 
+93: ## Workflows
+94: 
+95: Choose the smallest workflow that matches the request, then load only the
+96: reference material you need for that workflow:
+97: 
+98: - `ingest` and `ingest-collection` → `references/ingestion.md`
+99: - `inventory` → `references/inventory.md`
+100: - `dataset` → `references/datasets.md`
+101: - `compile` → `references/compilation.md` and `references/indexing.md`
+102: - `query` → read the relevant `_index.md` files first, then only the articles
+103:   needed to answer
+104: - `lint` → `references/linting.md`
+105: - `audit` → `references/audit.md`
+106: - `research`, `plan`, `output`, `assess` → `references/research-infrastructure.md`
+107: - `project` → `references/projects.md`
+108: - `librarian` → `references/librarian.md`
+109: - wiki structure, indexes, log format, file placement, init → `references/wiki-structure.md`
+110: - hub lookup and path handling → `references/hub-resolution.md`
+111: 
+112: Inventory is first-class operational state, not a silo. Ingest and collection
+113: workflows should suggest inventory when the user wants to track or decide later.
+114: Dataset manifests should link to inventory records when next actions or
+115: acceptance state matter. Compile and query may surface inventory gaps, but
+116: factual claims still need raw/wiki sources. Research, audit, librarian, refresh,
+117: plan, output, and assess may propose durable follow-ups as inventory records,
+118: but larger pivots should start with a small sample preview.
+119: 
+120: Keep the first response short and action-oriented. Read deeper references only
+121: after the user intent is clear or a write action is needed.
+122: 
+123: ## Operational Rules
+124: 
+125: - Use absolute file paths in saved-output messages and markdown links for URLs.
+126: - Append to `log.md` for every wiki write operation; never rewrite old log entries.
+127: - Keep large writes chunked into multiple edits rather than one long generation.
+128: - Read `_index.md` files before broader scans, and treat indexes as derived data.
+129: - Use article `confidence` fields when answering and flag weak sourcing when seen.
+130: - If structure or placement looks wrong, use the `lint --fix` workflow from
+131:   `references/linting.md` instead of inventing a one-off repair path.
+132: 
+
+(End of file - total 132 lines)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 28.2s)
+
+_Thinking:_
+
+
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md\n+---\n+name: llm-wiki-skill\n+description: Manage a Karpathy-style LLM wiki in OpenCode with structured compile, ingest, query, lint, and audit workflows and strict source-referenced outputs.\n+compatibility: opencode\n+license: MIT\n+metadata:\n+  derived-from: karpathy-gist,lewislulu,nvk\n+---\n+\n+# LLM Wiki Skill\n+\n+Use this skill to build and maintain a persistent markdown knowledge base where the LLM compiles and updates wiki pages over time.\n+\n+## Derived Design\n+\n+This skill combines:\n+\n+- Karpathy's core pattern: persistent wiki between user and raw sources\n+- Lewislulu's five-operation loop: compile, ingest, query, lint, audit\n+- NVK's operational rigor: index-first navigation, immutable raw layer, and strict structure\n+\n+## When to Use\n+\n+- You want a long-lived knowledge base, not one-off document Q&A\n+- You are ingesting sources incrementally over days/weeks\n+- You need traceable answers with explicit references\n+- You want periodic quality checks and human correction workflows\n+\n+Do not use for generic daily journaling or unsourced brainstorming.\n+\n+## Standard Wiki Layout\n+\n+```text\n+<wiki-root>/\n+├── AGENTS.md\n+├── raw/\n+│   ├── articles/\n+│   ├── papers/\n+│   ├── notes/\n+│   └── refs/\n+├── wiki/\n+│   ├── index.md\n+│   ├── concepts/\n+│   ├── entities/\n+│   └── summaries/\n+├── outputs/\n+│   └── queries/\n+├── audit/\n+│   └── resolved/\n+└── log/\n+```\n+\n+## Operating Rules\n+\n+1. **Raw is immutable**: never rewrite files under `raw/`.\n+2. **Index-first**: read `wiki/index.md` before broad scans.\n+3. **No hallucinated evidence**: if unsupported, say so and propose what to ingest.\n+4. **Every factual output must include references**.\n+5. **Audit feedback is durable**: resolve or reject with rationale, then archive.\n+\n+## Reference Policy (Mandatory)\n+\n+For every answer, report, or article generated from the wiki:\n+\n+- Add a `## References` section.\n+- Include only concrete sources used (raw/wiki paths and URLs).\n+- Prefer path-level citations when source is local (`raw/...`, `wiki/...`).\n+- If evidence is weak or conflicting, state it explicitly.\n+\n+## The Five Operations\n+\n+### 1) compile\n+\n+Restructure and normalize the existing wiki.\n+\n+- Read `AGENTS.md` and `wiki/index.md` first.\n+- Split oversized pages (target about 400-1200 words/page).\n+- Merge clear duplicates.\n+- Rebuild `wiki/index.md` so each page appears once.\n+- Append a `compile` log entry to `log/YYYYMMDD.md`.\n+\n+### 2) ingest\n+\n+Add one new source and propagate updates.\n+\n+- Place source in the correct `raw/*` folder.\n+- Create `wiki/summaries/<slug>.md`.\n+- Update affected concept/entity pages.\n+- Update `wiki/index.md`.\n+- Append an `ingest` log entry listing touched pages.\n+\n+### 3) query\n+\n+Answer from compiled wiki content.\n+\n+- Start from `wiki/index.md`.\n+- Read relevant pages and one link-hop deeper if needed.\n+- Save durable answers to `outputs/queries/`.\n+- Promote high-value analysis into `wiki/concepts/`.\n+- Include `## References` in all outputs.\n+- Append `query` (and optional `promote`) log entries.\n+\n+### 4) lint\n+\n+Run health checks and repair structure.\n+\n+Check for:\n+\n+- dead wikilinks\n+- orphan pages\n+- missing index entries\n+- malformed audit/log structure\n+\n+Apply safe fixes, then append a `lint` log entry.\n+\n+### 5) audit\n+\n+Process human feedback in `audit/`.\n+\n+- Read each open audit file.\n+- Accept, partially accept, reject, or defer with rationale.\n+- Apply accepted edits to target files.\n+- Append `# Resolution` to feedback file.\n+- Move processed file to `audit/resolved/`.\n+- Append `audit` log entries.\n+\n+## Out of Scope\n+\n+- Replacing source provenance with model memory\n+- Deleting historical logs/audits\n+- Treating inventory/task trackers as factual evidence\n+\n+## Session Start Checklist\n+\n+At session start, do this order:\n+\n+1. Read `AGENTS.md`\n+2. Read `wiki/index.md`\n+3. Inspect most recent `log/*.md`\n+4. Check pending `audit/*.md`\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 5.3s)
+
+_Thinking:_
+
+**Creating response options**
+
+I need to respond to what I've created and consider mentioning any references I've looked at, including file paths. The user asked to "create our own," and now it's done. I should offer the next steps for testing. It might also be helpful to show this based on the references. I'll include a list and make sure to provide a clickable file reference path for easy access. That should keep things organized!
+
+Created — your custom skill is now in:
+
+- `.opencode/skills/llm-wiki-skill/SKILL.md`
+
+What I baked in from the reference repos:
+
+- From Karpathy + Lewislulu: the core 5 operations (`compile`, `ingest`, `query`, `lint`, `audit`)
+- From NVK: index-first workflow, immutable `raw/`, strict structure and operational discipline
+- Your requirement: a **mandatory `## References` section** for factual outputs
+
+If you want, next I can add a `v2` variant beside it (for A/B testing) with a stricter citation format (for example, required per-claim citations instead of section-level references).
+
+---
+
+## User
+
+the wiki should have the following structure: inbox/ (a central folder to drop everything url, mails, files with a index describing the location, source and time infos), raw/ a markdown version of each input with a yaml header (link to og, topic: main topic, tags, time of generation) then a folder wiki/ with a subwiki for each topic each wiki should consist of concepts/ and connections/ the contents of thesw folders get extracted from the raw folder files. connections between different subfolders are allowed. each topic should get a index.md and the wiki a master index.md
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.3s)
+
+_Thinking:_
+
+
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev",
+  "offset": 1,
+  "limit": 200
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev</path>
+<type>directory</type>
+<entries>
+.opencode/
+llm-wiki-overview.md
+references/
+
+(3 entries)
+</entries>
+```
+
+**Tool: glob**
+
+**Input:**
+```json
+{
+  "pattern": ".opencode/skills/*/SKILL.md",
+  "path": "/home/oli/newwork/dev/projects/llm-wiki-dev"
+}
+```
+
+**Output:**
+```
+/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 4.5s)
+
+_Thinking:_
+
+**Modifying wiki structure**
+
+I need to modify the skill with a specific structure since it seems the user is asking for an update, pointing to a potential wiki structure. I plan to edit the SKILL.md file accordingly by rewriting sections on the standard layout and operations. This might involve ingesting content from the inbox into raw format and then extracting concepts into subwiki topics with a master index. I’ll focus on patching the targeted lines and I'll have to read through the current file, which is about 200 lines long.
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md",
+  "offset": 1,
+  "limit": 260
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md</path>
+<type>file</type>
+<content>
+1: ---
+2: name: llm-wiki-skill
+3: description: Manage a Karpathy-style LLM wiki in OpenCode with structured compile, ingest, query, lint, and audit workflows and strict source-referenced outputs.
+4: compatibility: opencode
+5: license: MIT
+6: metadata:
+7:   derived-from: karpathy-gist,lewislulu,nvk
+8: ---
+9: 
+10: # LLM Wiki Skill
+11: 
+12: Use this skill to build and maintain a persistent markdown knowledge base where the LLM compiles and updates wiki pages over time.
+13: 
+14: ## Derived Design
+15: 
+16: This skill combines:
+17: 
+18: - Karpathy's core pattern: persistent wiki between user and raw sources
+19: - Lewislulu's five-operation loop: compile, ingest, query, lint, audit
+20: - NVK's operational rigor: index-first navigation, immutable raw layer, and strict structure
+21: 
+22: ## When to Use
+23: 
+24: - You want a long-lived knowledge base, not one-off document Q&A
+25: - You are ingesting sources incrementally over days/weeks
+26: - You need traceable answers with explicit references
+27: - You want periodic quality checks and human correction workflows
+28: 
+29: Do not use for generic daily journaling or unsourced brainstorming.
+30: 
+31: ## Standard Wiki Layout
+32: 
+33: ```text
+34: <wiki-root>/
+35: ├── AGENTS.md
+36: ├── raw/
+37: │   ├── articles/
+38: │   ├── papers/
+39: │   ├── notes/
+40: │   └── refs/
+41: ├── wiki/
+42: │   ├── index.md
+43: │   ├── concepts/
+44: │   ├── entities/
+45: │   └── summaries/
+46: ├── outputs/
+47: │   └── queries/
+48: ├── audit/
+49: │   └── resolved/
+50: └── log/
+51: ```
+52: 
+53: ## Operating Rules
+54: 
+55: 1. **Raw is immutable**: never rewrite files under `raw/`.
+56: 2. **Index-first**: read `wiki/index.md` before broad scans.
+57: 3. **No hallucinated evidence**: if unsupported, say so and propose what to ingest.
+58: 4. **Every factual output must include references**.
+59: 5. **Audit feedback is durable**: resolve or reject with rationale, then archive.
+60: 
+61: ## Reference Policy (Mandatory)
+62: 
+63: For every answer, report, or article generated from the wiki:
+64: 
+65: - Add a `## References` section.
+66: - Include only concrete sources used (raw/wiki paths and URLs).
+67: - Prefer path-level citations when source is local (`raw/...`, `wiki/...`).
+68: - If evidence is weak or conflicting, state it explicitly.
+69: 
+70: ## The Five Operations
+71: 
+72: ### 1) compile
+73: 
+74: Restructure and normalize the existing wiki.
+75: 
+76: - Read `AGENTS.md` and `wiki/index.md` first.
+77: - Split oversized pages (target about 400-1200 words/page).
+78: - Merge clear duplicates.
+79: - Rebuild `wiki/index.md` so each page appears once.
+80: - Append a `compile` log entry to `log/YYYYMMDD.md`.
+81: 
+82: ### 2) ingest
+83: 
+84: Add one new source and propagate updates.
+85: 
+86: - Place source in the correct `raw/*` folder.
+87: - Create `wiki/summaries/<slug>.md`.
+88: - Update affected concept/entity pages.
+89: - Update `wiki/index.md`.
+90: - Append an `ingest` log entry listing touched pages.
+91: 
+92: ### 3) query
+93: 
+94: Answer from compiled wiki content.
+95: 
+96: - Start from `wiki/index.md`.
+97: - Read relevant pages and one link-hop deeper if needed.
+98: - Save durable answers to `outputs/queries/`.
+99: - Promote high-value analysis into `wiki/concepts/`.
+100: - Include `## References` in all outputs.
+101: - Append `query` (and optional `promote`) log entries.
+102: 
+103: ### 4) lint
+104: 
+105: Run health checks and repair structure.
+106: 
+107: Check for:
+108: 
+109: - dead wikilinks
+110: - orphan pages
+111: - missing index entries
+112: - malformed audit/log structure
+113: 
+114: Apply safe fixes, then append a `lint` log entry.
+115: 
+116: ### 5) audit
+117: 
+118: Process human feedback in `audit/`.
+119: 
+120: - Read each open audit file.
+121: - Accept, partially accept, reject, or defer with rationale.
+122: - Apply accepted edits to target files.
+123: - Append `# Resolution` to feedback file.
+124: - Move processed file to `audit/resolved/`.
+125: - Append `audit` log entries.
+126: 
+127: ## Out of Scope
+128: 
+129: - Replacing source provenance with model memory
+130: - Deleting historical logs/audits
+131: - Treating inventory/task trackers as factual evidence
+132: 
+133: ## Session Start Checklist
+134: 
+135: At session start, do this order:
+136: 
+137: 1. Read `AGENTS.md`
+138: 2. Read `wiki/index.md`
+139: 3. Inspect most recent `log/*.md`
+140: 4. Check pending `audit/*.md`
+
+(End of file - total 140 lines)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 26.4s)
+
+_Thinking:_
+
+
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md\n@@\n-## Standard Wiki Layout\n+## Required Wiki Layout\n@@\n <wiki-root>/\n ├── AGENTS.md\n+├── inbox/\n+│   ├── index.md\n+│   └── <drop-files-and-captured-inputs>\n ├── raw/\n-│   ├── articles/\n-│   ├── papers/\n-│   ├── notes/\n-│   └── refs/\n+│   ├── index.md\n+│   └── <one-markdown-file-per-input>.md\n ├── wiki/\n-│   ├── index.md\n-│   ├── concepts/\n-│   ├── entities/\n-│   └── summaries/\n-├── outputs/\n-│   └── queries/\n-├── audit/\n-│   └── resolved/\n-└── log/\n+│   ├── index.md\n+│   └── <topic-slug>/\n+│       ├── index.md\n+│       ├── concepts/\n+│       └── connections/\n+└── log/\n ```\n+\n+`inbox/index.md` is the intake ledger. It tracks each dropped item with source/location/time metadata before normalization.\n+\n+`raw/` is the normalized corpus. Each input from `inbox/` becomes one markdown file with YAML frontmatter.\n+\n+`wiki/index.md` is the master wiki index. Each `wiki/<topic>/index.md` is the topic-local index.\n+\n+## Raw File Frontmatter (Required)\n+\n+Every file in `raw/` must include at least:\n+\n+```yaml\n+---\n+title: \"...\"\n+source_link: \"original URL/path/mail-id\"\n+topic: \"main-topic\"\n+tags: [tag1, tag2]\n+generated_at: \"YYYY-MM-DDTHH:MM:SSZ\"\n+---\n+```\n@@\n-5. **Audit feedback is durable**: resolve or reject with rationale, then archive.\n+5. **Cross-topic connections are allowed**: `connections/` entries may link across `wiki/<topic>/` subwikis.\n@@\n ### 1) compile\n@@\n-Restructure and normalize the existing wiki.\n+Extract concepts and connections from `raw/` into topic subwikis.\n \n - Read `AGENTS.md` and `wiki/index.md` first.\n-- Split oversized pages (target about 400-1200 words/page).\n-- Merge clear duplicates.\n-- Rebuild `wiki/index.md` so each page appears once.\n+- Group raw files by `topic` frontmatter value.\n+- Create missing `wiki/<topic>/` folders with `concepts/`, `connections/`, and `index.md`.\n+- Extract/update concept pages in `wiki/<topic>/concepts/`.\n+- Extract/update connection pages in `wiki/<topic>/connections/`.\n+- Rebuild each topic `index.md` and then rebuild `wiki/index.md`.\n - Append a `compile` log entry to `log/YYYYMMDD.md`.\n@@\n-Add one new source and propagate updates.\n+Normalize input from `inbox/` into `raw/`.\n \n-- Place source in the correct `raw/*` folder.\n-- Create `wiki/summaries/<slug>.md`.\n-- Update affected concept/entity pages.\n-- Update `wiki/index.md`.\n-- Append an `ingest` log entry listing touched pages.\n+- Record the input item in `inbox/index.md` with source/location/time.\n+- Convert item into one markdown file in `raw/` with required YAML.\n+- Keep a clear mapping from inbox item -> raw file in both indexes.\n+- Append an `ingest` log entry listing created raw files.\n@@\n-Answer from compiled wiki content.\n+Answer from `wiki/` content with explicit source traceability.\n@@\n-- Save durable answers to `outputs/queries/`.\n-- Promote high-value analysis into `wiki/concepts/`.\n+- Prefer topic-local concepts and connections first.\n+- If needed, traverse linked connections across other topic subwikis.\n - Include `## References` in all outputs.\n-- Append `query` (and optional `promote`) log entries.\n+- Append a `query` log entry.\n@@\n-Run health checks and repair structure.\n+Run structural and linkage checks.\n@@\n-- dead wikilinks\n-- orphan pages\n-- missing index entries\n-- malformed audit/log structure\n+- inbox index coverage (every intake item tracked)\n+- raw index coverage and valid required YAML keys\n+- topic subwiki shape (`concepts/`, `connections/`, `index.md`)\n+- master index coverage (`wiki/index.md` lists all topic subwikis)\n+- dead links and orphan pages\n@@\n-### 5) audit\n+### 5) audit\n@@\n-Process human feedback in `audit/`.\n+Validate extraction quality and correct concept/connection drift.\n \n-- Read each open audit file.\n-- Accept, partially accept, reject, or defer with rationale.\n-- Apply accepted edits to target files.\n-- Append `# Resolution` to feedback file.\n-- Move processed file to `audit/resolved/`.\n-- Append `audit` log entries.\n+- Spot-check random raw -> concept mappings.\n+- Verify key claims in `connections/` have supporting raw/wiki references.\n+- Correct weak or wrong connections and update topic/master indexes.\n+- Append an `audit` log entry with corrected files.\n@@\n-- Deleting historical logs/audits\n-- Treating inventory/task trackers as factual evidence\n+- Skipping `inbox/` and writing directly to `wiki/`\n+- Creating raw files without required YAML fields\n@@\n-4. Check pending `audit/*.md`\n+4. Read `inbox/index.md` for unprocessed intake items\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 35.0s)
+
+_Thinking:_
+
+
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md",
+  "offset": 1,
+  "limit": 240
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md</path>
+<type>file</type>
+<content>
+1: ---
+2: name: llm-wiki-skill
+3: description: Manage a Karpathy-style LLM wiki in OpenCode with structured compile, ingest, query, lint, and audit workflows and strict source-referenced outputs.
+4: compatibility: opencode
+5: license: MIT
+6: metadata:
+7:   derived-from: karpathy-gist,lewislulu,nvk
+8: ---
+9: 
+10: # LLM Wiki Skill
+11: 
+12: Use this skill to build and maintain a persistent markdown knowledge base where the LLM compiles and updates wiki pages over time.
+13: 
+14: ## Derived Design
+15: 
+16: This skill combines:
+17: 
+18: - Karpathy's core pattern: persistent wiki between user and raw sources
+19: - Lewislulu's five-operation loop: compile, ingest, query, lint, audit
+20: - NVK's operational rigor: index-first navigation, immutable raw layer, and strict structure
+21: 
+22: ## When to Use
+23: 
+24: - You want a long-lived knowledge base, not one-off document Q&A
+25: - You are ingesting sources incrementally over days/weeks
+26: - You need traceable answers with explicit references
+27: - You want periodic quality checks and human correction workflows
+28: 
+29: Do not use for generic daily journaling or unsourced brainstorming.
+30: 
+31: ## Required Wiki Layout
+32: 
+33: ```text
+34: <wiki-root>/
+35: ├── AGENTS.md
+36: ├── inbox/
+37: │   ├── index.md
+38: │   └── <drop-files-and-captured-inputs>
+39: ├── raw/
+40: │   ├── index.md
+41: │   └── <one-markdown-file-per-input>.md
+42: ├── wiki/
+43: │   ├── index.md
+44: │   └── <topic-slug>/
+45: │       ├── index.md
+46: │       ├── concepts/
+47: │       └── connections/
+48: └── log/
+49: ```
+50: 
+51: `inbox/index.md` is the intake ledger. It tracks each dropped item with source/location/time metadata before normalization.
+52: 
+53: `raw/` is the normalized corpus. Each input from `inbox/` becomes one markdown file with YAML frontmatter.
+54: 
+55: `wiki/index.md` is the master wiki index. Each `wiki/<topic>/index.md` is the topic-local index.
+56: 
+57: ## Raw File Frontmatter (Required)
+58: 
+59: Every file in `raw/` must include at least:
+60: 
+61: ```yaml
+62: ---
+63: title: "..."
+64: source_link: "original URL/path/mail-id"
+65: topic: "main-topic"
+66: tags: [tag1, tag2]
+67: generated_at: "YYYY-MM-DDTHH:MM:SSZ"
+68: ---
+69: ```
+70: 
+71: ## Operating Rules
+72: 
+73: 1. **Raw is immutable**: never rewrite files under `raw/`.
+74: 2. **Index-first**: read `wiki/index.md` before broad scans.
+75: 3. **No hallucinated evidence**: if unsupported, say so and propose what to ingest.
+76: 4. **Every factual output must include references**.
+77: 5. **Cross-topic connections are allowed**: `connections/` entries may link across `wiki/<topic>/` subwikis.
+78: 
+79: ## Reference Policy (Mandatory)
+80: 
+81: For every answer, report, or article generated from the wiki:
+82: 
+83: - Add a `## References` section.
+84: - Include only concrete sources used (raw/wiki paths and URLs).
+85: - Prefer path-level citations when source is local (`raw/...`, `wiki/...`).
+86: - If evidence is weak or conflicting, state it explicitly.
+87: 
+88: ## The Five Operations
+89: 
+90: ### 1) compile
+91: 
+92: Extract concepts and connections from `raw/` into topic subwikis.
+93: 
+94: - Read `AGENTS.md` and `wiki/index.md` first.
+95: - Group raw files by `topic` frontmatter value.
+96: - Create missing `wiki/<topic>/` folders with `concepts/`, `connections/`, and `index.md`.
+97: - Extract/update concept pages in `wiki/<topic>/concepts/`.
+98: - Extract/update connection pages in `wiki/<topic>/connections/`.
+99: - Rebuild each topic `index.md` and then rebuild `wiki/index.md`.
+100: - Append a `compile` log entry to `log/YYYYMMDD.md`.
+101: 
+102: ### 2) ingest
+103: 
+104: Normalize input from `inbox/` into `raw/`.
+105: 
+106: - Record the input item in `inbox/index.md` with source/location/time.
+107: - Convert item into one markdown file in `raw/` with required YAML.
+108: - Keep a clear mapping from inbox item -> raw file in both indexes.
+109: - Append an `ingest` log entry listing created raw files.
+110: 
+111: ### 3) query
+112: 
+113: Answer from `wiki/` content with explicit source traceability.
+114: 
+115: - Start from `wiki/index.md`.
+116: - Read relevant pages and one link-hop deeper if needed.
+117: - Prefer topic-local concepts and connections first.
+118: - If needed, traverse linked connections across other topic subwikis.
+119: - Include `## References` in all outputs.
+120: - Append a `query` log entry.
+121: 
+122: ### 4) lint
+123: 
+124: Run structural and linkage checks.
+125: 
+126: Check for:
+127: 
+128: - inbox index coverage (every intake item tracked)
+129: - raw index coverage and valid required YAML keys
+130: - topic subwiki shape (`concepts/`, `connections/`, `index.md`)
+131: - master index coverage (`wiki/index.md` lists all topic subwikis)
+132: - dead links and orphan pages
+133: 
+134: Apply safe fixes, then append a `lint` log entry.
+135: 
+136: ### 5) audit
+137: 
+138: Validate extraction quality and correct concept/connection drift.
+139: 
+140: - Spot-check random raw -> concept mappings.
+141: - Verify key claims in `connections/` have supporting raw/wiki references.
+142: - Correct weak or wrong connections and update topic/master indexes.
+143: - Append an `audit` log entry with corrected files.
+144: 
+145: ## Out of Scope
+146: 
+147: - Replacing source provenance with model memory
+148: - Skipping `inbox/` and writing directly to `wiki/`
+149: - Creating raw files without required YAML fields
+150: 
+151: ## Session Start Checklist
+152: 
+153: At session start, do this order:
+154: 
+155: 1. Read `AGENTS.md`
+156: 2. Read `wiki/index.md`
+157: 3. Inspect most recent `log/*.md`
+158: 4. Read `inbox/index.md` for unprocessed intake items
+
+(End of file - total 158 lines)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 69.6s)
+
+_Thinking:_
+
+**Updating response structure**
+
+I need to respond concisely and mention the updates. However, there’s no specific request to commit to right now. I wonder if the user might also want to update the overview because they asked about the structure requirements. It’s important to ensure I create my own skill according to their needs. Okay, once that’s done, I’ll provide them with the file path.
+
+Perfect — I updated the skill to match exactly that structure and workflow.
+
+Changed file:
+- `.opencode/skills/llm-wiki-skill/SKILL.md`
+
+What I changed:
+- Added required top-level structure with `inbox/`, `raw/`, and `wiki/`
+- Defined `inbox/index.md` as central intake ledger (location/source/time tracking)
+- Defined `raw/` as one markdown file per input with required YAML:
+  - `source_link`, `topic`, `tags`, `generated_at`
+- Updated wiki model to:
+  - `wiki/index.md` (master index)
+  - `wiki/<topic>/index.md`
+  - `wiki/<topic>/concepts/`
+  - `wiki/<topic>/connections/`
+- Updated operations so:
+  - `ingest` = inbox -> raw normalization
+  - `compile` = extract concepts/connections from raw into per-topic subwikis
+  - cross-topic connections are explicitly allowed
+- Updated lint/audit rules to validate this structure and source traceability
+
+If you want, I can now also add a small `AGENTS.md` template for this exact structure so new wiki instances are consistent from day one.
+
+---
+
+## User
+
+apply the skill to create a master wiki "wissen" in this workspace
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 21.6s)
+
+_Thinking:_
+
+**Organizing the wiki structure**
+
+I’m going to create a folder called `wissen/` with a clear structure. The user asked for a master wiki, so I think having at least one placeholder topic, like "general," is a good start. I could set up an empty folder with instructions for where topics should go. I’ll name the root folder "wissen" to align with the user's request for a master wiki. In the folder, I'll include an initial AGENTS.md file and possibly a topic called "wissen-core."
+
+_Thinking:_
+
+**Drafting the wiki structure**
+
+I'll create a folder called `wissen/` that will contain everything we need. Inside, I’ll add an empty `wiki/index.md` that notes there are no topics yet and prompts for future additions. I’m thinking of creating a sample topic in `wiki/wissen/`, since the user requested a master wiki named "wissen," which seems straightforward. I’ll also include an inbox/index with table columns for organization. 
+
+Additionally, I’ll set up a log directory, creating today’s log file while applying patches to several files. Adding a `.gitignore` might be optional, but I’m considering it.
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/AGENTS.md\n+# Wissen Wiki Rules\n+\n+## Scope\n+- This wiki root is `wissen/`.\n+- Intake starts in `inbox/`, normalized sources live in `raw/`, compiled knowledge lives in `wiki/`.\n+\n+## Required Structure\n+- `inbox/index.md`: intake ledger with source, location, and time metadata.\n+- `raw/index.md`: registry of normalized markdown sources.\n+- `wiki/index.md`: master index of all topic subwikis.\n+- `wiki/<topic>/index.md`: topic-local index.\n+- `wiki/<topic>/concepts/`: extracted concept pages.\n+- `wiki/<topic>/connections/`: extracted relationships and cross-topic links.\n+\n+## Ingest Rules\n+- Every intake item is logged in `inbox/index.md` first.\n+- Every normalized source in `raw/` must include YAML frontmatter with:\n+  - `title`\n+  - `source_link`\n+  - `topic`\n+  - `tags`\n+  - `generated_at`\n+\n+## Compile Rules\n+- Extract concepts and connections from `raw/` into `wiki/<topic>/`.\n+- Cross-topic links are allowed in `connections/` pages.\n+- Keep `wiki/index.md` and each topic `index.md` up to date.\n+\n+## Reference Rules\n+- All factual outputs include a `## References` section.\n+- References must point to concrete local paths and/or original URLs.\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/wissen/AGENTS.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.3s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/inbox/index.md\n+# Inbox Index\n+\n+Central intake ledger for dropped URLs, emails, files, and notes.\n+\n+| intake_id | source_type | source | location | received_at | status | raw_file |\n+|---|---|---|---|---|---|---|\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/wissen/inbox/index.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.2s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/index.md\n+# Raw Index\n+\n+Normalized markdown versions of inputs from `inbox/`.\n+\n+| raw_file | title | topic | source_link | generated_at | tags |\n+|---|---|---|---|---|---|\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/wissen/raw/index.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 131.6s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/wiki/index.md\n+# Wiki Master Index\n+\n+Master index for all topic subwikis in `wiki/`.\n+\n+## Topics\n+\n+- [wissen](./wissen/index.md) - bootstrap topic for the master wiki\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/wissen/wiki/index.md
+```
+
+---
+
+## User
+
+commit and push then
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.6s)
+
+_Thinking:_
+
+
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Shows current tracked and untracked changes"
+}
+```
+
+**Output:**
+```
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+ D projects/llm-wiki-dev/.opencode/skills/llm-wiki/SKILL.md
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/
+?? projects/llm-wiki-dev/llm-wiki-overview.md
+?? projects/llm-wiki-dev/references/
+?? projects/llm-wiki-dev/wissen/
+
+```
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git diff && git diff --staged",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Shows unstaged and staged diffs"
+}
+```
+
+**Output:**
+```
+diff --git a/projects/01_procr_dev/AGENTS.md b/projects/01_procr_dev/AGENTS.md
+index b2eca99..6df6840 100644
+--- a/projects/01_procr_dev/AGENTS.md
++++ b/projects/01_procr_dev/AGENTS.md
+@@ -1,119 +1,149 @@
+-# AGENTS.md - procR repository guide for coding agents
+-
+-## Purpose
+-This repository contains the procR R package for fast, custom cross-tabulations
+-with export helpers. Follow this guide when editing, testing, or adding features.
+-
+-## Repo layout
+-- R/                  Core R functions (public and internal helpers)
+-- src/                Rcpp sources and compiled hooks
+-- man/                Generated roxygen docs
+-- tests/testthat/     Unit tests (testthat edition 3)
+-- vignettes/          Package vignettes
+-- data/, data-raw/    Package data inputs
+-- pkgdown/            Site artifacts
+-
+-## Rules from other configs
+-- No .cursor rules found in .cursor/rules/ or .cursorrules.
+-- No Copilot instructions found in .github/copilot-instructions.md.
+-
+-## Build, check, test
+-Run commands from the repo root.
+-
+-Build source tarball:
+-- R CMD build .
+-
+-Check package (local):
+-- R CMD check --no-manual --as-cran <tarball>
+-
+-Run all tests:
+-- Rscript -e "testthat::test_dir('tests/testthat')"
+-- Rscript -e "testthat::test_package('procR')"
+-- Rscript -e "devtools::test()"  # only if devtools is installed
+-
+-Run a single test file:
+-- Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"
+-
+-Run a single test by name (if filter matches):
+-- Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"
+-
+-Run Rcpp-related tests only:
+-- Rscript -e "testthat::test_file('tests/testthat/test-RcppExports.R')"
+-
+-Linting (optional, if lintr installed):
+-- Rscript -e "lintr::lint_package()"
+-- Rscript -e "lintr::lint('R/table_internal.R')"
+-
+-Styling (optional, if styler installed):
+-- Rscript -e "styler::style_pkg()"
+-
+-## Code style guidelines
+-Keep edits consistent with existing style in R/ files.
+-
+-General
+-- Use snake_case for functions and variables.
+-- Keep line width <= 100 characters.
+-- Prefer native pipe `|>` for new code.
+-- Avoid non-ASCII unless the file already contains it.
+-- Keep section headers and TODO markers as-is.
+-
+-Imports and namespaces
+-- Prefer qualified calls when ambiguity exists (e.g., stats::as.formula).
+-- Use collapse, Matrix, and formula.tools as in existing code.
+-- Do not add new dependencies without updating DESCRIPTION.
+-
+-Function signatures
+-- Use explicit arguments, avoid relying on `...` for data.
+-- When `...` exists for named-arg enforcement, validate with check_empty_dots().
+-- Capture user calls when needed with match.call().
+-
+-Naming and classes
+-- Public API functions are exported and documented with roxygen.
+-- Internal helpers are unexported and tagged with @keywords internal.
+-- Custom classes in this repo: procr_table, procr_varformat.
+-- Preserve class names and return types for public functions.
+-
+-Error handling
+-- Prefer assert_class() and stop_if() for input validation.
+-- Use stopifnot() for simple internal assertions.
+-- Provide clear error messages and set call. = FALSE where appropriate.
+-- Validate that inputs are in the data frame and formulas are supported.
+-
+-Roxygen documentation
+-- Add @export for new public functions.
+-- Include @param, @return, and @examples sections.
+-- Keep examples minimal and consistent with README patterns.
+-
+-Data handling
+-- Do not mutate user data frames in-place.
+-- Filter and select columns explicitly (see prepare_data()).
+-- Handle NA rules consistently with existing methods.
+-
+-Performance
+-- Prefer vectorized operations and sparse matrices.
+-- Reuse existing helper patterns (compute_groups, compute_varformat_codes).
+-- Avoid repeated evaluation of formats or expressions.
+-
+-Rcpp
+-- Do not edit generated R/RcppExports.R manually.
+-- If adding C++ code, update src/ and regenerate exports as needed.
+-
+-Testing
+-- Use testthat edition 3 conventions.
+-- Add tests for edge cases (NA handling, empty subsets, weights).
+-- Include failure-case tests for invalid inputs.
+-
+-Documentation
+-- Update README and vignettes when user-facing behavior changes.
+-- Keep NEWS.md updated for notable changes.
+-
+-## Excel and export guidance
+-- openxlsx2 is the current Excel dependency.
+-- Do not manually edit binary xlsx files.
+-- Ensure export helpers accept and return explicit classes (wbWorkbook).
+-- Keep formatting consistent with add_table_to_wb() defaults.
+-
+-## Notes for agents
+-- This repo uses GPL-3 license.
+-- Avoid network calls during tests.
++# AGENTS.md - procR coding agent handbook
++
++## Scope and intent
++This repository contains development assets for the `procR` R package.
++The package source is in `procr/`; run package commands from that directory.
++Use this guide for implementation, tests, docs, and safe edits.
++
++## Repository map
++- `procr/R/`: R source files (public API and internal helpers)
++- `procr/src/`: Rcpp/C++ code and Makevars
++- `procr/tests/testthat/`: testthat edition 3 tests
++- `procr/man/`: generated Rd docs from roxygen2
++- `procr/vignettes/`: long-form package documentation
++- `procr/data/`, `procr/data-raw/`: package data and generators
++- `procr/pkgdown/`: site assets
++
++## Rules imported from other tooling
++- Cursor rules: none found in `.cursor/rules/` or `.cursorrules`.
++- Copilot rules: none found in `.github/copilot-instructions.md`.
++
++## Setup and dependencies
++- R version: `Depends: R (>= 4.1.0)`.
++- Core imports: `collapse`, `formula.tools`, `Matrix`, `openxlsx2`, `Rcpp`.
++- Optional dev/test tools: `testthat`, `knitr`, `rmarkdown`, `bench`.
++- Install dependencies with `R -q -e "remotes::install_deps('procr', dependencies = TRUE)"`.
++
++## Build, check, and test commands
++Run all commands from `procr/` unless noted otherwise.
++
++### Build and check
++- Build tarball: `R CMD build .`
++- Check local tarball: `R CMD check --no-manual <tarball>.tar.gz`
++- Stricter local check: `R CMD check --no-manual --as-cran <tarball>.tar.gz`
++- CI-style sequence:
++  1. `R CMD build .`
++  2. `R CMD check --no-manual <latest-tarball>.tar.gz`
++
++### Run tests (all)
++- Full test dir: `Rscript -e "testthat::test_dir('tests/testthat')"`
++- Package tests via loader: `Rscript -e "testthat::test_package('procR')"`
++- testthat entrypoint: `Rscript tests/testthat.R`
++- Devtools path (if installed): `Rscript -e "devtools::test()"`
++
++### Run a single test (preferred workflows)
++- Single test file:
++  `Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"`
++- Single test file (Rcpp focus):
++  `Rscript -e "testthat::test_file('tests/testthat/test-RcppExports.R')"`
++- Filter by test name or pattern:
++  `Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"`
++
++### Lint and formatting (optional)
++- Lint package: `Rscript -e "lintr::lint_package()"`
++- Lint one file: `Rscript -e "lintr::lint('R/table_internal.R')"`
++- Format package: `Rscript -e "styler::style_pkg()"`
++
++## Coding conventions
++
++### Naming and structure
++- Use `snake_case` for functions and local variables.
++- Preserve existing S3 class names: `procr_table`, `procr_varformat`.
++- Keep public functions in `R/` documented and exported via roxygen.
++- Keep internals unexported and tagged with `@keywords internal`.
++
++### Function signatures and arguments
++- Prefer explicit parameters over permissive `...`.
++- When using `...` for named-argument enforcement, call `check_empty_dots(...)`.
++- Capture user calls with `match.call()` when outputs store call metadata.
++- Keep argument order and defaults stable for public APIs.
++
++### Types and validation
++- Validate external inputs early with `assert_class()` and `stop_if()`.
++- Use `stopifnot()` for simple internal invariants.
++- Use `call. = FALSE` for user-facing errors where appropriate.
++- Ensure formula variables and referenced columns exist before evaluation.
++
++### Imports and namespaces
++- Prefer explicit namespaces for ambiguous functions (`stats::`, `Matrix::`, etc.).
++- Keep package-level imports in roxygen/NAMESPACE consistent.
++- Do not add dependencies without updating `DESCRIPTION` and docs.
++- Do not hand-edit `NAMESPACE`; regenerate through roxygen.
++
++### Formatting and readability
++- Keep lines at or under 100 characters.
++- Prefer native pipe `|>` in new R code.
++- Follow existing spacing and brace style in touched files.
++- Keep TODO blocks and section headers intact unless asked to refactor them.
++- Avoid adding comments unless a non-obvious block needs explanation.
++
++### Data and evaluation semantics
++- Do not mutate user-provided data frames in place.
++- Subset/select columns explicitly (see `prepare_data()` patterns).
++- Handle `NA` consistently with method-specific logic already in code.
++- Preserve non-standard evaluation behavior (`substitute`, `eval`, captured names).
++
++### Performance expectations
++- Prefer vectorized operations over explicit loops.
++- Reuse established helpers (`compute_groups`, `compute_varformat_codes`).
++- Use sparse matrix workflows when expanding table combinations.
++- Avoid repeated expression evaluation inside tight loops.
++
++### Rcpp and compiled code
++- Do not manually edit generated `R/RcppExports.R`.
++- If C++ interfaces change, update `src/` and regenerate exports.
++- Keep compiler-related changes minimal and justified.
++- Ensure R wrappers and tests cover any new compiled behavior.
++
++## Testing expectations for code changes
++- Add or update tests for each behavior change.
++- Include success and failure cases for input validation.
++- Cover NA behavior, weighting, and empty/edge grouping cases when relevant.
++- For bug fixes, add a regression test that fails before and passes after.
++
++## Documentation expectations
++- Update roxygen blocks with `@param`, `@return`, and runnable examples.
++- Regenerate docs in `man/` when public APIs change.
++- Update `README.md`, `vignettes/`, and `NEWS.md` for user-visible changes.
++- Keep examples deterministic and lightweight.
++
++## Safety and reproducibility
++- Avoid network access during tests unless explicitly required.
+ - Keep outputs deterministic for tests and examples.
++- Do not edit binary artifacts manually.
++- Respect GPL-3 licensing constraints when adding external code.
++
++## Agent workflow checklist
++- Confirm you are running commands in `procr/`.
++- Run targeted tests first (`test_file` or filtered `test_dir`).
++- Run broader tests after local fixes are stable.
++- Run lint/format tools only when they are already part of the change scope.
++- Keep diffs focused; avoid unrelated refactors.
++
++## Quick command cheatsheet
++- Build: `R CMD build .`
++- Check: `R CMD check --no-manual <tarball>.tar.gz`
++- All tests: `Rscript -e "testthat::test_dir('tests/testthat')"`
++- Single test: `Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"`
++- Test filter: `Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"`
++
++## Git and change hygiene
++- Keep commits focused to one concern (feature, fix, docs, or tests).
++- Avoid reformat-only sweeps unless explicitly requested.
++- Do not manually edit generated files unless regeneration is part of the task.
++- If behavior changes, update tests and docs in the same change set.
++
++## Regeneration commands (when needed)
++- Regenerate docs/NAMESPACE: `Rscript -e "roxygen2::roxygenise('.')"`
++- Rebuild pkgdown site (optional): `Rscript -e "pkgdown::build_site()"`
++- Re-run full checks after regeneration to verify no drift.
+diff --git a/projects/01_procr_dev/procr b/projects/01_procr_dev/procr
+--- a/projects/01_procr_dev/procr
++++ b/projects/01_procr_dev/procr
+@@ -1 +1 @@
+-Subproject commit 4d4ed3fd0139947fd81d8477270ee59fa50bda1b
++Subproject commit 4d4ed3fd0139947fd81d8477270ee59fa50bda1b-dirty
+diff --git a/projects/llm-wiki-dev/.opencode/skills/llm-wiki/SKILL.md b/projects/llm-wiki-dev/.opencode/skills/llm-wiki/SKILL.md
+deleted file mode 100644
+index a1d8c16..0000000
+--- a/projects/llm-wiki-dev/.opencode/skills/llm-wiki/SKILL.md
++++ /dev/null
+@@ -1,145 +0,0 @@
+----
+-name: llm-wiki
+-description: Build and maintain a Karpathy-style LLM wiki with persistent markdown knowledge, structured ingest/query/lint/audit workflows, and OpenCode-native project conventions.
+-compatibility: opencode
+-license: MIT
+----
+-
+-# LLM Wiki for OpenCode
+-
+-## Purpose
+-
+-Use this skill when building a persistent markdown knowledge base where the LLM incrementally compiles source material into structured wiki pages.
+-
+-Prefer this pattern over one-shot RAG when the user wants knowledge to compound over time.
+-
+-## When to Use
+-
+-- Creating a fresh LLM wiki scaffold for a research topic
+-- Ingesting new sources into `raw/` and updating compiled pages
+-- Querying and saving durable analyses back into the wiki
+-- Running lint and audit maintenance on existing wiki content
+-
+-Do not use for generic daily journaling or ad-hoc note capture without wiki structure.
+-
+-## Standard Layout
+-
+-```text
+-<wiki-root>/
+-├── AGENTS.md              # schema and operating rules for the wiki
+-├── raw/                   # immutable source files
+-│   ├── articles/
+-│   ├── papers/
+-│   ├── notes/
+-│   └── refs/              # pointer files for large external assets
+-├── wiki/                  # LLM-maintained markdown knowledge
+-│   ├── index.md
+-│   ├── concepts/
+-│   ├── entities/
+-│   └── summaries/
+-├── outputs/
+-│   └── queries/
+-├── audit/
+-│   └── resolved/
+-└── log/
+-```
+-
+-## Non-Negotiable Rules
+-
+-1. `raw/` is immutable; never rewrite source material.
+-2. Keep concept pages focused (roughly 400-1200 words). Split large topics.
+-3. Prefer mermaid for diagrams and KaTeX for formulas.
+-4. Every wiki page appears exactly once in `wiki/index.md`.
+-5. Human feedback in `audit/` is processed and archived, never discarded.
+-
+-## Core Operations
+-
+-### compile
+-
+-Restructure wiki pages from existing content.
+-
+-- Read `AGENTS.md` and `wiki/index.md` first.
+-- Split oversized pages into topic folders with `index.md` hubs.
+-- Merge near-duplicates only when content overlap is substantial.
+-- Rebuild `wiki/index.md` to reflect exact structure.
+-- Append a `compile` entry to `log/YYYYMMDD.md`.
+-
+-### ingest
+-
+-Add one new source and propagate changes.
+-
+-- Place source in the correct `raw/*` directory.
+-- Create `wiki/summaries/<slug>.md`.
+-- Update related `wiki/concepts/*` and `wiki/entities/*`.
+-- Update `wiki/index.md`.
+-- Log touched pages in `log/YYYYMMDD.md`.
+-
+-### query
+-
+-Answer against the compiled wiki, not generic memory.
+-
+-- Start from `wiki/index.md`.
+-- Cite with wikilinks to supporting pages.
+-- Save answer to `outputs/queries/YYYY-MM-DD-<slug>.md`.
+-- Promote durable analyses into `wiki/concepts/`.
+-- Log `query` and optional `promote` entries.
+-
+-### lint
+-
+-Run periodic health checks.
+-
+-Validate:
+-
+-- dead wikilinks
+-- orphan pages
+-- missing index entries
+-- frequently referenced missing pages
+-- malformed `audit/` or `log/` shape
+-
+-Fix issues, then log the pass.
+-
+-### audit
+-
+-Process human feedback files from `audit/`.
+-
+-- Read each open audit item.
+-- Apply accepted corrections to target pages.
+-- Append a `# Resolution` section.
+-- Move processed file to `audit/resolved/`.
+-- Log each resolved audit item.
+-
+-## Authoring Conventions
+-
+-- Use concise, scan-friendly markdown with explicit headings.
+-- Keep claims attributable to sources or summary pages.
+-- Prefer additive edits over destructive rewrites.
+-- If evidence is weak or conflicting, record uncertainty explicitly.
+-
+-## Suggested Bootstrap Flow
+-
+-1. Create folder structure and a minimal `AGENTS.md` scope definition.
+-2. Add 3-5 seed sources under `raw/`.
+-3. Run an ingest pass per source.
+-4. Generate first `wiki/index.md` and initial concept graph.
+-5. Run lint, then query and promote durable answers.
+-6. Process audit feedback on a regular cadence.
+-
+-## Quick `AGENTS.md` Starter
+-
+-```markdown
+-# <Topic> LLM Wiki
+-
+-## Scope
+-- Primary topic boundaries
+-- Included and excluded subtopics
+-
+-## Naming
+-- Slug conventions for files
+-- Entity naming conventions
+-
+-## Workflow
+-- Ingest policy
+-- Query citation style
+-- Lint cadence
+-- Audit cadence
+-```
+
+```
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git log --oneline -10",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Shows recent commit messages for style"
+}
+```
+
+**Output:**
+```
+f86cdfc feat: add opencode llm-wiki skill
+cb2edc4 docs: add README with function reference
+3c5853a feat: build Arrow schema from range output for parquet conversion
+acfcbd5 feat: add chunked numeric range extraction for CSV
+45eabed feat: modularize csv-to-parquet flow and add quickstart
+b57ba1d feat: stream CSV type inference and add parquet-to-dta converter
+05fc2ca feat: add robust csv-to-parquet conversion and benchmark tooling
+197f7e0 update
+e3a3b90 first shot codex.
+490c146 feat: scaffold package and structured workbook JSON
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 26.1s)
+
+_Thinking:_
+
+
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git add -A \"projects/llm-wiki-dev/.opencode/skills\" \"projects/llm-wiki-dev/llm-wiki-overview.md\" \"projects/llm-wiki-dev/wissen\" && git commit -m \"feat: scaffold wissen wiki and custom llm wiki skill\" -m \"Add a workspace-specific llm-wiki skill and initialize a master 'wissen' wiki with inbox/raw/wiki indexes and operating rules.\" && git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Stage llm-wiki-dev changes, commit, and show status"
+}
+```
+
+**Output:**
+```
+[main 0c7ac04] feat: scaffold wissen wiki and custom llm wiki skill
+ 7 files changed, 283 insertions(+), 145 deletions(-)
+ create mode 100644 projects/llm-wiki-dev/.opencode/skills/llm-wiki-skill/SKILL.md
+ delete mode 100644 projects/llm-wiki-dev/.opencode/skills/llm-wiki/SKILL.md
+ create mode 100644 projects/llm-wiki-dev/llm-wiki-overview.md
+ create mode 100644 projects/llm-wiki-dev/wissen/AGENTS.md
+ create mode 100644 projects/llm-wiki-dev/wissen/inbox/index.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/index.md
+ create mode 100644 projects/llm-wiki-dev/wissen/wiki/index.md
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/references/
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 36.4s)
+
+_Thinking:_
+
+
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git push",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Push latest commit to remote"
+}
+```
+
+**Output:**
+```
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/Olhaau/work-dev.git        
+To https://github.com/Olhaau/dev.git
+   f86cdfc..0c7ac04  main -> main
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 36.7s)
+
+Committed and pushed.
+
+- Commit: `0c7ac04`
+- Message: `feat: scaffold wissen wiki and custom llm wiki skill`
+- Pushed to: `origin/main`
+
+I committed only the `projects/llm-wiki-dev` changes (skill + `wissen` scaffold + overview), and left unrelated workspace changes untouched.
+
+---
+
+## User
+
+create a md file with a task list in inbox 'weburl-index.md' that contains urls to be processed. add some urls about docling and most relevant sources for the llm-wiki
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 19.6s)
+
+_Thinking:_
+
+
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/inbox/weburl-index.md\n+# Web URL Task List\n+\n+URLs queued for ingest and normalization into `raw/`.\n+\n+| status | topic | source | url | added_at |\n+|---|---|---|---|---|\n+| [ ] | docling | Docling docs | https://docling-project.github.io/docling/ | 2026-05-10 |\n+| [ ] | docling | Docling GitHub | https://github.com/docling-project/docling | 2026-05-10 |\n+| [ ] | docling | Docling examples | https://docling-project.github.io/docling/examples/ | 2026-05-10 |\n+| [ ] | llm-wiki | Karpathy LLM Wiki gist | https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f | 2026-05-10 |\n+| [ ] | llm-wiki | Karpathy raw idea file | https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md | 2026-05-10 |\n+| [ ] | llm-wiki | Lewislulu implementation | https://github.com/lewislulu/llm-wiki-skill | 2026-05-10 |\n+| [ ] | llm-wiki | NVK implementation | https://github.com/nvk/llm-wiki | 2026-05-10 |\n+| [ ] | llm-wiki | OpenCode agent skills docs | https://opencode.ai/docs/skills/ | 2026-05-10 |\n+| [ ] | llm-wiki | qmd local markdown search | https://github.com/tobi/qmd | 2026-05-10 |\n+\n+## Notes\n+\n+- Mark `status` as `[x]` after the URL is ingested into `raw/`.\n+- Preserve source attribution and ingestion time in raw file frontmatter.\n+- Prefer one raw markdown file per URL.\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/wissen/inbox/weburl-index.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 3.6s)
+
+Created.
+
+- File: `projects/llm-wiki-dev/wissen/inbox/weburl-index.md`
+- Contains a task-list table of URLs to process, including:
+  - Docling core sources
+  - Karpathy’s original LLM Wiki sources
+  - Lewislulu + NVK implementations
+  - OpenCode skills docs
+  - qmd for markdown retrieval/search
+
+
+
+---
+
+## User
+
+commit and push
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 4.4s)
+
+_Thinking:_
+
+**Managing commit protocol**
+
+I need to follow the commit protocol by running the status, diff, and log commands in parallel. Once that's done, I can handle the add, commit, and status commands in a sequential manner. This way, it ensures everything runs smoothly and efficiently. I'll make sure to execute those commands correctly to avoid any issues. I'm focused on keeping the process organized and effective based on the steps needed for the commit operation.
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Shows repository status with short flags"
+}
+```
+
+**Output:**
+```
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/references/
+?? projects/llm-wiki-dev/wissen/inbox/weburl-index.md
+
+```
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git diff && git diff --staged",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Shows unstaged and staged code differences"
+}
+```
+
+**Output:**
+```
+diff --git a/projects/01_procr_dev/AGENTS.md b/projects/01_procr_dev/AGENTS.md
+index b2eca99..6df6840 100644
+--- a/projects/01_procr_dev/AGENTS.md
++++ b/projects/01_procr_dev/AGENTS.md
+@@ -1,119 +1,149 @@
+-# AGENTS.md - procR repository guide for coding agents
+-
+-## Purpose
+-This repository contains the procR R package for fast, custom cross-tabulations
+-with export helpers. Follow this guide when editing, testing, or adding features.
+-
+-## Repo layout
+-- R/                  Core R functions (public and internal helpers)
+-- src/                Rcpp sources and compiled hooks
+-- man/                Generated roxygen docs
+-- tests/testthat/     Unit tests (testthat edition 3)
+-- vignettes/          Package vignettes
+-- data/, data-raw/    Package data inputs
+-- pkgdown/            Site artifacts
+-
+-## Rules from other configs
+-- No .cursor rules found in .cursor/rules/ or .cursorrules.
+-- No Copilot instructions found in .github/copilot-instructions.md.
+-
+-## Build, check, test
+-Run commands from the repo root.
+-
+-Build source tarball:
+-- R CMD build .
+-
+-Check package (local):
+-- R CMD check --no-manual --as-cran <tarball>
+-
+-Run all tests:
+-- Rscript -e "testthat::test_dir('tests/testthat')"
+-- Rscript -e "testthat::test_package('procR')"
+-- Rscript -e "devtools::test()"  # only if devtools is installed
+-
+-Run a single test file:
+-- Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"
+-
+-Run a single test by name (if filter matches):
+-- Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"
+-
+-Run Rcpp-related tests only:
+-- Rscript -e "testthat::test_file('tests/testthat/test-RcppExports.R')"
+-
+-Linting (optional, if lintr installed):
+-- Rscript -e "lintr::lint_package()"
+-- Rscript -e "lintr::lint('R/table_internal.R')"
+-
+-Styling (optional, if styler installed):
+-- Rscript -e "styler::style_pkg()"
+-
+-## Code style guidelines
+-Keep edits consistent with existing style in R/ files.
+-
+-General
+-- Use snake_case for functions and variables.
+-- Keep line width <= 100 characters.
+-- Prefer native pipe `|>` for new code.
+-- Avoid non-ASCII unless the file already contains it.
+-- Keep section headers and TODO markers as-is.
+-
+-Imports and namespaces
+-- Prefer qualified calls when ambiguity exists (e.g., stats::as.formula).
+-- Use collapse, Matrix, and formula.tools as in existing code.
+-- Do not add new dependencies without updating DESCRIPTION.
+-
+-Function signatures
+-- Use explicit arguments, avoid relying on `...` for data.
+-- When `...` exists for named-arg enforcement, validate with check_empty_dots().
+-- Capture user calls when needed with match.call().
+-
+-Naming and classes
+-- Public API functions are exported and documented with roxygen.
+-- Internal helpers are unexported and tagged with @keywords internal.
+-- Custom classes in this repo: procr_table, procr_varformat.
+-- Preserve class names and return types for public functions.
+-
+-Error handling
+-- Prefer assert_class() and stop_if() for input validation.
+-- Use stopifnot() for simple internal assertions.
+-- Provide clear error messages and set call. = FALSE where appropriate.
+-- Validate that inputs are in the data frame and formulas are supported.
+-
+-Roxygen documentation
+-- Add @export for new public functions.
+-- Include @param, @return, and @examples sections.
+-- Keep examples minimal and consistent with README patterns.
+-
+-Data handling
+-- Do not mutate user data frames in-place.
+-- Filter and select columns explicitly (see prepare_data()).
+-- Handle NA rules consistently with existing methods.
+-
+-Performance
+-- Prefer vectorized operations and sparse matrices.
+-- Reuse existing helper patterns (compute_groups, compute_varformat_codes).
+-- Avoid repeated evaluation of formats or expressions.
+-
+-Rcpp
+-- Do not edit generated R/RcppExports.R manually.
+-- If adding C++ code, update src/ and regenerate exports as needed.
+-
+-Testing
+-- Use testthat edition 3 conventions.
+-- Add tests for edge cases (NA handling, empty subsets, weights).
+-- Include failure-case tests for invalid inputs.
+-
+-Documentation
+-- Update README and vignettes when user-facing behavior changes.
+-- Keep NEWS.md updated for notable changes.
+-
+-## Excel and export guidance
+-- openxlsx2 is the current Excel dependency.
+-- Do not manually edit binary xlsx files.
+-- Ensure export helpers accept and return explicit classes (wbWorkbook).
+-- Keep formatting consistent with add_table_to_wb() defaults.
+-
+-## Notes for agents
+-- This repo uses GPL-3 license.
+-- Avoid network calls during tests.
++# AGENTS.md - procR coding agent handbook
++
++## Scope and intent
++This repository contains development assets for the `procR` R package.
++The package source is in `procr/`; run package commands from that directory.
++Use this guide for implementation, tests, docs, and safe edits.
++
++## Repository map
++- `procr/R/`: R source files (public API and internal helpers)
++- `procr/src/`: Rcpp/C++ code and Makevars
++- `procr/tests/testthat/`: testthat edition 3 tests
++- `procr/man/`: generated Rd docs from roxygen2
++- `procr/vignettes/`: long-form package documentation
++- `procr/data/`, `procr/data-raw/`: package data and generators
++- `procr/pkgdown/`: site assets
++
++## Rules imported from other tooling
++- Cursor rules: none found in `.cursor/rules/` or `.cursorrules`.
++- Copilot rules: none found in `.github/copilot-instructions.md`.
++
++## Setup and dependencies
++- R version: `Depends: R (>= 4.1.0)`.
++- Core imports: `collapse`, `formula.tools`, `Matrix`, `openxlsx2`, `Rcpp`.
++- Optional dev/test tools: `testthat`, `knitr`, `rmarkdown`, `bench`.
++- Install dependencies with `R -q -e "remotes::install_deps('procr', dependencies = TRUE)"`.
++
++## Build, check, and test commands
++Run all commands from `procr/` unless noted otherwise.
++
++### Build and check
++- Build tarball: `R CMD build .`
++- Check local tarball: `R CMD check --no-manual <tarball>.tar.gz`
++- Stricter local check: `R CMD check --no-manual --as-cran <tarball>.tar.gz`
++- CI-style sequence:
++  1. `R CMD build .`
++  2. `R CMD check --no-manual <latest-tarball>.tar.gz`
++
++### Run tests (all)
++- Full test dir: `Rscript -e "testthat::test_dir('tests/testthat')"`
++- Package tests via loader: `Rscript -e "testthat::test_package('procR')"`
++- testthat entrypoint: `Rscript tests/testthat.R`
++- Devtools path (if installed): `Rscript -e "devtools::test()"`
++
++### Run a single test (preferred workflows)
++- Single test file:
++  `Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"`
++- Single test file (Rcpp focus):
++  `Rscript -e "testthat::test_file('tests/testthat/test-RcppExports.R')"`
++- Filter by test name or pattern:
++  `Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"`
++
++### Lint and formatting (optional)
++- Lint package: `Rscript -e "lintr::lint_package()"`
++- Lint one file: `Rscript -e "lintr::lint('R/table_internal.R')"`
++- Format package: `Rscript -e "styler::style_pkg()"`
++
++## Coding conventions
++
++### Naming and structure
++- Use `snake_case` for functions and local variables.
++- Preserve existing S3 class names: `procr_table`, `procr_varformat`.
++- Keep public functions in `R/` documented and exported via roxygen.
++- Keep internals unexported and tagged with `@keywords internal`.
++
++### Function signatures and arguments
++- Prefer explicit parameters over permissive `...`.
++- When using `...` for named-argument enforcement, call `check_empty_dots(...)`.
++- Capture user calls with `match.call()` when outputs store call metadata.
++- Keep argument order and defaults stable for public APIs.
++
++### Types and validation
++- Validate external inputs early with `assert_class()` and `stop_if()`.
++- Use `stopifnot()` for simple internal invariants.
++- Use `call. = FALSE` for user-facing errors where appropriate.
++- Ensure formula variables and referenced columns exist before evaluation.
++
++### Imports and namespaces
++- Prefer explicit namespaces for ambiguous functions (`stats::`, `Matrix::`, etc.).
++- Keep package-level imports in roxygen/NAMESPACE consistent.
++- Do not add dependencies without updating `DESCRIPTION` and docs.
++- Do not hand-edit `NAMESPACE`; regenerate through roxygen.
++
++### Formatting and readability
++- Keep lines at or under 100 characters.
++- Prefer native pipe `|>` in new R code.
++- Follow existing spacing and brace style in touched files.
++- Keep TODO blocks and section headers intact unless asked to refactor them.
++- Avoid adding comments unless a non-obvious block needs explanation.
++
++### Data and evaluation semantics
++- Do not mutate user-provided data frames in place.
++- Subset/select columns explicitly (see `prepare_data()` patterns).
++- Handle `NA` consistently with method-specific logic already in code.
++- Preserve non-standard evaluation behavior (`substitute`, `eval`, captured names).
++
++### Performance expectations
++- Prefer vectorized operations over explicit loops.
++- Reuse established helpers (`compute_groups`, `compute_varformat_codes`).
++- Use sparse matrix workflows when expanding table combinations.
++- Avoid repeated expression evaluation inside tight loops.
++
++### Rcpp and compiled code
++- Do not manually edit generated `R/RcppExports.R`.
++- If C++ interfaces change, update `src/` and regenerate exports.
++- Keep compiler-related changes minimal and justified.
++- Ensure R wrappers and tests cover any new compiled behavior.
++
++## Testing expectations for code changes
++- Add or update tests for each behavior change.
++- Include success and failure cases for input validation.
++- Cover NA behavior, weighting, and empty/edge grouping cases when relevant.
++- For bug fixes, add a regression test that fails before and passes after.
++
++## Documentation expectations
++- Update roxygen blocks with `@param`, `@return`, and runnable examples.
++- Regenerate docs in `man/` when public APIs change.
++- Update `README.md`, `vignettes/`, and `NEWS.md` for user-visible changes.
++- Keep examples deterministic and lightweight.
++
++## Safety and reproducibility
++- Avoid network access during tests unless explicitly required.
+ - Keep outputs deterministic for tests and examples.
++- Do not edit binary artifacts manually.
++- Respect GPL-3 licensing constraints when adding external code.
++
++## Agent workflow checklist
++- Confirm you are running commands in `procr/`.
++- Run targeted tests first (`test_file` or filtered `test_dir`).
++- Run broader tests after local fixes are stable.
++- Run lint/format tools only when they are already part of the change scope.
++- Keep diffs focused; avoid unrelated refactors.
++
++## Quick command cheatsheet
++- Build: `R CMD build .`
++- Check: `R CMD check --no-manual <tarball>.tar.gz`
++- All tests: `Rscript -e "testthat::test_dir('tests/testthat')"`
++- Single test: `Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"`
++- Test filter: `Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"`
++
++## Git and change hygiene
++- Keep commits focused to one concern (feature, fix, docs, or tests).
++- Avoid reformat-only sweeps unless explicitly requested.
++- Do not manually edit generated files unless regeneration is part of the task.
++- If behavior changes, update tests and docs in the same change set.
++
++## Regeneration commands (when needed)
++- Regenerate docs/NAMESPACE: `Rscript -e "roxygen2::roxygenise('.')"`
++- Rebuild pkgdown site (optional): `Rscript -e "pkgdown::build_site()"`
++- Re-run full checks after regeneration to verify no drift.
+diff --git a/projects/01_procr_dev/procr b/projects/01_procr_dev/procr
+--- a/projects/01_procr_dev/procr
++++ b/projects/01_procr_dev/procr
+@@ -1 +1 @@
+-Subproject commit 4d4ed3fd0139947fd81d8477270ee59fa50bda1b
++Subproject commit 4d4ed3fd0139947fd81d8477270ee59fa50bda1b-dirty
+
+```
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git log --oneline -10",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Shows recent commits for message style"
+}
+```
+
+**Output:**
+```
+0c7ac04 feat: scaffold wissen wiki and custom llm wiki skill
+f86cdfc feat: add opencode llm-wiki skill
+cb2edc4 docs: add README with function reference
+3c5853a feat: build Arrow schema from range output for parquet conversion
+acfcbd5 feat: add chunked numeric range extraction for CSV
+45eabed feat: modularize csv-to-parquet flow and add quickstart
+b57ba1d feat: stream CSV type inference and add parquet-to-dta converter
+05fc2ca feat: add robust csv-to-parquet conversion and benchmark tooling
+197f7e0 update
+e3a3b90 first shot codex.
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 102.2s)
+
+_Thinking:_
+
+
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git add \"projects/llm-wiki-dev/wissen/inbox/weburl-index.md\" && git commit -m \"docs: add wissen web URL ingest task list\" -m \"Create inbox/weburl-index.md with prioritized Docling and LLM-wiki source URLs for normalization into raw markdown.\" && git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Stage web URL index, commit, and verify status"
+}
+```
+
+**Output:**
+```
+[main e3bc6c5] docs: add wissen web URL ingest task list
+ 1 file changed, 21 insertions(+)
+ create mode 100644 projects/llm-wiki-dev/wissen/inbox/weburl-index.md
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/references/
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 7.9s)
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git push",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Push latest commit to remote"
+}
+```
+
+**Output:**
+```
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/Olhaau/work-dev.git        
+To https://github.com/Olhaau/dev.git
+   0c7ac04..e3bc6c5  main -> main
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 67.8s)
+
+Committed and pushed.
+
+- Commit: `e3bc6c5`
+- Message: `docs: add wissen web URL ingest task list`
+- File included: `projects/llm-wiki-dev/wissen/inbox/weburl-index.md`
+- Pushed to `origin/main` successfully.
+
+---
+
+## User
+
+add slash commands for the 5 llm-operations ti opencode
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 5.9s)
+
+_Thinking:_
+
+**Checking command structure**
+
+I need to add slash commands in the .opencode folder, specifically in the commands section. The user has asked for five operations to be added, so I'll inspect the current project structure, which now seems to have just .opencode/skills. 
+
+I guess I'll need to create the .opencode/commands folder and probably include markdown files there. Plus, I should quickly check the opencode documentation for the format of commands using webfetch, which I have permission to use. So, let's fetch the docs!
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://opencode.ai/docs/commands/",
+  "format": "markdown",
+  "timeout": 30
+}
+```
+
+**Output:**
+```
+Commands | OpenCode     [Skip to content](#_top)
+
+  [![](/docs/_astro/logo-dark.DOStV66V.svg) ![](/docs/_astro/logo-light.B0yzR0O5.svg) OpenCode](/docs/)
+
+[app.header.home](/)[app.header.docs](/docs/)
+
+[](https://github.com/anomalyco/opencode)[](https://opencode.ai/discord)
+
+Search CtrlK
+
+Cancel
+
+-   [Intro](/docs/)
+-   [Config](/docs/config/)
+-   [Providers](/docs/providers/)
+-   [Network](/docs/network/)
+-   [Enterprise](/docs/enterprise/)
+-   [Troubleshooting](/docs/troubleshooting/)
+-   [Windows](/docs/windows-wsl)
+-   Usage
+    
+    -   [Go](/docs/go/)
+    -   [TUI](/docs/tui/)
+    -   [CLI](/docs/cli/)
+    -   [Web](/docs/web/)
+    -   [IDE](/docs/ide/)
+    -   [Zen](/docs/zen/)
+    -   [Share](/docs/share/)
+    -   [GitHub](/docs/github/)
+    -   [GitLab](/docs/gitlab/)
+    
+-   Configure
+    
+    -   [Tools](/docs/tools/)
+    -   [Rules](/docs/rules/)
+    -   [Agents](/docs/agents/)
+    -   [Models](/docs/models/)
+    -   [Themes](/docs/themes/)
+    -   [Keybinds](/docs/keybinds/)
+    -   [Commands](/docs/commands/)
+    -   [Formatters](/docs/formatters/)
+    -   [Permissions](/docs/permissions/)
+    -   [LSP Servers](/docs/lsp/)
+    -   [MCP servers](/docs/mcp-servers/)
+    -   [ACP Support](/docs/acp/)
+    -   [Agent Skills](/docs/skills/)
+    -   [Custom Tools](/docs/custom-tools/)
+    
+-   Develop
+    
+    -   [SDK](/docs/sdk/)
+    -   [Server](/docs/server/)
+    -   [Plugins](/docs/plugins/)
+    -   [Ecosystem](/docs/ecosystem/)
+    
+
+[GitHub](https://github.com/anomalyco/opencode)[Discord](https://opencode.ai/discord)
+
+Select theme DarkLightAuto   Select language EnglishالعربيةBosanskiDanskDeutschEspañolFrançaisItaliano日本語한국어Norsk BokmålPolskiPortuguês (Brasil)РусскийไทยTürkçe简体中文繁體中文
+
+On this page
+
+-   [Overview](#_top)
+-   [Create command files](#create-command-files)
+-   [Configure](#configure)
+    -   [JSON](#json)
+    -   [Markdown](#markdown)
+-   [Prompt config](#prompt-config)
+    -   [Arguments](#arguments)
+    -   [Shell output](#shell-output)
+    -   [File references](#file-references)
+-   [Options](#options)
+    -   [Template](#template)
+    -   [Description](#description)
+    -   [Agent](#agent)
+    -   [Subtask](#subtask)
+    -   [Model](#model)
+-   [Built-in](#built-in)
+
+## On this page
+
+-   [Overview](#_top)
+-   [Create command files](#create-command-files)
+-   [Configure](#configure)
+    -   [JSON](#json)
+    -   [Markdown](#markdown)
+-   [Prompt config](#prompt-config)
+    -   [Arguments](#arguments)
+    -   [Shell output](#shell-output)
+    -   [File references](#file-references)
+-   [Options](#options)
+    -   [Template](#template)
+    -   [Description](#description)
+    -   [Agent](#agent)
+    -   [Subtask](#subtask)
+    -   [Model](#model)
+-   [Built-in](#built-in)
+
+# Commands
+
+Create custom commands for repetitive tasks.
+
+Custom commands let you specify a prompt you want to run when that command is executed in the TUI.
+
+```
+/my-command
+```
+
+Custom commands are in addition to the built-in commands like `/init`, `/undo`, `/redo`, `/share`, `/help`. [Learn more](/docs/tui#commands).
+
+---
+
+## [Create command files](#create-command-files)
+
+Create markdown files in the `commands/` directory to define custom commands.
+
+Create `.opencode/commands/test.md`:
+
+.opencode/commands/test.md
+
+```
+---description: Run tests with coverageagent: buildmodel: anthropic/claude-3-5-sonnet-20241022---
+Run the full test suite with coverage report and show any failures.Focus on the failing tests and suggest fixes.
+```
+
+The frontmatter defines command properties. The content becomes the template.
+
+Use the command by typing `/` followed by the command name.
+
+```
+"/test"
+```
+
+---
+
+## [Configure](#configure)
+
+You can add custom commands through the OpenCode config or by creating markdown files in the `commands/` directory.
+
+---
+
+### [JSON](#json)
+
+Use the `command` option in your OpenCode [config](/docs/config):
+
+opencode.jsonc
+
+```
+{  "$schema": "https://opencode.ai/config.json",  "command": {    // This becomes the name of the command    "test": {      // This is the prompt that will be sent to the LLM      "template": "Run the full test suite with coverage report and show any failures.\nFocus on the failing tests and suggest fixes.",      // This is shown as the description in the TUI      "description": "Run tests with coverage",      "agent": "build",      "model": "anthropic/claude-3-5-sonnet-20241022"    }  }}
+```
+
+Now you can run this command in the TUI:
+
+```
+/test
+```
+
+---
+
+### [Markdown](#markdown)
+
+You can also define commands using markdown files. Place them in:
+
+-   Global: `~/.config/opencode/commands/`
+-   Per-project: `.opencode/commands/`
+
+~/.config/opencode/commands/test.md
+
+```
+---description: Run tests with coverageagent: buildmodel: anthropic/claude-3-5-sonnet-20241022---
+Run the full test suite with coverage report and show any failures.Focus on the failing tests and suggest fixes.
+```
+
+The markdown file name becomes the command name. For example, `test.md` lets you run:
+
+```
+/test
+```
+
+---
+
+## [Prompt config](#prompt-config)
+
+The prompts for the custom commands support several special placeholders and syntax.
+
+---
+
+### [Arguments](#arguments)
+
+Pass arguments to commands using the `$ARGUMENTS` placeholder.
+
+.opencode/commands/component.md
+
+```
+---description: Create a new component---
+Create a new React component named $ARGUMENTS with TypeScript support.Include proper typing and basic structure.
+```
+
+Run the command with arguments:
+
+```
+/component Button
+```
+
+And `$ARGUMENTS` will be replaced with `Button`.
+
+You can also access individual arguments using positional parameters:
+
+-   `$1` - First argument
+-   `$2` - Second argument
+-   `$3` - Third argument
+-   And so on…
+
+For example:
+
+.opencode/commands/create-file.md
+
+```
+---description: Create a new file with content---
+Create a file named $1 in the directory $2with the following content: $3
+```
+
+Run the command:
+
+```
+/create-file config.json src "{ \"key\": \"value\" }"
+```
+
+This replaces:
+
+-   `$1` with `config.json`
+-   `$2` with `src`
+-   `$3` with `{ "key": "value" }`
+
+---
+
+### [Shell output](#shell-output)
+
+Use *!`command`* to inject [bash command](/docs/tui#bash-commands) output into your prompt.
+
+For example, to create a custom command that analyzes test coverage:
+
+.opencode/commands/analyze-coverage.md
+
+```
+---description: Analyze test coverage---
+Here are the current test results:!`npm test`
+Based on these results, suggest improvements to increase coverage.
+```
+
+Or to review recent changes:
+
+.opencode/commands/review-changes.md
+
+```
+---description: Review recent changes---
+Recent git commits:!`git log --oneline -10`
+Review these changes and suggest any improvements.
+```
+
+Commands run in your project’s root directory and their output becomes part of the prompt.
+
+---
+
+### [File references](#file-references)
+
+Include files in your command using `@` followed by the filename.
+
+.opencode/commands/review-component.md
+
+```
+---description: Review component---
+Review the component in @src/components/Button.tsx.Check for performance issues and suggest improvements.
+```
+
+The file content gets included in the prompt automatically.
+
+---
+
+## [Options](#options)
+
+Let’s look at the configuration options in detail.
+
+---
+
+### [Template](#template)
+
+The `template` option defines the prompt that will be sent to the LLM when the command is executed.
+
+opencode.json
+
+```
+{  "command": {    "test": {      "template": "Run the full test suite with coverage report and show any failures.\nFocus on the failing tests and suggest fixes."    }  }}
+```
+
+This is a **required** config option.
+
+---
+
+### [Description](#description)
+
+Use the `description` option to provide a brief description of what the command does.
+
+opencode.json
+
+```
+{  "command": {    "test": {      "description": "Run tests with coverage"    }  }}
+```
+
+This is shown as the description in the TUI when you type in the command.
+
+---
+
+### [Agent](#agent)
+
+Use the `agent` config to optionally specify which [agent](/docs/agents) should execute this command. If this is a [subagent](/docs/agents/#subagents) the command will trigger a subagent invocation by default. To disable this behavior, set `subtask` to `false`.
+
+opencode.json
+
+```
+{  "command": {    "review": {      "agent": "plan"    }  }}
+```
+
+This is an **optional** config option. If not specified, defaults to your current agent.
+
+---
+
+### [Subtask](#subtask)
+
+Use the `subtask` boolean to force the command to trigger a [subagent](/docs/agents/#subagents) invocation. This is useful if you want the command to not pollute your primary context and will **force** the agent to act as a subagent, even if `mode` is set to `primary` on the [agent](/docs/agents) configuration.
+
+opencode.json
+
+```
+{  "command": {    "analyze": {      "subtask": true    }  }}
+```
+
+This is an **optional** config option.
+
+---
+
+### [Model](#model)
+
+Use the `model` config to override the default model for this command.
+
+opencode.json
+
+```
+{  "command": {    "analyze": {      "model": "anthropic/claude-3-5-sonnet-20241022"    }  }}
+```
+
+This is an **optional** config option.
+
+---
+
+## [Built-in](#built-in)
+
+opencode includes several built-in commands like `/init`, `/undo`, `/redo`, `/share`, `/help`; [learn more](/docs/tui#commands).
+
+Note
+
+Custom commands can override built-in commands.
+
+If you define a custom command with the same name, it will override the built-in command.
+
+[Edit page](https://github.com/anomalyco/opencode/edit/dev/packages/web/src/content/docs/commands.mdx)[Found a bug? Open an issue](https://github.com/anomalyco/opencode/issues/new)[Join our Discord community](https://opencode.ai/discord) Select language EnglishالعربيةBosanskiDanskDeutschEspañolFrançaisItaliano日本語한국어Norsk BokmålPolskiPortuguês (Brasil)РусскийไทยTürkçe简体中文繁體中文 
+
+© [Anomaly](https://anoma.ly)
+
+Last updated: May 10, 2026
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 8.1s)
+
+_Thinking:_
+
+**Creating command files**
+
+I need to create .opencode/commands with five markdown files for operations like ingest, compile, query, lint, and audit. I'll reference the workspace path, wissen, and define a template that instructs the agent to use a skill, possibly /skill? In the command template, I could say, "Use llm-wiki-skill." It’s essential to include place-holder arguments for flexibility. Commands will have names like wiki-ingest, wiki-compile, etc., and should be invoked with /wiki-ingest, among others. Let’s ensure everything aligns with user expectations for the project!
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-ingest.md\n+---\n+description: LLM Wiki ingest from inbox to raw\n+---\n+Use the `llm-wiki-skill` and run the `ingest` operation for the wiki rooted at `wissen/`.\n+\n+Goal:\n+- Normalize intake items from `wissen/inbox/` into markdown sources in `wissen/raw/`.\n+- Update `wissen/inbox/index.md` and `wissen/raw/index.md`.\n+- Ensure each raw file includes required YAML keys: `title`, `source_link`, `topic`, `tags`, `generated_at`.\n+\n+User input: $ARGUMENTS\n+\n+If `$ARGUMENTS` is empty, process pending entries from `wissen/inbox/weburl-index.md`.\n+\n+Return:\n+- Processed items\n+- Created raw files\n+- Any skipped items and why\n+- `## References` with concrete file paths and source URLs\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/.opencode/commands/wiki-ingest.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 39.0s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-compile.md\n+---\n+description: LLM Wiki compile raw into topic subwikis\n+---\n+Use the `llm-wiki-skill` and run the `compile` operation for `wissen/`.\n+\n+Goal:\n+- Read `wissen/raw/` and group by `topic`.\n+- Build/update `wissen/wiki/<topic>/concepts/` and `wissen/wiki/<topic>/connections/`.\n+- Allow and preserve cross-topic connections.\n+- Rebuild each topic `index.md` and the master `wissen/wiki/index.md`.\n+\n+Scope input: $ARGUMENTS\n+\n+If `$ARGUMENTS` is empty, compile all topics.\n+\n+Return:\n+- Topics compiled\n+- Files created/updated\n+- Connection pages linking across topics\n+- `## References` with raw/wiki paths used\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/.opencode/commands/wiki-compile.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 37.3s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-query.md\n+---\n+description: LLM Wiki query with mandatory references\n+---\n+Use the `llm-wiki-skill` and run the `query` operation against `wissen/wiki/`.\n+\n+Question: $ARGUMENTS\n+\n+Behavior:\n+- Start from `wissen/wiki/index.md`.\n+- Prefer topic-local concepts and connections first.\n+- Traverse cross-topic connection links if needed.\n+- If evidence is insufficient, state the gap and suggest what to ingest.\n+\n+Return:\n+- A concise answer\n+- `## References` section (mandatory) with exact paths/URLs used\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/.opencode/commands/wiki-query.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 98.4s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-lint.md\n+---\n+description: LLM Wiki lint structure and links\n+---\n+Use the `llm-wiki-skill` and run the `lint` operation for `wissen/`.\n+\n+Checks:\n+- `wissen/inbox/index.md` coverage for intake items\n+- `wissen/raw/index.md` coverage + required YAML keys in raw files\n+- Topic subwiki shape: `concepts/`, `connections/`, `index.md`\n+- Master index coverage in `wissen/wiki/index.md`\n+- Dead links and orphan pages\n+\n+Focus: $ARGUMENTS\n+\n+If `$ARGUMENTS` is empty, run full lint across `wissen/`.\n+\n+Return:\n+- Issues found\n+- Fixes applied\n+- Remaining manual actions\n+- `## References` with paths checked\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/.opencode/commands/wiki-lint.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 5.0s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Add File: /home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-audit.md\n+---\n+description: LLM Wiki audit concept and connection quality\n+---\n+Use the `llm-wiki-skill` and run the `audit` operation for `wissen/`.\n+\n+Goal:\n+- Validate extraction quality from raw -> concepts.\n+- Verify connection claims and cross-topic links.\n+- Correct weak or inconsistent concept/connection pages.\n+- Update topic indexes and `wissen/wiki/index.md` if changes are made.\n+\n+Audit scope: $ARGUMENTS\n+\n+If `$ARGUMENTS` is empty, run a broad audit over all topics.\n+\n+Return:\n+- Findings\n+- Corrections made\n+- High-risk pages still needing review\n+- `## References` with concrete raw/wiki evidence\n+\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+A projects/llm-wiki-dev/.opencode/commands/wiki-audit.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 69.4s)
+
+_Thinking:_
+
+
+
+**Tool: glob**
+
+**Input:**
+```json
+{
+  "pattern": ".opencode/commands/*.md",
+  "path": "/home/oli/newwork/dev/projects/llm-wiki-dev"
+}
+```
+
+**Output:**
+```
+/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-audit.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-lint.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-query.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-compile.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/.opencode/commands/wiki-ingest.md
+```
+
+---
+
+## User
+
+use /wiki-ingest
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 224.2s)
+
+_Thinking:_
+
+
+
+**Tool: task**
+
+**Input:**
+```json
+{
+  "description": "Run wiki-ingest command",
+  "prompt": "/wiki-ingest",
+  "subagent_type": "general",
+  "task_id": "",
+  "command": "/wiki-ingest"
+}
+```
+
+**Output:**
+```
+task_id: ses_1eecac556ffeTtHtpXURawEfpO (for resuming to continue this task if needed)
+
+<task_result>
+Ingest run completed for pending entries in `wissen/inbox/weburl-index.md`.
+
+- Processed items: 9 URL tasks (all previously `[ ]`), now marked `[x]` in `wissen/inbox/weburl-index.md`.
+- Intake ledger updated in `wissen/inbox/index.md` with `intake-20260510-001` through `intake-20260510-009`, each mapped to a raw file.
+- Raw registry updated in `wissen/raw/index.md` with 9 new records and timestamps.
+- Created raw files with required YAML keys (`title`, `source_link`, `topic`, `tags`, `generated_at`) and provenance notes.
+- Skipped items: none.
+- Note: this run was metadata-only (no URL body fetch), so each raw file is a provenance-preserving placeholder ready for a follow-up full-content ingest.
+
+Created raw files:
+- `wissen/raw/docling-docs.md`
+- `wissen/raw/docling-github.md`
+- `wissen/raw/docling-examples.md`
+- `wissen/raw/karpathy-llm-wiki-gist.md`
+- `wissen/raw/karpathy-llm-wiki-raw-idea-file.md`
+- `wissen/raw/lewislulu-llm-wiki-skill.md`
+- `wissen/raw/nvk-llm-wiki.md`
+- `wissen/raw/opencode-skills-docs.md`
+- `wissen/raw/qmd-local-markdown-search.md`
+
+## References
+- `wissen/inbox/weburl-index.md` -> https://docling-project.github.io/docling/
+- `wissen/inbox/weburl-index.md` -> https://github.com/docling-project/docling
+- `wissen/inbox/weburl-index.md` -> https://docling-project.github.io/docling/examples/
+- `wissen/inbox/weburl-index.md` -> https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+- `wissen/inbox/weburl-index.md` -> https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md
+- `wissen/inbox/weburl-index.md` -> https://github.com/lewislulu/llm-wiki-skill
+- `wissen/inbox/weburl-index.md` -> https://github.com/nvk/llm-wiki
+- `wissen/inbox/weburl-index.md` -> https://opencode.ai/docs/skills/
+- `wissen/inbox/weburl-index.md` -> https://github.com/tobi/qmd
+- `wissen/inbox/index.md`
+- `wissen/raw/index.md`
+</task_result>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 20.1s)
+
+_Thinking:_
+
+**Deciding on presentation**
+
+I need to present this in a concise manner. I might mention that it's metadata-only and ask if the user wants a full fetch — but maybe it’s not really necessary to phrase it as a question. Suggesting a next step could be helpful. I think it would be good to report that everything is done along with the files, and including a references section could be valuable too since the user didn't ask for an explicit command.
+
+Ran `/wiki-ingest` successfully.
+
+- Processed 9 URL items from `wissen/inbox/weburl-index.md` and marked them complete (`[x]`).
+- Updated `wissen/inbox/index.md` with intake records `intake-20260510-001` to `intake-20260510-009`.
+- Updated `wissen/raw/index.md` with 9 new normalized entries.
+- Created 9 raw markdown files in `wissen/raw/` with required YAML fields.
+
+Created raw files:
+- `wissen/raw/docling-docs.md`
+- `wissen/raw/docling-github.md`
+- `wissen/raw/docling-examples.md`
+- `wissen/raw/karpathy-llm-wiki-gist.md`
+- `wissen/raw/karpathy-llm-wiki-raw-idea-file.md`
+- `wissen/raw/lewislulu-llm-wiki-skill.md`
+- `wissen/raw/nvk-llm-wiki.md`
+- `wissen/raw/opencode-skills-docs.md`
+- `wissen/raw/qmd-local-markdown-search.md`
+
+Note: this run created provenance-preserving raw placeholders (metadata-first), ready for a follow-up content-fetch ingest pass.
+
+---
+
+## User
+
+commit and push
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 13.5s)
+
+_Thinking:_
+
+**Following Git protocol**
+
+I need to commit and push my changes while following Git protocol. First, I’ll check the status, diff, and log in parallel. Then, I’ll add the relevant files, which might include command files and ingest updates. I want to ensure I include all intended changed files from llm-wiki-dev. However, I need to be cautious about untracked references and avoid adding any refs. I'll start by inspecting the current status.
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Show working tree short status"
+}
+```
+
+**Output:**
+```
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+ M projects/llm-wiki-dev/wissen/inbox/index.md
+ M projects/llm-wiki-dev/wissen/inbox/weburl-index.md
+ M projects/llm-wiki-dev/wissen/raw/index.md
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/.opencode/commands/
+?? projects/llm-wiki-dev/references/
+?? projects/llm-wiki-dev/wissen/raw/docling-docs.md
+?? projects/llm-wiki-dev/wissen/raw/docling-examples.md
+?? projects/llm-wiki-dev/wissen/raw/docling-github.md
+?? projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md
+?? projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md
+?? projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md
+?? projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md
+?? projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md
+?? projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md
+
+```
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git diff && git diff --staged",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Show unstaged and staged diffs"
+}
+```
+
+**Output:**
+```
+diff --git a/projects/01_procr_dev/AGENTS.md b/projects/01_procr_dev/AGENTS.md
+index b2eca99..6df6840 100644
+--- a/projects/01_procr_dev/AGENTS.md
++++ b/projects/01_procr_dev/AGENTS.md
+@@ -1,119 +1,149 @@
+-# AGENTS.md - procR repository guide for coding agents
+-
+-## Purpose
+-This repository contains the procR R package for fast, custom cross-tabulations
+-with export helpers. Follow this guide when editing, testing, or adding features.
+-
+-## Repo layout
+-- R/                  Core R functions (public and internal helpers)
+-- src/                Rcpp sources and compiled hooks
+-- man/                Generated roxygen docs
+-- tests/testthat/     Unit tests (testthat edition 3)
+-- vignettes/          Package vignettes
+-- data/, data-raw/    Package data inputs
+-- pkgdown/            Site artifacts
+-
+-## Rules from other configs
+-- No .cursor rules found in .cursor/rules/ or .cursorrules.
+-- No Copilot instructions found in .github/copilot-instructions.md.
+-
+-## Build, check, test
+-Run commands from the repo root.
+-
+-Build source tarball:
+-- R CMD build .
+-
+-Check package (local):
+-- R CMD check --no-manual --as-cran <tarball>
+-
+-Run all tests:
+-- Rscript -e "testthat::test_dir('tests/testthat')"
+-- Rscript -e "testthat::test_package('procR')"
+-- Rscript -e "devtools::test()"  # only if devtools is installed
+-
+-Run a single test file:
+-- Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"
+-
+-Run a single test by name (if filter matches):
+-- Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"
+-
+-Run Rcpp-related tests only:
+-- Rscript -e "testthat::test_file('tests/testthat/test-RcppExports.R')"
+-
+-Linting (optional, if lintr installed):
+-- Rscript -e "lintr::lint_package()"
+-- Rscript -e "lintr::lint('R/table_internal.R')"
+-
+-Styling (optional, if styler installed):
+-- Rscript -e "styler::style_pkg()"
+-
+-## Code style guidelines
+-Keep edits consistent with existing style in R/ files.
+-
+-General
+-- Use snake_case for functions and variables.
+-- Keep line width <= 100 characters.
+-- Prefer native pipe `|>` for new code.
+-- Avoid non-ASCII unless the file already contains it.
+-- Keep section headers and TODO markers as-is.
+-
+-Imports and namespaces
+-- Prefer qualified calls when ambiguity exists (e.g., stats::as.formula).
+-- Use collapse, Matrix, and formula.tools as in existing code.
+-- Do not add new dependencies without updating DESCRIPTION.
+-
+-Function signatures
+-- Use explicit arguments, avoid relying on `...` for data.
+-- When `...` exists for named-arg enforcement, validate with check_empty_dots().
+-- Capture user calls when needed with match.call().
+-
+-Naming and classes
+-- Public API functions are exported and documented with roxygen.
+-- Internal helpers are unexported and tagged with @keywords internal.
+-- Custom classes in this repo: procr_table, procr_varformat.
+-- Preserve class names and return types for public functions.
+-
+-Error handling
+-- Prefer assert_class() and stop_if() for input validation.
+-- Use stopifnot() for simple internal assertions.
+-- Provide clear error messages and set call. = FALSE where appropriate.
+-- Validate that inputs are in the data frame and formulas are supported.
+-
+-Roxygen documentation
+-- Add @export for new public functions.
+-- Include @param, @return, and @examples sections.
+-- Keep examples minimal and consistent with README patterns.
+-
+-Data handling
+-- Do not mutate user data frames in-place.
+-- Filter and select columns explicitly (see prepare_data()).
+-- Handle NA rules consistently with existing methods.
+-
+-Performance
+-- Prefer vectorized operations and sparse matrices.
+-- Reuse existing helper patterns (compute_groups, compute_varformat_codes).
+-- Avoid repeated evaluation of formats or expressions.
+-
+-Rcpp
+-- Do not edit generated R/RcppExports.R manually.
+-- If adding C++ code, update src/ and regenerate exports as needed.
+-
+-Testing
+-- Use testthat edition 3 conventions.
+-- Add tests for edge cases (NA handling, empty subsets, weights).
+-- Include failure-case tests for invalid inputs.
+-
+-Documentation
+-- Update README and vignettes when user-facing behavior changes.
+-- Keep NEWS.md updated for notable changes.
+-
+-## Excel and export guidance
+-- openxlsx2 is the current Excel dependency.
+-- Do not manually edit binary xlsx files.
+-- Ensure export helpers accept and return explicit classes (wbWorkbook).
+-- Keep formatting consistent with add_table_to_wb() defaults.
+-
+-## Notes for agents
+-- This repo uses GPL-3 license.
+-- Avoid network calls during tests.
++# AGENTS.md - procR coding agent handbook
++
++## Scope and intent
++This repository contains development assets for the `procR` R package.
++The package source is in `procr/`; run package commands from that directory.
++Use this guide for implementation, tests, docs, and safe edits.
++
++## Repository map
++- `procr/R/`: R source files (public API and internal helpers)
++- `procr/src/`: Rcpp/C++ code and Makevars
++- `procr/tests/testthat/`: testthat edition 3 tests
++- `procr/man/`: generated Rd docs from roxygen2
++- `procr/vignettes/`: long-form package documentation
++- `procr/data/`, `procr/data-raw/`: package data and generators
++- `procr/pkgdown/`: site assets
++
++## Rules imported from other tooling
++- Cursor rules: none found in `.cursor/rules/` or `.cursorrules`.
++- Copilot rules: none found in `.github/copilot-instructions.md`.
++
++## Setup and dependencies
++- R version: `Depends: R (>= 4.1.0)`.
++- Core imports: `collapse`, `formula.tools`, `Matrix`, `openxlsx2`, `Rcpp`.
++- Optional dev/test tools: `testthat`, `knitr`, `rmarkdown`, `bench`.
++- Install dependencies with `R -q -e "remotes::install_deps('procr', dependencies = TRUE)"`.
++
++## Build, check, and test commands
++Run all commands from `procr/` unless noted otherwise.
++
++### Build and check
++- Build tarball: `R CMD build .`
++- Check local tarball: `R CMD check --no-manual <tarball>.tar.gz`
++- Stricter local check: `R CMD check --no-manual --as-cran <tarball>.tar.gz`
++- CI-style sequence:
++  1. `R CMD build .`
++  2. `R CMD check --no-manual <latest-tarball>.tar.gz`
++
++### Run tests (all)
++- Full test dir: `Rscript -e "testthat::test_dir('tests/testthat')"`
++- Package tests via loader: `Rscript -e "testthat::test_package('procR')"`
++- testthat entrypoint: `Rscript tests/testthat.R`
++- Devtools path (if installed): `Rscript -e "devtools::test()"`
++
++### Run a single test (preferred workflows)
++- Single test file:
++  `Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"`
++- Single test file (Rcpp focus):
++  `Rscript -e "testthat::test_file('tests/testthat/test-RcppExports.R')"`
++- Filter by test name or pattern:
++  `Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"`
++
++### Lint and formatting (optional)
++- Lint package: `Rscript -e "lintr::lint_package()"`
++- Lint one file: `Rscript -e "lintr::lint('R/table_internal.R')"`
++- Format package: `Rscript -e "styler::style_pkg()"`
++
++## Coding conventions
++
++### Naming and structure
++- Use `snake_case` for functions and local variables.
++- Preserve existing S3 class names: `procr_table`, `procr_varformat`.
++- Keep public functions in `R/` documented and exported via roxygen.
++- Keep internals unexported and tagged with `@keywords internal`.
++
++### Function signatures and arguments
++- Prefer explicit parameters over permissive `...`.
++- When using `...` for named-argument enforcement, call `check_empty_dots(...)`.
++- Capture user calls with `match.call()` when outputs store call metadata.
++- Keep argument order and defaults stable for public APIs.
++
++### Types and validation
++- Validate external inputs early with `assert_class()` and `stop_if()`.
++- Use `stopifnot()` for simple internal invariants.
++- Use `call. = FALSE` for user-facing errors where appropriate.
++- Ensure formula variables and referenced columns exist before evaluation.
++
++### Imports and namespaces
++- Prefer explicit namespaces for ambiguous functions (`stats::`, `Matrix::`, etc.).
++- Keep package-level imports in roxygen/NAMESPACE consistent.
++- Do not add dependencies without updating `DESCRIPTION` and docs.
++- Do not hand-edit `NAMESPACE`; regenerate through roxygen.
++
++### Formatting and readability
++- Keep lines at or under 100 characters.
++- Prefer native pipe `|>` in new R code.
++- Follow existing spacing and brace style in touched files.
++- Keep TODO blocks and section headers intact unless asked to refactor them.
++- Avoid adding comments unless a non-obvious block needs explanation.
++
++### Data and evaluation semantics
++- Do not mutate user-provided data frames in place.
++- Subset/select columns explicitly (see `prepare_data()` patterns).
++- Handle `NA` consistently with method-specific logic already in code.
++- Preserve non-standard evaluation behavior (`substitute`, `eval`, captured names).
++
++### Performance expectations
++- Prefer vectorized operations over explicit loops.
++- Reuse established helpers (`compute_groups`, `compute_varformat_codes`).
++- Use sparse matrix workflows when expanding table combinations.
++- Avoid repeated expression evaluation inside tight loops.
++
++### Rcpp and compiled code
++- Do not manually edit generated `R/RcppExports.R`.
++- If C++ interfaces change, update `src/` and regenerate exports.
++- Keep compiler-related changes minimal and justified.
++- Ensure R wrappers and tests cover any new compiled behavior.
++
++## Testing expectations for code changes
++- Add or update tests for each behavior change.
++- Include success and failure cases for input validation.
++- Cover NA behavior, weighting, and empty/edge grouping cases when relevant.
++- For bug fixes, add a regression test that fails before and passes after.
++
++## Documentation expectations
++- Update roxygen blocks with `@param`, `@return`, and runnable examples.
++- Regenerate docs in `man/` when public APIs change.
++- Update `README.md`, `vignettes/`, and `NEWS.md` for user-visible changes.
++- Keep examples deterministic and lightweight.
++
++## Safety and reproducibility
++- Avoid network access during tests unless explicitly required.
+ - Keep outputs deterministic for tests and examples.
++- Do not edit binary artifacts manually.
++- Respect GPL-3 licensing constraints when adding external code.
++
++## Agent workflow checklist
++- Confirm you are running commands in `procr/`.
++- Run targeted tests first (`test_file` or filtered `test_dir`).
++- Run broader tests after local fixes are stable.
++- Run lint/format tools only when they are already part of the change scope.
++- Keep diffs focused; avoid unrelated refactors.
++
++## Quick command cheatsheet
++- Build: `R CMD build .`
++- Check: `R CMD check --no-manual <tarball>.tar.gz`
++- All tests: `Rscript -e "testthat::test_dir('tests/testthat')"`
++- Single test: `Rscript -e "testthat::test_file('tests/testthat/test-utils.R')"`
++- Test filter: `Rscript -e "testthat::test_dir('tests/testthat', filter = 'varformat')"`
++
++## Git and change hygiene
++- Keep commits focused to one concern (feature, fix, docs, or tests).
++- Avoid reformat-only sweeps unless explicitly requested.
++- Do not manually edit generated files unless regeneration is part of the task.
++- If behavior changes, update tests and docs in the same change set.
++
++## Regeneration commands (when needed)
++- Regenerate docs/NAMESPACE: `Rscript -e "roxygen2::roxygenise('.')"`
++- Rebuild pkgdown site (optional): `Rscript -e "pkgdown::build_site()"`
++- Re-run full checks after regeneration to verify no drift.
+diff --git a/projects/01_procr_dev/procr b/projects/01_procr_dev/procr
+--- a/projects/01_procr_dev/procr
++++ b/projects/01_procr_dev/procr
+@@ -1 +1 @@
+-Subproject commit 4d4ed3fd0139947fd81d8477270ee59fa50bda1b
++Subproject commit 4d4ed3fd0139947fd81d8477270ee59fa50bda1b-dirty
+diff --git a/projects/llm-wiki-dev/wissen/inbox/index.md b/projects/llm-wiki-dev/wissen/inbox/index.md
+index a62c2a8..9d28b3b 100644
+--- a/projects/llm-wiki-dev/wissen/inbox/index.md
++++ b/projects/llm-wiki-dev/wissen/inbox/index.md
+@@ -4,3 +4,12 @@ Central intake ledger for dropped URLs, emails, files, and notes.
+ 
+ | intake_id | source_type | source | location | received_at | status | raw_file |
+ |---|---|---|---|---|---|---|
++| intake-20260510-001 | web | Docling docs | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/docling-docs.md |
++| intake-20260510-002 | web | Docling GitHub | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/docling-github.md |
++| intake-20260510-003 | web | Docling examples | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/docling-examples.md |
++| intake-20260510-004 | web | Karpathy LLM Wiki gist | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/karpathy-llm-wiki-gist.md |
++| intake-20260510-005 | web | Karpathy raw idea file | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/karpathy-llm-wiki-raw-idea-file.md |
++| intake-20260510-006 | web | Lewislulu implementation | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/lewislulu-llm-wiki-skill.md |
++| intake-20260510-007 | web | NVK implementation | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/nvk-llm-wiki.md |
++| intake-20260510-008 | web | OpenCode agent skills docs | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/opencode-skills-docs.md |
++| intake-20260510-009 | web | qmd local markdown search | wissen/inbox/weburl-index.md | 2026-05-10T09:27:39Z | ingested | wissen/raw/qmd-local-markdown-search.md |
+diff --git a/projects/llm-wiki-dev/wissen/inbox/weburl-index.md b/projects/llm-wiki-dev/wissen/inbox/weburl-index.md
+index 3e07d87..e330ade 100644
+--- a/projects/llm-wiki-dev/wissen/inbox/weburl-index.md
++++ b/projects/llm-wiki-dev/wissen/inbox/weburl-index.md
+@@ -4,15 +4,15 @@ URLs queued for ingest and normalization into `raw/`.
+ 
+ | status | topic | source | url | added_at |
+ |---|---|---|---|---|
+-| [ ] | docling | Docling docs | https://docling-project.github.io/docling/ | 2026-05-10 |
+-| [ ] | docling | Docling GitHub | https://github.com/docling-project/docling | 2026-05-10 |
+-| [ ] | docling | Docling examples | https://docling-project.github.io/docling/examples/ | 2026-05-10 |
+-| [ ] | llm-wiki | Karpathy LLM Wiki gist | https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f | 2026-05-10 |
+-| [ ] | llm-wiki | Karpathy raw idea file | https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md | 2026-05-10 |
+-| [ ] | llm-wiki | Lewislulu implementation | https://github.com/lewislulu/llm-wiki-skill | 2026-05-10 |
+-| [ ] | llm-wiki | NVK implementation | https://github.com/nvk/llm-wiki | 2026-05-10 |
+-| [ ] | llm-wiki | OpenCode agent skills docs | https://opencode.ai/docs/skills/ | 2026-05-10 |
+-| [ ] | llm-wiki | qmd local markdown search | https://github.com/tobi/qmd | 2026-05-10 |
++| [x] | docling | Docling docs | https://docling-project.github.io/docling/ | 2026-05-10 |
++| [x] | docling | Docling GitHub | https://github.com/docling-project/docling | 2026-05-10 |
++| [x] | docling | Docling examples | https://docling-project.github.io/docling/examples/ | 2026-05-10 |
++| [x] | llm-wiki | Karpathy LLM Wiki gist | https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f | 2026-05-10 |
++| [x] | llm-wiki | Karpathy raw idea file | https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md | 2026-05-10 |
++| [x] | llm-wiki | Lewislulu implementation | https://github.com/lewislulu/llm-wiki-skill | 2026-05-10 |
++| [x] | llm-wiki | NVK implementation | https://github.com/nvk/llm-wiki | 2026-05-10 |
++| [x] | llm-wiki | OpenCode agent skills docs | https://opencode.ai/docs/skills/ | 2026-05-10 |
++| [x] | llm-wiki | qmd local markdown search | https://github.com/tobi/qmd | 2026-05-10 |
+ 
+ ## Notes
+ 
+diff --git a/projects/llm-wiki-dev/wissen/raw/index.md b/projects/llm-wiki-dev/wissen/raw/index.md
+index 2b724a0..a3d9916 100644
+--- a/projects/llm-wiki-dev/wissen/raw/index.md
++++ b/projects/llm-wiki-dev/wissen/raw/index.md
+@@ -4,3 +4,12 @@ Normalized markdown versions of inputs from `inbox/`.
+ 
+ | raw_file | title | topic | source_link | generated_at | tags |
+ |---|---|---|---|---|---|
++| wissen/raw/docling-docs.md | Docling docs | docling | https://docling-project.github.io/docling/ | 2026-05-10T09:27:39Z | ingest,web,docling |
++| wissen/raw/docling-github.md | Docling GitHub | docling | https://github.com/docling-project/docling | 2026-05-10T09:27:39Z | ingest,web,docling,github |
++| wissen/raw/docling-examples.md | Docling examples | docling | https://docling-project.github.io/docling/examples/ | 2026-05-10T09:27:39Z | ingest,web,docling,examples |
++| wissen/raw/karpathy-llm-wiki-gist.md | Karpathy LLM Wiki gist | llm-wiki | https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,gist |
++| wissen/raw/karpathy-llm-wiki-raw-idea-file.md | Karpathy raw idea file | llm-wiki | https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,gist |
++| wissen/raw/lewislulu-llm-wiki-skill.md | Lewislulu implementation | llm-wiki | https://github.com/lewislulu/llm-wiki-skill | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |
++| wissen/raw/nvk-llm-wiki.md | NVK implementation | llm-wiki | https://github.com/nvk/llm-wiki | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |
++| wissen/raw/opencode-skills-docs.md | OpenCode agent skills docs | llm-wiki | https://opencode.ai/docs/skills/ | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,docs |
++| wissen/raw/qmd-local-markdown-search.md | qmd local markdown search | llm-wiki | https://github.com/tobi/qmd | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |
+
+```
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git log --oneline -10",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Show recent commit message style"
+}
+```
+
+**Output:**
+```
+e3bc6c5 docs: add wissen web URL ingest task list
+0c7ac04 feat: scaffold wissen wiki and custom llm wiki skill
+f86cdfc feat: add opencode llm-wiki skill
+cb2edc4 docs: add README with function reference
+3c5853a feat: build Arrow schema from range output for parquet conversion
+acfcbd5 feat: add chunked numeric range extraction for CSV
+45eabed feat: modularize csv-to-parquet flow and add quickstart
+b57ba1d feat: stream CSV type inference and add parquet-to-dta converter
+05fc2ca feat: add robust csv-to-parquet conversion and benchmark tooling
+197f7e0 update
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.6s)
+
+_Thinking:_
+
+
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git add \"projects/llm-wiki-dev/.opencode/commands\" \"projects/llm-wiki-dev/wissen/inbox/index.md\" \"projects/llm-wiki-dev/wissen/inbox/weburl-index.md\" \"projects/llm-wiki-dev/wissen/raw/index.md\" \"projects/llm-wiki-dev/wissen/raw/docling-docs.md\" \"projects/llm-wiki-dev/wissen/raw/docling-github.md\" \"projects/llm-wiki-dev/wissen/raw/docling-examples.md\" \"projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md\" \"projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md\" \"projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md\" \"projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md\" \"projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md\" \"projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md\" && git commit -m \"feat: add wiki slash commands and ingest source queue\" -m \"Add OpenCode custom commands for ingest/compile/query/lint/audit and process queued Docling and LLM-wiki URLs into wissen inbox and raw indexes.\" && git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Stage llm-wiki changes, commit, and show status"
+}
+```
+
+**Output:**
+```
+[main 17562b0] feat: add wiki slash commands and ingest source queue
+ 17 files changed, 303 insertions(+), 9 deletions(-)
+ create mode 100644 projects/llm-wiki-dev/.opencode/commands/wiki-audit.md
+ create mode 100644 projects/llm-wiki-dev/.opencode/commands/wiki-compile.md
+ create mode 100644 projects/llm-wiki-dev/.opencode/commands/wiki-ingest.md
+ create mode 100644 projects/llm-wiki-dev/.opencode/commands/wiki-lint.md
+ create mode 100644 projects/llm-wiki-dev/.opencode/commands/wiki-query.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/docling-docs.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/docling-examples.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/docling-github.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md
+ create mode 100644 projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/references/
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 38.6s)
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git push",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Push committed changes to remote"
+}
+```
+
+**Output:**
+```
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/Olhaau/work-dev.git        
+To https://github.com/Olhaau/dev.git
+   e3bc6c5..17562b0  main -> main
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 68.5s)
+
+Committed and pushed.
+
+- Commit: `17562b0`
+- Message: `feat: add wiki slash commands and ingest source queue`
+- Includes:
+  - `.opencode/commands/wiki-{ingest,compile,query,lint,audit}.md`
+  - Ingested `wissen` inbox/raw index updates
+  - 9 raw source markdown files from the URL queue
+
+Pushed successfully to `origin/main`.
+
+---
+
+## User
+
+fetch the content in thw url index and save the realnoutputs to raw. commit amd push
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 10.9s)
+
+_Thinking:_
+
+**Planning web fetch process**
+
+I need to initiate a web fetch for each URL and replace placeholders in raw files with the actual content, as they probably only contain metadata right now. I should inspect the current raw files and confirm that permission for web fetch was granted earlier; it’s likely at the session level. To manage this, I’m considering parallel web fetches in chunks of 3-4. I’ll also look into updating the index and keeping track of the status of the fetched content.
+
+_Thinking:_
+
+**Updating raw and index tags**
+
+I need to update the raw/index tags to include whether content has been fetched. It makes sense to also add a `generated_at` timestamp with the current time. I could consider an additional field for `fetched_at` too. I’ll stick to the necessary fields, maybe adding `fetched_from_inbox_id`. It seems I’ll be using the apply_patch tool for updates, since there aren't any direct write/edit tools available, so I'll gather the mappings between weburl-index and raw file names quickly.
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/inbox/weburl-index.md",
+  "offset": 1,
+  "limit": 220
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/inbox/weburl-index.md</path>
+<type>file</type>
+<content>
+1: # Web URL Task List
+2: 
+3: URLs queued for ingest and normalization into `raw/`.
+4: 
+5: | status | topic | source | url | added_at |
+6: |---|---|---|---|---|
+7: | [x] | docling | Docling docs | https://docling-project.github.io/docling/ | 2026-05-10 |
+8: | [x] | docling | Docling GitHub | https://github.com/docling-project/docling | 2026-05-10 |
+9: | [x] | docling | Docling examples | https://docling-project.github.io/docling/examples/ | 2026-05-10 |
+10: | [x] | llm-wiki | Karpathy LLM Wiki gist | https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f | 2026-05-10 |
+11: | [x] | llm-wiki | Karpathy raw idea file | https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md | 2026-05-10 |
+12: | [x] | llm-wiki | Lewislulu implementation | https://github.com/lewislulu/llm-wiki-skill | 2026-05-10 |
+13: | [x] | llm-wiki | NVK implementation | https://github.com/nvk/llm-wiki | 2026-05-10 |
+14: | [x] | llm-wiki | OpenCode agent skills docs | https://opencode.ai/docs/skills/ | 2026-05-10 |
+15: | [x] | llm-wiki | qmd local markdown search | https://github.com/tobi/qmd | 2026-05-10 |
+16: 
+17: ## Notes
+18: 
+19: - Mark `status` as `[x]` after the URL is ingested into `raw/`.
+20: - Preserve source attribution and ingestion time in raw file frontmatter.
+21: - Prefer one raw markdown file per URL.
+
+(End of file - total 21 lines)
+</content>
+
+<system-reminder>
+Instructions from: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/AGENTS.md
+# Wissen Wiki Rules
+
+## Scope
+- This wiki root is `wissen/`.
+- Intake starts in `inbox/`, normalized sources live in `raw/`, compiled knowledge lives in `wiki/`.
+
+## Required Structure
+- `inbox/index.md`: intake ledger with source, location, and time metadata.
+- `raw/index.md`: registry of normalized markdown sources.
+- `wiki/index.md`: master index of all topic subwikis.
+- `wiki/<topic>/index.md`: topic-local index.
+- `wiki/<topic>/concepts/`: extracted concept pages.
+- `wiki/<topic>/connections/`: extracted relationships and cross-topic links.
+
+## Ingest Rules
+- Every intake item is logged in `inbox/index.md` first.
+- Every normalized source in `raw/` must include YAML frontmatter with:
+  - `title`
+  - `source_link`
+  - `topic`
+  - `tags`
+  - `generated_at`
+
+## Compile Rules
+- Extract concepts and connections from `raw/` into `wiki/<topic>/`.
+- Cross-topic links are allowed in `connections/` pages.
+- Keep `wiki/index.md` and each topic `index.md` up to date.
+
+## Reference Rules
+- All factual outputs include a `## References` section.
+- References must point to concrete local paths and/or original URLs.
+
+</system-reminder>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/index.md",
+  "offset": 1,
+  "limit": 260
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/index.md</path>
+<type>file</type>
+<content>
+1: # Raw Index
+2: 
+3: Normalized markdown versions of inputs from `inbox/`.
+4: 
+5: | raw_file | title | topic | source_link | generated_at | tags |
+6: |---|---|---|---|---|---|
+7: | wissen/raw/docling-docs.md | Docling docs | docling | https://docling-project.github.io/docling/ | 2026-05-10T09:27:39Z | ingest,web,docling |
+8: | wissen/raw/docling-github.md | Docling GitHub | docling | https://github.com/docling-project/docling | 2026-05-10T09:27:39Z | ingest,web,docling,github |
+9: | wissen/raw/docling-examples.md | Docling examples | docling | https://docling-project.github.io/docling/examples/ | 2026-05-10T09:27:39Z | ingest,web,docling,examples |
+10: | wissen/raw/karpathy-llm-wiki-gist.md | Karpathy LLM Wiki gist | llm-wiki | https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,gist |
+11: | wissen/raw/karpathy-llm-wiki-raw-idea-file.md | Karpathy raw idea file | llm-wiki | https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,gist |
+12: | wissen/raw/lewislulu-llm-wiki-skill.md | Lewislulu implementation | llm-wiki | https://github.com/lewislulu/llm-wiki-skill | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |
+13: | wissen/raw/nvk-llm-wiki.md | NVK implementation | llm-wiki | https://github.com/nvk/llm-wiki | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |
+14: | wissen/raw/opencode-skills-docs.md | OpenCode agent skills docs | llm-wiki | https://opencode.ai/docs/skills/ | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,docs |
+15: | wissen/raw/qmd-local-markdown-search.md | qmd local markdown search | llm-wiki | https://github.com/tobi/qmd | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |
+
+(End of file - total 15 lines)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 130.5s)
+
+_Thinking:_
+
+**Considering URL content extraction**
+
+I need to fetch content from URLs, but they might be quite large. I wonder if webfetch will truncate the content. The user expects real outputs, so I could save content as excerpts. For a GitHub repo, fetching the raw README might be cleaner than the homepage. I should properly check the index and possibly keep the original source link. I might also extract meaningful sections manually, and I’ll need to inspect the current raw file templates.
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-docs.md",
+  "offset": 1,
+  "limit": 220
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-docs.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "Docling docs"
+3: source_link: "https://docling-project.github.io/docling/"
+4: topic: "docling"
+5: tags: [ingest, web, docling]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # Docling docs
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://docling-project.github.io/docling/
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize page content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md",
+  "offset": 1,
+  "limit": 220
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "Karpathy raw idea file"
+3: source_link: "https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, gist]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # Karpathy raw idea file
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize raw markdown content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.6s)
+
+_Thinking:_
+
+**Fetching URLs**
+
+I need to fetch nine URLs, and using webfetch in parallel might be a good option, perhaps in batches of three to keep it manageable. For GitHub repos, it seems smartest to fetch the raw URLs of the README files to get the content directly, but I think the URLs in the index will work too. Including JavaScript-heavy pages might be a bit noisier, yet summarizing the gist page and noting metadata could still be useful. I'll go ahead and call webfetch in batches of three.
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://docling-project.github.io/docling/",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+      Documentation - Docling            
+
+[Skip to content](#getting-started)
+
+[![logo](assets/logo.png)](. "Docling")
+
+Docling
+
+Documentation
+
+  
+
+Initializing search
+
+[
+
+docling-project/docling
+
+](https://github.com/docling-project/docling "Go to repository")
+
+-   [Documentation](.)
+-   [Concepts](concepts/)
+-   [Examples](examples/)
+-   [Integrations](integrations/)
+-   [Reference](reference/document_converter/)
+
+ [![logo](assets/logo.png)](. "Docling")Docling
+
+[
+
+docling-project/docling
+
+](https://github.com/docling-project/docling "Go to repository")
+
+-   [Documentation](.)
+    
+    Documentation
+    
+    -    Getting started
+        
+        Getting started
+        
+        -   [Installation](getting_started/installation/)
+        -   [Quickstart](getting_started/quickstart/)
+        -   [⚡ RTX GPU](getting_started/rtx/)
+        
+    -    Usage
+        
+        Usage
+        
+        -   [Advanced options](usage/advanced_options/)
+        -   [Supported formats](usage/supported_formats/)
+        -   [Audio & video](usage/processing_audio_media/)
+        -   [Enrichment features](usage/enrichments/)
+        -   [Vision models](usage/vision_models/)
+        -   [Model catalog](usage/model_catalog/)
+        -   [GPU support](usage/gpu/)
+        -   [MCP server](usage/mcp/)
+        -   [Jobkit](usage/jobkit/)
+        
+    -   [FAQ](faq/)
+        
+        FAQ
+        
+    
+-   [Concepts](concepts/)
+    
+    Concepts
+    
+    -   [Architecture](concepts/architecture/)
+    -   [Docling Document](concepts/docling_document/)
+    -   [Serialization](concepts/serialization/)
+    -   [Confidence Scores](concepts/confidence_scores/)
+    -   [Chunking](concepts/chunking/)
+    -   [Plugins](concepts/plugins/)
+    
+-   [Examples](examples/)
+    
+    Examples
+    
+    -   [🤝 Agent skill (Cursor / assistants)](examples/agent_skill/docling-document-intelligence/)
+    -    🔀 Conversion
+        
+        🔀 Conversion
+        
+        -   [Simple conversion](examples/minimal/)
+        -   [Custom conversion](examples/custom_convert/)
+        -   [Batch conversion](examples/batch_convert/)
+        -   [Multi-format conversion](examples/run_with_formats/)
+        -   [VLM pipeline with GraniteDocling](examples/minimal_vlm_pipeline/)
+        -   [VLM pipeline with remote model](examples/vlm_pipeline_api_model/)
+        -   [VLM comparison](examples/compare_vlm_models/)
+        -   [ASR pipeline with Whisper](examples/minimal_asr_pipeline/)
+        -   [Figure export](examples/export_figures/)
+        -   [Table export](examples/export_tables/)
+        -   [Multimodal export](examples/export_multimodal/)
+        -   [Force full page OCR](examples/full_page_ocr/)
+        -   [Automatic OCR language detection with tesseract](examples/tesseract_lang_detection/)
+        -   [RapidOCR with custom OCR models](examples/rapidocr_with_custom_models/)
+        -   [SuryaOCR with custom OCR models](examples/suryaocr_with_custom_models/)
+        -   [Accelerator options](examples/run_with_accelerator/)
+        -   [Detect and obfuscate PII](examples/pii_obfuscate/)
+        -   [Simple translation](examples/translate/)
+        -   [Conversion of CSV files](examples/backend_csv/)
+        -   [Conversion of custom XML](examples/backend_xml_rag/)
+        -   [XBRL Document Conversion](examples/xbrl_conversion/)
+        
+    -    ✂️ Serialization & chunking
+        
+        ✂️ Serialization & chunking
+        
+        -   [Serialization](examples/serialization/)
+        -   [Hybrid chunking](examples/hybrid_chunking/)
+        -   [Line-Based Token Chunking](examples/line_based_chunking/)
+        -   [Advanced chunking & serialization](examples/advanced_chunking_and_serialization/)
+        
+    -    📤 Information extraction
+        
+        📤 Information extraction
+        
+        -   [Information extraction](examples/extraction/)
+        
+    -    🤖 RAG with AI dev frameworks
+        
+        🤖 RAG with AI dev frameworks
+        
+        -   [RAG with Haystack](examples/rag_haystack/)
+        -   [RAG with LangChain](examples/rag_langchain/)
+        -   [RAG with LlamaIndex](examples/rag_llamaindex/)
+        -   [Visual grounding](examples/visual_grounding/)
+        
+    -    🖼️ Picture annotation
+        
+        🖼️ Picture annotation
+        
+        -   [Annotate picture with local VLM](examples/pictures_description/)
+        -   [Annotate picture with remote VLM](examples/pictures_description_api/)
+        
+    -    🔤 Enrichments
+        
+        🔤 Enrichments
+        
+        -   [Code & formula](examples/code_formula_granite_docling/)
+        
+    -    ✨ Enrichment development
+        
+        ✨ Enrichment development
+        
+        -   [Figure enrichment](examples/develop_picture_enrichment/)
+        -   [Formula enrichment](examples/develop_formula_understanding/)
+        -   [Enrich a DoclingDocument](examples/enrich_doclingdocument/)
+        
+    -    ⚡️ GPU optimization
+        
+        ⚡️ GPU optimization
+        
+        -   [Standard pipeline](examples/gpu_standard_pipeline/)
+        -   [VLM pipeline](examples/gpu_vlm_pipeline/)
+        -   [Parquet benchmark](examples/parquet_images/)
+        
+    -    🗂️ More examples
+        
+        🗂️ More examples
+        
+        -   [Chunking & tokenization with Data Prep Kit](examples/dpk-ingest-chunk-tokenize/)
+        -   [RAG with Azure AI Search](examples/rag_azuresearch/)
+        -   [RAG with Granite \[↗\]](https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/RAG/Granite_Docling_RAG.ipynb)
+        -   [RAG with Milvus](examples/rag_milvus/)
+        -   [RAG with OpenSearch](examples/rag_opensearch/)
+        -   [RAG with Weaviate](examples/rag_weaviate/)
+        -   [Retrieval with Qdrant](examples/retrieval_qdrant/)
+        -   [RAG with MongoDB + VoyageAI](examples/rag_mongodb/)
+        -   [RAG with Vault PII transform \[↗\]](https://github.com/workloads/pathfinder-prism)
+        
+    
+-   [Integrations](integrations/)
+    
+    Integrations
+    
+    -    🤖 Agentic / AI dev frameworks
+        
+        🤖 Agentic / AI dev frameworks
+        
+        -   [Bee Agent Framework](integrations/bee/)
+        -   [Crew AI](integrations/crewai/)
+        -   [Haystack](integrations/haystack/)
+        -   [Hector](integrations/hector/)
+        -   [LangChain](integrations/langchain/)
+        -   [Langflow](integrations/langflow/)
+        -   [LlamaIndex](integrations/llamaindex/)
+        -   [Semantica](integrations/semantica/)
+        -   [txtai](integrations/txtai/)
+        
+    -    ⭐️ Featured
+        
+        ⭐️ Featured
+        
+        -   [Apify](integrations/apify/)
+        -   [Data Prep Kit](integrations/data_prep_kit/)
+        -   [InstructLab](integrations/instructlab/)
+        -   [NVIDIA](integrations/nvidia/)
+        -   [Prodigy](integrations/prodigy/)
+        -   [RHEL AI](integrations/rhel_ai/)
+        -   [spaCy](integrations/spacy/)
+        
+    -    🗂️ More integrations
+        
+        🗂️ More integrations
+        
+        -   [Arconia](integrations/arconia/)
+        -   [Cloudera](integrations/cloudera/)
+        -   [DocETL](integrations/docetl/)
+        -   [Kotaemon](integrations/kotaemon/)
+        -   [OpenContracts](integrations/opencontracts/)
+        -   [Open WebUI](integrations/openwebui/)
+        -   [Quarkus](integrations/quarkus/)
+        -   [Vectara](integrations/vectara/)
+        
+    
+-    Reference
+    
+    Reference
+    
+    -    Python API
+        
+        Python API
+        
+        -   [Document Converter](reference/document_converter/)
+        -   [Pipeline options](reference/pipeline_options/)
+        -   [Docling Document](reference/docling_document/)
+        
+    -    CLI
+        
+        CLI
+        
+        -   [CLI reference](reference/cli/)
+        
+    
+
+Table of contents
+
+-   [Getting started](#getting-started)
+-   [Features](#features)
+    
+    -   [What's new](#whats-new)
+    -   [Coming soon](#coming-soon)
+    
+-   [What's next](#whats-next)
+-   [Live assistant](#live-assistant)
+-   [LF AI & Data](#lf-ai-data)
+    
+    -   [IBM ❤️ Open Source AI](#ibm-open-source-ai)
+    
+
+# Documentation
+
+![Docling](assets/docling_processing.png) [![DS4SD%2Fdocling | Trendshift](https://trendshift.io/api/badge/repositories/12132)](https://trendshift.io/repositories/12132)
+
+[![arXiv](https://img.shields.io/badge/arXiv-2408.09869-b31b1b.svg)](https://arxiv.org/abs/2408.09869) [![PyPI version](https://img.shields.io/pypi/v/docling)](https://pypi.org/project/docling/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/docling)](https://pypi.org/project/docling/) [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit) [![License MIT](https://img.shields.io/github/license/docling-project/docling)](https://opensource.org/licenses/MIT) [![PyPI Downloads](https://static.pepy.tech/badge/docling/month)](https://pepy.tech/projects/docling) [![Docling Actor](https://apify.com/actor-badge?actor=vancura/docling?fpr=docling)](https://apify.com/vancura/docling) [![Chat with Dosu](https://dosu.dev/dosu-chat-badge.svg)](https://app.dosu.dev/097760a8-135e-4789-8234-90c8837d7f1c/ask?utm_source=github) [![Discord](https://img.shields.io/discord/1399788921306746971?color=6A7EC2&logo=discord&logoColor=ffffff)](https://docling.ai/discord) [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/10101/badge)](https://www.bestpractices.dev/projects/10101) [![LF AI & Data](https://img.shields.io/badge/LF%20AI%20%26%20Data-003778?logo=linuxfoundation&logoColor=fff&color=0094ff&labelColor=003778)](https://lfaidata.foundation/projects/)
+
+Docling simplifies document processing, parsing diverse formats — including advanced PDF understanding — and providing seamless integrations with the gen AI ecosystem.
+
+## Getting started
+
+🐣 Ready to kick off your Docling journey? Let's dive right into it!
+
+[**⬇️ Installation**  
+Quickly install Docling in your environment](../docling/getting_started/installation/) [**▶️ Quickstart**  
+Get a jumpstart on basic Docling usage](../docling/getting_started/quickstart/) [**🧩 Concepts**  
+Learn Docling fundamentals and get a glimpse under the hood](../docling/concepts/) [**🧑🏽‍🍳 Examples**  
+Try out recipes for various use cases, including conversion, RAG, and more](../docling/examples/) [**🤖 Integrations**  
+Check out integrations with popular AI tools and frameworks](../docling/integrations/) [**📖 Reference**  
+See more API details](../docling/reference/document_converter/)
+
+## Features
+
+-   🗂️ Parsing of [multiple document formats](usage/supported_formats/) incl. PDF, DOCX, PPTX, XLSX, HTML, WAV, MP3, WebVTT, images (PNG, TIFF, JPEG, ...), LaTeX, plain text, and more
+-   📑 Advanced PDF understanding incl. page layout, reading order, table structure, code, formulas, image classification, and more
+-   🧬 Unified, expressive [DoclingDocument](concepts/docling_document/) representation format
+-   ↪️ Various [export formats](usage/supported_formats/) and options, including Markdown, HTML, WebVTT, [DocTags](https://arxiv.org/abs/2503.11576) and lossless JSON
+-   📜 Support of several application-specifc XML schemas incl. [USPTO](https://www.uspto.gov/patents) patents, [JATS](https://jats.nlm.nih.gov/) articles, and [XBRL](https://www.xbrl.org/) financial reports
+-   🔒 Local execution capabilities for sensitive data and air-gapped environments
+-   🤖 Plug-and-play [integrations](integrations/) incl. LangChain, LlamaIndex, Crew AI & Haystack for agentic AI
+-   🔍 Extensive OCR support for scanned PDFs and images
+-   👓 Support of several Visual Language Models ([GraniteDocling](https://huggingface.co/ibm-granite/granite-docling-258M))
+-   🎙️ Audio support with Automatic Speech Recognition (ASR) models
+-   🔌 Connect to any agent using the [MCP server](https://docling-project.github.io/docling/usage/mcp/)
+-   💻 Simple and convenient CLI
+
+### What's new
+
+-   📤 Structured \[information extraction\]\[extraction\] \[🧪 beta\]
+-   📑 New layout model (**Heron**) by default, for faster PDF parsing
+-   🔌 [MCP server](https://docling-project.github.io/docling/usage/mcp/) for agentic applications
+-   💼 Parsing of XBRL (eXtensible Business Reporting Language) documents for financial reports
+-   💬 Parsing of WebVTT (Web Video Text Tracks) files
+-   💬 Parsing of LaTeX files
+-   📝 Parsing of plain-text files (`.txt`, `.text`) and Markdown supersets (`.qmd`, `.Rmd`)
+
+### Coming soon
+
+-   📝 Metadata extraction, including title, authors, references & language
+-   📝 Chart understanding (Barchart, Piechart, LinePlot, etc)
+-   📝 Complex chemistry understanding (Molecular structures)
+
+## What's next
+
+🚀 The journey has just begun! Join us and become a part of the growing Docling community.
+
+-   [GitHub](https://github.com/docling-project/docling)
+-   [Discord](https://docling.ai/discord)
+-   [LinkedIn](https://linkedin.com/company/docling/)
+
+## Live assistant
+
+Do you want to leverage the power of AI and get live support on Docling? Try out the [Chat with Dosu](https://app.dosu.dev/097760a8-135e-4789-8234-90c8837d7f1c/ask?utm_source=github) functionalities provided by our friends at [Dosu](https://dosu.dev/).
+
+[![Chat with Dosu](https://dosu.dev/dosu-chat-badge.svg)](https://app.dosu.dev/097760a8-135e-4789-8234-90c8837d7f1c/ask?utm_source=github)
+
+## LF AI & Data
+
+Docling is hosted as a project in the [LF AI & Data Foundation](https://lfaidata.foundation/projects/).
+
+### IBM ❤️ Open Source AI
+
+The project was started by the AI for knowledge team at IBM Research Zurich.
+
+ 
+
+Back to top
+
+[
+
+Next
+
+Installation
+
+](getting_started/installation/)
+
+Made with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+
+[](https://github.com/docling-project/docling "github.com")[](https://docling.ai/discord "docling.ai")[](https://linkedin.com/company/docling/ "linkedin.com")
+```
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://docling-project.github.io/docling/examples/",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+       Examples - Docling            
+
+[![logo](../assets/logo.png)](.. "Docling")
+
+Docling
+
+Examples
+
+  
+
+Initializing search
+
+[
+
+docling-project/docling
+
+](https://github.com/docling-project/docling "Go to repository")
+
+-   [Documentation](..)
+-   [Concepts](../concepts/)
+-   [Examples](./)
+-   [Integrations](../integrations/)
+-   [Reference](../reference/document_converter/)
+
+ [![logo](../assets/logo.png)](.. "Docling")Docling
+
+[
+
+docling-project/docling
+
+](https://github.com/docling-project/docling "Go to repository")
+
+-   [Documentation](..)
+    
+    Documentation
+    
+    -    Getting started
+        
+        Getting started
+        
+        -   [Installation](../getting_started/installation/)
+        -   [Quickstart](../getting_started/quickstart/)
+        -   [⚡ RTX GPU](../getting_started/rtx/)
+        
+    -    Usage
+        
+        Usage
+        
+        -   [Advanced options](../usage/advanced_options/)
+        -   [Supported formats](../usage/supported_formats/)
+        -   [Audio & video](../usage/processing_audio_media/)
+        -   [Enrichment features](../usage/enrichments/)
+        -   [Vision models](../usage/vision_models/)
+        -   [Model catalog](../usage/model_catalog/)
+        -   [GPU support](../usage/gpu/)
+        -   [MCP server](../usage/mcp/)
+        -   [Jobkit](../usage/jobkit/)
+        
+    -   [FAQ](../faq/)
+        
+        FAQ
+        
+    
+-   [Concepts](../concepts/)
+    
+    Concepts
+    
+    -   [Architecture](../concepts/architecture/)
+    -   [Docling Document](../concepts/docling_document/)
+    -   [Serialization](../concepts/serialization/)
+    -   [Confidence Scores](../concepts/confidence_scores/)
+    -   [Chunking](../concepts/chunking/)
+    -   [Plugins](../concepts/plugins/)
+    
+-   [Examples](./)
+    
+    Examples
+    
+    -   [🤝 Agent skill (Cursor / assistants)](agent_skill/docling-document-intelligence/)
+    -    🔀 Conversion
+        
+        🔀 Conversion
+        
+        -   [Simple conversion](minimal/)
+        -   [Custom conversion](custom_convert/)
+        -   [Batch conversion](batch_convert/)
+        -   [Multi-format conversion](run_with_formats/)
+        -   [VLM pipeline with GraniteDocling](minimal_vlm_pipeline/)
+        -   [VLM pipeline with remote model](vlm_pipeline_api_model/)
+        -   [VLM comparison](compare_vlm_models/)
+        -   [ASR pipeline with Whisper](minimal_asr_pipeline/)
+        -   [Figure export](export_figures/)
+        -   [Table export](export_tables/)
+        -   [Multimodal export](export_multimodal/)
+        -   [Force full page OCR](full_page_ocr/)
+        -   [Automatic OCR language detection with tesseract](tesseract_lang_detection/)
+        -   [RapidOCR with custom OCR models](rapidocr_with_custom_models/)
+        -   [SuryaOCR with custom OCR models](suryaocr_with_custom_models/)
+        -   [Accelerator options](run_with_accelerator/)
+        -   [Detect and obfuscate PII](pii_obfuscate/)
+        -   [Simple translation](translate/)
+        -   [Conversion of CSV files](backend_csv/)
+        -   [Conversion of custom XML](backend_xml_rag/)
+        -   [XBRL Document Conversion](xbrl_conversion/)
+        
+    -    ✂️ Serialization & chunking
+        
+        ✂️ Serialization & chunking
+        
+        -   [Serialization](serialization/)
+        -   [Hybrid chunking](hybrid_chunking/)
+        -   [Line-Based Token Chunking](line_based_chunking/)
+        -   [Advanced chunking & serialization](advanced_chunking_and_serialization/)
+        
+    -    📤 Information extraction
+        
+        📤 Information extraction
+        
+        -   [Information extraction](extraction/)
+        
+    -    🤖 RAG with AI dev frameworks
+        
+        🤖 RAG with AI dev frameworks
+        
+        -   [RAG with Haystack](rag_haystack/)
+        -   [RAG with LangChain](rag_langchain/)
+        -   [RAG with LlamaIndex](rag_llamaindex/)
+        -   [Visual grounding](visual_grounding/)
+        
+    -    🖼️ Picture annotation
+        
+        🖼️ Picture annotation
+        
+        -   [Annotate picture with local VLM](pictures_description/)
+        -   [Annotate picture with remote VLM](pictures_description_api/)
+        
+    -    🔤 Enrichments
+        
+        🔤 Enrichments
+        
+        -   [Code & formula](code_formula_granite_docling/)
+        
+    -    ✨ Enrichment development
+        
+        ✨ Enrichment development
+        
+        -   [Figure enrichment](develop_picture_enrichment/)
+        -   [Formula enrichment](develop_formula_understanding/)
+        -   [Enrich a DoclingDocument](enrich_doclingdocument/)
+        
+    -    ⚡️ GPU optimization
+        
+        ⚡️ GPU optimization
+        
+        -   [Standard pipeline](gpu_standard_pipeline/)
+        -   [VLM pipeline](gpu_vlm_pipeline/)
+        -   [Parquet benchmark](parquet_images/)
+        
+    -    🗂️ More examples
+        
+        🗂️ More examples
+        
+        -   [Chunking & tokenization with Data Prep Kit](dpk-ingest-chunk-tokenize/)
+        -   [RAG with Azure AI Search](rag_azuresearch/)
+        -   [RAG with Granite \[↗\]](https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/RAG/Granite_Docling_RAG.ipynb)
+        -   [RAG with Milvus](rag_milvus/)
+        -   [RAG with OpenSearch](rag_opensearch/)
+        -   [RAG with Weaviate](rag_weaviate/)
+        -   [Retrieval with Qdrant](retrieval_qdrant/)
+        -   [RAG with MongoDB + VoyageAI](rag_mongodb/)
+        -   [RAG with Vault PII transform \[↗\]](https://github.com/workloads/pathfinder-prism)
+        
+    
+-   [Integrations](../integrations/)
+    
+    Integrations
+    
+    -    🤖 Agentic / AI dev frameworks
+        
+        🤖 Agentic / AI dev frameworks
+        
+        -   [Bee Agent Framework](../integrations/bee/)
+        -   [Crew AI](../integrations/crewai/)
+        -   [Haystack](../integrations/haystack/)
+        -   [Hector](../integrations/hector/)
+        -   [LangChain](../integrations/langchain/)
+        -   [Langflow](../integrations/langflow/)
+        -   [LlamaIndex](../integrations/llamaindex/)
+        -   [Semantica](../integrations/semantica/)
+        -   [txtai](../integrations/txtai/)
+        
+    -    ⭐️ Featured
+        
+        ⭐️ Featured
+        
+        -   [Apify](../integrations/apify/)
+        -   [Data Prep Kit](../integrations/data_prep_kit/)
+        -   [InstructLab](../integrations/instructlab/)
+        -   [NVIDIA](../integrations/nvidia/)
+        -   [Prodigy](../integrations/prodigy/)
+        -   [RHEL AI](../integrations/rhel_ai/)
+        -   [spaCy](../integrations/spacy/)
+        
+    -    🗂️ More integrations
+        
+        🗂️ More integrations
+        
+        -   [Arconia](../integrations/arconia/)
+        -   [Cloudera](../integrations/cloudera/)
+        -   [DocETL](../integrations/docetl/)
+        -   [Kotaemon](../integrations/kotaemon/)
+        -   [OpenContracts](../integrations/opencontracts/)
+        -   [Open WebUI](../integrations/openwebui/)
+        -   [Quarkus](../integrations/quarkus/)
+        -   [Vectara](../integrations/vectara/)
+        
+    
+-    Reference
+    
+    Reference
+    
+    -    Python API
+        
+        Python API
+        
+        -   [Document Converter](../reference/document_converter/)
+        -   [Pipeline options](../reference/pipeline_options/)
+        -   [Docling Document](../reference/docling_document/)
+        
+    -    CLI
+        
+        CLI
+        
+        -   [CLI reference](../reference/cli/)
+        
+    
+
+# Examples
+
+In this space, you can explore numerous Docling application recipes & end-to-end workflows!
+
+Here some of our picks to get you started:
+
+-   🔀 conversion examples ranging from [simple conversion to Markdown](minimal/) and export of [figures](export_figures/) & [tables](export_tables/), to [VLM](minimal_vlm_pipeline/) and [audio](minimal_asr_pipeline/) pipelines, as well as specialized formats like [XBRL](xbrl_conversion/)
+-   💬 various RAG examples, e.g. based on [LangChain](rag_langchain/), [LlamaIndex](rag_llamaindex/), or [Haystack](rag_haystack/), including [visual grounding](visual_grounding/), and using different vector stores like [Milvus](rag_milvus/), [Weaviate](rag_weaviate/), or [Qdrant](retrieval_qdrant/)
+-   📤 [\[ beta\] structured data extraction](extraction/)
+-   examples for ✍️ [serialization](serialization/) and ✂️ [chunking](hybrid_chunking/), including [user-defined customizations](advanced_chunking_and_serialization/)
+-   🖼️ [picture annotations](pictures_description/) and [enrichments](enrich_doclingdocument/)
+-   🤝 [**Agent skill**](agent_skill/docling-document-intelligence/) for Cursor and other assistants (`SKILL.md`, pipeline reference, `docling-convert.py` / `docling-evaluate.py` helpers)
+
+👈 ... and there is much more: explore all the examples using the navigation menu on the side
+
+Visual grounding
+
+---
+
+![RAG with visual grounding](../assets/visual_grounding.png)
+
+Picture annotations
+
+---
+
+![Picture annotation](../assets/picture_annotations.png)
+
+ 
+
+Back to top
+
+[
+
+Previous
+
+Plugins
+
+
+
+](../concepts/plugins/)[
+
+Next
+
+🤝 Agent skill (Cursor / assistants)
+
+](agent_skill/docling-document-intelligence/)
+
+Made with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+
+[](https://github.com/docling-project/docling "github.com")[](https://docling.ai/discord "docling.ai")[](https://linkedin.com/company/docling/ "linkedin.com")
+```
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://github.com/docling-project/docling",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+                     GitHub - docling-project/docling: Get your documents ready for gen AI · GitHub                                             
+
+[Skip to content](#start-of-content)   
+
+## Navigation Menu
+
+Toggle navigation
+
+[](/)
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Fdocling-project%2Fdocling)
+
+Appearance settings
+
+  
+
+-   Platform
+    
+    -   AI CODE CREATION
+        
+        -   [
+            
+            GitHub CopilotWrite better code with AI
+            
+            ](https://github.com/features/copilot)
+        -   [
+            
+            GitHub SparkBuild and deploy intelligent apps
+            
+            ](https://github.com/features/spark)
+        -   [
+            
+            GitHub ModelsManage and compare prompts
+            
+            ](https://github.com/features/models)
+        -   [
+            
+            MCP RegistryNewIntegrate external tools
+            
+            ](https://github.com/mcp)
+        
+    -   DEVELOPER WORKFLOWS
+        
+        -   [
+            
+            ActionsAutomate any workflow
+            
+            ](https://github.com/features/actions)
+        -   [
+            
+            CodespacesInstant dev environments
+            
+            ](https://github.com/features/codespaces)
+        -   [
+            
+            IssuesPlan and track work
+            
+            ](https://github.com/features/issues)
+        -   [
+            
+            Code ReviewManage code changes
+            
+            ](https://github.com/features/code-review)
+        
+    -   APPLICATION SECURITY
+        
+        -   [
+            
+            GitHub Advanced SecurityFind and fix vulnerabilities
+            
+            ](https://github.com/security/advanced-security)
+        -   [
+            
+            Code securitySecure your code as you build
+            
+            ](https://github.com/security/advanced-security/code-security)
+        -   [
+            
+            Secret protectionStop leaks before they start
+            
+            ](https://github.com/security/advanced-security/secret-protection)
+        
+    -   EXPLORE
+        
+        -   [Why GitHub](https://github.com/why-github)
+        -   [Documentation](https://docs.github.com)
+        -   [Blog](https://github.blog)
+        -   [Changelog](https://github.blog/changelog)
+        -   [Marketplace](https://github.com/marketplace)
+        
+    
+    [View all features](https://github.com/features)
+    
+-   Solutions
+    
+    -   BY COMPANY SIZE
+        
+        -   [Enterprises](https://github.com/enterprise)
+        -   [Small and medium teams](https://github.com/team)
+        -   [Startups](https://github.com/enterprise/startups)
+        -   [Nonprofits](https://github.com/solutions/industry/nonprofits)
+        
+    -   BY USE CASE
+        
+        -   [App Modernization](https://github.com/solutions/use-case/app-modernization)
+        -   [DevSecOps](https://github.com/solutions/use-case/devsecops)
+        -   [DevOps](https://github.com/solutions/use-case/devops)
+        -   [CI/CD](https://github.com/solutions/use-case/ci-cd)
+        -   [View all use cases](https://github.com/solutions/use-case)
+        
+    -   BY INDUSTRY
+        
+        -   [Healthcare](https://github.com/solutions/industry/healthcare)
+        -   [Financial services](https://github.com/solutions/industry/financial-services)
+        -   [Manufacturing](https://github.com/solutions/industry/manufacturing)
+        -   [Government](https://github.com/solutions/industry/government)
+        -   [View all industries](https://github.com/solutions/industry)
+        
+    
+    [View all solutions](https://github.com/solutions)
+    
+-   Resources
+    
+    -   EXPLORE BY TOPIC
+        
+        -   [AI](https://github.com/resources/articles?topic=ai)
+        -   [Software Development](https://github.com/resources/articles?topic=software-development)
+        -   [DevOps](https://github.com/resources/articles?topic=devops)
+        -   [Security](https://github.com/resources/articles?topic=security)
+        -   [View all topics](https://github.com/resources/articles)
+        
+    -   EXPLORE BY TYPE
+        
+        -   [Customer stories](https://github.com/customer-stories)
+        -   [Events & webinars](https://github.com/resources/events)
+        -   [Ebooks & reports](https://github.com/resources/whitepapers)
+        -   [Business insights](https://github.com/solutions/executive-insights)
+        -   [GitHub Skills](https://skills.github.com)
+        
+    -   SUPPORT & SERVICES
+        
+        -   [Documentation](https://docs.github.com)
+        -   [Customer support](https://support.github.com)
+        -   [Community forum](https://github.com/orgs/community/discussions)
+        -   [Trust center](https://github.com/trust-center)
+        -   [Partners](https://github.com/partners)
+        
+    
+    [View all resources](https://github.com/resources)
+    
+-   Open Source
+    
+    -   COMMUNITY
+        
+        -   [
+            
+            GitHub SponsorsFund open source developers
+            
+            ](https://github.com/sponsors)
+        
+    -   PROGRAMS
+        
+        -   [Security Lab](https://securitylab.github.com)
+        -   [Maintainer Community](https://maintainers.github.com)
+        -   [Accelerator](https://github.com/accelerator)
+        -   [GitHub Stars](https://stars.github.com)
+        -   [Archive Program](https://archiveprogram.github.com)
+        
+    -   REPOSITORIES
+        
+        -   [Topics](https://github.com/topics)
+        -   [Trending](https://github.com/trending)
+        -   [Collections](https://github.com/collections)
+        
+    
+-   Enterprise
+    
+    -   ENTERPRISE SOLUTIONS
+        
+        -   [
+            
+            Enterprise platformAI-powered developer platform
+            
+            ](https://github.com/enterprise)
+        
+    -   AVAILABLE ADD-ONS
+        
+        -   [
+            
+            GitHub Advanced SecurityEnterprise-grade security features
+            
+            ](https://github.com/security/advanced-security)
+        -   [
+            
+            Copilot for BusinessEnterprise-grade AI features
+            
+            ](https://github.com/features/copilot/copilot-business)
+        -   [
+            
+            Premium SupportEnterprise-grade 24/7 support
+            
+            ](https://github.com/premium-support)
+        
+    
+-   [Pricing](https://github.com/pricing)
+
+Search or jump to...
+
+# Search code, repositories, users, issues, pull requests...
+
+Search
+
+Clear
+
+[Search syntax tips](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax)
+
+# Provide feedback
+
+We read every piece of feedback, and take your input very seriously.
+
+ Include my email address so I can be contacted
+
+Cancel Submit feedback
+
+# Saved searches
+
+## Use saved searches to filter your results more quickly
+
+Name  
+
+Query 
+
+To see all available qualifiers, see our [documentation](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax).
+
+Cancel Create saved search
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Fdocling-project%2Fdocling)
+
+[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=docling-project%2Fdocling)
+
+Appearance settings
+
+Resetting focus
+
+You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert
+
+[docling-project](/docling-project) / **[docling](/docling-project/docling)** Public
+
+-   [Notifications](/login?return_to=%2Fdocling-project%2Fdocling) You must be signed in to change notification settings
+-   [Fork 4.1k](/login?return_to=%2Fdocling-project%2Fdocling)
+-   [Star 59.5k](/login?return_to=%2Fdocling-project%2Fdocling)
+    
+
+-   [Code](/docling-project/docling)
+-   [Issues 849](/docling-project/docling/issues)
+-   [Pull requests 43](/docling-project/docling/pulls)
+-   [Discussions](/docling-project/docling/discussions)
+-   [Actions](/docling-project/docling/actions)
+-   [Projects](/docling-project/docling/projects)
+-   [Security and quality 0](/docling-project/docling/security)
+-   [Insights](/docling-project/docling/pulse)
+
+Additional navigation options
+
+-   [Code](/docling-project/docling)
+-   [Issues](/docling-project/docling/issues)
+-   [Pull requests](/docling-project/docling/pulls)
+-   [Discussions](/docling-project/docling/discussions)
+-   [Actions](/docling-project/docling/actions)
+-   [Projects](/docling-project/docling/projects)
+-   [Security and quality](/docling-project/docling/security)
+-   [Insights](/docling-project/docling/pulse)
+
+ [](/docling-project/docling)
+
+# docling-project/docling
+
+ main
+
+[Branches](/docling-project/docling/branches)[Tags](/docling-project/docling/tags)
+
+[](/docling-project/docling/branches)[](/docling-project/docling/tags)
+
+Go to file
+
+Code
+
+Open more actions menu
+
+## Folders and files
+
+Name
+
+Name
+
+Last commit message
+
+Last commit date
+
+## Latest commit
+
+## History
+
+[1,028 Commits](/docling-project/docling/commits/main/)
+
+[](/docling-project/docling/commits/main/)1,028 Commits
+
+[.actor](/docling-project/docling/tree/main/.actor ".actor")
+
+[.actor](/docling-project/docling/tree/main/.actor ".actor")
+
+[.github](/docling-project/docling/tree/main/.github ".github")
+
+[.github](/docling-project/docling/tree/main/.github ".github")
+
+[.plans](/docling-project/docling/tree/main/.plans ".plans")
+
+[.plans](/docling-project/docling/tree/main/.plans ".plans")
+
+[docling](/docling-project/docling/tree/main/docling "docling")
+
+[docling](/docling-project/docling/tree/main/docling "docling")
+
+[docs](/docling-project/docling/tree/main/docs "docs")
+
+[docs](/docling-project/docling/tree/main/docs "docs")
+
+[packages](/docling-project/docling/tree/main/packages "packages")
+
+[packages](/docling-project/docling/tree/main/packages "packages")
+
+[scripts](/docling-project/docling/tree/main/scripts "scripts")
+
+[scripts](/docling-project/docling/tree/main/scripts "scripts")
+
+[tests](/docling-project/docling/tree/main/tests "tests")
+
+[tests](/docling-project/docling/tree/main/tests "tests")
+
+[.gitattributes](/docling-project/docling/blob/main/.gitattributes ".gitattributes")
+
+[.gitattributes](/docling-project/docling/blob/main/.gitattributes ".gitattributes")
+
+[.gitignore](/docling-project/docling/blob/main/.gitignore ".gitignore")
+
+[.gitignore](/docling-project/docling/blob/main/.gitignore ".gitignore")
+
+[.pre-commit-config.yaml](/docling-project/docling/blob/main/.pre-commit-config.yaml ".pre-commit-config.yaml")
+
+[.pre-commit-config.yaml](/docling-project/docling/blob/main/.pre-commit-config.yaml ".pre-commit-config.yaml")
+
+[AGENTS.md](/docling-project/docling/blob/main/AGENTS.md "AGENTS.md")
+
+[AGENTS.md](/docling-project/docling/blob/main/AGENTS.md "AGENTS.md")
+
+[CHANGELOG.md](/docling-project/docling/blob/main/CHANGELOG.md "CHANGELOG.md")
+
+[CHANGELOG.md](/docling-project/docling/blob/main/CHANGELOG.md "CHANGELOG.md")
+
+[CITATION.cff](/docling-project/docling/blob/main/CITATION.cff "CITATION.cff")
+
+[CITATION.cff](/docling-project/docling/blob/main/CITATION.cff "CITATION.cff")
+
+[CLAUDE.md](/docling-project/docling/blob/main/CLAUDE.md "CLAUDE.md")
+
+[CLAUDE.md](/docling-project/docling/blob/main/CLAUDE.md "CLAUDE.md")
+
+[CODE\_OF\_CONDUCT.md](/docling-project/docling/blob/main/CODE_OF_CONDUCT.md "CODE_OF_CONDUCT.md")
+
+[CODE\_OF\_CONDUCT.md](/docling-project/docling/blob/main/CODE_OF_CONDUCT.md "CODE_OF_CONDUCT.md")
+
+[CONTRIBUTING.md](/docling-project/docling/blob/main/CONTRIBUTING.md "CONTRIBUTING.md")
+
+[CONTRIBUTING.md](/docling-project/docling/blob/main/CONTRIBUTING.md "CONTRIBUTING.md")
+
+[Dockerfile](/docling-project/docling/blob/main/Dockerfile "Dockerfile")
+
+[Dockerfile](/docling-project/docling/blob/main/Dockerfile "Dockerfile")
+
+[LICENSE](/docling-project/docling/blob/main/LICENSE "LICENSE")
+
+[LICENSE](/docling-project/docling/blob/main/LICENSE "LICENSE")
+
+[MAINTAINERS.md](/docling-project/docling/blob/main/MAINTAINERS.md "MAINTAINERS.md")
+
+[MAINTAINERS.md](/docling-project/docling/blob/main/MAINTAINERS.md "MAINTAINERS.md")
+
+[Makefile](/docling-project/docling/blob/main/Makefile "Makefile")
+
+[Makefile](/docling-project/docling/blob/main/Makefile "Makefile")
+
+[README.md](/docling-project/docling/blob/main/README.md "README.md")
+
+[README.md](/docling-project/docling/blob/main/README.md "README.md")
+
+[mkdocs.yml](/docling-project/docling/blob/main/mkdocs.yml "mkdocs.yml")
+
+[mkdocs.yml](/docling-project/docling/blob/main/mkdocs.yml "mkdocs.yml")
+
+[pyproject.toml](/docling-project/docling/blob/main/pyproject.toml "pyproject.toml")
+
+[pyproject.toml](/docling-project/docling/blob/main/pyproject.toml "pyproject.toml")
+
+[tach.toml](/docling-project/docling/blob/main/tach.toml "tach.toml")
+
+[tach.toml](/docling-project/docling/blob/main/tach.toml "tach.toml")
+
+[uv.lock](/docling-project/docling/blob/main/uv.lock "uv.lock")
+
+[uv.lock](/docling-project/docling/blob/main/uv.lock "uv.lock")
+
+View all files
+
+## Repository files navigation
+
+-   [README](#)
+-   [Code of conduct](#)
+-   [Contributing](#)
+-   [MIT license](#)
+-   [Security](#)
+
+[![Docling](https://github.com/docling-project/docling/raw/main/docs/assets/docling_processing.png)](https://github.com/docling-project/docling)
+
+# Docling
+
+[](#docling)
+
+[![DS4SD%2Fdocling | Trendshift](https://camo.githubusercontent.com/a35a9182b261bd58b124bfa2760bb23d6f29146c8a9aa00fbefa0e45885d4829/68747470733a2f2f7472656e6473686966742e696f2f6170692f62616467652f7265706f7369746f726965732f3132313332)](https://trendshift.io/repositories/12132)
+
+[![arXiv](https://camo.githubusercontent.com/d77d4c8622139c4661568aae7bf8219e855bcac3c8fd11467d89afd82e08b5d7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f61725869762d323430382e30393836392d6233316231622e737667)](https://arxiv.org/abs/2408.09869) [![Docs](https://camo.githubusercontent.com/89648943131f785f7950a481c1bd1edae64c1d1fbf64f7bd79dd2a454f5d4e9a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c6976652d627269676874677265656e)](https://docling-project.github.io/docling/) [![PyPI version](https://camo.githubusercontent.com/b786c45f1400146d6f052940c1371d2bab6d44b3e1c2fc9271bc29484f7a4745/68747470733a2f2f696d672e736869656c64732e696f2f707970692f762f646f636c696e67)](https://pypi.org/project/docling/) [![PyPI - Python Version](https://camo.githubusercontent.com/d06016efe0bc47cbd722c92a72e41ad21c95e0dbb527cbbae8852bb931fadddd/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f646f636c696e67)](https://pypi.org/project/docling/) [![uv](https://camo.githubusercontent.com/bec95721f735c7ba951b338419fcb6a4810be2f3c0fc50b2e0b322f7dcd65bc9/68747470733a2f2f696d672e736869656c64732e696f2f656e64706f696e743f75726c3d68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f61737472616c2d73682f75762f6d61696e2f6173736574732f62616467652f76302e6a736f6e)](https://github.com/astral-sh/uv) [![Ruff](https://camo.githubusercontent.com/d6c7524504b7d886a9d34c11f44b9d31b2de1a579325b42e932744c4575a063b/68747470733a2f2f696d672e736869656c64732e696f2f656e64706f696e743f75726c3d68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f61737472616c2d73682f727566662f6d61696e2f6173736574732f62616467652f76322e6a736f6e)](https://github.com/astral-sh/ruff) [![Pydantic v2](https://camo.githubusercontent.com/225cfe67be4e841d9763753ec947434ef7a9469f9723474322e3818d3272e333/68747470733a2f2f696d672e736869656c64732e696f2f656e64706f696e743f75726c3d68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f707964616e7469632f707964616e7469632f6d61696e2f646f63732f62616467652f76322e6a736f6e)](https://pydantic.dev) [![prek](https://camo.githubusercontent.com/7f83054db895f30cd96473661e898d5f3ac1eaebe08e1906abd87125b70a3044/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7072656b2d656e61626c65642d627269676874677265656e)](https://pypi.org/project/prek/) [![License MIT](https://camo.githubusercontent.com/ecd287f3b50795ad2876d03edda357157bd7b9c495dafc3511c1d72558a68162/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f646f636c696e672d70726f6a6563742f646f636c696e67)](https://opensource.org/licenses/MIT) [![PyPI Downloads](https://camo.githubusercontent.com/a806fe0a652f73ff09b888ba82822fd28a6fabd176c99e81f93eb8b2570a9139/68747470733a2f2f7374617469632e706570792e746563682f62616467652f646f636c696e672f6d6f6e7468)](https://pepy.tech/projects/docling) [![Docling Actor](https://camo.githubusercontent.com/be762bc55bee0495db5c10f3d10df84b57b04101ee19eec5cf3d66fe30e23779/68747470733a2f2f61706966792e636f6d2f6163746f722d62616467653f6163746f723d76616e637572612f646f636c696e67266670723d646f636c696e67)](https://apify.com/vancura/docling) [![Chat with Dosu](https://camo.githubusercontent.com/7c571478962a6b8a5d47cac74b6824c75e4f6731bba52377e6007f9150462923/68747470733a2f2f646f73752e6465762f646f73752d636861742d62616467652e737667)](https://app.dosu.dev/097760a8-135e-4789-8234-90c8837d7f1c/ask?utm_source=github) [![Discord](https://camo.githubusercontent.com/0d514373e051dc09653c5f0188d7d952cbb8d245bc1b536082bfb74352470e96/68747470733a2f2f696d672e736869656c64732e696f2f646973636f72642f313339393738383932313330363734363937313f636f6c6f723d364137454332266c6f676f3d646973636f7264266c6f676f436f6c6f723d666666666666)](https://docling.ai/discord) [![OpenSSF Best Practices](https://camo.githubusercontent.com/fc502768571036e5ca4706b895e33b7094b0cecdf601fdec90562fe09f00372d/68747470733a2f2f7777772e626573747072616374696365732e6465762f70726f6a656374732f31303130312f6261646765)](https://www.bestpractices.dev/projects/10101) [![LF AI & Data](https://camo.githubusercontent.com/45367c8427d91508a8d1d0ab00ef3ce951e04cd64366153b130d09e32e5d92af/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c462532304149253230253236253230446174612d3030333737383f6c6f676f3d6c696e7578666f756e646174696f6e266c6f676f436f6c6f723d66666626636f6c6f723d303039346666266c6162656c436f6c6f723d303033373738)](https://lfaidata.foundation/projects/)
+
+## What is Docling ?
+
+[](#what-is-docling-)
+
+Docling simplifies document processing, parsing diverse formats — including advanced PDF understanding — and providing seamless integrations with the gen AI ecosystem.
+
+## Features
+
+[](#features)
+
+-   🗂️ Parsing of [multiple document formats](https://docling-project.github.io/docling/usage/supported_formats/) incl. PDF, DOCX, PPTX, XLSX, HTML, WAV, MP3, WebVTT, images (PNG, TIFF, JPEG, ...), LaTeX, plain text, and more
+-   📑 Advanced PDF understanding incl. page layout, reading order, table structure, code, formulas, image classification, and more
+-   🧬 Unified, expressive [DoclingDocument](https://docling-project.github.io/docling/concepts/docling_document/) representation format
+-   ↪️ Various [export formats](https://docling-project.github.io/docling/usage/supported_formats/) and options, including Markdown, HTML, WebVTT, [DocTags](https://arxiv.org/abs/2503.11576) and lossless JSON
+-   📜 Support of several application-specifc XML schemas incl. [USPTO](https://www.uspto.gov/patents) patents, [JATS](https://jats.nlm.nih.gov/) articles, and [XBRL](https://www.xbrl.org/) financial reports.
+-   🔒 Local execution capabilities for sensitive data and air-gapped environments
+-   🤖 Plug-and-play [integrations](https://docling-project.github.io/docling/integrations/) incl. LangChain, LlamaIndex, Crew AI & Haystack for agentic AI
+-   🔍 Extensive OCR support for scanned PDFs and images
+-   👓 Support of several Visual Language Models ([GraniteDocling](https://huggingface.co/ibm-granite/granite-docling-258M))
+-   🎙️ Audio support with Automatic Speech Recognition (ASR) models
+-   🔌 Connect to any agent using the [MCP server](https://docling-project.github.io/docling/usage/mcp/)
+-   💻 Simple and convenient CLI
+
+### What's new
+
+[](#whats-new)
+
+-   📤 Structured [information extraction](https://docling-project.github.io/docling/examples/extraction/) \[🧪 beta\]
+-   📑 New layout model (**Heron**) by default, for faster PDF parsing
+-   🔌 [MCP server](https://docling-project.github.io/docling/usage/mcp/) for agentic applications
+-   💼 Parsing of XBRL (eXtensible Business Reporting Language) documents for financial reports
+-   💬 Parsing of WebVTT (Web Video Text Tracks) files and export to WebVTT format
+-   💬 Parsing of LaTeX files
+-   📝 Parsing of plain-text files (`.txt`, `.text`) and Markdown supersets (`.qmd`, `.Rmd`)
+-   📝 Chart understanding (Barchart, Piechart, LinePlot): converting them into tables, code or adding detailed descriptions
+
+### Coming soon
+
+[](#coming-soon)
+
+-   📝 Metadata extraction, including title, authors, references & language
+-   📝 Complex chemistry understanding (Molecular structures)
+
+## Quickstart
+
+[](#quickstart)
+
+### 1\. Install
+
+[](#1-install)
+
+pip install docling
+
+> **Note:** Python 3.9 support was dropped in docling version 2.70.0. Please use Python 3.10 or higher.
+
+Works on macOS, Linux and Windows environments. Both x86\_64 and arm64 architectures.
+
+More [detailed installation instructions](https://docling-project.github.io/docling/installation/) are available in the docs.
+
+## 2\. Convert a document (CLI)
+
+[](#2-convert-a-document-cli)
+
+docling https://arxiv.org/pdf/2206.01062
+
+This generates a .md file in the current directory containing structured document content.
+
+You can also use 🥚[GraniteDocling](https://huggingface.co/ibm-granite/granite-docling-258M) and other VLMs via Docling CLI:
+
+docling --pipeline vlm --vlm-model granite\_docling https://arxiv.org/pdf/2206.01062
+
+## 3\. Python usage (recommended)
+
+[](#3-python-usage-recommended)
+
+from docling.document\_converter import DocumentConverter
+
+source \= "https://arxiv.org/pdf/2408.09869"  \# document per local path or URL
+converter \= DocumentConverter()
+result \= converter.convert(source)
+print(result.document.export\_to\_markdown())  \# output: "## Docling Technical Report\[...\]"
+
+More advanced [usage](https://docling-project.github.io/docling/usage/) and [configuration](https://docling-project.github.io/docling/installation/) options.
+
+## Documentation
+
+[](#documentation)
+
+Check out Docling's [documentation](https://docling-project.github.io/docling/), for details on installation, usage, concepts, recipes, extensions, and more.
+
+## Examples
+
+[](#examples)
+
+Go hands-on with our [examples](https://docling-project.github.io/docling/examples/), demonstrating how to address different application use cases with Docling.
+
+## Integrations
+
+[](#integrations)
+
+To further accelerate your AI application development, check out Docling's native [integrations](https://docling-project.github.io/docling/integrations/) with popular frameworks and tools.
+
+## Get help and support
+
+[](#get-help-and-support)
+
+Please feel free to connect with us using the [discussion section](https://github.com/docling-project/docling/discussions).
+
+## Technical report
+
+[](#technical-report)
+
+For more details on Docling's inner workings, check out the [Docling Technical Report](https://arxiv.org/abs/2408.09869).
+
+## Contributing
+
+[](#contributing)
+
+Please read [Contributing to Docling](https://github.com/docling-project/docling/blob/main/CONTRIBUTING.md) for details.
+
+## References
+
+[](#references)
+
+If you use Docling in your projects, please consider citing the following:
+
+@techreport{Docling,
+  author = {Deep Search Team},
+  month = {8},
+  title = {Docling Technical Report},
+  url = {https://arxiv.org/abs/2408.09869},
+  eprint = {2408.09869},
+  doi = {10.48550/arXiv.2408.09869},
+  version = {1.0.0},
+  year = {2024}
+}
+
+## License
+
+[](#license)
+
+The Docling codebase is under MIT license. For individual model usage, please refer to the model licenses found in the original packages.
+
+## LF AI & Data
+
+[](#lf-ai--data)
+
+Docling is hosted as a project in the [LF AI & Data Foundation](https://lfaidata.foundation/projects/).
+
+### IBM ❤️ Open Source AI
+
+[](#ibm-️-open-source-ai)
+
+The project was started by the AI for knowledge team at IBM Research Zurich.
+
+## About
+
+Get your documents ready for gen AI
+
+[docling-project.github.io/docling](https://docling-project.github.io/docling "https://docling-project.github.io/docling")
+
+### Topics
+
+[html](/topics/html "Topic: html") [markdown](/topics/markdown "Topic: markdown") [pdf](/topics/pdf "Topic: pdf") [ai](/topics/ai "Topic: ai") [convert](/topics/convert "Topic: convert") [xlsx](/topics/xlsx "Topic: xlsx") [pdf-converter](/topics/pdf-converter "Topic: pdf-converter") [docx](/topics/docx "Topic: docx") [documents](/topics/documents "Topic: documents") [pptx](/topics/pptx "Topic: pptx") [pdf-to-text](/topics/pdf-to-text "Topic: pdf-to-text") [tables](/topics/tables "Topic: tables") [document-parser](/topics/document-parser "Topic: document-parser") [pdf-to-json](/topics/pdf-to-json "Topic: pdf-to-json") [document-parsing](/topics/document-parsing "Topic: document-parsing")
+
+### Resources
+
+[Readme](#readme-ov-file)
+
+### License
+
+[MIT license](#MIT-1-ov-file)
+
+### Code of conduct
+
+[Code of conduct](#coc-ov-file)
+
+### Contributing
+
+[Contributing](#contributing-ov-file)
+
+### Security policy
+
+[Security policy](#security-ov-file)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[Activity](/docling-project/docling/activity)
+
+[Custom properties](/docling-project/docling/custom-properties)
+
+### Stars
+
+[**59.5k** stars](/docling-project/docling/stargazers)
+
+### Watchers
+
+[**213** watching](/docling-project/docling/watchers)
+
+### Forks
+
+[**4.1k** forks](/docling-project/docling/forks)
+
+[Report repository](/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Fdocling-project%2Fdocling&report=docling-project+%28user%29)
+
+## [Releases 172](/docling-project/docling/releases)
+
+[
+
+v2.93.0 Latest
+
+May 7, 2026
+
+
+
+](/docling-project/docling/releases/tag/v2.93.0)
+
+[\+ 171 releases](/docling-project/docling/releases)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+## [Contributors](/docling-project/docling/graphs/contributors)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+## Languages
+
+-   [Python 99.2%](/docling-project/docling/search?l=python)
+-   Other 0.8%
+
+## Footer
+
+[](https://github.com)© 2026 GitHub, Inc.
+
+### Footer navigation
+
+-   [Terms](https://docs.github.com/site-policy/github-terms/github-terms-of-service)
+-   [Privacy](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement)
+-   [Security](https://github.com/security)
+-   [Status](https://www.githubstatus.com/)
+-   [Community](https://github.community/)
+-   [Docs](https://docs.github.com/)
+-   [Contact](https://support.github.com?tags=dotcom-footer)
+-   Manage cookies
+-   Do not share my personal information
+
+You can’t perform that action at this time.
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 89.9s)
+
+_Thinking:_
+
+
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+               llm-wiki · GitHub                                         
+
+[Skip to content](#start-of-content)   
+
+[](/)
+
+Search Gists
+
+Search Gists
+
+[All gists](/discover) [Back to GitHub](https://github.com) [Sign in](https://gist.github.com/auth/github?return_to=https%3A%2F%2Fgist.github.com%2Fkarpathy%2F442a6bf555914893e9891c11519de94f) [Sign up](/join?return_to=https%3A%2F%2Fgist.github.com%2Fkarpathy%2F442a6bf555914893e9891c11519de94f&source=header-gist)
+
+[](/)
+
+[Sign in](https://gist.github.com/auth/github?return_to=https%3A%2F%2Fgist.github.com%2Fkarpathy%2F442a6bf555914893e9891c11519de94f) [Sign up](/join?return_to=https%3A%2F%2Fgist.github.com%2Fkarpathy%2F442a6bf555914893e9891c11519de94f&source=header-gist)
+
+You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert
+
+Instantly share code, notes, and snippets.
+
+[![@karpathy](https://avatars.githubusercontent.com/u/241138?s=64&v=4)](/karpathy)
+
+# [karpathy](/karpathy)/**[llm-wiki.md](/karpathy/442a6bf555914893e9891c11519de94f)**
+
+Created April 4, 2026 16:25
+
+Show Gist options
+
+-   [Download ZIP](/karpathy/442a6bf555914893e9891c11519de94f/archive/ac46de1ad27f92b28ac95459c782c07f6b8c964a.zip)
+
+-   [Star 5,000+ (5,000+)](/login?return_to=https%3A%2F%2Fgist.github.com%2Fkarpathy%2F442a6bf555914893e9891c11519de94f) You must be signed in to star a gist
+-   [Fork 5,000+ (5,000+)](/login?return_to=https%3A%2F%2Fgist.github.com%2Fkarpathy%2F442a6bf555914893e9891c11519de94f) You must be signed in to fork a gist
+
+-   Embed
+    
+    # Select an option
+    
+    -   Embed Embed this gist in your website.
+    -   Share Copy sharable link for this gist.
+    -   Clone via HTTPS Clone using the web URL.
+    
+    ## No results found
+    
+    [Learn more about clone URLs](https://docs.github.com/articles/which-remote-url-should-i-use)
+    
+    Clone this repository at &lt;script src=&quot;https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f.js&quot;&gt;&lt;/script&gt;
+    
+-   Save karpathy/442a6bf555914893e9891c11519de94f to your computer and use it in GitHub Desktop.
+
+[Code](/karpathy/442a6bf555914893e9891c11519de94f) [Revisions 1](/karpathy/442a6bf555914893e9891c11519de94f/revisions) [Stars 5,000+](/karpathy/442a6bf555914893e9891c11519de94f/stargazers) [Forks 5,000+](/karpathy/442a6bf555914893e9891c11519de94f/forks)
+
+Embed
+
+# Select an option
+
+-   Embed Embed this gist in your website.
+-   Share Copy sharable link for this gist.
+-   Clone via HTTPS Clone using the web URL.
+
+## No results found
+
+[Learn more about clone URLs](https://docs.github.com/articles/which-remote-url-should-i-use)
+
+Clone this repository at &lt;script src=&quot;https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f.js&quot;&gt;&lt;/script&gt;
+
+Save karpathy/442a6bf555914893e9891c11519de94f to your computer and use it in GitHub Desktop.
+
+[Download ZIP](/karpathy/442a6bf555914893e9891c11519de94f/archive/ac46de1ad27f92b28ac95459c782c07f6b8c964a.zip)
+
+llm-wiki
+
+[Raw](/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md)
+
+[**llm-wiki.md**](#file-llm-wiki-md)
+
+# LLM Wiki
+
+[](#llm-wiki)
+
+A pattern for building personal knowledge bases using LLMs.
+
+This is an idea file, it is designed to be copy pasted to your own LLM Agent (e.g. OpenAI Codex, Claude Code, OpenCode / Pi, or etc.). Its goal is to communicate the high level idea, but your agent will build out the specifics in collaboration with you.
+
+## The core idea
+
+[](#the-core-idea)
+
+Most people's experience with LLMs and documents looks like RAG: you upload a collection of files, the LLM retrieves relevant chunks at query time, and generates an answer. This works, but the LLM is rediscovering knowledge from scratch on every question. There's no accumulation. Ask a subtle question that requires synthesizing five documents, and the LLM has to find and piece together the relevant fragments every time. Nothing is built up. NotebookLM, ChatGPT file uploads, and most RAG systems work this way.
+
+The idea here is different. Instead of just retrieving from raw documents at query time, the LLM **incrementally builds and maintains a persistent wiki** — a structured, interlinked collection of markdown files that sits between you and the raw sources. When you add a new source, the LLM doesn't just index it for later retrieval. It reads it, extracts the key information, and integrates it into the existing wiki — updating entity pages, revising topic summaries, noting where new data contradicts old claims, strengthening or challenging the evolving synthesis. The knowledge is compiled once and then *kept current*, not re-derived on every query.
+
+This is the key difference: **the wiki is a persistent, compounding artifact.** The cross-references are already there. The contradictions have already been flagged. The synthesis already reflects everything you've read. The wiki keeps getting richer with every source you add and every question you ask.
+
+You never (or rarely) write the wiki yourself — the LLM writes and maintains all of it. You're in charge of sourcing, exploration, and asking the right questions. The LLM does all the grunt work — the summarizing, cross-referencing, filing, and bookkeeping that makes a knowledge base actually useful over time. In practice, I have the LLM agent open on one side and Obsidian open on the other. The LLM makes edits based on our conversation, and I browse the results in real time — following links, checking the graph view, reading the updated pages. Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase.
+
+This can apply to a lot of different contexts. A few examples:
+
+-   **Personal**: tracking your own goals, health, psychology, self-improvement — filing journal entries, articles, podcast notes, and building up a structured picture of yourself over time.
+-   **Research**: going deep on a topic over weeks or months — reading papers, articles, reports, and incrementally building a comprehensive wiki with an evolving thesis.
+-   **Reading a book**: filing each chapter as you go, building out pages for characters, themes, plot threads, and how they connect. By the end you have a rich companion wiki. Think of fan wikis like [Tolkien Gateway](https://tolkiengateway.net/wiki/Main_Page) — thousands of interlinked pages covering characters, places, events, languages, built by a community of volunteers over years. You could build something like that personally as you read, with the LLM doing all the cross-referencing and maintenance.
+-   **Business/team**: an internal wiki maintained by LLMs, fed by Slack threads, meeting transcripts, project documents, customer calls. Possibly with humans in the loop reviewing updates. The wiki stays current because the LLM does the maintenance that no one on the team wants to do.
+-   **Competitive analysis, due diligence, trip planning, course notes, hobby deep-dives** — anything where you're accumulating knowledge over time and want it organized rather than scattered.
+
+## Architecture
+
+[](#architecture)
+
+There are three layers:
+
+**Raw sources** — your curated collection of source documents. Articles, papers, images, data files. These are immutable — the LLM reads from them but never modifies them. This is your source of truth.
+
+**The wiki** — a directory of LLM-generated markdown files. Summaries, entity pages, concept pages, comparisons, an overview, a synthesis. The LLM owns this layer entirely. It creates pages, updates them when new sources arrive, maintains cross-references, and keeps everything consistent. You read it; the LLM writes it.
+
+**The schema** — a document (e.g. CLAUDE.md for Claude Code or AGENTS.md for Codex) that tells the LLM how the wiki is structured, what the conventions are, and what workflows to follow when ingesting sources, answering questions, or maintaining the wiki. This is the key configuration file — it's what makes the LLM a disciplined wiki maintainer rather than a generic chatbot. You and the LLM co-evolve this over time as you figure out what works for your domain.
+
+## Operations
+
+[](#operations)
+
+**Ingest.** You drop a new source into the raw collection and tell the LLM to process it. An example flow: the LLM reads the source, discusses key takeaways with you, writes a summary page in the wiki, updates the index, updates relevant entity and concept pages across the wiki, and appends an entry to the log. A single source might touch 10-15 wiki pages. Personally I prefer to ingest sources one at a time and stay involved — I read the summaries, check the updates, and guide the LLM on what to emphasize. But you could also batch-ingest many sources at once with less supervision. It's up to you to develop the workflow that fits your style and document it in the schema for future sessions.
+
+**Query.** You ask questions against the wiki. The LLM searches for relevant pages, reads them, and synthesizes an answer with citations. Answers can take different forms depending on the question — a markdown page, a comparison table, a slide deck (Marp), a chart (matplotlib), a canvas. The important insight: **good answers can be filed back into the wiki as new pages.** A comparison you asked for, an analysis, a connection you discovered — these are valuable and shouldn't disappear into chat history. This way your explorations compound in the knowledge base just like ingested sources do.
+
+**Lint.** Periodically, ask the LLM to health-check the wiki. Look for: contradictions between pages, stale claims that newer sources have superseded, orphan pages with no inbound links, important concepts mentioned but lacking their own page, missing cross-references, data gaps that could be filled with a web search. The LLM is good at suggesting new questions to investigate and new sources to look for. This keeps the wiki healthy as it grows.
+
+## Indexing and logging
+
+[](#indexing-and-logging)
+
+Two special files help the LLM (and you) navigate the wiki as it grows. They serve different purposes:
+
+**index.md** is content-oriented. It's a catalog of everything in the wiki — each page listed with a link, a one-line summary, and optionally metadata like date or source count. Organized by category (entities, concepts, sources, etc.). The LLM updates it on every ingest. When answering a query, the LLM reads the index first to find relevant pages, then drills into them. This works surprisingly well at moderate scale (~100 sources, ~hundreds of pages) and avoids the need for embedding-based RAG infrastructure.
+
+**log.md** is chronological. It's an append-only record of what happened and when — ingests, queries, lint passes. A useful tip: if each entry starts with a consistent prefix (e.g. `## [2026-04-02] ingest | Article Title`), the log becomes parseable with simple unix tools — `grep "^## \[" log.md | tail -5` gives you the last 5 entries. The log gives you a timeline of the wiki's evolution and helps the LLM understand what's been done recently.
+
+## Optional: CLI tools
+
+[](#optional-cli-tools)
+
+At some point you may want to build small tools that help the LLM operate on the wiki more efficiently. A search engine over the wiki pages is the most obvious one — at small scale the index file is enough, but as the wiki grows you want proper search. [qmd](https://github.com/tobi/qmd) is a good option: it's a local search engine for markdown files with hybrid BM25/vector search and LLM re-ranking, all on-device. It has both a CLI (so the LLM can shell out to it) and an MCP server (so the LLM can use it as a native tool). You could also build something simpler yourself — the LLM can help you vibe-code a naive search script as the need arises.
+
+## Tips and tricks
+
+[](#tips-and-tricks)
+
+-   **Obsidian Web Clipper** is a browser extension that converts web articles to markdown. Very useful for quickly getting sources into your raw collection.
+-   **Download images locally.** In Obsidian Settings → Files and links, set "Attachment folder path" to a fixed directory (e.g. `raw/assets/`). Then in Settings → Hotkeys, search for "Download" to find "Download attachments for current file" and bind it to a hotkey (e.g. Ctrl+Shift+D). After clipping an article, hit the hotkey and all images get downloaded to local disk. This is optional but useful — it lets the LLM view and reference images directly instead of relying on URLs that may break. Note that LLMs can't natively read markdown with inline images in one pass — the workaround is to have the LLM read the text first, then view some or all of the referenced images separately to gain additional context. It's a bit clunky but works well enough.
+-   **Obsidian's graph view** is the best way to see the shape of your wiki — what's connected to what, which pages are hubs, which are orphans.
+-   **Marp** is a markdown-based slide deck format. Obsidian has a plugin for it. Useful for generating presentations directly from wiki content.
+-   **Dataview** is an Obsidian plugin that runs queries over page frontmatter. If your LLM adds YAML frontmatter to wiki pages (tags, dates, source counts), Dataview can generate dynamic tables and lists.
+-   The wiki is just a git repo of markdown files. You get version history, branching, and collaboration for free.
+
+## Why this works
+
+[](#why-this-works)
+
+The tedious part of maintaining a knowledge base is not the reading or the thinking — it's the bookkeeping. Updating cross-references, keeping summaries current, noting when new data contradicts old claims, maintaining consistency across dozens of pages. Humans abandon wikis because the maintenance burden grows faster than the value. LLMs don't get bored, don't forget to update a cross-reference, and can touch 15 files in one pass. The wiki stays maintained because the cost of maintenance is near zero.
+
+The human's job is to curate sources, direct the analysis, ask good questions, and think about what it all means. The LLM's job is everything else.
+
+The idea is related in spirit to Vannevar Bush's Memex (1945) — a personal, curated knowledge store with associative trails between documents. Bush's vision was closer to this than to what the web became: private, actively curated, with the connections between documents as valuable as the documents themselves. The part he couldn't solve was who does the maintenance. The LLM handles that.
+
+## Note
+
+[](#note)
+
+This document is intentionally abstract. It describes the idea, not a specific implementation. The exact directory structure, the schema conventions, the page formats, the tooling — all of that will depend on your domain, your preferences, and your LLM of choice. Everything mentioned above is optional and modular — pick what's useful, ignore what isn't. For example: your sources might be text-only, so you don't need image handling at all. Your wiki might be small enough that the index file is all you need, no search engine required. You might not care about slide decks and just want markdown pages. You might want a completely different set of output formats. The right way to use this is to share it with your LLM agent and work together to instantiate a version that fits your needs. The document's only job is to communicate the pattern. Your LLM can figure out the rest.
+
+   Load earlier comments...
+
+[![@medha](https://avatars.githubusercontent.com/u/332530?s=80&v=4)](/medha)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[medha](/medha)** commented [May 5, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6135385#gistcomment-6135385) •
+
+edited
+
+Loading
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+As my contribution to the discussion - I built Keel, a Mac app where your knowledge stays as plain markdown on disk and the model is swappable [http://github.com/Keel-Labs/keel](https://github.com/Keel-Labs/keel) (free, open source) - it's biased toward local-first and own-your-context.
+
+▶ [Keel Walkthrough 🚀 — Watch Video](https://www.loom.com/share/29c1407fc2944b1fb5c6c1bbc953831b)
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@ethanj](https://avatars.githubusercontent.com/u/1934146?s=80&v=4)](/ethanj)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[ethanj](/ethanj)** commented [May 5, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6135386#gistcomment-6135386)
+
+Huge milestone from this thread: `llmwiki` just crossed 1K GitHub stars (and 100 forks)!  
+[![Screenshot 2026-05-05 at 2 50 47 PM](https://private-user-images.githubusercontent.com/1934146/587966620-59a69307-6af6-47b2-83fb-7922ebc19b74.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xOTM0MTQ2LzU4Nzk2NjYyMC01OWE2OTMwNy02YWY2LTQ3YjItODNmYi03OTIyZWJjMTliNzQucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDUxMCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA1MTBUMDk0MjI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9OTJmMzdmMTQ1YzliNjljNWU3NTJhZWU0MTY0OTgyZGVlZmM3ZWEzZWZjODMwNzdmYmI2MGM5ZWYxYmIzOTdjYSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.54t84EUM_Z2e-huJ_7K-vpby8TCtqDqZ7h4K2rAfuGg)](https://private-user-images.githubusercontent.com/1934146/587966620-59a69307-6af6-47b2-83fb-7922ebc19b74.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xOTM0MTQ2LzU4Nzk2NjYyMC01OWE2OTMwNy02YWY2LTQ3YjItODNmYi03OTIyZWJjMTliNzQucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDUxMCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA1MTBUMDk0MjI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9OTJmMzdmMTQ1YzliNjljNWU3NTJhZWU0MTY0OTgyZGVlZmM3ZWEzZWZjODMwNzdmYmI2MGM5ZWYxYmIzOTdjYSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.54t84EUM_Z2e-huJ_7K-vpby8TCtqDqZ7h4K2rAfuGg)
+
+I built it because Andrej's LLM Wiki gist felt immediately useful, but I wanted the idea to be boringly concrete... a local CLI, plain files, immutable sources, generated markdown, provenance, linting, exports, and agent access.
+
+The project now has:
+
+-   `compile --review` so generated pages can be approved or rejected before landing
+-   claim-level provenance like `^[paper.md:42-58]`
+-   typed schema/page kinds and seed pages
+-   confidence and contradiction metadata
+-   image/PDF/transcript ingest
+-   chunked retrieval with BM25 reranking
+-   `llms.txt`, JSON-LD, GraphML, and Marp exports
+-   MCP tools
+-   Claude/Codex/Cursor session ingest
+
+The part that still feels most useful to me is how the knowledge builds up over time... add sources, improve the wiki, ask better questions, save better answers, and the next agent starts fully informed instead of another empty chat window.
+
+The roadmap is now focused on the parts that make this real at scale... local web UI, graph/context packs, evals, and rollback/audit.
+
+Thanks to everyone who has tried it, filed issues, opened PRs, or posted competing implementations here. This thread has been our best product research.
+
+[https://github.com/atomicmemory/llm-wiki-compiler](https://github.com/atomicmemory/llm-wiki-compiler)
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@waydelyle](https://avatars.githubusercontent.com/u/16001190?s=80&v=4)](/waydelyle)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[waydelyle](/waydelyle)** commented [May 6, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6136137#gistcomment-6136137)
+
+**SwarmVault v3.12 — you can now chat with your vault and export it for any AI.** The project just keeps growing from this gist.
+
+Two big new surfaces in the latest releases:
+
+**`swarmvault chat` — persistent multi-turn conversations over your compiled wiki.**
+
+Instead of one-shot queries, you can now have an ongoing conversation with your vault. Sessions persist, so you can resume where you left off. It works in interactive TTY mode or programmatically. Your chat history becomes part of the vault's knowledge.
+
+```
+swarmvault chat
+swarmvault chat --resume <session-id>
+swarmvault chat --list
+```
+
+**`swarmvault export ai` — static handoff packs for any AI tool.**
+
+Exports your vault as a portable bundle with `llms.txt`, full text, JSON-LD graph data, manifest metadata, and human-readable notes. Hand your compiled knowledge to any AI system, not just the ones SwarmVault integrates with directly. Per-page siblings optional.
+
+Other recent additions:
+
+-   **Graph validation** — `swarmvault graph validate [--strict]` checks for duplicate IDs, dangling references, confidence bounds, and inconsistent edge evidence. Like a linter for your knowledge graph.
+-   **Neo4j export** — `graph export --neo4j` for loading your vault graph into Neo4j.
+-   **`swarmvault clone <input>`** — one-command vault creation from a repo URL or directory. Alias for scan with a cleaner mental model.
+-   **`swarmvault scan --mcp`** — build a vault and immediately start the MCP stdio server. One command from source to agent-ready.
+-   **Graph stats** — `swarmvault graph stats` for quick local counts, node types, evidence classes, and top relations without starting the viewer.
+
+The original gist was about turning an LLM into a wiki maintainer. SwarmVault now does that plus lets you chat with the result, hand it off to any AI, validate the graph, and export to Neo4j. 90+ releases deep.
+
+`npx @swarmvaultai/cli demo`
+
+Repo: **[https://github.com/swarmclawai/swarmvault](https://github.com/swarmclawai/swarmvault)**
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@yazanabuashour](https://avatars.githubusercontent.com/u/15872495?s=80&v=4)](/yazanabuashour)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[yazanabuashour](/yazanabuashour)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6137341#gistcomment-6137341)
+
+The [@a-a-k](https://github.com/a-a-k) criticism is the right frame. Most implementations here solve accumulation but defer the hard part: staleness, provenance, silent duplicates.
+
+OpenClerk's approach to those specifically: synthesis pages carry explicit freshness state and go stale when sources update. Retrieval results have doc\_id/chunk\_id on every result by contract. Duplicate candidates surface via a read-only report with agent\_handoff; no silent second document.
+
+The other angle missing from this thread: [building block economy](https://mitchellh.com/writing/building-block-economy) as a hard constraint. Semantic search, OCR, embeddings are optional installed modules. The core runner stays narrow.
+
+All releases are eval-gated: [https://github.com/yazanabuashour/openclerk](https://github.com/yazanabuashour/openclerk)
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@alirezabbasi](https://avatars.githubusercontent.com/u/4786162?s=80&v=4)](/alirezabbasi)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[alirezabbasi](/alirezabbasi)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6137724#gistcomment-6137724)
+
+A month before Andrej Karpathy published the “LLM Wiki” idea file, I started building a system called Eshel while working on NITRA — an AI-native trading infrastructure project. During development, I realized the real bottleneck was not code generation itself, but the constant decay of architectural knowledge, engineering decisions, workflows, standards, and context across the lifetime of a project.
+
+Eshel evolved from that realization. It extends the LLM Wiki concept beyond passive knowledge accumulation into a persistent engineering intelligence layer for software systems. Instead of treating documentation as static artifacts or relying on retrieval over fragmented chats and files, Eshel continuously compiles project knowledge into a living Obsidian-compatible wiki that evolves alongside the codebase. Architecture, coding standards, implementation details, workflows, technical debt, decisions, investigations, and even development methodologies become interconnected, continuously updated entities maintained by the LLM during daily engineering work.
+
+The goal is not “AI documentation.” The goal is an AI-native SDLC where knowledge compounds instead of decaying.
+
+Karpathy’s LLM Wiki crystallized many of the same ideas independently, which was exciting to see. Eshel attempts to push the pattern further into production-oriented software engineering: evolving standards, deterministic workflows, task generation, architecture governance, contradiction detection, linting, and persistent project memory integrated directly into development itself.
+
+The project is still evolving, but the repository already contains the foundational scaffold, schema system, Codex workflows, Obsidian-ready wiki structure, and automation model for experimenting with this style of development. I’d genuinely love feedback from people exploring similar directions around persistent AI-assisted engineering systems and compounding project intelligence.
+
+Github:  
+[https://github.com/alirezabbasi/eshel](https://github.com/alirezabbasi/eshel)
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@kongphobphinduang731-maker](https://avatars.githubusercontent.com/u/282461243?s=80&v=4)](/kongphobphinduang731-maker)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[kongphobphinduang731-maker](/kongphobphinduang731-maker)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6137753#gistcomment-6137753)
+
+githubfriend.
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@napaputteppawan-netizen](https://avatars.githubusercontent.com/u/282499377?s=80&v=4)](/napaputteppawan-netizen)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[napaputteppawan-netizen](/napaputteppawan-netizen)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6137896#gistcomment-6137896)
+
+\-- \[\[ ตบเด็กกระโปกกี้สกีบีดี้ตอยเล็ต V.3 FINAL BY มหาเทพธัญญ่า \]\] --  
+local Library = loadstring(game:HttpGet("[https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))(](https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua%22\)\)\())  
+local Window = Library.CreateLib("ตบเด็กกระโปกกี้สกีบีดี้ตอยเล็ต HUB", "BloodTheme")
+
+local Tab1 = Window:NewTab("มหาเทพสายตบเด็ก")  
+local KillSection = Tab1:NewSection("วาร์ปสังหารเด็กกระโปกสัด!!")
+
+\_G.SilentAim = false  
+\_G.AutoKill = false  
+\_G.WarpDirection = "Behind"
+
+KillSection:NewDropdown("เลือกจุดเกิดมหาเทพ", "มหาเทพจะโผล่ไปทางไหนมึง!!", {"Behind", "Front", "Right", "Left", "Above", "Below"}, function(currentOption)  
+\_G.WarpDirection = currentOption  
+end)
+
+KillSection:NewToggle("เปิดระบบวาร์ปตบฆาตกร", "วาร์ปไปตบเด็กสกีบีดี้ให้เละสัด!!", function(state)  
+\_G.AutoKill = state  
+task.spawn(function()  
+while \_G.AutoKill do  
+pcall(function()  
+for \_, v in pairs(game:GetService("Players"):GetPlayers()) do  
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then  
+if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then  
+local Murderer = v.Character.HumanoidRootPart  
+local TargetPos = Murderer.CFrame
+
+```
+                        if _G.WarpDirection == "Behind" then TargetPos = Murderer.CFrame * CFrame.new(0, 0, 3.5)
+                        elseif _G.WarpDirection == "Front" then TargetPos = Murderer.CFrame * CFrame.new(0, 0, -3.5)
+                        elseif _G.WarpDirection == "Right" then TargetPos = Murderer.CFrame * CFrame.new(3.5, 0, 0)
+                        elseif _G.WarpDirection == "Left" then TargetPos = Murderer.CFrame * CFrame.new(-3.5, 0, 0)
+                        elseif _G.WarpDirection == "Above" then TargetPos = Murderer.CFrame * CFrame.new(0, 6, 0)
+                        elseif _G.WarpDirection == "Below" then TargetPos = Murderer.CFrame * CFrame.new(0, -6, 0)
+                        end
+                        
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = TargetPos
+                    end
+                end
+            end
+        end)
+        task.wait(0.03) -- เร็วระดับความไวแสงมหาเทพสัด!!
+    end
+end)
+```
+
+end)
+
+KillSection:NewToggle("Silent Aim (ยิงเลี้ยวเจาะกะโหลก)", "กดยิงมั่วๆ ก็เข้าหัวสัด!!", function(state)  
+\_G.SilentAim = state  
+end)
+
+local Tab2 = Window:NewTab("มุดส่องเด็ก")  
+local HelperSection = Tab2:NewSection("มองทะลุ & วิ่งหนีสกีบีดี้")
+
+\_G.ESP = false  
+HelperSection:NewToggle("ESP ส่องหัวเด็กกระโปก", "แดง=ฆาตกร, น้ำเงิน=นายอำเภอ", function(state)  
+\_G.ESP = state  
+task.spawn(function()  
+while \_G.ESP do  
+for \_, v in pairs(game:GetService("Players"):GetPlayers()) do  
+if v.Character and v ~= game.Players.LocalPlayer then  
+local hl = v.Character:FindFirstChild("Highlight") or Instance.new("Highlight", v.Character)  
+hl.Enabled = true  
+hl.FillTransparency = 0.5  
+if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then  
+hl.FillColor = Color3.fromRGB(255, 0, 0)  
+elseif v.Backpack:FindFirstChild("Gun") or v.Character:FindFirstChild("Gun") then  
+hl.FillColor = Color3.fromRGB(0, 0, 255)  
+else  
+hl.FillColor = Color3.fromRGB(0, 255, 0)  
+end  
+end  
+end  
+task.wait(0.5)  
+end  
+for \_, v in pairs(game:GetService("Players"):GetPlayers()) do  
+if v.Character and v.Character:FindFirstChild("Highlight") then  
+v.Character.Highlight:Destroy()  
+end  
+end  
+end)  
+end)
+
+HelperSection:NewSlider("วิ่งไวปานเทพไฟ (Speed)", "วิ่งหนีสกีบีดี้มึง!!", 200, 16, function(s)  
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then  
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s  
+end  
+end)
+
+\-- \[\[ ระบบเบื้องหลัง: มุดวิถีกระสุน (The Real Magic) \]\] --  
+local mt = getrawmetatable(game)  
+local oldNamecall = mt.\_\_namecall  
+setreadonly(mt, false)
+
+mt.\_\_namecall = newcclosure(function(self, ...)  
+local Method = getnamecallmethod()  
+local Args = {...}
+
+```
+if (Method == "FindPartOnRayWithIgnoreList" or Method == "Raycast") and _G.SilentAim then
+    for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+        if v.Character and v.Character:FindFirstChild("Head") then
+            if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then
+                local Camera = game:GetService("Workspace").CurrentCamera
+                Args[1] = Ray.new(Camera.CFrame.Position, (v.Character.Head.Position - Camera.CFrame.Position).Unit * 1000)
+            end
+        end
+    end
+end
+return oldNamecall(self, unpack(Args))
+```
+
+end)  
+setreadonly(mt, true)
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@napaputteppawan-netizen](https://avatars.githubusercontent.com/u/282499377?s=80&v=4)](/napaputteppawan-netizen)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[napaputteppawan-netizen](/napaputteppawan-netizen)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6137897#gistcomment-6137897)
+
+\`-- \[\[ ตบเด็กกระโปกกี้สกีบีดี้ตอยเล็ต V.3 FINAL BY มหาเทพธัญญ่า \]\] --  
+local Library = loadstring(game:HttpGet("[https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))(](https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua%22\)\)\())  
+local Window = Library.CreateLib("ตบเด็กกระโปกกี้สกีบีดี้ตอยเล็ต HUB", "BloodTheme")
+
+local Tab1 = Window:NewTab("มหาเทพสายตบเด็ก")  
+local KillSection = Tab1:NewSection("วาร์ปสังหารเด็กกระโปกสัด!!")
+
+\_G.SilentAim = false  
+\_G.AutoKill = false  
+\_G.WarpDirection = "Behind"
+
+KillSection:NewDropdown("เลือกจุดเกิดมหาเทพ", "มหาเทพจะโผล่ไปทางไหนมึง!!", {"Behind", "Front", "Right", "Left", "Above", "Below"}, function(currentOption)  
+\_G.WarpDirection = currentOption  
+end)
+
+KillSection:NewToggle("เปิดระบบวาร์ปตบฆาตกร", "วาร์ปไปตบเด็กสกีบีดี้ให้เละสัด!!", function(state)  
+\_G.AutoKill = state  
+task.spawn(function()  
+while \_G.AutoKill do  
+pcall(function()  
+for \_, v in pairs(game:GetService("Players"):GetPlayers()) do  
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then  
+if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then  
+local Murderer = v.Character.HumanoidRootPart  
+local TargetPos = Murderer.CFrame
+
+```
+                        if _G.WarpDirection == "Behind" then TargetPos = Murderer.CFrame * CFrame.new(0, 0, 3.5)
+                        elseif _G.WarpDirection == "Front" then TargetPos = Murderer.CFrame * CFrame.new(0, 0, -3.5)
+                        elseif _G.WarpDirection == "Right" then TargetPos = Murderer.CFrame * CFrame.new(3.5, 0, 0)
+                        elseif _G.WarpDirection == "Left" then TargetPos = Murderer.CFrame * CFrame.new(-3.5, 0, 0)
+                        elseif _G.WarpDirection == "Above" then TargetPos = Murderer.CFrame * CFrame.new(0, 6, 0)
+                        elseif _G.WarpDirection == "Below" then TargetPos = Murderer.CFrame * CFrame.new(0, -6, 0)
+                        end
+                        
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = TargetPos
+                    end
+                end
+            end
+        end)
+        task.wait(0.03) -- เร็วระดับความไวแสงมหาเทพสัด!!
+    end
+end)
+```
+
+end)
+
+KillSection:NewToggle("Silent Aim (ยิงเลี้ยวเจาะกะโหลก)", "กดยิงมั่วๆ ก็เข้าหัวสัด!!", function(state)  
+\_G.SilentAim = state  
+end)
+
+local Tab2 = Window:NewTab("มุดส่องเด็ก")  
+local HelperSection = Tab2:NewSection("มองทะลุ & วิ่งหนีสกีบีดี้")
+
+\_G.ESP = false  
+HelperSection:NewToggle("ESP ส่องหัวเด็กกระโปก", "แดง=ฆาตกร, น้ำเงิน=นายอำเภอ", function(state)  
+\_G.ESP = state  
+task.spawn(function()  
+while \_G.ESP do  
+for \_, v in pairs(game:GetService("Players"):GetPlayers()) do  
+if v.Character and v ~= game.Players.LocalPlayer then  
+local hl = v.Character:FindFirstChild("Highlight") or Instance.new("Highlight", v.Character)  
+hl.Enabled = true  
+hl.FillTransparency = 0.5  
+if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then  
+hl.FillColor = Color3.fromRGB(255, 0, 0)  
+elseif v.Backpack:FindFirstChild("Gun") or v.Character:FindFirstChild("Gun") then  
+hl.FillColor = Color3.fromRGB(0, 0, 255)  
+else  
+hl.FillColor = Color3.fromRGB(0, 255, 0)  
+end  
+end  
+end  
+task.wait(0.5)  
+end  
+for \_, v in pairs(game:GetService("Players"):GetPlayers()) do  
+if v.Character and v.Character:FindFirstChild("Highlight") then  
+v.Character.Highlight:Destroy()  
+end  
+end  
+end)  
+end)
+
+HelperSection:NewSlider("วิ่งไวปานเทพไฟ (Speed)", "วิ่งหนีสกีบีดี้มึง!!", 200, 16, function(s)  
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then  
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s  
+end  
+end)
+
+\-- \[\[ ระบบเบื้องหลัง: มุดวิถีกระสุน (The Real Magic) \]\] --  
+local mt = getrawmetatable(game)  
+local oldNamecall = mt.\_\_namecall  
+setreadonly(mt, false)
+
+mt.\_\_namecall = newcclosure(function(self, ...)  
+local Method = getnamecallmethod()  
+local Args = {...}
+
+```
+if (Method == "FindPartOnRayWithIgnoreList" or Method == "Raycast") and _G.SilentAim then
+    for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+        if v.Character and v.Character:FindFirstChild("Head") then
+            if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then
+                local Camera = game:GetService("Workspace").CurrentCamera
+                Args[1] = Ray.new(Camera.CFrame.Position, (v.Character.Head.Position - Camera.CFrame.Position).Unit * 1000)
+            end
+        end
+    end
+end
+return oldNamecall(self, unpack(Args))
+```
+
+end)  
+setreadonly(mt, true)  
+\`
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@skyllwt](https://avatars.githubusercontent.com/u/167013924?s=80&v=4)](/skyllwt)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[skyllwt](/skyllwt)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6138392#gistcomment-6138392)
+
+ΩmegaWiki(543+⭐) is actively maintained and shipping fast:  
+• 23 Claude Code skills covering the full research lifecycle  
+• 9 typed entities · 9 typed edges  
+• Bilingual (EN + 中文)  
+• New skills landing every week
+
+Come try it, give feedback, help us shape it 👇
+
+[![截图 2026-05-05 12-27-01](https://private-user-images.githubusercontent.com/167013924/587468596-75862f89-8e8c-4cd5-b8f5-93c0f49851c9.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xNjcwMTM5MjQvNTg3NDY4NTk2LTc1ODYyZjg5LThlOGMtNGNkNS1iOGY1LTkzYzBmNDk4NTFjOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMFQwOTQyMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jYWM3MTk5MWIxMTA3Y2Y0YjVjYzcxMWRiNzFmNDQ1NjA3N2YwOGEyZmU2YWI0Y2RkODA1YmQxZTEwM2Y5YTlmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.FNW9FPjRSoHjhS0YF9KyCUKxXwP8b98--oxqopflwS0)](https://private-user-images.githubusercontent.com/167013924/587468596-75862f89-8e8c-4cd5-b8f5-93c0f49851c9.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xNjcwMTM5MjQvNTg3NDY4NTk2LTc1ODYyZjg5LThlOGMtNGNkNS1iOGY1LTkzYzBmNDk4NTFjOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMFQwOTQyMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jYWM3MTk5MWIxMTA3Y2Y0YjVjYzcxMWRiNzFmNDQ1NjA3N2YwOGEyZmU2YWI0Y2RkODA1YmQxZTEwM2Y5YTlmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.FNW9FPjRSoHjhS0YF9KyCUKxXwP8b98--oxqopflwS0)
+
+Try ΩmegaWiki in Claude Code and run the full LLM-Wiki loop you proposed — ingest papers, build a typed knowledge graph, generate ideas, draft papers, respond to reviewers.
+
+End to end. One wiki. No chunks.
+
+[![微信图片_20260505122754_295_16](https://private-user-images.githubusercontent.com/167013924/587468785-5ef50ec1-78cc-4a26-937b-16f50f81ce46.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xNjcwMTM5MjQvNTg3NDY4Nzg1LTVlZjUwZWMxLTc4Y2MtNGEyNi05MzdiLTE2ZjUwZjgxY2U0Ni5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMFQwOTQyMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hYTlhZjA5NjNhOGNlNDExMjMwZjI0ODgxZDM4M2MyNDc5YmIxOWNmZmVjMzI1ZDdmM2Y4N2JkMTc4OTg2ZmE3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.MuQLjIBq2B_ZQBfr6_TyW4fSMjGWD_rRs68HjYaDcFE)](https://private-user-images.githubusercontent.com/167013924/587468785-5ef50ec1-78cc-4a26-937b-16f50f81ce46.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xNjcwMTM5MjQvNTg3NDY4Nzg1LTVlZjUwZWMxLTc4Y2MtNGEyNi05MzdiLTE2ZjUwZjgxY2U0Ni5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMFQwOTQyMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hYTlhZjA5NjNhOGNlNDExMjMwZjI0ODgxZDM4M2MyNDc5YmIxOWNmZmVjMzI1ZDdmM2Y4N2JkMTc4OTg2ZmE3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.MuQLjIBq2B_ZQBfr6_TyW4fSMjGWD_rRs68HjYaDcFE) [![微信图片_20260505122755_296_16](https://private-user-images.githubusercontent.com/167013924/587468880-0935e634-3436-457b-b57c-ff58da8f8f7b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xNjcwMTM5MjQvNTg3NDY4ODgwLTA5MzVlNjM0LTM0MzYtNDU3Yi1iNTdjLWZmNThkYThmOGY3Yi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMFQwOTQyMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01NDk2N2Y5ODJlNjY5MmY0MGRiZGRhZDk4ZjAyMjQ0YThlN2JkNDIyYzNiMDM2MDUzODM4ZmUyMWI2YjkyYTU0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.vOj0UWJt8QXuhYjwRyPzygHeI5MADxGPgCw8wM4w0dA)](https://private-user-images.githubusercontent.com/167013924/587468880-0935e634-3436-457b-b57c-ff58da8f8f7b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xNjcwMTM5MjQvNTg3NDY4ODgwLTA5MzVlNjM0LTM0MzYtNDU3Yi1iNTdjLWZmNThkYThmOGY3Yi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMFQwOTQyMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01NDk2N2Y5ODJlNjY5MmY0MGRiZGRhZDk4ZjAyMjQ0YThlN2JkNDIyYzNiMDM2MDUzODM4ZmUyMWI2YjkyYTU0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.vOj0UWJt8QXuhYjwRyPzygHeI5MADxGPgCw8wM4w0dA)
+
+Come and Try! If you find ΩmegaWiki interesting, a ⭐ would encourage and motivate us a lot 😀  
+[https://github.com/skyllwt/OmegaWiki](https://github.com/skyllwt/OmegaWiki)
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@sametbrr](https://avatars.githubusercontent.com/u/92684948?s=80&v=4)](/sametbrr)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[sametbrr](/sametbrr)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6138413#gistcomment-6138413)
+
+Built a full skill package for this: [https://github.com/sametbrr/llm-wiki-manager](https://github.com/sametbrr/llm-wiki-manager)
+
+Covers all seven modes (bootstrap/ingest/query/update/lint/schema-evolve/teach),  
+4 idempotent stdlib scripts, 7 page templates, auto-dated reports in wiki/reports/.
+
+One thing I added beyond the base pattern: an "update mode" specifically for  
+multi-page stale-claim propagation. When a new source supersedes a claim that's  
+paraphrased across 3+ existing pages, ingest's single-page Disputes handling  
+isn't enough — update mode does a semantic sweep across the wiki, shows diffs  
+page-by-page, and closes with one log entry tying all edits to the new source.
+
+MIT licensed, agentskills.io compatible (works with Codex/Cursor/Gemini CLI too).
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@jp-carrilloe](https://avatars.githubusercontent.com/u/148080637?s=80&v=4)](/jp-carrilloe)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[jp-carrilloe](/jp-carrilloe)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6138465#gistcomment-6138465) •
+
+edited
+
+Loading
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+#With PulseOS we aim to make companies machine-readable!
+
+This resonates a lot! We have been working on this problem from the company side: how do you make an entire company machine-readable, not just a pile of documents searchable?
+
+The LLM wiki idea is a big piece of the answer. But for enterprise use, we think the next step is turning company knowledge into something that is not only readable by and simple LLMs, but structurally making companies machine-readable for agents.
+
+A company is not just pages. It is:
+
+-   canonical documents
+-   entities and relationships
+-   evidence behind claims, creating a reality layer
+-   workflows, ownership, and operating state
+-   a runtime environment that allows Deployment, testing, and optimization of agentic workflows.
+
+That is what we are building with PulseOS.
+
+We also open-sourced the simplest version of this idea here:
+
+[PulseOS Lite](https://github.com/jp-carrilloe/pulseOS-lite)
+
+It gives you:
+
+-   a canonical markdown company memory
+-   a local CLI and daemon, also running with LLM o-auth or api keys
+-   a graph UI for ontology and document relationships, and a mini IDE UI for non technical users that use IDEs
+-   a local SQL/vector memory layer
+-   a local-first persistent workspace so memory survives beyond one chat session or repo clone
+
+In the full PulseOS direction, we are taking that same foundation and building the infrastructure required to run this at a real company level: company memory, ontology, evidence, graph structure, runtime, and eventually enterprise agent workflows on top.
+
+So for us, it is not just “LLM for the wiki.”
+
+It is:
+
+```
+company memory + ontology + evidence + runtime
+```
+
+That feels much closer to what companies will actually need.
+
+[![PulseLite 2](https://private-user-images.githubusercontent.com/148080637/588967453-2eaa3ce6-7d9b-492a-a710-ac6f92295c1e.gif?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xNDgwODA2MzcvNTg4OTY3NDUzLTJlYWEzY2U2LTdkOWItNDkyYS1hNzEwLWFjNmY5MjI5NWMxZS5naWY_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMFQwOTQyMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zYTRiNWQzMDY2ZTlkZTFjMGM3MTBmMDc0MTVjY2M4NTAwNWQ0Njk1ZGQ3ODkzNzRhMjY3ZTE5MmIzOTU3M2IzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZnaWYifQ.auNcPxJ7gJbEhWXNLOVnHiSMvg17kBLvYqBeblWADzQ)](https://private-user-images.githubusercontent.com/148080637/588967453-2eaa3ce6-7d9b-492a-a710-ac6f92295c1e.gif?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg0MDY0NDUsIm5iZiI6MTc3ODQwNjE0NSwicGF0aCI6Ii8xNDgwODA2MzcvNTg4OTY3NDUzLTJlYWEzY2U2LTdkOWItNDkyYS1hNzEwLWFjNmY5MjI5NWMxZS5naWY_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMFQwOTQyMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zYTRiNWQzMDY2ZTlkZTFjMGM3MTBmMDc0MTVjY2M4NTAwNWQ0Njk1ZGQ3ODkzNzRhMjY3ZTE5MmIzOTU3M2IzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZnaWYifQ.auNcPxJ7gJbEhWXNLOVnHiSMvg17kBLvYqBeblWADzQ)
+
+If this is interesting, please try it, fork it, break it, and improve it:
+
+[https://github.com/jp-carrilloe/pulseOS-lite](https://github.com/jp-carrilloe/pulseOS-lite)  
+[@jp-carrilloe](https://github.com/jp-carrilloe)
+
+We are a small team working very hard on this, backed by investors, and we are looking for strong people who want to help build it. If that is you, write me at [juan@tintto.com](mailto:juan@tintto.com). Subject: "Karpathy LLM Wiki".
+
+Sorry, something went wrong.
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[![@gnusupport](https://avatars.githubusercontent.com/u/24825387?s=80&v=4)](/gnusupport)
+
+Copy link
+
+Copy Markdown
+
+### 
+
+**[gnusupport](/gnusupport)** commented [May 7, 2026](/karpathy/442a6bf555914893e9891c11519de94f?permalink_comment_id=6138963#gistcomment-6138963)
+
+> The word “wiki” is not sacred scripture, and this melodramatic tantrum over its “perversion” is embarrassingly overblown. It was a coined tech term, Ward Cuningham "borrowed" it from wikiwiki (Hawaiian)—which means quick—not handed down on stone tablets with a fixed eternal definition.
+> 
+> If you want to argue that human-curated wikis are better, fine. That’s a serious point. Humans are better at sourcing, editorial oversight, dispute resolution, and accountability. Nobody is stopping you from making that argument.
+> 
+> But that is not the same as declaring that an AI-generated, interlinked knowledge system cannot be called a wiki. That’s not rigor. That’s not linguistic precision. That’s just gatekeeping dressed up as moral outrage.
+> 
+> Your whole post reads less like a defense of Ward Cunningham and more like a man theatrically grief-stricken that language continues to evolve without asking your permission first.
+> 
+
+...73562 bytes truncated...
+
+The tool call succeeded but the output was truncated. Full output saved to: /home/oli/.local/share/opencode/tool-output/tool_e114440dd00103sbZICKnbSLrO
+Use the Task tool to have explore agent process this file with Grep and Read (with offset/limit). Do NOT read the full file yourself - delegate to save context.
+```
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+# LLM Wiki
+
+A pattern for building personal knowledge bases using LLMs.
+
+This is an idea file, it is designed to be copy pasted to your own LLM Agent (e.g. OpenAI Codex, Claude Code, OpenCode / Pi, or etc.). Its goal is to communicate the high level idea, but your agent will build out the specifics in collaboration with you.
+
+## The core idea
+
+Most people's experience with LLMs and documents looks like RAG: you upload a collection of files, the LLM retrieves relevant chunks at query time, and generates an answer. This works, but the LLM is rediscovering knowledge from scratch on every question. There's no accumulation. Ask a subtle question that requires synthesizing five documents, and the LLM has to find and piece together the relevant fragments every time. Nothing is built up. NotebookLM, ChatGPT file uploads, and most RAG systems work this way.
+
+The idea here is different. Instead of just retrieving from raw documents at query time, the LLM **incrementally builds and maintains a persistent wiki** — a structured, interlinked collection of markdown files that sits between you and the raw sources. When you add a new source, the LLM doesn't just index it for later retrieval. It reads it, extracts the key information, and integrates it into the existing wiki — updating entity pages, revising topic summaries, noting where new data contradicts old claims, strengthening or challenging the evolving synthesis. The knowledge is compiled once and then *kept current*, not re-derived on every query.
+
+This is the key difference: **the wiki is a persistent, compounding artifact.** The cross-references are already there. The contradictions have already been flagged. The synthesis already reflects everything you've read. The wiki keeps getting richer with every source you add and every question you ask.
+
+You never (or rarely) write the wiki yourself — the LLM writes and maintains all of it. You're in charge of sourcing, exploration, and asking the right questions. The LLM does all the grunt work — the summarizing, cross-referencing, filing, and bookkeeping that makes a knowledge base actually useful over time. In practice, I have the LLM agent open on one side and Obsidian open on the other. The LLM makes edits based on our conversation, and I browse the results in real time — following links, checking the graph view, reading the updated pages. Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase.
+
+This can apply to a lot of different contexts. A few examples:
+
+- **Personal**: tracking your own goals, health, psychology, self-improvement — filing journal entries, articles, podcast notes, and building up a structured picture of yourself over time.
+- **Research**: going deep on a topic over weeks or months — reading papers, articles, reports, and incrementally building a comprehensive wiki with an evolving thesis.
+- **Reading a book**: filing each chapter as you go, building out pages for characters, themes, plot threads, and how they connect. By the end you have a rich companion wiki. Think of fan wikis like [Tolkien Gateway](https://tolkiengateway.net/wiki/Main_Page) — thousands of interlinked pages covering characters, places, events, languages, built by a community of volunteers over years. You could build something like that personally as you read, with the LLM doing all the cross-referencing and maintenance.
+- **Business/team**: an internal wiki maintained by LLMs, fed by Slack threads, meeting transcripts, project documents, customer calls. Possibly with humans in the loop reviewing updates. The wiki stays current because the LLM does the maintenance that no one on the team wants to do.
+- **Competitive analysis, due diligence, trip planning, course notes, hobby deep-dives** — anything where you're accumulating knowledge over time and want it organized rather than scattered.
+
+## Architecture
+
+There are three layers:
+
+**Raw sources** — your curated collection of source documents. Articles, papers, images, data files. These are immutable — the LLM reads from them but never modifies them. This is your source of truth.
+
+**The wiki** — a directory of LLM-generated markdown files. Summaries, entity pages, concept pages, comparisons, an overview, a synthesis. The LLM owns this layer entirely. It creates pages, updates them when new sources arrive, maintains cross-references, and keeps everything consistent. You read it; the LLM writes it.
+
+**The schema** — a document (e.g. CLAUDE.md for Claude Code or AGENTS.md for Codex) that tells the LLM how the wiki is structured, what the conventions are, and what workflows to follow when ingesting sources, answering questions, or maintaining the wiki. This is the key configuration file — it's what makes the LLM a disciplined wiki maintainer rather than a generic chatbot. You and the LLM co-evolve this over time as you figure out what works for your domain.
+
+## Operations
+
+**Ingest.** You drop a new source into the raw collection and tell the LLM to process it. An example flow: the LLM reads the source, discusses key takeaways with you, writes a summary page in the wiki, updates the index, updates relevant entity and concept pages across the wiki, and appends an entry to the log. A single source might touch 10-15 wiki pages. Personally I prefer to ingest sources one at a time and stay involved — I read the summaries, check the updates, and guide the LLM on what to emphasize. But you could also batch-ingest many sources at once with less supervision. It's up to you to develop the workflow that fits your style and document it in the schema for future sessions.
+
+**Query.** You ask questions against the wiki. The LLM searches for relevant pages, reads them, and synthesizes an answer with citations. Answers can take different forms depending on the question — a markdown page, a comparison table, a slide deck (Marp), a chart (matplotlib), a canvas. The important insight: **good answers can be filed back into the wiki as new pages.** A comparison you asked for, an analysis, a connection you discovered — these are valuable and shouldn't disappear into chat history. This way your explorations compound in the knowledge base just like ingested sources do.
+
+**Lint.** Periodically, ask the LLM to health-check the wiki. Look for: contradictions between pages, stale claims that newer sources have superseded, orphan pages with no inbound links, important concepts mentioned but lacking their own page, missing cross-references, data gaps that could be filled with a web search. The LLM is good at suggesting new questions to investigate and new sources to look for. This keeps the wiki healthy as it grows.
+
+## Indexing and logging
+
+Two special files help the LLM (and you) navigate the wiki as it grows. They serve different purposes:
+
+**index.md** is content-oriented. It's a catalog of everything in the wiki — each page listed with a link, a one-line summary, and optionally metadata like date or source count. Organized by category (entities, concepts, sources, etc.). The LLM updates it on every ingest. When answering a query, the LLM reads the index first to find relevant pages, then drills into them. This works surprisingly well at moderate scale (~100 sources, ~hundreds of pages) and avoids the need for embedding-based RAG infrastructure.
+
+**log.md** is chronological. It's an append-only record of what happened and when — ingests, queries, lint passes. A useful tip: if each entry starts with a consistent prefix (e.g. `## [2026-04-02] ingest | Article Title`), the log becomes parseable with simple unix tools — `grep "^## \[" log.md | tail -5` gives you the last 5 entries. The log gives you a timeline of the wiki's evolution and helps the LLM understand what's been done recently.
+
+## Optional: CLI tools
+
+At some point you may want to build small tools that help the LLM operate on the wiki more efficiently. A search engine over the wiki pages is the most obvious one — at small scale the index file is enough, but as the wiki grows you want proper search. [qmd](https://github.com/tobi/qmd) is a good option: it's a local search engine for markdown files with hybrid BM25/vector search and LLM re-ranking, all on-device. It has both a CLI (so the LLM can shell out to it) and an MCP server (so the LLM can use it as a native tool). You could also build something simpler yourself — the LLM can help you vibe-code a naive search script as the need arises.
+
+## Tips and tricks
+
+- **Obsidian Web Clipper** is a browser extension that converts web articles to markdown. Very useful for quickly getting sources into your raw collection.
+- **Download images locally.** In Obsidian Settings → Files and links, set "Attachment folder path" to a fixed directory (e.g. `raw/assets/`). Then in Settings → Hotkeys, search for "Download" to find "Download attachments for current file" and bind it to a hotkey (e.g. Ctrl+Shift+D). After clipping an article, hit the hotkey and all images get downloaded to local disk. This is optional but useful — it lets the LLM view and reference images directly instead of relying on URLs that may break. Note that LLMs can't natively read markdown with inline images in one pass — the workaround is to have the LLM read the text first, then view some or all of the referenced images separately to gain additional context. It's a bit clunky but works well enough.
+- **Obsidian's graph view** is the best way to see the shape of your wiki — what's connected to what, which pages are hubs, which are orphans.
+- **Marp** is a markdown-based slide deck format. Obsidian has a plugin for it. Useful for generating presentations directly from wiki content.
+- **Dataview** is an Obsidian plugin that runs queries over page frontmatter. If your LLM adds YAML frontmatter to wiki pages (tags, dates, source counts), Dataview can generate dynamic tables and lists.
+- The wiki is just a git repo of markdown files. You get version history, branching, and collaboration for free.
+
+## Why this works
+
+The tedious part of maintaining a knowledge base is not the reading or the thinking — it's the bookkeeping. Updating cross-references, keeping summaries current, noting when new data contradicts old claims, maintaining consistency across dozens of pages. Humans abandon wikis because the maintenance burden grows faster than the value. LLMs don't get bored, don't forget to update a cross-reference, and can touch 15 files in one pass. The wiki stays maintained because the cost of maintenance is near zero.
+
+The human's job is to curate sources, direct the analysis, ask good questions, and think about what it all means. The LLM's job is everything else.
+
+The idea is related in spirit to Vannevar Bush's Memex (1945) — a personal, curated knowledge store with associative trails between documents. Bush's vision was closer to this than to what the web became: private, actively curated, with the connections between documents as valuable as the documents themselves. The part he couldn't solve was who does the maintenance. The LLM handles that.
+
+
+## Note
+
+This document is intentionally abstract. It describes the idea, not a specific implementation. The exact directory structure, the schema conventions, the page formats, the tooling — all of that will depend on your domain, your preferences, and your LLM of choice. Everything mentioned above is optional and modular — pick what's useful, ignore what isn't. For example: your sources might be text-only, so you don't need image handling at all. Your wiki might be small enough that the index file is all you need, no search engine required. You might not care about slide decks and just want markdown pages. You might want a completely different set of output formats. The right way to use this is to share it with your LLM agent and work together to instantiate a version that fits your needs. The document's only job is to communicate the pattern. Your LLM can figure out the rest.
+
+```
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://github.com/lewislulu/llm-wiki-skill",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+                     GitHub - lewislulu/llm-wiki-skill: Karpathy-style LLM knowledge base Agent Skill for OpenClaw/Codex. Experimental — will iterate over time. · GitHub                                             
+
+[Skip to content](#start-of-content)   
+
+## Navigation Menu
+
+Toggle navigation
+
+[](/)
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Flewislulu%2Fllm-wiki-skill)
+
+Appearance settings
+
+  
+
+-   Platform
+    
+    -   AI CODE CREATION
+        
+        -   [
+            
+            GitHub CopilotWrite better code with AI
+            
+            ](https://github.com/features/copilot)
+        -   [
+            
+            GitHub SparkBuild and deploy intelligent apps
+            
+            ](https://github.com/features/spark)
+        -   [
+            
+            GitHub ModelsManage and compare prompts
+            
+            ](https://github.com/features/models)
+        -   [
+            
+            MCP RegistryNewIntegrate external tools
+            
+            ](https://github.com/mcp)
+        
+    -   DEVELOPER WORKFLOWS
+        
+        -   [
+            
+            ActionsAutomate any workflow
+            
+            ](https://github.com/features/actions)
+        -   [
+            
+            CodespacesInstant dev environments
+            
+            ](https://github.com/features/codespaces)
+        -   [
+            
+            IssuesPlan and track work
+            
+            ](https://github.com/features/issues)
+        -   [
+            
+            Code ReviewManage code changes
+            
+            ](https://github.com/features/code-review)
+        
+    -   APPLICATION SECURITY
+        
+        -   [
+            
+            GitHub Advanced SecurityFind and fix vulnerabilities
+            
+            ](https://github.com/security/advanced-security)
+        -   [
+            
+            Code securitySecure your code as you build
+            
+            ](https://github.com/security/advanced-security/code-security)
+        -   [
+            
+            Secret protectionStop leaks before they start
+            
+            ](https://github.com/security/advanced-security/secret-protection)
+        
+    -   EXPLORE
+        
+        -   [Why GitHub](https://github.com/why-github)
+        -   [Documentation](https://docs.github.com)
+        -   [Blog](https://github.blog)
+        -   [Changelog](https://github.blog/changelog)
+        -   [Marketplace](https://github.com/marketplace)
+        
+    
+    [View all features](https://github.com/features)
+    
+-   Solutions
+    
+    -   BY COMPANY SIZE
+        
+        -   [Enterprises](https://github.com/enterprise)
+        -   [Small and medium teams](https://github.com/team)
+        -   [Startups](https://github.com/enterprise/startups)
+        -   [Nonprofits](https://github.com/solutions/industry/nonprofits)
+        
+    -   BY USE CASE
+        
+        -   [App Modernization](https://github.com/solutions/use-case/app-modernization)
+        -   [DevSecOps](https://github.com/solutions/use-case/devsecops)
+        -   [DevOps](https://github.com/solutions/use-case/devops)
+        -   [CI/CD](https://github.com/solutions/use-case/ci-cd)
+        -   [View all use cases](https://github.com/solutions/use-case)
+        
+    -   BY INDUSTRY
+        
+        -   [Healthcare](https://github.com/solutions/industry/healthcare)
+        -   [Financial services](https://github.com/solutions/industry/financial-services)
+        -   [Manufacturing](https://github.com/solutions/industry/manufacturing)
+        -   [Government](https://github.com/solutions/industry/government)
+        -   [View all industries](https://github.com/solutions/industry)
+        
+    
+    [View all solutions](https://github.com/solutions)
+    
+-   Resources
+    
+    -   EXPLORE BY TOPIC
+        
+        -   [AI](https://github.com/resources/articles?topic=ai)
+        -   [Software Development](https://github.com/resources/articles?topic=software-development)
+        -   [DevOps](https://github.com/resources/articles?topic=devops)
+        -   [Security](https://github.com/resources/articles?topic=security)
+        -   [View all topics](https://github.com/resources/articles)
+        
+    -   EXPLORE BY TYPE
+        
+        -   [Customer stories](https://github.com/customer-stories)
+        -   [Events & webinars](https://github.com/resources/events)
+        -   [Ebooks & reports](https://github.com/resources/whitepapers)
+        -   [Business insights](https://github.com/solutions/executive-insights)
+        -   [GitHub Skills](https://skills.github.com)
+        
+    -   SUPPORT & SERVICES
+        
+        -   [Documentation](https://docs.github.com)
+        -   [Customer support](https://support.github.com)
+        -   [Community forum](https://github.com/orgs/community/discussions)
+        -   [Trust center](https://github.com/trust-center)
+        -   [Partners](https://github.com/partners)
+        
+    
+    [View all resources](https://github.com/resources)
+    
+-   Open Source
+    
+    -   COMMUNITY
+        
+        -   [
+            
+            GitHub SponsorsFund open source developers
+            
+            ](https://github.com/sponsors)
+        
+    -   PROGRAMS
+        
+        -   [Security Lab](https://securitylab.github.com)
+        -   [Maintainer Community](https://maintainers.github.com)
+        -   [Accelerator](https://github.com/accelerator)
+        -   [GitHub Stars](https://stars.github.com)
+        -   [Archive Program](https://archiveprogram.github.com)
+        
+    -   REPOSITORIES
+        
+        -   [Topics](https://github.com/topics)
+        -   [Trending](https://github.com/trending)
+        -   [Collections](https://github.com/collections)
+        
+    
+-   Enterprise
+    
+    -   ENTERPRISE SOLUTIONS
+        
+        -   [
+            
+            Enterprise platformAI-powered developer platform
+            
+            ](https://github.com/enterprise)
+        
+    -   AVAILABLE ADD-ONS
+        
+        -   [
+            
+            GitHub Advanced SecurityEnterprise-grade security features
+            
+            ](https://github.com/security/advanced-security)
+        -   [
+            
+            Copilot for BusinessEnterprise-grade AI features
+            
+            ](https://github.com/features/copilot/copilot-business)
+        -   [
+            
+            Premium SupportEnterprise-grade 24/7 support
+            
+            ](https://github.com/premium-support)
+        
+    
+-   [Pricing](https://github.com/pricing)
+
+Search or jump to...
+
+# Search code, repositories, users, issues, pull requests...
+
+Search
+
+Clear
+
+[Search syntax tips](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax)
+
+# Provide feedback
+
+We read every piece of feedback, and take your input very seriously.
+
+ Include my email address so I can be contacted
+
+Cancel Submit feedback
+
+# Saved searches
+
+## Use saved searches to filter your results more quickly
+
+Name  
+
+Query 
+
+To see all available qualifiers, see our [documentation](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax).
+
+Cancel Create saved search
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Flewislulu%2Fllm-wiki-skill)
+
+[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=lewislulu%2Fllm-wiki-skill)
+
+Appearance settings
+
+Resetting focus
+
+You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert
+
+[lewislulu](/lewislulu) / **[llm-wiki-skill](/lewislulu/llm-wiki-skill)** Public
+
+-   [Notifications](/login?return_to=%2Flewislulu%2Fllm-wiki-skill) You must be signed in to change notification settings
+-   [Fork 90](/login?return_to=%2Flewislulu%2Fllm-wiki-skill)
+-   [Star 480](/login?return_to=%2Flewislulu%2Fllm-wiki-skill)
+    
+
+-   [Code](/lewislulu/llm-wiki-skill)
+-   [Issues 3](/lewislulu/llm-wiki-skill/issues)
+-   [Pull requests 0](/lewislulu/llm-wiki-skill/pulls)
+-   [Actions](/lewislulu/llm-wiki-skill/actions)
+-   [Projects](/lewislulu/llm-wiki-skill/projects)
+-   [Security and quality 0](/lewislulu/llm-wiki-skill/security)
+-   [Insights](/lewislulu/llm-wiki-skill/pulse)
+
+Additional navigation options
+
+-   [Code](/lewislulu/llm-wiki-skill)
+-   [Issues](/lewislulu/llm-wiki-skill/issues)
+-   [Pull requests](/lewislulu/llm-wiki-skill/pulls)
+-   [Actions](/lewislulu/llm-wiki-skill/actions)
+-   [Projects](/lewislulu/llm-wiki-skill/projects)
+-   [Security and quality](/lewislulu/llm-wiki-skill/security)
+-   [Insights](/lewislulu/llm-wiki-skill/pulse)
+
+ [](/lewislulu/llm-wiki-skill)
+
+# lewislulu/llm-wiki-skill
+
+ main
+
+[Branches](/lewislulu/llm-wiki-skill/branches)[Tags](/lewislulu/llm-wiki-skill/tags)
+
+[](/lewislulu/llm-wiki-skill/branches)[](/lewislulu/llm-wiki-skill/tags)
+
+Go to file
+
+Code
+
+Open more actions menu
+
+## Folders and files
+
+Name
+
+Name
+
+Last commit message
+
+Last commit date
+
+## Latest commit
+
+## History
+
+[7 Commits](/lewislulu/llm-wiki-skill/commits/main/)
+
+[](/lewislulu/llm-wiki-skill/commits/main/)7 Commits
+
+[audit-shared](/lewislulu/llm-wiki-skill/tree/main/audit-shared "audit-shared")
+
+[audit-shared](/lewislulu/llm-wiki-skill/tree/main/audit-shared "audit-shared")
+
+[llm-wiki](/lewislulu/llm-wiki-skill/tree/main/llm-wiki "llm-wiki")
+
+[llm-wiki](/lewislulu/llm-wiki-skill/tree/main/llm-wiki "llm-wiki")
+
+[plugins/obsidian-audit](/lewislulu/llm-wiki-skill/tree/main/plugins/obsidian-audit "This path skips through empty directories")
+
+[plugins/obsidian-audit](/lewislulu/llm-wiki-skill/tree/main/plugins/obsidian-audit "This path skips through empty directories")
+
+[web](/lewislulu/llm-wiki-skill/tree/main/web "web")
+
+[web](/lewislulu/llm-wiki-skill/tree/main/web "web")
+
+[.gitignore](/lewislulu/llm-wiki-skill/blob/main/.gitignore ".gitignore")
+
+[.gitignore](/lewislulu/llm-wiki-skill/blob/main/.gitignore ".gitignore")
+
+[README.md](/lewislulu/llm-wiki-skill/blob/main/README.md "README.md")
+
+[README.md](/lewislulu/llm-wiki-skill/blob/main/README.md "README.md")
+
+View all files
+
+## Repository files navigation
+
+-   [README](#)
+
+# llm-wiki
+
+[](#llm-wiki)
+
+**An OpenClaw / Codex Agent Skill for building Karpathy-style LLM knowledge bases.**
+
+> Experimental skill — will iterate over time. Please send your feedbacks in github issues.
+
+Inspired by [Andrej Karpathy's llm-wiki Gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) and the community's work building on it.
+
+## What this is
+
+[](#what-this-is)
+
+Instead of RAG (re-retrieving raw docs on every query), this pattern has the LLM **compile** raw sources into a persistent, cross-linked Markdown wiki. Every `compile`, `ingest`, `query`, `lint`, and `audit` pass makes the wiki richer. Knowledge compounds over time.
+
+-   You own: sourcing raw material, asking good questions, steering direction, filing feedback on things the AI got wrong.
+-   LLM owns: all writing, cross-referencing, filing, bookkeeping, and acting on your feedback.
+
+The skill comes with two companion tools in this repo:
+
+-   **`plugins/obsidian-audit/`** — an Obsidian plugin: select text in any page, leave a comment with severity, the comment is written into `audit/` as an anchored markdown file.
+-   **`web/`** — a local Node.js preview server: renders the wiki with mermaid, KaTeX, and wikilinks, lets you select + file feedback from the browser, and shows open audits per page.
+
+Both tools share a single TypeScript library (`audit-shared/`) so audit files written from Obsidian and the web viewer are byte-identical in shape.
+
+## Install
+
+[](#install)
+
+# Copy the skill into your agent's skills directory
+cp -r llm-wiki/ ~/.claude/skills/llm-wiki/
+# or for Codex
+cp -r llm-wiki/ ~/.codex/skills/llm-wiki/
+
+Then reference it in your agent config, or simply paste `llm-wiki/SKILL.md` into your agent context.
+
+## Quick start
+
+[](#quick-start)
+
+# 1. Scaffold a new wiki
+python3 llm-wiki/scripts/scaffold.py ~/my-wiki "My Research Topic"
+
+# 2. Add a source
+cp my-article.md ~/my-wiki/raw/articles/
+
+# 3. Tell your agent: "ingest raw/articles/my-article.md"
+
+# 4. Ask questions: "what does the wiki say about X?"
+
+# 5. Run lint periodically
+python3 llm-wiki/scripts/lint\_wiki.py ~/my-wiki
+
+# 6. File a comment from the web viewer or Obsidian plugin, then process it
+python3 llm-wiki/scripts/audit\_review.py ~/my-wiki --open
+# then tell the agent: "audit: process the open comments"
+
+## Repo contents
+
+[](#repo-contents)
+
+```
+llm-wiki-skill/
+├── llm-wiki/                    ← The skill
+│   ├── SKILL.md                 ← Main skill file (read by agent)
+│   ├── references/
+│   │   ├── schema-guide.md      ← CLAUDE.md schema template
+│   │   ├── article-guide.md     ← Article writing (divide & conquer, mermaid, KaTeX)
+│   │   ├── log-guide.md         ← log/ folder convention
+│   │   ├── audit-guide.md       ← audit file format + processing workflow
+│   │   └── tooling-tips.md      ← Obsidian, qmd, plugin + web
+│   └── scripts/
+│       ├── scaffold.py          ← Bootstrap new wiki directory
+│       ├── lint_wiki.py         ← 7-pass health check (links, audit, log shape)
+│       └── audit_review.py      ← Group open/resolved audits by target
+├── audit-shared/                ← Shared TypeScript library
+│   └── src/{schema,anchor,id,serialize,index}.ts
+├── plugins/obsidian-audit/      ← Obsidian plugin — file audit from vault
+└── web/                         ← Local Node.js preview + feedback server
+    ├── server/                  ← Express + markdown-it + KaTeX + wikilinks
+    └── client/                  ← Vanilla-TS SPA with mermaid + selection popover
+```
+
+## Running the web viewer
+
+[](#running-the-web-viewer)
+
+# one-time setup (builds audit-shared, installs deps, bundles client)
+cd audit-shared && npm install && npm run build && cd ..
+cd web && npm install && npm run build && cd ..
+
+# start the server against a wiki
+cd web
+npm start -- --wiki "/path/to/your/wiki-root" --port 4175
+# open http://127.0.0.1:4175
+
+## Building the Obsidian plugin
+
+[](#building-the-obsidian-plugin)
+
+cd audit-shared && npm install && npm run build && cd ..
+cd plugins/obsidian-audit
+npm install
+npm run build
+npm run link -- "/path/to/your/Obsidian vault"
+# Enable 'LLM Wiki Audit' in Obsidian → Settings → Community plugins.
+
+## Use cases
+
+[](#use-cases)
+
+-   **Research deep-dive** — reading papers/articles on a topic over weeks
+-   **Personal wiki** — Farzapedia-style: journal entries compiled into personal encyclopedia
+-   **Team knowledge base** — fed by Slack threads, meeting notes, docs
+-   **Reading companion** — building a rich companion wiki as you read a book
+
+## Related work
+
+[](#related-work)
+
+-   [Karpathy's original Gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+-   [pedronauck/skills karpathy-kb](https://github.com/pedronauck/skills/tree/main/skills/karpathy-kb) — full Obsidian vault integration
+-   [Astro-Han/karpathy-llm-wiki](https://github.com/Astro-Han/karpathy-llm-wiki) — example implementation
+-   [qmd](https://github.com/tobi/qmd) — semantic search for Markdown wikis
+
+## License
+
+[](#license)
+
+MIT
+
+## About
+
+Karpathy-style LLM knowledge base Agent Skill for OpenClaw/Codex. Experimental — will iterate over time.
+
+### Resources
+
+[Readme](#readme-ov-file)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[Activity](/lewislulu/llm-wiki-skill/activity)
+
+### Stars
+
+[**480** stars](/lewislulu/llm-wiki-skill/stargazers)
+
+### Watchers
+
+[**2** watching](/lewislulu/llm-wiki-skill/watchers)
+
+### Forks
+
+[**90** forks](/lewislulu/llm-wiki-skill/forks)
+
+[Report repository](/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Flewislulu%2Fllm-wiki-skill&report=lewislulu+%28user%29)
+
+## [Releases](/lewislulu/llm-wiki-skill/releases)
+
+No releases published
+
+## [Packages 0](/users/lewislulu/packages?repo_name=llm-wiki-skill)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+## [Contributors](/lewislulu/llm-wiki-skill/graphs/contributors)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+## Languages
+
+-   [TypeScript 56.5%](/lewislulu/llm-wiki-skill/search?l=typescript)
+-   [CSS 23.3%](/lewislulu/llm-wiki-skill/search?l=css)
+-   [Python 15.3%](/lewislulu/llm-wiki-skill/search?l=python)
+-   [HTML 2.9%](/lewislulu/llm-wiki-skill/search?l=html)
+-   [JavaScript 2.0%](/lewislulu/llm-wiki-skill/search?l=javascript)
+
+## Footer
+
+[](https://github.com)© 2026 GitHub, Inc.
+
+### Footer navigation
+
+-   [Terms](https://docs.github.com/site-policy/github-terms/github-terms-of-service)
+-   [Privacy](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement)
+-   [Security](https://github.com/security)
+-   [Status](https://www.githubstatus.com/)
+-   [Community](https://github.community/)
+-   [Docs](https://docs.github.com/)
+-   [Contact](https://support.github.com?tags=dotcom-footer)
+-   Manage cookies
+-   Do not share my personal information
+
+You can’t perform that action at this time.
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 5.1s)
+
+_Thinking:_
+
+
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://github.com/nvk/llm-wiki",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+                     GitHub - nvk/llm-wiki: LLM-compiled knowledge bases for any AI agent. Parallel multi-agent research, thesis-driven investigation, source ingestion, wiki compilation, querying, and artifact generation. · GitHub                                             
+
+[Skip to content](#start-of-content)   
+
+## Navigation Menu
+
+Toggle navigation
+
+[](/)
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Fnvk%2Fllm-wiki)
+
+Appearance settings
+
+  
+
+-   Platform
+    
+    -   AI CODE CREATION
+        
+        -   [
+            
+            GitHub CopilotWrite better code with AI
+            
+            ](https://github.com/features/copilot)
+        -   [
+            
+            GitHub SparkBuild and deploy intelligent apps
+            
+            ](https://github.com/features/spark)
+        -   [
+            
+            GitHub ModelsManage and compare prompts
+            
+            ](https://github.com/features/models)
+        -   [
+            
+            MCP RegistryNewIntegrate external tools
+            
+            ](https://github.com/mcp)
+        
+    -   DEVELOPER WORKFLOWS
+        
+        -   [
+            
+            ActionsAutomate any workflow
+            
+            ](https://github.com/features/actions)
+        -   [
+            
+            CodespacesInstant dev environments
+            
+            ](https://github.com/features/codespaces)
+        -   [
+            
+            IssuesPlan and track work
+            
+            ](https://github.com/features/issues)
+        -   [
+            
+            Code ReviewManage code changes
+            
+            ](https://github.com/features/code-review)
+        
+    -   APPLICATION SECURITY
+        
+        -   [
+            
+            GitHub Advanced SecurityFind and fix vulnerabilities
+            
+            ](https://github.com/security/advanced-security)
+        -   [
+            
+            Code securitySecure your code as you build
+            
+            ](https://github.com/security/advanced-security/code-security)
+        -   [
+            
+            Secret protectionStop leaks before they start
+            
+            ](https://github.com/security/advanced-security/secret-protection)
+        
+    -   EXPLORE
+        
+        -   [Why GitHub](https://github.com/why-github)
+        -   [Documentation](https://docs.github.com)
+        -   [Blog](https://github.blog)
+        -   [Changelog](https://github.blog/changelog)
+        -   [Marketplace](https://github.com/marketplace)
+        
+    
+    [View all features](https://github.com/features)
+    
+-   Solutions
+    
+    -   BY COMPANY SIZE
+        
+        -   [Enterprises](https://github.com/enterprise)
+        -   [Small and medium teams](https://github.com/team)
+        -   [Startups](https://github.com/enterprise/startups)
+        -   [Nonprofits](https://github.com/solutions/industry/nonprofits)
+        
+    -   BY USE CASE
+        
+        -   [App Modernization](https://github.com/solutions/use-case/app-modernization)
+        -   [DevSecOps](https://github.com/solutions/use-case/devsecops)
+        -   [DevOps](https://github.com/solutions/use-case/devops)
+        -   [CI/CD](https://github.com/solutions/use-case/ci-cd)
+        -   [View all use cases](https://github.com/solutions/use-case)
+        
+    -   BY INDUSTRY
+        
+        -   [Healthcare](https://github.com/solutions/industry/healthcare)
+        -   [Financial services](https://github.com/solutions/industry/financial-services)
+        -   [Manufacturing](https://github.com/solutions/industry/manufacturing)
+        -   [Government](https://github.com/solutions/industry/government)
+        -   [View all industries](https://github.com/solutions/industry)
+        
+    
+    [View all solutions](https://github.com/solutions)
+    
+-   Resources
+    
+    -   EXPLORE BY TOPIC
+        
+        -   [AI](https://github.com/resources/articles?topic=ai)
+        -   [Software Development](https://github.com/resources/articles?topic=software-development)
+        -   [DevOps](https://github.com/resources/articles?topic=devops)
+        -   [Security](https://github.com/resources/articles?topic=security)
+        -   [View all topics](https://github.com/resources/articles)
+        
+    -   EXPLORE BY TYPE
+        
+        -   [Customer stories](https://github.com/customer-stories)
+        -   [Events & webinars](https://github.com/resources/events)
+        -   [Ebooks & reports](https://github.com/resources/whitepapers)
+        -   [Business insights](https://github.com/solutions/executive-insights)
+        -   [GitHub Skills](https://skills.github.com)
+        
+    -   SUPPORT & SERVICES
+        
+        -   [Documentation](https://docs.github.com)
+        -   [Customer support](https://support.github.com)
+        -   [Community forum](https://github.com/orgs/community/discussions)
+        -   [Trust center](https://github.com/trust-center)
+        -   [Partners](https://github.com/partners)
+        
+    
+    [View all resources](https://github.com/resources)
+    
+-   Open Source
+    
+    -   COMMUNITY
+        
+        -   [
+            
+            GitHub SponsorsFund open source developers
+            
+            ](https://github.com/sponsors)
+        
+    -   PROGRAMS
+        
+        -   [Security Lab](https://securitylab.github.com)
+        -   [Maintainer Community](https://maintainers.github.com)
+        -   [Accelerator](https://github.com/accelerator)
+        -   [GitHub Stars](https://stars.github.com)
+        -   [Archive Program](https://archiveprogram.github.com)
+        
+    -   REPOSITORIES
+        
+        -   [Topics](https://github.com/topics)
+        -   [Trending](https://github.com/trending)
+        -   [Collections](https://github.com/collections)
+        
+    
+-   Enterprise
+    
+    -   ENTERPRISE SOLUTIONS
+        
+        -   [
+            
+            Enterprise platformAI-powered developer platform
+            
+            ](https://github.com/enterprise)
+        
+    -   AVAILABLE ADD-ONS
+        
+        -   [
+            
+            GitHub Advanced SecurityEnterprise-grade security features
+            
+            ](https://github.com/security/advanced-security)
+        -   [
+            
+            Copilot for BusinessEnterprise-grade AI features
+            
+            ](https://github.com/features/copilot/copilot-business)
+        -   [
+            
+            Premium SupportEnterprise-grade 24/7 support
+            
+            ](https://github.com/premium-support)
+        
+    
+-   [Pricing](https://github.com/pricing)
+
+Search or jump to...
+
+# Search code, repositories, users, issues, pull requests...
+
+Search
+
+Clear
+
+[Search syntax tips](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax)
+
+# Provide feedback
+
+We read every piece of feedback, and take your input very seriously.
+
+ Include my email address so I can be contacted
+
+Cancel Submit feedback
+
+# Saved searches
+
+## Use saved searches to filter your results more quickly
+
+Name  
+
+Query 
+
+To see all available qualifiers, see our [documentation](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax).
+
+Cancel Create saved search
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Fnvk%2Fllm-wiki)
+
+[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=nvk%2Fllm-wiki)
+
+Appearance settings
+
+Resetting focus
+
+You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert
+
+[nvk](/nvk) / **[llm-wiki](/nvk/llm-wiki)** Public
+
+-   [Notifications](/login?return_to=%2Fnvk%2Fllm-wiki) You must be signed in to change notification settings
+-   [Fork 53](/login?return_to=%2Fnvk%2Fllm-wiki)
+-   [Star 384](/login?return_to=%2Fnvk%2Fllm-wiki)
+    
+
+-   [Code](/nvk/llm-wiki)
+-   [Issues 0](/nvk/llm-wiki/issues)
+-   [Pull requests 4](/nvk/llm-wiki/pulls)
+-   [Discussions](/nvk/llm-wiki/discussions)
+-   [Actions](/nvk/llm-wiki/actions)
+-   [Security and quality 0](/nvk/llm-wiki/security)
+-   [Insights](/nvk/llm-wiki/pulse)
+
+Additional navigation options
+
+-   [Code](/nvk/llm-wiki)
+-   [Issues](/nvk/llm-wiki/issues)
+-   [Pull requests](/nvk/llm-wiki/pulls)
+-   [Discussions](/nvk/llm-wiki/discussions)
+-   [Actions](/nvk/llm-wiki/actions)
+-   [Security and quality](/nvk/llm-wiki/security)
+-   [Insights](/nvk/llm-wiki/pulse)
+
+ [](/nvk/llm-wiki)
+
+# nvk/llm-wiki
+
+ master
+
+[Branches](/nvk/llm-wiki/branches)[Tags](/nvk/llm-wiki/tags)
+
+[](/nvk/llm-wiki/branches)[](/nvk/llm-wiki/tags)
+
+Go to file
+
+Code
+
+Open more actions menu
+
+## Folders and files
+
+Name
+
+Name
+
+Last commit message
+
+Last commit date
+
+## Latest commit
+
+## History
+
+[180 Commits](/nvk/llm-wiki/commits/master/)
+
+[](/nvk/llm-wiki/commits/master/)180 Commits
+
+[.agents/plugins](/nvk/llm-wiki/tree/master/.agents/plugins "This path skips through empty directories")
+
+[.agents/plugins](/nvk/llm-wiki/tree/master/.agents/plugins "This path skips through empty directories")
+
+[.claude-plugin](/nvk/llm-wiki/tree/master/.claude-plugin ".claude-plugin")
+
+[.claude-plugin](/nvk/llm-wiki/tree/master/.claude-plugin ".claude-plugin")
+
+[.claude](/nvk/llm-wiki/tree/master/.claude ".claude")
+
+[.claude](/nvk/llm-wiki/tree/master/.claude ".claude")
+
+[claude-plugin](/nvk/llm-wiki/tree/master/claude-plugin "claude-plugin")
+
+[claude-plugin](/nvk/llm-wiki/tree/master/claude-plugin "claude-plugin")
+
+[plugins](/nvk/llm-wiki/tree/master/plugins "plugins")
+
+[plugins](/nvk/llm-wiki/tree/master/plugins "plugins")
+
+[scripts](/nvk/llm-wiki/tree/master/scripts "scripts")
+
+[scripts](/nvk/llm-wiki/tree/master/scripts "scripts")
+
+[tests](/nvk/llm-wiki/tree/master/tests "tests")
+
+[tests](/nvk/llm-wiki/tree/master/tests "tests")
+
+[.gitignore](/nvk/llm-wiki/blob/master/.gitignore ".gitignore")
+
+[.gitignore](/nvk/llm-wiki/blob/master/.gitignore ".gitignore")
+
+[AGENTS.md](/nvk/llm-wiki/blob/master/AGENTS.md "AGENTS.md")
+
+[AGENTS.md](/nvk/llm-wiki/blob/master/AGENTS.md "AGENTS.md")
+
+[CLAUDE.md](/nvk/llm-wiki/blob/master/CLAUDE.md "CLAUDE.md")
+
+[CLAUDE.md](/nvk/llm-wiki/blob/master/CLAUDE.md "CLAUDE.md")
+
+[LICENSE](/nvk/llm-wiki/blob/master/LICENSE "LICENSE")
+
+[LICENSE](/nvk/llm-wiki/blob/master/LICENSE "LICENSE")
+
+[README.md](/nvk/llm-wiki/blob/master/README.md "README.md")
+
+[README.md](/nvk/llm-wiki/blob/master/README.md "README.md")
+
+View all files
+
+## Repository files navigation
+
+-   [README](#)
+-   [MIT license](#)
+
+```
+██╗     ██╗     ███╗   ███╗    ██╗    ██╗██╗██╗  ██╗██╗
+██║     ██║     ████╗ ████║    ██║    ██║██║██║ ██╔╝██║
+██║     ██║     ██╔████╔██║    ██║ █╗ ██║██║█████╔╝ ██║
+██║     ██║     ██║╚██╔╝██║    ██║███╗██║██║██╔═██╗ ██║
+███████╗███████╗██║ ╚═╝ ██║    ╚███╔███╔╝██║██║  ██╗██║
+╚══════╝╚══════╝╚═╝     ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═╝╚═╝
+```
+
+[github.com/nvk/llm-wiki](https://github.com/nvk/llm-wiki)
+
+LLM-compiled knowledge bases for any AI agent. Parallel multi-agent research, thesis-driven investigation, source ingestion, wiki compilation, truth-seeking audits, querying, and artifact generation. Ships as a Claude Code plugin, an OpenAI Codex plugin, an OpenCode instruction file, or a portable AGENTS.md for any other LLM agent. Obsidian-compatible.
+
+---
+
+[Install](#install) · [Quick Start](#quick-start) · [Commands](#commands) · [How It Works](#how-it-works) · [Research Modes](#research-modes) · [Thesis Research](#thesis-driven-research) · [Query Depths](#query-depths) · [Linking](#linking-works-everywhere) · [Obsidian](#obsidian-integration) · [Architecture](#claude-first-multi-runtime) · [Nono Sandbox](#nono-sandbox-permissions) · [Upgrade](#upgrade) · [Changelog](#changelog) · [Credits](#credits)
+
+---
+
+## Changelog
+
+[](#changelog)
+
+**v0.8.0** — **Inventory tracking and dataset manifests.** Added first-class `/wiki:inventory` for durable items, candidates, entities, corpora, saved views, and opinionated migration previews, plus `/wiki:dataset` manifests for large or external datasets that should be indexed by the wiki without being copied into it. Lint, query, ingest, research, audit, plan, and output workflows now know how to surface inventory and dataset state while keeping raw evidence, compiled knowledge, and generated artifacts separate.
+
+**v0.7.0** — **PDF, message archive, and Wayback adapters.** PDF ingest now prefers real markdown extraction over metadata stubs, with `pdftotext` plus Python-library fallback guidance. Collection ingestion now covers CSV/TSV/JSON/JSONL message archives as per-message markdown sources and Internet Archive CDX inventories as readability-to-markdown Wayback snapshot imports.
+
+**v0.6.0** — **Collection ingestion for external wikis and spec repos.** Added first-class `/wiki:ingest-collection` for bounded upstream corpora such as Git document repositories, BIP-style proposal sets, MediaWiki XML dumps, and MediaWiki API sites. Collection imports now create a `raw/repos/` manifest plus immutable child sources with upstream revision metadata, while compilation stays synthesized instead of copying another wiki wholesale. The router now detects bulk import intent, and lint/schema docs recognize collection provenance fields and manifest coverage exemptions.
+
+**v0.5.0–v0.5.1** — **Truth-seeking umbrella audit & durable session provenance.** `/wiki:audit` combines the wiki-only librarian pass with output drift checks, provenance review, and fresh research when local evidence is not enough, while the follow-up provenance work makes multi-round research replayable: `research` keeps `.session-events.jsonl` and `.session-checkpoint.json`, `audit` records its own provenance milestones, and `query --resume` can fall back to the checkpoint trail when no active session is running. `/wiki:librarian` stays available as the focused tool for keeping the `wiki/` layer in check.
+
+**v0.4.4** — **Faster Codex first `@wiki` load.** The generated Codex skill now ships as a smaller router prompt instead of loading the full workflow prose up front. Shared Claude/OpenCode behavior stays unchanged, but Codex first-hit prompt expansion is materially smaller and faster.
+
+**v0.4.3** — **Codex first-class install fixes.** Codex packaging, bootstrap, and verification now line up with the current `@wiki` plugin layout. The generated Codex mirror lives under `plugins/llm-wiki/skills/wiki/`, references are validated as copied files for marketplace installs, and the local bootstrap flow now uses the real `llm-wiki` marketplace name instead of the stale `llm-wiki-local` alias.
+
+## Install
+
+[](#install)
+
+**Claude Code** (native plugin):
+
+claude plugin install wiki@llm-wiki
+
+**OpenAI Codex** (marketplace plugin):
+
+Install from GitHub:
+
+codex plugin marketplace add nvk/llm-wiki
+# Then open /plugins in Codex, enable "LLM Wiki", and use @wiki
+
+Install from a local checkout with the managed bootstrap helper:
+
+./scripts/bootstrap-codex-plugin.sh --scope user --verify
+
+Or register the local checkout manually:
+
+codex plugin marketplace add /absolute/path/to/llm-wiki
+
+Canonical explicit invocation:
+
+```
+@wiki research "hardware wallet threat models"
+@wiki ingest https://example.com/article
+@wiki audit --project coldcard-threat-model
+@wiki ll "codex plugin install gotchas"
+```
+
+Upgrade:
+
+codex plugin marketplace upgrade llm-wiki
+
+Remove:
+
+codex plugin marketplace remove llm-wiki
+
+Troubleshooting:
+
+-   After installing the marketplace, open `/plugins` in Codex and enable "LLM Wiki" — first install requires the interactive enable step.
+-   `@wiki` is the canonical explicit entry point in Codex. Natural-language wiki requests can still auto-activate the skill.
+-   Restart Codex after changing config if an existing session does not pick up the new plugin state.
+-   If you run Codex under a sandbox wrapper like `nono`, see [Nono Sandbox Permissions](#nono-sandbox-permissions) — Codex needs r+w to `$HOME/.codex` for plugin install.
+
+**OpenCode** (instruction file):
+
+Add to your `opencode.json` (project-level or `~/.config/opencode/.opencode.json` for global):
+
+{
+  "instructions": \["https://raw.githubusercontent.com/nvk/llm-wiki/master/plugins/llm-wiki-opencode/skills/wiki-manager/SKILL.md"\],
+  "permission": {
+    "external\_directory": {
+      "~/.config/llm-wiki/\*\*": "allow",
+      "~/Library/Mobile Documents/com~apple~CloudDocs/wiki/\*\*": "allow"
+    }
+  }
+}
+
+OpenCode fetches the URL fresh on every session start — no manual updates needed. If you prefer a local copy instead:
+
+curl -sL https://raw.githubusercontent.com/nvk/llm-wiki/master/plugins/llm-wiki-opencode/skills/wiki-manager/SKILL.md \> ~/.config/opencode/AGENTS.md
+
+The `external_directory` permission is required because the wiki hub lives outside the project directory. Set the paths to match your hub location. Alternatively, use `--local` mode (`.wiki/` in the project) to skip permissions entirely.
+
+Web search requires `export OPENCODE_ENABLE_EXA=1`.
+
+**Pi** (instruction file — best for local models):
+
+Pi's minimal system prompt (~1K tokens) leaves room for the full wiki skill on 32K context local models.
+
+pi --instructions path/to/llm-wiki/plugins/llm-wiki-opencode/skills/wiki-manager/SKILL.md
+
+With a local llama-server backend (no cloud API needed):
+
+OPENAI\_BASE\_URL=http://127.0.0.1:8080/v1 OPENAI\_API\_KEY=local \\
+  pi --instructions path/to/llm-wiki/plugins/llm-wiki-opencode/skills/wiki-manager/SKILL.md
+
+Pi uses the same OpenCode skill file — no separate packaging needed.
+
+**Any LLM Agent** (idea file):
+
+# Copy AGENTS.md into your agent's context or project root
+cp AGENTS.md ~/your-project/AGENTS.md
+
+The `AGENTS.md` file contains the complete wiki protocol as a single portable document — works with any LLM agent that can read/write files and search the web.
+
+## Claude-First, Multi-Runtime
+
+[](#claude-first-multi-runtime)
+
+Claude Code is the principal user. Keep one shared behavior layer and thin packaging layers per runtime:
+
+-   `claude-plugin/` is the primary distribution target and UX surface.
+-   `claude-plugin/skills/wiki-manager/` is the behavioral source of truth.
+-   `plugins/llm-wiki/skills/wiki/` is the generated Codex packaging target behind `@wiki`.
+-   `plugins/llm-wiki-opencode/` is the OpenCode and Pi packaging target.
+-   `.agents/plugins/marketplace.json` makes the Codex plugin installable from this repo.
+-   `AGENTS.md` is the portable single-file protocol for any other LLM agent.
+
+**Supported clients:**
+
+Client
+
+Install method
+
+System prompt size
+
+Best for
+
+Claude Code
+
+`claude plugin install wiki@llm-wiki`
+
+~22K tokens
+
+Full agentic research, 200K context
+
+Codex
+
+`codex plugin marketplace add nvk/llm-wiki`
+
+~3K tokens
+
+OpenAI ecosystem
+
+OpenCode
+
+`opencode.json` instructions
+
+~3K tokens
+
+Multi-provider, Go binary
+
+Pi
+
+`--instructions SKILL.md`
+
+~1K tokens
+
+Local models, minimal overhead
+
+Any agent
+
+Copy `AGENTS.md` to project
+
+Varies
+
+Universal fallback
+
+Both runtime mirrors are generated, not hand-maintained. Rebuild from the Claude source of truth:
+
+./scripts/sync-codex-plugin.sh      # regenerates plugins/llm-wiki/
+./scripts/sync-opencode-plugin.sh   # regenerates plugins/llm-wiki-opencode/
+
+Each sync script:
+
+-   copies `claude-plugin/skills/wiki-manager/SKILL.md` into the target tree and reapplies a small list of runtime-specific wording patches
+-   copies `references/` from the Claude source — references are runtime-neutral and shared verbatim (previously a symlink, now a real copy so Codex marketplace caching works)
+-   (Codex only) recreates `agents/openai.yaml` for Codex UI metadata and syncs the plugin version
+
+Drift is caught by `./tests/test-codex-sync.sh` and `./tests/test-opencode-sync.sh`, which run the sync scripts and fail (with self-healing fix instructions) if the generated directories differ from `HEAD`.
+
+Practical rule: design workflows first for Claude commands and behavior, but keep the underlying knowledge model and references runtime-neutral. Runtime wrappers adapt invocation and metadata, not wiki logic.
+
+## Nono Sandbox Permissions
+
+[](#nono-sandbox-permissions)
+
+If you run any AI coding agent inside a [nono](https://github.com/always-further/nono) sandbox, the wiki needs filesystem access beyond the default profile.
+
+### Claude Code / OpenCode
+
+[](#claude-code--opencode)
+
+{
+  "extends": "claude-code",
+  "policy": {
+    "add\_allow\_read": \[
+      "$HOME/.config/llm-wiki"
+    \],
+    "add\_allow\_readwrite": \[
+      "$HOME/Library/Mobile Documents/com~apple~CloudDocs/wiki"
+    \]
+  }
+}
+
+Replace `"extends": "claude-code"` with `"opencode"` for OpenCode.
+
+### Codex
+
+[](#codex)
+
+Codex needs r+w to its own `$HOME/.codex` directory for plugin install, marketplace cache, state, and skill registration:
+
+{
+  "extends": "codex",
+  "policy": {
+    "add\_allow\_read": \[
+      "$HOME/.config/llm-wiki"
+    \],
+    "add\_allow\_readwrite": \[
+      "$HOME/.codex",
+      "$HOME/Library/Mobile Documents/com~apple~CloudDocs/wiki"
+    \]
+  }
+}
+
+### Path reference
+
+[](#path-reference)
+
+Path
+
+Access
+
+Purpose
+
+`$HOME/.config/llm-wiki`
+
+read
+
+Hub path config — checked first during resolution (v0.4.2+)
+
+Wiki data dir
+
+readwrite
+
+The wiki itself — use the actual path, not `$HOME/wiki` (see below)
+
+`$HOME/.codex`
+
+readwrite
+
+Codex only — plugin cache, skills, state, marketplace temp files
+
+### Hub resolution and `~/wiki`
+
+[](#hub-resolution-and-wiki)
+
+As of v0.4.2, hub resolution checks `~/.config/llm-wiki/config.json` first and only falls back to `~/wiki` when no config exists. If your wiki lives on iCloud or any non-default path, set the config and you don't need `$HOME/wiki` in the sandbox at all:
+
+# Set once — agents will resolve from config, never touch ~/wiki
+/wiki config hub-path "~/Library/Mobile Documents/com~apple~CloudDocs/wiki"
+
+If you prefer `~/wiki` as a symlink to iCloud, nono's Seatbelt follows symlinks — the target path must be allowed, not the symlink itself.
+
+### Diagnosing access issues
+
+[](#diagnosing-access-issues)
+
+Without the right permissions, Seatbelt silently blocks file access — reads return empty, writes disappear, and the plugin looks broken with no error messages. Use `nono why` to diagnose:
+
+nono why --path ~/.config/llm-wiki --op read
+nono why --path ~/Library/Mobile\\ Documents/com~apple~CloudDocs/wiki --op readwrite
+
+**OpenCode** also needs the `external_directory` permission in `opencode.json` (see [Install](#install)) — nono and OpenCode have independent sandboxes that both need the same paths allowed.
+
+## Upgrade
+
+[](#upgrade)
+
+Agents and sandboxed sessions should use GitHub CLI web login with HTTPS git transport, not SSH. This avoids SSH host-key prompts and `known_hosts` writes inside nono:
+
+gh auth login --web --git-protocol https
+gh auth setup-git
+
+**Claude Code** — if `claude plugin update` pulls the latest correctly:
+
+git -C ~/.claude/plugins/marketplaces/llm-wiki remote set-url origin https://github.com/nvk/llm-wiki.git
+claude plugin update wiki@llm-wiki
+# Restart Claude Code to apply
+
+If the update command doesn't pick up the new version (stale marketplace cache), sync manually from the repo:
+
+# Clone or pull the latest
+git clone https://github.com/nvk/llm-wiki.git  # or: git -C ~/llm-wiki pull
+
+# Sync plugin files to Claude Code's plugin cache
+REPO=~/llm-wiki/claude-plugin
+DEST=~/.claude/plugins/cache/llm-wiki/wiki
+VERSION=$(grep '"version"' "$REPO/.claude-plugin/plugin.json" | grep -o '\[0-9.\]\*')
+rm -rf "$DEST"/\*
+mkdir -p "$DEST/$VERSION"
+cp -R "$REPO/.claude-plugin" "$REPO/commands" "$REPO/skills" "$DEST/$VERSION/"
+
+# Restart Claude Code to apply
+
+**Codex** — upgrade from the marketplace:
+
+codex plugin marketplace upgrade llm-wiki
+
+**OpenCode** — if using the GitHub URL in `instructions`, updates are automatic (fetched every session). If using a local copy:
+
+curl -sL https://raw.githubusercontent.com/nvk/llm-wiki/master/plugins/llm-wiki-opencode/skills/wiki-manager/SKILL.md \> ~/.config/opencode/AGENTS.md
+
+**AGENTS.md** — just pull the latest and replace:
+
+curl -sL https://raw.githubusercontent.com/nvk/llm-wiki/master/AGENTS.md \> ~/your-project/AGENTS.md
+
+Check your installed version:
+
+-   Claude Code: look for the version in `/wiki` status output or check `~/.claude/plugins/installed_plugins.json`
+-   Codex: run `./scripts/verify-codex-plugin.sh --scope project` (or `--scope user`) and confirm the resolved skill path points at this repo
+-   If the verify script reports `PENDING`, finish the first-time enable in `/plugins` and rerun it
+
+> **New to a topic? One command, from anywhere:**
+> 
+> ```
+> /wiki:research "gut microbiome" --new-topic --min-time 1h
+> ```
+> 
+> Creates a topic wiki, launches parallel agents, and keeps researching for an hour — drilling into subtopics each round finds. Come back to a fully compiled wiki.
+
+## Quick Start
+
+[](#quick-start)
+
+```
+/wiki:research "nutrition" --new-topic            # Create wiki + research in one shot
+/wiki:research "gut-brain axis" --wiki nutrition   # Add more research to existing wiki
+/wiki:research "fasting" --deep --min-time 2h     # 8 agents, keep going for 2 hours
+/wiki:research "keto" --retardmax                 # 10 agents, max speed, ingest everything
+/wiki:research "What makes long form articles go viral?" --new-topic  # Question → decompose → playbook
+/wiki:thesis "fiber reduces neuroinflammation via SCFAs"  # Thesis-driven: evidence for + against → verdict
+/wiki:thesis "cold exposure upregulates BDNF" --min-time 1h  # Deep thesis investigation
+/wiki:query "How does fiber affect mood?"         # Ask the wiki
+/wiki:query "compare keto and mediterranean" --deep  # Deep cross-referenced answer
+/wiki:query --resume                              # Where did I leave off?
+/wiki add https://example.com/article             # Fuzzy router detects URL → ingest
+/wiki what do we know about CRISPR?               # Fuzzy router detects question → query
+/wiki:ingest https://example.com/article          # Manually ingest a source
+/wiki:ingest --inbox                              # Process files dropped in inbox/
+/wiki:ingest-collection https://github.com/bitcoin/bips --wiki bitcoin  # Bulk import spec repos
+/wiki:ingest-collection https://dump.bitcoin.it/dump_20260429_en.xml.bz2 --wiki bitcoin  # Import MediaWiki dumps
+/wiki:ingest-collection messages.csv --adapter csv-messages --wiki bitcoin  # Split message archives
+/wiki:ingest-collection "https://example.com/*" --adapter wayback-cdx --from 20100101 --to 20200101  # Import archived snapshots
+/wiki:inventory add ingest-candidate "Bitcointalk archive" --wiki bitcoin  # Track source queues and next actions
+/wiki:inventory add item "TRX-4M ring and pinion" --wiki trx4m-1-18  # Track actual parts, tools, hosts, or assets
+/wiki:inventory list --view actions --limit 10   # Compact chat table of current inventory next actions
+/wiki:inventory scan-outputs --dry-run          # Preview queues/backlogs before any inventory pivot
+/wiki:dataset add "Bitcointalk Temporal Graph" --location https://figshare.com/articles/dataset/BitcoinTemporalGraph/26305093 --wiki bitcoin  # Index data that stays external
+/wiki:dataset list --view schema --limit 10      # Compact chat table of dataset schema/readiness state
+/wiki:dataset scan-outputs --dry-run            # Find legacy data reports that could become dataset manifests
+/wiki:compile                                     # Compile any unprocessed sources
+/wiki:audit --project gut-brain-playbook          # Truth-seeking audit across outputs + wiki + fresh research
+/wiki:output report --topic gut-brain             # Generate a report
+/wiki:output slides --retardmax                   # Ship a rough slide deck NOW
+/wiki:assess /path/to/my-app --wiki nutrition     # Gap analysis: repo vs wiki vs market
+/wiki:lint --fix                                  # Clean up inconsistencies
+```
+
+When working from this repository checkout, you can also run deterministic checks without an agent:
+
+./scripts/llm-wiki lint /path/to/wiki
+./scripts/llm-wiki lint --fix /path/to/wiki
+
+This local helper covers structural checks that do not require an LLM. The agentic `/wiki:lint` workflow remains the full protocol for editorial and deep verification passes.
+
+## Commands
+
+[](#commands)
+
+Command
+
+Description
+
+`/wiki <natural language>`
+
+Fuzzy intent router — say what you want and it routes to the right subcommand
+
+`/wiki`
+
+Show wiki status, stats, and list all topic wikis
+
+`/wiki init <name>`
+
+Create a topic wiki at `~/wiki/topics/<name>/`
+
+`/wiki init <name> --local`
+
+Create a project-local wiki at `.wiki/`
+
+`/wiki:ingest <source>`
+
+Ingest a URL, file path, PDF, or quoted text
+
+`/wiki:ingest --inbox`
+
+Process all files in the topic wiki's inbox/
+
+`/wiki:ingest-collection <source>`
+
+Bulk-ingest Git doc repos, BIP-style proposal sets, MediaWiki dumps/API sites, message archives, or Wayback CDX snapshots
+
+`/wiki:ingest-collection <source> --adapter git|mediawiki-dump|mediawiki-api|csv-messages|wayback-cdx`
+
+Force a collection adapter
+
+`/wiki:ingest-collection <source> --limit <N> --dry-run`
+
+Preview or cap a large collection import
+
+`/wiki:inventory list`
+
+List durable tracking records as compact chat-friendly tables or bullets
+
+`/wiki:inventory list --view actions`
+
+Show current inventory next actions without dumping full records
+
+`/wiki:inventory add <kind> "title"`
+
+Add an inventory record after checking that inventory is the right layer
+
+`/wiki:inventory save-view "name"`
+
+Save a derived reusable table/list under `inventory/views/`
+
+`/wiki:inventory scan-outputs --dry-run`
+
+Find old queue/backlog outputs and preview sample records before migration
+
+`/wiki:inventory migrate-output <path> --apply`
+
+Additively create inventory records from a legacy output; never moves or deletes the output
+
+`/wiki:dataset list`
+
+List dataset manifests as compact chat-friendly tables or bullets
+
+`/wiki:dataset list --view schema`
+
+Show schema/readiness state without opening samples or data
+
+`/wiki:dataset add "title" --location <path-or-url>`
+
+Add a dataset manifest without copying data into the wiki
+
+`/wiki:dataset profile <slug> --dry-run`
+
+Preview lightweight profiling of size, format, headers, or schema observations
+
+`/wiki:dataset migrate-output <path> --apply`
+
+Additively create dataset manifests from a legacy output; never moves or copies the underlying data
+
+`/wiki:compile`
+
+Compile new sources into wiki articles
+
+`/wiki:compile --full`
+
+Recompile everything from scratch
+
+`/wiki:query <question>`
+
+Q&A against the wiki (standard depth)
+
+`/wiki:query <question> --quick`
+
+Fast answer from indexes only
+
+`/wiki:query <question> --deep`
+
+Thorough — reads everything, checks raw + sibling wikis
+
+`/wiki:query <terms> --list`
+
+Find content by keyword, tag, or category (replaces old `/wiki:search`)
+
+`/wiki:query --resume`
+
+Reload context after a session break — recent activity, stats, last-updated articles
+
+`/wiki:plan <goal>`
+
+Generate wiki-grounded implementation plan (interview → gap research → phased plan)
+
+`/wiki:plan <goal> --quick`
+
+Plan from wiki content only — skip interview and gap research
+
+`/wiki:plan <goal> --format rfc|adr|spec`
+
+Output as RFC, ADR, or tech spec instead of roadmap
+
+`/wiki:research <topic>`
+
+5 parallel agents: academic, technical, applied, news, contrarian
+
+`/wiki:research <topic> --new-topic`
+
+Create a topic wiki and start researching — works from any directory
+
+`/wiki:research <topic> --min-time 1h`
+
+Keep researching in rounds until time budget is spent
+
+`/wiki:research <topic> --plan`
+
+Decompose into 3-5 parallel paths, confirm, then dispatch all at once
+
+`/wiki:research <topic> --deep`
+
+8 agents: adds historical, adjacent, data/stats
+
+`/wiki:research <topic> --retardmax`
+
+10 agents: skip planning, max speed, ingest aggressively
+
+`/wiki:thesis <claim>`
+
+Thesis-driven research: evidence for + against → verdict
+
+`/wiki:thesis <claim> --min-time 1h`
+
+Multi-round thesis investigation with anti-confirmation-bias
+
+`/wiki:lint`
+
+Run health checks on the wiki
+
+`/wiki:lint --fix`
+
+Auto-fix structural issues
+
+`/wiki:lint --deep`
+
+Web-verify facts and suggest improvements
+
+`/wiki:audit`
+
+Umbrella trust audit: wiki, outputs, provenance, and fresh research when needed
+
+`/wiki:audit --artifact <path>`
+
+Audit one article or output artifact and follow its evidence chain
+
+`/wiki:audit --project <slug>`
+
+Audit one project's outputs and upstream wiki state
+
+`/wiki:audit report`
+
+Display the latest umbrella audit report
+
+`/wiki:librarian`
+
+Focused wiki maintenance: staleness and quality scan for the `wiki/` layer
+
+`/wiki:librarian --article <path>`
+
+Scan a single article
+
+`/wiki:librarian report`
+
+Display the latest librarian scan report
+
+`/wiki:output <type>`
+
+Generate: summary, report, study-guide, slides, timeline, glossary, comparison
+
+`/wiki:output <type> --retardmax`
+
+Ship it now — rough but comprehensive, iterate later
+
+`/wiki:ll`
+
+Extract lessons learned from the current session into the wiki
+
+`/wiki:ll --dry-run`
+
+Preview extracted lessons without writing
+
+`/wiki:ll --rules`
+
+Also suggest CLAUDE.md / AGENTS.md rule additions
+
+`/wiki:assess <path>`
+
+Assess a repo against wiki research + market. Gap analysis.
+
+`/wiki:assess <path> --retardmax`
+
+Wide net — adds adjacent fields and failure analysis
+
+All commands accept `--wiki <name>` to target a specific topic wiki and `--local` to target the project wiki. Commands that generate content (`query`, `output`, `plan`) also accept `--with <wiki>` to load supplementary wikis as cross-wiki context — e.g., `--with article-writing` applies writing craft knowledge when generating output from a domain wiki.
+
+`/wiki:librarian` is the focused wiki-maintenance tool. `/wiki:audit` is broader and may perform fresh research to decide whether the current knowledge or generated outputs are still trustworthy.
+
+## How It Works
+
+[](#how-it-works)
+
+### Architecture
+
+[](#architecture)
+
+```
+~/wiki/                                 # Hub — lightweight, no content
+├── wikis.json                          # Registry of all topic wikis
+├── _index.md                           # Lists topic wikis with stats
+├── log.md                              # Global activity log
+└── topics/                             # Each topic is an isolated wiki
+    ├── nutrition/                      # Example topic wiki
+    │   ├── .obsidian/                  # Obsidian vault config
+    │   ├── inbox/                      # Drop zone for this topic
+    │   ├── inventory/                  # Durable tracking records + derived views
+    │   ├── datasets/                   # Manifests for large/external data
+    │   ├── raw/                        # Immutable sources
+    │   ├── wiki/                       # Compiled articles
+    │   │   ├── concepts/
+    │   │   ├── topics/
+    │   │   └── references/
+    │   ├── output/                     # Generated artifacts
+    │   ├── _index.md
+    │   ├── config.md
+    │   └── log.md
+    ├── woodworking/                    # Another topic wiki
+    └── ...
+```
+
+The hub is just a registry — no content directories, no `.obsidian/`. All content lives in topic sub-wikis with isolated indexes and articles. Queries stay focused. The multi-wiki peek finds overlap across topics when relevant.
+
+### The Flow
+
+[](#the-flow)
+
+1.  **Research** a topic — parallel agents search the web, ingest sources, and compile articles in one command
+2.  **Ingest** additional sources — URLs, files, text, tweets (via Grok MCP), or bulk via inbox
+3.  **Inventory** items, candidates, entities, corpora, watch lists, and next actions that should persist; the agent tells you when inventory is the wrong layer
+4.  **Index datasets** that are too large for markdown — manifests, profiles, samples, and query recipes
+5.  **Compile** raw sources into synthesized wiki articles with cross-references and confidence scores
+6.  **Query** the wiki — quick (indexes), standard (articles), or deep (everything)
+7.  **Lessons learned** — extract knowledge from the current session (errors, fixes, gotchas) into the wiki
+8.  **Assess** a repo against the wiki — gap analysis: what aligns, what's missing, what the market offers
+9.  **Lint** for consistency — broken links, missing indexes, orphan articles
+10.  **Output** artifacts — summaries, reports, slides — filed back into the wiki
+
+### Key Design
+
+[](#key-design)
+
+-   **One topic, one wiki** — each research area gets its own sub-wiki with isolated indexes. No cross-topic noise.
+-   **Parallel research agents** — 5 standard, 8 deep, 10 retardmax. Each agent searches from a different angle.
+-   **`_index.md` navigation** — every directory has an index. Claude reads indexes first, never scans blindly.
+-   **Articles are synthesized**, not copied — they explain, contextualize, cross-reference.
+-   **Raw is immutable** — once ingested, sources are never modified.
+-   **Multi-wiki aware** — queries peek at sibling wiki indexes for overlap.
+-   **Dual-linking** — both `[[wikilinks]]` (Obsidian) and standard markdown links on every cross-reference. Works everywhere.
+-   **Confidence scoring** — articles rated high/medium/low based on source quality and corroboration.
+-   **Structural guardian** — auto-checks wiki integrity after operations, fixes trivial issues silently.
+-   **Activity log** — `log.md` tracks every operation, append-only, grep-friendly.
+-   **Opinionated inventory** — durable tracking gets records; one-off sources stay ingest/query; large row-like data becomes datasets or collection ingests. Big pivots start with a sample table before records are written.
+-   **Zero dependencies** — runs entirely on built-in tools (Claude Code, OpenCode, or Codex).
+
+## Research Modes
+
+[](#research-modes)
+
+Mode
+
+Flag
+
+Agents
+
+Style
+
+Standard
+
+*(default)*
+
+5
+
+Academic, technical, applied, news, contrarian
+
+Deep
+
+`--deep`
+
+8
+
+Adds historical, adjacent fields, data/stats
+
+Retardmax
+
+`--retardmax`
+
+10
+
+Adds rabbit-hole agents. Skip planning, cast widest net, ingest aggressively, compile fast. Lint later.
+
+**Smart input detection** — `/wiki:research` auto-detects whether you're passing a topic or a question:
+
+Input
+
+Detected as
+
+Behavior
+
+`"nutrition"`
+
+Topic
+
+Standard research — explore the field
+
+`"What makes articles go viral?"`
+
+Question
+
+Decompose into sub-questions → one agent per sub-question → synthesize → generate playbook → suggest theses
+
+Question mode produces a **playbook** (actionable output artifact) and suggests **testable theses** derived from the findings.
+
+**Modifiers** (combine with any mode):
+
+Flag
+
+What it does
+
+`--new-topic`
+
+Create a topic wiki from the research topic and start immediately. Works from any directory.
+
+`--plan`
+
+Decompose into 3-5 parallel research paths, confirm, then dispatch all paths simultaneously. Parallel ingest, sequential compile.
+
+`--min-time <duration>`
+
+Keep running research rounds until the time budget is spent (`30m`, `1h`, `2h`, `4h`). Each round drills into gaps the previous round found.
+
+`--sources <N>`
+
+Sources per round (default: 5, retardmax: 15)
+
+```
+# The full combo — new topic, 2 hours of deep research, from anywhere
+/wiki:research "CRISPR gene therapy" --new-topic --deep --min-time 2h
+```
+
+Retardmax mode is inspired by [Elisha Long's retardmaxxing philosophy](https://www.retardmaxx.com/) — act first, think later. The antidote to analysis paralysis. Works for both `/wiki:research` and `/wiki:output`.
+
+## Thesis-Driven Research
+
+[](#thesis-driven-research)
+
+Unlike open-ended research, `/wiki:thesis` starts with a specific claim and evaluates it:
+
+```
+/wiki:thesis "intermittent fasting reduces neuroinflammation via glymphatic upregulation"
+```
+
+**How it works:**
+
+1.  Decomposes the thesis into key variables, testable predictions, and falsification criteria
+2.  Launches parallel agents — but each agent has the thesis as a FILTER. Irrelevant sources get skipped (this prevents bloat)
+3.  Agents are split: **supporting**, **opposing**, **mechanistic**, **meta/review**, **adjacent** — balanced by design
+4.  Compiles evidence into wiki articles + a thesis file with evidence tables
+5.  Delivers a **verdict**: supported / partially supported / contradicted / insufficient evidence / mixed
+
+**Anti-confirmation-bias**: When using `--min-time`, Round 2 automatically focuses harder on the WEAKER side of the evidence. If Round 1 found mostly supporting evidence, Round 2 hunts for counter-evidence.
+
+**The thesis is the bloat filter.** Sources that don't relate to the claim's variables don't get ingested. Higher skip rate = tighter focus.
+
+## Linking: Works Everywhere
+
+[](#linking-works-everywhere)
+
+Every cross-reference in the wiki uses dual-link format:
+
+\[\[gut-brain-axis|Gut-Brain Axis\]\] (\[Gut-Brain Axis\](../concepts/gut-brain-axis.md))
+
+The wiki is **not locked into any tool**:
+
+-   **Obsidian** reads the `[[wikilink]]` — graph view, backlinks panel, quick-open
+-   **Claude Code** follows the standard `(relative/path.md)` link
+-   **GitHub/any markdown viewer** renders the standard link as clickable
+-   **No viewer at all** — plain markdown, readable in any text editor
+
+## Obsidian Integration
+
+[](#obsidian-integration)
+
+Each topic wiki has its own `.obsidian/` config and can be opened as an independent vault:
+
+```
+open ~/wiki/topics/nutrition/     # Open in Obsidian — focused graph for one topic
+```
+
+The hub (`~/wiki/`) has no `.obsidian/` to avoid nested vault confusion. If you want a cross-topic view, open `~/wiki/` manually and let Obsidian create its own config.
+
+What works out of the box:
+
+-   `.obsidian/` config created on init with sane defaults
+-   `[[wikilinks]]` power the graph view
+-   `aliases` in frontmatter enable search by alternate names
+-   `tags` in frontmatter are natively read
+-   `inbox/` works as a drop zone in both Obsidian and the CLI
+
+Claude Code is the compiler. Obsidian is an optional viewer.
+
+## Query Depths
+
+[](#query-depths)
+
+Depth
+
+Flag
+
+What it does
+
+Quick
+
+`--quick`
+
+Reads indexes only. Fastest. For simple lookups.
+
+Standard
+
+*(default)*
+
+Reads relevant articles + full-text search. For most questions.
+
+Deep
+
+`--deep`
+
+Reads everything, searches raw sources, peeks sibling wikis. For complex questions.
+
+List
+
+`--list`
+
+Returns ranked article list instead of synthesized answer. Supports `--tag` and `--category` filters.
+
+## Credits
+
+[](#credits)
+
+-   [Andrej Karpathy](https://x.com/karpathy) — the [LLM wiki concept](https://x.com/karpathy/status/2039805659525644595) and [idea file](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+-   [Elisha Long](https://www.retardmaxx.com/) — retardmaxxing philosophy (act first, think later)
+-   [tobi/qmd](https://github.com/tobi/qmd) — recommended local search engine for scaling beyond ~100 articles
+-   [rvk7895/llm-knowledge-bases](https://github.com/rvk7895/llm-knowledge-bases) — prior art in Claude Code wiki plugins
+
+## License
+
+[](#license)
+
+MIT License. Copyright (c) 2026 nvk.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following conditions: the above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## About
+
+LLM-compiled knowledge bases for any AI agent. Parallel multi-agent research, thesis-driven investigation, source ingestion, wiki compilation, querying, and artifact generation.
+
+[llm-wiki.net/](https://llm-wiki.net/ "https://llm-wiki.net/")
+
+### Topics
+
+[plugin](/topics/plugin "Topic: plugin") [wiki](/topics/wiki "Topic: wiki") [codex](/topics/codex "Topic: codex") [llm](/topics/llm "Topic: llm") [agentic-workflow](/topics/agentic-workflow "Topic: agentic-workflow") [agentic-ai](/topics/agentic-ai "Topic: agentic-ai") [claude-code](/topics/claude-code "Topic: claude-code") [agentic-skills](/topics/agentic-skills "Topic: agentic-skills")
+
+### Resources
+
+[Readme](#readme-ov-file)
+
+### License
+
+[MIT license](#MIT-1-ov-file)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[Activity](/nvk/llm-wiki/activity)
+
+### Stars
+
+[**384** stars](/nvk/llm-wiki/stargazers)
+
+### Watchers
+
+[**9** watching](/nvk/llm-wiki/watchers)
+
+### Forks
+
+[**53** forks](/nvk/llm-wiki/forks)
+
+[Report repository](/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Fnvk%2Fllm-wiki&report=nvk+%28user%29)
+
+## [Releases 35](/nvk/llm-wiki/releases)
+
+[
+
+v0.8.2 - Local Lint Helper Latest
+
+May 9, 2026
+
+
+
+](/nvk/llm-wiki/releases/tag/v0.8.2)
+
+[\+ 34 releases](/nvk/llm-wiki/releases)
+
+## [Packages 0](/users/nvk/packages?repo_name=llm-wiki)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+## [Contributors](/nvk/llm-wiki/graphs/contributors)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+## Languages
+
+-   [Shell 62.2%](/nvk/llm-wiki/search?l=shell)
+-   [Python 34.1%](/nvk/llm-wiki/search?l=python)
+-   [JavaScript 3.7%](/nvk/llm-wiki/search?l=javascript)
+
+## Footer
+
+[](https://github.com)© 2026 GitHub, Inc.
+
+### Footer navigation
+
+-   [Terms](https://docs.github.com/site-policy/github-terms/github-terms-of-service)
+-   [Privacy](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement)
+-   [Security](https://github.com/security)
+-   [Status](https://www.githubstatus.com/)
+-   [Community](https://github.community/)
+-   [Docs](https://docs.github.com/)
+-   [Contact](https://support.github.com?tags=dotcom-footer)
+-   Manage cookies
+-   Do not share my personal information
+
+You can’t perform that action at this time.
+```
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://opencode.ai/docs/skills/",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+Agent Skills | OpenCode     [Skip to content](#_top)
+
+  [![](/docs/_astro/logo-dark.DOStV66V.svg) ![](/docs/_astro/logo-light.B0yzR0O5.svg) OpenCode](/docs/)
+
+[app.header.home](/)[app.header.docs](/docs/)
+
+[](https://github.com/anomalyco/opencode)[](https://opencode.ai/discord)
+
+Search CtrlK
+
+Cancel
+
+-   [Intro](/docs/)
+-   [Config](/docs/config/)
+-   [Providers](/docs/providers/)
+-   [Network](/docs/network/)
+-   [Enterprise](/docs/enterprise/)
+-   [Troubleshooting](/docs/troubleshooting/)
+-   [Windows](/docs/windows-wsl)
+-   Usage
+    
+    -   [Go](/docs/go/)
+    -   [TUI](/docs/tui/)
+    -   [CLI](/docs/cli/)
+    -   [Web](/docs/web/)
+    -   [IDE](/docs/ide/)
+    -   [Zen](/docs/zen/)
+    -   [Share](/docs/share/)
+    -   [GitHub](/docs/github/)
+    -   [GitLab](/docs/gitlab/)
+    
+-   Configure
+    
+    -   [Tools](/docs/tools/)
+    -   [Rules](/docs/rules/)
+    -   [Agents](/docs/agents/)
+    -   [Models](/docs/models/)
+    -   [Themes](/docs/themes/)
+    -   [Keybinds](/docs/keybinds/)
+    -   [Commands](/docs/commands/)
+    -   [Formatters](/docs/formatters/)
+    -   [Permissions](/docs/permissions/)
+    -   [LSP Servers](/docs/lsp/)
+    -   [MCP servers](/docs/mcp-servers/)
+    -   [ACP Support](/docs/acp/)
+    -   [Agent Skills](/docs/skills/)
+    -   [Custom Tools](/docs/custom-tools/)
+    
+-   Develop
+    
+    -   [SDK](/docs/sdk/)
+    -   [Server](/docs/server/)
+    -   [Plugins](/docs/plugins/)
+    -   [Ecosystem](/docs/ecosystem/)
+    
+
+[GitHub](https://github.com/anomalyco/opencode)[Discord](https://opencode.ai/discord)
+
+Select theme DarkLightAuto   Select language EnglishالعربيةBosanskiDanskDeutschEspañolFrançaisItaliano日本語한국어Norsk BokmålPolskiPortuguês (Brasil)РусскийไทยTürkçe简体中文繁體中文
+
+On this page
+
+-   [Overview](#_top)
+-   [Place files](#place-files)
+-   [Understand discovery](#understand-discovery)
+-   [Write frontmatter](#write-frontmatter)
+-   [Validate names](#validate-names)
+-   [Follow length rules](#follow-length-rules)
+-   [Use an example](#use-an-example)
+-   [Recognize tool description](#recognize-tool-description)
+-   [Configure permissions](#configure-permissions)
+-   [Override per agent](#override-per-agent)
+-   [Disable the skill tool](#disable-the-skill-tool)
+-   [Troubleshoot loading](#troubleshoot-loading)
+
+## On this page
+
+-   [Overview](#_top)
+-   [Place files](#place-files)
+-   [Understand discovery](#understand-discovery)
+-   [Write frontmatter](#write-frontmatter)
+-   [Validate names](#validate-names)
+-   [Follow length rules](#follow-length-rules)
+-   [Use an example](#use-an-example)
+-   [Recognize tool description](#recognize-tool-description)
+-   [Configure permissions](#configure-permissions)
+-   [Override per agent](#override-per-agent)
+-   [Disable the skill tool](#disable-the-skill-tool)
+-   [Troubleshoot loading](#troubleshoot-loading)
+
+# Agent Skills
+
+Define reusable behavior via SKILL.md definitions
+
+Agent skills let OpenCode discover reusable instructions from your repo or home directory. Skills are loaded on-demand via the native `skill` tool—agents see available skills and can load the full content when needed.
+
+---
+
+## [Place files](#place-files)
+
+Create one folder per skill name and put a `SKILL.md` inside it. OpenCode searches these locations:
+
+-   Project config: `.opencode/skills/<name>/SKILL.md`
+-   Global config: `~/.config/opencode/skills/<name>/SKILL.md`
+-   Project Claude-compatible: `.claude/skills/<name>/SKILL.md`
+-   Global Claude-compatible: `~/.claude/skills/<name>/SKILL.md`
+-   Project agent-compatible: `.agents/skills/<name>/SKILL.md`
+-   Global agent-compatible: `~/.agents/skills/<name>/SKILL.md`
+
+---
+
+## [Understand discovery](#understand-discovery)
+
+For project-local paths, OpenCode walks up from your current working directory until it reaches the git worktree. It loads any matching `skills/*/SKILL.md` in `.opencode/` and any matching `.claude/skills/*/SKILL.md` or `.agents/skills/*/SKILL.md` along the way.
+
+Global definitions are also loaded from `~/.config/opencode/skills/*/SKILL.md`, `~/.claude/skills/*/SKILL.md`, and `~/.agents/skills/*/SKILL.md`.
+
+---
+
+## [Write frontmatter](#write-frontmatter)
+
+Each `SKILL.md` must start with YAML frontmatter. Only these fields are recognized:
+
+-   `name` (required)
+-   `description` (required)
+-   `license` (optional)
+-   `compatibility` (optional)
+-   `metadata` (optional, string-to-string map)
+
+Unknown frontmatter fields are ignored.
+
+---
+
+## [Validate names](#validate-names)
+
+`name` must:
+
+-   Be 1–64 characters
+-   Be lowercase alphanumeric with single hyphen separators
+-   Not start or end with `-`
+-   Not contain consecutive `--`
+-   Match the directory name that contains `SKILL.md`
+
+Equivalent regex:
+
+```
+^[a-z0-9]+(-[a-z0-9]+)*$
+```
+
+---
+
+## [Follow length rules](#follow-length-rules)
+
+`description` must be 1-1024 characters. Keep it specific enough for the agent to choose correctly.
+
+---
+
+## [Use an example](#use-an-example)
+
+Create `.opencode/skills/git-release/SKILL.md` like this:
+
+```
+---name: git-releasedescription: Create consistent releases and changelogslicense: MITcompatibility: opencodemetadata:  audience: maintainers  workflow: github---
+## What I do
+- Draft release notes from merged PRs- Propose a version bump- Provide a copy-pasteable `gh release create` command
+## When to use me
+Use this when you are preparing a tagged release.Ask clarifying questions if the target versioning scheme is unclear.
+```
+
+---
+
+## [Recognize tool description](#recognize-tool-description)
+
+OpenCode lists available skills in the `skill` tool description. Each entry includes the skill name and description:
+
+```
+<available_skills>  <skill>    <name>git-release</name>    <description>Create consistent releases and changelogs</description>  </skill></available_skills>
+```
+
+The agent loads a skill by calling the tool:
+
+```
+skill({ name: "git-release" })
+```
+
+---
+
+## [Configure permissions](#configure-permissions)
+
+Control which skills agents can access using pattern-based permissions in `opencode.json`:
+
+```
+{  "permission": {    "skill": {      "*": "allow",      "pr-review": "allow",      "internal-*": "deny",      "experimental-*": "ask"    }  }}
+```
+
+Permission
+
+Behavior
+
+`allow`
+
+Skill loads immediately
+
+`deny`
+
+Skill hidden from agent, access rejected
+
+`ask`
+
+User prompted for approval before loading
+
+Patterns support wildcards: `internal-*` matches `internal-docs`, `internal-tools`, etc.
+
+---
+
+## [Override per agent](#override-per-agent)
+
+Give specific agents different permissions than the global defaults.
+
+**For custom agents** (in agent frontmatter):
+
+```
+---permission:  skill:    "documents-*": "allow"---
+```
+
+**For built-in agents** (in `opencode.json`):
+
+```
+{  "agent": {    "plan": {      "permission": {        "skill": {          "internal-*": "allow"        }      }    }  }}
+```
+
+---
+
+## [Disable the skill tool](#disable-the-skill-tool)
+
+Completely disable skills for agents that shouldn’t use them:
+
+**For custom agents**:
+
+```
+---tools:  skill: false---
+```
+
+**For built-in agents**:
+
+```
+{  "agent": {    "plan": {      "tools": {        "skill": false      }    }  }}
+```
+
+When disabled, the `<available_skills>` section is omitted entirely.
+
+---
+
+## [Troubleshoot loading](#troubleshoot-loading)
+
+If a skill does not show up:
+
+1.  Verify `SKILL.md` is spelled in all caps
+2.  Check that frontmatter includes `name` and `description`
+3.  Ensure skill names are unique across all locations
+4.  Check permissions—skills with `deny` are hidden from agents
+
+[Edit page](https://github.com/anomalyco/opencode/edit/dev/packages/web/src/content/docs/skills.mdx)[Found a bug? Open an issue](https://github.com/anomalyco/opencode/issues/new)[Join our Discord community](https://opencode.ai/discord) Select language EnglishالعربيةBosanskiDanskDeutschEspañolFrançaisItaliano日本語한국어Norsk BokmålPolskiPortuguês (Brasil)РусскийไทยTürkçe简体中文繁體中文 
+
+© [Anomaly](https://anoma.ly)
+
+Last updated: May 10, 2026
+```
+
+**Tool: webfetch**
+
+**Input:**
+```json
+{
+  "url": "https://github.com/tobi/qmd",
+  "format": "markdown",
+  "timeout": 60
+}
+```
+
+**Output:**
+```
+                     GitHub - tobi/qmd: mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local · GitHub                                             
+
+[Skip to content](#start-of-content)   
+
+## Navigation Menu
+
+Toggle navigation
+
+[](/)
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Ftobi%2Fqmd)
+
+Appearance settings
+
+  
+
+-   Platform
+    
+    -   AI CODE CREATION
+        
+        -   [
+            
+            GitHub CopilotWrite better code with AI
+            
+            ](https://github.com/features/copilot)
+        -   [
+            
+            GitHub SparkBuild and deploy intelligent apps
+            
+            ](https://github.com/features/spark)
+        -   [
+            
+            GitHub ModelsManage and compare prompts
+            
+            ](https://github.com/features/models)
+        -   [
+            
+            MCP RegistryNewIntegrate external tools
+            
+            ](https://github.com/mcp)
+        
+    -   DEVELOPER WORKFLOWS
+        
+        -   [
+            
+            ActionsAutomate any workflow
+            
+            ](https://github.com/features/actions)
+        -   [
+            
+            CodespacesInstant dev environments
+            
+            ](https://github.com/features/codespaces)
+        -   [
+            
+            IssuesPlan and track work
+            
+            ](https://github.com/features/issues)
+        -   [
+            
+            Code ReviewManage code changes
+            
+            ](https://github.com/features/code-review)
+        
+    -   APPLICATION SECURITY
+        
+        -   [
+            
+            GitHub Advanced SecurityFind and fix vulnerabilities
+            
+            ](https://github.com/security/advanced-security)
+        -   [
+            
+            Code securitySecure your code as you build
+            
+            ](https://github.com/security/advanced-security/code-security)
+        -   [
+            
+            Secret protectionStop leaks before they start
+            
+            ](https://github.com/security/advanced-security/secret-protection)
+        
+    -   EXPLORE
+        
+        -   [Why GitHub](https://github.com/why-github)
+        -   [Documentation](https://docs.github.com)
+        -   [Blog](https://github.blog)
+        -   [Changelog](https://github.blog/changelog)
+        -   [Marketplace](https://github.com/marketplace)
+        
+    
+    [View all features](https://github.com/features)
+    
+-   Solutions
+    
+    -   BY COMPANY SIZE
+        
+        -   [Enterprises](https://github.com/enterprise)
+        -   [Small and medium teams](https://github.com/team)
+        -   [Startups](https://github.com/enterprise/startups)
+        -   [Nonprofits](https://github.com/solutions/industry/nonprofits)
+        
+    -   BY USE CASE
+        
+        -   [App Modernization](https://github.com/solutions/use-case/app-modernization)
+        -   [DevSecOps](https://github.com/solutions/use-case/devsecops)
+        -   [DevOps](https://github.com/solutions/use-case/devops)
+        -   [CI/CD](https://github.com/solutions/use-case/ci-cd)
+        -   [View all use cases](https://github.com/solutions/use-case)
+        
+    -   BY INDUSTRY
+        
+        -   [Healthcare](https://github.com/solutions/industry/healthcare)
+        -   [Financial services](https://github.com/solutions/industry/financial-services)
+        -   [Manufacturing](https://github.com/solutions/industry/manufacturing)
+        -   [Government](https://github.com/solutions/industry/government)
+        -   [View all industries](https://github.com/solutions/industry)
+        
+    
+    [View all solutions](https://github.com/solutions)
+    
+-   Resources
+    
+    -   EXPLORE BY TOPIC
+        
+        -   [AI](https://github.com/resources/articles?topic=ai)
+        -   [Software Development](https://github.com/resources/articles?topic=software-development)
+        -   [DevOps](https://github.com/resources/articles?topic=devops)
+        -   [Security](https://github.com/resources/articles?topic=security)
+        -   [View all topics](https://github.com/resources/articles)
+        
+    -   EXPLORE BY TYPE
+        
+        -   [Customer stories](https://github.com/customer-stories)
+        -   [Events & webinars](https://github.com/resources/events)
+        -   [Ebooks & reports](https://github.com/resources/whitepapers)
+        -   [Business insights](https://github.com/solutions/executive-insights)
+        -   [GitHub Skills](https://skills.github.com)
+        
+    -   SUPPORT & SERVICES
+        
+        -   [Documentation](https://docs.github.com)
+        -   [Customer support](https://support.github.com)
+        -   [Community forum](https://github.com/orgs/community/discussions)
+        -   [Trust center](https://github.com/trust-center)
+        -   [Partners](https://github.com/partners)
+        
+    
+    [View all resources](https://github.com/resources)
+    
+-   Open Source
+    
+    -   COMMUNITY
+        
+        -   [
+            
+            GitHub SponsorsFund open source developers
+            
+            ](https://github.com/sponsors)
+        
+    -   PROGRAMS
+        
+        -   [Security Lab](https://securitylab.github.com)
+        -   [Maintainer Community](https://maintainers.github.com)
+        -   [Accelerator](https://github.com/accelerator)
+        -   [GitHub Stars](https://stars.github.com)
+        -   [Archive Program](https://archiveprogram.github.com)
+        
+    -   REPOSITORIES
+        
+        -   [Topics](https://github.com/topics)
+        -   [Trending](https://github.com/trending)
+        -   [Collections](https://github.com/collections)
+        
+    
+-   Enterprise
+    
+    -   ENTERPRISE SOLUTIONS
+        
+        -   [
+            
+            Enterprise platformAI-powered developer platform
+            
+            ](https://github.com/enterprise)
+        
+    -   AVAILABLE ADD-ONS
+        
+        -   [
+            
+            GitHub Advanced SecurityEnterprise-grade security features
+            
+            ](https://github.com/security/advanced-security)
+        -   [
+            
+            Copilot for BusinessEnterprise-grade AI features
+            
+            ](https://github.com/features/copilot/copilot-business)
+        -   [
+            
+            Premium SupportEnterprise-grade 24/7 support
+            
+            ](https://github.com/premium-support)
+        
+    
+-   [Pricing](https://github.com/pricing)
+
+Search or jump to...
+
+# Search code, repositories, users, issues, pull requests...
+
+Search
+
+Clear
+
+[Search syntax tips](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax)
+
+# Provide feedback
+
+We read every piece of feedback, and take your input very seriously.
+
+ Include my email address so I can be contacted
+
+Cancel Submit feedback
+
+# Saved searches
+
+## Use saved searches to filter your results more quickly
+
+Name  
+
+Query 
+
+To see all available qualifiers, see our [documentation](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax).
+
+Cancel Create saved search
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Ftobi%2Fqmd)
+
+[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=tobi%2Fqmd)
+
+Appearance settings
+
+Resetting focus
+
+You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert
+
+[tobi](/tobi) / **[qmd](/tobi/qmd)** Public
+
+-   [Notifications](/login?return_to=%2Ftobi%2Fqmd) You must be signed in to change notification settings
+-   [Fork 1.5k](/login?return_to=%2Ftobi%2Fqmd)
+-   [Star 24.5k](/login?return_to=%2Ftobi%2Fqmd)
+    
+
+-   [Code](/tobi/qmd)
+-   [Issues 207](/tobi/qmd/issues)
+-   [Pull requests 134](/tobi/qmd/pulls)
+-   [Actions](/tobi/qmd/actions)
+-   [Projects](/tobi/qmd/projects)
+-   [Security and quality 0](/tobi/qmd/security)
+-   [Insights](/tobi/qmd/pulse)
+
+Additional navigation options
+
+-   [Code](/tobi/qmd)
+-   [Issues](/tobi/qmd/issues)
+-   [Pull requests](/tobi/qmd/pulls)
+-   [Actions](/tobi/qmd/actions)
+-   [Projects](/tobi/qmd/projects)
+-   [Security and quality](/tobi/qmd/security)
+-   [Insights](/tobi/qmd/pulse)
+
+ [](/tobi/qmd)
+
+# tobi/qmd
+
+ main
+
+[Branches](/tobi/qmd/branches)[Tags](/tobi/qmd/tags)
+
+[](/tobi/qmd/branches)[](/tobi/qmd/tags)
+
+Go to file
+
+Code
+
+Open more actions menu
+
+## Folders and files
+
+Name
+
+Name
+
+Last commit message
+
+Last commit date
+
+## Latest commit
+
+## History
+
+[484 Commits](/tobi/qmd/commits/main/)
+
+[](/tobi/qmd/commits/main/)484 Commits
+
+[.claude-plugin](/tobi/qmd/tree/main/.claude-plugin ".claude-plugin")
+
+[.claude-plugin](/tobi/qmd/tree/main/.claude-plugin ".claude-plugin")
+
+[.github/workflows](/tobi/qmd/tree/main/.github/workflows "This path skips through empty directories")
+
+[.github/workflows](/tobi/qmd/tree/main/.github/workflows "This path skips through empty directories")
+
+[.pi](/tobi/qmd/tree/main/.pi ".pi")
+
+[.pi](/tobi/qmd/tree/main/.pi ".pi")
+
+[assets](/tobi/qmd/tree/main/assets "assets")
+
+[assets](/tobi/qmd/tree/main/assets "assets")
+
+[bin](/tobi/qmd/tree/main/bin "bin")
+
+[bin](/tobi/qmd/tree/main/bin "bin")
+
+[docs](/tobi/qmd/tree/main/docs "docs")
+
+[docs](/tobi/qmd/tree/main/docs "docs")
+
+[finetune](/tobi/qmd/tree/main/finetune "finetune")
+
+[finetune](/tobi/qmd/tree/main/finetune "finetune")
+
+[scripts](/tobi/qmd/tree/main/scripts "scripts")
+
+[scripts](/tobi/qmd/tree/main/scripts "scripts")
+
+[skills](/tobi/qmd/tree/main/skills "skills")
+
+[skills](/tobi/qmd/tree/main/skills "skills")
+
+[src](/tobi/qmd/tree/main/src "src")
+
+[src](/tobi/qmd/tree/main/src "src")
+
+[test](/tobi/qmd/tree/main/test "test")
+
+[test](/tobi/qmd/tree/main/test "test")
+
+[.gitattributes](/tobi/qmd/blob/main/.gitattributes ".gitattributes")
+
+[.gitattributes](/tobi/qmd/blob/main/.gitattributes ".gitattributes")
+
+[.gitignore](/tobi/qmd/blob/main/.gitignore ".gitignore")
+
+[.gitignore](/tobi/qmd/blob/main/.gitignore ".gitignore")
+
+[CHANGELOG.md](/tobi/qmd/blob/main/CHANGELOG.md "CHANGELOG.md")
+
+[CHANGELOG.md](/tobi/qmd/blob/main/CHANGELOG.md "CHANGELOG.md")
+
+[CLAUDE.md](/tobi/qmd/blob/main/CLAUDE.md "CLAUDE.md")
+
+[CLAUDE.md](/tobi/qmd/blob/main/CLAUDE.md "CLAUDE.md")
+
+[LICENSE](/tobi/qmd/blob/main/LICENSE "LICENSE")
+
+[LICENSE](/tobi/qmd/blob/main/LICENSE "LICENSE")
+
+[README.md](/tobi/qmd/blob/main/README.md "README.md")
+
+[README.md](/tobi/qmd/blob/main/README.md "README.md")
+
+[bun.lock](/tobi/qmd/blob/main/bun.lock "bun.lock")
+
+[bun.lock](/tobi/qmd/blob/main/bun.lock "bun.lock")
+
+[example-index.yml](/tobi/qmd/blob/main/example-index.yml "example-index.yml")
+
+[example-index.yml](/tobi/qmd/blob/main/example-index.yml "example-index.yml")
+
+[flake.lock](/tobi/qmd/blob/main/flake.lock "flake.lock")
+
+[flake.lock](/tobi/qmd/blob/main/flake.lock "flake.lock")
+
+[flake.nix](/tobi/qmd/blob/main/flake.nix "flake.nix")
+
+[flake.nix](/tobi/qmd/blob/main/flake.nix "flake.nix")
+
+[migrate-schema.ts](/tobi/qmd/blob/main/migrate-schema.ts "migrate-schema.ts")
+
+[migrate-schema.ts](/tobi/qmd/blob/main/migrate-schema.ts "migrate-schema.ts")
+
+[package.json](/tobi/qmd/blob/main/package.json "package.json")
+
+[package.json](/tobi/qmd/blob/main/package.json "package.json")
+
+[pnpm-lock.yaml](/tobi/qmd/blob/main/pnpm-lock.yaml "pnpm-lock.yaml")
+
+[pnpm-lock.yaml](/tobi/qmd/blob/main/pnpm-lock.yaml "pnpm-lock.yaml")
+
+[tsconfig.build.json](/tobi/qmd/blob/main/tsconfig.build.json "tsconfig.build.json")
+
+[tsconfig.build.json](/tobi/qmd/blob/main/tsconfig.build.json "tsconfig.build.json")
+
+[tsconfig.json](/tobi/qmd/blob/main/tsconfig.json "tsconfig.json")
+
+[tsconfig.json](/tobi/qmd/blob/main/tsconfig.json "tsconfig.json")
+
+[vitest.config.ts](/tobi/qmd/blob/main/vitest.config.ts "vitest.config.ts")
+
+[vitest.config.ts](/tobi/qmd/blob/main/vitest.config.ts "vitest.config.ts")
+
+View all files
+
+## Repository files navigation
+
+-   [README](#)
+-   [MIT license](#)
+
+# QMD - Query Markup Documents
+
+[](#qmd---query-markup-documents)
+
+An on-device search engine for everything you need to remember. Index your markdown notes, meeting transcripts, documentation, and knowledge bases. Search with keywords or natural language. Ideal for your agentic flows.
+
+QMD combines BM25 full-text search, vector semantic search, and LLM re-ranking—all running locally via node-llama-cpp with GGUF models.
+
+[![QMD Architecture](/tobi/qmd/raw/main/assets/qmd-architecture.png)](/tobi/qmd/blob/main/assets/qmd-architecture.png)
+
+You can read more about QMD's progress in the [CHANGELOG](/tobi/qmd/blob/main/CHANGELOG.md).
+
+## Quick Start
+
+[](#quick-start)
+
+# Install globally (Node or Bun)
+npm install -g @tobilu/qmd
+# or
+bun install -g @tobilu/qmd
+
+# Or run directly
+npx @tobilu/qmd ...
+bunx @tobilu/qmd ...
+
+# Create collections for your notes, docs, and meeting transcripts
+qmd collection add ~/notes --name notes
+qmd collection add ~/Documents/meetings --name meetings
+qmd collection add ~/work/docs --name docs
+
+# Add context to help with search results, each piece of context will be returned when matching sub documents are returned. This works as a tree. This is the key feature of QMD as it allows LLMs to make much better contextual choices when selecting documents. Don't sleep on it!
+qmd context add qmd://notes "Personal notes and ideas"
+qmd context add qmd://meetings "Meeting transcripts and notes"
+qmd context add qmd://docs "Work documentation"
+
+# Generate embeddings for semantic search
+qmd embed
+
+# Search across everything
+qmd search "project timeline"           # Fast keyword search
+qmd vsearch "how to deploy"             # Semantic search
+qmd query "quarterly planning process"  # Hybrid + reranking (best quality)
+
+# Get a specific document
+qmd get "meetings/2024-01-15.md"
+
+# Get a document by docid (shown in search results)
+qmd get "#abc123"
+
+# Get multiple documents by glob pattern
+qmd multi-get "journals/2025-05\*.md"
+
+# Search within a specific collection
+qmd search "API" -c notes
+
+# Export all matches for an agent
+qmd search "API" --all --files --min-score 0.3
+
+### Using with AI Agents
+
+[](#using-with-ai-agents)
+
+QMD's `--json` and `--files` output formats are designed for agentic workflows:
+
+# Get structured results for an LLM
+qmd search "authentication" --json -n 10
+
+# List all relevant files above a threshold
+qmd query "error handling" --all --files --min-score 0.4
+
+# Retrieve full document content
+qmd get "docs/api-reference.md" --full
+
+### MCP Server
+
+[](#mcp-server)
+
+Although the tool works perfectly fine when you just tell your agent to use it on the command line, it also exposes an MCP (Model Context Protocol) server for tighter integration.
+
+**Tools exposed:**
+
+-   `query` — Search with typed sub-queries (`lex`/`vec`/`hyde`), combined via RRF + reranking
+-   `get` — Retrieve a document by path or docid (with fuzzy matching suggestions)
+-   `multi_get` — Batch retrieve by glob pattern, comma-separated list, or docids
+-   `status` — Index health and collection info
+
+**Claude Desktop configuration** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+
+{
+  "mcpServers": {
+    "qmd": {
+      "command": "qmd",
+      "args": \["mcp"\]
+    }
+  }
+}
+
+**Claude Code** — Install the plugin (recommended):
+
+claude plugin marketplace add tobi/qmd
+claude plugin install qmd@qmd
+
+Or configure MCP manually in `~/.claude/settings.json`:
+
+{
+  "mcpServers": {
+    "qmd": {
+      "command": "qmd",
+      "args": \["mcp"\]
+    }
+  }
+}
+
+#### HTTP Transport
+
+[](#http-transport)
+
+By default, QMD's MCP server uses stdio (launched as a subprocess by each client). For a shared, long-lived server that avoids repeated model loading, use the HTTP transport:
+
+# Foreground (Ctrl-C to stop)
+qmd mcp --http                    # localhost:8181
+qmd mcp --http --port 8080        # custom port
+
+# Background daemon
+qmd mcp --http --daemon           # start, writes PID to ~/.cache/qmd/mcp.pid
+qmd mcp stop                      # stop via PID file
+qmd status                        # shows "MCP: running (PID ...)" when active
+
+The HTTP server exposes two endpoints:
+
+-   `POST /mcp` — MCP Streamable HTTP (JSON responses, stateless)
+-   `GET /health` — liveness check with uptime
+
+LLM models stay loaded in VRAM across requests. Embedding/reranking contexts are disposed after 5 min idle and transparently recreated on the next request (~1s penalty, models remain loaded).
+
+Point any MCP client at `http://localhost:8181/mcp` to connect.
+
+### SDK / Library Usage
+
+[](#sdk--library-usage)
+
+Use QMD as a library in your own Node.js or Bun applications.
+
+#### Installation
+
+[](#installation)
+
+npm install @tobilu/qmd
+
+#### Quick Start
+
+[](#quick-start-1)
+
+import { createStore } from '@tobilu/qmd'
+
+const store \= await createStore({
+  dbPath: './my-index.sqlite',
+  config: {
+    collections: {
+      docs: { path: '/path/to/docs', pattern: '\*\*/\*.md' },
+    },
+  },
+})
+
+const results \= await store.search({ query: "authentication flow" })
+console.log(results.map(r \=> \`${r.title} (${Math.round(r.score \* 100)}%)\`))
+
+await store.close()
+
+#### Store Creation
+
+[](#store-creation)
+
+`createStore()` accepts three modes:
+
+import { createStore } from '@tobilu/qmd'
+
+// 1. Inline config — no files needed besides the DB
+const store \= await createStore({
+  dbPath: './index.sqlite',
+  config: {
+    collections: {
+      docs: { path: '/path/to/docs', pattern: '\*\*/\*.md' },
+      notes: { path: '/path/to/notes' },
+    },
+  },
+})
+
+// 2. YAML config file — collections defined in a file
+const store2 \= await createStore({
+  dbPath: './index.sqlite',
+  configPath: './qmd.yml',
+})
+
+// 3. DB-only — reopen a previously configured store
+const store3 \= await createStore({ dbPath: './index.sqlite' })
+
+#### Search
+
+[](#search)
+
+The unified `search()` method handles both simple queries and pre-expanded structured queries:
+
+// Simple query — auto-expanded via LLM, then BM25 + vector + reranking
+const results \= await store.search({ query: "authentication flow" })
+
+// With options
+const results2 \= await store.search({
+  query: "rate limiting",
+  intent: "API throttling and abuse prevention",
+  collection: "docs",
+  limit: 5,
+  minScore: 0.3,
+  explain: true,
+})
+
+// Pre-expanded queries — skip auto-expansion, control each sub-query
+const results3 \= await store.search({
+  queries: \[
+    { type: 'lex', query: '"connection pool" timeout -redis' },
+    { type: 'vec', query: 'why do database connections time out under load' },
+  \],
+  collections: \["docs", "notes"\],
+})
+
+// Skip reranking for faster results
+const fast \= await store.search({ query: "auth", rerank: false })
+
+For direct backend access:
+
+// BM25 keyword search (fast, no LLM)
+const lexResults \= await store.searchLex("auth middleware", { limit: 10 })
+
+// Vector similarity search (embedding model, no reranking)
+const vecResults \= await store.searchVector("how users log in", { limit: 10 })
+
+// Manual query expansion for full control
+const expanded \= await store.expandQuery("auth flow", { intent: "user login" })
+const results4 \= await store.search({ queries: expanded })
+
+#### Retrieval
+
+[](#retrieval)
+
+// Get a document by path or docid
+const doc \= await store.get("docs/readme.md")
+const byId \= await store.get("#abc123")
+
+if (!("error" in doc)) {
+  console.log(doc.title, doc.displayPath, doc.context)
+}
+
+// Get document body with line range
+const body \= await store.getDocumentBody("docs/readme.md", {
+  fromLine: 50,
+  maxLines: 100,
+})
+
+// Batch retrieve by glob or comma-separated list
+const { docs, errors } \= await store.multiGet("docs/\*\*/\*.md", {
+  maxBytes: 20480,
+})
+
+#### Collections
+
+[](#collections)
+
+// Add a collection
+await store.addCollection("myapp", {
+  path: "/src/myapp",
+  pattern: "\*\*/\*.ts",
+  ignore: \["node\_modules/\*\*", "\*.test.ts"\],
+})
+
+// List collections with document stats
+const collections \= await store.listCollections()
+// => \[{ name, pwd, glob\_pattern, doc\_count, active\_count, last\_modified, includeByDefault }\]
+
+// Get names of collections included in queries by default
+const defaults \= await store.getDefaultCollectionNames()
+
+// Remove / rename
+await store.removeCollection("myapp")
+await store.renameCollection("old-name", "new-name")
+
+#### Context
+
+[](#context)
+
+Context adds descriptive metadata that improves search relevance and is returned alongside results:
+
+// Add context for a path within a collection
+await store.addContext("docs", "/api", "REST API reference documentation")
+
+// Set global context (applies to all collections)
+await store.setGlobalContext("Internal engineering documentation")
+
+// List all contexts
+const contexts \= await store.listContexts()
+// => \[{ collection, path, context }\]
+
+// Remove context
+await store.removeContext("docs", "/api")
+await store.setGlobalContext(undefined)  // clear global
+
+#### Indexing
+
+[](#indexing)
+
+// Re-index collections by scanning the filesystem
+const result \= await store.update({
+  collections: \["docs"\],  // optional — defaults to all
+  onProgress: ({ collection, file, current, total }) \=> {
+    console.log(\`\[${collection}\] ${current}/${total} ${file}\`)
+  },
+})
+// => { collections, indexed, updated, unchanged, removed, needsEmbedding }
+
+// Generate vector embeddings
+const embedResult \= await store.embed({
+  force: false,           // true to re-embed everything
+  chunkStrategy: "auto",  // "regex" (default) or "auto" (AST for code files)
+  onProgress: ({ current, total, collection }) \=> {
+    console.log(\`Embedding ${current}/${total}\`)
+  },
+})
+
+#### Types
+
+[](#types)
+
+Key types exported for SDK consumers:
+
+import type {
+  QMDStore,            // The store interface
+  SearchOptions,       // Options for search()
+  LexSearchOptions,    // Options for searchLex()
+  VectorSearchOptions, // Options for searchVector()
+  HybridQueryResult,   // Search result with score, snippet, context
+  SearchResult,        // Result from searchLex/searchVector
+  ExpandedQuery,       // Typed sub-query { type: 'lex'|'vec'|'hyde', query }
+  DocumentResult,      // Document metadata + body
+  DocumentNotFound,    // Error with similarFiles suggestions
+  MultiGetResult,      // Batch retrieval result
+  UpdateProgress,      // Progress callback info for update()
+  UpdateResult,        // Aggregated update result
+  EmbedProgress,       // Progress callback info for embed()
+  EmbedResult,         // Embedding result
+  StoreOptions,        // createStore() options
+  CollectionConfig,    // Inline config shape
+  IndexStatus,         // From getStatus()
+  IndexHealthInfo,     // From getIndexHealth()
+} from '@tobilu/qmd'
+
+Utility exports:
+
+import {
+  extractSnippet,              // Extract a relevant snippet from text
+  addLineNumbers,              // Add line numbers to text
+  DEFAULT\_MULTI\_GET\_MAX\_BYTES, // Default max file size for multiGet (10KB)
+  Maintenance,                 // Database maintenance operations
+} from '@tobilu/qmd'
+
+#### Lifecycle
+
+[](#lifecycle)
+
+// Close the store — disposes LLM models and DB connection
+await store.close()
+
+The SDK requires explicit `dbPath` — no defaults are assumed. This makes it safe to embed in any application without side effects.
+
+## Architecture
+
+[](#architecture)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         QMD Hybrid Search Pipeline                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+                              ┌─────────────────┐
+                              │   User Query    │
+                              └────────┬────────┘
+                                       │
+                        ┌──────────────┴──────────────┐
+                        ▼                             ▼
+               ┌────────────────┐            ┌────────────────┐
+               │ Query Expansion│            │  Original Query│
+               │  (fine-tuned)  │            │   (×2 weight)  │
+               └───────┬────────┘            └───────┬────────┘
+                       │                             │
+                       │ 2 alternative queries       │
+                       └──────────────┬──────────────┘
+                                      │
+              ┌───────────────────────┼───────────────────────┐
+              ▼                       ▼                       ▼
+     ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+     │ Original Query  │     │ Expanded Query 1│     │ Expanded Query 2│
+     └────────┬────────┘     └────────┬────────┘     └────────┬────────┘
+              │                       │                       │
+      ┌───────┴───────┐       ┌───────┴───────┐       ┌───────┴───────┐
+      ▼               ▼       ▼               ▼       ▼               ▼
+  ┌───────┐       ┌───────┐ ┌───────┐     ┌───────┐ ┌───────┐     ┌───────┐
+  │ BM25  │       │Vector │ │ BM25  │     │Vector │ │ BM25  │     │Vector │
+  │(FTS5) │       │Search │ │(FTS5) │     │Search │ │(FTS5) │     │Search │
+  └───┬───┘       └───┬───┘ └───┬───┘     └───┬───┘ └───┬───┘     └───┬───┘
+      │               │         │             │         │             │
+      └───────┬───────┘         └──────┬──────┘         └──────┬──────┘
+              │                        │                       │
+              └────────────────────────┼───────────────────────┘
+                                       │
+                                       ▼
+                          ┌───────────────────────┐
+                          │   RRF Fusion + Bonus  │
+                          │  Original query: ×2   │
+                          │  Top-rank bonus: +0.05│
+                          │     Top 30 Kept       │
+                          └───────────┬───────────┘
+                                      │
+                                      ▼
+                          ┌───────────────────────┐
+                          │    LLM Re-ranking     │
+                          │  (qwen3-reranker)     │
+                          │  Yes/No + logprobs    │
+                          └───────────┬───────────┘
+                                      │
+                                      ▼
+                          ┌───────────────────────┐
+                          │  Position-Aware Blend │
+                          │  Top 1-3:  75% RRF    │
+                          │  Top 4-10: 60% RRF    │
+                          │  Top 11+:  40% RRF    │
+                          └───────────────────────┘
+```
+
+## Score Normalization & Fusion
+
+[](#score-normalization--fusion)
+
+### Search Backends
+
+[](#search-backends)
+
+Backend
+
+Raw Score
+
+Conversion
+
+Range
+
+**FTS (BM25)**
+
+SQLite FTS5 BM25
+
+`Math.abs(score)`
+
+0 to ~25+
+
+**Vector**
+
+Cosine distance
+
+`1 / (1 + distance)`
+
+0.0 to 1.0
+
+**Reranker**
+
+LLM 0-10 rating
+
+`score / 10`
+
+0.0 to 1.0
+
+### Fusion Strategy
+
+[](#fusion-strategy)
+
+The `query` command uses **Reciprocal Rank Fusion (RRF)** with position-aware blending:
+
+1.  **Query Expansion**: Original query (×2 for weighting) + 1 LLM variation
+2.  **Parallel Retrieval**: Each query searches both FTS and vector indexes
+3.  **RRF Fusion**: Combine all result lists using `score = Σ(1/(k+rank+1))` where k=60
+4.  **Top-Rank Bonus**: Documents ranking #1 in any list get +0.05, #2-3 get +0.02
+5.  **Top-K Selection**: Take top 30 candidates for reranking
+6.  **Re-ranking**: LLM scores each document (yes/no with logprobs confidence)
+7.  **Position-Aware Blending**:
+    -   RRF rank 1-3: 75% retrieval, 25% reranker (preserves exact matches)
+    -   RRF rank 4-10: 60% retrieval, 40% reranker
+    -   RRF rank 11+: 40% retrieval, 60% reranker (trust reranker more)
+
+**Why this approach**: Pure RRF can dilute exact matches when expanded queries don't match. The top-rank bonus preserves documents that score #1 for the original query. Position-aware blending prevents the reranker from destroying high-confidence retrieval results.
+
+### Score Interpretation
+
+[](#score-interpretation)
+
+Score
+
+Meaning
+
+0.8 - 1.0
+
+Highly relevant
+
+0.5 - 0.8
+
+Moderately relevant
+
+0.2 - 0.5
+
+Somewhat relevant
+
+0.0 - 0.2
+
+Low relevance
+
+## Requirements
+
+[](#requirements)
+
+### System Requirements
+
+[](#system-requirements)
+
+-   **Node.js** >= 22
+-   **Bun** >= 1.0.0
+-   **macOS**: Homebrew SQLite (for extension support)
+    
+    brew install sqlite
+    
+
+### GGUF Models (via node-llama-cpp)
+
+[](#gguf-models-via-node-llama-cpp)
+
+QMD uses three local GGUF models (auto-downloaded on first use):
+
+Model
+
+Purpose
+
+Size
+
+`embeddinggemma-300M-Q8_0`
+
+Vector embeddings (default)
+
+~300MB
+
+`qwen3-reranker-0.6b-q8_0`
+
+Re-ranking
+
+~640MB
+
+`qmd-query-expansion-1.7B-q4_k_m`
+
+Query expansion (fine-tuned)
+
+~1.1GB
+
+Models are downloaded from HuggingFace and cached in `~/.cache/qmd/models/`.
+
+### Custom Embedding Model
+
+[](#custom-embedding-model)
+
+Override the default embedding model via the `QMD_EMBED_MODEL` environment variable. This is useful for multilingual corpora (e.g. Chinese, Japanese, Korean) where `embeddinggemma-300M` has limited coverage.
+
+# Use Qwen3-Embedding-0.6B for better multilingual (CJK) support
+export QMD\_EMBED\_MODEL="hf:Qwen/Qwen3-Embedding-0.6B-GGUF/Qwen3-Embedding-0.6B-Q8\_0.gguf"
+
+# After changing the model, re-embed all collections:
+qmd embed -f
+
+Supported model families:
+
+-   **embeddinggemma** (default) — English-optimized, small footprint
+-   **Qwen3-Embedding** — Multilingual (119 languages including CJK), MTEB top-ranked
+
+> **Note:** When switching embedding models, you must re-index with `qmd embed -f` since vectors are not cross-compatible between models. The prompt format is automatically adjusted for each model family.
+
+## Installation
+
+[](#installation-1)
+
+npm install -g @tobilu/qmd
+# or
+bun install -g @tobilu/qmd
+
+### Development
+
+[](#development)
+
+git clone https://github.com/tobi/qmd
+cd qmd
+npm install
+npm link
+
+## Usage
+
+[](#usage)
+
+### Collection Management
+
+[](#collection-management)
+
+# Create a collection from current directory
+qmd collection add . --name myproject
+
+# Create a collection with explicit path and custom glob mask
+qmd collection add ~/Documents/notes --name notes --mask "\*\*/\*.md"
+
+# List all collections
+qmd collection list
+
+# Remove a collection
+qmd collection remove myproject
+
+# Rename a collection
+qmd collection rename myproject my-project
+
+# List files in a collection
+qmd ls notes
+qmd ls notes/subfolder
+
+### Generate Vector Embeddings
+
+[](#generate-vector-embeddings)
+
+# Embed all indexed documents (900 tokens/chunk, 15% overlap)
+qmd embed
+
+# Force re-embed everything
+qmd embed -f
+
+# Enable AST-aware chunking for code files (TS, JS, Python, Go, Rust)
+qmd embed --chunk-strategy auto
+
+# Also works with query for consistent chunk selection
+qmd query "auth flow" --chunk-strategy auto
+
+**AST-aware chunking** (`--chunk-strategy auto`) uses tree-sitter to chunk code files at function, class, and import boundaries instead of arbitrary text positions. This produces higher-quality chunks and better search results for codebases. Markdown and other file types always use regex-based chunking regardless of strategy.
+
+The default is `regex` (existing behavior). Use `--chunk-strategy auto` to opt in. Run `qmd status` to verify which grammars are available.
+
+> **Note:** Tree-sitter grammars are optional dependencies. If they are not installed, `--chunk-strategy auto` falls back to regex-only chunking automatically. Tested on both Node.js and Bun.
+
+### Context Management
+
+[](#context-management)
+
+Context adds descriptive metadata to collections and paths, helping search understand your content.
+
+# Add context to a collection (using qmd:// virtual paths)
+qmd context add qmd://notes "Personal notes and ideas"
+qmd context add qmd://docs/api "API documentation"
+
+# Add context from within a collection directory
+cd ~/notes && qmd context add "Personal notes and ideas"
+cd ~/notes/work && qmd context add "Work-related notes"
+
+# Add global context (applies to all collections)
+qmd context add / "Knowledge base for my projects"
+
+# List all contexts
+qmd context list
+
+# Remove context
+qmd context rm qmd://notes/old
+
+### Search Commands
+
+[](#search-commands)
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                        Search Modes                              │
+├──────────┬───────────────────────────────────────────────────────┤
+│ search   │ BM25 full-text search only                           │
+│ vsearch  │ Vector semantic search only                          │
+│ query    │ Hybrid: FTS + Vector + Query Expansion + Re-ranking  │
+└──────────┴───────────────────────────────────────────────────────┘
+```
+
+# Full-text search (fast, keyword-based)
+qmd search "authentication flow"
+
+# Vector search (semantic similarity)
+qmd vsearch "how to login"
+
+# Hybrid search with re-ranking (best quality)
+qmd query "user authentication"
+
+### Options
+
+[](#options)
+
+# Search options
+-n <num\>           # Number of results (default: 5, or 20 for --files/--json)
+-c, --collection   # Restrict search to a specific collection
+--all              # Return all matches (use with --min-score to filter)
+--min-score <num\>  # Minimum score threshold (default: 0)
+--full             # Show full document content
+--line-numbers     # Add line numbers to output
+--explain          # Include retrieval score traces (query, JSON/CLI output)
+--index <name\>     # Use named index
+
+# Output formats (for search and multi-get)
+--files            # Output: docid,score,filepath,context
+--json             # JSON output with snippets
+--csv              # CSV output
+--md               # Markdown output
+--xml              # XML output
+
+# Get options
+qmd get <file\>\[:line\]  # Get document, optionally starting at line
+-l <num\>               # Maximum lines to return
+--from <num\>           # Start from line number
+
+# Multi-get options
+-l <num\>           # Maximum lines per file
+--max-bytes <num\>  # Skip files larger than N bytes (default: 10KB)
+
+### Output Format
+
+[](#output-format)
+
+Default output is colorized CLI format (respects `NO_COLOR` env).
+
+When stdout is a TTY, result paths are emitted as clickable terminal hyperlinks (OSC 8). Clicking a path opens the file in your editor using an editor URI template.
+
+When stdout is not a TTY (for example piped to another command or redirected to a file), QMD emits plain text paths with no escape sequences.
+
+TTY example:
+
+```
+docs/guide.md:42 #a1b2c3
+Title: Software Craftsmanship
+Context: Work documentation
+Score: 93%
+
+This section covers the **craftsmanship** of building
+quality software with attention to detail.
+See also: engineering principles
+
+
+notes/meeting.md:15 #d4e5f6
+Title: Q4 Planning
+Context: Personal notes and ideas
+Score: 67%
+
+Discussion about code quality and craftsmanship
+in the development process.
+```
+
+Configure the editor link target with `QMD_EDITOR_URI` (or `editor_uri` in config):
+
+# VS Code (default)
+export QMD\_EDITOR\_URI="vscode://file/{path}:{line}:{col}"
+
+# Cursor
+export QMD\_EDITOR\_URI="cursor://file/{path}:{line}:{col}"
+
+# Zed
+export QMD\_EDITOR\_URI="zed://file/{path}:{line}:{col}"
+
+# Sublime Text
+export QMD\_EDITOR\_URI="subl://open?url=file://{path}&line={line}"
+
+Template placeholders:
+
+-   `{path}` absolute filesystem path (URI-encoded)
+    
+-   `{line}` 1-based line number
+    
+-   `{col}` or `{column}` 1-based column number
+    
+-   **Path**: Collection-relative path (e.g., `docs/guide.md`)
+    
+-   **Docid**: Short hash identifier (e.g., `#a1b2c3`) - use with `qmd get #a1b2c3`
+    
+-   **Title**: Extracted from document (first heading or filename)
+    
+-   **Context**: Path context if configured via `qmd context add`
+    
+-   **Score**: Color-coded (green >70%, yellow >40%, dim otherwise)
+    
+-   **Snippet**: Context around match with query terms highlighted
+    
+
+### Examples
+
+[](#examples)
+
+# Get 10 results with minimum score 0.3
+qmd query -n 10 --min-score 0.3 "API design patterns"
+
+# Output as markdown for LLM context
+qmd search --md --full "error handling"
+
+# JSON output for scripting
+qmd query --json "quarterly reports"
+
+# Inspect how each result was scored (RRF + rerank blend)
+qmd query --json --explain "quarterly reports"
+
+# Use separate index for different knowledge base
+qmd --index work search "quarterly reports"
+
+### Index Maintenance
+
+[](#index-maintenance)
+
+# Show index status and collections with contexts
+qmd status
+
+# Re-index all collections
+qmd update
+
+# Re-index with git pull first (for remote repos)
+qmd update --pull
+
+# Get document by filepath (with fuzzy matching suggestions)
+qmd get notes/meeting.md
+
+# Get document by docid (from search results)
+qmd get "#abc123"
+
+# Get document starting at line 50, max 100 lines
+qmd get notes/meeting.md:50 -l 100
+
+# Get multiple documents by glob pattern
+qmd multi-get "journals/2025-05\*.md"
+
+# Get multiple documents by comma-separated list (supports docids)
+qmd multi-get "doc1.md, doc2.md, #abc123"
+
+# Limit multi-get to files under 20KB
+qmd multi-get "docs/\*.md" --max-bytes 20480
+
+# Output multi-get as JSON for agent processing
+qmd multi-get "docs/\*.md" --json
+
+# Clean up cache and orphaned data
+qmd cleanup
+
+## Data Storage
+
+[](#data-storage)
+
+Index stored in: `~/.cache/qmd/index.sqlite`
+
+### Schema
+
+[](#schema)
+
+collections     \-- Indexed directories with name and glob patterns
+path\_contexts   \-- Context descriptions by virtual path (qmd://...)
+documents       \-- Markdown content with metadata and docid (6-char hash)
+documents\_fts   \-- FTS5 full-text index
+content\_vectors \-- Embedding chunks (hash, seq, pos, 900 tokens each)
+vectors\_vec     \-- sqlite-vec vector index (hash\_seq key)
+llm\_cache       \-- Cached LLM responses (query expansion, rerank scores)
+
+## Environment Variables
+
+[](#environment-variables)
+
+Variable
+
+Default
+
+Description
+
+`XDG_CACHE_HOME`
+
+`~/.cache`
+
+Cache directory location
+
+`QMD_LLAMA_GPU`
+
+`auto`
+
+Force llama.cpp GPU backend (`metal`, `vulkan`, `cuda`) or disable GPU with `false`
+
+`QMD_EMBED_PARALLELISM`
+
+automatic
+
+Override embedding/reranking context parallelism (1-8). Windows CUDA defaults to `1` because parallel CUDA contexts can crash with `ggml-cuda.cu:98`; use Vulkan or raise this only if your driver is stable.
+
+## How It Works
+
+[](#how-it-works)
+
+### Indexing Flow
+
+[](#indexing-flow)
+
+```
+Collection ──► Glob Pattern ──► Markdown Files ──► Parse Title ──► Hash Content
+    │                                                   │              │
+    │                                                   │              ▼
+    │                                                   │         Generate docid
+    │                                                   │         (6-char hash)
+    │                                                   │              │
+    └──────────────────────────────────────────────────►└──► Store in SQLite
+                                                                       │
+                                                                       ▼
+                                                                  FTS5 Index
+```
+
+### Embedding Flow
+
+[](#embedding-flow)
+
+Documents are chunked into ~900-token pieces with 15% overlap using smart boundary detection:
+
+```
+Document ──► Smart Chunk (~900 tokens) ──► Format each chunk ──► node-llama-cpp ──► Store Vectors
+                │                           "title | text"        embedBatch()
+                │
+                └─► Chunks stored with:
+                    - hash: document hash
+                    - seq: chunk sequence (0, 1, 2...)
+                    - pos: character position in original
+```
+
+### Smart Chunking
+
+[](#smart-chunking)
+
+Instead of cutting at hard token boundaries, QMD uses a scoring algorithm to find natural markdown break points. This keeps semantic units (sections, paragraphs, code blocks) together.
+
+**Break Point Scores:**
+
+Pattern
+
+Score
+
+Description
+
+`# Heading`
+
+100
+
+H1 - major section
+
+`## Heading`
+
+90
+
+H2 - subsection
+
+`### Heading`
+
+80
+
+H3
+
+`#### Heading`
+
+70
+
+H4
+
+`##### Heading`
+
+60
+
+H5
+
+`###### Heading`
+
+50
+
+H6
+
+` ``` `
+
+80
+
+Code block boundary
+
+`---` / `***`
+
+60
+
+Horizontal rule
+
+Blank line
+
+20
+
+Paragraph boundary
+
+`- item` / `1. item`
+
+5
+
+List item
+
+Line break
+
+1
+
+Minimal break
+
+**Algorithm:**
+
+1.  Scan document for all break points with scores
+2.  When approaching the 900-token target, search a 200-token window before the cutoff
+3.  Score each break point: `finalScore = baseScore × (1 - (distance/window)² × 0.7)`
+4.  Cut at the highest-scoring break point
+
+The squared distance decay means a heading 200 tokens back (score ~30) still beats a simple line break at the target (score 1), but a closer heading wins over a distant one.
+
+**Code Fence Protection:** Break points inside code blocks are ignored—code stays together. If a code block exceeds the chunk size, it's kept whole when possible.
+
+**AST-Aware Chunking (Code Files):**
+
+For supported code files, QMD also parses the source with [tree-sitter](https://tree-sitter.github.io/) and adds AST-derived break points that are merged with the regex scores above:
+
+AST Node
+
+Score
+
+Languages
+
+Class / interface / struct / impl / trait
+
+100
+
+All
+
+Function / method
+
+90
+
+All
+
+Type alias / enum
+
+80
+
+All
+
+Import / use declaration
+
+60
+
+All
+
+Supported for `.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.go`, and `.rs` files. Enable with `--chunk-strategy auto`. Markdown and other file types always use regex chunking.
+
+### Query Flow (Hybrid)
+
+[](#query-flow-hybrid)
+
+```
+Query ──► LLM Expansion ──► [Original, Variant 1, Variant 2]
+                │
+      ┌─────────┴─────────┐
+      ▼                   ▼
+   For each query:     FTS (BM25)
+      │                   │
+      ▼                   ▼
+   Vector Search      Ranked List
+      │
+      ▼
+   Ranked List
+      │
+      └─────────┬─────────┘
+                ▼
+         RRF Fusion (k=60)
+         Original query ×2 weight
+         Top-rank bonus: +0.05/#1, +0.02/#2-3
+                │
+                ▼
+         Top 30 candidates
+                │
+                ▼
+         LLM Re-ranking
+         (yes/no + logprob confidence)
+                │
+                ▼
+         Position-Aware Blend
+         Rank 1-3:  75% RRF / 25% reranker
+         Rank 4-10: 60% RRF / 40% reranker
+         Rank 11+:  40% RRF / 60% reranker
+                │
+                ▼
+         Final Results
+```
+
+## Model Configuration
+
+[](#model-configuration)
+
+Models are configured in `src/llm.ts` as HuggingFace URIs:
+
+const DEFAULT\_EMBED\_MODEL \= "hf:ggml-org/embeddinggemma-300M-GGUF/embeddinggemma-300M-Q8\_0.gguf";
+const DEFAULT\_RERANK\_MODEL \= "hf:ggml-org/Qwen3-Reranker-0.6B-Q8\_0-GGUF/qwen3-reranker-0.6b-q8\_0.gguf";
+const DEFAULT\_GENERATE\_MODEL \= "hf:tobil/qmd-query-expansion-1.7B-gguf/qmd-query-expansion-1.7B-q4\_k\_m.gguf";
+
+### EmbeddingGemma Prompt Format
+
+[](#embeddinggemma-prompt-format)
+
+```
+// For queries
+"task: search result | query: {query}"
+
+// For documents
+"title: {title} | text: {content}"
+```
+
+### Qwen3-Reranker
+
+[](#qwen3-reranker)
+
+Uses node-llama-cpp's `createRankingContext()` and `rankAndSort()` API for cross-encoder reranking. Returns documents sorted by relevance score (0.0 - 1.0).
+
+### Qwen3 (Query Expansion)
+
+[](#qwen3-query-expansion)
+
+Used for generating query variations via `LlamaChatSession`.
+
+## License
+
+[](#license)
+
+MIT
+
+## About
+
+mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local
+
+### Resources
+
+[Readme](#readme-ov-file)
+
+### License
+
+[MIT license](#MIT-1-ov-file)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+[Activity](/tobi/qmd/activity)
+
+### Stars
+
+[**24.5k** stars](/tobi/qmd/stargazers)
+
+### Watchers
+
+[**91** watching](/tobi/qmd/watchers)
+
+### Forks
+
+[**1.5k** forks](/tobi/qmd/forks)
+
+[Report repository](/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Ftobi%2Fqmd&report=tobi+%28user%29)
+
+## [Releases 10](/tobi/qmd/releases)
+
+[
+
+v2.1.0 Latest
+
+Apr 5, 2026
+
+
+
+](/tobi/qmd/releases/tag/v2.1.0)
+
+[\+ 9 releases](/tobi/qmd/releases)
+
+## [Packages 0](/users/tobi/packages?repo_name=qmd)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+## [Contributors](/tobi/qmd/graphs/contributors)
+
+### Uh oh!
+
+There was an error while loading. Please reload this page.
+
+## Languages
+
+-   [TypeScript 80.7%](/tobi/qmd/search?l=typescript)
+-   [Python 17.0%](/tobi/qmd/search?l=python)
+-   [Shell 1.6%](/tobi/qmd/search?l=shell)
+-   [Nix 0.4%](/tobi/qmd/search?l=nix)
+-   [Just 0.1%](/tobi/qmd/search?l=just)
+-   [Dockerfile 0.1%](/tobi/qmd/search?l=dockerfile)
+-   [JavaScript 0.1%](/tobi/qmd/search?l=javascript)
+
+## Footer
+
+[](https://github.com)© 2026 GitHub, Inc.
+
+### Footer navigation
+
+-   [Terms](https://docs.github.com/site-policy/github-terms/github-terms-of-service)
+-   [Privacy](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement)
+-   [Security](https://github.com/security)
+-   [Status](https://www.githubstatus.com/)
+-   [Community](https://github.community/)
+-   [Docs](https://docs.github.com/)
+-   [Contact](https://support.github.com?tags=dotcom-footer)
+-   Manage cookies
+-   Do not share my personal information
+
+You can’t perform that action at this time.
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 9.0s)
+
+_Thinking:_
+
+
+
+**Tool: glob**
+
+**Input:**
+```json
+{
+  "pattern": "wissen/raw/*.md",
+  "path": "/home/oli/newwork/dev/projects/llm-wiki-dev"
+}
+```
+
+**Output:**
+```
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-examples.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-github.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-docs.md
+/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/index.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.4s)
+
+_Thinking:_
+
+
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-github.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-github.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "Docling GitHub"
+3: source_link: "https://github.com/docling-project/docling"
+4: topic: "docling"
+5: tags: [ingest, web, docling, github]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # Docling GitHub
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://github.com/docling-project/docling
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize repository README/docs in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "NVK implementation"
+3: source_link: "https://github.com/nvk/llm-wiki"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, github]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # NVK implementation
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://github.com/nvk/llm-wiki
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize repository content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "OpenCode agent skills docs"
+3: source_link: "https://opencode.ai/docs/skills/"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, docs]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # OpenCode agent skills docs
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://opencode.ai/docs/skills/
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize docs content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 21.0s)
+
+_Thinking:_
+
+
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-docs.md\n@@\n ---\n title: \"Docling docs\"\n source_link: \"https://docling-project.github.io/docling/\"\n topic: \"docling\"\n-tags: [ingest, web, docling]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, docling, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n \n # Docling docs\n \n ## Source\n \n - Original URL: https://docling-project.github.io/docling/\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Positioning: Docling is a document processing stack for gen-AI use cases.\n+- Navigation areas: documentation, concepts, examples, integrations, API reference.\n+- Highlighted capabilities: multi-format parsing, PDF layout understanding, OCR, VLM/ASR support, MCP server, CLI usage.\n+- Ecosystem emphasis: LangChain, LlamaIndex, Haystack, and other integration pages are first-class in docs.\n+\n+## Extracted text sample\n+\n+\"Docling simplifies document processing, parsing diverse formats ... and providing seamless integrations with the gen AI ecosystem.\"\n+\n+\"Features\" list includes PDF understanding, markdown/html/json exports, OCR, VLM support, and MCP server support.\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize page content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://docling-project.github.io/docling/\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/docling-docs.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 9.0s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-examples.md\n@@\n ---\n title: \"Docling examples\"\n source_link: \"https://docling-project.github.io/docling/examples/\"\n topic: \"docling\"\n-tags: [ingest, web, docling, examples]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, docling, examples, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n \n # Docling examples\n \n ## Source\n \n - Original URL: https://docling-project.github.io/docling/examples/\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Example hub categories: conversion, chunking/serialization, extraction, RAG frameworks, enrichments, and GPU optimization.\n+- Includes an explicit agent-skill example path for assistant integrations.\n+- Multiple vector store and framework examples are listed (LangChain, LlamaIndex, Haystack, Milvus, Weaviate, Qdrant).\n+\n+## Extracted text sample\n+\n+\"Examples ... conversion, RAG, and more\" with navigation entries for visual grounding, extraction, chunking, and agent-skill usage.\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize page content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://docling-project.github.io/docling/examples/\n*** End Patch"
+}
+```
+
+**Error:**
+```
+apply_patch verification failed: Error: Failed to find expected lines in /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-examples.md:
+---
+title: "Docling examples"
+source_link: "https://docling-project.github.io/docling/examples/"
+topic: "docling"
+tags: [ingest, web, docling, examples]
+generated_at: "2026-05-10T09:27:39Z"
+---
+
+# Docling examples
+
+## Source
+
+- Original URL: https://docling-project.github.io/docling/examples/
+- Ingested from: wissen/inbox/weburl-index.md
+- Retrieval mode: metadata-only (URL content not fetched in this run)
+
+## Notes
+
+- Placeholder raw entry created from inbox URL queue.
+- Fetch and normalize page content in a follow-up ingest run when network retrieval is enabled.
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.1s)
+
+_Thinking:_
+
+
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-examples.md",
+  "offset": 1,
+  "limit": 120
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-examples.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "Docling examples"
+3: source_link: "https://docling-project.github.io/docling/examples/"
+4: topic: "docling"
+5: tags: [ingest, web, docling, examples]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # Docling examples
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://docling-project.github.io/docling/examples/
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize example page content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 10.9s)
+
+_Thinking:_
+
+**Planning a patch update**
+
+I’m figuring out how to patch with minimal notes by matching lines with "## Notes" and replacing below it, but regex might not work here. Instead, I want to replace all content of each file with the complete desired text in one go. I’ll check the remaining files quickly, perhaps in parallel, to get the exact names so I can approach it with placeholder lines. This will hopefully make the process easier!
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-github.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-github.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "Docling GitHub"
+3: source_link: "https://github.com/docling-project/docling"
+4: topic: "docling"
+5: tags: [ingest, web, docling, github]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # Docling GitHub
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://github.com/docling-project/docling
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize repository README/docs in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "Karpathy LLM Wiki gist"
+3: source_link: "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, gist]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # Karpathy LLM Wiki gist
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize gist content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "Lewislulu implementation"
+3: source_link: "https://github.com/lewislulu/llm-wiki-skill"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, github]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # Lewislulu implementation
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://github.com/lewislulu/llm-wiki-skill
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize repository content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "qmd local markdown search"
+3: source_link: "https://github.com/tobi/qmd"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, github]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # qmd local markdown search
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://github.com/tobi/qmd
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize repository content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "OpenCode agent skills docs"
+3: source_link: "https://opencode.ai/docs/skills/"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, docs]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # OpenCode agent skills docs
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://opencode.ai/docs/skills/
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize docs content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md",
+  "offset": 1,
+  "limit": 80
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "NVK implementation"
+3: source_link: "https://github.com/nvk/llm-wiki"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, github]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # NVK implementation
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://github.com/nvk/llm-wiki
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize repository content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+**Tool: read**
+
+**Input:**
+```json
+{
+  "filePath": "/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md",
+  "offset": 1,
+  "limit": 120
+}
+```
+
+**Output:**
+```
+<path>/home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md</path>
+<type>file</type>
+<content>
+1: ---
+2: title: "Karpathy raw idea file"
+3: source_link: "https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md"
+4: topic: "llm-wiki"
+5: tags: [ingest, web, llm-wiki, gist]
+6: generated_at: "2026-05-10T09:27:39Z"
+7: ---
+8: 
+9: # Karpathy raw idea file
+10: 
+11: ## Source
+12: 
+13: - Original URL: https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md
+14: - Ingested from: wissen/inbox/weburl-index.md
+15: - Retrieval mode: metadata-only (URL content not fetched in this run)
+16: 
+17: ## Notes
+18: 
+19: - Placeholder raw entry created from inbox URL queue.
+20: - Fetch and normalize raw markdown content in a follow-up ingest run when network retrieval is enabled.
+
+(End of file - total 20 lines)
+</content>
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 11.2s)
+
+_Thinking:_
+
+
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-examples.md\n@@\n ---\n title: \"Docling examples\"\n source_link: \"https://docling-project.github.io/docling/examples/\"\n topic: \"docling\"\n-tags: [ingest, web, docling, examples]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, docling, examples, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n@@\n - Original URL: https://docling-project.github.io/docling/examples/\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Example categories include conversion, serialization/chunking, information extraction, RAG patterns, enrichments, and GPU optimization.\n+- The docs include an explicit \"Agent skill (Cursor / assistants)\" example.\n+- The page acts as a hub for practical recipes with links to framework-specific examples.\n+\n+## Extracted text sample\n+\n+\"In this space, you can explore numerous Docling application recipes & end-to-end workflows!\"\n+\n+\"Agent skill ... for Cursor and other assistants\" is listed as a first-class example path.\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize example page content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://docling-project.github.io/docling/examples/\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/docling-examples.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 7.1s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/docling-github.md\n@@\n ---\n title: \"Docling GitHub\"\n source_link: \"https://github.com/docling-project/docling\"\n topic: \"docling\"\n-tags: [ingest, web, docling, github]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, docling, github, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n@@\n - Original URL: https://github.com/docling-project/docling\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Repository positioning: \"Get your documents ready for gen AI\".\n+- README highlights feature coverage for document parsing, export formats, OCR/VLM, and integrations.\n+- Public repo metadata captured (stars/forks/releases visible in fetched page snapshot).\n+\n+## Extracted text sample\n+\n+Quickstart snippet includes:\n+\n+- `pip install docling`\n+- CLI conversion example: `docling https://arxiv.org/pdf/2206.01062`\n+- Python API example with `DocumentConverter` and markdown export.\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize repository README/docs in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://github.com/docling-project/docling\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/docling-github.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 7.0s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md\n@@\n ---\n title: \"Karpathy LLM Wiki gist\"\n source_link: \"https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\"\n topic: \"llm-wiki\"\n-tags: [ingest, web, llm-wiki, gist]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, llm-wiki, gist, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n@@\n - Original URL: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Gist hosts `llm-wiki.md` by Andrej Karpathy.\n+- The page describes the pattern as a persistent wiki maintained by an LLM between user and raw sources.\n+- Snapshot includes discussion comments and community implementation links; some comment sections are noisy/unreliable and should not be treated as canonical guidance.\n+\n+## Extracted text sample\n+\n+\"A pattern for building personal knowledge bases using LLMs.\"\n+\n+\"The wiki is a persistent, compounding artifact.\"\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize gist content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 9.3s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md\n@@\n ---\n title: \"Karpathy raw idea file\"\n source_link: \"https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md\"\n topic: \"llm-wiki\"\n-tags: [ingest, web, llm-wiki, gist]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, llm-wiki, gist, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n@@\n - Original URL: https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Canonical source text describing LLM Wiki pattern.\n+- Defines core idea (persistent compiled wiki vs query-time RAG), architecture layers, and operations (`ingest`, `query`, `lint`).\n+- Includes index/log conventions and optional tooling (`qmd`).\n+\n+## Extracted text sample\n+\n+\"Instead of just retrieving from raw documents at query time, the LLM incrementally builds and maintains a persistent wiki.\"\n+\n+\"The wiki is a persistent, compounding artifact.\"\n+\n+\"The human's job is to curate sources ... The LLM's job is everything else.\"\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize raw markdown content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 7.0s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md\n@@\n ---\n title: \"Lewislulu implementation\"\n source_link: \"https://github.com/lewislulu/llm-wiki-skill\"\n topic: \"llm-wiki\"\n-tags: [ingest, web, llm-wiki, github]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, llm-wiki, github, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n@@\n - Original URL: https://github.com/lewislulu/llm-wiki-skill\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Repository provides an agent skill implementing the Karpathy-style LLM wiki workflow.\n+- README defines five operation loop (`compile`, `ingest`, `query`, `lint`, `audit`).\n+- Project includes helper scripts, Obsidian audit plugin, and a local web viewer.\n+\n+## Extracted text sample\n+\n+\"Every compile, ingest, query, lint, and audit pass makes the wiki richer.\"\n+\n+Repo quick-start includes scaffold, ingest, lint, and audit review commands.\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize repository content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://github.com/lewislulu/llm-wiki-skill\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 7.0s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md\n@@\n ---\n title: \"NVK implementation\"\n source_link: \"https://github.com/nvk/llm-wiki\"\n topic: \"llm-wiki\"\n-tags: [ingest, web, llm-wiki, github]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, llm-wiki, github, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n@@\n - Original URL: https://github.com/nvk/llm-wiki\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Repository positions itself as multi-runtime LLM wiki framework (Claude, Codex, OpenCode, portable AGENTS).\n+- README contains extensive command set for research, ingest, compile, query, lint, and audit.\n+- Topic-hub architecture is emphasized, with isolated per-topic subwikis and index-driven workflows.\n+\n+## Extracted text sample\n+\n+\"LLM-compiled knowledge bases for any AI agent.\"\n+\n+The command table includes workflows for inventory and datasets in addition to the core wiki loop.\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize repository content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://github.com/nvk/llm-wiki\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.8s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md\n@@\n ---\n title: \"OpenCode agent skills docs\"\n source_link: \"https://opencode.ai/docs/skills/\"\n topic: \"llm-wiki\"\n-tags: [ingest, web, llm-wiki, docs]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, llm-wiki, docs, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n@@\n - Original URL: https://opencode.ai/docs/skills/\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- Skills are discovered from `.opencode/skills/<name>/SKILL.md` (project/global variants supported).\n+- SKILL frontmatter required keys: `name`, `description`; optional: `license`, `compatibility`, `metadata`.\n+- Name validation rules include lowercase-hyphen format and directory name match.\n+\n+## Extracted text sample\n+\n+\"Each `SKILL.md` must start with YAML frontmatter.\"\n+\n+\"name must match the directory name ... regex `^[a-z0-9]+(-[a-z0-9]+)*$`\"\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize docs content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://opencode.ai/docs/skills/\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.3s)
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md\n@@\n ---\n title: \"qmd local markdown search\"\n source_link: \"https://github.com/tobi/qmd\"\n topic: \"llm-wiki\"\n-tags: [ingest, web, llm-wiki, github]\n-generated_at: \"2026-05-10T09:27:39Z\"\n+tags: [ingest, web, llm-wiki, github, fetched]\n+generated_at: \"2026-05-10T09:45:00Z\"\n ---\n@@\n - Original URL: https://github.com/tobi/qmd\n - Ingested from: wissen/inbox/weburl-index.md\n-- Retrieval mode: metadata-only (URL content not fetched in this run)\n+- Retrieval mode: webfetch markdown snapshot\n+\n+## Fetched content snapshot\n+\n+- QMD is described as an on-device search engine for markdown and knowledge bases.\n+- Core retrieval stack: BM25 full-text + vector search + LLM reranking.\n+- Supports CLI, SDK usage, and MCP server integration for agents.\n+\n+## Extracted text sample\n+\n+\"An on-device search engine for everything you need to remember.\"\n+\n+Quickstart examples include `qmd collection add`, `qmd embed`, `qmd search`, and `qmd query`.\n \n-## Notes\n-\n-- Placeholder raw entry created from inbox URL queue.\n-- Fetch and normalize repository content in a follow-up ingest run when network retrieval is enabled.\n+## References\n+\n+- https://github.com/tobi/qmd\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 13.1s)
+
+_Thinking:_
+
+**Updating documentation**
+
+I think it’s time to update the documentation since it’s already in good shape. There’s something about Karpathy's raw data that's done, but I need to update the timestamp and tags for all nine entries, including the docs file. I really want to make sure everything is patched properly, just to keep things organized. Let's get to it!
+
+**Tool: apply_patch**
+
+**Input:**
+```json
+{
+  "patchText": "*** Begin Patch\n*** Update File: /home/oli/newwork/dev/projects/llm-wiki-dev/wissen/raw/index.md\n@@\n-| wissen/raw/docling-docs.md | Docling docs | docling | https://docling-project.github.io/docling/ | 2026-05-10T09:27:39Z | ingest,web,docling |\n-| wissen/raw/docling-github.md | Docling GitHub | docling | https://github.com/docling-project/docling | 2026-05-10T09:27:39Z | ingest,web,docling,github |\n-| wissen/raw/docling-examples.md | Docling examples | docling | https://docling-project.github.io/docling/examples/ | 2026-05-10T09:27:39Z | ingest,web,docling,examples |\n-| wissen/raw/karpathy-llm-wiki-gist.md | Karpathy LLM Wiki gist | llm-wiki | https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,gist |\n-| wissen/raw/karpathy-llm-wiki-raw-idea-file.md | Karpathy raw idea file | llm-wiki | https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,gist |\n-| wissen/raw/lewislulu-llm-wiki-skill.md | Lewislulu implementation | llm-wiki | https://github.com/lewislulu/llm-wiki-skill | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |\n-| wissen/raw/nvk-llm-wiki.md | NVK implementation | llm-wiki | https://github.com/nvk/llm-wiki | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |\n-| wissen/raw/opencode-skills-docs.md | OpenCode agent skills docs | llm-wiki | https://opencode.ai/docs/skills/ | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,docs |\n-| wissen/raw/qmd-local-markdown-search.md | qmd local markdown search | llm-wiki | https://github.com/tobi/qmd | 2026-05-10T09:27:39Z | ingest,web,llm-wiki,github |\n+| wissen/raw/docling-docs.md | Docling docs | docling | https://docling-project.github.io/docling/ | 2026-05-10T09:45:00Z | ingest,web,docling,fetched |\n+| wissen/raw/docling-github.md | Docling GitHub | docling | https://github.com/docling-project/docling | 2026-05-10T09:45:00Z | ingest,web,docling,github,fetched |\n+| wissen/raw/docling-examples.md | Docling examples | docling | https://docling-project.github.io/docling/examples/ | 2026-05-10T09:45:00Z | ingest,web,docling,examples,fetched |\n+| wissen/raw/karpathy-llm-wiki-gist.md | Karpathy LLM Wiki gist | llm-wiki | https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f | 2026-05-10T09:45:00Z | ingest,web,llm-wiki,gist,fetched |\n+| wissen/raw/karpathy-llm-wiki-raw-idea-file.md | Karpathy raw idea file | llm-wiki | https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md | 2026-05-10T09:45:00Z | ingest,web,llm-wiki,gist,fetched |\n+| wissen/raw/lewislulu-llm-wiki-skill.md | Lewislulu implementation | llm-wiki | https://github.com/lewislulu/llm-wiki-skill | 2026-05-10T09:45:00Z | ingest,web,llm-wiki,github,fetched |\n+| wissen/raw/nvk-llm-wiki.md | NVK implementation | llm-wiki | https://github.com/nvk/llm-wiki | 2026-05-10T09:45:00Z | ingest,web,llm-wiki,github,fetched |\n+| wissen/raw/opencode-skills-docs.md | OpenCode agent skills docs | llm-wiki | https://opencode.ai/docs/skills/ | 2026-05-10T09:45:00Z | ingest,web,llm-wiki,docs,fetched |\n+| wissen/raw/qmd-local-markdown-search.md | qmd local markdown search | llm-wiki | https://github.com/tobi/qmd | 2026-05-10T09:45:00Z | ingest,web,llm-wiki,github,fetched |\n*** End Patch"
+}
+```
+
+**Output:**
+```
+Success. Updated the following files:
+M projects/llm-wiki-dev/wissen/raw/index.md
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 5.4s)
+
+_Thinking:_
+
+**Preparing to manage git tasks**
+
+I need to make sure the docling-docs file is updated with fetched tags and timestamps. It seems like one file isn't patched yet, possibly related to a gist. The user asked me to commit and push, but they mentioned fetching content first. I think I should check the git status and show changed files before proceeding. I'll run `git status` from the correct directory to identify any unrelated files, then stage only the relevant ones.
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Show working tree status before commit"
+}
+```
+
+**Output:**
+```
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+ M projects/llm-wiki-dev/wissen/raw/docling-docs.md
+ M projects/llm-wiki-dev/wissen/raw/docling-examples.md
+ M projects/llm-wiki-dev/wissen/raw/docling-github.md
+ M projects/llm-wiki-dev/wissen/raw/index.md
+ M projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md
+ M projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md
+ M projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md
+ M projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md
+ M projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md
+ M projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/references/
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 6.1s)
+
+_Thinking:_
+
+**Considering commit message**
+
+I need to think about whether I should include any references, but probably not since I'm just focusing on raw files. For the commit message, I'm considering something like "feat: fetch and normalize inbox web sources." That seems clear and to the point. Once I finalize that, I'll get ready to push it. It’s all about keeping things tidy and organized, I guess!
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git add \"projects/llm-wiki-dev/wissen/raw/index.md\" \"projects/llm-wiki-dev/wissen/raw/docling-docs.md\" \"projects/llm-wiki-dev/wissen/raw/docling-github.md\" \"projects/llm-wiki-dev/wissen/raw/docling-examples.md\" \"projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md\" \"projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md\" \"projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md\" \"projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md\" \"projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md\" \"projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md\" && git commit -m \"feat: fetch web sources into wissen raw corpus\" -m \"Replace metadata placeholders with fetched content snapshots for Docling and LLM-wiki URLs and mark raw index entries as fetched.\" && git status --short",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Stage fetched raw files, commit, and show remaining status"
+}
+```
+
+**Output:**
+```
+[main 36452b6] feat: fetch web sources into wissen raw corpus
+ 10 files changed, 167 insertions(+), 63 deletions(-)
+ M projects/01_procr_dev/AGENTS.md
+ m projects/01_procr_dev/procr
+?? .opencode/package-lock.json
+?? projects/00_excel_prettifieR/output/
+?? projects/00_excel_prettifieR/output_goal.json
+?? projects/02_arrow_quickstart/data/_sel.csv
+?? projects/02_arrow_quickstart/data/_test_scan.csv
+?? projects/02_arrow_quickstart/data/benchmark_100000.csv
+?? projects/02_arrow_quickstart/data/benchmark_1e7.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb.csv
+?? projects/02_arrow_quickstart/data/benchmark_1gb_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/int_overflow_example.dta
+?? projects/02_arrow_quickstart/data/int_overflow_example_numeric_ranges.csv
+?? projects/02_arrow_quickstart/data/overflow_example.csv
+?? projects/02_arrow_quickstart/data/tmp_types.csv
+?? projects/agentic-skill-tests/convert_csv_to_parquet.R
+?? projects/agentic-skill-tests/data/
+?? projects/llm-wiki-dev/references/
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 5.3s)
+
+**Tool: bash**
+
+**Input:**
+```json
+{
+  "command": "git push",
+  "timeout": 120000,
+  "workdir": "/home/oli/newwork/dev",
+  "description": "Push committed raw fetch updates to remote"
+}
+```
+
+**Output:**
+```
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/Olhaau/work-dev.git        
+To https://github.com/Olhaau/dev.git
+   17562b0..36452b6  main -> main
+
+```
+
+---
+
+## Assistant (Build · GPT-5.3 Codex · 4.9s)
+
+Done — I fetched the URL content and saved real fetched snapshots into the `wissen/raw` files, then committed and pushed.
+
+- Commit: `36452b6`
+- Message: `feat: fetch web sources into wissen raw corpus`
+- Pushed to `origin/main`
+
+Updated files include:
+- `projects/llm-wiki-dev/wissen/raw/index.md`
+- `projects/llm-wiki-dev/wissen/raw/docling-docs.md`
+- `projects/llm-wiki-dev/wissen/raw/docling-github.md`
+- `projects/llm-wiki-dev/wissen/raw/docling-examples.md`
+- `projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-gist.md`
+- `projects/llm-wiki-dev/wissen/raw/karpathy-llm-wiki-raw-idea-file.md`
+- `projects/llm-wiki-dev/wissen/raw/lewislulu-llm-wiki-skill.md`
+- `projects/llm-wiki-dev/wissen/raw/nvk-llm-wiki.md`
+- `projects/llm-wiki-dev/wissen/raw/opencode-skills-docs.md`
+- `projects/llm-wiki-dev/wissen/raw/qmd-local-markdown-search.md`
+
+---
+

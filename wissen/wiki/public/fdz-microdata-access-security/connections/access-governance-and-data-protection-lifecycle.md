@@ -1,0 +1,31 @@
+---
+title: "Access Governance and Data Protection Lifecycle"
+token: 120
+---
+
+# Access Governance and Data Protection Lifecycle
+
+The RDC model links access governance and privacy compliance across the full service lifecycle:
+
+- request intake captures identities, project scope, and access mode,
+- legal/contractual checks gate access approval,
+- operational use is controlled by confidentiality and output checks,
+- personal-data processing is governed by purpose limitation, retention rules, and GDPR rights.
+
+This connection describes how legal eligibility, technical controls, and privacy obligations operate as one accountable system.
+
+## Connected Concepts
+
+- [[fdz-microdata-access-security]]
+- [[FDZ Data Supply Portfolio and Access Formats]]
+- [[Legal and Contractual Access Controls]]
+- [[Confidentiality and Output Control Regime]]
+- [[Remote Access Technical and Organizational Safeguards]]
+
+## References
+
+- [[raw/public/fdz-request-for-access.md]]
+- [[raw/public/fdz-terms-of-use.md]]
+- [[raw/public/fdz-data-privacy-notice.md]]
+- [[raw/public/fdz-confidentiality.md]]
+- [[raw/public/fdz-scientific-and-remote-use-files.md]]
