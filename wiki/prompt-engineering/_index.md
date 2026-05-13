@@ -1,6 +1,6 @@
 ---
 title: "Prompt Engeneering Topic Index"
-token: "157"
+token: "159"
 ---
 
 # Prompt Engeneering Topic Index
@@ -9,21 +9,21 @@ Topic index for `prompt-engineering` executable prompt patterns.
 
 ## Concepts
 
-- [prompt-engineering](./prompt-engineering.md) - executable prompts for ingest, compile, lint, query, and save-chat operations.
-- [Executable Prompt for Ingest](./executable-prompt-for-ingest.md) - prompt template to ingest a new source into `raw/` and update indexes.
-- [Executable Prompt for Compile](./executable-prompt-for-compile.md) - prompt template to compile sources into topic concept pages.
-- [Executable Prompt for Lint](./executable-prompt-for-lint.md) - prompt template to remove duplicates and resolve orphan or contradictory pages.
-- [Executable Prompt for Query](./executable-prompt-for-query.md) - prompt template to answer questions with grounded references.
-- [Executable Prompt for Save Chat](./executable-prompt-for-save-chat.md) - prompt template to persist current chat concepts into `raw/`.
-- [Executable Prompt for Anthropic Skills](./executable-prompt-for-anthropic-skills.md) - prompt template to create and validate Claude Code skills.
-- [Executable Prompt for Spec Kit Workflow](./executable-prompt-for-spec-kit-workflow.md) - prompt template to run the Spec Kit command flow for feature delivery.
+- [[prompt-engineering.md]] - executable prompts for ingest, compile, lint, query, and save-chat operations.
+- [[executable-prompt-for-ingest.md|Executable Prompt for Ingest]] - prompt template to ingest a new source into `raw/` and update indexes.
+- [[executable-prompt-for-compile.md|Executable Prompt for Compile]] - prompt template to compile sources into topic concept pages.
+- [[executable-prompt-for-lint.md|Executable Prompt for Lint]] - prompt template to remove duplicates and resolve orphan or contradictory pages.
+- [[executable-prompt-for-query.md|Executable Prompt for Query]] - prompt template to answer questions with grounded references.
+- [[executable-prompt-for-save-chat.md|Executable Prompt for Save Chat]] - prompt template to persist current chat concepts into `raw/`.
+- [[executable-prompt-for-anthropic-skills.md|Executable Prompt for Anthropic Skills]] - prompt template to create and validate Claude Code skills.
+- [[executable-prompt-for-spec-kit-workflow.md|Executable Prompt for Spec Kit Workflow]] - prompt template to run the Spec Kit command flow for feature delivery.
 
 ## References
 
-- [[raw/karpathy-llm-wiki-gist.md]]
-- [[raw/lewislulu-llm-wiki-skill.md]]
-- [[raw/nvk-llm-wiki.md]]
-- [[raw/opencode-skills-docs.md]]
-- [[raw/anthropic-claude-code-skills.md]]
-- [[raw/github-spec-kit-readme.md]]
-- [[raw/github-spec-kit-integrations.md]]
+- [[karpathy-llm-wiki-gist.md]]
+- [[lewislulu-llm-wiki-skill.md]]
+- [[nvk-llm-wiki.md]]
+- [[opencode-skills-docs.md]]
+- [[anthropic-claude-code-skills.md]]
+- [[github-spec-kit-readme.md]]
+- [[github-spec-kit-integrations.md]]

@@ -1,6 +1,6 @@
 ---
 title: "Package Distribution and Release Tracking with PyPI"
-token: "71"
+token: "63"
 ---
 
 # Package Distribution and Release Tracking with PyPI
@@ -11,11 +11,11 @@ This supports automation hardening tasks such as version pinning, dependency rev
 
 ## Connected Concepts
 
-- [[ai-automation]]
-- [[Python Integration Patterns for Jira and Confluence]]
-- [[Ticket-Mail-Docs Secret Flow]]
+- [[ai-automation.md]]
+- [[python-integration-patterns-for-jira-and-confluence.md]]
+- [[ticket-mail-docs-secret-flow.md]]
 
 ## References
 
-- [[raw/ai-automation-atlassian-python-api-pypi.md]]
-- [[raw/ai-automation-atlassian-python-api-overview.md]]
+- [[ai-automation-atlassian-python-api-pypi.md]]
+- [[ai-automation-atlassian-python-api-overview.md]]

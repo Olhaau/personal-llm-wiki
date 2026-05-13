@@ -1,6 +1,6 @@
 ---
 title: "Cell-Key Method in Official Statistics"
-token: "99"
+token: "87"
 ---
 
 # Cell-Key Method in Official Statistics
@@ -15,14 +15,14 @@ Across Destatis and Statistikportal sources, the method is framed as a practical
 
 ## Connected Concepts
 
-- [[fdz-microdata-access-security]]
-- [[Confidentiality and Output Control Regime]]
-- [[Anonymity Levels and Access Paths]]
-- [[Cell-Key Adoption and Impact Chain]]
+- [[fdz-microdata-access-security.md]]
+- [[confidentiality-and-output-control-regime.md]]
+- [[anonymity-levels-and-access-paths.md]]
+- [[cell-key-adoption-and-impact-chain.md]]
 
 ## References
 
-- [[raw/statistikportal-cell-key-methode.md]]
-- [[raw/destatis-geheimhaltung-bevoelkerungsstatistiken.md]]
-- [[raw/destatis-wista-cell-key-teil-1.md]]
-- [[raw/destatis-wista-cell-key-teil-2.md]]
+- [[statistikportal-cell-key-methode.md]]
+- [[destatis-geheimhaltung-bevoelkerungsstatistiken.md]]
+- [[destatis-wista-cell-key-teil-1.md]]
+- [[destatis-wista-cell-key-teil-2.md]]

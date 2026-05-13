@@ -1,6 +1,6 @@
 ---
 title: "Anonymity Levels and Access Paths"
-token: "111"
+token: "96"
 ---
 
 # Anonymity Levels and Access Paths
@@ -15,16 +15,16 @@ This mapping acts as a security boundary between analytic utility and disclosure
 
 ## Connected Concepts
 
-- [[fdz-microdata-access-security]]
-- [[FDZ Data Supply Portfolio and Access Formats]]
-- [[Confidentiality and Output Control Regime]]
-- [[Remote Access Technical and Organizational Safeguards]]
+- [[fdz-microdata-access-security.md]]
+- [[fdz-data-supply-portfolio-and-access-formats.md]]
+- [[confidentiality-and-output-control-regime.md]]
+- [[remote-access-technical-and-organizational-safeguards.md]]
 
 ## References
 
-- [[raw/fdz-anonymity-levels.md]]
-- [[raw/fdz-access-to-microdata.md]]
-- [[raw/fdz-confidentiality.md]]
-- [[raw/fdz-campus-files.md]]
-- [[raw/fdz-public-use-files.md]]
-- [[raw/fdz-scientific-and-remote-use-files.md]]
+- [[fdz-anonymity-levels.md]]
+- [[fdz-access-to-microdata.md]]
+- [[fdz-confidentiality.md]]
+- [[fdz-campus-files.md]]
+- [[fdz-public-use-files.md]]
+- [[fdz-scientific-and-remote-use-files.md]]

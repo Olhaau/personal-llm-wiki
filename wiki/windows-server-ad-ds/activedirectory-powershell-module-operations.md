@@ -1,6 +1,6 @@
 ---
 title: "ActiveDirectory PowerShell Module Operations"
-token: "113"
+token: "107"
 ---
 
 # ActiveDirectory PowerShell Module Operations
@@ -16,10 +16,10 @@ Operational highlights from the source:
 
 ## Connected Concepts
 
-- [[windows-server-ad-ds]]
-- [[AD DS and Python Automation Control Plane]]
+- [[windows-server-ad-ds.md]]
+- [[ad-ds-and-python-automation-control-plane.md]]
 
 ## References
 
-- [[raw/powershell-activedirectory-module.md]]
-- [[raw/windows-server-ad-ds-overview.md]]
+- [[powershell-activedirectory-module.md]]
+- [[windows-server-ad-ds-overview.md]]

@@ -20,4 +20,4 @@ Requirements:
 
 ## References
 
-- [[raw/anthropic-claude-code-skills.md]]
+- [[anthropic-claude-code-skills.md]]

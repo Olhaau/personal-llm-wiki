@@ -1,6 +1,6 @@
 ---
 title: "AD DS and Python Automation Control Plane"
-token: "120"
+token: "112"
 ---
 
 # AD DS and Python Automation Control Plane
@@ -13,14 +13,14 @@ AD DS provides the directory authority layer (accounts, policy context, and doma
 
 ## Connected Concepts
 
-- [[windows-server-ad-ds]]
-- [[ActiveDirectory PowerShell Module Operations]]
-- [[Outlook Automation with Microsoft Graph Python]]
-- [[ai-automation]]
+- [[windows-server-ad-ds.md]]
+- [[activedirectory-powershell-module-operations.md]]
+- [[outlook-automation-with-microsoft-graph-python.md]]
+- [[ai-automation.md]]
 
 ## References
 
-- [[raw/windows-server-ad-ds-overview.md]]
-- [[raw/powershell-activedirectory-module.md]]
-- [[raw/ai-automation-microsoft-graph-create-client-python.md]]
-- [[raw/ai-automation-microsoft-graph-python-email.md]]
+- [[windows-server-ad-ds-overview.md]]
+- [[powershell-activedirectory-module.md]]
+- [[ai-automation-microsoft-graph-create-client-python.md]]
+- [[ai-automation-microsoft-graph-python-email.md]]

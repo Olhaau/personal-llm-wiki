@@ -1,6 +1,6 @@
 ---
 title: "Confidentiality and Output Control Regime"
-token: "92"
+token: "79"
 ---
 
 # Confidentiality and Output Control Regime
@@ -15,13 +15,13 @@ Operationally, this means:
 
 ## Connected Concepts
 
-- [[fdz-microdata-access-security]]
-- [[Legal and Contractual Access Controls]]
-- [[Anonymity Levels and Access Paths]]
-- [[Access Governance and Data Protection Lifecycle]]
+- [[fdz-microdata-access-security.md]]
+- [[legal-and-contractual-access-controls.md]]
+- [[anonymity-levels-and-access-paths.md]]
+- [[access-governance-and-data-protection-lifecycle.md]]
 
 ## References
 
-- [[raw/fdz-confidentiality.md]]
-- [[raw/fdz-terms-of-use.md]]
-- [[raw/fdz-access-to-microdata.md]]
+- [[fdz-confidentiality.md]]
+- [[fdz-terms-of-use.md]]
+- [[fdz-access-to-microdata.md]]

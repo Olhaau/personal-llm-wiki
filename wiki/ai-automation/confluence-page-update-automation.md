@@ -1,6 +1,6 @@
 ---
 title: "Confluence Page Update Automation"
-token: "123"
+token: "115"
 ---
 
 # Confluence Page Update Automation
@@ -17,13 +17,13 @@ Confluence page modification in automation pipelines is most reliable when it co
 
 ## Connected Concepts
 
-- [[ai-automation]]
-- [[Python Integration Patterns for Jira and Confluence]]
-- [[Ticket-Mail-Docs Secret Flow]]
+- [[ai-automation.md]]
+- [[python-integration-patterns-for-jira-and-confluence.md]]
+- [[ticket-mail-docs-secret-flow.md]]
 
 ## References
 
-- [[raw/ai-automation-confluence-rest-api-v2-update-page.md]]
-- [[raw/ai-automation-confluence-basic-auth-rest-apis.md]]
-- [[raw/ai-automation-atlassian-python-api-confluence-page-actions.md]]
-- [[raw/ai-automation-confluence-module-python.md]]
+- [[ai-automation-confluence-rest-api-v2-update-page.md]]
+- [[ai-automation-confluence-basic-auth-rest-apis.md]]
+- [[ai-automation-atlassian-python-api-confluence-page-actions.md]]
+- [[ai-automation-confluence-module-python.md]]

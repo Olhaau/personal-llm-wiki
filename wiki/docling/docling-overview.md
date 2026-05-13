@@ -1,6 +1,6 @@
 ---
 title: "Docling Overview"
-token: "131"
+token: "121"
 ---
 
 # Docling Overview
@@ -16,15 +16,15 @@ In the source set, Docling appears both as a standalone toolkit and as infrastru
 
 ## Connected Concepts
 
-- [[docling]]
-- [[Docling Pipeline Capabilities]]
-- [[Docling Integrations and Usage Modes]]
-- [[Docling and LLM Wiki Workflows]]
-- [[llm-wiki]]
+- [[docling.md]]
+- [[docling-pipeline-capabilities.md]]
+- [[docling-integrations-and-usage-modes.md]]
+- [[docling-and-llm-wiki-workflows.md]]
+- [[llm-wiki.md]]
 
 ## References
 
-- [[raw/docling-docs.md]]
-- [[raw/docling-github.md]]
+- [[docling-docs.md]]
+- [[docling-github.md]]
 - https://docling-project.github.io/docling/
 - https://github.com/docling-project/docling

@@ -1,6 +1,6 @@
 ---
 title: "Runtime and Skill Packaging"
-token: "98"
+token: "90"
 ---
 
 # Runtime and Skill Packaging
@@ -14,15 +14,15 @@ This packaging layer makes the wiki pattern reproducible and portable, not tied 
 
 ## Connected Concepts
 
-- [[llm-wiki]]
-- [[Persistent Wiki Pattern]]
-- [[Operation Loop]]
-- [[Implementations Comparison]]
-- [[Local Search and Retrieval Tooling]]
+- [[llm-wiki.md]]
+- [[persistent-wiki-pattern.md]]
+- [[operation-loop.md]]
+- [[implementations-comparison.md]]
+- [[local-search-and-retrieval-tooling.md]]
 
 ## References
 
-- [[raw/opencode-skills-docs.md]]
-- [[raw/lewislulu-llm-wiki-skill.md]]
-- [[raw/nvk-llm-wiki.md]]
+- [[opencode-skills-docs.md]]
+- [[lewislulu-llm-wiki-skill.md]]
+- [[nvk-llm-wiki.md]]
 - https://opencode.ai/docs/skills/

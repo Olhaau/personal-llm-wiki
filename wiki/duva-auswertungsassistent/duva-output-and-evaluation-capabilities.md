@@ -1,6 +1,6 @@
 ---
 title: "DUVA Output and Evaluation Capabilities"
-token: "80"
+token: "71"
 ---
 
 # DUVA Output and Evaluation Capabilities
@@ -11,13 +11,13 @@ Across DUVA product pages, output capabilities are framed as tables, lists, char
 
 ## Connected Concepts
 
-- [[DUVA Auswertungsassistent]]
-- [[DUVA Procurement Context (148574-2026)]]
-- [[DUVA Documentation and Operating Materials]]
-- [[Procurement-to-Operations Traceability]]
+- [[duva-auswertungsassistent.md]]
+- [[duva-procurement-context-148574-2026.md]]
+- [[duva-documentation-and-operating-materials.md]]
+- [[procurement-to-operations-traceability.md]]
 
 ## References
 
-- [[raw/duva-ausgabe-auswertungsassistent.md]]
-- [[raw/duva-produkt-overview.md]]
-- [[raw/duva-auswertungsassistent-anwenderhandbuch.md]]
+- [[duva-ausgabe-auswertungsassistent.md]]
+- [[duva-produkt-overview.md]]
+- [[duva-auswertungsassistent-anwenderhandbuch.md]]

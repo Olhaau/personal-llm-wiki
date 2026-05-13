@@ -1,6 +1,6 @@
 ---
 title: "Executable Prompt for Compile"
-token: "90"
+token: "137"
 ---
 
 # Executable Prompt for Compile
@@ -16,12 +16,12 @@ Requirements:
 5) Ensure every concept page has: `## Summary` (2-3 sentences), `## Details`, `## Connected Concepts`, and `## References`.
 6) In `## Connected Concepts`, use one bullet per linked page with a one-sentence relation note.
 7) Ensure every page has YAML frontmatter with title and token.
-8) Ground claims with explicit raw references such as `[[raw/<source>.md]]` inside the prose and in `## References`.
+8) Ground claims with explicit raw references such as `[[<source>.md]]` inside the prose and in `## References`.
 9) Avoid self-referential wording and write direct, concrete definitions.
 10) Return a list of updated files.
 ```
 
 ## References
 
-- [[raw/karpathy-llm-wiki-gist.md]]
-- [[raw/nvk-llm-wiki.md]]
+- [[karpathy-llm-wiki-gist.md]]
+- [[nvk-llm-wiki.md]]

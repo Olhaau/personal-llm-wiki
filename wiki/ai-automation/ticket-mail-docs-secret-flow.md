@@ -1,6 +1,6 @@
 ---
 title: "Ticket-Mail-Docs Secret Flow"
-token: "176"
+token: "152"
 ---
 
 # Ticket-Mail-Docs Secret Flow
@@ -19,21 +19,21 @@ PyPI metadata for `atlassian-python-api` adds a packaging and release checkpoint
 
 ## Connected Concepts
 
-- [[ai-automation]]
-- [[Python Integration Patterns for Jira and Confluence]]
-- [[Package Distribution and Release Tracking with PyPI]]
-- [[Outlook Automation with Microsoft Graph Python]]
-- [[KeePass Credential Operations with PyKeePass]]
-- [[Confluence Page Update Automation]]
+- [[ai-automation.md]]
+- [[python-integration-patterns-for-jira-and-confluence.md]]
+- [[package-distribution-and-release-tracking-with-pypi.md]]
+- [[outlook-automation-with-microsoft-graph-python.md]]
+- [[keepass-credential-operations-with-pykeepass.md]]
+- [[confluence-page-update-automation.md]]
 
 ## References
 
-- [[raw/ai-automation-atlassian-python-api-overview.md]]
-- [[raw/ai-automation-atlassian-python-api-pypi.md]]
-- [[raw/ai-automation-jira-module-python.md]]
-- [[raw/ai-automation-confluence-module-python.md]]
-- [[raw/ai-automation-confluence-rest-api-v2-update-page.md]]
-- [[raw/ai-automation-confluence-basic-auth-rest-apis.md]]
-- [[raw/ai-automation-atlassian-python-api-confluence-page-actions.md]]
-- [[raw/ai-automation-microsoft-graph-python-email.md]]
-- [[raw/ai-automation-pykeepass.md]]
+- [[ai-automation-atlassian-python-api-overview.md]]
+- [[ai-automation-atlassian-python-api-pypi.md]]
+- [[ai-automation-jira-module-python.md]]
+- [[ai-automation-confluence-module-python.md]]
+- [[ai-automation-confluence-rest-api-v2-update-page.md]]
+- [[ai-automation-confluence-basic-auth-rest-apis.md]]
+- [[ai-automation-atlassian-python-api-confluence-page-actions.md]]
+- [[ai-automation-microsoft-graph-python-email.md]]
+- [[ai-automation-pykeepass.md]]

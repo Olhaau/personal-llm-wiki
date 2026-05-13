@@ -1,6 +1,6 @@
 ---
 title: "Executable Prompt for Lint"
-token: "119"
+token: "120"
 ---
 
 # Executable Prompt for Lint
@@ -23,5 +23,5 @@ Return:
 
 ## References
 
-- [[raw/lewislulu-llm-wiki-skill.md]]
-- [[raw/nvk-llm-wiki.md]]
+- [[lewislulu-llm-wiki-skill.md]]
+- [[nvk-llm-wiki.md]]

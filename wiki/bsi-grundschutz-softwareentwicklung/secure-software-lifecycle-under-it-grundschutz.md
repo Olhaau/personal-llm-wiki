@@ -1,6 +1,6 @@
 ---
 title: "Secure Software Lifecycle under IT-Grundschutz"
-token: "86"
+token: "73"
 ---
 
 # Secure Software Lifecycle under IT-Grundschutz
@@ -14,14 +14,14 @@ This creates a bridge from policy and management intent to concrete software eng
 
 ## Connected Concepts
 
-- [[bsi-grundschutz-softwareentwicklung]]
-- [[BSI Standards 200 Series for Security Governance]]
-- [[IT-Grundschutz Bausteine for Software Development]]
-- [[Standards and Bausteine Alignment]]
+- [[bsi-grundschutz-softwareentwicklung.md]]
+- [[bsi-standards-200-series-for-security-governance.md]]
+- [[it-grundschutz-bausteine-for-software-development.md]]
+- [[standards-and-bausteine-alignment.md]]
 
 ## References
 
-- [[raw/bsi-standard-200-2-it-grundschutz-methodik.md]]
-- [[raw/bsi-standard-200-3-risikomanagement.md]]
-- [[raw/bsi-con-8-software-entwicklung.md]]
-- [[raw/bsi-app-6-allgemeine-software.md]]
+- [[bsi-standard-200-2-it-grundschutz-methodik.md]]
+- [[bsi-standard-200-3-risikomanagement.md]]
+- [[bsi-con-8-software-entwicklung.md]]
+- [[bsi-app-6-allgemeine-software.md]]

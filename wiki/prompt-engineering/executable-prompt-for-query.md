@@ -1,6 +1,6 @@
 ---
 title: "Executable Prompt for Query"
-token: "77"
+token: "71"
 ---
 
 # Executable Prompt for Query
@@ -18,5 +18,5 @@ Workflow:
 
 ## References
 
-- [[raw/karpathy-llm-wiki-gist.md]]
-- [[raw/opencode-skills-docs.md]]
+- [[karpathy-llm-wiki-gist.md]]
+- [[opencode-skills-docs.md]]

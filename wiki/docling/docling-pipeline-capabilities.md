@@ -1,6 +1,6 @@
 ---
 title: "Docling Pipeline Capabilities"
-token: "144"
+token: "135"
 ---
 
 # Docling Pipeline Capabilities
@@ -16,15 +16,15 @@ From the examples index, the project also frames these capabilities as composabl
 
 ## Connected Concepts
 
-- [[docling]]
-- [[Docling Overview]]
-- [[Docling Integrations and Usage Modes]]
-- [[Docling and LLM Wiki Workflows]]
-- [[llm-wiki]]
+- [[docling.md]]
+- [[docling-overview.md]]
+- [[docling-integrations-and-usage-modes.md]]
+- [[docling-and-llm-wiki-workflows.md]]
+- [[llm-wiki.md]]
 
 ## References
 
-- [[raw/docling-docs.md]]
-- [[raw/docling-github.md]]
-- [[raw/docling-examples.md]]
+- [[docling-docs.md]]
+- [[docling-github.md]]
+- [[docling-examples.md]]
 - https://docling-project.github.io/docling/examples/

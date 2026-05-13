@@ -1,30 +1,30 @@
 ---
 title: "DUVA Auswertungsassistent"
-token: "93"
+token: "161"
 ---
 
 # DUVA Auswertungsassistent
 
 ## Summary
 
-DUVA Auswertungsassistent combines tender context, evaluation output requirements, and operational documentation for the successor tool rollout [[raw/duva-ted-148574-2026-detail.md]]. The procurement and notice material define delivery scope and project framing for implementation [[raw/duva-ausschreibungen-deutschland-2026-freiburg.md]]. Product pages and user materials describe how results are presented through tables, charts, maps, and portal publication workflows [[raw/duva-ausgabe-auswertungsassistent.md]].
+DUVA Auswertungsassistent combines tender context, evaluation output requirements, and operational documentation for the successor tool rollout [[duva-ted-148574-2026-detail.md]]. The procurement and notice material define delivery scope and project framing for implementation [[duva-ausschreibungen-deutschland-2026-freiburg.md]]. Product pages and user materials describe how results are presented through tables, charts, maps, and portal publication workflows [[duva-ausgabe-auswertungsassistent.md]].
 
 ## Details
 
-Operational traceability depends on linking tender expectations to practical documentation artifacts such as system materials and the user handbook [[raw/duva-materialien.md]]. This pairing supports implementation planning, onboarding, and acceptance criteria for the successor evaluation environment [[raw/duva-auswertungsassistent-anwenderhandbuch.md]].
+Operational traceability depends on linking tender expectations to practical documentation artifacts such as system materials and the user handbook [[duva-materialien.md]]. This pairing supports implementation planning, onboarding, and acceptance criteria for the successor evaluation environment [[duva-auswertungsassistent-anwenderhandbuch.md]].
 
 ## Connected Concepts
 
-- [[DUVA ASW Security Requirements]] - Security requirements translate procurement goals into control expectations.
-- [[DUVA Procurement Context (148574-2026)]] - Procurement records define the program baseline and constraints.
-- [[DUVA Output and Evaluation Capabilities]] - Functional output requirements describe practical analyst-facing behavior.
-- [[DUVA Documentation and Operating Materials]] - Operating materials support deployment, training, and support routines.
-- [[Procurement-to-Operations Traceability]] - Traceability ties tender commitments to executable operational artifacts.
+- [[duva-asw-security-requirements.md]] - Security requirements translate procurement goals into control expectations.
+- [[duva-procurement-context-148574-2026.md]] - Procurement records define the program baseline and constraints.
+- [[duva-output-and-evaluation-capabilities.md]] - Functional output requirements describe practical analyst-facing behavior.
+- [[duva-documentation-and-operating-materials.md]] - Operating materials support deployment, training, and support routines.
+- [[procurement-to-operations-traceability.md]] - Traceability ties tender commitments to executable operational artifacts.
 
 ## References
 
-- [[raw/duva-ausschreibungen-deutschland-2026-freiburg.md]]
-- [[raw/duva-ted-148574-2026-detail.md]]
-- [[raw/duva-ted-148574-2026-pdfs.md]]
-- [[raw/duva-ausgabe-auswertungsassistent.md]]
-- [[raw/duva-produkt-overview.md]]
+- [[duva-ausschreibungen-deutschland-2026-freiburg.md]]
+- [[duva-ted-148574-2026-detail.md]]
+- [[duva-ted-148574-2026-pdfs.md]]
+- [[duva-ausgabe-auswertungsassistent.md]]
+- [[duva-produkt-overview.md]]

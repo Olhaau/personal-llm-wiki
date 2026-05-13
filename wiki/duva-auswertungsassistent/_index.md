@@ -1,6 +1,6 @@
 ---
 title: "DUVA Auswertungsassistent Topic Index"
-token: "167"
+token: "160"
 ---
 
 # DUVA Auswertungsassistent Topic Index
@@ -9,21 +9,21 @@ Topic index for `duva-auswertungsassistent` sources.
 
 ## Concepts
 
-- [DUVA Auswertungsassistent](./duva-auswertungsassistent.md) - procurement context, product capabilities, and operator documentation.
-- [DUVA ASW Security Requirements](./duva-asw-security-requirements.md) - baseline security requirements for the ASW successor using DUVA context and BSI software-security framing.
-- [DUVA Procurement Context (148574-2026)](./duva-procurement-context-148574-2026.md) - framing of the 2026 tender and result references for the new DUVA evaluation tool.
-- [DUVA Output and Evaluation Capabilities](./duva-output-and-evaluation-capabilities.md) - functional view of how the assistant turns datasets into tables, charts, maps, and portal outputs.
-- [DUVA Documentation and Operating Materials](./duva-documentation-and-operating-materials.md) - documentation stack (materials page, handbook, tutorial references) supporting rollout and usage.
-- [DUVA ASW Security Alignment with BSI Grundschutz](./duva-asw-security-alignment-with-bsi-grundschutz.md) - maps DUVA ASW security needs to BSI governance and software lifecycle control context.
-- [Procurement-to-Operations Traceability](./procurement-to-operations-traceability.md) - connection between tender objectives and operational usage artifacts for the successor evaluation assistant.
+- [[duva-auswertungsassistent.md|DUVA Auswertungsassistent]] - procurement context, product capabilities, and operator documentation.
+- [[duva-asw-security-requirements.md|DUVA ASW Security Requirements]] - baseline security requirements for the ASW successor using DUVA context and BSI software-security framing.
+- [[duva-procurement-context-148574-2026.md|DUVA Procurement Context (148574-2026)]] - framing of the 2026 tender and result references for the new DUVA evaluation tool.
+- [[duva-output-and-evaluation-capabilities.md|DUVA Output and Evaluation Capabilities]] - functional view of how the assistant turns datasets into tables, charts, maps, and portal outputs.
+- [[duva-documentation-and-operating-materials.md|DUVA Documentation and Operating Materials]] - documentation stack (materials page, handbook, tutorial references) supporting rollout and usage.
+- [[duva-asw-security-alignment-with-bsi-grundschutz.md|DUVA ASW Security Alignment with BSI Grundschutz]] - maps DUVA ASW security needs to BSI governance and software lifecycle control context.
+- [[procurement-to-operations-traceability.md|Procurement-to-Operations Traceability]] - connection between tender objectives and operational usage artifacts for the successor evaluation assistant.
 
 ## References
 
-- [[raw/duva-ausschreibungen-deutschland-2026-freiburg.md]]
-- [[raw/duva-ted-148574-2026-detail.md]]
-- [[raw/duva-ted-148574-2026-pdfs.md]]
-- [[raw/duva-service-bund-ausschreibung-mirror.md]]
-- [[raw/duva-ausgabe-auswertungsassistent.md]]
-- [[raw/duva-produkt-overview.md]]
-- [[raw/duva-materialien.md]]
-- [[raw/duva-auswertungsassistent-anwenderhandbuch.md]]
+- [[duva-ausschreibungen-deutschland-2026-freiburg.md]]
+- [[duva-ted-148574-2026-detail.md]]
+- [[duva-ted-148574-2026-pdfs.md]]
+- [[duva-service-bund-ausschreibung-mirror.md]]
+- [[duva-ausgabe-auswertungsassistent.md]]
+- [[duva-produkt-overview.md]]
+- [[duva-materialien.md]]
+- [[duva-auswertungsassistent-anwenderhandbuch.md]]

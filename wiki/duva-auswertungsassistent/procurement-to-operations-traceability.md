@@ -1,6 +1,6 @@
 ---
 title: "Procurement-to-Operations Traceability"
-token: "102"
+token: "87"
 ---
 
 # Procurement-to-Operations Traceability
@@ -15,16 +15,16 @@ This connection links procurement evidence to implementation-facing system under
 
 ## Connected Concepts
 
-- [[DUVA Auswertungsassistent]]
-- [[DUVA ASW Security Requirements]]
-- [[DUVA Procurement Context (148574-2026)]]
-- [[DUVA Output and Evaluation Capabilities]]
-- [[DUVA Documentation and Operating Materials]]
+- [[duva-auswertungsassistent.md]]
+- [[duva-asw-security-requirements.md]]
+- [[duva-procurement-context-148574-2026.md]]
+- [[duva-output-and-evaluation-capabilities.md]]
+- [[duva-documentation-and-operating-materials.md]]
 
 ## References
 
-- [[raw/duva-ausschreibungen-deutschland-2026-freiburg.md]]
-- [[raw/duva-ted-148574-2026-detail.md]]
-- [[raw/duva-ausgabe-auswertungsassistent.md]]
-- [[raw/duva-produkt-overview.md]]
-- [[raw/duva-materialien.md]]
+- [[duva-ausschreibungen-deutschland-2026-freiburg.md]]
+- [[duva-ted-148574-2026-detail.md]]
+- [[duva-ausgabe-auswertungsassistent.md]]
+- [[duva-produkt-overview.md]]
+- [[duva-materialien.md]]

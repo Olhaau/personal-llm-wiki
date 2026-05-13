@@ -1,6 +1,6 @@
 ---
 title: "Remote Access Technical and Organizational Safeguards"
-token: "94"
+token: "82"
 ---
 
 # Remote Access Technical and Organizational Safeguards
@@ -16,13 +16,13 @@ Key safeguards include:
 
 ## Connected Concepts
 
-- [[fdz-microdata-access-security]]
-- [[Legal and Contractual Access Controls]]
-- [[Confidentiality and Output Control Regime]]
-- [[Anonymity Levels and Access Paths]]
+- [[fdz-microdata-access-security.md]]
+- [[legal-and-contractual-access-controls.md]]
+- [[confidentiality-and-output-control-regime.md]]
+- [[anonymity-levels-and-access-paths.md]]
 
 ## References
 
-- [[raw/fdz-access-to-microdata.md]]
-- [[raw/fdz-terms-of-use.md]]
-- [[raw/fdz-request-for-access.md]]
+- [[fdz-access-to-microdata.md]]
+- [[fdz-terms-of-use.md]]
+- [[fdz-request-for-access.md]]

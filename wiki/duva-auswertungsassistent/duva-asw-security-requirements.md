@@ -1,6 +1,6 @@
 ---
 title: "DUVA ASW Security Requirements"
-token: "254"
+token: "232"
 ---
 
 # DUVA ASW Security Requirements
@@ -20,22 +20,22 @@ The DUVA pages in this corpus describe product and rollout context, while concre
 
 ## Connected Concepts
 
-- [[DUVA Auswertungsassistent]]
-- [[DUVA Procurement Context (148574-2026)]]
-- [[DUVA Documentation and Operating Materials]]
-- [[DUVA ASW Security Alignment with BSI Grundschutz]]
-- [[Secure Software Lifecycle under IT-Grundschutz]]
-- [[IT-Grundschutz Bausteine for Software Development]]
+- [[duva-auswertungsassistent.md]]
+- [[duva-procurement-context-148574-2026.md]]
+- [[duva-documentation-and-operating-materials.md]]
+- [[duva-asw-security-alignment-with-bsi-grundschutz.md]]
+- [[secure-software-lifecycle-under-it-grundschutz.md]]
+- [[it-grundschutz-bausteine-for-software-development.md]]
 
 ## References
 
-- [[raw/duva-ausschreibungen-deutschland-2026-freiburg.md]]
-- [[raw/duva-ted-148574-2026-detail.md]]
-- [[raw/duva-materialien.md]]
-- [[raw/duva-auswertungsassistent-anwenderhandbuch.md]]
-- [[raw/bsi-standard-200-1-isms.md]]
-- [[raw/bsi-standard-200-2-it-grundschutz-methodik.md]]
-- [[raw/bsi-standard-200-3-risikomanagement.md]]
-- [[raw/bsi-standard-200-4-bcm.md]]
-- [[raw/bsi-con-8-software-entwicklung.md]]
-- [[raw/bsi-app-6-allgemeine-software.md]]
+- [[duva-ausschreibungen-deutschland-2026-freiburg.md]]
+- [[duva-ted-148574-2026-detail.md]]
+- [[duva-materialien.md]]
+- [[duva-auswertungsassistent-anwenderhandbuch.md]]
+- [[bsi-standard-200-1-isms.md]]
+- [[bsi-standard-200-2-it-grundschutz-methodik.md]]
+- [[bsi-standard-200-3-risikomanagement.md]]
+- [[bsi-standard-200-4-bcm.md]]
+- [[bsi-con-8-software-entwicklung.md]]
+- [[bsi-app-6-allgemeine-software.md]]

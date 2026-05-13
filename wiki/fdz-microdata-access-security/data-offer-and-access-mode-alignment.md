@@ -1,6 +1,6 @@
 ---
 title: "Data Offer and Access Mode Alignment"
-token: "107"
+token: "92"
 ---
 
 # Data Offer and Access Mode Alignment
@@ -13,13 +13,13 @@ FDZ product discovery and FDZ access governance are tightly coupled: the availab
 
 ## Connected Concepts
 
-- [[FDZ Data Supply Portfolio and Access Formats]]
-- [[Anonymity Levels and Access Paths]]
-- [[Access Governance and Data Protection Lifecycle]]
+- [[fdz-data-supply-portfolio-and-access-formats.md]]
+- [[anonymity-levels-and-access-paths.md]]
+- [[access-governance-and-data-protection-lifecycle.md]]
 
 ## References
 
-- [[raw/fdz-sitemap-overview.md]]
-- [[raw/fdz-alle-daten-ueberblick.md]]
-- [[raw/fdz-public-use-files.md]]
-- [[raw/fdz-scientific-and-remote-use-files.md]]
+- [[fdz-sitemap-overview.md]]
+- [[fdz-alle-daten-ueberblick.md]]
+- [[fdz-public-use-files.md]]
+- [[fdz-scientific-and-remote-use-files.md]]

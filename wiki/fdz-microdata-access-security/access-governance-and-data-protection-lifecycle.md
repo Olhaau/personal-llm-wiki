@@ -1,6 +1,6 @@
 ---
 title: "Access Governance and Data Protection Lifecycle"
-token: "120"
+token: "101"
 ---
 
 # Access Governance and Data Protection Lifecycle
@@ -16,16 +16,16 @@ This connection describes how legal eligibility, technical controls, and privacy
 
 ## Connected Concepts
 
-- [[fdz-microdata-access-security]]
-- [[FDZ Data Supply Portfolio and Access Formats]]
-- [[Legal and Contractual Access Controls]]
-- [[Confidentiality and Output Control Regime]]
-- [[Remote Access Technical and Organizational Safeguards]]
+- [[fdz-microdata-access-security.md]]
+- [[fdz-data-supply-portfolio-and-access-formats.md]]
+- [[legal-and-contractual-access-controls.md]]
+- [[confidentiality-and-output-control-regime.md]]
+- [[remote-access-technical-and-organizational-safeguards.md]]
 
 ## References
 
-- [[raw/fdz-request-for-access.md]]
-- [[raw/fdz-terms-of-use.md]]
-- [[raw/fdz-data-privacy-notice.md]]
-- [[raw/fdz-confidentiality.md]]
-- [[raw/fdz-scientific-and-remote-use-files.md]]
+- [[fdz-request-for-access.md]]
+- [[fdz-terms-of-use.md]]
+- [[fdz-data-privacy-notice.md]]
+- [[fdz-confidentiality.md]]
+- [[fdz-scientific-and-remote-use-files.md]]

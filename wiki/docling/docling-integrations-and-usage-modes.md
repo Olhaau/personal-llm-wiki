@@ -1,6 +1,6 @@
 ---
 title: "Docling Integrations and Usage Modes"
-token: "125"
+token: "118"
 ---
 
 # Docling Integrations and Usage Modes
@@ -18,15 +18,15 @@ This suggests a layered adoption path: start with direct conversion, then evolve
 
 ## Connected Concepts
 
-- [[docling]]
-- [[Docling Overview]]
-- [[Docling Pipeline Capabilities]]
-- [[Docling and LLM Wiki Workflows]]
-- [[llm-wiki]]
+- [[docling.md]]
+- [[docling-overview.md]]
+- [[docling-pipeline-capabilities.md]]
+- [[docling-and-llm-wiki-workflows.md]]
+- [[llm-wiki.md]]
 
 ## References
 
-- [[raw/docling-github.md]]
-- [[raw/docling-docs.md]]
-- [[raw/docling-examples.md]]
+- [[docling-github.md]]
+- [[docling-docs.md]]
+- [[docling-examples.md]]
 - https://docling-project.github.io/docling/usage/mcp/

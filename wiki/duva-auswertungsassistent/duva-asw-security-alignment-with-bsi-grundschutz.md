@@ -1,6 +1,6 @@
 ---
 title: "DUVA ASW Security Alignment with BSI Grundschutz"
-token: "150"
+token: "126"
 ---
 
 # DUVA ASW Security Alignment with BSI Grundschutz
@@ -16,20 +16,20 @@ This creates a usable bridge from DUVA delivery objectives to verifiable securit
 
 ## Connected Concepts
 
-- [[DUVA ASW Security Requirements]]
-- [[DUVA Procurement Context (148574-2026)]]
-- [[DUVA Documentation and Operating Materials]]
-- [[BSI Standards 200 Series for Security Governance]]
-- [[IT-Grundschutz Bausteine for Software Development]]
-- [[Secure Software Lifecycle under IT-Grundschutz]]
+- [[duva-asw-security-requirements.md]]
+- [[duva-procurement-context-148574-2026.md]]
+- [[duva-documentation-and-operating-materials.md]]
+- [[bsi-standards-200-series-for-security-governance.md]]
+- [[it-grundschutz-bausteine-for-software-development.md]]
+- [[secure-software-lifecycle-under-it-grundschutz.md]]
 
 ## References
 
-- [[raw/duva-ausschreibungen-deutschland-2026-freiburg.md]]
-- [[raw/duva-materialien.md]]
-- [[raw/bsi-standard-200-1-isms.md]]
-- [[raw/bsi-standard-200-2-it-grundschutz-methodik.md]]
-- [[raw/bsi-standard-200-3-risikomanagement.md]]
-- [[raw/bsi-standard-200-4-bcm.md]]
-- [[raw/bsi-con-8-software-entwicklung.md]]
-- [[raw/bsi-app-6-allgemeine-software.md]]
+- [[duva-ausschreibungen-deutschland-2026-freiburg.md]]
+- [[duva-materialien.md]]
+- [[bsi-standard-200-1-isms.md]]
+- [[bsi-standard-200-2-it-grundschutz-methodik.md]]
+- [[bsi-standard-200-3-risikomanagement.md]]
+- [[bsi-standard-200-4-bcm.md]]
+- [[bsi-con-8-software-entwicklung.md]]
+- [[bsi-app-6-allgemeine-software.md]]

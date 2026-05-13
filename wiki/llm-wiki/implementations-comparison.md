@@ -1,6 +1,6 @@
 ---
 title: "Implementations Comparison"
-token: "104"
+token: "94"
 ---
 
 # Implementations Comparison
@@ -14,16 +14,16 @@ Common denominator across implementations: immutable raw layer + compiled wiki l
 
 ## Connected Concepts
 
-- [[llm-wiki]]
-- [[Persistent Wiki Pattern]]
-- [[Operation Loop]]
-- [[Runtime and Skill Packaging]]
-- [[Local Search and Retrieval Tooling]]
+- [[llm-wiki.md]]
+- [[persistent-wiki-pattern.md]]
+- [[operation-loop.md]]
+- [[runtime-and-skill-packaging.md]]
+- [[local-search-and-retrieval-tooling.md]]
 
 ## References
 
-- [[raw/karpathy-llm-wiki-gist.md]]
-- [[raw/karpathy-llm-wiki-raw-idea-file.md]]
-- [[raw/lewislulu-llm-wiki-skill.md]]
-- [[raw/nvk-llm-wiki.md]]
-- [[raw/opencode-skills-docs.md]]
+- [[karpathy-llm-wiki-gist.md]]
+- [[karpathy-llm-wiki-raw-idea-file.md]]
+- [[lewislulu-llm-wiki-skill.md]]
+- [[nvk-llm-wiki.md]]
+- [[opencode-skills-docs.md]]

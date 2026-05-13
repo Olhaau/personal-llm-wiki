@@ -1,6 +1,6 @@
 ---
 title: "Legal and Contractual Access Controls"
-token: "92"
+token: "83"
 ---
 
 # Legal and Contractual Access Controls
@@ -15,12 +15,12 @@ The control model includes:
 
 ## Connected Concepts
 
-- [[fdz-microdata-access-security]]
-- [[Confidentiality and Output Control Regime]]
-- [[Access Governance and Data Protection Lifecycle]]
+- [[fdz-microdata-access-security.md]]
+- [[confidentiality-and-output-control-regime.md]]
+- [[access-governance-and-data-protection-lifecycle.md]]
 
 ## References
 
-- [[raw/fdz-terms-of-use.md]]
-- [[raw/fdz-request-for-access.md]]
-- [[raw/fdz-access-to-microdata.md]]
+- [[fdz-terms-of-use.md]]
+- [[fdz-request-for-access.md]]
+- [[fdz-access-to-microdata.md]]

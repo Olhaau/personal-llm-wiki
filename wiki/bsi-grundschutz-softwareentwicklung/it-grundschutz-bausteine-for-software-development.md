@@ -1,6 +1,6 @@
 ---
 title: "IT-Grundschutz Bausteine for Software Development"
-token: "92"
+token: "79"
 ---
 
 # IT-Grundschutz Bausteine for Software Development
@@ -13,13 +13,13 @@ Related bausteine from the same source list can complement this scope, including
 
 ## Connected Concepts
 
-- [[bsi-grundschutz-softwareentwicklung]]
-- [[BSI Standards 200 Series for Security Governance]]
-- [[Secure Software Lifecycle under IT-Grundschutz]]
-- [[Standards and Bausteine Alignment]]
+- [[bsi-grundschutz-softwareentwicklung.md]]
+- [[bsi-standards-200-series-for-security-governance.md]]
+- [[secure-software-lifecycle-under-it-grundschutz.md]]
+- [[standards-and-bausteine-alignment.md]]
 
 ## References
 
-- [[raw/bsi-it-grundschutz-bausteine-edition-2023.md]]
-- [[raw/bsi-con-8-software-entwicklung.md]]
-- [[raw/bsi-app-6-allgemeine-software.md]]
+- [[bsi-it-grundschutz-bausteine-edition-2023.md]]
+- [[bsi-con-8-software-entwicklung.md]]
+- [[bsi-app-6-allgemeine-software.md]]

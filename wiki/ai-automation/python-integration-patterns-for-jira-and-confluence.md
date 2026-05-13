@@ -1,6 +1,6 @@
 ---
 title: "Python Integration Patterns for Jira and Confluence"
-token: "93"
+token: "86"
 ---
 
 # Python Integration Patterns for Jira and Confluence
@@ -19,12 +19,12 @@ Confluence automation patterns include create/update page flows, CQL search, and
 
 ## Connected Concepts
 
-- [[ai-automation]]
-- [[Outlook Automation with Microsoft Graph Python]]
-- [[Ticket-Mail-Docs Secret Flow]]
+- [[ai-automation.md]]
+- [[outlook-automation-with-microsoft-graph-python.md]]
+- [[ticket-mail-docs-secret-flow.md]]
 
 ## References
 
-- [[raw/ai-automation-atlassian-python-api-overview.md]]
-- [[raw/ai-automation-jira-module-python.md]]
-- [[raw/ai-automation-confluence-module-python.md]]
+- [[ai-automation-atlassian-python-api-overview.md]]
+- [[ai-automation-jira-module-python.md]]
+- [[ai-automation-confluence-module-python.md]]

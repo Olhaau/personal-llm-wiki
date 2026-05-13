@@ -23,5 +23,5 @@ Requirements:
 
 ## References
 
-- [[raw/lewislulu-llm-wiki-skill.md]]
-- [[raw/nvk-llm-wiki.md]]
+- [[lewislulu-llm-wiki-skill.md]]
+- [[nvk-llm-wiki.md]]

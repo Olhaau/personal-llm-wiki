@@ -1,6 +1,6 @@
 ---
 title: "KeePass Credential Operations with PyKeePass"
-token: "91"
+token: "78"
 ---
 
 # KeePass Credential Operations with PyKeePass
@@ -17,11 +17,11 @@ This makes KeePass usable as a local credential source for automations that need
 
 ## Connected Concepts
 
-- [[ai-automation]]
-- [[Python Integration Patterns for Jira and Confluence]]
-- [[Outlook Automation with Microsoft Graph Python]]
-- [[Ticket-Mail-Docs Secret Flow]]
+- [[ai-automation.md]]
+- [[python-integration-patterns-for-jira-and-confluence.md]]
+- [[outlook-automation-with-microsoft-graph-python.md]]
+- [[ticket-mail-docs-secret-flow.md]]
 
 ## References
 
-- [[raw/ai-automation-pykeepass.md]]
+- [[ai-automation-pykeepass.md]]

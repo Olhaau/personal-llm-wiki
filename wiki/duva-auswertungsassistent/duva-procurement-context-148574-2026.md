@@ -1,6 +1,6 @@
 ---
 title: "DUVA Procurement Context (148574-2026)"
-token: "74"
+token: "68"
 ---
 
 # DUVA Procurement Context (148574-2026)
@@ -11,13 +11,13 @@ Public references include a Freiburg-focused tender listing, TED result metadata
 
 ## Connected Concepts
 
-- [[DUVA Auswertungsassistent]]
-- [[DUVA Output and Evaluation Capabilities]]
-- [[Procurement-to-Operations Traceability]]
+- [[duva-auswertungsassistent.md]]
+- [[duva-output-and-evaluation-capabilities.md]]
+- [[procurement-to-operations-traceability.md]]
 
 ## References
 
-- [[raw/duva-ausschreibungen-deutschland-2026-freiburg.md]]
-- [[raw/duva-ted-148574-2026-detail.md]]
-- [[raw/duva-ted-148574-2026-pdfs.md]]
-- [[raw/duva-service-bund-ausschreibung-mirror.md]]
+- [[duva-ausschreibungen-deutschland-2026-freiburg.md]]
+- [[duva-ted-148574-2026-detail.md]]
+- [[duva-ted-148574-2026-pdfs.md]]
+- [[duva-service-bund-ausschreibung-mirror.md]]

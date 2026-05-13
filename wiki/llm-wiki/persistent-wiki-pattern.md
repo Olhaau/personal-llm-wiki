@@ -1,6 +1,6 @@
 ---
 title: "Persistent Wiki Pattern"
-token: "102"
+token: "93"
 ---
 
 # Persistent Wiki Pattern
@@ -15,14 +15,14 @@ Key properties in the source material:
 
 ## Connected Concepts
 
-- [[llm-wiki]]
-- [[Operation Loop]]
-- [[Runtime and Skill Packaging]]
-- [[Local Search and Retrieval Tooling]]
-- [[Implementations Comparison]]
+- [[llm-wiki.md]]
+- [[operation-loop.md]]
+- [[runtime-and-skill-packaging.md]]
+- [[local-search-and-retrieval-tooling.md]]
+- [[implementations-comparison.md]]
 
 ## References
 
-- [[raw/karpathy-llm-wiki-gist.md]]
-- [[raw/karpathy-llm-wiki-raw-idea-file.md]]
+- [[karpathy-llm-wiki-gist.md]]
+- [[karpathy-llm-wiki-raw-idea-file.md]]
 - https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f

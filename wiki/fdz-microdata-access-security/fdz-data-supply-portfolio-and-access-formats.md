@@ -1,6 +1,6 @@
 ---
 title: "FDZ Data Supply Portfolio and Access Formats"
-token: "131"
+token: "122"
 ---
 
 # FDZ Data Supply Portfolio and Access Formats
@@ -13,17 +13,17 @@ FDZ exposes a broad portfolio of statistical products via topic hubs and product
 
 ## Connected Concepts
 
-- [[fdz-microdata-access-security]]
-- [[Anonymity Levels and Access Paths]]
-- [[Access Governance and Data Protection Lifecycle]]
+- [[fdz-microdata-access-security.md]]
+- [[anonymity-levels-and-access-paths.md]]
+- [[access-governance-and-data-protection-lifecycle.md]]
 
 ## References
 
-- [[raw/fdz-alle-daten-ueberblick.md]]
-- [[raw/fdz-campus-files.md]]
-- [[raw/fdz-public-use-files.md]]
-- [[raw/fdz-scientific-and-remote-use-files.md]]
-- [[raw/fdz-thema-gesundheit.md]]
-- [[raw/fdz-thema-haushalte.md]]
-- [[raw/fdz-thema-steuern.md]]
-- [[raw/fdz-thema-afid.md]]
+- [[fdz-alle-daten-ueberblick.md]]
+- [[fdz-campus-files.md]]
+- [[fdz-public-use-files.md]]
+- [[fdz-scientific-and-remote-use-files.md]]
+- [[fdz-thema-gesundheit.md]]
+- [[fdz-thema-haushalte.md]]
+- [[fdz-thema-steuern.md]]
+- [[fdz-thema-afid.md]]

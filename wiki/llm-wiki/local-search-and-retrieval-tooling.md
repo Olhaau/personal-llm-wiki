@@ -1,6 +1,6 @@
 ---
 title: "Local Search and Retrieval Tooling"
-token: "97"
+token: "91"
 ---
 
 # Local Search and Retrieval Tooling
@@ -15,14 +15,14 @@ The role of these tools is supportive: retrieval quality improves, while compila
 
 ## Connected Concepts
 
-- [[llm-wiki]]
-- [[Persistent Wiki Pattern]]
-- [[Operation Loop]]
-- [[Runtime and Skill Packaging]]
-- [[docling]]
+- [[llm-wiki.md]]
+- [[persistent-wiki-pattern.md]]
+- [[operation-loop.md]]
+- [[runtime-and-skill-packaging.md]]
+- [[docling.md]]
 
 ## References
 
-- [[raw/karpathy-llm-wiki-raw-idea-file.md]]
-- [[raw/qmd-local-markdown-search.md]]
+- [[karpathy-llm-wiki-raw-idea-file.md]]
+- [[qmd-local-markdown-search.md]]
 - https://github.com/tobi/qmd

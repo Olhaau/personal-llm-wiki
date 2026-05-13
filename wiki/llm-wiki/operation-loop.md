@@ -1,6 +1,6 @@
 ---
 title: "Operation Loop"
-token: "99"
+token: "88"
 ---
 
 # Operation Loop
@@ -15,14 +15,14 @@ Implementation variants differ in command names and tooling, but the operational
 
 ## Connected Concepts
 
-- [[llm-wiki]]
-- [[Persistent Wiki Pattern]]
-- [[Runtime and Skill Packaging]]
-- [[Implementations Comparison]]
-- [[LLM Wiki and Docling Ingestion Boundary]]
+- [[llm-wiki.md]]
+- [[persistent-wiki-pattern.md]]
+- [[runtime-and-skill-packaging.md]]
+- [[implementations-comparison.md]]
+- [[llm-wiki-and-docling-ingestion-boundary.md]]
 
 ## References
 
-- [[raw/karpathy-llm-wiki-raw-idea-file.md]]
-- [[raw/lewislulu-llm-wiki-skill.md]]
-- [[raw/nvk-llm-wiki.md]]
+- [[karpathy-llm-wiki-raw-idea-file.md]]
+- [[lewislulu-llm-wiki-skill.md]]
+- [[nvk-llm-wiki.md]]

@@ -1,6 +1,6 @@
 ---
 title: "Standards and Bausteine Alignment"
-token: "106"
+token: "86"
 ---
 
 # Standards and Bausteine Alignment
@@ -13,17 +13,17 @@ This alignment enables organizations to connect strategic security management wi
 
 ## Connected Concepts
 
-- [[bsi-grundschutz-softwareentwicklung]]
-- [[BSI Standards 200 Series for Security Governance]]
-- [[IT-Grundschutz Bausteine for Software Development]]
-- [[Secure Software Lifecycle under IT-Grundschutz]]
-- [[DUVA ASW Security Alignment with BSI Grundschutz]]
+- [[bsi-grundschutz-softwareentwicklung.md]]
+- [[bsi-standards-200-series-for-security-governance.md]]
+- [[it-grundschutz-bausteine-for-software-development.md]]
+- [[secure-software-lifecycle-under-it-grundschutz.md]]
+- [[duva-asw-security-alignment-with-bsi-grundschutz.md]]
 
 ## References
 
-- [[raw/bsi-standard-200-1-isms.md]]
-- [[raw/bsi-standard-200-2-it-grundschutz-methodik.md]]
-- [[raw/bsi-standard-200-3-risikomanagement.md]]
-- [[raw/bsi-standard-200-4-bcm.md]]
-- [[raw/bsi-con-8-software-entwicklung.md]]
-- [[raw/bsi-app-6-allgemeine-software.md]]
+- [[bsi-standard-200-1-isms.md]]
+- [[bsi-standard-200-2-it-grundschutz-methodik.md]]
+- [[bsi-standard-200-3-risikomanagement.md]]
+- [[bsi-standard-200-4-bcm.md]]
+- [[bsi-con-8-software-entwicklung.md]]
+- [[bsi-app-6-allgemeine-software.md]]

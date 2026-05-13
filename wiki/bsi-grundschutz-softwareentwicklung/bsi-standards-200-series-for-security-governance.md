@@ -1,6 +1,6 @@
 ---
 title: "BSI Standards 200 Series for Security Governance"
-token: "102"
+token: "91"
 ---
 
 # BSI Standards 200 Series for Security Governance
@@ -15,14 +15,14 @@ For software development, these standards set the process and assurance context 
 
 ## Connected Concepts
 
-- [[bsi-grundschutz-softwareentwicklung]]
-- [[IT-Grundschutz Bausteine for Software Development]]
-- [[Secure Software Lifecycle under IT-Grundschutz]]
-- [[Standards and Bausteine Alignment]]
+- [[bsi-grundschutz-softwareentwicklung.md]]
+- [[it-grundschutz-bausteine-for-software-development.md]]
+- [[secure-software-lifecycle-under-it-grundschutz.md]]
+- [[standards-and-bausteine-alignment.md]]
 
 ## References
 
-- [[raw/bsi-standard-200-1-isms.md]]
-- [[raw/bsi-standard-200-2-it-grundschutz-methodik.md]]
-- [[raw/bsi-standard-200-3-risikomanagement.md]]
-- [[raw/bsi-standard-200-4-bcm.md]]
+- [[bsi-standard-200-1-isms.md]]
+- [[bsi-standard-200-2-it-grundschutz-methodik.md]]
+- [[bsi-standard-200-3-risikomanagement.md]]
+- [[bsi-standard-200-4-bcm.md]]

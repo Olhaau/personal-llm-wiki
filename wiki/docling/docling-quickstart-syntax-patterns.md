@@ -1,6 +1,6 @@
 ---
 title: "Docling Quickstart Syntax Patterns"
-token: "78"
+token: "72"
 ---
 
 # Docling Quickstart Syntax Patterns
@@ -31,10 +31,10 @@ docling --pipeline vlm --vlm-model granite_docling https://arxiv.org/pdf/2206.01
 
 ## Connected Concepts
 
-- [[Docling]]
-- [[Docling Integrations and Usage Modes]]
-- [[Docling Pipeline Capabilities]]
+- [[docling.md]]
+- [[docling-integrations-and-usage-modes.md]]
+- [[docling-pipeline-capabilities.md]]
 
 ## References
 
-- [[raw/docling-quickstart.md]]
+- [[docling-quickstart.md]]

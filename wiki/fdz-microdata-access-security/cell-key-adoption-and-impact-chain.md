@@ -1,6 +1,6 @@
 ---
 title: "Cell-Key Adoption and Impact Chain"
-token: "97"
+token: "85"
 ---
 
 # Cell-Key Adoption and Impact Chain
@@ -16,15 +16,15 @@ This connects governance-level method decisions to downstream user-facing data q
 
 ## Connected Concepts
 
-- [[Cell-Key Method in Official Statistics]]
-- [[Confidentiality and Output Control Regime]]
-- [[Legal and Contractual Access Controls]]
-- [[fdz-microdata-access-security]]
+- [[cell-key-method-in-official-statistics.md]]
+- [[confidentiality-and-output-control-regime.md]]
+- [[legal-and-contractual-access-controls.md]]
+- [[fdz-microdata-access-security.md]]
 
 ## References
 
-- [[raw/destatis-wista-entscheidungskriterien-geheimhaltungsverfahren.md]]
-- [[raw/destatis-wista-cell-key-teil-1.md]]
-- [[raw/destatis-wista-cell-key-teil-2.md]]
-- [[raw/statistikportal-cell-key-methode.md]]
-- [[raw/fdz-arbeitspapier-50-statistische-geheimhaltung.md]]
+- [[destatis-wista-entscheidungskriterien-geheimhaltungsverfahren.md]]
+- [[destatis-wista-cell-key-teil-1.md]]
+- [[destatis-wista-cell-key-teil-2.md]]
+- [[statistikportal-cell-key-methode.md]]
+- [[fdz-arbeitspapier-50-statistische-geheimhaltung.md]]

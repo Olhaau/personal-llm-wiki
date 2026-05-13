@@ -1,6 +1,6 @@
 ---
 title: "Outlook Automation with Microsoft Graph Python"
-token: "88"
+token: "80"
 ---
 
 # Outlook Automation with Microsoft Graph Python
@@ -16,11 +16,11 @@ The tutorial also highlights paging (`odata_next_link`) for robust mailbox proce
 
 ## Connected Concepts
 
-- [[ai-automation]]
-- [[Python Integration Patterns for Jira and Confluence]]
-- [[Ticket-Mail-Docs Secret Flow]]
+- [[ai-automation.md]]
+- [[python-integration-patterns-for-jira-and-confluence.md]]
+- [[ticket-mail-docs-secret-flow.md]]
 
 ## References
 
-- [[raw/ai-automation-microsoft-graph-create-client-python.md]]
-- [[raw/ai-automation-microsoft-graph-python-email.md]]
+- [[ai-automation-microsoft-graph-create-client-python.md]]
+- [[ai-automation-microsoft-graph-python-email.md]]

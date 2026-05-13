@@ -23,5 +23,5 @@ Requirements:
 
 ## References
 
-- [[raw/github-spec-kit-readme.md]]
-- [[raw/github-spec-kit-integrations.md]]
+- [[github-spec-kit-readme.md]]
+- [[github-spec-kit-integrations.md]]

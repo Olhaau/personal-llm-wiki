@@ -1,6 +1,6 @@
 ---
 title: "DUVA Documentation and Operating Materials"
-token: "74"
+token: "68"
 ---
 
 # DUVA Documentation and Operating Materials
@@ -11,12 +11,12 @@ The separate Auswertungsassistent user manual reference extends this with role-s
 
 ## Connected Concepts
 
-- [[DUVA Auswertungsassistent]]
-- [[DUVA Output and Evaluation Capabilities]]
-- [[Procurement-to-Operations Traceability]]
+- [[duva-auswertungsassistent.md]]
+- [[duva-output-and-evaluation-capabilities.md]]
+- [[procurement-to-operations-traceability.md]]
 
 ## References
 
-- [[raw/duva-materialien.md]]
-- [[raw/duva-auswertungsassistent-anwenderhandbuch.md]]
-- [[raw/duva-produkt-overview.md]]
+- [[duva-materialien.md]]
+- [[duva-auswertungsassistent-anwenderhandbuch.md]]
+- [[duva-produkt-overview.md]]
