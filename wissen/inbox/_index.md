@@ -67,3 +67,6 @@ Central intake ledger for dropped URLs, emails, files, and notes.
 | intake-20260512-061 | web | Confluence REST API v2 update page | wissen/inbox/weburl-index.md | 2026-05-12T00:00:00Z | ingested | wissen/raw/public/ai-automation-confluence-rest-api-v2-update-page.md |
 | intake-20260512-062 | web | Confluence Cloud basic auth for REST APIs | wissen/inbox/weburl-index.md | 2026-05-12T00:00:00Z | ingested | wissen/raw/public/ai-automation-confluence-basic-auth-rest-apis.md |
 | intake-20260512-063 | web | Atlassian Python API Confluence page actions | wissen/inbox/weburl-index.md | 2026-05-12T00:00:00Z | ingested | wissen/raw/public/ai-automation-atlassian-python-api-confluence-page-actions.md |
+| intake-20260513-064 | web | Anthropic Claude Code Skills | wissen/inbox/weburl-index.md | 2026-05-13T00:00:00Z | ingested | wissen/raw/public/anthropic-claude-code-skills.md |
+| intake-20260513-065 | web | GitHub Spec Kit README | wissen/inbox/weburl-index.md | 2026-05-13T00:00:00Z | ingested | wissen/raw/public/github-spec-kit-readme.md |
+| intake-20260513-066 | web | Spec Kit Supported AI Coding Agent Integrations | wissen/inbox/weburl-index.md | 2026-05-13T00:00:00Z | ingested | wissen/raw/public/github-spec-kit-integrations.md |

@@ -71,6 +71,9 @@ URLs queued for ingest and normalization into `raw/public/`.
 | [x] | fdz-microdata-access-security | FDZ Thema Gesundheit | https://www.forschungsdatenzentrum.de/de/gesundheit | 2026-05-11 |
 | [x] | fdz-microdata-access-security | FDZ Thema Haushalte | https://www.forschungsdatenzentrum.de/de/haushalte | 2026-05-11 |
 | [x] | fdz-microdata-access-security | FDZ Thema Steuern | https://www.forschungsdatenzentrum.de/de/steuern | 2026-05-11 |
+| [x] | prompt-engineering | Anthropic Claude Code Skills | https://docs.anthropic.com/en/docs/claude-code/skills | 2026-05-13 |
+| [x] | prompt-engineering | GitHub Spec Kit README | https://raw.githubusercontent.com/github/spec-kit/main/README.md | 2026-05-13 |
+| [x] | prompt-engineering | Spec Kit Supported AI Coding Agent Integrations | https://github.github.io/spec-kit/reference/integrations.html | 2026-05-13 |
 
 ## Notes
 
