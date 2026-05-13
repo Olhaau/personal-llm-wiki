@@ -34,25 +34,24 @@ Do not use for generic daily journaling or unsourced brainstorming.
 <wiki-root>/
 ├── AGENTS.md
 ├── inbox/
-│   ├── index.md
+│   ├── _index.md
 │   └── <drop-files-and-captured-inputs>
 ├── raw/
-│   ├── index.md
+│   ├── _index.md
 │   └── <one-markdown-file-per-input>.md
 ├── wiki/
-│   ├── index.md
+│   ├── _index.md
 │   └── <topic-slug>/
-│       ├── index.md
-│       ├── concepts/
-│       └── connections/
+│       ├── _index.md
+│       └── <concept-pages>.md
 └── log/
 ```
 
-`inbox/index.md` is the intake ledger. It tracks each dropped item with source/location/time metadata before normalization.
+`inbox/_index.md` is the intake ledger. It tracks each dropped item with source/location/time metadata before normalization.
 
 `raw/` is the normalized corpus. Each input from `inbox/` becomes one markdown file with YAML frontmatter.
 
-`wiki/index.md` is the master wiki index. Each `wiki/<topic>/index.md` is the topic-local index.
+`wiki/_index.md` is the master wiki index. Each `wiki/<topic>/_index.md` is the topic-local index.
 
 ## Raw File Frontmatter (Required)
 
@@ -70,11 +69,11 @@ generated_at: "YYYY-MM-DDTHH:MM:SSZ"
 
 ## Operating Rules
 
-1. **Raw is immutable**: never rewrite files under `raw/`.
-2. **Index-first**: read `wiki/index.md` before broad scans.
+1. **Raw is immutable by default**: avoid rewriting existing files under `raw/` unless explicitly requested by the user.
+2. **Index-first**: read `wiki/_index.md` before broad scans.
 3. **No hallucinated evidence**: if unsupported, say so and propose what to ingest.
 4. **Every factual output must include references**.
-5. **Cross-topic connections are allowed**: `connections/` entries may link across `wiki/<topic>/` subwikis.
+5. **Cross-topic connections are allowed**: any concept page may link across `wiki/<topic>/` subwikis.
 
 ## Reference Policy (Mandatory)
 
@@ -89,21 +88,24 @@ For every answer, report, or article generated from the wiki:
 
 ### 1) compile
 
-Extract concepts and connections from `raw/` into topic subwikis.
+Extract concepts from `raw/` into topic subwikis. Relationship pages are concepts too.
 
-- Read `AGENTS.md` and `wiki/index.md` first.
+- Read `AGENTS.md` and `wiki/_index.md` first.
 - Group raw files by `topic` frontmatter value.
-- Create missing `wiki/<topic>/` folders with `concepts/`, `connections/`, and `index.md`.
-- Extract/update concept pages in `wiki/<topic>/concepts/`.
-- Extract/update connection pages in `wiki/<topic>/connections/`.
-- Rebuild each topic `index.md` and then rebuild `wiki/index.md`.
+- Create missing `wiki/<topic>/` folders and `index.md`.
+- Extract/update concept pages directly in `wiki/<topic>/`.
+- Do not create `concepts/` or `connections/` subfolders.
+- Every concept page must include `## Summary` (2-3 sentences), `## Details`, `## Connected Concepts` (one-sentence relation notes), and `## References`.
+- Avoid self-referential phrasing like "this concept" or "topic-level concept".
+- Cite `[[raw/...]]` sources inline in the prose and again in `## References`.
+- Rebuild each topic `_index.md` and then rebuild `wiki/_index.md`.
 - Append a `compile` log entry to `log/YYYYMMDD.md`.
 
 ### 2) ingest
 
 Normalize input from `inbox/` into `raw/`.
 
-- Record the input item in `inbox/index.md` with source/location/time.
+- Record the input item in `inbox/_index.md` with source/location/time.
 - Convert item into one markdown file in `raw/` with required YAML.
 - Keep a clear mapping from inbox item -> raw file in both indexes.
 - Append an `ingest` log entry listing created raw files.
@@ -112,10 +114,10 @@ Normalize input from `inbox/` into `raw/`.
 
 Answer from `wiki/` content with explicit source traceability.
 
-- Start from `wiki/index.md`.
+- Start from `wiki/_index.md`.
 - Read relevant pages and one link-hop deeper if needed.
-- Prefer topic-local concepts and connections first.
-- If needed, traverse linked connections across other topic subwikis.
+- Prefer topic-local concept pages first.
+- If needed, traverse linked concept pages across other topic subwikis.
 - Include `## References` in all outputs.
 - Append a `query` log entry.
 
@@ -127,19 +129,19 @@ Check for:
 
 - inbox index coverage (every intake item tracked)
 - raw index coverage and valid required YAML keys
-- topic subwiki shape (`concepts/`, `connections/`, `index.md`)
-- master index coverage (`wiki/index.md` lists all topic subwikis)
+- topic subwiki shape (`index.md` plus concept pages directly in topic root)
+- master index coverage (`wiki/_index.md` lists all topic subwikis)
 - dead links and orphan pages
 
 Apply safe fixes, then append a `lint` log entry.
 
 ### 5) audit
 
-Validate extraction quality and correct concept/connection drift.
+Validate extraction quality and correct concept-link drift.
 
 - Spot-check random raw -> concept mappings.
-- Verify key claims in `connections/` have supporting raw/wiki references.
-- Correct weak or wrong connections and update topic/master indexes.
+- Verify key claims in concept pages have supporting raw/wiki references.
+- Correct weak or wrong concept links and update topic/master indexes.
 - Append an `audit` log entry with corrected files.
 
 ## Out of Scope
@@ -153,6 +155,6 @@ Validate extraction quality and correct concept/connection drift.
 At session start, do this order:
 
 1. Read `AGENTS.md`
-2. Read `wiki/index.md`
+2. Read `wiki/_index.md`
 3. Inspect most recent `log/*.md`
-4. Read `inbox/index.md` for unprocessed intake items
+4. Read `inbox/_index.md` for unprocessed intake items
