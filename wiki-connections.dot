@@ -1,0 +1,31 @@
+graph wiki_connections {
+  graph [overlap=false, splines=true, outputorder=edgesfirst, bgcolor="white", pad="0.2"];
+  node [shape=ellipse, style=filled, fontname="Helvetica", fontsize=10, color="#444444", penwidth=1.0];
+  edge [color="#888888", penwidth=1.1];
+  "ai_tooling__ai_tooling" [label="ai-tooling/ai-tooling", fillcolor="#1f77b4"];
+  "ai_tooling__fabric_pattern_workflow_bridge" [label="ai-tooling/fabric-pattern-workflow-bridge", fillcolor="#1f77b4"];
+  "docling__docling" [label="docling/docling", fillcolor="#ff7f0e"];
+  "docling__docling_agent_skill_workflow" [label="docling/docling-agent-skill-workflow", fillcolor="#ff7f0e"];
+  "prompt_engineering__agent_skills_progressive_disclosure" [label="prompt-engineering/agent-skills-progressive-disclosure", fillcolor="#2ca02c"];
+  "prompt_engineering__prompt_engineering" [label="prompt-engineering/prompt-engineering", fillcolor="#2ca02c"];
+  "ai_tooling__ai_tooling" -- "ai_tooling__fabric_pattern_workflow_bridge";
+  "ai_tooling__ai_tooling" -- "docling__docling_agent_skill_workflow";
+  "ai_tooling__ai_tooling" -- "prompt_engineering__prompt_engineering";
+  "ai_tooling__fabric_pattern_workflow_bridge" -- "docling__docling";
+  "ai_tooling__fabric_pattern_workflow_bridge" -- "prompt_engineering__agent_skills_progressive_disclosure";
+  "ai_tooling__fabric_pattern_workflow_bridge" -- "prompt_engineering__prompt_engineering";
+  "docling__docling" -- "docling__docling_agent_skill_workflow";
+  "docling__docling" -- "prompt_engineering__agent_skills_progressive_disclosure";
+  "docling__docling_agent_skill_workflow" -- "prompt_engineering__agent_skills_progressive_disclosure";
+  "docling__docling_agent_skill_workflow" -- "prompt_engineering__prompt_engineering";
+  "prompt_engineering__agent_skills_progressive_disclosure" -- "prompt_engineering__prompt_engineering";
+  subgraph cluster_legend {
+    label="Topic Colors";
+    fontsize=12;
+    color="#cccccc";
+    style="rounded";
+    "legend__ai_tooling" [label="ai-tooling", shape=box, fillcolor="#1f77b4", color="#555555"];
+    "legend__docling" [label="docling", shape=box, fillcolor="#ff7f0e", color="#555555"];
+    "legend__prompt_engineering" [label="prompt-engineering", shape=box, fillcolor="#2ca02c", color="#555555"];
+  }
+}

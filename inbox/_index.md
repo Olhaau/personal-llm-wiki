@@ -133,3 +133,7 @@ Central intake ledger for dropped URLs, emails, files, and notes.
 | intake-20260513T222822Z-062 | file | Anthropic Claude Code Skills | wissen/inbox/weburl-index.md | 2026-05-13T22:28:22Z | ingested | wissen/raw/anthropic-claude-code-skills.md |
 | intake-20260513T222822Z-063 | file | GitHub Spec Kit README | wissen/inbox/weburl-index.md | 2026-05-13T22:28:22Z | ingested | wissen/raw/readme.md |
 | intake-20260513T222822Z-064 | file | Spec Kit Supported AI Coding Agent Integrations | wissen/inbox/weburl-index.md | 2026-05-13T22:28:22Z | ingested | wissen/raw/spec-kit-supported-ai-coding-agent-integrations.md |
+| intake-20260513-067 | web | Docling examples | user-direct-url | 2026-05-13T23:48:26Z | ingested | raw/docling-examples.md |
+| intake-20260513-068 | web | Docling agent skill (Cursor and compatible assistants) | user-direct-url | 2026-05-13T23:51:08Z | ingested | raw/docling-agent-skill-docling-document-intelligence.md |
+| intake-20260513-069 | web | Anthropic: Equipping agents for the real world with Agent Skills | user-direct-url | 2026-05-13T23:51:08Z | ingested | raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md |
+| intake-20260514-070 | web | Fabric README: One-Line Install (Recommended) | user-direct-url | 2026-05-14T07:42:37Z | ingested | raw/fabric-one-line-install-recommended.md |

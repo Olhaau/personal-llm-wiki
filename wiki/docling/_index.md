@@ -1,24 +1,16 @@
 ---
 title: "Docling Topic Index"
-token: "96"
+token: "0"
 ---
 
 # Docling Topic Index
 
-Topic index for `docling` sources.
+## Concept Pages
 
-## Concepts
-
-- [[docling.md]] - document-processing toolkit baseline for this topic.
-- [[docling-overview.md|Docling Overview]] - scope, positioning, and primary value proposition.
-- [[docling-pipeline-capabilities.md|Docling Pipeline Capabilities]] - supported formats, parsing pipeline, and output modalities.
-- [[docling-integrations-and-usage-modes.md|Docling Integrations and Usage Modes]] - CLI/Python usage and ecosystem integration patterns.
-- [[docling-quickstart-syntax-patterns.md|Docling Quickstart Syntax Patterns]] - quickstart command forms and syntax patterns used in practice.
-- [[docling-and-llm-wiki-workflows.md|Docling and LLM Wiki Workflows]] - how Docling ingestion connects to persistent wiki maintenance workflows.
+- [[docling.md|docling]] - Core summary of Docling examples and recommended conversion workflow.
+- [[docling-agent-skill-workflow.md|docling-agent-skill-workflow]] - Agent-skill bundle structure and convert-evaluate-refine loop.
 
 ## References
 
-- [[docling-docs.md]]
-- [[docling-github.md]]
-- [[docling-examples.md]]
-- [[docling-quickstart.md]]
+- [[raw/docling-examples.md]]
+- [[raw/docling-agent-skill-docling-document-intelligence.md]]

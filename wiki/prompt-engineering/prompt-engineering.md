@@ -1,29 +1,24 @@
 ---
-title: "prompt-engineering"
-token: "175"
+title: "Prompt Engineering"
+token: "167"
 ---
 
-# prompt-engineering
+# Prompt Engineering
 
 ## Summary
 
-Prompt engineering here means operation-specific prompts that an agent can execute directly with minimal interpretation overhead [[lewislulu-llm-wiki-skill.md]]. The prompt set mirrors recurring operations such as ingest, compile, lint, query, and chat capture to keep workflows reproducible [[karpathy-llm-wiki-gist.md]]. This structure turns process expectations into executable text artifacts that can be versioned and refined [[nvk-llm-wiki.md]].
+Agent-skill prompting extends general agents with reusable procedural knowledge by packaging instructions, scripts, and references into discoverable skill folders [[raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md]]. Effective prompt engineering in this model focuses on trigger quality (`name` and `description`) and on-demand context expansion instead of dumping all instructions up front [[raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md]].
 
 ## Details
 
-A practical prompt pattern includes explicit inputs, ordered steps, output constraints, and reference requirements so generated updates remain auditable [[opencode-skills-docs.md]]. Operation-specific prompts reduce ambiguity and improve consistency when maintaining long-lived markdown knowledge bases [[karpathy-llm-wiki-gist.md]].
+The article emphasizes iterative skill development: evaluate real tasks, identify capability gaps, then encode targeted guidance and code into skill bundles [[raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md]]. It also recommends separating mutually exclusive or rarely co-needed guidance into referenced files to reduce token usage and improve precision, while still allowing deeper context when required [[raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md]].
 
 ## Connected Concepts
 
-- [[executable-prompt-for-ingest.md]] - Ingest prompts standardize source normalization and index updates.
-- [[executable-prompt-for-compile.md]] - Compile prompts define the rules for concept-page generation and linking.
-- [[executable-prompt-for-lint.md]] - Lint prompts enforce structural quality and consistency checks.
-- [[executable-prompt-for-query.md]] - Query prompts constrain answers to sourced wiki evidence.
-- [[executable-prompt-for-save-chat.md]] - Save-chat prompts persist reusable conversation knowledge into `raw/`.
-- [[llm-wiki.md]] - Prompt design operationalizes the maintenance loop used by the wiki model.
+- [[agent-skills-progressive-disclosure.md]] - Progressive disclosure is the mechanism that keeps skill prompts scalable while preserving depth.
+- [[wiki/docling/docling-agent-skill-workflow.md]] - The Docling skill is a concrete example of prompt-engineered procedural packaging for conversion and evaluation tasks.
+- [[wiki/ai-tooling/fabric-pattern-workflow-bridge.md]] - Fabric's CLI and pattern runtime provide an execution surface for modular prompt-engineering practices.
 
 ## References
 
-- [[karpathy-llm-wiki-gist.md]]
-- [[lewislulu-llm-wiki-skill.md]]
-- [[nvk-llm-wiki.md]]
+- [[raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md]]

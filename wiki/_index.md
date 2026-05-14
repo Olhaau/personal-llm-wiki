@@ -1,6 +1,6 @@
 ---
 title: "Public Wiki Index"
-token: "121"
+token: "68"
 ---
 
 # Public Wiki Index
@@ -9,16 +9,13 @@ Master index for all public topic sections.
 
 ## Topics
 
-- [[_index.md|ai-automation]] - Python-based automation patterns across Jira, Confluence, Outlook, and KeePass.
-- [[_index.md|bsi-grundschutz-softwareentwicklung]] - BSI IT-Grundschutz standards, methodik, and software-development bausteine alignment.
-- [[_index.md|docling]] - document processing stack, capabilities, and integration patterns for gen-AI pipelines.
-- [[_index.md|duva-auswertungsassistent]] - DUVA evaluation assistant procurement context, output capabilities, and operating documentation.
-- [[_index.md|fdz-microdata-access-security]] - legal, technical, and confidentiality controls for RDC microdata access and processing.
-- [[_index.md|llm-wiki]] - persistent wiki pattern, operations loop, tooling, and implementation ecosystem.
-- [[_index.md|prompt-engineering]] - executable prompt patterns for ingest, compile, lint, query, and chat capture.
-- [[_index.md|windows-server-ad-ds]] - AD DS overview and PowerShell module operations for directory administration.
+- [[ai-tooling/_index.md|ai-tooling]] - CLI-centered AI tooling patterns with Fabric installation and workflow bridges.
+- [[docling/_index.md|docling]] - Docling examples and agent-skill workflows for conversion and evaluation loops.
+- [[prompt-engineering/_index.md|prompt-engineering]] - Agent-skill design patterns, progressive disclosure, and operational guidance.
 
 ## References
 
-- [[windows-server-ad-ds-overview.md]]
-- [[powershell-activedirectory-module.md]]
+- [[raw/docling-examples.md]]
+- [[raw/docling-agent-skill-docling-document-intelligence.md]]
+- [[raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md]]
+- [[raw/fabric-one-line-install-recommended.md]]

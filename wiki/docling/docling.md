@@ -1,30 +1,24 @@
 ---
 title: "Docling"
-token: "181"
+token: "0"
 ---
 
 # Docling
 
 ## Summary
 
-Docling is a document-processing toolkit that converts heterogeneous inputs into structured, workflow-ready outputs for downstream automation and LLM pipelines [[docling-docs.md]]. The project supports broad format coverage and exposes both CLI and Python usage modes for ingestion workflows [[docling-quickstart.md]]. Integration guidance and examples position Docling as an upstream component for retrieval and synthesis stacks [[docling-examples.md]].
+Docling provides document-conversion workflows across multiple example groups, including conversion, extraction, chunking, and RAG integrations [[raw/docling-examples.md]]. The examples page highlights practical end-to-end patterns rather than only API fragments, making it useful as an implementation catalog [[raw/docling-examples.md]].
 
 ## Details
 
-Pipeline capabilities include conversion to markdown and other structured formats, making normalized source creation reproducible for later compile/query operations [[docling-github.md]]. Quickstart syntax patterns and integration recipes support operational deployment in local tools, agents, and orchestration chains [[docling-quickstart.md]].
+The examples collection spans standard conversion, multimodal pipelines, GPU-optimized variants, and integrations with retrieval stacks such as LangChain, Haystack, and LlamaIndex [[raw/docling-examples.md]]. It also points to an agent-skill workflow that packages instructions and helper scripts for assistants, enabling consistent convert -> evaluate -> refine cycles with the `docling` CLI and evaluator tooling [[raw/docling-agent-skill-docling-document-intelligence.md]].
 
 ## Connected Concepts
 
-- [[docling-overview.md]] - Overview material defines scope, positioning, and intended use cases.
-- [[docling-quickstart-syntax-patterns.md]] - Quickstart patterns show how to run repeatable extraction commands.
-- [[docling-pipeline-capabilities.md]] - Capability details describe supported formats and output forms.
-- [[docling-integrations-and-usage-modes.md]] - Integration guides connect Docling to broader AI toolchains.
-- [[docling-and-llm-wiki-workflows.md]] - This relation captures the handoff from parsing to wiki curation.
-- [[llm-wiki.md]] - LLM wiki workflows consume normalized outputs produced by Docling.
+- [[docling-agent-skill-workflow.md]] - The agent-skill page defines the operational loop and file structure used to apply Docling in assistant-driven workflows.
+- [[wiki/prompt-engineering/agent-skills-progressive-disclosure.md]] - Agent-skill triggering and layered context loading patterns align with how Docling skill bundles should stay lean and modular.
 
 ## References
 
-- [[docling-docs.md]]
-- [[docling-github.md]]
-- [[docling-examples.md]]
-- [[docling-quickstart.md]]
+- [[raw/docling-examples.md]]
+- [[raw/docling-agent-skill-docling-document-intelligence.md]]
