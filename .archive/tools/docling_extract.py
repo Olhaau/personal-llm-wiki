@@ -8,16 +8,16 @@ Example:
 from __future__ import annotations
 
 import argparse
+import re
+import shutil
+import subprocess
 import sys
+import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
-try:
-    from docling.document_converter import DocumentConverter
-except ImportError as exc:  # pragma: no cover
-    raise SystemExit(
-        "Docling is not installed. Install with: pip install docling"
-    ) from exc
+DocumentConverter = None
 
 
 def parse_args() -> argparse.Namespace:
@@ -62,15 +62,29 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Use recursive glob expansion for patterns.",
     )
+    parser.add_argument(
+        "--output-name",
+        default="",
+        help="Optional output base filename (without .md).",
+    )
     return parser.parse_args()
 
 
-def expand_inputs(patterns: list[str], recursive: bool) -> list[Path]:
-    files: list[Path] = []
+def is_url(value: str) -> bool:
+    parsed = urlparse(value)
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+def expand_inputs(patterns: list[str], recursive: bool) -> list[str]:
+    files: list[str] = []
     for pattern in patterns:
+        if is_url(pattern):
+            files.append(pattern)
+            continue
+
         path = Path(pattern)
         if path.exists() and path.is_file():
-            files.append(path.resolve())
+            files.append(str(path.resolve()))
             continue
 
         if recursive:
@@ -78,10 +92,14 @@ def expand_inputs(patterns: list[str], recursive: bool) -> list[Path]:
         else:
             matched = [p for p in Path().glob(pattern) if p.is_file()]
 
-        files.extend([p.resolve() for p in matched])
+        files.extend([str(p.resolve()) for p in matched])
 
     deduped = sorted(set(files))
     return deduped
+
+
+def approx_token_count(text: str) -> int:
+    return len(re.findall(r"\S+", text))
 
 
 def frontmatter(
@@ -89,12 +107,14 @@ def frontmatter(
     source_link: str,
     topic: str,
     tags: list[str],
+    token: int,
 ) -> str:
     now = datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     tags_yaml = ", ".join(tags)
     return (
         "---\n"
         f'title: "{title}"\n'
+        f'token: "{token}"\n'
         f'source_link: "{source_link}"\n'
         f'topic: "{topic}"\n'
         f"tags: [{tags_yaml}]\n"
@@ -105,22 +125,52 @@ def frontmatter(
 
 def write_markdown(
     outdir: Path,
-    input_file: Path,
-    document: object,
+    input_ref: str,
+    body: str,
     title: str,
     source_link: str,
     topic: str,
     tags: list[str],
+    output_name: str,
 ) -> None:
-    md_path = outdir / f"{input_file.stem}.md"
-    body = document.export_to_markdown()
+    stem = output_name.strip()
+    if not stem:
+        if is_url(input_ref):
+            parsed = urlparse(input_ref)
+            tail = Path(parsed.path).stem.strip()
+            stem = tail if tail else parsed.netloc.replace(".", "-")
+        else:
+            stem = Path(input_ref).stem
+
+    md_path = outdir / f"{stem}.md"
     yaml = frontmatter(
         title=title,
         source_link=source_link,
         topic=topic,
         tags=tags,
+        token=approx_token_count(body),
     )
     md_path.write_text(yaml + body, encoding="utf-8")
+
+
+def convert_with_cli(input_ref: str) -> str:
+    docling_bin = shutil.which("docling")
+    if not docling_bin:
+        candidate = Path(__file__).resolve().parents[2] / ".venv-docling" / "bin" / "docling"
+        if candidate.exists():
+            docling_bin = str(candidate)
+
+    if not docling_bin:
+        raise RuntimeError("Docling CLI not found on PATH or at .venv-docling/bin/docling")
+
+    with tempfile.TemporaryDirectory(prefix="docling-extract-") as tmp:
+        tmp_path = Path(tmp)
+        cmd = [docling_bin, "--to", "md", "--output", str(tmp_path), input_ref]
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        files = sorted(tmp_path.glob("*.md"))
+        if not files:
+            raise RuntimeError(f"Docling CLI produced no markdown for input: {input_ref}")
+        return files[0].read_text(encoding="utf-8", errors="replace")
 
 
 def main() -> int:
@@ -134,26 +184,43 @@ def main() -> int:
     outdir.mkdir(parents=True, exist_ok=True)
     tags = [tag.strip() for tag in args.tags.split(",") if tag.strip()]
 
-    converter = DocumentConverter()
+    converter = None
+    try:
+        from docling.document_converter import DocumentConverter as _DocumentConverter
+
+        converter = _DocumentConverter()
+    except Exception:
+        converter = None
 
     failures = 0
-    for input_file in files:
+    for input_ref in files:
         try:
-            result = converter.convert(str(input_file))
-            title = args.title if args.title else input_file.stem.replace("-", " ")
+            body = ""
+            if converter is not None:
+                result = converter.convert(input_ref)
+                body = result.document.export_to_markdown()
+            else:
+                body = convert_with_cli(input_ref)
+
+            default_title = (
+                Path(urlparse(input_ref).path).stem if is_url(input_ref) else Path(input_ref).stem
+            )
+            title = args.title if args.title else default_title.replace("-", " ")
+            source_link = args.source_link if args.source_link else input_ref
             write_markdown(
                 outdir=outdir,
-                input_file=input_file,
-                document=result.document,
+                input_ref=input_ref,
+                body=body,
                 title=title,
-                source_link=args.source_link,
+                source_link=source_link,
                 topic=args.topic,
                 tags=tags,
+                output_name=args.output_name,
             )
-            print(f"OK  {input_file}")
+            print(f"OK  {input_ref}")
         except Exception as exc:  # pragma: no cover
             failures += 1
-            print(f"ERR {input_file}: {exc}", file=sys.stderr)
+            print(f"ERR {input_ref}: {exc}", file=sys.stderr)
 
     return 1 if failures else 0
 

@@ -16,6 +16,7 @@
 
 ## Ingest Rules
 - Every intake item is logged in `inbox/_index.md` first.
+- For Docling-based web/PDF ingest workflows, use the `docling-document-intelligence` skill at `.opencode/skills/docling-document-intelligence/SKILL.md` as the default operating guide.
 - Every normalized source in `raw/` must include YAML frontmatter with:
   - `title`
   - `token`

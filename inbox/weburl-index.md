@@ -74,6 +74,9 @@ URLs queued for ingest and normalization into `raw/`.
 | [x] | prompt-engineering | Anthropic Claude Code Skills | https://docs.anthropic.com/en/docs/claude-code/skills | 2026-05-13 |
 | [x] | prompt-engineering | GitHub Spec Kit README | https://raw.githubusercontent.com/github/spec-kit/main/README.md | 2026-05-13 |
 | [x] | prompt-engineering | Spec Kit Supported AI Coding Agent Integrations | https://github.github.io/spec-kit/reference/integrations.html | 2026-05-13 |
+| [x] | docling | Docling examples | https://docling-project.github.io/docling/examples/ | 2026-05-13 |
+| [x] | docling | Docling agent skill (Cursor and compatible assistants) | https://docling-project.github.io/docling/examples/agent_skill/docling-document-intelligence/ | 2026-05-13 |
+| [x] | prompt-engineering | Equipping agents for the real world with Agent Skills | https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills | 2026-05-13 |
 
 ## Notes
 
