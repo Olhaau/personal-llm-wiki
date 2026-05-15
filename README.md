@@ -5,6 +5,10 @@ sources are ingested into `raw/`, compiled into structured `wiki/` pages, and qu
 
 The repository root is the active wiki workspace.
 
+## Wiki Connections
+
+![Wiki connections graph](wiki-connections.png)
+
 ## Repository Layout
 
 - `llm-wiki-overview.md` - short background on the LLM Wiki pattern.
