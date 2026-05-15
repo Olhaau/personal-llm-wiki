@@ -1,6 +1,6 @@
 ---
 title: "AI Tooling"
-token: "162"
+token: "178"
 ---
 
 # AI Tooling
@@ -12,6 +12,9 @@ Fabric provides a CLI-focused AI tooling framework centered on reusable prompt p
 ## Details
 
 The recommended installation path uses shell or PowerShell one-liners that pull the installer script from the Fabric repository and execute it directly [[raw/fabric-one-line-install-recommended.md]]. The same installation section lists fallback approaches including release binaries and package managers, with Homebrew and AUR naming the command `fabric-ai` and suggesting an alias back to `fabric` for compatibility with CLI usage patterns [[raw/fabric-one-line-install-recommended.md]].
+
+Articles in this topic:
+- [[fabric-pattern-workflow-bridge.md]] - Bridges Fabric's pattern model to repeatable command-line workflow execution.
 
 ## Connected Concepts
 

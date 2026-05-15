@@ -1,6 +1,6 @@
 ---
 title: "Prompt Engineering"
-token: "167"
+token: "189"
 ---
 
 # Prompt Engineering
@@ -12,6 +12,9 @@ Agent-skill prompting extends general agents with reusable procedural knowledge 
 ## Details
 
 The article emphasizes iterative skill development: evaluate real tasks, identify capability gaps, then encode targeted guidance and code into skill bundles [[raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md]]. It also recommends separating mutually exclusive or rarely co-needed guidance into referenced files to reduce token usage and improve precision, while still allowing deeper context when required [[raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md]].
+
+Articles in this topic:
+- [[agent-skills-progressive-disclosure.md]] - Shows how to keep prompts lean while enabling deeper context when the task requires it.
 
 ## Connected Concepts
 
