@@ -5,3 +5,13 @@
 !**/intern/
 !**/intern/.gitkeep
 !**/intern/_index.md
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+.pytest_cache/
