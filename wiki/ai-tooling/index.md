@@ -9,8 +9,10 @@ generated_at: "2026-05-15T13:54:46Z"
 
 ## Concepts
 
+- [[wiki/ai-tooling/ai-tooling.md]] - Topic overview for Fabric-oriented AI tooling and installation strategy.
 - [[wiki/ai-tooling/concepts/fabric.md]] - Core overview of Fabric as an AI augmentation framework.
 - [[wiki/ai-tooling/concepts/fabric-installation-and-setup.md]] - Installation options and setup flow.
+- [[wiki/ai-tooling/fabric-pattern-workflow-bridge.md]] - Bridge from installation and aliases to repeatable workflow execution.
 
 ## Connections
 
@@ -25,4 +27,4 @@ generated_at: "2026-05-15T13:54:46Z"
 
 - [[raw/fabric-readme.md]]
 - [[raw/continue-prompts-deep-dive.md]]
-- [[raw/index.md]]
+- [[raw/_index.md]]

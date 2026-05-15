@@ -137,3 +137,7 @@ Central intake ledger for dropped URLs, emails, files, and notes.
 | intake-20260513-068 | web | Docling agent skill (Cursor and compatible assistants) | user-direct-url | 2026-05-13T23:51:08Z | ingested | raw/docling-agent-skill-docling-document-intelligence.md |
 | intake-20260513-069 | web | Anthropic: Equipping agents for the real world with Agent Skills | user-direct-url | 2026-05-13T23:51:08Z | ingested | raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md |
 | intake-20260514-070 | web | Fabric README: One-Line Install (Recommended) | user-direct-url | 2026-05-14T07:42:37Z | ingested | raw/fabric-one-line-install-recommended.md |
+| intake-20260515-071 | file | FDZ Arbeitspapier 50 PDF | inbox/fdz-arbeitspapier-50.pdf | 2026-05-15T00:00:00Z | pending | - |
+| intake-20260515-072 | file | DUVA Auswertungsassistent Anwenderhandbuch PDF | inbox/duva-auswertungsassistent-anwenderhandbuch.pdf | 2026-05-15T00:00:00Z | pending | - |
+| intake-20260515-073 | file | Cell-Key Methode Teil 2 PDF | inbox/cell-key-methode-teil2-032024.pdf | 2026-05-15T00:00:00Z | pending | - |
+| intake-20260515-074 | chat | Session capture ses_1ef0 | inbox/session-ses_1ef0.md | 2026-05-15T00:00:00Z | pending | - |

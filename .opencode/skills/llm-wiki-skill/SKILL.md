@@ -107,6 +107,8 @@ Normalize input from `inbox/` into `raw/`.
 
 - Record the input item in `inbox/_index.md` with source/location/time.
 - Convert item into one markdown file in `raw/` with required YAML.
+- For `.xlsx` files, default to full-fidelity JSON extraction with `python .opencode/skills/llm-wiki-skill/xlsx_to_json.py <input.xlsx> <output.json>`.
+- For `.xlsx` ingest, write JSON to `raw/<input-stem>.json` and preserve workbook metadata, sheet structure, merged ranges, formulas, and populated cells.
 - Keep a clear mapping from inbox item -> raw file in both indexes.
 - Append an `ingest` log entry listing created raw files.
 

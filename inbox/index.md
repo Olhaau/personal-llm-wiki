@@ -35,3 +35,7 @@ Central intake ledger for dropped URLs, emails, files, and notes.
 | intake-20260511-029 | web | FDZ Confidentiality | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-confidentiality.md |
 | intake-20260511-030 | web | FDZ Anonymity levels | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-anonymity-levels.md |
 | intake-20260511-031 | web | FDZ Data privacy notice | wissen/inbox/weburl-index.md | 2026-05-11T00:00:00Z | ingested | wissen/raw/fdz-data-privacy-notice.md |
+| intake-20260515-071 | file | FDZ Arbeitspapier 50 PDF | inbox/fdz-arbeitspapier-50.pdf | 2026-05-15T00:00:00Z | pending | - |
+| intake-20260515-072 | file | DUVA Auswertungsassistent Anwenderhandbuch PDF | inbox/duva-auswertungsassistent-anwenderhandbuch.pdf | 2026-05-15T00:00:00Z | pending | - |
+| intake-20260515-073 | file | Cell-Key Methode Teil 2 PDF | inbox/cell-key-methode-teil2-032024.pdf | 2026-05-15T00:00:00Z | pending | - |
+| intake-20260515-074 | chat | Session capture ses_1ef0 | inbox/session-ses_1ef0.md | 2026-05-15T00:00:00Z | pending | - |

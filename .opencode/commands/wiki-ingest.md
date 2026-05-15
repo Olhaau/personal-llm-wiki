@@ -12,6 +12,14 @@ User input: $ARGUMENTS
 
 If `$ARGUMENTS` is empty, process pending entries from `wissen/inbox/weburl-index.md`.
 
+For `.xlsx` intake items, default to the Python extractor:
+
+```bash
+python .opencode/skills/llm-wiki-skill/xlsx_to_json.py inbox/<file>.xlsx raw/<file>.json
+```
+
+Capture all workbook-relevant data in JSON (metadata, sheets, ranges, formulas, and populated cells).
+
 Return:
 - Processed items
 - Created raw files
