@@ -1,8 +1,8 @@
 ---
 title: "ai-tooling index"
-token: "0"
+token: "79"
 topic: "ai-tooling"
-generated_at: "2026-05-14T12:17:56Z"
+generated_at: "2026-05-15T13:54:46Z"
 ---
 
 # ai-tooling
@@ -15,12 +15,14 @@ generated_at: "2026-05-14T12:17:56Z"
 ## Connections
 
 - [[wissen/wiki/ai-tooling/connections/fabric-installation-to-usage.md]] - Relationship between installation decisions and runtime usage.
+- [[wissen/wiki/ai-tooling/connections/fabric-patterns-and-continue-prompts.md]] - Relationship between Fabric patterns and Continue prompt workflows across topics.
 
 ## Cross-topic Links
 
-- No cross-topic connection pages are currently present in `wissen/wiki/`.
+- [[wissen/wiki/ai-tooling/connections/fabric-patterns-and-continue-prompts.md]] links to prompt concepts in `prompt-engineering`.
 
 ## References
 
 - [[wissen/raw/fabric-readme.md]]
+- [[wissen/raw/continue-prompts-deep-dive.md]]
 - [[wissen/raw/index.md]]
