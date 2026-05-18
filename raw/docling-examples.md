@@ -1,12 +1,11 @@
 ---
 title: "Docling examples"
-token: "177"
+token: "158"
 source_link: "https://docling-project.github.io/docling/examples/"
 topic: "docling"
 tags: ["source/web", "privacy/public", "ingest", "docling", "examples"]
 generated_at: "2026-05-13T23:48:26Z"
 ---
-
 # Examples
 
 In this space, you can explore numerous Docling application recipes and end-to-end workflows.

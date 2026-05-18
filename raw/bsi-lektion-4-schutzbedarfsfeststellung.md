@@ -1,12 +1,11 @@
 ---
 title: "Lektion 4: Schutzbedarfsfeststellung"
-token: "191"
+token: "170"
 source_link: "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_node.html"
 topic: "it-grundschutz"
 tags: ["source/web", "privacy/public", "ingest", "bsi", "it-grundschutz", "schutzbedarfsfeststellung"]
 generated_at: "2026-05-15T13:18:03Z"
 ---
-
 # Lektion 4: Schutzbedarfsfeststellung
 
 Wie viel Schutz der betrachtete Informationsverbund und seine Zielobjekte benoetigen, wird in der Schutzbedarfsfeststellung begruendet und nachvollziehbar eingeschaetzt.

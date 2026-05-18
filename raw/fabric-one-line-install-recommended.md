@@ -1,12 +1,11 @@
 ---
 title: "Fabric README: One-Line Install (Recommended)"
-token: "123"
+token: "101"
 source_link: "https://github.com/danielmiessler/fabric#one-line-install-recommended"
 topic: "ai-tooling"
 tags: ["source/web", "privacy/public", "ingest", "fabric", "installation"]
 generated_at: "2026-05-14T07:42:37Z"
 ---
-
 ## Installation
 
 ### One-Line Install (Recommended)

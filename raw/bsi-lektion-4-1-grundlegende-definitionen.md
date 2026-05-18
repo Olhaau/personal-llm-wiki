@@ -1,12 +1,11 @@
 ---
 title: "Lerneinheit 4.1: Grundlegende Definitionen"
-token: "207"
+token: "184"
 source_link: "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_01/Lektion_4_01_node.html"
 topic: "it-grundschutz"
 tags: ["source/web", "privacy/public", "ingest", "bsi", "it-grundschutz", "schutzbedarfsfeststellung", "grundlegende-definitionen"]
 generated_at: "2026-05-15T13:20:24Z"
 ---
-
 # Lerneinheit 4.1: Grundlegende Definitionen
 
 Bei der Schutzbedarfsfeststellung ist zu fragen, welcher Schaden entstehen kann, wenn fuer ein Zielobjekt die Grundwerte Vertraulichkeit, Integritaet oder Verfuegbarkeit verletzt werden.

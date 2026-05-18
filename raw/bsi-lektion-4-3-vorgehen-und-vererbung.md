@@ -1,12 +1,11 @@
 ---
 title: "Lerneinheit 4.3: Vorgehen und Vererbung"
-token: "186"
+token: "162"
 source_link: "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_03/Lektion_4_03_node.html"
 topic: "it-grundschutz"
 tags: ["source/web", "privacy/public", "ingest", "bsi", "it-grundschutz", "schutzbedarfsfeststellung", "vererbung"]
 generated_at: "2026-05-15T13:20:24Z"
 ---
-
 # Lerneinheit 4.3: Vorgehen und Vererbung
 
 Objekte im Informationsverbund unterstuetzen Geschaeftsprozesse und Anwendungen. Der Schutzbedarf eines Objekts haengt daher vom Schutzbedarf der Geschaeftsprozesse und Informationen ab, fuer deren Bearbeitung es benoetigt wird.

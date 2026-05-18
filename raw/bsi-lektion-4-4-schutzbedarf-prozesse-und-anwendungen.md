@@ -1,12 +1,11 @@
 ---
 title: "Lerneinheit 4.4: Schutzbedarfsfeststellung fuer Prozesse und Anwendungen"
-token: "214"
+token: "187"
 source_link: "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_04/Lektion_4_04_node.html"
 topic: "it-grundschutz"
 tags: ["source/web", "privacy/public", "ingest", "bsi", "it-grundschutz", "schutzbedarfsfeststellung", "prozesse", "anwendungen"]
 generated_at: "2026-05-15T13:20:24Z"
 ---
-
 # Lerneinheit 4.4: Schutzbedarfsfeststellung fuer Prozesse und Anwendungen
 
 Zur Einschaetzung moeglicher Schaeden aus Verletzungen von Integritaet, Vertraulichkeit oder Verfuegbarkeit bei Prozessen und Anwendungen sollen aus Anwendersicht realistische Schadensszenarien entwickelt werden.

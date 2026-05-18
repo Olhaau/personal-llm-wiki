@@ -1,12 +1,11 @@
 ---
 title: "Docling agent skill (Cursor and compatible assistants)"
-token: "227"
+token: "203"
 source_link: "https://docling-project.github.io/docling/examples/agent_skill/docling-document-intelligence/"
 topic: "docling"
 tags: ["source/web", "privacy/public", "ingest", "docling", "agent-skill"]
 generated_at: "2026-05-13T23:51:08Z"
 ---
-
 # Docling agent skill (Cursor and compatible assistants)
 
 This folder is an [Agent Skill](https://agentskills.io/specification)-style bundle for AI coding assistants: structured instructions (`SKILL.md`), a pipeline reference (`pipelines.md`), and a quality evaluator (`scripts/docling-evaluate.py`).

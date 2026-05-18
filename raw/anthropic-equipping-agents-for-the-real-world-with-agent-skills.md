@@ -1,12 +1,11 @@
 ---
 title: "Equipping agents for the real world with Agent Skills"
-token: "364"
+token: "338"
 source_link: "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills"
 topic: "prompt-engineering"
 tags: ["source/web", "privacy/public", "ingest", "agent-skills", "anthropic"]
 generated_at: "2026-05-13T23:51:08Z"
 ---
-
 # Equipping agents for the real world with Agent Skills
 
 Published Oct 16, 2025.

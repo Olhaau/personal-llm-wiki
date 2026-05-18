@@ -1,12 +1,11 @@
 ---
 title: "Fabric GitHub README"
-token: "419"
+token: "323"
 source_link: "https://github.com/danielmiessler/fabric"
 topic: "ai-tooling"
 tags: ["source/web", "privacy/public", "ingest", "fabric", "github", "readme"]
 generated_at: "2026-05-14T12:17:56Z"
 ---
-
 # `fabric`
 
 `fabric` is an open-source framework for augmenting humans using AI.

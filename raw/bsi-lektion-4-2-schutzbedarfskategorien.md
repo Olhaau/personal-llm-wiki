@@ -1,12 +1,11 @@
 ---
 title: "Lerneinheit 4.2: Schutzbedarfskategorien"
-token: "204"
+token: "182"
 source_link: "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/Lektion_4_02_node.html"
 topic: "it-grundschutz"
 tags: ["source/web", "privacy/public", "ingest", "bsi", "it-grundschutz", "schutzbedarfsfeststellung", "schutzbedarfskategorien"]
 generated_at: "2026-05-15T13:20:24Z"
 ---
-
 # Lerneinheit 4.2: Schutzbedarfskategorien
 
 Wann ein Objekt normalen, hohen oder sehr hohen Schutzbedarf hat, kann nicht fuer alle Schadensszenarien allgemein gueltig beantwortet werden.

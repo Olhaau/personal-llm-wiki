@@ -1,12 +1,11 @@
 ---
 title: "How to Create and Manage Prompts in Continue"
-token: "664"
+token: "639"
 source_link: "https://docs.continue.dev/customize/deep-dives/prompts"
 topic: "prompt-engineering"
 tags: ["source/web", "privacy/public", "ingest", "continue", "prompts"]
 generated_at: "2026-05-15T12:15:33Z"
 ---
-
 # How to Create and Manage Prompts in Continue
 
 Prompts are used to kick off tasks for Agent mode, Plan mode, and Chat mode.
