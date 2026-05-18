@@ -1,11 +1,12 @@
 ---
 title: "Documentation - Docling"
 token: "979"
-source: web
 source_link: "https://docling-project.github.io/docling/"
-generated_at: "2026-05-18T17:06:56Z"
+topic: "unclassified"
+tags: []
+generated_at: "2026-05-18T17:20:22Z"
+source: "web"
 ---
-
 [![logo](https://docling-project.github.io/docling/assets/logo.png)](https://docling-project.github.io/docling/ "Docling")
 Docling
 

@@ -1,32 +1,77 @@
 ---
-title: "Lerneinheit 4.2: Schutzbedarfskategorien"
-token: "182"
+title: "BSI  -  Lerneinheit 4.2: Schutzbedarfskategorien"
+token: "394"
 source_link: "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/Lektion_4_02_node.html"
-topic: "it-grundschutz"
-tags: ["source/web", "privacy/public", "ingest", "bsi", "it-grundschutz", "schutzbedarfsfeststellung", "schutzbedarfskategorien"]
-generated_at: "2026-05-15T13:20:24Z"
+topic: "unclassified"
+tags: []
+generated_at: "2026-05-18T17:20:18Z"
+source: "web"
 ---
-# Lerneinheit 4.2: Schutzbedarfskategorien
+# Lerneinheit 4.2:
 
-Wann ein Objekt normalen, hohen oder sehr hohen Schutzbedarf hat, kann nicht fuer alle Schadensszenarien allgemein gueltig beantwortet werden.
+Schutzbedarfskategorien
 
-Eine erste Abgrenzung der Kategorien steht in Kapitel 8.2.1 des BSI-Standards 200-2 (IT-Grundschutz-Methodik). Diese Definitionen dienen als Ausgangspunkt und sollen an die Gegebenheiten der eigenen Institution angepasst und bei Bedarf ergaenzt werden.
+![Bild-Dokument für das Frontend](https://www.bsi.bund.de/SiteGlobals/Frontend/Images/kopfbereich.png?__blob=normal&v=11)
 
-Beispiel fuer die Kategorie "normal" im Szenario "Finanzielle Auswirkungen":
+Wann hat ein Objekt einen normalen, wann einen hohen und wann einen sehr hohen Schutzbedarf?
 
-"Der finanzielle Schaden bleibt fuer die Institution tolerabel."
+Eine allgemeingültige Antwort auf diese Frage ist nicht bei allen Schadensszenarien möglich. Eine erste Abgrenzung der Kategorien finden Sie in Kapitel 8.2.1 des [BSI-Standards 200-2: *IT-Grundschutz-Methodik*](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/SharedDocs/Downloads/DE/BSI/Grundschutz/BSI_Standards/standard_200_2.html "BSI-Standard 200-2"). Die dort angeführten, relativ allgemein gehaltenen Definitionen können Sie als Ausgangspunkt nehmen, an die besonderen Gegebenheiten Ihrer Institution anpassen und gegebenenfalls ergänzen.
 
-Was "tolerabel" bedeutet, haengt von der Institution ab. Fuer grosse Unternehmen koennen Betraege anders zu bewerten sein als fuer kleine und mittlere Unternehmen, bei denen gleich hohe Schaeden existenzgefaehrdend sein koennen.
+Beispielsweise finden Sie dort für die Schutzbedarfskategorie „normal“ und das Schadensszenario „Finanzielle Auswirkungen“ die Festlegung:
 
-Bei der Abgrenzung der Kategorien sollen institutionelle Besonderheiten beruecksichtigt werden, zum Beispiel:
+„Der finanzielle Schaden bleibt für die Institution tolerabel.“
 
-- fuer finanzielle Auswirkungen: Umsatz oder Gewinn eines Unternehmens bzw. Budget einer Behoerde
-- fuer Beeintraechtigung der Aufgabenerfuellung: vorhandene Ausweichverfahren bei Ausfaellen
+Was aber heißt für ein Unternehmen „tolerabel“? Für ein sehr großes Unternehmen spielen einige Millionen Euro mehr oder weniger vielleicht keine große Rolle, kleinere und mittlere Unternehmen kann ein Schaden in dieser Höhe dagegen zur Insolvenz führen. Bei der Abgrenzung der Schadenskategorien müssen Sie also die Besonderheiten der betrachteten Institution berücksichtigen, zum Beispiel
 
-Beispiel RECPLAST GmbH:
+- in Bezug auf das Szenario „finanzielle Auswirkungen“ die Höhe des Umsatzes oder des Gewinns eines Unternehmens oder die Höhe des bewilligten Budgets einer Behörde,
+- in Bezug auf das Szenario „Beeinträchtigung der Aufgabenerfüllung“ das Vorhandensein von Ausweichverfahren bei einem Ausfall eines Verfahrens.
 
-- normal: finanzieller Schaden < 50.000 Euro; Ausfallzeiten ueber 24 Stunden sind hinnehmbar
-- hoch: finanzieller Schaden zwischen 50.000 und 500.000 Euro; Ausfallzeiten maximal 24 Stunden
-- sehr hoch: finanzieller Schaden > 500.000 Euro; Ausfallzeiten ueber 2 Stunden nicht tolerierbar
+## Beispiel
 
-Kurz-URL: https://www.bsi.bund.de/dok/10990084
+![Logo RECPLAST](https://www.bsi.bund.de/SharedDocs/Bilder/DE/BSI/Themen/grundschutzdeutsch/Webkurs2018/Icons/icon_recplast.png?__blob=normal&v=1)
+
+Für das Beispielunternehmen, die RECPLAST GmbH, wurde bezüglich der Schadensszenarien „finanzielle Auswirkungen“ und „Beeinträchtigung der Aufgabenerfüllung“ folgendes festgelegt:
+
+Normaler Schutzbedarf:
+
+- „Der mögliche finanzielle Schaden ist kleiner als 50.000 Euro.“
+- „Die Abläufe bei RECPLAST werden allenfalls unerheblich beeinträchtigt. Ausfallzeiten von mehr als 24 Stunden können hingenommen werden.“
+
+Hoher Schutzbedarf:
+
+- „Der mögliche finanzielle Schaden liegt zwischen 50.000 und 500.000 Euro.“
+- „Die Abläufe bei RECPLAST werden erheblich beeinträchtigt. Ausfallzeiten dürfen maximal 24 Stunden betragen.“
+
+Sehr hoher Schutzbedarf:
+
+- „Der mögliche finanzielle Schaden liegt über 500.000 Euro.“
+- „Die Abläufe bei RECPLAST werden so stark beeinträchtigt, dass Ausfallzeiten, die über zwei Stunden hinausgehen, nicht toleriert werden können.“
+
+## Vorherige/nächste Seite:
+
+- [Lerneinheit 4.1: Grundlegende Definitionen](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_01/Lektion_4_01_node.html "Weitere Informationen unter: \"Lerneinheit 4.1: Grundlegende Definitionen\"")
+- [Lerneinheit 4.3: Vorgehen und Vererbung](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_03/Lektion_4_03_node.html "Weitere Informationen unter: \"Lerneinheit 4.3: Vorgehen und Vererbung\"")
+
+## Ähnliche Themen
+
+- [4.1 Grundlegende Definitionen
+  ![](https://www.bsi.bund.de/_config/NaviChildOrSiblingsModuleDefaultIcon.png?__blob=value&v=3)](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_01/Lektion_4_01_node.html)
+- [4.3 Vorgehen und Vererbung
+  ![](https://www.bsi.bund.de/_config/NaviChildOrSiblingsModuleDefaultIcon.png?__blob=value&v=3)](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_03/Lektion_4_03_node.html)
+- [4.4 Schutzbedarfsfeststellung für Prozesse und Anwendungen
+  ![](https://www.bsi.bund.de/_config/NaviChildOrSiblingsModuleDefaultIcon.png?__blob=value&v=3)](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_04/Lektion_4_04_node.html)
+- [4.5 Schutzbedarfsfeststellung für IT-Systeme
+  ![](https://www.bsi.bund.de/_config/NaviChildOrSiblingsModuleDefaultIcon.png?__blob=value&v=3)](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_05/Lektion_4_05_node.html)
+- [4.6 Schutzbedarfsfeststellung für Räume
+  ![](https://www.bsi.bund.de/_config/NaviChildOrSiblingsModuleDefaultIcon.png?__blob=value&v=3)](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_06/Lektion_4_06_node.html)
+- [4.7 Schutzbedarfsfeststellung für Kommunikationsverbindungen
+  ![](https://www.bsi.bund.de/_config/NaviChildOrSiblingsModuleDefaultIcon.png?__blob=value&v=3)](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_07/Lektion_4_07_node.html)
+- [Test zu Lektion 4: Fragen
+  ![](https://www.bsi.bund.de/_config/NaviChildOrSiblingsModuleDefaultIcon.png?__blob=value&v=3)](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_08/Lektion_4_08_node.html)
+- [Test zu Lektion 4: Lösungen
+  ![](https://www.bsi.bund.de/_config/NaviChildOrSiblingsModuleDefaultIcon.png?__blob=value&v=3)](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_09/Lektion_4_09_node.html)
+
+[Zurück zu Lektion 4: Schutzbedarfsfeststellung](https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_02/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_node.html)
+
+Kurz-URL:
+:   <https://www.bsi.bund.de/dok/10990084>
