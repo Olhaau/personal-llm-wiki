@@ -205,6 +205,11 @@ def main() -> int:
         action="store_true",
         help="Include rows with no populated cells",
     )
+    parser.add_argument(
+        "--compact",
+        action="store_true",
+        help="Write compact JSON without extra whitespace",
+    )
     args = parser.parse_args()
 
     input_path = args.input
@@ -218,7 +223,10 @@ def main() -> int:
 
     data = workbook_to_json(input_path=input_path, include_empty_rows=args.include_empty_rows)
     with output_path.open("w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=args.indent)
+        if args.compact:
+            json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+        else:
+            json.dump(data, f, ensure_ascii=False, indent=args.indent)
         f.write("\n")
 
     print(f"Wrote JSON extract to: {output_path}")
