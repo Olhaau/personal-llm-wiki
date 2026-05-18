@@ -1,6 +1,6 @@
 ---
 title: "Wiki Index"
-token: "0"
+token: "449"
 generated_at: "2026-05-15T13:54:46Z"
 ---
 
@@ -14,6 +14,7 @@ Master index for topic subwikis under `wiki/`.
 - [[wiki/prompt-engineering/index.md|prompt-engineering]]
 - [[wiki/it-grundschutz/index.md|it-grundschutz]]
 - [[wiki/docling/index.md|docling]]
+- [[wiki/excel-ingestion/index.md|excel-ingestion]]
 
 ## Article Catalog
 
@@ -42,6 +43,8 @@ Master index for topic subwikis under `wiki/`.
 | 21 | docling | [[wiki/docling/docling-installation.md]] | Installation prerequisites for Docling CLI conversion workflows. |
 | 22 | docling | [[wiki/docling/docling-quickstart.md]] | Minimal convert-and-evaluate quickstart flow. |
 | 23 | docling | [[wiki/docling/docling-agent-skill-workflow.md]] | Skill-based convert -> evaluate -> refine workflow design. |
+| 24 | excel-ingestion | [[wiki/excel-ingestion/excel-ingestion.md]] | Topic overview for extracting spreadsheet data into AI-ready knowledge artifacts. |
+| 25 | excel-ingestion | [[wiki/excel-ingestion/extraction-methods-comparison.md]] | Method comparison across pandas, openpyxl, unstructured loaders, and markdown conversion. |
 
 ## References
 
@@ -49,4 +52,5 @@ Master index for topic subwikis under `wiki/`.
 - [[wiki/prompt-engineering/index.md]]
 - [[wiki/it-grundschutz/index.md]]
 - [[wiki/docling/index.md]]
+- [[wiki/excel-ingestion/index.md]]
 - [[raw/_index.md]]

@@ -141,3 +141,4 @@ Central intake ledger for dropped URLs, emails, files, and notes.
 | intake-20260515-072 | file | DUVA Auswertungsassistent Anwenderhandbuch PDF | inbox/duva-auswertungsassistent-anwenderhandbuch.pdf | 2026-05-15T00:00:00Z | pending | - |
 | intake-20260515-073 | file | Cell-Key Methode Teil 2 PDF | inbox/cell-key-methode-teil2-032024.pdf | 2026-05-15T00:00:00Z | pending | - |
 | intake-20260515-074 | chat | Session capture ses_1ef0 | inbox/session-ses_1ef0.md | 2026-05-15T00:00:00Z | pending | - |
+| intake-20260518-075 | web | Excel extraction methods for AI knowledge pipelines | user-direct-research | 2026-05-18T08:18:42Z | ingested | raw/excel-extraction-methods-for-ai-knowledge.md |
