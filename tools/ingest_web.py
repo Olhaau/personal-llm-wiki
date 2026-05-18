@@ -54,6 +54,29 @@ def slugify(text: str) -> str:
     return cleaned or "webpage"
 
 
+TOKEN_RE = re.compile(r"\S+")
+
+
+def token_count(text: str) -> int:
+    return len(TOKEN_RE.findall(text))
+
+
+def sanitize_url_to_slug(url: str) -> str:
+    parsed = urlparse(url)
+    host = (parsed.netloc or "web").lower()
+
+    if host.endswith(".github.io") and host.count(".") >= 2:
+        subdomain = host.split(".")[0]
+        host_part = f"{slugify(subdomain)}-io"
+    else:
+        host_part = slugify(host)
+
+    path_parts = [slugify(part) for part in parsed.path.split("/") if part.strip()]
+    if path_parts:
+        return f"{host_part}_{'_'.join(path_parts)}"
+    return host_part
+
+
 def pick_image_source(img_tag, base_url: str) -> str | None:
     attrs = img_tag.attrs
     candidates = [
@@ -165,7 +188,7 @@ def ingest_web(
     make_absolute_links(soup, base_url)
 
     title = (soup.title.string.strip() if soup.title and soup.title.string else base_url)
-    page_slug = slugify(title)
+    page_slug = sanitize_url_to_slug(base_url)
 
     if output is None:
         output = Path("raw") / f"{page_slug}.md"
@@ -212,11 +235,13 @@ def ingest_web(
 
     main = soup.find("main") or soup.find("article") or soup.body or soup
     markdown_body = convert_html_to_markdown(str(main))
+    body_token_count = token_count(markdown_body)
 
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     frontmatter = (
         "---\n"
         f"title: {yaml_quote(title)}\n"
+        f"token: {yaml_quote(str(body_token_count))}\n"
         "source: web\n"
         f"source_link: {yaml_quote(base_url)}\n"
         f"generated_at: {yaml_quote(generated_at)}\n"
