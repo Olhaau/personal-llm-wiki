@@ -17,8 +17,8 @@ The model treats prompts as user messages, which makes them suitable for operati
 
 ## Connected Concepts
 
-- [[wiki/prompt-engineering/concepts/continue-cn-workflows.md]] - CLI execution modes consume prompt definitions for interactive and headless runs.
-- [[wiki/prompt-engineering/connections/continue-prompts-to-fabric-patterns.md]] - Prompt reuse strategy maps to Fabric's reusable pattern strategy across topics.
+- [[wiki/prompt-engineering/continue-cn-workflows.md]] - CLI execution modes consume prompt definitions for interactive and headless runs.
+- [[wiki/prompt-engineering/continue-prompts-to-fabric-patterns.md]] - Prompt reuse strategy maps to Fabric's reusable pattern strategy across topics.
 
 ## References
 

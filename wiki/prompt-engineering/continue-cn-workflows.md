@@ -17,9 +17,9 @@ The documented examples focus on generating Supabase functions, but the same exe
 
 ## Connected Concepts
 
-- [[wiki/prompt-engineering/concepts/continue-prompts.md]] - Prompt definitions provide the reusable instructions consumed by `cn` workflows.
-- [[wiki/prompt-engineering/connections/continue-prompts-to-fabric-patterns.md]] - Prompt-driven CLI execution mirrors Fabric pattern execution in cross-tool workflows.
-- [[wiki/ai-tooling/concepts/fabric.md]] - Fabric offers a parallel CLI model for reusable task execution with prompt-like pattern units.
+- [[wiki/prompt-engineering/continue-prompts.md]] - Prompt definitions provide the reusable instructions consumed by `cn` workflows.
+- [[wiki/prompt-engineering/continue-prompts-to-fabric-patterns.md]] - Prompt-driven CLI execution mirrors Fabric pattern execution in cross-tool workflows.
+- [[wiki/ai-tooling/fabric.md]] - Fabric offers a parallel CLI model for reusable task execution with prompt-like pattern units.
 
 ## References
 

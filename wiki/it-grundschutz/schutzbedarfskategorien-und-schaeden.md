@@ -17,9 +17,9 @@ Das RECPLAST-Beispiel konkretisiert Schwellenwerte fuer finanzielle Schaeden und
 
 ## Connected Concepts
 
-- [[wiki/it-grundschutz/concepts/schutzbedarfsfeststellung.md]] - Kategorien sind Kernbestandteil der Gesamtmethodik zur Schutzbedarfsfeststellung.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Die Kategorien werden in der Bewertung von Anwendungen konkret angewendet.
-- [[wiki/it-grundschutz/connections/kategorien-zu-prozessbewertung.md]] - Die Verbindung zeigt den Uebergang von abstrakten Kategorien zu konkreten Bewertungsfragen.
+- [[wiki/it-grundschutz/schutzbedarfsfeststellung.md]] - Kategorien sind Kernbestandteil der Gesamtmethodik zur Schutzbedarfsfeststellung.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Die Kategorien werden in der Bewertung von Anwendungen konkret angewendet.
+- [[wiki/it-grundschutz/kategorien-zu-prozessbewertung.md]] - Die Verbindung zeigt den Uebergang von abstrakten Kategorien zu konkreten Bewertungsfragen.
 
 ## References
 

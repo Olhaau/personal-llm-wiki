@@ -13,10 +13,6 @@ generated_at: "2026-05-19T07:20:22Z"
 - [[wiki/pdf-llm-ingestion/extraction-tooling-comparison.md]] - Practical comparison of PyMuPDF4LLM, Docling extraction, and Unstructured partitioning.
 - [[wiki/pdf-llm-ingestion/ocr-and-structure-strategies.md]] - OCR, layout, and element-structure decisions that affect retrieval quality.
 
-## Connections
-
-- [[wiki/pdf-llm-ingestion/pdf-llm-ingestion.md]] links to `docling`, `excel-ingestion`, and `ai-tooling` for end-to-end ingestion pipeline design.
-
 ## References
 
 - [[raw/pymupdf4llm-docs.md]]

@@ -17,8 +17,8 @@ Operational modes such as `fabric --serve` and `fabric --serve --serveOllama` de
 
 ## Connected Concepts
 
-- [[wiki/ai-tooling/concepts/fabric.md]] - Usage patterns and serving modes extend the core Fabric workflow model.
-- [[wiki/ai-tooling/concepts/fabric-installation-and-setup.md]] - Installation paths and setup steps are prerequisites for stable CLI execution.
+- [[wiki/ai-tooling/fabric.md]] - Usage patterns and serving modes extend the core Fabric workflow model.
+- [[wiki/ai-tooling/fabric-installation-and-setup.md]] - Installation paths and setup steps are prerequisites for stable CLI execution.
 
 ## References
 

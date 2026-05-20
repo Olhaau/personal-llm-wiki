@@ -17,9 +17,9 @@ Both approaches encode repeatable AI behavior into portable prompt assets. A pra
 
 ## Connected Concepts
 
-- [[wiki/ai-tooling/concepts/fabric.md]] - Fabric defines the pattern-centric side of reusable AI task execution.
-- [[wiki/prompt-engineering/concepts/continue-prompts.md]] - Continue prompt files define metadata and invokable command behavior.
-- [[wiki/prompt-engineering/concepts/continue-cn-workflows.md]] - Continue CLI workflows show how prompts are run in TUI and headless modes.
+- [[wiki/ai-tooling/fabric.md]] - Fabric defines the pattern-centric side of reusable AI task execution.
+- [[wiki/prompt-engineering/continue-prompts.md]] - Continue prompt files define metadata and invokable command behavior.
+- [[wiki/prompt-engineering/continue-cn-workflows.md]] - Continue CLI workflows show how prompts are run in TUI and headless modes.
 
 ## References
 

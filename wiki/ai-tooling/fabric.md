@@ -17,9 +17,9 @@ The README emphasizes reusable pattern authoring in Markdown and task decomposit
 
 ## Connected Concepts
 
-- [[wiki/ai-tooling/concepts/fabric-installation-and-setup.md]] - Installation and setup mechanics make the conceptual model executable in local workflows.
-- [[wiki/ai-tooling/connections/fabric-installation-to-usage.md]] - Operational flow links installation choices to command execution patterns.
-- [[wiki/ai-tooling/connections/fabric-patterns-and-continue-prompts.md]] - Fabric pattern execution maps to prompt-driven workflows described for Continue CLI usage.
+- [[wiki/ai-tooling/fabric-installation-and-setup.md]] - Installation and setup mechanics make the conceptual model executable in local workflows.
+- [[wiki/ai-tooling/fabric-installation-to-usage.md]] - Operational flow links installation choices to command execution patterns.
+- [[wiki/ai-tooling/fabric-patterns-and-continue-prompts.md]] - Fabric pattern execution maps to prompt-driven workflows described for Continue CLI usage.
 
 ## References
 

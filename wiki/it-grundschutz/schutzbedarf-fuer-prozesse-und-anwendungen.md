@@ -17,9 +17,9 @@ Fachverantwortliche und Nutzer sollen in die Einschaetzung eingebunden werden; b
 
 ## Connected Concepts
 
-- [[wiki/it-grundschutz/concepts/schutzbedarfskategorien-und-schaeden.md]] - Schadenskategorien liefern die Bewertungsdimensionen fuer die Anwendungsanalyse.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-it-systeme.md]] - Anwendungsergebnisse werden auf IT-Systeme vererbt.
-- [[wiki/it-grundschutz/connections/szenariofragen-zu-prompt-vorlagen.md]] - Strukturierte Fragen aus der Risikobewertung lassen sich als wiederverwendbare Prompt-Vorlagen modellieren.
+- [[wiki/it-grundschutz/schutzbedarfskategorien-und-schaeden.md]] - Schadenskategorien liefern die Bewertungsdimensionen fuer die Anwendungsanalyse.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-it-systeme.md]] - Anwendungsergebnisse werden auf IT-Systeme vererbt.
+- [[wiki/it-grundschutz/szenariofragen-zu-prompt-vorlagen.md]] - Strukturierte Fragen aus der Risikobewertung lassen sich als wiederverwendbare Prompt-Vorlagen modellieren.
 
 ## References
 

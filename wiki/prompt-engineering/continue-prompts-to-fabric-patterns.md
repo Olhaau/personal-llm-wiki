@@ -17,10 +17,10 @@ A practical interoperability pattern is to define a task once at the requirement
 
 ## Connected Concepts
 
-- [[wiki/prompt-engineering/concepts/continue-prompts.md]] - Prompt metadata and slash-command semantics define the Continue-side abstraction.
-- [[wiki/prompt-engineering/concepts/continue-cn-workflows.md]] - CLI execution modes operationalize prompt assets in real workflows.
-- [[wiki/ai-tooling/concepts/fabric.md]] - Fabric pattern architecture provides the corresponding abstraction in ai-tooling.
-- [[wiki/ai-tooling/connections/fabric-patterns-and-continue-prompts.md]] - Reverse-direction cross-topic connection from ai-tooling.
+- [[wiki/prompt-engineering/continue-prompts.md]] - Prompt metadata and slash-command semantics define the Continue-side abstraction.
+- [[wiki/prompt-engineering/continue-cn-workflows.md]] - CLI execution modes operationalize prompt assets in real workflows.
+- [[wiki/ai-tooling/fabric.md]] - Fabric pattern architecture provides the corresponding abstraction in ai-tooling.
+- [[wiki/ai-tooling/fabric-patterns-and-continue-prompts.md]] - Reverse-direction cross-topic connection from ai-tooling.
 
 ## References
 

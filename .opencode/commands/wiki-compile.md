@@ -1,13 +1,14 @@
 ---
 description: LLM Wiki compile raw into topic subwikis
 ---
-Use the `llm-wiki-skill` and run the `compile` operation for `wissen/`.
+Use the `llm-wiki-skill` and run the `compile` operation for `wiki/`.
 
 Goal:
-- Read `wissen/raw/` and group by `topic`.
-- Build/update `wissen/wiki/<topic>/concepts/` and `wissen/wiki/<topic>/connections/`.
-- Allow and preserve cross-topic connections.
-- Rebuild each topic `index.md` and the master `wissen/wiki/index.md`.
+- Read `raw/` and group by `topic`.
+- Build/update concept pages directly under `wiki/<topic>/`.
+- Do not create `concepts/` or `connections/` subfolders; relationship pages are regular concepts.
+- Preserve cross-topic links via concept page wiki-links.
+- Rebuild each topic `index.md` and the master `wiki/index.md`.
 
 Scope input: $ARGUMENTS
 
@@ -16,5 +17,5 @@ If `$ARGUMENTS` is empty, compile all topics.
 Return:
 - Topics compiled
 - Files created/updated
-- Connection pages linking across topics
+- Cross-topic links represented in concept pages
 - `## References` with raw/wiki paths used

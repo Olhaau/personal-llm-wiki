@@ -17,9 +17,9 @@ Damit entsteht eine belastbare Cross-Topic-Verbindung: Risikofragen aus IT-Grund
 
 ## Connected Concepts
 
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Enthaltene Szenariofragen liefern den fachlichen Fragenkatalog.
-- [[wiki/prompt-engineering/concepts/continue-prompts.md]] - Prompt-Dateien bilden den technischen Mechanismus fuer wiederverwendbare Fragevorlagen.
-- [[wiki/prompt-engineering/concepts/continue-cn-workflows.md]] - CLI-Workflows zeigen, wie Vorlagen wiederholt und konsistent ausgefuehrt werden.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Enthaltene Szenariofragen liefern den fachlichen Fragenkatalog.
+- [[wiki/prompt-engineering/continue-prompts.md]] - Prompt-Dateien bilden den technischen Mechanismus fuer wiederverwendbare Fragevorlagen.
+- [[wiki/prompt-engineering/continue-cn-workflows.md]] - CLI-Workflows zeigen, wie Vorlagen wiederholt und konsistent ausgefuehrt werden.
 
 ## References
 

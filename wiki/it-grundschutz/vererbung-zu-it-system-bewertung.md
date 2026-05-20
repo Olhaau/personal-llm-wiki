@@ -17,8 +17,8 @@ Die Verbindung zeigt damit den Uebergang von methodischen Regeln zu technischen 
 
 ## Connected Concepts
 
-- [[wiki/it-grundschutz/concepts/vererbung-prinzipien.md]] - Definiert die Regeln fuer Schutzbedarfsuebertragung.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-it-systeme.md]] - Wendet die Regeln auf konkrete Systemtypen an.
+- [[wiki/it-grundschutz/vererbung-prinzipien.md]] - Definiert die Regeln fuer Schutzbedarfsuebertragung.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-it-systeme.md]] - Wendet die Regeln auf konkrete Systemtypen an.
 
 ## References
 

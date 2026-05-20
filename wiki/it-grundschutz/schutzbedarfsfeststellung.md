@@ -17,10 +17,10 @@ Praktisch wird der Schutzbedarf auf den Grundwerten Vertraulichkeit, Integritaet
 
 ## Connected Concepts
 
-- [[wiki/it-grundschutz/concepts/schutzbedarfskategorien-und-schaeden.md]] - Kategorien und Schadensszenarien liefern das Bewertungsraster fuer die Schutzbedarfshoehe.
-- [[wiki/it-grundschutz/concepts/vererbung-prinzipien.md]] - Vererbung regelt, wie Schutzbedarf entlang von Abhaengigkeiten uebertragen wird.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Die erste konkrete Bewertung erfolgt fuer Prozesse und Anwendungen.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-it-systeme.md]] - IT-Systeme leiten den Schutzbedarf aus den unterstuetzten Anwendungen ab.
+- [[wiki/it-grundschutz/schutzbedarfskategorien-und-schaeden.md]] - Kategorien und Schadensszenarien liefern das Bewertungsraster fuer die Schutzbedarfshoehe.
+- [[wiki/it-grundschutz/vererbung-prinzipien.md]] - Vererbung regelt, wie Schutzbedarf entlang von Abhaengigkeiten uebertragen wird.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Die erste konkrete Bewertung erfolgt fuer Prozesse und Anwendungen.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-it-systeme.md]] - IT-Systeme leiten den Schutzbedarf aus den unterstuetzten Anwendungen ab.
 
 ## References
 

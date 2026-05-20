@@ -17,9 +17,9 @@ Fuer sonstige Geraete wie IoT-Komponenten soll zunaechst der Geschaeftsbezug gep
 
 ## Connected Concepts
 
-- [[wiki/it-grundschutz/concepts/vererbung-prinzipien.md]] - Vererbungsregeln sind die methodische Grundlage fuer die Systembewertung.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Anwendungen liefern den Ausgangspunkt fuer die Ableitung auf Systemebene.
-- [[wiki/it-grundschutz/connections/vererbung-zu-it-system-bewertung.md]] - Die Verbindung beschreibt den direkten Uebergang von Prinzipien in Systemklassifikationen.
+- [[wiki/it-grundschutz/vererbung-prinzipien.md]] - Vererbungsregeln sind die methodische Grundlage fuer die Systembewertung.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Anwendungen liefern den Ausgangspunkt fuer die Ableitung auf Systemebene.
+- [[wiki/it-grundschutz/vererbung-zu-it-system-bewertung.md]] - Die Verbindung beschreibt den direkten Uebergang von Prinzipien in Systemklassifikationen.
 
 ## References
 

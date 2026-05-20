@@ -17,8 +17,8 @@ From source, installation is performed through `go install github.com/danielmies
 
 ## Connected Concepts
 
-- [[wiki/ai-tooling/concepts/fabric.md]] - Installation paths support the broader Fabric model of reusable pattern-driven workflows.
-- [[wiki/ai-tooling/connections/fabric-installation-to-usage.md]] - Setup decisions determine how patterns, providers, and serving modes are used operationally.
+- [[wiki/ai-tooling/fabric.md]] - Installation paths support the broader Fabric model of reusable pattern-driven workflows.
+- [[wiki/ai-tooling/fabric-installation-to-usage.md]] - Setup decisions determine how patterns, providers, and serving modes are used operationally.
 
 ## References
 

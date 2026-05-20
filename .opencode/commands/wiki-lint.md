@@ -1,18 +1,19 @@
 ---
 description: LLM Wiki lint structure and links
 ---
-Use the `llm-wiki-skill` and run the `lint` operation for `wissen/`.
+Use the `llm-wiki-skill` and run the `lint` operation for `wiki/`.
 
 Checks:
-- `wissen/inbox/index.md` coverage for intake items
-- `wissen/raw/index.md` coverage + required YAML keys in raw files
-- Topic subwiki shape: `concepts/`, `connections/`, `index.md`
-- Master index coverage in `wissen/wiki/index.md`
+- `inbox/_index.md` coverage for intake items
+- `raw/_index.md` coverage + required YAML keys in raw files
+- Topic subwiki shape: concept pages directly in `wiki/<topic>/` with topic `index.md`
+- No `concepts/` or `connections/` subfolders in topic directories
+- Master index coverage in `wiki/index.md`
 - Dead links and orphan pages
 
 Focus: $ARGUMENTS
 
-If `$ARGUMENTS` is empty, run full lint across `wissen/`.
+If `$ARGUMENTS` is empty, run full lint across `wiki/`.
 
 Return:
 - Issues found

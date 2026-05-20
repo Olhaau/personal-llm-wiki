@@ -14,10 +14,6 @@ generated_at: "2026-05-15T00:00:00Z"
 - [[wiki/docling/docling-quickstart.md]] - Minimal conversion and evaluation workflow for first successful runs.
 - [[wiki/docling/docling-agent-skill-workflow.md]] - Skill-based convert -> evaluate -> refine loop for assistant-driven workflows.
 
-## Connections
-
-- [[wiki/docling/docling.md]] links to `prompt-engineering` for shared agent-skill loading patterns.
-
 ## References
 
 - [[raw/docling-examples.md]]

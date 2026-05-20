@@ -17,8 +17,8 @@ Diese Koppelung stellt sicher, dass Kategorien nicht abstrakt bleiben, sondern i
 
 ## Connected Concepts
 
-- [[wiki/it-grundschutz/concepts/schutzbedarfskategorien-und-schaeden.md]] - Kategorien liefern die Bewertungslogik und Schwellwerte.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Prozess- und Anwendungssicht operationalisiert die Kategorien mit Szenariofragen.
+- [[wiki/it-grundschutz/schutzbedarfskategorien-und-schaeden.md]] - Kategorien liefern die Bewertungslogik und Schwellwerte.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Prozess- und Anwendungssicht operationalisiert die Kategorien mit Szenariofragen.
 
 ## References
 

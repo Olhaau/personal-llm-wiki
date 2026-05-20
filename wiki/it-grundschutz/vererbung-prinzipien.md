@@ -17,9 +17,9 @@ Kumulation kann den Schutzbedarf erhoehen, wenn parallele Ausfaelle aggregiert e
 
 ## Connected Concepts
 
-- [[wiki/it-grundschutz/concepts/schutzbedarfsfeststellung.md]] - Vererbung ist ein zentraler Teil des Vorgehens zur Schutzbedarfsableitung.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-it-systeme.md]] - IT-System-Bewertungen nutzen die Vererbungsprinzipien unmittelbar.
-- [[wiki/it-grundschutz/connections/vererbung-zu-it-system-bewertung.md]] - Die Verbindung beschreibt den Transfer von Vererbungslogik in konkrete Systembewertungen.
+- [[wiki/it-grundschutz/schutzbedarfsfeststellung.md]] - Vererbung ist ein zentraler Teil des Vorgehens zur Schutzbedarfsableitung.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-it-systeme.md]] - IT-System-Bewertungen nutzen die Vererbungsprinzipien unmittelbar.
+- [[wiki/it-grundschutz/vererbung-zu-it-system-bewertung.md]] - Die Verbindung beschreibt den Transfer von Vererbungslogik in konkrete Systembewertungen.
 
 ## References
 

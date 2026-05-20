@@ -9,21 +9,14 @@ generated_at: "2026-05-15T13:54:46Z"
 
 ## Concepts
 
-- [[wiki/it-grundschutz/concepts/schutzbedarfsfeststellung.md]] - Gesamtziel und methodischer Rahmen der Schutzbedarfsfeststellung.
-- [[wiki/it-grundschutz/concepts/schutzbedarfskategorien-und-schaeden.md]] - Kategorien `normal`, `hoch`, `sehr hoch` und Schadensszenarien.
-- [[wiki/it-grundschutz/concepts/vererbung-prinzipien.md]] - Maximum, Abhaengigkeiten, Kumulation und Verteilung als Uebertragungslogik.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Bewertung mit Szenariofragen und nachvollziehbarer Begruendung.
-- [[wiki/it-grundschutz/concepts/schutzbedarf-fuer-it-systeme.md]] - Ableitung des Systemschutzbedarfs aus Anwendungen und Architektur.
-
-## Connections
-
-- [[wiki/it-grundschutz/connections/kategorien-zu-prozessbewertung.md]] - Verbindung zwischen Kategoriendefinition und Fragenkatalog.
-- [[wiki/it-grundschutz/connections/vererbung-zu-it-system-bewertung.md]] - Transfer von Vererbungsregeln in konkrete Systemklassifikation.
-- [[wiki/it-grundschutz/connections/szenariofragen-zu-prompt-vorlagen.md]] - Cross-Topic-Link von Risikofragen zu wiederverwendbaren Prompt-Vorlagen.
-
-## Cross-topic Links
-
-- [[wiki/it-grundschutz/connections/szenariofragen-zu-prompt-vorlagen.md]] links zu `prompt-engineering` Konzeptseiten.
+- [[wiki/it-grundschutz/schutzbedarfsfeststellung.md]] - Gesamtziel und methodischer Rahmen der Schutzbedarfsfeststellung.
+- [[wiki/it-grundschutz/schutzbedarfskategorien-und-schaeden.md]] - Kategorien `normal`, `hoch`, `sehr hoch` und Schadensszenarien.
+- [[wiki/it-grundschutz/vererbung-prinzipien.md]] - Maximum, Abhaengigkeiten, Kumulation und Verteilung als Uebertragungslogik.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-prozesse-und-anwendungen.md]] - Bewertung mit Szenariofragen und nachvollziehbarer Begruendung.
+- [[wiki/it-grundschutz/schutzbedarf-fuer-it-systeme.md]] - Ableitung des Systemschutzbedarfs aus Anwendungen und Architektur.
+- [[wiki/it-grundschutz/kategorien-zu-prozessbewertung.md]] - Verbindung zwischen Kategoriendefinition und Fragenkatalog.
+- [[wiki/it-grundschutz/vererbung-zu-it-system-bewertung.md]] - Transfer von Vererbungsregeln in konkrete Systemklassifikation.
+- [[wiki/it-grundschutz/szenariofragen-zu-prompt-vorlagen.md]] - Cross-Topic-Link von Risikofragen zu wiederverwendbaren Prompt-Vorlagen.
 
 ## References
 
