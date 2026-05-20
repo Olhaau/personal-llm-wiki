@@ -1,10 +1,10 @@
 ---
 title: "Raw Index"
-token: "248"
+token: "408"
 source_link: ""
 topic: "unclassified"
 tags: []
-generated_at: "2026-05-18T06:28:32Z"
+generated_at: "2026-05-20T05:02:49Z"
 ---
 # Raw Index
 
@@ -25,3 +25,12 @@ Normalized markdown versions of inputs from `inbox/`.
 | raw/bsi-lektion-4-3-vorgehen-und-vererbung.md | Lerneinheit 4.3: Vorgehen und Vererbung | it-grundschutz | https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_03/Lektion_4_03_node.html | 2026-05-15T13:20:24Z | source/web,privacy/public,ingest,bsi,it-grundschutz,schutzbedarfsfeststellung,vererbung |
 | raw/bsi-lektion-4-4-schutzbedarf-prozesse-und-anwendungen.md | Lerneinheit 4.4: Schutzbedarfsfeststellung fuer Prozesse und Anwendungen | it-grundschutz | https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_04/Lektion_4_04_node.html | 2026-05-15T13:20:24Z | source/web,privacy/public,ingest,bsi,it-grundschutz,schutzbedarfsfeststellung,prozesse,anwendungen |
 | raw/bsi-lektion-4-5-schutzbedarf-it-systeme.md | Lerneinheit 4.5: Schutzbedarfsfeststellung fuer IT-Systeme | it-grundschutz | https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/Zertifizierte-Informationssicherheit/IT-Grundschutzschulung/Online-Kurs-IT-Grundschutz/Lektion_4_Schutzbedarfsfeststellung/Lektion_4_05/Lektion_4_05_node.html | 2026-05-15T13:20:24Z | source/web,privacy/public,ingest,bsi,it-grundschutz,schutzbedarfsfeststellung,it-systeme |
+| raw/pymupdf4llm-docs.md | PyMuPDF4LLM - PyMuPDF documentation | pdf-llm-ingestion | https://pymupdf.readthedocs.io/en/latest/pymupdf4llm/ | 2026-05-19T06:25:43Z | source/web,privacy/public,ingest,pdf,llm,extraction |
+| raw/docling-information-extraction.md | Information extraction - Docling | pdf-llm-ingestion | https://docling-project.github.io/docling/examples/extraction/ | 2026-05-19T06:25:44Z | source/web,privacy/public,ingest,pdf,llm,extraction |
+| raw/unstructured-partitioning.md | Partitioning - Unstructured | pdf-llm-ingestion | https://docs.unstructured.io/open-source/core-functionality/partitioning | 2026-05-19T06:25:44Z | source/web,privacy/public,ingest,pdf,llm,extraction |
+| raw/artifex-rag-llm-pdf-enhanced-text-extraction.md | RAG/LLM and PDF: Enhanced Text Extraction \| Artifex | pdf-llm-ingestion | https://artifex.com/blog/rag-llm-and-pdf-enhanced-text-extraction | 2026-05-19T06:25:45Z | source/web,privacy/public,ingest,pdf,llm,extraction |
+| raw/fdz-arbeitspapier-50-pdf.md | FDZ Arbeitspapier 50 Statistische Geheimhaltung (PDF) | unclassified | inbox/fdz-arbeitspapier-50.pdf | 2026-05-19T07:09:11Z | source/file,privacy/public,ingest,pdf,fdz |
+| raw/duva-auswertungsassistent-anwenderhandbuch-pdf.md | DUVA Auswertungsassistent Anwenderhandbuch (PDF) | unclassified | inbox/duva-auswertungsassistent-anwenderhandbuch.pdf | 2026-05-19T07:09:11Z | source/file,privacy/public,ingest,pdf,duva |
+| raw/cell-key-methode-teil2-032024-pdf.md | Cell-Key Methode Teil 2 (PDF) | unclassified | inbox/cell-key-methode-teil2-032024.pdf | 2026-05-19T07:09:11Z | source/file,privacy/public,ingest,pdf,cell-key |
+| raw/chat-llm-wiki-20260515T000000Z.md | Chat Session ses_1ef0 | llm-wiki | inbox/session-ses_1ef0.md | 2026-05-19T07:09:11Z | source/chat,privacy/public,ingest,session |
+| raw/github-com_microsoft_markitdown.md | GitHub - microsoft/markitdown: Python tool for converting files and office documents to Markdown. · GitHub | ai-tooling | https://github.com/microsoft/markitdown | 2026-05-20T05:01:49Z | source/web,privacy/public,ingest,github,markitdown |

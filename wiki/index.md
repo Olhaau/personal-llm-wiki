@@ -1,7 +1,7 @@
 ---
 title: "Wiki Index"
-token: "449"
-generated_at: "2026-05-15T13:54:46Z"
+token: "508"
+generated_at: "2026-05-19T07:20:22Z"
 ---
 
 # Wiki Index
@@ -15,6 +15,7 @@ Master index for topic subwikis under `wiki/`.
 - [[wiki/it-grundschutz/index.md|it-grundschutz]]
 - [[wiki/docling/index.md|docling]]
 - [[wiki/excel-ingestion/index.md|excel-ingestion]]
+- [[wiki/pdf-llm-ingestion/index.md|pdf-llm-ingestion]]
 
 ## Article Catalog
 
@@ -45,6 +46,9 @@ Master index for topic subwikis under `wiki/`.
 | 23 | docling | [[wiki/docling/docling-agent-skill-workflow.md]] | Skill-based convert -> evaluate -> refine workflow design. |
 | 24 | excel-ingestion | [[wiki/excel-ingestion/excel-ingestion.md]] | Topic overview for extracting spreadsheet data into AI-ready knowledge artifacts. |
 | 25 | excel-ingestion | [[wiki/excel-ingestion/extraction-methods-comparison.md]] | Method comparison across pandas, openpyxl, unstructured loaders, and markdown conversion. |
+| 26 | pdf-llm-ingestion | [[wiki/pdf-llm-ingestion/pdf-llm-ingestion.md]] | Topic overview for extracting and structuring PDF content for LLM and RAG workflows. |
+| 27 | pdf-llm-ingestion | [[wiki/pdf-llm-ingestion/extraction-tooling-comparison.md]] | Comparison of PyMuPDF4LLM, Docling extraction, and Unstructured partitioning patterns. |
+| 28 | pdf-llm-ingestion | [[wiki/pdf-llm-ingestion/ocr-and-structure-strategies.md]] | OCR and layout strategy decisions for fidelity versus throughput. |
 
 ## References
 
@@ -53,4 +57,5 @@ Master index for topic subwikis under `wiki/`.
 - [[wiki/it-grundschutz/index.md]]
 - [[wiki/docling/index.md]]
 - [[wiki/excel-ingestion/index.md]]
+- [[wiki/pdf-llm-ingestion/index.md]]
 - [[raw/_index.md]]

@@ -137,8 +137,13 @@ Central intake ledger for dropped URLs, emails, files, and notes.
 | intake-20260513-068 | web | Docling agent skill (Cursor and compatible assistants) | user-direct-url | 2026-05-13T23:51:08Z | ingested | raw/docling-agent-skill-docling-document-intelligence.md |
 | intake-20260513-069 | web | Anthropic: Equipping agents for the real world with Agent Skills | user-direct-url | 2026-05-13T23:51:08Z | ingested | raw/anthropic-equipping-agents-for-the-real-world-with-agent-skills.md |
 | intake-20260514-070 | web | Fabric README: One-Line Install (Recommended) | user-direct-url | 2026-05-14T07:42:37Z | ingested | raw/fabric-one-line-install-recommended.md |
-| intake-20260515-071 | file | FDZ Arbeitspapier 50 PDF | inbox/fdz-arbeitspapier-50.pdf | 2026-05-15T00:00:00Z | pending | - |
-| intake-20260515-072 | file | DUVA Auswertungsassistent Anwenderhandbuch PDF | inbox/duva-auswertungsassistent-anwenderhandbuch.pdf | 2026-05-15T00:00:00Z | pending | - |
-| intake-20260515-073 | file | Cell-Key Methode Teil 2 PDF | inbox/cell-key-methode-teil2-032024.pdf | 2026-05-15T00:00:00Z | pending | - |
-| intake-20260515-074 | chat | Session capture ses_1ef0 | inbox/session-ses_1ef0.md | 2026-05-15T00:00:00Z | pending | - |
+| intake-20260515-071 | file | FDZ Arbeitspapier 50 PDF | inbox/fdz-arbeitspapier-50.pdf | 2026-05-15T00:00:00Z | ingested | raw/fdz-arbeitspapier-50-pdf.md |
+| intake-20260515-072 | file | DUVA Auswertungsassistent Anwenderhandbuch PDF | inbox/duva-auswertungsassistent-anwenderhandbuch.pdf | 2026-05-15T00:00:00Z | ingested | raw/duva-auswertungsassistent-anwenderhandbuch-pdf.md |
+| intake-20260515-073 | file | Cell-Key Methode Teil 2 PDF | inbox/cell-key-methode-teil2-032024.pdf | 2026-05-15T00:00:00Z | ingested | raw/cell-key-methode-teil2-032024-pdf.md |
+| intake-20260515-074 | chat | Session capture ses_1ef0 | inbox/session-ses_1ef0.md | 2026-05-15T00:00:00Z | ingested | raw/chat-llm-wiki-20260515T000000Z.md |
 | intake-20260518-075 | web | Excel extraction methods for AI knowledge pipelines | user-direct-research | 2026-05-18T08:18:42Z | ingested | raw/excel-extraction-methods-for-ai-knowledge.md |
+| intake-20260519-076 | web | PyMuPDF4LLM docs | user-direct-research | 2026-05-19T06:25:43Z | ingested | raw/pymupdf4llm-docs.md |
+| intake-20260519-077 | web | Docling information extraction example | user-direct-research | 2026-05-19T06:25:44Z | ingested | raw/docling-information-extraction.md |
+| intake-20260519-078 | web | Unstructured partitioning docs | user-direct-research | 2026-05-19T06:25:44Z | ingested | raw/unstructured-partitioning.md |
+| intake-20260519-079 | web | Artifex RAG/LLM and PDF enhanced text extraction | user-direct-research | 2026-05-19T06:25:45Z | ingested | raw/artifex-rag-llm-pdf-enhanced-text-extraction.md |
+| intake-20260520-080 | web | GitHub - microsoft/markitdown | user-direct-url | 2026-05-20T05:01:49Z | ingested | raw/github-com_microsoft_markitdown.md |
