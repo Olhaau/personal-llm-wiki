@@ -147,3 +147,6 @@ Central intake ledger for dropped URLs, emails, files, and notes.
 | intake-20260519-078 | web | Unstructured partitioning docs | user-direct-research | 2026-05-19T06:25:44Z | ingested | raw/unstructured-partitioning.md |
 | intake-20260519-079 | web | Artifex RAG/LLM and PDF enhanced text extraction | user-direct-research | 2026-05-19T06:25:45Z | ingested | raw/artifex-rag-llm-pdf-enhanced-text-extraction.md |
 | intake-20260520-080 | web | GitHub - microsoft/markitdown | user-direct-url | 2026-05-20T05:01:49Z | ingested | raw/github-com_microsoft_markitdown.md |
+| intake-20260521-081 | file | BSI Baustein CON.8 Software-Entwicklung (Edition 2023, PDF) | inbox/CON_8_Software_Entwicklung_Edition_2023.pdf | 2026-05-21T06:00:08Z | ingested | raw/bsi-con-8-software-entwicklung-edition-2023-pdf.md |
+| intake-20260521-082 | file | BSI Baustein CON.10 Entwicklung von Webanwendungen (Edition 2023, PDF) | inbox/CON_10_Entwicklung_von_Webanwendungen_Edition_2023.pdf | 2026-05-21T06:00:08Z | ingested | raw/bsi-con-10-entwicklung-von-webanwendungen-edition-2023-pdf.md |
+| intake-20260521-083 | file | BSI Baustein APP.7 Entwicklung von Individualsoftware (Edition 2023, PDF) | inbox/APP_7_Entwicklung_von_Individualsoftware_Edition_2023.pdf | 2026-05-21T06:00:08Z | ingested | raw/bsi-app-7-entwicklung-von-individualsoftware-edition-2023-pdf.md |

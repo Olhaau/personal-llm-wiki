@@ -1,6 +1,6 @@
 ---
 title: "Raw Index"
-token: "408"
+token: "469"
 source_link: ""
 topic: "unclassified"
 tags: []
@@ -34,3 +34,6 @@ Normalized markdown versions of inputs from `inbox/`.
 | raw/cell-key-methode-teil2-032024-pdf.md | Cell-Key Methode Teil 2 (PDF) | unclassified | inbox/cell-key-methode-teil2-032024.pdf | 2026-05-19T07:09:11Z | source/file,privacy/public,ingest,pdf,cell-key |
 | raw/chat-llm-wiki-20260515T000000Z.md | Chat Session ses_1ef0 | llm-wiki | inbox/session-ses_1ef0.md | 2026-05-19T07:09:11Z | source/chat,privacy/public,ingest,session |
 | raw/github-com_microsoft_markitdown.md | GitHub - microsoft/markitdown: Python tool for converting files and office documents to Markdown. · GitHub | ai-tooling | https://github.com/microsoft/markitdown | 2026-05-20T05:01:49Z | source/web,privacy/public,ingest,github,markitdown |
+| raw/bsi-con-8-software-entwicklung-edition-2023-pdf.md | BSI Baustein CON.8 Software-Entwicklung (Edition 2023, PDF) | it-grundschutz | https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/03_CON_Konzepte_und_Vorgehensweisen/CON_8_Software_Entwicklung_Edition_2023.pdf?__blob=publicationFile&v=3 | 2026-05-21T06:00:08Z | source/web,privacy/public,ingest,pdf,bsi,it-grundschutz,con-8,software-entwicklung |
+| raw/bsi-con-10-entwicklung-von-webanwendungen-edition-2023-pdf.md | BSI Baustein CON.10 Entwicklung von Webanwendungen (Edition 2023, PDF) | it-grundschutz | https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/03_CON_Konzepte_und_Vorgehensweisen/CON_10_Entwicklung_von_Webanwendungen_Edition_2023.pdf?__blob=publicationFile&v=4 | 2026-05-21T06:00:08Z | source/web,privacy/public,ingest,pdf,bsi,it-grundschutz,con-10,webanwendungen |
+| raw/bsi-app-7-entwicklung-von-individualsoftware-edition-2023-pdf.md | BSI Baustein APP.7 Entwicklung von Individualsoftware (Edition 2023, PDF) | it-grundschutz | https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/06_APP_Anwendungen/APP_7_Entwicklung_von_Individualsoftware_Edition_2023.pdf?__blob=publicationFile&v=3 | 2026-05-21T06:00:08Z | source/web,privacy/public,ingest,pdf,bsi,it-grundschutz,app-7,individualsoftware |
