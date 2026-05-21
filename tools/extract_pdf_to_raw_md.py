@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -41,11 +42,85 @@ def extract_with_pymupdf4llm(pdf_path: Path, use_ocr: bool, force_ocr: bool) -> 
 def extract_with_pymupdf(pdf_path: Path) -> str:
     import pymupdf  # type: ignore
 
+    def normalize_spaces(line: str) -> str:
+        return re.sub(r"\s+", " ", line).strip()
+
+    def is_heading_like(line: str) -> bool:
+        if not line or len(line) > 120:
+            return False
+        if re.match(r"^\d+(?:\.\d+)*\.?\s+\S", line):
+            return True
+        if re.match(r"^[A-Z0-9][A-Za-z0-9\-\(\)\.,/ ]{2,80}$", line) and line.count(" ") <= 10:
+            return True
+        return False
+
     pages: list[str] = []
     with pymupdf.open(str(pdf_path)) as doc:
-        for idx, page in enumerate(doc, start=1):
-            text = page.get_text("text").strip()
-            pages.append(f"## Page {idx}\n\n{text}" if text else f"## Page {idx}")
+        raw_lines_by_page: list[list[str]] = []
+        recurring_candidates: Counter[str] = Counter()
+
+        for page in doc:
+            text = page.get_text("text")
+            page_lines: list[str] = []
+            for raw_line in text.splitlines():
+                line = normalize_spaces(raw_line)
+                page_lines.append(line)
+                if line and len(line) <= 120:
+                    recurring_candidates[line] += 1
+            raw_lines_by_page.append(page_lines)
+
+        total_pages = len(raw_lines_by_page)
+        recurring_cutoff = max(2, total_pages // 2)
+        recurring_header_lines = {
+            line
+            for line, count in recurring_candidates.items()
+            if count >= recurring_cutoff
+            and not re.match(r"^\d+(?:\.\d+)*", line)
+            and not re.match(r"^Seite\s+\d+\s+von\s+\d+$", line)
+        }
+
+        for idx, page_lines in enumerate(raw_lines_by_page, start=1):
+            cleaned_lines: list[str] = []
+            for line in page_lines:
+                if not line:
+                    cleaned_lines.append("")
+                    continue
+                if re.match(r"^Seite\s+\d+\s+von\s+\d+$", line):
+                    continue
+                if line in recurring_header_lines:
+                    continue
+                cleaned_lines.append(line)
+
+            paragraphs: list[str] = []
+            current = ""
+            for line in cleaned_lines:
+                if not line:
+                    if current:
+                        paragraphs.append(current)
+                        current = ""
+                    continue
+
+                if is_heading_like(line):
+                    if current:
+                        paragraphs.append(current)
+                        current = ""
+                    paragraphs.append(f"### {line}" if not line.startswith("#") else line)
+                    continue
+
+                if not current:
+                    current = line
+                    continue
+
+                if current.endswith("-") and re.match(r"^[a-z0-9].*", line):
+                    current = current[:-1] + line
+                else:
+                    current = f"{current} {line}"
+
+            if current:
+                paragraphs.append(current)
+
+            page_body = "\n\n".join(paragraphs).strip()
+            pages.append(f"## Page {idx}\n\n{page_body}" if page_body else f"## Page {idx}")
     return "\n\n".join(pages).strip() + "\n"
 
 
