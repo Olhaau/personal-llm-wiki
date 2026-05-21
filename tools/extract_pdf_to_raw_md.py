@@ -2,9 +2,10 @@
 """Extract PDF content to a markdown file in raw/ for LLM ingestion.
 
 Preferred path:
-- Use PyMuPDF4LLM for layout-aware markdown extraction.
+- Use Docling CLI conversion for higher-fidelity markdown output.
 
 Fallback:
+- Use PyMuPDF4LLM when Docling is unavailable.
 - Use PyMuPDF text extraction when PyMuPDF4LLM is unavailable.
 """
 
@@ -13,6 +14,8 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
+import tempfile
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -124,6 +127,28 @@ def extract_with_pymupdf(pdf_path: Path) -> str:
     return "\n\n".join(pages).strip() + "\n"
 
 
+def extract_with_docling(pdf_path: Path) -> str:
+    with tempfile.TemporaryDirectory(prefix="docling-convert-") as tmpdir:
+        output_dir = Path(tmpdir)
+        cmd = [
+            "docling",
+            str(pdf_path),
+            "--output",
+            str(output_dir),
+        ]
+        proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
+        if proc.returncode != 0:
+            stderr = proc.stderr.strip() or proc.stdout.strip() or "unknown docling error"
+            raise RuntimeError(f"docling conversion failed: {stderr}")
+
+        markdown_candidates = sorted(output_dir.glob("*.md"))
+        if not markdown_candidates:
+            raise RuntimeError("docling conversion produced no markdown output")
+
+        markdown_path = max(markdown_candidates, key=lambda p: p.stat().st_size)
+        return markdown_path.read_text(encoding="utf-8").strip() + "\n"
+
+
 def yaml_quote(value: str) -> str:
     return json.dumps(value, ensure_ascii=True)
 
@@ -183,6 +208,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Force OCR when PyMuPDF4LLM is used.",
     )
+    parser.add_argument(
+        "--skip-docling",
+        action="store_true",
+        help="Skip Docling and start with PyMuPDF4LLM extraction.",
+    )
     return parser.parse_args()
 
 
@@ -202,14 +232,20 @@ def main() -> int:
 
     used_extractor = "pymupdf"
     try:
-        markdown_body = extract_with_pymupdf4llm(
-            pdf_path,
-            use_ocr=not args.disable_ocr,
-            force_ocr=args.force_ocr,
-        )
-        used_extractor = "pymupdf4llm"
+        if args.skip_docling:
+            raise RuntimeError("Docling explicitly skipped")
+        markdown_body = extract_with_docling(pdf_path)
+        used_extractor = "docling"
     except Exception:
-        markdown_body = extract_with_pymupdf(pdf_path)
+        try:
+            markdown_body = extract_with_pymupdf4llm(
+                pdf_path,
+                use_ocr=not args.disable_ocr,
+                force_ocr=args.force_ocr,
+            )
+            used_extractor = "pymupdf4llm"
+        except Exception:
+            markdown_body = extract_with_pymupdf(pdf_path)
 
     markdown_body = markdown_body.strip() + "\n"
     metadata = build_frontmatter(
